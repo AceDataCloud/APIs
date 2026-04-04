@@ -33,7 +33,6 @@ Main request parameters:
 - `end_image_url`: Optional, specifies the end frame.
 - `enhancement`: Optional, clarity enhancement switch.
 - `loop`: Whether to generate a looping video, default is false.
-- `quality`: Optional, video generation quality level, can be `standard`, `high`, or `ultra`, default is `standard`.
 - `timeout`: Optional, timeout in seconds.
 - `callback_url`: Asynchronous callback address.
 
