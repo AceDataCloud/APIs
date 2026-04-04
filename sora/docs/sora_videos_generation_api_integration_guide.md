@@ -1,0 +1,425 @@
+# Sora Videos Generation API Integration Guide
+
+This document introduces the integration guide for the Sora Videos Generation API. Through this API, you can input custom parameters to generate official Sora videos. This API supports two version modes:
+
+- **Version 1 (Classic Mode)**: Supports parameters such as `duration` (10/15/25 seconds), `orientation` (landscape/portrait), `size` (small/large resolution), reference images `image_urls`, and character **###** `character_url`.
+- **Version 2 (Partner Mode)**: Supports `seconds` (4/8/12 seconds), pixel-level resolution `size` (e.g., 1280x720), reference images `input_reference`, and other parameters.
+
+## Application Process
+
+To use the API, you need to apply for the corresponding service on the [Sora Videos Generation API](https://platform.acedata.cloud/documents/99a24421-2e22-4028-8201-e19cb834b67e) page. After entering the page, click the "Acquire" button as shown below:
+
+![](https://cdn.acedata.cloud/q6ytrc.png)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to register and log in. After logging in or registering, you will be automatically redirected back to the current page.
+
+A free quota is provided upon the first application, allowing free use of the API.
+
+## Basic Usage (Version 1)
+
+First, understand the basic usage of Version 1, which involves inputting the prompt `prompt`, an array of reference image URLs `image_urls`, and the model `model` to get the processed result. The details are as follows:
+
+<p><img src="https://cdn.acedata.cloud/h8dyz3.png" width="500" class="m-auto"></p>
+
+Here, we set the Request Headers, including:
+
+- `accept`: The desired response format, set to `application/json` for JSON format.
+- `authorization`: The API key for calling the API, selectable after application.
+
+The Request Body includes:
+
+- `model`: The video generation model, supporting `sora-2` (standard mode) and `sora-2-pro` (HD mode). `sora-2-pro` supports videos with a `duration` of 25 seconds, while `sora-2` only supports 10 and 15 seconds.
+- `size`: Video resolution, `small` for standard resolution, `large` for HD resolution (Version 1 only).
+- `duration`: Video length, supporting 10, 15, and 25 seconds; 25 seconds is supported only by `sora-2-pro` (Version 1 only).
+- `orientation`: Aspect ratio, supporting `landscape` (horizontal) and `portrait` (vertical) (Version 1 only).
+- `image_urls`: Array of reference image URLs for image-to-video generation (Version 1 only).
+- `character_url`: Character **###** URL; no real persons should appear in the video (Version 1 only).
+- `character_start` / `character_end`: Start and end seconds for character appearance, with a range difference of 1-3 seconds (Version 1 only).
+- `prompt`: Prompt text (required).
+- `callback_url`: URL for asynchronous callback results.
+- `version`: API version, `"1.0"` (default) or `"2.0"`.
+
+After selection, the corresponding code is generated on the right side, as shown below:
+
+<p><img src="https://cdn.acedata.cloud/g04qjz.png" width="500" class="m-auto"></p>
+
+Click the "Try" button to test. As shown above, we get the following result:
+
+```json
+{
+  "success": true,
+  "task_id": "6bf7fb83-5814-4e3e-a4ad-bfa0c26c0b33",
+  "trace_id": "96166698-4b66-478d-a26b-77a7269c9e01",
+  "data": [
+    {
+      "id": "sora-2:task_01k7770rgsevxsmtpbn7xnm5gh",
+      "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k7770rgsevxsmtpbn7xnm5gh%2Ftask_01k7770rgsevxsmtpbn7xnm5gh_genid_0bf958d3-cae7-4298-b7b6-99ae439a1ea6_25_10_10_14_06_975715%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A30%3A38Z&se=2025-10-16T13%3A30%3A38Z&sks=b&skt=2025-10-10T12%3A30%3A38Z&ske=2025-10-16T13%3A30%3A38Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=jigY6Z5qp8%2BTXYobaW0EAJ4%2Fbx6G7t6V1P0iyDeUq48%3D&az=oaivgprodscus",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+The returned result contains multiple fields, explained as follows:
+
+- `success`: The status of the video generation task.
+- `task_id`: The ID of the video generation task.
+- `trace_id`: The trace ID for the video generation task.
+- `data`: The list of results for the video generation task.
+  - `id`: The video ID of the task.
+  - `video_url`: The video URL of the task.
+  - `state`: The status of the video generation task.
+
+You can see that we have obtained the desired video information; simply use the video URL in the `data` field to access the generated Sora video.
+
+If you want to generate integration code, you can directly copy the generated code. For example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/sora/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "size": "large",
+  "duration": 15,
+  "orientation": "landscape",
+  "prompt": "cat running on the river",
+  "model": "sora-2"
+}'
+```
+
+## Image-to-Video Task (Version 1)
+
+To perform an image-to-video task, the parameter `image_urls` must be provided with reference image URLs, specifying the following:
+
+- `image_urls`: An array of reference image URLs used for the image-to-video task. Note that real-person images with faces should not be passed, as this may cause the task to fail.
+
+Example input:
+
+<p><img src="https://cdn.acedata.cloud/ch7x3t.png" width="500" class="m-auto"></p>
+
+After filling in, the code is automatically generated as follows:
+
+<p><img src="https://cdn.acedata.cloud/z1ud8l.png" width="500" class="m-auto"></p>
+
+Corresponding code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/sora/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "size": "large",
+    "duration": 15,
+    "orientation": "landscape",
+    "prompt": "cat running on the river",
+    "model": "sora-2",
+    "image_urls": ["https://cdn.acedata.cloud/11wfp4.png"]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run will immediately return a result as follows:
+
+```
+{
+  "success": true,
+  "task_id": "dd392ff0-dcb7-4c7a-afd0-9bd4f65c803a",
+  "trace_id": "04fd151c-e942-4c1c-a6ab-9a1b1fe54172",
+  "data": [
+    {
+      "id": "sora-2:task_01k777af4hfmg9g7yfvwsc6zws",
+      "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k777af4hfmg9g7yfvwsc6zws%2Ftask_01k777af4hfmg9g7yfvwsc6zws_genid_92bae0c5-1703-4a5f-9d9f-c9ed2f9e7176_25_10_10_14_12_924695%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A37%3A32Z&se=2025-10-16T13%3A37%3A32Z&sks=b&skt=2025-10-10T12%3A37%3A32Z&ske=2025-10-16T13%3A37%3A32Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=5j4dibeaSsDmEka5c%2B9CKHZhRPdqfClQ0tIh03TWXsM%3D&az=oaivgprodscus",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+You can see that the generated effect is image-to-video, similar to the previous example.
+
+## Character-Generated Video Task (Version 1)
+
+To perform a character-generated video task, the parameter `character_url` must be provided with the video URL needed to create the character. Note that no real persons should appear in the video, or the task will fail. The following applies:
+
+- `character_url`: The video URL needed to create the character; no real persons should appear in the video, or the task will fail.
+
+Example input:
+
+<p><img src="https://cdn.acedata.cloud/2nhdr2.png" width="500" class="m-auto"></p>
+
+After filling in, the code is automatically generated as follows:
+
+<p><img src="https://cdn.acedata.cloud/xp8scl.png" width="500" class="m-auto"></p>
+
+Corresponding code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/sora/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "size": "small",
+    "duration": 10,
+    "orientation": "landscape",
+    "prompt": "cat running on the river",
+    "character_url": "https://cdn.acedata.cloud/pdidf5.mp4",
+    "model": "sora-2",
+    "character_end": 3,
+    "character_start": 1
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run will immediately return a result as follows:
+
+```
+{
+  "success": true,
+  "task_id": "d9bf5461-29b5-47fd-be90-1fe9197df259",
+  "trace_id": "b7992643-9207-40d6-956b-7577728acc67",
+  "data": [
+    {
+      "id": "sora-2:task_01k8ykrztefavaypw6xanw305b",
+      "video_url": "https://filesystem.site/cdn/20251101/bee4eeeb4c4660b46dac4548a1ffbc.mp4",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+You can see that the generated effect is character-generated video, similar to the previous example.
+
+## Version 2.0 Mode
+
+In addition to the above Version 1.0 mode, this API also supports Version 2.0 mode, which can be enabled by setting the `version` parameter to `"2.0"`. Version 2.0 supports shorter video durations and pixel-level resolution control.
+
+### Version 2.0 Parameter Description
+
+| Parameter      | Type    | Required | Description                              |
+|----------------|---------|----------|--------------------------------------|
+| `version`      | string  | Yes      | Set to `"2.0"`                        |
+| `prompt`       | string  | Yes      | Prompt text for video generation      |
+| `model`        | string  | No       | `sora-2` (default) or `sora-2-pro`   |
+| `duration`     | integer | No       | Video duration: `4` (default), `8`, `12` seconds |
+| `size`         | string  | No       | Resolution: `720x1280` (default), `1280x720`, `1024x1792`, `1792x1024` |
+| `image_urls`   | array   | No       | Reference image URL array, only the first image is used; image size must match `size` parameter |
+| `callback_url` | string  | No       | Asynchronous callback URL             |
+
+### Basic Example
+
+```shell
+curl -X POST 'https://api.acedata.cloud/sora/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "version": "2.0",
+  "prompt": "cat running on the river",
+  "model": "sora-2",
+  "duration": 8,
+  "size": "1280x720"
+}'
+```
+
+Corresponding Python code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/sora/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "version": "2.0",
+    "prompt": "cat running on the river",
+    "model": "sora-2",
+    "seconds": 8,
+    "size": "1280x720"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Corresponding JavaScript code:
+
+```javascript
+const response = await fetch('https://api.acedata.cloud/sora/videos', {
+  method: 'POST',
+  headers: {
+    'accept': 'application/json',
+    'authorization': 'Bearer {token}',
+    'content-type': 'application/json'
+  },
+  body: JSON.stringify({
+    version: '2.0',
+    prompt: 'cat running on the river',
+    model: 'sora-2',
+    seconds: 8,
+    size: '1280x720'
+  })
+});
+const data = await response.json();
+console.log(data);
+```
+
+The return result format is the same as Version 1:
+
+```json
+{
+  "success": true,
+  "task_id": "6bf7fb83-5814-4e3e-a4ad-bfa0c26c0b33",
+  "trace_id": "96166698-4b66-478d-a26b-77a7269c9e01",
+  "data": [
+    {
+      "id": "c0cc8dad-0954-421f-be8d-02eb063b3263",
+      "video_url": "https://platform.cdn.acedata.cloud/sora/xxxxx.mp4",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+### Using Reference Images (Version 2.0)
+
+In Version 2.0 mode, you can pass reference images through the `image_urls` parameter to guide video generation (only the first image is used):
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/sora/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "version": "2.0",
+    "prompt": "a person walking through a beautiful garden",
+    "model": "sora-2",
+    "duration": 4,
+    "size": "1280x720",
+    "image_urls": ["https://cdn.acedata.cloud/11wfp4.png"]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+> **Note**: The size of the reference image should match the `size` parameter. For example, if `size` is `1280x720`, the reference image should be 1280×720 pixels.
+
+### Parameter Comparison Between Version 1.0 and Version 2.0
+
+| Parameter       | Version 1.0           | Version 2.0                                |
+|-----------------|----------------------|--------------------------------------------|
+| `version`       | 1.0 (default)         | 2.0                                        |
+| `prompt`        | ✅                    | ✅                                         |
+| `model`         | ✅ sora-2 / sora-2-pro | ✅ sora-2 / sora-2-pro                      |
+| `duration`      | ✅ 10/15/25 seconds    | ✅ 4/8/12 seconds                           |
+| `orientation`   | ✅ landscape/portrait  | ❌                                         |
+| `size`          | ✅ small/large         | ✅ 720x1280/1280x720/1024x1792/1792x1024  |
+| `image_urls`    | ✅ multiple reference images | ✅ only the first image                  |
+| `character_url` | ✅                     | ❌                                         |
+| `callback_url`  | ✅                     | ✅                                         |
+
+## Asynchronous Callback
+
+Since the Sora Videos Generation API takes relatively long to generate videos (about 1-2 minutes), if the API does not respond for a long time, the HTTP request will keep the connection open, causing extra system resource consumption. Therefore, this API also supports asynchronous callbacks.
+
+The overall process is: when the client initiates a request, it additionally specifies a `callback_url` field. After the client sends the API request, the API immediately returns a result containing a `task_id` field representing the current task ID. When the task is completed, the generated video result will be sent to the client’s specified `callback_url` via POST JSON, including the `task_id` field, so the task result can be correlated by ID.
+
+Let's understand the specific operation through an example.
+
+First, the Webhook callback is a service that can receive HTTP requests. Developers should replace it with their own HTTP server URL. For demonstration, a public Webhook sample website https://webhook.site/ is used. Open this site to get a Webhook URL, as shown below:
+
+![](https://cdn.acedata.cloud/cjjfly.png)
+
+Copy this URL and use it as the Webhook. The sample here is `https://webhook.site/eb238c4f-da3b-47a5-a922-a93aa5405daa`.
+
+Next, set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown below:
+
+<p><img src="https://cdn.acedata.cloud/v1m05g.png" width="500" class="m-auto"></p>
+
+Click run, and you will immediately get a result as follows:
+
+```
+{
+  "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea"
+}
+```
+
+After a short wait, you can observe the generated video result at `https://webhook.site/eb238c4f-da3b-47a5-a922-a93aa5405daa`, as shown below:
+
+![](https://cdn.acedata.cloud/0j7nra.png)
+
+Content as follows:
+
+```json
+{
+    "success": true,
+    "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
+    "trace_id": "fb751e1e-4705-49ea-9fd4-5024b7865ea2",
+    "data": [
+        {
+            "id": "sora-2:task_01k777hjrbfrgs2060q5zvf2a5",
+            "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
+            "state": "succeeded"
+        }
+    ]
+}
+```
+
+You can see the result contains a `task_id` field, and other fields are similar to those above. This field allows task correlation.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests; rate limit exceeded.
+- `500 api_error`: Internal server error; something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Sora Videos Generation API to generate videos by inputting prompts and reference images. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

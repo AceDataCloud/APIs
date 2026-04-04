@@ -1,0 +1,51 @@
+mappings:
+  luma:
+    repo: AceDataCloud/LumaAPI
+    exclude:
+      - .github
+      - .gitbooks
+  suno:
+    repo: AceDataCloud/SunoAPI
+    exclude:
+      - .github
+      - .gitbooks
+  sora:
+    repo: AceDataCloud/SoraAPI
+    exclude:
+      - .github
+      - .gitbooks
+  veo:
+    repo: AceDataCloud/VeoAPI
+    exclude:
+      - .github
+      - .gitbooks
+  flux:
+    repo: AceDataCloud/FluxAPI
+    exclude:
+      - .github
+      - .gitbooks
+  midjourney:
+    repo: AceDataCloud/MidjourneyAPI
+    exclude:
+      - .github
+      - .gitbooks
+  serp:
+    repo: AceDataCloud/SerpAPI
+    exclude:
+      - .github
+      - .gitbooks
+  nanobanana:
+    repo: AceDataCloud/NanoBananaAPI
+    exclude:
+      - .github
+      - .gitbooks
+  openai:
+    repo: AceDataCloud/OpenAIAPI
+    exclude:
+      - .github
+      - .gitbooks
+  pixverse:
+    repo: AceDataCloud/PixverseAPI
+    exclude:
+      - .github
+      - .gitbooks
