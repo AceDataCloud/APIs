@@ -49,3 +49,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  wan:
+    repo: AceDataCloud/WanAPI
+    exclude:
+      - .github
+      - .gitbooks
