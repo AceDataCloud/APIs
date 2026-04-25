@@ -54,3 +54,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  aichat:
+    repo: AceDataCloud/AIChatAPI
+    exclude:
+      - .github
+      - .gitbooks
