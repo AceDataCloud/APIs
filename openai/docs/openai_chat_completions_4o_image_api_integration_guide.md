@@ -212,7 +212,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ### Error Response Example
 
-```
+```json
 {
   "success": false,
   "error": {
