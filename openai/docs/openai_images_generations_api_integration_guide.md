@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, and the latest generation **`gpt-image-2`**. All of them can generate high-quality images from text descriptions.
+The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models. All of them can generate high-quality images from text descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the OpenAI series.
 
@@ -129,6 +129,100 @@ The generated landscape illustration is shown below:
 ### Async and Callback
 
 A single `gpt-image-2` call typically takes 60–90 seconds. If you prefer not to hold a long connection, you can use the `callback_url` async callback mechanism described later in this document. The calling process is identical to other models.
+
+## Nano Banana Series Models
+
+The `nano-banana` series are Gemini-based image generation models accessible through the same `/openai/images/generations` endpoint — no endpoint switching required. Simply set `model` to any value from the table below.
+
+| Model | Billing (Credits / call) | Use Case |
+| --- | --- | --- |
+| `nano-banana` | 0.14 | Standard image generation, fastest speed and lowest cost |
+| `nano-banana-2` | 0.28 | Noticeably improved quality and detail |
+| `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
+
+> **Important: Supported Parameters**
+>
+> Nano Banana connects to the OpenAI protocol via an adapter layer. Compared with `gpt-image-*`, only the following parameters are supported: `model`, `prompt`, `size`.
+>
+> - `size` is mapped to an internal `aspect_ratio` as follows; unsupported sizes fall back to `1:1`:
+>   - `1024x1024` / `512x512` / `256x256` → `1:1`
+>   - `1792x1024` → `16:9`
+>   - `1024x1792` → `9:16`
+> - Parameters such as `n`, `quality`, `style`, `response_format`, `background`, and `output_format` are not supported and will be silently ignored.
+> - The response follows the OpenAI format (`data[].url`), but `created` is always `0`, `b64_json` is never returned, and `revised_prompt` is always equal to the original `prompt`.
+
+### Basic Call
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/generations"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "nano-banana",
+    "prompt": "a small red apple on a white table, photoreal",
+    "size": "1024x1024"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+The returned result is as follows:
+
+```json
+{
+  "created": 0,
+  "data": [
+    {
+      "url": "https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png",
+      "revised_prompt": "a small red apple on a white table, photoreal"
+    }
+  ]
+}
+```
+
+The generated image can be accessed directly via the returned `url` field:
+
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png" width="500" class="m-auto"></p>
+
+### Upgrading to the Flagship Model `nano-banana-pro`
+
+Simply change `model` to `nano-banana-pro`; all other parameters remain the same:
+
+```python
+payload = {
+    "model": "nano-banana-pro",
+    "prompt": "abstract painting",
+    "size": "1024x1024"
+}
+```
+
+Response example:
+
+```json
+{
+  "created": 0,
+  "data": [
+    {
+      "url": "https://platform.cdn.acedata.cloud/nanobanana/6227fcc9-3442-4aa3-a76c-4a4441a99649.png",
+      "revised_prompt": "abstract painting"
+    }
+  ]
+}
+```
+
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6227fcc9-3442-4aa3-a76c-4a4441a99649.png" width="500" class="m-auto"></p>
+
+### Asynchronous Callback
+
+The `callback_url` async callback mechanism works identically for nano-banana. The calling process is the same as for other models — see the [Asynchronous Callback](#asynchronous-callback) section below for details.
 
 ## Basic Usage
 
@@ -519,4 +613,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ```
 
 ## Conclusion
-Through this document, you have learned how to easily use the image generation capabilities of the official OpenAI DALL-E via the OpenAI Images Generations API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the image generation capabilities of the OpenAI Images Generations API, including `dall-e-3`, `gpt-image-1`, `gpt-image-2`, and the `nano-banana` series. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
