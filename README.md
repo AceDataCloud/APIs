@@ -16,6 +16,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `nanobanana/` | [NanoBananaAPI](https://github.com/AceDataCloud/NanoBananaAPI) | NanoBanana image generation API docs |
 | `openai/` | [OpenAIAPI](https://github.com/AceDataCloud/OpenAIAPI) | OpenAI-compatible API docs |
 | `pixverse/` | [PixverseAPI](https://github.com/AceDataCloud/PixverseAPI) | Pixverse video generation API docs |
+| `wan/` | [WanAPI](https://github.com/AceDataCloud/WanAPI) | Wan (Tongyi Wanxiang) video generation API docs |
 | `aichat/` | — | AI Dialogue (multi-model chat) API docs |
 
 ## MCP Servers
