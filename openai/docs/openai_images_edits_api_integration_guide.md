@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
+OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. The API currently supports three models: `dall-e-2`, `gpt-image-1`, and the latest **`gpt-image-2`**.
 
 This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
@@ -13,6 +13,158 @@ To use the OpenAI Images Edits API, you can first visit the [OpenAI Images Edits
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
 Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+
+## GPT-Image-2 Model
+
+`gpt-image-2` shows significant improvements over `gpt-image-1` in image editing scenarios:
+
+- **More stable structure preservation**: When changing colors, backgrounds, or styles, the original layout and composition are almost never disrupted.
+- **More accurate text retention**: Text in infographics, posters, menus, and other text-heavy images remains clear and readable after editing.
+- **Supports URL input**: In addition to the traditional `multipart/form-data` file upload, `gpt-image-2` also **supports passing image URLs via JSON**, eliminating the need to download images locally first — ideal for server-side pipeline integration.
+
+Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
+
+### Method 1: JSON + Image URL (Recommended)
+
+Send a request directly using `application/json`, with the `image` field set to a URL of an image. The model will fetch the image and edit it according to the `prompt`.
+
+For example, this original image is an infographic generated with `gpt-image-2`:
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png" width="500" class="m-auto"></p>
+
+We want to convert it to a "dark mode" color scheme. Here's how to call it:
+
+```shell
+curl -X POST "https://api.acedata.cloud/openai/images/edits" \
+  -H "Authorization: Bearer {token}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "image": "https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png",
+    "prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
+    "size": "1024x1536"
+  }'
+```
+
+Or using Python:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/edits"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "gpt-image-2",
+    "image": "https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png",
+    "prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
+    "size": "1024x1536"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+The returned result is as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "cb104e35-af1f-45be-9fac-b62e2b256753",
+  "trace_id": "3e5c77c6-6c2e-4bba-a42d-98ea049b58a8",
+  "created": 1777048863,
+  "data": [
+    {
+      "revised_prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
+      "url": "https://platform.cdn.acedata.cloud/gpt-image/cb104e35-af1f-45be-9fac-b62e2b256753_0.png"
+    }
+  ],
+  "elapsed": 83.859
+}
+```
+
+The edited image is shown below:
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/cb104e35-af1f-45be-9fac-b62e2b256753_0.png" width="500" class="m-auto"></p>
+
+As you can see, the module structure, information layout, and typography are all strictly preserved — only the color scheme is inverted to a dark theme.
+
+> **Tip**: The `image` field also supports passing an array, e.g., `"image": ["url1", "url2", "url3"]`. You can pass up to 16 reference images simultaneously, allowing the model to reference multiple images during editing.
+
+### Method 2: JSON + Multiple Reference Images
+
+`gpt-image-2` supports referencing multiple images simultaneously to generate the final result, for example combining multiple product photos into a gift basket:
+
+```python
+payload = {
+    "model": "gpt-image-2",
+    "image": [
+        "https://example.com/item1.png",
+        "https://example.com/item2.png",
+        "https://example.com/item3.png"
+    ],
+    "prompt": "Combine all the items above into a single 'Relax & Unwind' gift basket on a clean white background, photorealistic, soft natural lighting.",
+    "size": "1024x1024"
+}
+```
+
+### Example Scenario: Style Change + Structure Preservation
+
+Here is another example that replaces a wooden bookshelf with a modern floating shelf while strictly preserving the number and arrangement of books on each shelf.
+
+Original image (wooden bookshelf generated with `gpt-image-2`):
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png" width="500" class="m-auto"></p>
+
+Call:
+
+```python
+payload = {
+    "model": "gpt-image-2",
+    "image": "https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png",
+    "prompt": "Replace the wooden bookshelf with a sleek modern white floating shelf mounted on a pastel blue wall. Keep the exact same arrangement of books (1 book on top, 3 in middle, 7 on bottom). Add a small potted succulent on the top shelf next to the book. Bright airy daylight from the left.",
+    "size": "1024x1024"
+}
+```
+
+Edited result (`task_id`: `e9544dba-727e-44a2-81e1-223d49869380`):
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/e9544dba-727e-44a2-81e1-223d49869380_0.png" width="500" class="m-auto"></p>
+
+As you can see, the style and environment are fully replaced according to the prompt, but the number of books on each shelf (1 / 3 / 7) is strictly preserved, and a succulent was added as requested.
+
+### Method 3: multipart/form-data (OpenAI SDK Compatible)
+
+If you are already using the official OpenAI Python SDK, the existing `multipart/form-data` upload method is also supported — just change the `model` to `gpt-image-2`:
+
+```python
+import base64
+from openai import OpenAI
+client = OpenAI()
+
+result = client.images.edit(
+    model="gpt-image-2",
+    image=[open("test.png", "rb")],
+    prompt="Convert this image to dark mode while keeping the layout intact."
+)
+
+image_base64 = result.data[0].b64_json
+image_bytes = base64.b64decode(image_base64)
+with open("edited.png", "wb") as f:
+    f.write(image_bytes)
+```
+
+When using the SDK, set two environment variables: `OPENAI_BASE_URL` to `https://api.acedata.cloud/openai` and `OPENAI_API_KEY` to the token you obtained:
+
+```shell
+export OPENAI_BASE_URL=https://api.acedata.cloud/openai
+export OPENAI_API_KEY={token}
+```
 
 ## Basic Usage
 
@@ -72,7 +224,7 @@ After the call, we find that an image `gift-basket.png` will be generated in the
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
-Thus, we have completed the image editing operation. Currently, the official Edits task only supports two models: `dall-e-2` and `gpt-image-1`.
+Thus, we have completed the image editing operation. Currently, the Edits API supports three models: `dall-e-2`, `gpt-image-1`, and `gpt-image-2`. Among them, `gpt-image-2` is the recommended model — see the [GPT-Image-2 Model](#gpt-image-2-model) section above for details.
 
 ## Asynchronous Callback
 
