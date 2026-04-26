@@ -62,7 +62,7 @@ The returned result contains multiple fields, described as follows:
 - `data`: the result list of the video generation task at this time.
   - `id`: the video ID of the video generation task at this time.
   - `prompt`: the prompt of the video generation task at this time.
-  - `model`: the cover link of the video generation task at this time.
+  - `model`: the model used for the video generation task at this time (e.g., `minimax-t2v` or `minimax-i2v`).
   - `video_url`: the video link of the video generation task at this time.
   - `state`: the status of the video generation task at this time.
 
