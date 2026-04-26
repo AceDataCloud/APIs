@@ -889,6 +889,9 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">gpt-image-2</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
+<span class="oa-mdl-tag">nano-banana</span>
+<span class="oa-mdl-tag">nano-banana-2</span>
+<span class="oa-mdl-tag">nano-banana-pro</span>
 </div>
 </div>
 </div>

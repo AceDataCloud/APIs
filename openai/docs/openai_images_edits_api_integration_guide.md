@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. The API currently supports three models: `dall-e-2`, `gpt-image-1`, and the latest **`gpt-image-2`**.
+OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. The API currently supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models.
 
 This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
@@ -166,6 +166,79 @@ export OPENAI_BASE_URL=https://api.acedata.cloud/openai
 export OPENAI_API_KEY={token}
 ```
 
+## Nano Banana Series Models
+
+The `nano-banana` series is also accessible through the same `/openai/images/edits` endpoint. Simply change `model` to any of the values in the table below.
+
+| Model | Billing (Credits / call) | Use Case |
+| --- | --- | --- |
+| `nano-banana` | 0.14 | Standard image editing, fastest speed and lowest cost |
+| `nano-banana-2` | 0.28 | Noticeably improved quality and detail |
+| `nano-banana-pro` | 0.35 | Flagship of the series, best structure, text, and style preservation |
+
+> **Important: Supported Parameters**
+>
+> Nano Banana connects to the OpenAI protocol via an adapter layer. Only the following parameters are supported: `model`, `prompt`, `image`.
+>
+> - `image` can be supplied either as a file upload via `multipart/form-data` (the worker will convert it internally to `data:<mime>;base64,...`) or as an image URL string passed as a form field.
+> - Parameters such as `mask`, `n`, `size`, and `response_format` are not supported and will be silently ignored.
+> - The response follows the OpenAI format (`data[].url`), but `created` is always `0`, `b64_json` is never returned, and `revised_prompt` is always equal to the original `prompt`.
+
+### Calling with a Form Field + Image URL
+
+```shell
+curl -X POST "https://api.acedata.cloud/openai/images/edits" \
+  -H "Authorization: Bearer {token}" \
+  -F "model=nano-banana" \
+  -F "prompt=add a green leaf on top of the apple" \
+  -F "image=https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png"
+```
+
+The returned result is as follows:
+
+```json
+{
+  "created": 0,
+  "data": [
+    {
+      "url": "https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg",
+      "revised_prompt": "add a green leaf on top of the apple"
+    }
+  ]
+}
+```
+
+The edited image:
+
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg" width="500" class="m-auto"></p>
+
+### Calling with a Form Field + Local File
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/edits"
+
+headers = {
+    "authorization": "Bearer {token}"
+}
+
+files = {
+    "image": open("apple.png", "rb"),
+}
+data = {
+    "model": "nano-banana-pro",
+    "prompt": "add a green leaf on top of the apple"
+}
+
+response = requests.post(url, headers=headers, files=files, data=data)
+print(response.text)
+```
+
+### Asynchronous Callback
+
+The `callback_url` async callback mechanism works identically for nano-banana. The calling process is the same as for other models — see the [Asynchronous Callback](#asynchronous-callback) section below for details.
+
 ## Basic Usage
 
 Next, you can use code to make calls; below is an example using CURL:
@@ -224,7 +297,7 @@ After the call, we find that an image `gift-basket.png` will be generated in the
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
-Thus, we have completed the image editing operation. Currently, the Edits API supports three models: `dall-e-2`, `gpt-image-1`, and `gpt-image-2`. Among them, `gpt-image-2` is the recommended model — see the [GPT-Image-2 Model](#gpt-image-2-model) section above for details.
+Thus, we have completed the image editing operation. Currently, the Edits API supports `dall-e-2`, `gpt-image-1`, `gpt-image-2`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Among them, `gpt-image-2` is the recommended model — see the [GPT-Image-2 Model](#gpt-image-2-model) section above for details.
 
 ## Asynchronous Callback
 
