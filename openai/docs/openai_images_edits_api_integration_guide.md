@@ -119,14 +119,14 @@ Here is another example that replaces a wooden bookshelf with a modern floating 
 
 Original image (wooden bookshelf generated with `gpt-image-2`):
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/141970f0-65fb-4ec8-ab7d-9be173641350_0.png" width="500" class="m-auto"></p>
 
 Call:
 
 ```python
 payload = {
     "model": "gpt-image-2",
-    "image": "https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png",
+    "image": "https://platform.cdn.acedata.cloud/gpt-image/141970f0-65fb-4ec8-ab7d-9be173641350_0.png",
     "prompt": "Replace the wooden bookshelf with a sleek modern white floating shelf mounted on a pastel blue wall. Keep the exact same arrangement of books (1 book on top, 3 in middle, 7 on bottom). Add a small potted succulent on the top shelf next to the book. Bright airy daylight from the left.",
     "size": "1024x1024"
 }

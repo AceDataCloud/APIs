@@ -59,12 +59,12 @@ The returned result is as follows:
 ```json
 {
   "success": true,
-  "task_id": "6738988a-ea3c-44ae-932f-488b14e5902b",
+  "task_id": "ab58a5df-6f46-4874-bff6-93169e2849a3",
   "created": 1777048800,
   "data": [
     {
       "revised_prompt": "A cinematic portrait of a young woman standing in a convenience store at night, illuminated by soft pink and cyan neon signs through the window. Shot on 35mm film, shallow depth of field, slight grain, melancholic mood.",
-      "url": "https://platform.cdn.acedata.cloud/gpt-image/6738988a-ea3c-44ae-932f-488b14e5902b_0.png"
+      "url": "https://platform.cdn.acedata.cloud/gpt-image/ab58a5df-6f46-4874-bff6-93169e2849a3_0.png"
     }
   ]
 }
@@ -72,7 +72,7 @@ The returned result is as follows:
 
 The generated image is shown below:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/6738988a-ea3c-44ae-932f-488b14e5902b_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/ab58a5df-6f46-4874-bff6-93169e2849a3_0.png" width="500" class="m-auto"></p>
 
 ### Scenario 2: Retro Travel Poster (with Text Rendering)
 
@@ -88,7 +88,7 @@ payload = {
 
 The image corresponding to the `url` field in the returned result:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/b74900da-7ca1-455b-9fb2-2434522a44b8_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/c6061f92-3fae-498e-af8e-688e7f415ba3_0.png" width="500" class="m-auto"></p>
 
 As you can see, the model accurately reproduces the Art Deco poster visual style, and the title text `AMALFI` and `ITALIA 1958` are clearly and correctly rendered.
 
@@ -106,7 +106,7 @@ payload = {
 
 The generated image is shown below:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/64a3b932-a082-4cad-9f85-9d30474b104d_0.png" width="500" class="m-auto"></p>
 
 As you can see, the number of books on the three shelves (1 / 3 / 7) perfectly matches the prompt — something that was very difficult to do consistently in the `dall-e-3` era.
 
@@ -124,7 +124,7 @@ payload = {
 
 The generated landscape illustration is shown below:
 
-![](https://platform.cdn.acedata.cloud/gpt-image/e4921c51-5182-4412-873b-24019280ab23_0.png)
+![](https://platform.cdn.acedata.cloud/gpt-image/6cd57e69-d237-4cc1-a666-759a93964a08_0.png)
 
 ### Async and Callback
 
