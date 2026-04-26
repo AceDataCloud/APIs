@@ -50,6 +50,8 @@ You can see that the reference image is a real person's photo. We can transform 
 
 Sample result:
 
+> **Note:** The `content` field in the response contains progress messages from the underlying image generation backend. These messages are in Chinese and include the prompt keywords, progress percentage updates (进度 = progress), and a final completion notice (图片绘制成功 = image generated successfully) followed by the image URL.
+
 ```json
 {
   "choices": [

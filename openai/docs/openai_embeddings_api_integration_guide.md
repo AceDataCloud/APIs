@@ -1,6 +1,6 @@
 # OpenAI Embeddings API Application and Usage
 
-OpenAI word vector service, used to generate word vector results representing input text.
+OpenAI embedding service, used to generate embedding vectors representing input text.
 
 This document mainly describes the usage process of the OpenAI Embeddings API, which allows us to create embedding vectors representing input text.
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/4qtbvr.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI official model category we choose to use. Here we mainly have 3 types of models; details can be found in the models we provide. The last parameter is `input`, which is the text we need to convert to word vectors.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI official model category we choose to use. Here we mainly have 3 types of models; details can be found in the models we provide. The last parameter is `input`, which is the text we need to encode as embeddings.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -102,11 +102,11 @@ After the call, we find the returned result as follows:
 
 The returned result contains multiple fields, described as follows:
 
-- `model`: The model used for this text-to-word-vector conversion.
-- `usage`: Token information used for this text-to-word-vector conversion.
-- `data`: The word vector result after text conversion.
+- `model`: The model used for this text-to-embedding conversion.
+- `usage`: Token information used for this text-to-embedding conversion.
+- `data`: The embedding result after text conversion.
 
-The `data` contains the specific information of the word vector corresponding to the text. The `embedding` inside it is the specific result of the generated word vector.
+The `data` contains the specific information of the embedding corresponding to the text. The `embedding` inside it is the specific result of the generated embedding vector.
 
 ## Error Handling
 
@@ -133,4 +133,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to use the OpenAI Embeddings API to easily utilize the official OpenAI word vector generation features. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the OpenAI Embeddings API to easily utilize the official OpenAI embedding generation features. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
