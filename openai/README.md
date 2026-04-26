@@ -842,12 +842,14 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-mdl-card">
 <h3>✨ GPT-5.x Series</h3>
-<p class="mdl-desc">Enhanced versions of GPT-5, including 5.1, 5.2, and 5.4 with further improved capabilities.</p>
+<p class="mdl-desc">Enhanced versions of GPT-5, including 5.1, 5.2, 5.4, and 5.5 with further improved capabilities.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-5.1</span>
 <span class="oa-mdl-tag">gpt-5.2</span>
 <span class="oa-mdl-tag">gpt-5.4</span>
 <span class="oa-mdl-tag">gpt-5.4-pro</span>
+<span class="oa-mdl-tag">gpt-5.5</span>
+<span class="oa-mdl-tag">gpt-5.5-pro</span>
 </div>
 </div>
 <div class="oa-mdl-card">
@@ -889,6 +891,9 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">gpt-image-2</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
+<span class="oa-mdl-tag">nano-banana</span>
+<span class="oa-mdl-tag">nano-banana-2</span>
+<span class="oa-mdl-tag">nano-banana-pro</span>
 </div>
 </div>
 </div>
@@ -1080,7 +1085,8 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Chat Completions API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](https://platform.acedata.cloud/documents/fc571e00-464f-429e-b920-8896c906c2b9) |
 | [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](https://platform.acedata.cloud/documents/22fce352-b71e-4177-991f-2216841f35e2) |
 | [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
-| [$t(document_title_openai_embeddings_api)](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](https://platform.acedata.cloud/documents/) |
+| [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [OpenAI Embeddings API Integration Guide](docs/openai_embeddings_api_integration_guide.md) |
+| [OpenAI Chat Completions 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) | `/openai/chat/completions` | [OpenAI Chat Completion 4o Image API Integration Guide](docs/openai_chat_completions_4o_image_api_integration_guide.md) |
 | [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
 
 ## Related Resources

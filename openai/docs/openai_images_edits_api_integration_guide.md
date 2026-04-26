@@ -166,6 +166,79 @@ export OPENAI_BASE_URL=https://api.acedata.cloud/openai
 export OPENAI_API_KEY={token}
 ```
 
+## Nano Banana Series Models
+
+The `nano-banana` series is also integrated into `/openai/images/edits`. Simply change `model` to any of the following:
+
+| Model | Billing (Credits / call) | Use Case |
+| --- | --- | --- |
+| `nano-banana` | 0.14 | Standard image editing, fastest and lowest cost |
+| `nano-banana-2` | 0.28 | Noticeably improved quality and detail |
+| `nano-banana-pro` | 0.35 | Flagship of the series, best structure, text, and style preservation |
+
+> **Important: Supported parameter scope**
+>
+> Nano Banana is integrated via an adapter layer on top of the OpenAI protocol. Only the following parameters are supported: `model`, `prompt`, `image`.
+>
+> - `image` can be provided either via `multipart/form-data` file upload (the worker converts it internally to `data:<mime>;base64,...`) or as a form field containing an image URL string.
+> - Parameters such as `mask`, `n`, `size`, and `response_format` are not supported and will be ignored.
+> - The response structure follows the OpenAI format (`data[].url`), but `created` is always `0`, `b64_json` is never returned, and `revised_prompt` always equals the original `prompt`.
+
+### Via Form + Image URL
+
+```shell
+curl -X POST "https://api.acedata.cloud/openai/images/edits" \
+  -H "Authorization: Bearer {token}" \
+  -F "model=nano-banana" \
+  -F "prompt=add a green leaf on top of the apple" \
+  -F "image=https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png"
+```
+
+The returned result is as follows:
+
+```json
+{
+  "created": 0,
+  "data": [
+    {
+      "url": "https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg",
+      "revised_prompt": "add a green leaf on top of the apple"
+    }
+  ]
+}
+```
+
+The edited image:
+
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg" width="500" class="m-auto"></p>
+
+### Via Form + Local File
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/edits"
+
+headers = {
+    "authorization": "Bearer {token}"
+}
+
+files = {
+    "image": open("apple.png", "rb"),
+}
+data = {
+    "model": "nano-banana-pro",
+    "prompt": "add a green leaf on top of the apple"
+}
+
+response = requests.post(url, headers=headers, files=files, data=data)
+print(response.text)
+```
+
+### Asynchronous Callback
+
+The `callback_url` async callback mechanism also works for nano-banana. The calling process is identical to other models — see the [Asynchronous Callback](#asynchronous-callback) section below for details.
+
 ## Basic Usage
 
 Next, you can use code to make calls; below is an example using CURL:
