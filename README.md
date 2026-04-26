@@ -20,7 +20,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 
 ## MCP Servers
 
-Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextprotocol.io) servers, allowing AI assistants like Claude, Cursor, and Windsurf to directly call our APIs.
+Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextprotocol.io) servers, allowing AI assistants like Claude, Cursor, Windsurf, and others to directly call our APIs.
 
 | MCP Server | Docs |
 |---|---|
