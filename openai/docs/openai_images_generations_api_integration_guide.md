@@ -1,8 +1,8 @@
 # OpenAI Images Generations API Application and Usage
 
-DALL-E 3 is an image generation model developed by OpenAI that can generate high-quality images based on text descriptions.
+The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, and the latest generation **`gpt-image-2`**. All of them can generate high-quality images from text descriptions.
 
-This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the official OpenAI DALL-E.
+This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the OpenAI series.
 
 ## Application Process
 
@@ -13,6 +13,122 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
 Upon your first application, there will be a free quota provided, allowing you to use the API for free.
+
+## GPT-Image-2 Model
+
+`gpt-image-2` is the latest generation image generation model from OpenAI. Compared to `dall-e-3` and `gpt-image-1`, it has significant improvements in the following areas:
+
+- **Stronger instruction following**: Accurately understands complex compositional, counting, and positional relationship instructions.
+- **Clearer text rendering**: English and numbers in posters, menus, infographics, and logos are almost never garbled.
+- **Richer style expression**: Natively supports cinematic portraits, retro posters, children's illustrations, product photography, infographics, and more.
+- **Native multi-aspect-ratio support**: Directly supports `1024x1024` (square), `1024x1536` (portrait), and `1536x1024` (landscape).
+
+The calling method is identical to other models — simply set the `model` field to `gpt-image-2`. The `url` in the returned result is a permanently hosted image link on `platform.cdn.acedata.cloud` that can be opened directly in a browser or embedded in a webpage.
+
+Below are several real-world examples to showcase the capabilities of `gpt-image-2`.
+
+### Scenario 1: Cinematic Portrait
+
+You can use cinematic terminology (35mm film, shallow depth of field, neon lighting, etc.) in the prompt to precisely control the atmosphere and texture.
+
+Python sample call code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/generations"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "gpt-image-2",
+    "prompt": "A cinematic portrait of a young woman standing in a convenience store at night, illuminated by soft pink and cyan neon signs through the window. Shot on 35mm film, shallow depth of field, slight grain, melancholic mood.",
+    "size": "1024x1536"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+The returned result is as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "6738988a-ea3c-44ae-932f-488b14e5902b",
+  "created": 1777048800,
+  "data": [
+    {
+      "revised_prompt": "A cinematic portrait of a young woman standing in a convenience store at night, illuminated by soft pink and cyan neon signs through the window. Shot on 35mm film, shallow depth of field, slight grain, melancholic mood.",
+      "url": "https://platform.cdn.acedata.cloud/gpt-image/6738988a-ea3c-44ae-932f-488b14e5902b_0.png"
+    }
+  ]
+}
+```
+
+The generated image is shown below:
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/6738988a-ea3c-44ae-932f-488b14e5902b_0.png" width="500" class="m-auto"></p>
+
+### Scenario 2: Retro Travel Poster (with Text Rendering)
+
+`gpt-image-2` is stable in typography and font rendering, making it ideal for generating posters, menus, greeting cards, and other text-heavy designs.
+
+```python
+payload = {
+    "model": "gpt-image-2",
+    "prompt": "A vintage travel poster of the Amalfi Coast, Italy. Stylized art-deco illustration of cliffside lemon-yellow houses cascading down to a turquoise sea, with a small white sailboat in the harbor. Bold typography at the top reads AMALFI and at the bottom ITALIA 1958. Limited color palette: cream, sea-blue, lemon yellow, terracotta. Slight paper-grain texture.",
+    "size": "1024x1536"
+}
+```
+
+The image corresponding to the `url` field in the returned result:
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/b74900da-7ca1-455b-9fb2-2434522a44b8_0.png" width="500" class="m-auto"></p>
+
+As you can see, the model accurately reproduces the Art Deco poster visual style, and the title text `AMALFI` and `ITALIA 1958` are clearly and correctly rendered.
+
+### Scenario 3: Complex Composition and Counting
+
+The following prompt tests the model's ability to follow structural instructions regarding "quantity" and "position".
+
+```python
+payload = {
+    "model": "gpt-image-2",
+    "prompt": "A wooden bookshelf consisting of three shelves: On the top shelf, there should be one book. On the second shelf, there should be three books. On the bottom shelf, there should be seven books. Soft warm lighting, photorealistic, cozy library atmosphere.",
+    "size": "1024x1024"
+}
+```
+
+The generated image is shown below:
+
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/d392c632-475a-4e20-8e68-2321287cabd1_0.png" width="500" class="m-auto"></p>
+
+As you can see, the number of books on the three shelves (1 / 3 / 7) perfectly matches the prompt — something that was very difficult to do consistently in the `dall-e-3` era.
+
+### Scenario 4: Illustration Style (Landscape)
+
+By specifying art medium and mood keywords, you can guide the model to produce stylized illustrations.
+
+```python
+payload = {
+    "model": "gpt-image-2",
+    "prompt": "A soft, poetic children's book illustration of a small fox reading a book under a glowing mushroom in a moonlit forest. Watercolor and pencil texture, gentle pastel colors, dreamy atmosphere, hand-drawn feel.",
+    "size": "1536x1024"
+}
+```
+
+The generated landscape illustration is shown below:
+
+![](https://platform.cdn.acedata.cloud/gpt-image/e4921c51-5182-4412-873b-24019280ab23_0.png)
+
+### Async and Callback
+
+A single `gpt-image-2` call typically takes 60–90 seconds. If you prefer not to hold a long connection, you can use the `callback_url` async callback mechanism described later in this document. The calling process is identical to other models.
 
 ## Basic Usage
 
