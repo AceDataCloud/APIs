@@ -18,6 +18,24 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `pixverse/` | [PixverseAPI](https://github.com/AceDataCloud/PixverseAPI) | Pixverse video generation API docs |
 | `aichat/` | — | AI Dialogue (multi-model chat) API docs |
 
+## MCP Servers
+
+Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextprotocol.io) servers, allowing AI assistants like Claude, Cursor, and Windsurf to directly call our APIs.
+
+| MCP Server | Docs |
+|---|---|
+| Flux MCP Server | [docs.acedata.cloud/mcp/flux](https://docs.acedata.cloud/mcp/flux) |
+| Luma MCP Server | [docs.acedata.cloud/mcp/luma](https://docs.acedata.cloud/mcp/luma) |
+| Midjourney MCP Server | [docs.acedata.cloud/mcp/midjourney](https://docs.acedata.cloud/mcp/midjourney) |
+| Nanobanana MCP Server | [docs.acedata.cloud/mcp/nanobanana](https://docs.acedata.cloud/mcp/nanobanana) |
+| Seedance MCP Server | [docs.acedata.cloud/mcp/seedance](https://docs.acedata.cloud/mcp/seedance) |
+| Seedream MCP Server | [docs.acedata.cloud/mcp/seedream](https://docs.acedata.cloud/mcp/seedream) |
+| Serp MCP Server | [docs.acedata.cloud/mcp/serp](https://docs.acedata.cloud/mcp/serp) |
+| Shorturl MCP Server | [docs.acedata.cloud/mcp/shorturl](https://docs.acedata.cloud/mcp/shorturl) |
+| Sora MCP Server | [docs.acedata.cloud/mcp/sora](https://docs.acedata.cloud/mcp/sora) |
+| Suno MCP Server | [docs.acedata.cloud/mcp/suno](https://docs.acedata.cloud/mcp/suno) |
+| Veo MCP Server | [docs.acedata.cloud/mcp/veo](https://docs.acedata.cloud/mcp/veo) |
+
 ## How It Works
 
 This is the source-of-truth monorepo. Changes pushed to `main` are automatically synced to the standalone repos via GitHub Actions.
