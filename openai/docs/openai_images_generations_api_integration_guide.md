@@ -25,6 +25,20 @@ Upon your first application, there will be a free quota provided, allowing you t
 
 The calling method is identical to other models — simply set the `model` field to `gpt-image-2`. The `url` in the returned result is a permanently hosted image link on `platform.cdn.acedata.cloud` that can be opened directly in a browser or embedded in a webpage.
 
+### Supported `size` Values and Billing Tiers
+
+`gpt-image-2` only accepts the 15 sizes listed in the table below; any other value will return a 400 error directly. **Billing for 2K / 4K tiers is 1.5× the 1K tier price**:
+
+| Aspect Ratio | 1K (Standard) | 2K (×1.5) | 4K (×1.5) |
+| --- | --- | --- | --- |
+| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
+| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
+| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
+| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
+| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+
+> Actual billing is cumulative by `n × single-image cost`; a 4K single call typically takes 4–8 minutes, so it is recommended to use with the `callback_url` asynchronous callback described later.
+
 Below are several real-world examples to showcase the capabilities of `gpt-image-2`.
 
 ### Scenario 1: Cinematic Portrait

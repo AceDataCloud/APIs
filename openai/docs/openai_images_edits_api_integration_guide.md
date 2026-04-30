@@ -22,6 +22,20 @@ Upon the first application, there will be a free quota provided, allowing you to
 - **More accurate text retention**: Text in infographics, posters, menus, and other text-heavy images remains clear and readable after editing.
 - **Supports URL input**: In addition to the traditional `multipart/form-data` file upload, `gpt-image-2` also **supports passing image URLs via JSON**, eliminating the need to download images locally first — ideal for server-side pipeline integration.
 
+### Supported `size` Values and Billing Tiers
+
+The editing endpoint has the same constraints on `size` as the generation endpoint — `gpt-image-2` only accepts the 15 sizes listed in the table below; any other value will return a 400 error directly. **Billing for 2K / 4K tiers is 1.5× the 1K tier price**, regardless of the original image resolution — only the `size` request value matters:
+
+| Aspect Ratio | 1K (Standard) | 2K (×1.5) | 4K (×1.5) |
+| --- | --- | --- | --- |
+| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
+| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
+| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
+| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
+| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+
+> Example: if the original image is `1024x1024` and `size` is set to `2048x2048`, the model will redraw according to the edit instruction and output a 2K image, billed at the 2K tier; if `size` is set to `3840x2160`, a 4K landscape image is output, billed at the 4K tier.
+
 Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
 
 ### Method 1: JSON + Image URL (Recommended)
