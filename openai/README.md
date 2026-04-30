@@ -886,7 +886,6 @@ print(image.data[0].url)</pre>
 <p class="mdl-desc">Text-to-image generation and image editing.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-image-1</span>
-<span class="oa-mdl-tag">gpt-image-1.5</span>
 <span class="oa-mdl-tag">gpt-image-2</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
