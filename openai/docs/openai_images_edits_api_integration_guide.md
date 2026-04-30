@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. The API currently supports `dall-e-2`, `gpt-image-1`, the enhanced **`gpt-image-1.5`**, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models.
+OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. The API currently supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models.
 
 This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
@@ -21,6 +21,21 @@ Upon the first application, there will be a free quota provided, allowing you to
 - **More stable structure preservation**: When changing colors, backgrounds, or styles, the original layout and composition are almost never disrupted.
 - **More accurate text retention**: Text in infographics, posters, menus, and other text-heavy images remains clear and readable after editing.
 - **Supports URL input**: In addition to the traditional `multipart/form-data` file upload, `gpt-image-2` also **supports passing image URLs via JSON**, eliminating the need to download images locally first — ideal for server-side pipeline integration.
+- **Supports high-resolution redraw**: You can pass a 1K source image and request a 2K / 4K output via the `size` parameter; the model will complete both editing and upscaling in one pass.
+
+### Supported `size` Values and Billing Tiers
+
+The `size` constraints for the edit endpoint are identical to the generation endpoint — `gpt-image-2` only accepts the 15 sizes listed below; any other value will return a 400 error. **2K / 4K tiers are billed at 1.5× the 1K tier rate**, regardless of the source image resolution:
+
+| Aspect Ratio | 1K (standard) | 2K (×1.5) | 4K (×1.5) |
+| --- | --- | --- | --- |
+| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
+| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
+| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
+| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
+| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+
+> Example: if the source image is `1024x1024` and `size` is set to `2048x2048`, the model will redraw and output a 2K image billed at the 2K tier; if `size` is `3840x2160`, the output is a 4K widescreen image billed at the 4K tier.
 
 Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
 
@@ -297,7 +312,7 @@ After the call, we find that an image `gift-basket.png` will be generated in the
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
-Thus, we have completed the image editing operation. Currently, the Edits API supports `dall-e-2`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Among them, `gpt-image-2` is the recommended model — see the [GPT-Image-2 Model](#gpt-image-2-model) section above for details.
+Thus, we have completed the image editing operation. Currently, the Edits API supports `dall-e-2`, `gpt-image-1`, `gpt-image-2`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Among them, `gpt-image-2` is the recommended model — see the [GPT-Image-2 Model](#gpt-image-2-model) section above for details.
 
 ## Asynchronous Callback
 

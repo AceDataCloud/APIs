@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, the enhanced **`gpt-image-1.5`**, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models. All of them can generate high-quality images from text descriptions.
+The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models. All of them can generate high-quality images from text descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the OpenAI series.
 
@@ -21,9 +21,23 @@ Upon your first application, there will be a free quota provided, allowing you t
 - **Stronger instruction following**: Accurately understands complex compositional, counting, and positional relationship instructions.
 - **Clearer text rendering**: English and numbers in posters, menus, infographics, and logos are almost never garbled.
 - **Richer style expression**: Natively supports cinematic portraits, retro posters, children's illustrations, product photography, infographics, and more.
-- **Native multi-aspect-ratio support**: Directly supports `1024x1024` (square), `1024x1536` (portrait), and `1536x1024` (landscape).
+- **Native multi-aspect-ratio and high-resolution support**: Covers 5 aspect ratios (1:1, 4:3, 3:4, 16:9, 9:16) with 3 resolution tiers (1K / 2K / 4K).
 
 The calling method is identical to other models — simply set the `model` field to `gpt-image-2`. The `url` in the returned result is a permanently hosted image link on `platform.cdn.acedata.cloud` that can be opened directly in a browser or embedded in a webpage.
+
+### Supported `size` Values and Billing Tiers
+
+`gpt-image-2` only accepts the 15 sizes listed in the table below; any other value will return a 400 error. **2K / 4K tiers are billed at 1.5× the 1K tier rate**:
+
+| Aspect Ratio | 1K (standard) | 2K (×1.5) | 4K (×1.5) |
+| --- | --- | --- | --- |
+| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
+| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
+| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
+| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
+| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+
+> Billing is cumulative at `n × per-image cost`; a single 4K call typically takes 4–8 minutes — it is recommended to use the `callback_url` async callback mechanism described later.
 
 Below are several real-world examples to showcase the capabilities of `gpt-image-2`.
 
@@ -613,4 +627,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ```
 
 ## Conclusion
-Through this document, you have learned how to easily use the image generation capabilities of the OpenAI Images Generations API, including `dall-e-3`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, and the `nano-banana` series. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the image generation capabilities of the OpenAI Images Generations API, including `dall-e-3`, `gpt-image-1`, `gpt-image-2`, and the `nano-banana` series. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
