@@ -410,7 +410,7 @@ payload = {
             "role": "user",
             "content": [
                 {
-                    "type": "text", "text": "这张图片里有什么？"
+                    "type": "text", "text": "What's in this image?"
                 },
                 {
                     "type": "image_url",
@@ -441,7 +441,7 @@ Then you can get the following result, the field information in the result is co
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "\n\n这张图片展示了一条木栈道延伸穿过郁郁葱葱的沼泽地。"
+        "content": "\n\nThis image shows a wooden boardwalk extending through a lush green marshland."
       },
       "logprobs": null,
       "finish_reason": "stop"
@@ -500,7 +500,7 @@ Example result:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿色植物和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
+        "content": "{\n  \"prompt\": \"A young woman with long black hair wearing a white dress standing in a scenic outdoor setting. The image is in the style of Studio Ghibli animation, featuring soft colors and delicate details. She is wearing a cute, stylish hat, with a warm and cheerful smile. The background shows lush greenery and a peaceful atmosphere, with sunlight filtering through the trees.\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[Download⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\nHere is the image created in the style of Studio Ghibli, featuring a young woman wearing a white dress and a stylish hat in a scenic outdoor setting. The soft, warm atmosphere is captured with gentle details and vibrant colors."
       },
       "finish_reason": "stop"
     }
@@ -517,11 +517,11 @@ Example result:
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
-- `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
-- `401 invalid_token`：未授权，授权令牌无效或缺失。
-- `429 too_many_requests`：请求过多，您已超出速率限制。
-- `500 api_error`：内部服务器错误，服务器出现问题。
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
 
 ### Error Response Example
 
@@ -530,7 +530,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "获取失败"
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
