@@ -27,7 +27,12 @@ The calling method is identical to other models — simply set the `model` field
 
 ### Supported `size` Values and Billing Tiers
 
-`gpt-image-2` only accepts the 15 sizes listed in the table below. Passing any other value will return a 400 error directly. **2K / 4K tiers are billed at 1.5× the 1K rate**:
+`gpt-image-2` only checks the format of `size` — as long as it is not `auto` or an empty string, it must match `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other form will return a 400 error. Billing is split into two tiers:
+
+- **1K standard rate**: Any of the 1K recommended sizes in the table below, or the common upstream 1K output aliases (`1254x1254`, `1672x941`, `941x1672` — these are the actual sizes returned by the upstream at the 1K tier; passing them back will not trigger a higher billing tier).
+- **Other tier (1.5×)**: Any size not in the above 1K set, including the 2K / 4K presets recommended in the table below, as well as any custom `WIDTHxHEIGHT` you pass in.
+
+Upstream hard constraints for custom sizes: width and height must each be multiples of 16, the long side must be ≤ 3840, and total pixel count must be ≤ 8,294,400. Requests outside this range will be rejected by the upstream with a 4xx response.
 
 | Aspect Ratio | 1K (standard) | 2K (×1.5) | 4K (×1.5) |
 | --- | --- | --- | --- |
@@ -38,6 +43,8 @@ The calling method is identical to other models — simply set the `model` field
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
 > You can also pass `size: "auto"` or **omit the `size` field** entirely, in which case the model will choose a default size and bill at the 1K rate.
+>
+> At the 1K tier, upstream output is not guaranteed to be pixel-perfect — passing `1024x1024` may yield `1254x1254`, but the aspect ratio remains consistent. If you pass that result back as `size`, it still bills at the 1K rate.
 >
 > Actual billing accumulates as `n × per-image cost`; a 4K single call typically takes 4–8 minutes — it is recommended to use the `callback_url` async callback described later in this document.
 
@@ -140,7 +147,7 @@ payload = {
 
 The generated landscape illustration is shown below:
 
-![](https://platform.cdn.acedata.cloud/gpt-image/e4921c51-5182-4412-873b-24019280ab23_0.png)
+![](https://platform.cdn.acedata.cloud/gpt-image/6cd57e69-d237-4cc1-a666-759a93964a08_0.png)
 
 ### Async and Callback
 

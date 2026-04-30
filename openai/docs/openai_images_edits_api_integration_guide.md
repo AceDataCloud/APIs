@@ -25,7 +25,12 @@ Upon the first application, there will be a free quota provided, allowing you to
 
 ### Supported `size` Values and Billing Tiers
 
-The `size` constraints for the edit endpoint are identical to the generation endpoint — `gpt-image-2` only accepts the 15 sizes listed in the table below. Passing any other value will return a 400 error directly. **2K / 4K tiers are billed at 1.5× the 1K rate**, regardless of the source image resolution — only the requested `size` value matters:
+The `size` constraints for the edit endpoint are identical to the generation endpoint — `gpt-image-2` requires `size` to be `auto`, empty, or match `WIDTHxHEIGHT` format; any other form will return a 400 error. Billing is split into two tiers, regardless of the source image resolution — only the requested `size` value matters:
+
+- **1K standard rate**: Any of the 1K recommended sizes in the table below, or the common upstream 1K output aliases (`1254x1254`, `1672x941`, `941x1672`).
+- **Other tier (1.5×)**: Includes the 2K / 4K presets recommended in the table below, as well as any custom `WIDTHxHEIGHT` you pass in.
+
+The upstream hard constraints for custom sizes also apply: width and height must each be multiples of 16, the long side must be ≤ 3840, and total pixel count must be ≤ 8,294,400.
 
 | Aspect Ratio | 1K (standard) | 2K (×1.5) | 4K (×1.5) |
 | --- | --- | --- | --- |
@@ -35,9 +40,7 @@ The `size` constraints for the edit endpoint are identical to the generation end
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> For example: if the source image is `1024x1024` and `size` is `2048x2048`, the model will redraw at 2K and bill at the 2K rate; if `size` is `3840x2160`, it outputs a 4K landscape image and bills at the 4K rate.
->
-> You can also pass `size: "auto"` or **omit the `size` field**, in which case the model will choose a default size and bill at the 1K rate.
+> For example: if the source image is `1024x1024` and `size` is `2048x2048`, the model will redraw at 2K and bill at the 2K rate; if `size` is `3840x2160`, it outputs a 4K landscape image and bills at the same rate. Passing `auto` or omitting `size` bills at the 1K standard rate.
 
 Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
 
