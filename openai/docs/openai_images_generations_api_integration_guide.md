@@ -29,7 +29,7 @@ The calling method is identical to other models — simply set the `model` field
 
 `gpt-image-2` only validates the format of `size` — as long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` pattern (e.g. `1024x1024`, `2048x1152`, `800x600`); any other format returns a 400. Billing has exactly two tiers:
 
-- **1K standard rate**: The requested size is one of the 1K recommended sizes in the table below, or one of the upstream 1K output aliases (`1254x1254`, `1672x941`, `941x1672` — these are sizes the upstream model actually returns at the 1K tier, and re-submitting them as `size` will not trigger a higher tier).
+- **1K standard rate**: The requested size is one of the 1K recommended sizes in the table below, or one of the upstream 1K output aliases (`1254x1254`, `1672x941`, `941x1672`). These are sizes the upstream model actually returns at the 1K tier; re-submitting them as `size` will not trigger a higher tier.
 - **Other tier (1.5×)**: Any size not in the 1K set above, including the 2K / 4K presets recommended in the table and any custom `WIDTHxHEIGHT` you pass in.
 
 Upstream hard constraints for custom sizes: width and height must both be multiples of 16, the long edge must be ≤ 3840, and total pixels must be ≤ 8,294,400. Requests outside these bounds will be rejected by the upstream with a 4xx error.

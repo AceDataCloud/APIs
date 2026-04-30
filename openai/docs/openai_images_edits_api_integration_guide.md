@@ -40,7 +40,7 @@ The same upstream hard constraints apply to custom sizes: width and height must 
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> For example: if the source image is `1024x1024` and `size` is `2048x2048`, the model will redraw and output a 2K image according to the edit instruction, billed at the "other" tier; if `size` is `3840x2160`, it outputs a 4K landscape image, also billed at the "other" tier; passing `auto` or omitting `size` bills at the 1K standard rate.
+> For example: if the source image is `1024x1024` and `size` is `2048x2048`, the model will redraw and output a 2K image according to the edit instruction — billed at the "other" tier. If `size` is `3840x2160`, it outputs a 4K landscape image, also billed at the "other" tier. Passing `auto` or omitting `size` bills at the 1K standard rate.
 
 Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
 
