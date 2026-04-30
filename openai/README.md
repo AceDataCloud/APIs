@@ -842,12 +842,14 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-mdl-card">
 <h3>✨ GPT-5.x Series</h3>
-<p class="mdl-desc">Enhanced versions of GPT-5, including 5.1, 5.2, and 5.4 with further improved capabilities.</p>
+<p class="mdl-desc">Enhanced versions of GPT-5, including 5.1, 5.2, 5.4, and 5.5 with further improved capabilities.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-5.1</span>
 <span class="oa-mdl-tag">gpt-5.2</span>
 <span class="oa-mdl-tag">gpt-5.4</span>
 <span class="oa-mdl-tag">gpt-5.4-pro</span>
+<span class="oa-mdl-tag">gpt-5.5</span>
+<span class="oa-mdl-tag">gpt-5.5-pro</span>
 </div>
 </div>
 <div class="oa-mdl-card">

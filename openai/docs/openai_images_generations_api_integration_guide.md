@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models. All of them can generate high-quality images from text descriptions.
+The OpenAI Images Generations API currently supports multiple image generation models, including the classic `dall-e-3`, the text-rendering powerhouse `gpt-image-1`, the upgraded **`gpt-image-1.5`**, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models. All of them can generate high-quality images from text descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the OpenAI series.
 
