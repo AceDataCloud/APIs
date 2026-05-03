@@ -84,7 +84,7 @@ When the task is found:
   "_id": "67a1b2c3d4e5f6a7b8c9d0e1",
   "id": "7489df4c-ef03-4de0-b598-e9a590793434",
   "trace_id": "my-custom-trace-001",
-  "type": "images_generations",
+  "type": "images",
   "application_id": "9dec7b2a-1cad-41ff-8536-d4ddaf2525d4",
   "user_id": "5d8e7f6a-1234-4abc-9def-0123456789ab",
   "credential_id": "68253cc8-505d-47f4-97ad-0050a62e4975",
@@ -117,7 +117,7 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 
 - `id` — the task ID generated when the original image request was accepted.
 - `trace_id` — the custom trace identifier you sent with the original request (optional, useful for client-side correlation).
-- `type` — the upstream API type, e.g. `images_generations`, `images_edits`, `chat_completions_image`.
+- `type` — the upstream API type. Tasks from the `gpt-image` series (e.g. `gpt-image-2`) use `images`; older OpenAI channels (e.g. `gpt-image-1`, nano-banana) use `images_generations` / `images_edits`; some chat-based image endpoints use `chat_completions_image`.
 - `request` — the request body originally sent to the upstream image API.
 - `response` — the final response returned by the upstream image API after callback completion.
 - `created_at` / `finished_at` / `duration` — Unix timestamps (seconds) and elapsed seconds.
@@ -134,7 +134,7 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 | `trace_ids` | string[] | Look up tasks by a list of custom trace IDs |
 | `application_id` | string | List all tasks for an application |
 | `user_id` | string | List all tasks for an end user |
-| `type` | string | Filter by upstream type (`images_generations`, `images_edits`, …) |
+| `type` | string | Filter by upstream type (`images`, `images_generations`, `images_edits`) |
 | `offset` | int | Pagination offset (default `0`) |
 | `limit` | int | Page size (default `12`) |
 | `created_at_min` | float | Earliest creation timestamp (Unix seconds) |
@@ -163,8 +163,8 @@ curl -X POST 'https://api.acedata.cloud/openai/tasks' \
       "_id": "67a1b2c3d4e5f6a7b8c9d0e1",
       "id": "7489df4c-ef03-4de0-b598-e9a590793434",
       "trace_id": "my-trace-001",
-      "type": "images_generations",
-      "request": { "model": "gpt-image-1", "prompt": "A cat" },
+      "type": "images",
+      "request": { "model": "gpt-image-2", "prompt": "A cat" },
       "response": { "data": [{ "url": "https://...png" }] },
       "created_at": 1763142607.967,
       "finished_at": 1763142637.404
