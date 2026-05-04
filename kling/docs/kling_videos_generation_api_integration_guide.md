@@ -87,7 +87,7 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
 
 Different models support different parameters. The following matrix is compiled from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Before making a request, verify that your chosen `model` / `mode` / `duration` combination supports the features you need — otherwise the upstream service will return errors such as `model/mode/duration(...) is not supported with image_tail`.
 
-| Model | Mode | `end_image_url` (tail frame) | `generate_audio` (audio) | `camera_control` (motion control) | Notes |
+| Model | Mode | `end_image_url` (start/end frame) | `generate_audio` (audio) | `camera_control` (camera movement) | Notes |
 |---|---|---|---|---|---|
 | `kling-v1` | std / pro | ✅ `duration=5` only | ❌ | ✅ `duration=5` only | `extend` does not support `negative_prompt` or `cfg_scale` |
 | `kling-v1-6` | std | ❌ | ❌ | ❌ | Multi-image-to-video; `extend` available in all modes |
@@ -126,7 +126,7 @@ The video ID is:
 
 Next, provide the required parameters for the extension:
 
-- `model`: the model for generating the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v3`, and `kling-v3-omni`.
+- `model`: the model for generating the video. Supported models: `kling-v1`, `kling-v1-5`, and `kling-v1-6`.
 - `mode`: the mode for video generation. Options: standard mode `std`, high-quality mode `pro`, and native 4K mode `4k` (`kling-v3` and `kling-v3-omni` only; incompatible with motion control).
 - `duration`: the duration of this video generation task, supports 5s and 10s.
 - `start_image_url`: when the `image2video` action is selected, the first-frame reference image URL is required.
