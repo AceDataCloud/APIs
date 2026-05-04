@@ -108,7 +108,7 @@ curl -X POST 'https://api.acedata.cloud/webextrator/tasks' \
 
 | Field | Description |
 |------|------|
-| `id` / `task_id` | Unique task ID |
+| `id` | Unique task ID (also returned as `task_id` in some response contexts) |
 | `trace_id` | Call chain ID (aligned with PlatformGateway / CLS) |
 | `type` | `render` or `extract` |
 | `request` | Original request body |
