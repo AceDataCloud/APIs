@@ -33,6 +33,11 @@ Main request parameters:
 - `split_images`: Whether to split 2x2 results and return single images.
 - `action`/`image_id`: Required to specify when continuing operations on historical images.
 - `callback_url`: Asynchronous callback address.
+- `version`: Midjourney model version to use, e.g. `8`, `7`, `6.1`. Used for billing calculation of version-specific features.
+- `hd`: Enable HD image generation (2K resolution, V8 only). Costs 4x GPU time compared to regular images.
+- `quality`: Quality level for image generation. Values: `.25`, `.5`, `1`, `2`, `4`. Quality `4` is V8 only and costs 4x GPU time.
+- `style_reference`: Whether the prompt uses style references (`--sref`). In V8, this costs 4x GPU time.
+- `moodboard`: Whether the prompt uses moodboard references. In V8, image references become moodboards and cost 4x GPU time.
 
 <p><img src="https://cdn.acedata.cloud/zv3db5.png" width="500" class="m-auto"></p>
 
