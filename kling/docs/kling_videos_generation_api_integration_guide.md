@@ -126,7 +126,7 @@ The video ID is:
 
 Next, provide the required parameters for the extension:
 
-- `model`: the model for generating the video. Currently supports `kling-v1`, `kling-v1-5`, and `kling-v1-6`.
+- `model`: the model for generating the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v3`, and `kling-v3-omni`.
 - `mode`: the mode for video generation. Options: standard mode `std`, high-quality mode `pro`, and native 4K mode `4k` (`kling-v3` and `kling-v3-omni` only; incompatible with motion control).
 - `duration`: the duration of this video generation task, supports 5s and 10s.
 - `start_image_url`: when the `image2video` action is selected, the first-frame reference image URL is required.
