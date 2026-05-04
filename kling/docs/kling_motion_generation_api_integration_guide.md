@@ -71,7 +71,7 @@ curl -X POST 'https://api.acedata.cloud/kling/motion' \
 -d '{
   "image_url": "https://sourceyoya.wenge.com/2025/06/03/683e9f76e4b0684509ab1aca.jpg",
   "video_url": "https://cdn.acedata.cloud/odwfm5.mp4",
-  "prompt": "Make the scene come alive",
+  "prompt": "Make the picture come alive",
   "mode": "std",
   "character_orientation": "image"
 }'
