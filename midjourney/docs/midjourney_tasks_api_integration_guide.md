@@ -167,6 +167,43 @@ It can be seen that various language codes have been automatically generated on 
 
 Some code examples are as follows:
 
+#### CURL
+
+```bash
+curl -X POST 'https://api.acedata.cloud/midjourney/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "retrieve_batch",
+  "id": "",
+  "ids": ["7489df4c-ef03-4de0-b598-e9a590793434","807f62de-c63e-4add-8345-7f0ae6dd18e7"]
+}'
+```
+
+#### Python
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/midjourney/tasks"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "action": "retrieve_batch",
+    "id": "",
+    "ids": ["7489df4c-ef03-4de0-b598-e9a590793434","807f62de-c63e-4add-8345-7f0ae6dd18e7"]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
 ### Response Example
 
 After a successful request, the API will return the specific details of all batch image tasks. For example:
@@ -269,43 +306,6 @@ The returned result contains multiple fields, among which items include the spec
 
 - `items`, all specific details of batch image tasks. It is an array, and each element of the array has the same format as the return result of querying a single task above.
 - `count`, the number of batch image tasks queried here.
-
-#### CURL
-
-```bash
-curl -X POST 'https://api.acedata.cloud/midjourney/tasks' \
--H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
--H 'content-type: application/json' \
--d '{
-  "action": "retrieve_batch",
-  "id": "",
-  "ids": ["7489df4c-ef03-4de0-b598-e9a590793434","807f62de-c63e-4add-8345-7f0ae6dd18e7"]
-}'
-```
-
-#### Python
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/midjourney/tasks"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "action": "retrieve_batch",
-    "id": "",
-    "ids": ["7489df4c-ef03-4de0-b598-e9a590793434","807f62de-c63e-4add-8345-7f0ae6dd18e7"]
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
 
 ## Error Handling
 
