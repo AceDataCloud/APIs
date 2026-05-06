@@ -45,7 +45,7 @@ Suno 现已支持最新的 `chirp-v5-5` 模型。调用最新版本时，将 `mo
 
 另外设置了 Request Body，包括：
 
-- `action`：此次音乐生成任务的行为，默认是 `generate`，主要包含：`extend`、`upload_extend`、`cover`、`upload_cover`、`replace_section`、`replace_section`、`concat`、`stems`、`all_stems`、`remaster`。
+- `action`：此次音乐生成任务的行为，默认是 `generate`，主要包含：`extend`、`upload_extend`、`cover`、`upload_cover`、`replace_section`、`concat`、`stems`、`all_stems`、`remaster`。
 - `prompt`：Suno 官方的灵感模式的提示词。
 - `model`：此次音乐生成任务的模型，默认是 `chirp-v4`，主要包含：`chirp-v3`、`chirp-v4`、`chirp-v3-5`、`chirp-v4-5`、`chirp-v4-5-plus`、`chirp-v5`、`chirp-v5-5`。
 - `lyric`：Suno 官方的自定义模式的歌词内容。
@@ -1069,7 +1069,7 @@ print(response.text)
 
 这样就使用了高级参数进行生成自定义歌曲，结果与上文类似。
 
-## Add Insterumental 功能
+## Add Instrumental 功能
 
 2025 年 8 月份 suno 新出 Add Insterumental 功能，首先需要上传一首清唱无配音的歌曲, 让 suno 帮你配乐，首先可以先到 [Suno Upload API](https://platform.acedata.cloud/documents/766db278-012c-43c4-9245-5f18d8dc4d82)上传一首清唱无配乐的歌曲，对应如下如的操作如下图所示：
 
