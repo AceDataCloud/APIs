@@ -1,14 +1,17 @@
-# Suno Lyrics Generation API Integration Instructions
+---
+title: "Suno 歌词生成 API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-If you want to customize song generation but don't want to write the lyrics yourself, you can use the lyrics generation API provided by AceDataCloud to generate lyrics through a prompt. The API is the [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/514d82dc-f7ab-4638-9f21-8b9275916b08).
+如果你想自定义生成歌曲，但又不太想自己编写歌词，可以使用 AceDataCloud 提供的歌词生成 API 来通过 prompt 生成歌词，API 是 [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/514d82dc-f7ab-4638-9f21-8b9275916b08)。
 
-The main input parameter for this API is `prompt`, with an optional `model` (default is chirp-v3). An example of how to fill it out is as follows:
+该 API 主要输入参数是 `prompt`，可选 `model`（默认 chirp-v3），填写样例如下：
 
 ![](https://cdn.acedata.cloud/p53wtj.png)
 
-Here, the `prompt` we input is `A song about winter`, generating a song related to winter.
+这里我们输入的 `prompt` 是 `A song about winter`，生成和冬天相关的歌曲。
 
-Click to run, and the result is as follows:
+点击运行，结果如下：
 
 ```
 {
@@ -22,6 +25,6 @@ Click to run, and the result is as follows:
 }
 ```
 
-As you can see, the `text` field in `data` contains the lyrics information.
+可以看到，`data` 的 `text` 字段就是歌词信息。
 
-With the lyrics in hand, we can then use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate a custom song.
+有了歌词之后，我们便可以使用 [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) 来进行自定义歌曲生成了。

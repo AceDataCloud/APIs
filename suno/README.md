@@ -678,7 +678,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 <div class="s-section-body">
 <p>Suno currently does not provide a public, self-service REST API. Its music generation features can only be accessed through the Suno official website and application.</p>
-<p>Ace Data Cloud fills this gap by providing a <strong class="s-text-dark">stable, production-ready API</strong>, allowing you to programmatically access all of Suno's music generation features—including the latest <strong class="s-text-brand">Chirp v5</strong> model—through a simple REST interface, equipped with OpenAPI specifications, Webhook support, streaming, and pay-as-you-go pricing.</p>
+<p>Ace Data Cloud fills this gap by providing a <strong class="s-text-dark">stable, production-ready API</strong>, allowing you to programmatically access all of Suno's music generation features—including the latest <strong class="s-text-brand">Chirp v5.5</strong> model—through a simple REST interface, equipped with OpenAPI specifications, Webhook support, streaming, and pay-as-you-go pricing.</p>
 </div>
 </div>
 </section>
@@ -948,7 +948,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </thead>
 <tbody>
 <tr>
-<td>Chirp v5 Model</td>
+<td>Chirp v5.5 Model</td>
 <td class="cmp-us"><span class="ck">✓</span></td>
 <td>Partially supported</td>
 </tr>
@@ -1094,8 +1094,9 @@ Explore the supported endpoints and integration guides for Suno Music Generation
 | [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) | `/suno/audios` | [Suno Audios Generation API Integration Guide](https://platform.acedata.cloud/documents/d016ee3f-421b-4b6e-989a-8beba8701701) |
 | [Suno Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) | `/suno/persona` | [Suno Persona API Integration Guide](https://platform.acedata.cloud/documents/a1ae233c-c52a-4a62-97dd-0db0c089da5a) |
 | [Suno MP4 API](https://platform.acedata.cloud/documents/adf030f2-ac31-4342-bb65-afd9669272f9) | `/suno/mp4` | [Suno MP4 API Integration Guide](https://platform.acedata.cloud/documents/9dff19bb-3360-4578-8115-91c5efc130a3) |
+| [Suno Voices API](https://platform.acedata.cloud/documents/suno-voices) | `/suno/voices` | [Suno Voices API Integration Guide](docs/suno_voices_api_integration_guide.md) |
 | [Suno Vox API](https://platform.acedata.cloud/documents/ae804856-897a-4f5b-9329-8514a86a1d43) | `/suno/vox` | [Suno Vox API Integration Guide](https://platform.acedata.cloud/documents/4d487ecc-0b64-4e8f-a40b-908b9d776c76) |
-| [$t(document_title_suno_timing_generation_api)](https://platform.acedata.cloud/documents/e8b5a84f-742f-4078-8b7d-a52a68aa253f) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/149a2dd6-8af9-43f1-8994-0f4466b16c6f) |
+| [Suno Timing Generation API](https://platform.acedata.cloud/documents/e8b5a84f-742f-4078-8b7d-a52a68aa253f) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/149a2dd6-8af9-43f1-8994-0f4466b16c6f) |
 | [Suno Wav API](https://platform.acedata.cloud/documents/c55b2b82-416b-46d7-9854-4c3bf28a3cc5) | `/suno/wav` | [Suno Wav API Integration Guide](https://platform.acedata.cloud/documents/e48efa85-ed94-4ea8-8613-c16d734a3138) |
 | [Suno MIDI API](https://platform.acedata.cloud/documents/dc315c81-ebfa-4c5a-b6e8-af593dd67d86) | `/suno/midi` | [Suno MIDI API Integration Guide](https://platform.acedata.cloud/documents/d0557c7c-b518-4c42-b482-cc84d62b208b) |
 | [Suno Style Generation API](https://platform.acedata.cloud/documents/864d5f20-2e97-4334-b0bf-f80a60f0810c) | `/suno/style` | [Suno Style API Integration Guide](https://platform.acedata.cloud/documents/2835d3d3-fcfa-4e31-a4be-33a93b84a450) |

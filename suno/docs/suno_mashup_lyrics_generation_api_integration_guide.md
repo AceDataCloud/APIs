@@ -1,12 +1,15 @@
-# Suno Mashup Lyrics Generation API Integration Instructions
+---
+title: "Suno 混曲歌词生成 API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-If you want to use the lyrics of two songs to generate a mashup song, you can first use this API to generate the corresponding lyrics. The API is the [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2).
+如果你想使用俩首歌曲的歌词来生成混合歌曲，可以先使用该API来生成对应的歌词，API 是 [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2)。
 
-The main input parameters for this API are `lyrics_a` and `lyrics_b`, with an example as follows:
+该 API 主要输入参数是 `lyrics_a`、`lyrics_b`，填写样例如下：
 
 ![](https://cdn.acedata.cloud/g9n3t6.png)
 
-Click to run, and the result is as follows:
+点击运行，结果如下：
 
 ```
 {
@@ -21,6 +24,6 @@ Click to run, and the result is as follows:
 }
 ```
 
-As you can see, the `text` field in `data` contains the lyrics information.
+可以看到，`data` 的 `text` 字段就是歌词信息。
 
-With the lyrics in hand, we can then use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate a custom song.
+有了歌词之后，我们便可以使用 [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) 来进行自定义歌曲生成了。

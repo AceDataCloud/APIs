@@ -1,10 +1,13 @@
-# Suno Style API Integration Instructions
+---
+title: "Suno Style API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-SUNO allows us to input prompts to generate enhanced song styles. This document explains the integration method for the related API.
+SUNO 允许我们输入提示词来生成增强歌曲的风格。本文档讲解相关 API 的对接方法。
 
-The API has only one input parameter, which is `prompt`, the style prompt that needs to be optimized.
+该 API 只有一个输入参数，就是 `prompt`，它是需要优化的风格提示词。
 
-Here, the `prompt` we input is `A song for Christmas`.
+这里我们输入的 `prompt` 是 `A song for Christmas`。
 
 ```python
 import requests
@@ -25,7 +28,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-The result is as follows:
+结果如下：
 
 ```json
 {
@@ -38,4 +41,5 @@ The result is as follows:
 }
 ```
 
-As can be seen, the `upsampled_tags` field in `data` is the style parameters optimized based on the prompt.
+
+可以看到，`data` 的 `upsampled_tags` 字段就是根据提示词优化后的风格参数。
