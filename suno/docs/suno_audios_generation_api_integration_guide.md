@@ -6,7 +6,7 @@ Suno is a professional high-quality AI song and music creation platform. Users o
 
 Here is the progress of model updates:
 
-| Version | model           | Launch Date   | prompt Limit | style Limit | Maximum Song Duration |
+| Version | model           | Launch Date   | lyric Limit  | style Limit | Maximum Song Duration |
 | ------- | --------------- | -------------- | ------------ | ----------- | --------------------- |
 | v5.5    | chirp-v5-5      | 2026.03.27     | 5000         | 1000        | 8 minutes             |
 | v5      | chirp-v5        | 2025.09.23     | 5000         | 1000        | 8 minutes             |
@@ -501,75 +501,108 @@ The generated result is similar to the above, completing the process of creating
 
 When a song is generated and you need to perform a separate operation to replace a section of the song, you can specify the following content for the replacement operation:
 
-- action: The content is `replace_section`.
-- audio_id: The ID of the previously generated song.
-- model: The song generation model,
-- lyric: The complete lyrics after replacement (only needs to overlap with the prompt, not the complete lyrics),
-- prompt: The part of the lyrics that needs to be replaced.
-- style: The style of the song, optional.
-- replace_section_start: The start time of the lyrics corresponding to `lyric` on the timeline.
-- replace_section_end: The end time of the lyrics corresponding to `lyric` on the timeline.
+> ⚠️ **Note:** When `replace_section` is used alone it **only returns the newly generated replacement segment itself** (i.e. the audio of the replaced section, with a duration approximately equal to `replace_section_end - replace_section_start` plus a small amount of surrounding context). It does **not** return the fully stitched complete song. To obtain the finished track with the replacement merged back into the original, you need to initiate a [Music Concatenation](#music-concatenation) (`concat`) task using the returned segment ID after `replace_section` succeeds. The full workflow is described below.
 
-For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0, then you can set the parameters as follows:
+- action: The content is `replace_section`.
+- audio_id: The ID of the original song (the source song to be replaced).
+- model: The song generation model.
+- lyric: The complete lyrics after replacement (including the replaced segment and its surrounding context, consistent with the content in `prompt`).
+- prompt: The new lyrics for the segment that needs to be replaced.
+- style: The style of the song, optional.
+- replace_section_start: The start time (in seconds) of the segment to be replaced in the original song.
+- replace_section_end: The end time (in seconds) of the segment to be replaced in the original song.
+
+### Step 1: Initiate the replace section task
+
+For example, if the ID of the originally generated song is `18db7ed0-2b8a-41db-91c1-b0781dcca0d4` (duration 94.12 seconds) and you want to replace the chorus between the 30th and 60th seconds with new lyrics, you can set the parameters as follows:
 
 ```json
 {
   "action": "replace_section",
-  "lyric": "[Chorus]\n新年快乐 人人欢快歌\n祝福洒满每一片角落\n新年快乐 心中花火多\n愿望成真生活似金色波\n[Verse 2]\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
-  "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
-  "replace_section_start": 28.94100580270793,
-  "replace_section_end": 85.39410058027079,
-  "model": "chirp-v4",
-  "audio_id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
+  "audio_id": "18db7ed0-2b8a-41db-91c1-b0781dcca0d4",
+  "model": "chirp-v5-5",
   "custom": false,
-  "instrumental": false
+  "instrumental": false,
+  "lyric": "[Intro]\n锣鼓喧天 红灯高挂\n[Verse 1]\n爆竹声声辞旧岁\n春风暖暖入万家\n红包压岁笑开颜\n金蛇起舞贺新春\n[Chorus]\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n[Verse 2]\n饺子飘香年夜饭\n灯笼摇曳照团圆",
+  "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
+  "replace_section_start": 30.0,
+  "replace_section_end": 60.0
 }
 ```
 
-With other parameters unchanged, the returned result will be a song with the replaced section, which is the result of replacing a section of the originally generated song, as shown below:
+The returned result contains the newly generated replacement segment (two candidates), as shown below:
 
 ```json
 {
   "success": true,
-  "task_id": "7a37c35d-7081-413d-908d-ab2d3f8139bf",
-  "trace_id": "1ed92d6e-9a19-48f7-ab34-68c82c792303",
+  "task_id": "dd067075-a295-4160-8375-d5504327d55b",
+  "trace_id": "c34f589b-9195-4d0b-af78-9c890e77609c",
   "data": [
     {
-      "id": "2a1467dc-51a4-4872-9ccc-ccd96e4fbbb6",
-      "title": "新年快乐",
-      "image_url": "https://cdn2.suno.ai/image_dc1b5edc-fbae-44a3-8962-d596dbd2b0d7.jpeg",
-      "lyric": "[Chorus]\n新年快乐 人人欢快歌\n祝福洒满每一片角落\n新年快乐 心中花火多\n愿望成真生活似金色波\n[Verse 2]\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
-      "audio_url": "https://cdn1.suno.ai/2a1467dc-51a4-4872-9ccc-ccd96e4fbbb6.mp3",
+      "id": "364f9d8b-ca25-463b-9a5e-d0b7139e2d6a",
+      "title": "",
+      "image_url": "https://cdn2.suno.ai/image_364f9d8b-ca25-463b-9a5e-d0b7139e2d6a.jpeg",
+      "lyric": "[Intro]\n锣鼓喧天 红灯高挂\n[Verse 1]\n爆竹声声辞旧岁\n春风暖暖入万家\n红包压岁笑开颜\n金蛇起舞贺新春\n[Chorus]\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n[Verse 2]\n饺子飘香年夜饭\n灯笼摇曳照团圆",
+      "audio_url": "https://cdn1.suno.ai/364f9d8b-ca25-463b-9a5e-d0b7139e2d6a.mp3",
       "video_url": "",
-      "created_at": "2025-04-18T01:55:02.930Z",
-      "model": "chirp-v4",
+      "created_at": "2026-05-06T06:55:00.000Z",
+      "model": "chirp-v5-5",
       "state": "succeeded",
-      "style": "traditional influences, female vocals",
-      "duration": 202.52,
-      "concat_history": [
-        {
-          "id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
-          "type": "gen",
-          "source": "ios",
-          "infill_start_s": 28.94100580270793,
-          "infill_end_s": 85.39410058027079,
-          "infill_dur_s": 56.45309477756285,
-          "infill_context_start_s": 0,
-          "infill_context_end_s": 115.39410058027079,
-          "include_future_s": 2,
-          "include_history_s": 2,
-          "infill": true,
-          "infill_lyrics": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地"
-        },
-        {
-          "id": "dc1b5edc-fbae-44a3-8962-d596dbd2b0d7"
-        }
-      ]
+      "style": "",
+      "duration": 45.16
+    },
+    {
+      "id": "fae966ea-5f7f-4e80-9962-1c57963c7f8a",
+      "title": "",
+      "audio_url": "https://cdn1.suno.ai/fae966ea-5f7f-4e80-9962-1c57963c7f8a.mp3",
+      "model": "chirp-v5-5",
+      "state": "succeeded",
+      "duration": 33.8
     }
   ]
 }
 ```
-The generated result is similar to the previous text, thus completing the process of replacing segments of the originally generated song.
+
+Notice that the returned audio durations (45.16 s and 33.8 s) are much shorter than the original song (94.12 s) — these are the replacement segments themselves (with a small amount of surrounding context for smooth transitions), **not** the full stitched song. Choose the preferred candidate and proceed to the next step.
+
+### Step 2: Stitch the replacement segment back into the original song
+
+Using the selected segment (e.g. `364f9d8b-ca25-463b-9a5e-d0b7139e2d6a`), initiate a `concat` task as described in the [Music Concatenation](#music-concatenation) section:
+
+```json
+{
+  "action": "concat",
+  "audio_id": "364f9d8b-ca25-463b-9a5e-d0b7139e2d6a",
+  "model": "chirp-v5-5"
+}
+```
+
+The returned result is the fully stitched complete song, as shown below:
+
+```json
+{
+  "success": true,
+  "task_id": "5dbd4a78-0197-4ef3-9c16-8bddaf4f0c94",
+  "trace_id": "580bd1da-2ad3-4d75-be1f-6c14bd4b489d",
+  "data": [
+    {
+      "id": "365a9640-0452-4567-80f0-4f5a2a17ddd5",
+      "title": "新年快乐",
+      "image_url": "https://cdn2.suno.ai/image_364f9d8b-ca25-463b-9a5e-d0b7139e2d6a.jpeg",
+      "lyric": "[Intro]\n锣鼓喧天 红灯高挂\n[Verse 1]\n爆竹声声辞旧岁\n春风暖暖入万家\n红包压岁笑开颜\n金蛇起舞贺新春\n[Chorus]\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地\n[Verse 2]\n饺子飘香年夜饭\n灯笼摇曳照团圆",
+      "audio_url": "https://cdn1.suno.ai/365a9640-0452-4567-80f0-4f5a2a17ddd5.mp3",
+      "video_url": "",
+      "created_at": "2026-05-06T06:56:46.057Z",
+      "model": "chirp-v5-5",
+      "state": "succeeded",
+      "style": "traditional Chinese new year, festive, female vocals, upbeat",
+      "duration": 105.28
+    }
+  ]
+}
+```
+
+At this point `duration` has been restored to the full song length (105.28 s, approximately equal to the original), and `audio_url` points to the complete song with the replacement applied. This completes the generate → replace section → concat secondary creation workflow.
 
 ## Vocal and Instrument Separation
 
