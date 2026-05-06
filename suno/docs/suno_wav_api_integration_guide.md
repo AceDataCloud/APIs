@@ -40,7 +40,7 @@ The result is as follows:
 }
 ```
 
-As we can see, the `file_url` field in `data` is the wav format file of the music obtained, which is a publicly accessible CDN address.
+As we can see, the `file_url` field in `data` is the WAV format file of the music obtained, which is a publicly accessible CDN address.
 
 > **About WAV link persistence and validity**
 >
