@@ -1,10 +1,13 @@
-# Suno Upload Reference Audio API Integration Instructions
+---
+title: "Suno 上传参考音频 API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
+SUNO 允许我们上传参考音频进行二次创作，本文档讲解相关 API 的对接方法。
 
-This API has only one input parameter, which is `audio_url`, a publicly accessible CDN address that supports the mp3 suffix.
+该 API 只有一个输入参数，就是 `audio_url`，它是一个可以公开访问的 CDN 地址，支持 mp3 后缀。
 
-Here, the `audio_url` we input is `https://cdn.acedata.cloud/suno_demo.mp3`, which is a publicly accessible CDN address.
+这里我们输入的 `audio_url` 是 `https://cdn.acedata.cloud/suno_demo.mp3`，是一个可以公开访问的 CDN 地址。
 
 ```bash
 curl -X POST 'https://api.acedata.cloud/suno/upload' \
@@ -16,7 +19,7 @@ curl -X POST 'https://api.acedata.cloud/suno/upload' \
 }'
 ```
 
-The result is as follows:
+结果如下：
 
 ```
 {
@@ -35,6 +38,6 @@ The result is as follows:
 }
 ```
 
-As can be seen, the `audio_id` field in `data` is the song ID after uploading.
+可以看到，`data` 的 `audio_id` 字段就是上传后的歌曲 ID。
 
-With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+有了歌曲 ID 之后，我们便可以使用 [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) 来进行自定义歌曲生成了，比如说 `action` 传入 `upload_extend`，同时 `audio_id` 传入返回的歌曲 ID，就可以根据参考音频生成新的歌曲了。

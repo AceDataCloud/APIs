@@ -1,10 +1,14 @@
-# Suno Vox API Integration Instructions
+---
+title: "Suno Vox API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-SUNO allows us to create a new version of Persona-v2-vox: singer style, which differs from the old version and requires obtaining the `vox_audio_id` first. This document explains the integration method for creating the new version of Persona-v2-vox.
+SUNO 允许我们创建新版的Persona-v2-vox 版:歌手风格，与旧版本不同的需要先获取`vox_audio_id`。本文档讲解创建新版Persona-v2-vox的 对接方法。
 
-First, we need to use the API to obtain the `vox_audio_id` parameter value. This API can accept multiple input parameters, such as `audio_id`, `vocal_start`, and `vocal_end`, which refer to the song ID and the selected time range.
 
-Here, the `audio_id` we input is `42599b24-fb14-4cd3-a444-e15ffde3661b`.
+首选需要该 API获取`vox_audio_id`参数值， 该API可以输入多个个输入参数，比如 `audio_id`、`vocal_start`、`vocal_end`，它是参考歌曲ID以及选定的时间范围。
+
+这里我们输入的 `audio_id` 是 `42599b24-fb14-4cd3-a444-e15ffde3661b`。
 
 ```python
 import requests
@@ -27,7 +31,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-The result is as follows:
+结果如下：
 
 ```json
 {
@@ -52,7 +56,7 @@ The result is as follows:
               73,
               -2517,
               2887,
-
+              
               294
             ],
             [
@@ -63,7 +67,7 @@ The result is as follows:
           ],
           "mip_map_level": 11
         },
-
+       
         {
           "data": [
             [
@@ -99,7 +103,8 @@ The result is as follows:
 }
 ```
 
-As we can see, the `id` field in `data` is the `vox_audio_id` we want, and then we go to the [Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) to create the new version of Persona-v2-vox: singer style, with the specific input as shown below:
+
+可以看到，`data` 的 `id` 字段就是我们想要的`vox_audio_id`，然后我们去[Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583)创建新版的Persona-v2-vox:歌手风格，具体输入如下所示：
 
 ```python
 import requests
@@ -124,7 +129,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-After the call, we get the following result:
+调用后得到如下结果：
 
 ```json
 {
@@ -136,4 +141,4 @@ After the call, we get the following result:
 }
 ```
 
-Then we can create songs using the new version of Persona-v2-vox: singer style based on the `persona_id` value above, and the specific creation method is consistent with the [Suno Song Generation API Integration Instructions](https://platform.acedata.cloud/documents/suno-audios-integration#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AD%8C%E6%89%8B%E9%A3%8E%E6%A0%BC%E7%94%9F%E6%88%90%E5%8A%9F%E8%83%BD). Finally, we can use the Suno Vox API to create songs in the new version of Persona-v2-vox: singer style.
+然后我们可以根据上面的`persona_id`值进行新版的Persona-v2-vox:歌手风格进行创作，具体的创作方法和[Suno 歌曲生成 API 对接说明](https://platform.acedata.cloud/documents/suno-audios-integration#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%AD%8C%E6%89%8B%E9%A3%8E%E6%A0%BC%E7%94%9F%E6%88%90%E5%8A%9F%E8%83%BD)一致，最后我们就可以通过Suno Vox API来实现新版的Persona-v2-vox:歌手风格进行创作歌曲。

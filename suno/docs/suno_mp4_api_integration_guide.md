@@ -1,10 +1,13 @@
-# Suno MP4 API Integration Instructions
+---
+title: "Suno MP4 API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-SUNO allows us to obtain the official generated MP4 link for the generated music. This document explains the integration method for the related API.
+SUNO 允许我们对生成的音乐获取官方生成的MP4链接，本文档讲解相关 API 的对接方法。
 
-This API has only one input parameter, which is `audio_id`, the official generated song ID.
+该 API 只有一个输入参数，就是 `audio_id`，它是官方生成的歌曲ID。
 
-The `audio_id` we input here is `275113ab-fe5c-4bca-a33c-0cca96b39fa6`.
+这里我们输入的 `audio_id` 是 `275113ab-fe5c-4bca-a33c-0cca96b39fa6`。
 
 ```python
 import requests
@@ -25,7 +28,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-The result is as follows:
+结果如下：
 
 ```
 {
@@ -38,4 +41,4 @@ The result is as follows:
 }
 ```
 
-As can be seen, the `video_url` field in `data` is the MP4 file link corresponding to the song.
+可以看到，`data` 的 `video_url` 字段是就是该歌曲所对应的MP4文件链接。

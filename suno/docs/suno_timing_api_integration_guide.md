@@ -1,10 +1,13 @@
-# Suno Timing API Integration Guide
+---
+title: "Suno Timing API 对接说明"
+description: "Suno Music Generation 集成指南 - Ace Data Cloud"
+---
 
-SUNO allows us to perform secondary creation on generated music, obtaining the lyrics and audio timeline. This document explains how to integrate with the related API.
+SUNO 允许我们对生成的音乐进行二次创作，获取音乐的歌词、音频时间线，本文档讲解相关 API 的对接方法。
 
-This API has only one input parameter, which is `audio_id`, the official generated song ID.
+该 API 只有一个输入参数，就是 `audio_id`，它是官方生成的歌曲ID。
 
-Here, the `audio_id` we input is `ec13e502-d043-4eb2-92ee-e900c6da69d1`.
+这里我们输入的 `audio_id` 是 `ec13e502-d043-4eb2-92ee-e900c6da69d1`。
 
 ```python
 import requests
@@ -25,7 +28,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Excerpt of the result:
+结果节选如下：
 
 ```
 {
@@ -78,12 +81,12 @@ Excerpt of the result:
 }
 ```
 
-### Explanation of the aligned_words Field
+### aligned_words 字段说明
 
-As can be seen, `data.aligned_words` is an array of objects, each representing a word or phrase with timing information.
+可以看到，`data.aligned_words` 是对象数组，每个对象代表一个带有时间信息的词或短语。
 
-- `word`: The actual word or phrase in the lyrics
-- `success`: Boolean indicating whether the alignment of this word was successful
-- `start_s`: Start time of the word
-- `end_s`: End time of the word
-- `p_align`: Probability or confidence score of the alignment, ranging from 0 to 1
+- `word`: 歌词中的实际词或短语
+- `success`: 布尔值，表示此词的对齐是否成功
+- `start_s`: 词的开始时间
+- `end_s`: 词的结束时间
+- `p_align`: 对齐的概率或置信度分数，范围为 0 到 1
