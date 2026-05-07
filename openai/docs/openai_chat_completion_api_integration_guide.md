@@ -1,5 +1,3 @@
-# OpenAI Chat Completion API Application and Usage
-
 OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
 This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
@@ -18,7 +16,7 @@ When applying for the first time, there will be a free quota available for you t
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" className="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
@@ -31,7 +29,7 @@ Common optional parameters:
 - `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 
-<p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" className="m-auto" /></p>
 
 After the call, we find that the return result is as follows:
 
@@ -40,7 +38,7 @@ After the call, we find that the return result is as follows:
   "id": "chatcmpl-Cmd6uwSxN75F4PAdQSFEO8f2QPs4E",
   "object": "chat.completion",
   "created": 1765706120,
-  "model": "gpt-5.4",
+  "model": "gpt-5.2",
   "choices": [
     {
       "index": 0,
@@ -82,7 +80,7 @@ The return result contains multiple fields, described as follows:
 
 Among them, `choices` contains the response information from ChatGPT, and within it, the `choices` is ChatGPT's response, as shown in the figure.
 
-<p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" className="m-auto" /></p>
 
 As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
 
@@ -94,14 +92,13 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" className="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/openai/chat/completions"
 
@@ -210,11 +207,10 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 If you want to integrate multi-turn dialogue functionality, you need to upload multiple prompts in the `messages` field. The specific examples of multiple prompts are shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/oz4mar.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/oz4mar.png" width="400" className="m-auto" /></p>
 
 Python sample call code:
 ```python
-import requests
 
 url = "https://api.acedata.cloud/openai/chat/completions"
 
@@ -297,7 +293,6 @@ pip3 install openai
 Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
-import os
 from openai import OpenAI
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
@@ -319,11 +314,11 @@ print(response.text)
 
 The gpt-3.5-browsing and gpt-4-browsing models are different from other models; they can perform online searches based on the question words and return the results of the online search with appropriate adjustments. This article will demonstrate the online functionality through a specific example, and you can fill in the corresponding content on the OpenAI Chat Completion API interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/249829.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/249829.png" width="400" className="m-auto" /></p>
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
-<p><img src="https://cdn.acedata.cloud/s8gxoo.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/s8gxoo.png" width="400" className="m-auto" /></p>
 
 After the call, we find that the returned result is as follows:
 
@@ -393,7 +388,6 @@ curl -X POST 'https://api.acedata.cloud/openai/chat/completions' \
 
 - Python script method
 ```python
-import requests
 
 url = "https://api.acedata.cloud/openai/chat/completions"
 
@@ -517,11 +511,11 @@ Example result:
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
+- `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
+- `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
+- `429 too_many_requests`：请求过多，您已超出速率限制。
+- `500 api_error`：内部服务器错误，服务器出现问题。
 
 ### Error Response Example
 
@@ -530,7 +524,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "fetch failed"
+    "message": "获取失败"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }

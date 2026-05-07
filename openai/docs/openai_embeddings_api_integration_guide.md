@@ -1,5 +1,3 @@
-# OpenAI Embeddings API Application and Usage
-
 OpenAI word vector service, used to generate word vector results that represent the input text.
 
 This document mainly introduces the usage process of the OpenAI Embeddings API, which allows us to create embedding vectors that represent the input text.
@@ -18,7 +16,7 @@ When applying for the first time, there will be a free quota provided, allowing 
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/4qtbvr.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/4qtbvr.png" width="500" className="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the OpenAI official website. Here we mainly have 3 types of models; details can be found in the models we provide. The last parameter is `input`, which is the text we need to convert into a word vector.
 
@@ -29,12 +27,11 @@ Optional parameters:
 - `dimensions`: Crop vector dimensions; the default output is the full dimension.
 - `encoding_format`: Return format, optional `float` or `base64`.
 
-<p><img src="https://cdn.acedata.cloud/gqulm9.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/gqulm9.png" width="500" className="m-auto" /></p>
 
 Python sample call code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/openai/embeddings"
 

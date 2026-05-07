@@ -1,5 +1,3 @@
-# Claude Messages Count Tokens API Application and Usage
-
 The Claude Messages Count Tokens API can calculate the input token count of a message without actually creating the message, including the token count of tools, images, and documents. This is very useful when estimating costs or checking if the input exceeds the model's context limits.
 
 This document mainly describes the usage process of the Claude Messages Count Tokens API.
@@ -46,7 +44,6 @@ curl -X POST 'https://api.acedata.cloud/v1/messages/count_tokens' \
 ### Python Example
 
 ```python
-import httpx
 
 url = "https://api.acedata.cloud/v1/messages/count_tokens"
 headers = {

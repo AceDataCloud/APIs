@@ -1,5 +1,3 @@
-# Midjourney Describe API Integration and Usage
-
 The main function of the Midjourney Describe API is to obtain descriptions of images by uploading them. To use this API, you only need to provide the image file URL, and the API will return a detailed description of the image. There is no need for complicated parameter settings to obtain high-quality image descriptions.
 
 It supports various image formats: whether it's JPEG, PNG, or GIF, all mainstream image formats can be easily recognized and processed.
@@ -43,7 +41,7 @@ Set it as shown in the image below:
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/8edj9z.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/8edj9z.png" width="400" className="m-auto" /></p>
 
 Some code examples are as follows:
 
@@ -62,7 +60,6 @@ curl -X POST 'https://api.acedata.cloud/midjourney/describe' \
 #### Python
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/midjourney/describe"
 

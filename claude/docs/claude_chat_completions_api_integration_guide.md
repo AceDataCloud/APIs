@@ -1,5 +1,3 @@
-# Claude Chat Completion API Application and Usage
-
 Anthropic Claude is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. Claude stands out in the industry with its excellent language understanding and generation capabilities, and today, Claude has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and code programming, Claude can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
 This document mainly introduces the usage process of the Claude Chat Completion API, allowing us to easily utilize the official Claude dialogue functionality.
@@ -18,7 +16,7 @@ When applying for the first time, there will be a free quota provided, allowing 
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/ejeq57.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ejeq57.png" width="400" className="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the Claude official website. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
@@ -31,7 +29,7 @@ Common optional parameters:
 - `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 
-<p><img src="https://cdn.acedata.cloud/v6lbjo.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/v6lbjo.png" width="400" className="m-auto" /></p>
 
 After the call, we find that the return result is as follows:
 
@@ -84,7 +82,7 @@ The return result contains multiple fields, described as follows:
 
 Among them, `choices` contains Claude's response information, and the `choices` inside it provides the specific information of Claude's answer, as shown in the figure.
 
-<p><img src="https://cdn.acedata.cloud/2ulyhw.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/2ulyhw.png" width="400" className="m-auto" /></p>
 
 As can be seen, the `content` field inside `choices` contains the specific content of Claude's reply.
 
@@ -96,14 +94,13 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/ueugot.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ueugot.png" width="400" className="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/chat/completions"
 
@@ -199,12 +196,11 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 If you want to integrate multi-turn dialogue functionality, you need to upload multiple question words in the `messages` field. The specific examples of multiple question words are shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/odwx82.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/odwx82.png" width="400" className="m-auto" /></p>
 
 Python sample call code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/chat/completions"
 
@@ -270,11 +266,11 @@ It can be seen that the information contained in `choices` is consistent with th
 
 The claude-opus-4-20250514-thinking and claude-sonnet-4-20250514-thinking models are different from other models in that they can perform deep thinking based on the question words to provide answers, and return the results of the thinking process to you. This article will demonstrate the deep thinking functionality through a specific example. Next, you can fill in the corresponding content on the Claude Chat Completion API interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/d1a4wq.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/d1a4wq.png" width="400" className="m-auto" /></p>
 
 At the same time, you can notice that there is corresponding code generation on the right side. You can copy the code to run directly or click the "Try" button for testing.
 
-<p><img src="https://cdn.acedata.cloud/21nmzq.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/21nmzq.png" width="400" className="m-auto" /></p>
 
 After the call, we find that the returned result is as follows:
 
@@ -350,7 +346,6 @@ curl -X POST 'https://api.acedata.cloud/v1/chat/completions' \
 - Python Script Method
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/chat/completions"
 
@@ -425,7 +420,7 @@ Then you can obtain the following result, where the field information in the res
   }
 }
 ```
-The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-sonnet-4-20250514 model can be easily utilized through the above two methods.
+The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-3-7-sonnet-20250219 model can be easily utilized through the above two methods.
 
 ## Error Handling
 

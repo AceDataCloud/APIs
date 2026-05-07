@@ -1,5 +1,3 @@
-# Nano Banana Images API Integration Instructions
-
 This document introduces the integration and usage of the Nano Banana Images API. This interface supports two capabilities: **image generation (generate)** and **image editing (edit)**.
 
 ## Application Process
@@ -45,7 +43,6 @@ curl -X POST 'https://api.acedata.cloud/nano-banana/images' \
 ### Request Example (Python)
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/nano-banana/images"
 headers = {
@@ -124,7 +121,6 @@ curl -X POST 'https://api.acedata.cloud/nano-banana/images' \
 ### Request Example (Python)
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/nano-banana/images"
 headers = {

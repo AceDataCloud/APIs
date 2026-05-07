@@ -1,5 +1,3 @@
-# Midjourney Imagine API Application and Usage
-
 Midjourney is a very powerful AI drawing tool that can generate exquisite images in just one or two minutes by simply inputting keywords. Midjourney stands out in the industry with its outstanding drawing capabilities, and it has been widely applied across various industries and fields, with its influence becoming increasingly significant.
 
 This document mainly introduces the usage process of the Imagine operation in the Midjourney API, allowing us to easily generate the required images through text.
@@ -34,7 +32,7 @@ Main request parameters:
 - `action`/`image_id`: Required to specify when continuing operations on historical images.
 - `callback_url`: Asynchronous callback address.
 
-<p><img src="https://cdn.acedata.cloud/zv3db5.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/zv3db5.png" width="500" className="m-auto" /></p>
 
 After the call, we find the returned result as follows:
 
@@ -301,8 +299,6 @@ First, we need to obtain the mask for that area, which is derived from a graysca
 
 Example code for obtaining the mask in Python:
 ```python
-import sys
-import os
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QPainter, QMouseEvent, QPen, QColor, QImage
 from PySide6.QtCore import Qt, QPoint
@@ -430,8 +426,6 @@ Finally, we also need to convert the mask image to a Base64 encoded format. Belo
 Python Base64 conversion example code:
 
 ```python
-import cv2
-import base64
 
 image_path = 'temp.jpg'
 gray_image = cv2.imread(image_path)
@@ -514,7 +508,6 @@ curl -X POST 'https://api.acedata.cloud/midjourney/imagine' \
 #### Python
 
 ```python
-import requests 
 
 url = "https://api.acedata.cloud/midjourney/imagine" 
 
@@ -619,7 +612,6 @@ If you want to return responses in a streaming manner, you can change the `accep
 Python sample code:
 
 ```python
-import requests
 
 url = 'https://api.acedata.cloud/midjourney/imagine'
 headers = {

@@ -1,5 +1,3 @@
-# DeepSeek Chat Completion API Application and Usage
-
 DeepSeek is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. DeepSeek-V3 stands out in the industry with its excellent language understanding and generation capabilities, and today, DeepSeek-V3 has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, DeepSeek-V3 can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
 This document mainly introduces the usage process of the DeepSeek Chat Completion API, allowing us to easily utilize the official DeepSeek dialogue functionality.
@@ -18,7 +16,7 @@ When applying for the first time, there will be a free quota provided, allowing 
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/m9kxkz.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/m9kxkz.png" width="400" className="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the DeepSeek official model we choose to use. Here we mainly have 4 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
@@ -31,7 +29,7 @@ Common optional parameters:
 - `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 
-<p><img src="https://cdn.acedata.cloud/93k4xi.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/93k4xi.png" width="400" className="m-auto" /></p>
 
 After the call, we find the return result as follows:
 
@@ -72,7 +70,7 @@ The return result contains multiple fields, described as follows:
 
 Among them, `choices` contains the response information from DeepSeek, and the `choices` inside it is the response information from DeepSeek, as shown in the figure.
 
-<p><img src="https://cdn.acedata.cloud/0pd4q5.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/0pd4q5.png" width="400" className="m-auto" /></p>
 
 As can be seen, the `content` field inside `choices` contains the specific content of DeepSeek's reply.
 
@@ -84,14 +82,13 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/dsoiqw.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/dsoiqw.png" width="400" className="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/deepseek/chat/completions"
 
@@ -110,6 +107,41 @@ payload = {
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
+
+The output effect is as follows:
+```json
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": "Hello", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": "!", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": "", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " 😊", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " How", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " can", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " I", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " assist", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " you", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": " today", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": "?", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "o7X27b1-2kFHot-97098d957dd1d39a-PDX", "object": "chat.completion.chunk", "created": 1755437709, "model": "deepseek-v3", "system_fingerprint": null, "choices": [{"delta": {"content": "", "role": "assistant"}, "logprobs": null, "finish_reason": "stop", "index": 0}], "usage": {"prompt_tokens": 4, "completion_tokens": 12, "total_tokens": 16, "prompt_tokens_details": {"cached_tokens": 0, "text_tokens": 0, "audio_tokens": 0, "image_tokens": 0}, "completion_tokens_details": {"text_tokens": 0, "audio_tokens": 0, "reasoning_tokens": 0}, "input_tokens": 0, "output_tokens": 0, "input_tokens_details": null}}
+
+data: [DONE]
+```
+
+You can see that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, and you can integrate it into your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+
+- `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
+- `model`, the DeepSeek model selected from the official website.
+- `choices`, the response information provided by DeepSeek for the question words.
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
@@ -161,13 +193,11 @@ Other languages can be rewritten accordingly; the principle is the same.
 ## Multi-turn Dialogue
 
 If you want to integrate multi-turn dialogue functionality, you need to upload multiple question words in the `messages` field. The specific examples of multiple question words are shown in the image below:
-
-<p><img src="https://cdn.acedata.cloud/7yyhl4.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/7yyhl4.png" width="400" className="m-auto" /></p>
 
 Python sample call code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/deepseek/chat/completions"
 
@@ -199,7 +229,7 @@ By uploading multiple questions, you can easily achieve multi-turn conversations
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "You just said: \"Hello\""
+        "content": "You just said:  \n\n**\"Hello\"**  \n\nAnd I responded with:  \n\n**\"Hi! How can I assist you today?\"**  \n\nThen you followed up with:  \n\n**\"What I say just now?\"**  \n\nLet me know how I can help! 😊"
       },
       "finish_reason": "stop",
       "flag": 0
@@ -227,7 +257,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ### Error Response Example
 
-```json
+```
 {
   "success": false,
   "error": {

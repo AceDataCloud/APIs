@@ -1,5 +1,3 @@
-# Midjourney Translate API Integration and Usage
-
 The main function of the Midjourney Translate API is to obtain English descriptive terms by inputting Chinese descriptive terms content.
 
 This document will provide detailed instructions on integrating the Midjourney Translate API, helping you easily integrate and fully utilize the powerful features of this API. With the Midjourney Translate API, you can easily convert Chinese descriptive terms content into English descriptive terms content.
@@ -39,7 +37,7 @@ Set it as shown in the image below:
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/oj1cck.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/oj1cck.png" width="500" className="m-auto" /></p>
 
 Some code examples are as follows:
 
@@ -58,7 +56,6 @@ curl -X POST 'https://api.acedata.cloud/midjourney/translate' \
 #### Python
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/midjourney/translate"
 

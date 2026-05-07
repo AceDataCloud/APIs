@@ -1,5 +1,3 @@
-# Suno Upload Reference Audio API Integration Instructions
-
 SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
 
 This API has only one input parameter, which is `audio_url`, a publicly accessible CDN address that supports the mp3 suffix.

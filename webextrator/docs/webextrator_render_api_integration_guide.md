@@ -1,33 +1,23 @@
-# WebExtrator Render API Integration Guide
-
 `POST https://api.acedata.cloud/webextrator/render`
-
-This document introduces the WebExtrator Render API. This API provides headless browser rendering for any URL, returning the fully rendered HTML, markdown, plain text, screenshot, and extracted links.
-
-## Application Process
-
-To use the WebExtrator Render API, apply for the corresponding service on the WebExtrator service page. After entering the page, click the "Acquire" button to obtain the credentials needed for the request.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Authentication
 
-Add `Authorization: Bearer <your API Key>` to the request header.
+Add `Authorization: Bearer <your API Key>` in the request header.
 
 ## Request Parameters
 
 | Field | Type | Required | Default | Description |
-|------|------|:----:|------|------|
+|-------|------|:--------:|---------|-------------|
 | `url` | string | ✅ | - | The URL of the page to render |
 | `user_agent` | string | ❌ | System default | Custom User-Agent |
-| `timeout` | number | ❌ | 30000 | Single render timeout in milliseconds, max 120000 |
-| `wait_until` | string | ❌ | `load` | Load completion event: `load` / `domcontentloaded` / `networkidle` |
-| `delay` | number | ❌ | 0 | Additional wait time after load completes (milliseconds), max 30000 |
-| `wait_for_selector` | string | ❌ | - | Wait until this CSS selector appears |
-| `block_resources` | string[] | ❌ | - | Block resource types: `image` / `media` / `font` / `stylesheet`, etc. |
+| `timeout` | number | ❌ | 30000 | Timeout for a single render (milliseconds), max 120000 |
+| `wait_until` | string | ❌ | `load` | Load completion event: `load`/`domcontentloaded`/`networkidle` |
+| `delay` | number | ❌ | 0 | Additional wait time after load completion (milliseconds), max 30000 |
+| `wait_for_selector` | string | ❌ | - | Wait for the specified CSS selector to appear |
+| `block_resources` | string[] | ❌ | - | Block resource types: `image`/`media`/`font`/`stylesheet`, etc. |
 | `headers` | object | ❌ | - | Additional HTTP headers |
-| `cookies` | array | ❌ | - | Cookie list; each element has the form `{name, value, domain, path}` |
-| `callback_url` | string | ❌ | - | Async mode callback URL; if provided, the task ID is returned immediately and the result is delivered via POST callback |
+| `cookies` | array | ❌ | - | List of cookies, elements like `{name, value, domain, path}` |
+| `callback_url` | string | ❌ | - | Callback URL for async mode; if provided, returns task ID immediately, results via POST callback |
 
 ## Synchronous Response (without callback_url)
 
@@ -52,7 +42,7 @@ Add `Authorization: Bearer <your API Key>` to the request header.
 }
 ```
 
-## Async Mode (with callback_url)
+## Asynchronous Mode (with callback_url)
 
 Initial response:
 
@@ -65,7 +55,7 @@ Initial response:
 }
 ```
 
-The response header will include `x-usage-exempt: true`, indicating that this synchronous handshake is not billed. Once the task actually completes, the platform will send a POST to the `callback_url` with the same `data` field as the synchronous response, plus the same `task_id` / `trace_id` / `started_at` / `finished_at` / `elapsed` fields.
+The response header will include `x-usage-exempt: true`, indicating this synchronous handshake is free of charge. Once the task is completed, the platform will send a POST request to the `callback_url`. The request body contains the `data` field from the synchronous response plus the same `task_id` / `trace_id` / `started_at` / `finished_at` / `elapsed` fields.
 
 ## Error Response
 
@@ -96,30 +86,3 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
     "block_resources": ["image", "media", "font"]
   }'
 ```
-
-Python example:
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/webextrator/render"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "url": "https://example.com",
-    "wait_until": "networkidle",
-    "block_resources": ["image", "media", "font"]
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-## Conclusion
-
-Through this document, you have learned how to use the WebExtrator Render API to render any web page and receive the fully rendered HTML, markdown, text, screenshot, and links. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

@@ -1,5 +1,3 @@
-# Suno Vox API Integration Instructions
-
 SUNO allows us to create a new version of Persona-v2-vox: singer style, which differs from the old version and requires obtaining the `vox_audio_id` first. This document explains the integration method for creating the new version of Persona-v2-vox.
 
 First, we need to use the API to obtain the `vox_audio_id` parameter value. This API can accept multiple input parameters, such as `audio_id`, `vocal_start`, and `vocal_end`, which refer to the song ID and the selected time range.
@@ -7,7 +5,6 @@ First, we need to use the API to obtain the `vox_audio_id` parameter value. This
 Here, the `audio_id` we input is `42599b24-fb14-4cd3-a444-e15ffde3661b`.
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/suno/vox"
 
@@ -102,7 +99,6 @@ The result is as follows:
 As we can see, the `id` field in `data` is the `vox_audio_id` we want, and then we go to the [Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) to create the new version of Persona-v2-vox: singer style, with the specific input as shown below:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/suno/persona"
 

@@ -1,5 +1,3 @@
-# Claude Messages API Application and Usage
-
 Anthropic Claude is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. The Claude Messages API is the official native API format from Anthropic, which differs from the OpenAI compatible format (Chat Completion) by adopting Anthropic's own request and response structure, allowing better utilization of Claude's unique capabilities, such as multimodal content input, tool invocation, and advanced features like Extended Thinking.
 
 This document mainly introduces the usage process of the Claude Messages API, allowing us to use the native interface consistent with Anthropic's official standards to invoke Claude's dialogue capabilities.
@@ -55,7 +53,6 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -118,7 +115,6 @@ The Claude Messages API supports setting a system prompt through the `system` fi
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -150,7 +146,6 @@ This interface also supports streaming responses; setting the `stream` parameter
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -249,7 +244,6 @@ If you want to integrate multi-turn conversation functionality, you need to alte
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -305,7 +299,6 @@ Claude supports the Extended Thinking feature, which allows the model to perform
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -375,8 +368,6 @@ Claude supports multimodal input, allowing it to process both text and images si
 ### Using Base64 Encoded Images
 
 ```python
-import base64
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -420,7 +411,6 @@ print(response.json())
 
 ### Using URL Images
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 
@@ -520,7 +510,6 @@ The Claude Messages API natively supports tool invocation functionality, allowin
 ### Python Example
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/v1/messages"
 

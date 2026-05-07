@@ -1,5 +1,3 @@
-# Suno Timing API Integration Guide
-
 SUNO allows us to perform secondary creation on generated music, obtaining the lyrics and audio timeline. This document explains how to integrate with the related API.
 
 This API has only one input parameter, which is `audio_id`, the official generated song ID.
@@ -7,7 +5,6 @@ This API has only one input parameter, which is `audio_id`, the official generat
 Here, the `audio_id` we input is `ec13e502-d043-4eb2-92ee-e900c6da69d1`.
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/suno/timing"
 

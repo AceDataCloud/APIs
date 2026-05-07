@@ -1,5 +1,3 @@
-# Sora Videos Generation API Integration Guide
-
 This document introduces the integration guide for the Sora Videos Generation API. Through this API, you can input custom parameters to generate official Sora videos. This API supports two version modes:
 
 - **Version 1 (Classic Mode)**: Supports parameters such as `duration` (10/15/25 seconds), `orientation` (landscape/portrait), `size` (small/large resolution), reference images `image_urls`, and character **###** `character_url`.
@@ -19,7 +17,7 @@ A free quota is provided upon the first application, allowing free use of the AP
 
 First, understand the basic usage of Version 1, which involves inputting the prompt `prompt`, an array of reference image URLs `image_urls`, and the model `model` to get the processed result. The details are as follows:
 
-<p><img src="https://cdn.acedata.cloud/h8dyz3.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/h8dyz3.png" width="500" className="m-auto" /></p>
 
 Here, we set the Request Headers, including:
 
@@ -41,7 +39,7 @@ The Request Body includes:
 
 After selection, the corresponding code is generated on the right side, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/g04qjz.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/g04qjz.png" width="500" className="m-auto" /></p>
 
 Click the "Try" button to test. As shown above, we get the following result:
 
@@ -96,16 +94,15 @@ To perform an image-to-video task, the parameter `image_urls` must be provided w
 
 Example input:
 
-<p><img src="https://cdn.acedata.cloud/ch7x3t.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/ch7x3t.png" width="500" className="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/z1ud8l.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/z1ud8l.png" width="500" className="m-auto" /></p>
 
 Corresponding code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/sora/videos"
 
@@ -155,16 +152,15 @@ To perform a character-generated video task, the parameter `character_url` must 
 
 Example input:
 
-<p><img src="https://cdn.acedata.cloud/2nhdr2.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/2nhdr2.png" width="500" className="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/xp8scl.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/xp8scl.png" width="500" className="m-auto" /></p>
 
 Corresponding code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/sora/videos"
 
@@ -243,7 +239,6 @@ curl -X POST 'https://api.acedata.cloud/sora/videos' \
 Corresponding Python code:
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/sora/videos"
 
@@ -309,7 +304,6 @@ The return result format is the same as Version 1:
 In Version 2.0 mode, you can pass reference images through the `image_urls` parameter to guide video generation (only the first image is used):
 
 ```python
-import requests
 
 url = "https://api.acedata.cloud/sora/videos"
 
@@ -364,7 +358,7 @@ Copy this URL and use it as the Webhook. The sample here is `https://webhook.sit
 
 Next, set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/v1m05g.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/v1m05g.png" width="500" className="m-auto" /></p>
 
 Click run, and you will immediately get a result as follows:
 

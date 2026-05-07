@@ -1,5 +1,3 @@
-# OpenAI Chat Completion 4o Image API Application and Usage
-
 OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, ChatGPT has been widely applied in various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
 This document mainly introduces the usage process of the OpenAI Chat Completion 4o Image API, which allows us to easily utilize the official OpenAI ChatGPT's multimodal dialogue capabilities.
@@ -18,7 +16,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 ### Generate Images Based on Reference Images
 
-Below is an example of generating a custom style image based on a reference image. First, let's look at the input image, as shown below:
+Below is an example of generating a custom style image based on a reference image. First, let’s look at the input image, as shown below:
 
 ![](https://cdn.acedata.cloud/qzx2z1.png)
 
@@ -76,7 +74,7 @@ Sample result:
 
 In which the `choices` inside the `message` is the complete dialogue result, and the image result is also included in the dialogue result. It can be seen that the generated image is indeed in anime style, as shown in the following image:
 
-<p><img src="https://cdn.acedata.cloud/qmr391.jpg" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/qmr391.jpg" width="400" className="m-auto" /></p>
 
 ### Pure Text Image Generation
 
@@ -91,7 +89,13 @@ We can generate an image through a prompt and return it to us in a conversationa
       "content": [
         {
           "type": "text",
-          "text": "Create an image of a sunset in a futuristic city"
+          "text": "Generate an anime-style image with a hat"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://cdn.acedata.cloud/qzx2z1.png"
+          }
         }
       ]
     }
@@ -128,16 +132,15 @@ Sample result:
 
 It can be seen that the result meets the prompt, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/q502uk.jpg" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/q502uk.jpg" width="400" className="m-auto" /></p>
 
 ### Generate One Image from Multiple Images
 
 We can also use multiple reference images to generate one image. For example, using an image of a handsome man and a coffee image, we can generate an image of a handsome man drinking coffee. Below are the specific reference images:
 
-<p><img src="https://cdn.acedata.cloud/pqquv3.jpg" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/pqquv3.jpg" width="400" className="m-auto" /></p>
 
-<p><img src="https://cdn.acedata.cloud/h8j2i0.jpg" width="400" class="m-auto"></p>
-
+<p><img src="https://cdn.acedata.cloud/h8j2i0.jpg" width="400" className="m-auto" /></p>
 Below we take `generate a boy holding a coffee and about to drink it` as an example, here are the specific examples:
 
 ```json
@@ -149,7 +152,7 @@ Below we take `generate a boy holding a coffee and about to drink it` as an exam
       "content": [
         {
           "type": "text",
-          "text": "generate a boy holding a coffee and about to drink it"
+          "text": "生成男生举着咖啡，并且马上要喝的样子"
         },
         {
           "type": "image_url",
@@ -179,7 +182,7 @@ Sample result:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "> ❇️ Keywords: https://file.onechats.ai/tem/b5e2049e82ef071a804d6769e580b702.png https://file.onechats.ai/tem/78e9aa8a0dbd529f3904a6629329ebbe.png generate a boy holding a coffee and about to drink it\n\n> ✨ Sora is drawing the image...\n\n> 🏃 Progress: 11.2%\n\n> 🏃 Progress: 25.9%\n\n> 🏃 Progress: 39.9%\n\n> 🏃 Progress: 47.6%\n\n> 🏃 Progress: 55.3%\n\n> 🏃 Progress: 73.3%\n\n> 🏃 Progress: 78.0%\n\n> 🏃 Progress: 81.8%\n\n> ✅ Image drawing successful, please check~~~\n\n![](https://file.onechats.ai/tem/6aa9ad6c26b9d4500ea84ea9f56e331b.png)\n\n"
+        "content": "> ❇️ 关键字：https://file.onechats.ai/tem/b5e2049e82ef071a804d6769e580b702.png https://file.onechats.ai/tem/78e9aa8a0dbd529f3904a6629329ebbe.png 生成男生举着咖啡，并且马上要喝的样子\n\n> ✨ Sora正在绘制图片中...\n\n> 🏃 进度：11.2%\n\n> 🏃 进度：25.9%\n\n> 🏃 进度：39.9%\n\n> 🏃 进度：47.6%\n\n> 🏃 进度：55.3%\n\n> 🏃 进度：73.3%\n\n> 🏃 进度：78.0%\n\n> 🏃 进度：81.8%\n\n> ✅ 图片绘制成功，请注意查收~~~\n\n![](https://file.onechats.ai/tem/6aa9ad6c26b9d4500ea84ea9f56e331b.png)\n\n"
       },
       "finish_reason": "stop"
     }
@@ -198,7 +201,7 @@ Sample result:
 
 As you can see, the generated result is indeed a combination of the two images, here is the specific result:
 
-<p><img src="https://cdn.acedata.cloud/89vnpx.jpg" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/89vnpx.jpg" width="400" className="m-auto" /></p>
 
 ## Error Handling
 
@@ -212,7 +215,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ### Error Response Example
 
-```json
+```
 {
   "success": false,
   "error": {
