@@ -17,7 +17,7 @@
 
 | 字段 | 值 | 用途 |
 |------|------|------|
-| `BASE_URL` | `https://api.acedata.cloud/claude` | Claude Messages 兼容入口 |
+| `BASE_URL` | `https://api.acedata.cloud` | AceData Cloud API 基础地址 |
 | `API_TOKEN` | `sk-...`（详情页可复制） | Anthropic 兼容鉴权头 |
 
 ## 第 2 分钟：安装 Claude Code
@@ -49,7 +49,7 @@ claude --version
 **做法 A：临时（仅当前 Shell 会话）**
 
 ```bash
-export ANTHROPIC_BASE_URL="https://api.acedata.cloud/claude"
+export ANTHROPIC_BASE_URL="https://api.acedata.cloud"
 export ANTHROPIC_AUTH_TOKEN="sk-你的-Token"
 ```
 
@@ -78,9 +78,19 @@ claude
 ## 第 5 分钟：把 VS Code 扩展也接上
 
 1. 打开 VS Code → 扩展面板 → 搜 `Claude Code`，安装 Anthropic 官方那个；
-2. **Cmd+Shift+P** → 输入 `Claude Code: Set Custom API Endpoint`；
-3. 填入 `https://api.acedata.cloud/claude` 然后回车；
-4. 再次执行 `Claude Code: Set API Token` 填入你的 Token。
+2. 在本机创建或编辑 `~/.claude/settings.json`；
+3. 写入下面的配置并把 `{token}` 换成你的 Token：
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "{token}",
+    "ANTHROPIC_BASE_URL": "https://api.acedata.cloud"
+  }
+}
+```
+
+4. 重新打开 Claude Code 面板开始使用。
 
 成功后侧边栏会出现 Claude Code 面板，可以拖文件进去问、可以 `@-mention` 一个文件做修改提案。所有计费都走 AceData Cloud。
 
