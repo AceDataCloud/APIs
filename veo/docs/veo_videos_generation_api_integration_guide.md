@@ -14,7 +14,7 @@ There will be a free quota granted upon your first application, allowing you to 
 
 First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, the array of reference images for the first and last frames `image_urls`, and the model `model` to obtain the processed result. You first need to simply pass a field `action`, with the value set to `text2video`. It mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and get 1080p video (`get1080p`). Then, we also need to input the model `model`, which currently mainly includes `veo2`, `veo2-fast`, `veo3`, `veo31`, `veo31-fast`, `veo31-fast-ingredients`, and `veo3-fast` models, as detailed below:
 
-<p><img src="https://cdn.acedata.cloud/vv5pe8.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/vv5pe8.png" width="500" class="m-auto" /></p>
 
 Here we can see that we have set the Request Headers, including:
 
@@ -69,7 +69,7 @@ Additionally, the Request Body is set, including:
 
 After selection, you can find that the corresponding code is also generated on the right side, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/pmwh4y.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/pmwh4y.png" width="500" class="m-auto" /></p>
 
 Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
 
@@ -128,11 +128,11 @@ Next, we must fill in the prompt words needed for the next step to customize the
 
 An example of filling in is as follows:
 
-<p><img src="https://cdn.acedata.cloud/8wvlqd.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/8wvlqd.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/tgzfxi.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/tgzfxi.png" width="500" class="m-auto" /></p>
 
 The corresponding Python code:
 
@@ -182,7 +182,7 @@ It can be seen that the result content is consistent with the above text, thus a
 
 If you want to get 1080p for an already generated Veo video, you can set the parameter `action` to `get1080p`, and input the ID of the video you need to get 1080p for. The video ID can be obtained based on basic usage, as shown in the following image:
 
-<p><img src="https://cdn.acedata.cloud/hacabc.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/hacabc.png" width="500" class="m-auto" /></p>
 
 At this time, you can see that the video ID is:
 
@@ -199,11 +199,11 @@ Next, we must fill in the prompt words needed for the next step to customize the
 
 An example of filling in is as follows:
 
-<p><img src="https://cdn.acedata.cloud/k56fhn.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/k56fhn.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/8gn4cr.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/8gn4cr.png" width="500" class="m-auto" /></p>
 
 Clicking run, you can find that a result is obtained, as follows:
 
@@ -231,15 +231,15 @@ It can be seen that the result content is consistent with the above text, thus a
 If you want to specify the generation of a custom-sized Veo video, you can set the parameter `aspect_ratio` to the desired size. Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
 - `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
-- `aspect_ratio`: the size of the video, currently supporting: `16:9`, `16:9`, `3:4`, `4:3`, `1:1`, with the default being `16:9`.
+- `aspect_ratio`: the size of the video, currently supporting: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`, with the default being `16:9`.
 - `translation`: whether to enable automatic translation of prompt words, default is `false`.
   An example of filling in is as follows:
 
-<p><img src="https://cdn.acedata.cloud/xau4cm.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/xau4cm.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/55r589.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/55r589.png" width="500" class="m-auto" /></p>
 
 Clicking run, you can find that a result is obtained, as follows:
 ```json
@@ -277,7 +277,7 @@ Copy this URL, and it can be used as a Webhook. The sample here is `https://webh
 
 Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/rgivs2.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/rgivs2.png" width="500" class="m-auto" /></p>
 
 Clicking run, you can find that an immediate result is obtained, as follows:
 

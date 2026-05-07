@@ -6,7 +6,7 @@ This document will provide detailed integration instructions for the Flux Tasks 
 
 To use the Flux Tasks API, you first need to apply for the corresponding service on the application page [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394), and then copy the task ID from the Flux Images Generation API, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/7furhb.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/7furhb.png" width="500" class="m-auto" /></p>
 
 Finally, go to the Flux Tasks API page [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image below.
 
@@ -24,7 +24,7 @@ We will use a task ID returned by the Flux Images Generation API service as an e
 
 ### Task Example Image
 
-<p><img src="https://cdn.acedata.cloud/7furhb.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/7furhb.png" width="500" class="m-auto" /></p>
 
 ### Setting Request Headers and Request Body
 
@@ -40,13 +40,13 @@ We will use a task ID returned by the Flux Images Generation API service as an e
 
 Set as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/fiasxz.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/fiasxz.png" width="500" class="m-auto" /></p>
 
 ### Code Example
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/j6gn86.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/j6gn86.png" width="500" class="m-auto" /></p>
 
 Some code examples are as follows:
 
@@ -138,13 +138,13 @@ This is for querying the details of multiple task IDs, and unlike the above, the
 
 Set as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/k3i9ns.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/k3i9ns.png" width="500" class="m-auto" /></p>
 
 ### Code Example
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/pt5fww.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/pt5fww.png" width="500" class="m-auto" /></p>
 
 Some code examples are as follows:
 

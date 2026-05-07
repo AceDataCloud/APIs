@@ -4,7 +4,7 @@ This document mainly introduces the usage process of the Kimi Chat Completion AP
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) page and click the "Acquire" button to obtain the credentials needed for the request:
 
 ![](https://cdn.acedata.cloud/nyq0xz.png)
 
@@ -16,13 +16,13 @@ During the first application, there will be a free quota provided, allowing you 
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Kimi official model we choose to use. Here we mainly have 7 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
-<p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" class="m-auto" /></p>
 
 After the call, we find that the returned result is as follows:
 
@@ -68,9 +68,9 @@ The returned result contains multiple fields, described as follows:
 
 Among them, `choices` contains Kimi's response information, and the `choices` inside it shows the specific information of Kimi's response, as can be seen in the figure.
 
-<p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" class="m-auto" /></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of the Gemini reply.
+As can be seen, the `content` field in `choices` contains the specific content of the Kimi reply.
 
 ## Streaming Response
 
@@ -80,7 +80,7 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/a3nzpw.png" width="400" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/a3nzpw.png" width="400" class="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
@@ -201,7 +201,7 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 If you want to integrate multi-turn dialogue functionality, you need to upload multiple query words in the `messages` field. The specific examples of multiple query words are shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/g85v2a.png" width="400" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/g85v2a.png" width="400" class="m-auto" /></p>
 
 Python sample call code:
 
@@ -286,4 +286,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official Gemini dialogue function using the Gemini Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official Kimi dialogue function using the Kimi Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

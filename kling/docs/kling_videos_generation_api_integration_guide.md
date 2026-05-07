@@ -14,7 +14,7 @@ There is a free quota granted upon the first application, allowing free use of t
 
 First, understand the basic usage: by inputting the prompt `prompt`, generation action `action`, first frame reference image `start_image_url`, and model `model`, you can get the processed result. You need to simply pass an `action` field with the value `text2video`. It mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and extend video (`extend`). Then, you also need to input the model `model`. Currently, the main models are `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-video-o1`. Details are as follows:
 
-<p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" class="m-auto" /></p>
 
 Here, we set the Request Headers, including:
 
@@ -41,7 +41,7 @@ Also, the Request Body includes:
 
 After selection, the corresponding code is generated on the right side, as shown:
 
-<p><img src="https://cdn.acedata.cloud/3yjql0.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/3yjql0.png" width="500" class="m-auto" /></p>
 
 Click the "Try" button to test. As shown above, we get the following result:
 
@@ -112,7 +112,7 @@ Notes:
 
 If you want to continue generating an already generated Kling video, set the parameter `action` to `extend` and input the video ID to continue generating. The video ID is obtained from the basic usage as shown below:
 
-<p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto" /></p>
 
 Here, the video ID is:
 
@@ -132,11 +132,11 @@ Next, you must fill in the prompt for the next step to customize the video gener
 
 Example input:
 
-<p><img src="https://cdn.acedata.cloud/ejimqy.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ejimqy.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/52x4u5.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/52x4u5.png" width="500" class="m-auto" /></p>
 
 Corresponding Python code:
 
@@ -193,7 +193,7 @@ Copy this URL, which can be used as the Webhook. The example URL here is `https:
 
 Next, set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown:
 
-<p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" class="m-auto" /></p>
 
 Click run, and you will immediately get a result like this:
 

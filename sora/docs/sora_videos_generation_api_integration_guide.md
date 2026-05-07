@@ -17,7 +17,7 @@ A free quota is provided upon the first application, allowing free use of the AP
 
 First, understand the basic usage of Version 1, which involves inputting the prompt `prompt`, an array of reference image URLs `image_urls`, and the model `model` to get the processed result. The details are as follows:
 
-<p><img src="https://cdn.acedata.cloud/h8dyz3.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/h8dyz3.png" width="500" class="m-auto" /></p>
 
 Here, we set the Request Headers, including:
 
@@ -39,7 +39,7 @@ The Request Body includes:
 
 After selection, the corresponding code is generated on the right side, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/g04qjz.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/g04qjz.png" width="500" class="m-auto" /></p>
 
 Click the "Try" button to test. As shown above, we get the following result:
 
@@ -94,11 +94,11 @@ To perform an image-to-video task, the parameter `image_urls` must be provided w
 
 Example input:
 
-<p><img src="https://cdn.acedata.cloud/ch7x3t.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/ch7x3t.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/z1ud8l.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/z1ud8l.png" width="500" class="m-auto" /></p>
 
 Corresponding code:
 
@@ -152,11 +152,11 @@ To perform a character-generated video task, the parameter `character_url` must 
 
 Example input:
 
-<p><img src="https://cdn.acedata.cloud/2nhdr2.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/2nhdr2.png" width="500" class="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/xp8scl.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/xp8scl.png" width="500" class="m-auto" /></p>
 
 Corresponding code:
 
@@ -358,7 +358,7 @@ Copy this URL and use it as the Webhook. The sample here is `https://webhook.sit
 
 Next, set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/v1m05g.png" width="500" className="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/v1m05g.png" width="500" class="m-auto" /></p>
 
 Click run, and you will immediately get a result as follows:
 
