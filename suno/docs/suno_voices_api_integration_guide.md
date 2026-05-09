@@ -1,6 +1,6 @@
 # Suno Voices API Integration Instructions
 
-SUNO allows you to create a custom voice persona from any audio recording, enabling voice cloning for music generation. Unlike the existing Persona API (which uses a Suno-generated `audio_id`), this API accepts a publicly accessible `audio_url` — your own vocal recording. This document explains how to integrate the Voice Cloning API.
+Suno allows you to create a custom voice persona from any audio recording, enabling voice cloning for music generation. Unlike the existing Persona API (which uses a Suno-generated `audio_id`), this API accepts a publicly accessible `audio_url` — your own vocal recording. This document explains how to integrate the Voice Cloning API.
 
 ## Step 1: Create a Voice Persona
 
