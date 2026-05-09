@@ -42,6 +42,10 @@ The upstream hard constraints for custom sizes also apply: width and height must
 
 > For example: if the source image is `1024x1024` and `size` is `2048x2048`, the model will redraw at 2K and bill at the 2K rate; if `size` is `3840x2160`, it outputs a 4K landscape image and bills at the same rate. Passing `auto` or omitting `size` bills at the 1K standard rate.
 
+> **About the `n` parameter**
+>
+> The `gpt-image-2` editing API currently **does not support `n > 1`**: this parameter is silently ignored. Whether you pass `n=1` or `n=10`, only one image is returned per request and only one image is billed. If you need multiple candidate edited images at once, please **make multiple concurrent requests yourself**. This limitation also applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only editing model that natively supports `n > 1`.
+
 Below are two real-world examples to showcase the editing capabilities of `gpt-image-2`.
 
 ### Method 1: JSON + Image URL (Recommended)
