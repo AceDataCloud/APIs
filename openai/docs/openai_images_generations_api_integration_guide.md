@@ -46,7 +46,11 @@ Upstream hard constraints for custom sizes: width and height must each be multip
 >
 > At the 1K tier, upstream output is not guaranteed to be pixel-perfect — passing `1024x1024` may yield `1254x1254`, but the aspect ratio remains consistent. If you pass that result back as `size`, it still bills at the 1K rate.
 >
-> Actual billing accumulates as `n × per-image cost`; a 4K single call typically takes 4–8 minutes — it is recommended to use the `callback_url` async callback described later in this document.
+> A 4K single call typically takes 4–8 minutes — it is recommended to use the `callback_url` async callback described later in this document.
+>
+> **About the `n` parameter**
+>
+> `gpt-image-2` currently **does not support `n > 1`**. This parameter is silently ignored — whether you send `n=1` or `n=10`, each request still returns only one image and bills for one image. If you need multiple candidate images, send multiple requests in parallel yourself (preferably with different `prompt` values or different `seed` values; otherwise outputs may be highly similar). The same limitation applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` families. `dall-e-2` is currently the only model with native support for `n > 1`; `dall-e-3` supports only `n = 1`.
 
 Below are several real-world examples to showcase the capabilities of `gpt-image-2`.
 
