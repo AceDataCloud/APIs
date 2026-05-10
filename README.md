@@ -18,6 +18,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `pixverse/` | [PixverseAPI](https://github.com/AceDataCloud/PixverseAPI) | Pixverse video generation API docs |
 | `wan/` | [WanAPI](https://github.com/AceDataCloud/WanAPI) | Wan (Tongyi Wanxiang) video generation API docs |
 | `aichat/` | — | AI Dialogue (multi-model chat) API docs |
+| `fish/` | — | Fish Audio voice cloning and TTS API docs |
 
 ## MCP Servers
 
