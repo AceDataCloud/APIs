@@ -47,6 +47,7 @@ Explore the supported endpoints and integration guides for AI Chat.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
+| [AI Chat v2 Conversations API](https://platform.acedata.cloud/documents/e4a7c2b9-3f1d-4e8a-9b6c-a5d2f8e1b4c7) | `/aichat2/conversations` | [AI Chat v2 API Integration Guide](docs/aichat2_conversations_api_integration_guide.md) |
 | [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
 ## Related Resources
