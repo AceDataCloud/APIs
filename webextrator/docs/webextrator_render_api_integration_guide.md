@@ -2,13 +2,11 @@
 
 `POST https://api.acedata.cloud/webextrator/render`
 
-This document introduces the WebExtrator Render API. This API provides headless browser rendering for any URL, returning the fully rendered HTML, markdown, plain text, screenshot, and extracted links.
+This API renders a web page using a headless browser and returns structured render output.
 
 ## Application Process
 
-To use the WebExtrator Render API, apply for the corresponding service on the WebExtrator service page. After entering the page, click the "Acquire" button to obtain the credentials needed for the request.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+To use the WebExtrator Render API, apply for the corresponding service on the [WebExtrator service page](https://platform.acedata.cloud/service/webextrator) and click **Acquire**.
 
 ## Authentication
 
@@ -18,18 +16,21 @@ Add `Authorization: Bearer <your API Key>` to the request header.
 
 | Field | Type | Required | Default | Description |
 |------|------|:----:|------|------|
-| `url` | string | ✅ | - | The URL of the page to render |
-| `user_agent` | string | ❌ | System default | Custom User-Agent |
-| `timeout` | number | ❌ | 30000 | Single render timeout in milliseconds, max 120000 |
-| `wait_until` | string | ❌ | `load` | Load completion event: `load` / `domcontentloaded` / `networkidle` |
-| `delay` | number | ❌ | 0 | Additional wait time after load completes (milliseconds), max 30000 |
-| `wait_for_selector` | string | ❌ | - | Wait until this CSS selector appears |
-| `block_resources` | string[] | ❌ | - | Block resource types: `image` / `media` / `font` / `stylesheet`, etc. |
-| `headers` | object | ❌ | - | Additional HTTP headers |
-| `cookies` | array | ❌ | - | Cookie list; each element has the form `{name, value, domain, path}` |
-| `callback_url` | string | ❌ | - | Async mode callback URL; if provided, the task ID is returned immediately and the result is delivered via POST callback |
+| `url` | string | ✅ | - | The URL to render (`http(s)://`). |
+| `user_agent` | string | ❌ | System default | Custom User-Agent. |
+| `timeout` | number | ❌ | `30` | Render timeout in seconds. |
+| `wait_until` | string | ❌ | `networkidle` | `load` / `domcontentloaded` / `networkidle` / `commit`. |
+| `delay` | number | ❌ | `0` | Extra wait time (seconds) after `wait_until`. |
+| `wait_for_selector` | string | ❌ | - | Wait for a CSS selector before capture. |
+| `block_resources` | string[] | ❌ | `"image","font","media"` | Blocked resource types. |
+| `headers` | object | ❌ | - | Extra HTTP headers. |
+| `cookies` | array | ❌ | - | Cookies to inject before navigation. |
+| `callback_url` | string | ❌ | - | Callback URL for async result delivery. |
+| `bypass_cache` | boolean | ❌ | `false` | Skip cache read for this request. |
+| `cache_ttl_seconds` | number | ❌ | `3600` | Cache TTL for this response (`0` = do not cache). |
+| `mode` | string | ❌ | `sync` | `sync` or `async`. |
 
-## Synchronous Response (without callback_url)
+## Synchronous Response (`mode=sync`)
 
 ```json
 {
@@ -37,52 +38,54 @@ Add `Authorization: Bearer <your API Key>` to the request header.
   "task_id": "550e8400-e29b-41d4-a716-446655440000",
   "trace_id": "550e8400-e29b-41d4-a716-446655440001",
   "started_at": "2026-05-02T10:30:00.123Z",
-  "finished_at": "2026-05-02T10:30:05.456Z",
-  "elapsed": 5.333,
+  "finished_at": "2026-05-02T10:30:01.234Z",
+  "elapsed": 1.111,
   "data": {
     "kind": "render",
     "url": "https://example.com",
+    "finalUrl": "https://example.com/",
     "title": "Example Domain",
-    "html": "<!doctype html>...",
+    "status": 200,
+    "html": "<!DOCTYPE html><html>...</html>",
     "text": "Example Domain ...",
-    "markdown": "# Example Domain\n...",
-    "screenshot": "data:image/png;base64,iVBORw0K...",
-    "links": ["https://www.iana.org/domains/example"]
+    "userAgent": "Mozilla/5.0 ...",
+    "elapsedMs": 1108
   }
 }
 ```
 
-## Async Mode (with callback_url)
+## Asynchronous Mode (`mode=async`)
 
-Initial response:
+The API returns immediately:
 
 ```json
-{
-  "success": true,
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z"
-}
+{ "jobId": "550e8400-...", "status": "queued" }
 ```
 
-The response header will include `x-usage-exempt: true`, indicating that this synchronous handshake is not billed. Once the task actually completes, the platform will send a POST to the `callback_url` with the same `data` field as the synchronous response, plus the same `task_id` / `trace_id` / `started_at` / `finished_at` / `elapsed` fields.
+When the task finishes, the platform POSTs the full result envelope to `callback_url` (if provided). You can also query result status using the [Tasks API](webextrator_tasks_api_integration_guide.md).
 
 ## Error Response
+
+| HTTP | `error.code` | Meaning |
+|------|--------------|------|
+| 400 | `bad_request` | Invalid request body. |
+| 401 | `unauthorized` | Missing or invalid token. |
+| 402 | `x402` | Insufficient balance. |
+| 408 | `timeout` | Render exceeded timeout. |
+| 429 | `queue_busy` | Queue is busy. Retry or use async mode. |
+| 500 | `internal_error` | Internal server error. |
 
 ```json
 {
   "success": false,
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z",
-  "error": {
-    "code": "timeout",
-    "message": "page load timed out after 30000ms"
-  }
+  "task_id": "...",
+  "trace_id": "...",
+  "started_at": "...",
+  "finished_at": "...",
+  "elapsed": 0.012,
+  "error": { "code": "bad_request", "message": "url: Invalid url" }
 }
 ```
-
-Error codes: `bad_request` / `forbidden` / `too_many_requests` / `not_found` / `api_error` / `timeout` / `unknown` / `busy`.
 
 ## Example
 
@@ -96,30 +99,3 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
     "block_resources": ["image", "media", "font"]
   }'
 ```
-
-Python example:
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/webextrator/render"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "url": "https://example.com",
-    "wait_until": "networkidle",
-    "block_resources": ["image", "media", "font"]
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-## Conclusion
-
-Through this document, you have learned how to use the WebExtrator Render API to render any web page and receive the fully rendered HTML, markdown, text, screenshot, and links. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
