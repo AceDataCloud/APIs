@@ -10,15 +10,18 @@ To use the WebExtrator Extract API, apply for the corresponding service on the W
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 
+## Authentication
+
+Add `Authorization: Bearer <your API Key>` to the request header.
+
 ## Request Parameters
 
 The Extract API accepts all parameters from the [Render API](webextrator_render_api_integration_guide.md), plus the following additional fields:
 
 | Field | Type | Required | Default | Description |
 |------|------|:----:|------|------|
-| `expected_type` | string | ❌ | `markdown` | Desired extraction output: `markdown` / `article` / `text` / `links` / `structured` |
-| `enable_llm` | boolean | ❌ | false | Enable LLM post-processing (recommended for `article` / `structured`) |
-| `instruction` | string | ❌ | - | LLM extraction instruction, e.g. "Extract product title, price, and specifications" |
+| `expected_type` | string | ❌ | - | Hint the page type to optimize extraction: `product` / `article` / `general` |
+| `enable_llm` | boolean | ❌ | false | Enable optional LLM-based semantic normalization |
 
 ## Synchronous Response
 
@@ -32,28 +35,40 @@ The Extract API accepts all parameters from the [Render API](webextrator_render_
   "elapsed": 8.666,
   "data": {
     "kind": "extract",
-    "expected_type": "article",
-    "url": "https://example.com/post/1",
-    "title": "Sample Article",
-    "author": "John Doe",
-    "published_at": "2026-05-01",
-    "content": "# Sample Article\n\nBody text ...",
-    "summary": "This article introduces ..."
+    "url": "https://www.amazon.com/dp/B0C1234567",
+    "contentType": "product",
+    "title": "Acme Widget",
+    "description": "A widget that does things.",
+    "byline": "Acme Inc.",
+    "siteName": "Amazon.com",
+    "images": [
+      "https://example.com/widget.jpg"
+    ],
+    "links": [
+      "https://example.com/related"
+    ],
+    "markdown": "# Acme Widget\n...",
+    "structured": {
+      "price": 19.99,
+      "currency": "USD",
+      "brand": "Acme",
+      "rating": 4.5
+    }
   }
 }
 ```
 
 The async mode, error codes, and billing rules are identical to those of the `/webextrator/render` API.
 
-## Example: Extract Article (with LLM enabled)
+## Example: Extract Product (with LLM enabled)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
   -H "Authorization: Bearer $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "url": "https://example.com/news/1",
-    "expected_type": "article",
+    "url": "https://www.amazon.com/dp/B0C1234567",
+    "expected_type": "product",
     "enable_llm": true
   }'
 ```
@@ -72,8 +87,8 @@ headers = {
 }
 
 payload = {
-    "url": "https://example.com/news/1",
-    "expected_type": "article",
+    "url": "https://www.amazon.com/dp/B0C1234567",
+    "expected_type": "product",
     "enable_llm": True
 }
 
@@ -81,24 +96,21 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-## Example: Async + Custom Structured Extraction
+## Example: Async Extraction
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
   -H "Authorization: Bearer $API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "url": "https://shop.example.com/item/123",
-    "expected_type": "structured",
-    "enable_llm": true,
-    "instruction": "Extract product title, price, stock, and 3 main image URLs",
+    "url": "https://example.com/news/1",
     "callback_url": "https://your-domain.com/wbx-callback"
   }'
 ```
 
 ## Error Handling
 
-When calling the API, if an error occurs, the API will return the corresponding error code and message. Error codes: `bad_request` / `forbidden` / `too_many_requests` / `not_found` / `api_error` / `timeout` / `unknown` / `busy`.
+When calling the API, if an error occurs, the API will return the corresponding error code and message. Error codes include: `bad_request` / `unauthorized` / `too_many_requests` / `api_error` / `timeout`.
 
 ## Conclusion
 

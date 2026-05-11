@@ -2,7 +2,7 @@
 
 `POST https://api.acedata.cloud/webextrator/render`
 
-This document introduces the WebExtrator Render API. This API provides headless browser rendering for any URL, returning the fully rendered HTML, markdown, plain text, screenshot, and extracted links.
+This document introduces the WebExtrator Render API. This API provides headless browser rendering for any URL and returns rendered HTML, plain text, page title, and final URL.
 
 ## Application Process
 
@@ -20,14 +20,13 @@ Add `Authorization: Bearer <your API Key>` to the request header.
 |------|------|:----:|------|------|
 | `url` | string | ✅ | - | The URL of the page to render |
 | `user_agent` | string | ❌ | System default | Custom User-Agent |
-| `timeout` | number | ❌ | 30000 | Single render timeout in milliseconds, max 120000 |
-| `wait_until` | string | ❌ | `load` | Load completion event: `load` / `domcontentloaded` / `networkidle` |
-| `delay` | number | ❌ | 0 | Additional wait time after load completes (milliseconds), max 30000 |
+| `timeout` | number | ❌ | 30 | Total timeout in seconds for the render operation |
+| `wait_until` | string | ❌ | `networkidle` | Load completion event: `load` / `domcontentloaded` / `networkidle` / `commit` |
+| `delay` | number | ❌ | - | Additional wait time after load completes (seconds) |
 | `wait_for_selector` | string | ❌ | - | Wait until this CSS selector appears |
-| `block_resources` | string[] | ❌ | - | Block resource types: `image` / `media` / `font` / `stylesheet`, etc. |
+| `block_resources` | string[] | ❌ | - | Block resource types: `image` / `media` / `font` / `stylesheet` / `xhr` / `fetch` |
 | `headers` | object | ❌ | - | Additional HTTP headers |
-| `cookies` | array | ❌ | - | Cookie list; each element has the form `{name, value, domain, path}` |
-| `callback_url` | string | ❌ | - | Async mode callback URL; if provided, the task ID is returned immediately and the result is delivered via POST callback |
+| `callback_url` | string | ❌ | - | If provided, request is processed asynchronously and final result is POSTed to this URL |
 
 ## Synchronous Response (without callback_url)
 
@@ -42,47 +41,34 @@ Add `Authorization: Bearer <your API Key>` to the request header.
   "data": {
     "kind": "render",
     "url": "https://example.com",
+    "finalUrl": "https://example.com/",
     "title": "Example Domain",
-    "html": "<!doctype html>...",
+    "status": 200,
+    "html": "<!DOCTYPE html><html>...</html>",
     "text": "Example Domain ...",
-    "markdown": "# Example Domain\n...",
-    "screenshot": "data:image/png;base64,iVBORw0K...",
-    "links": ["https://www.iana.org/domains/example"]
+    "userAgent": "Mozilla/5.0 ...",
+    "elapsedMs": 5300
   }
 }
 ```
 
-## Async Mode (with callback_url)
+## Async Mode (with `callback_url`)
 
-Initial response:
-
-```json
-{
-  "success": true,
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z"
-}
-```
-
-The response header will include `x-usage-exempt: true`, indicating that this synchronous handshake is not billed. Once the task actually completes, the platform will send a POST to the `callback_url` with the same `data` field as the synchronous response, plus the same `task_id` / `trace_id` / `started_at` / `finished_at` / `elapsed` fields.
+When `callback_url` is provided, the platform processes the request asynchronously and sends the final result via POST callback.
 
 ## Error Response
 
 ```json
 {
   "success": false,
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z",
   "error": {
-    "code": "timeout",
-    "message": "page load timed out after 30000ms"
+    "code": "bad_request",
+    "message": "url is required"
   }
 }
 ```
 
-Error codes: `bad_request` / `forbidden` / `too_many_requests` / `not_found` / `api_error` / `timeout` / `unknown` / `busy`.
+Error codes include: `bad_request` / `unauthorized` / `too_many_requests` / `api_error` / `timeout`.
 
 ## Example
 
@@ -122,4 +108,4 @@ print(response.text)
 
 ## Conclusion
 
-Through this document, you have learned how to use the WebExtrator Render API to render any web page and receive the fully rendered HTML, markdown, text, screenshot, and links. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the WebExtrator Render API to render any web page and receive the fully rendered HTML, text, title, and final URL. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
