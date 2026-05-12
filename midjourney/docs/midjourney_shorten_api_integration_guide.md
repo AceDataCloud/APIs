@@ -93,8 +93,8 @@ The response contains a `prompts` field with shortened prompt candidates. Each c
 
 If an error occurs, the API returns a corresponding error code and message, for example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `400 token_mismatched`: The specified token does not match this API.
+- `400 api_not_implemented`: The API is not implemented for the current context.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
 - `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
 - `500 api_error`: Internal server error, something went wrong on the server.
