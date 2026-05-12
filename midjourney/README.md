@@ -1078,6 +1078,7 @@ Explore the supported endpoints and integration guides for Midjourney generation
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Midjourney Imagine API](https://platform.acedata.cloud/documents/e52c028d-897a-4d51-b110-60fccbe6118d) | `/midjourney/imagine` | [Midjourney Imagine API Integration Guide](https://platform.acedata.cloud/documents/b0e32002-2707-41cc-b103-a15b1f1efdc1) |
+| [Midjourney Shorten API](https://platform.acedata.cloud/documents/f0c6be1d-c084-43ac-bde6-44ef9cf824a2) | `/midjourney/shorten` | [Midjourney Shorten API Integration Guide](./docs/midjourney_shorten_api_integration_guide.md) |
 | [Midjourney Seed API](https://platform.acedata.cloud/documents/32abf45d-1a7e-473e-8d7d-b00b939f7a91) | `/midjourney/seed` | [](https://platform.acedata.cloud/documents/) |
 | [$t(document_title_midjourney_edits_api)](https://platform.acedata.cloud/documents/5063782a-b2fa-40e1-8aa3-19c226d10378) | `/midjourney/edits` | [Midjourney Edits API Integration Guide](https://platform.acedata.cloud/documents/d6eda82a-6b99-4201-90ac-55f6eac23e66) |
 | [$t(document_title_midjourney_videos_api)](https://platform.acedata.cloud/documents/597e45dc-0981-49b0-a6e1-3b8d7f7a1241) | `/midjourney/videos` | [Midjourney Videos API Integration Guide](https://platform.acedata.cloud/documents/49c184f7-9990-490b-8c3d-dcea2039fc26) |
