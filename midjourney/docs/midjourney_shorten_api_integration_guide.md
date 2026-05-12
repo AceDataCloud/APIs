@@ -101,7 +101,7 @@ When calling the API, if an error occurs, the API returns corresponding error co
 
 ### Error Response Example
 
-```
+```json
 {
   "success": false,
   "error": {
