@@ -1,0 +1,117 @@
+# Integration and Usage of Midjourney Shorten API
+
+The main function of the Midjourney Shorten API is to connect to Midjourney's official `/shorten` (Prompt Analysis) command, analyze a given prompt, identify the highest-weighted keywords, and generate 5 more concise candidate prompts. This API is especially suitable for:
+
+- Slimming down long prompts before calling `imagine` to improve image relevance;
+- Reverse-engineering Midjourney’s token weighting through candidate prompts, facilitating prompt engineering;
+- Integrating with automated pipelines to merge and simplify keywords from user input prompts.
+
+This document provides detailed instructions for integrating the Midjourney Shorten API, helping you easily incorporate this API.
+
+## Application Process
+
+To use the Midjourney Shorten API, you need to apply for the service on the application page [Midjourney Shorten API](https://platform.acedata.cloud/documents/f0c6be1d-c084-43ac-bde6-44ef9cf824a2). After entering the page, click the "Acquire" button.
+
+If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) to register and log in. After logging in or registering, you will be automatically returned to the current page.
+
+A free quota is granted upon first application, allowing free use of the API.
+
+## Request Example
+
+We will demonstrate how to analyze and simplify a relatively long prompt using this API.
+
+### Setting Request Headers and Body
+
+**Request Headers** include:
+
+- `accept`: specifies that the response should be in JSON format, set to `application/json`.
+- `authorization`: the API key for calling the API, selectable after application.
+
+**Request Body** includes:
+
+- `prompt`: the prompt text to be analyzed and simplified; English input is recommended.
+
+### Code Examples
+
+#### CURL
+
+```bash
+curl -X POST 'https://api.acedata.cloud/midjourney/shorten' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "a serene mountain lake at sunrise, mist rising from the water, towering pine trees on the shore, golden hour lighting, ultra detailed, cinematic, 35mm film photography style, masterpiece --ar 16:9 --v 6"
+}'
+```
+
+#### Python
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/midjourney/shorten"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json",
+}
+
+payload = {
+    "prompt": (
+        "a serene mountain lake at sunrise, mist rising from the water, "
+        "towering pine trees on the shore, golden hour lighting, ultra "
+        "detailed, cinematic, 35mm film photography style, masterpiece "
+        "--ar 16:9 --v 6"
+    )
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())
+```
+
+### Response Example
+
+Upon a successful request, the API returns up to 5 simplified candidate prompts. For example:
+
+```json
+{
+  "prompts": [
+    "a serene mountain lake at sunrise, mist rising from the water, golden hour lighting --ar 16:9",
+    "mountain lake sunrise with mist, golden light --ar 16:9 --v 6",
+    "tranquil alpine lake, dawn mist, warm golden tones, cinematic --ar 16:9",
+    "sunrise over a misty mountain lake, rich golden hour photography --ar 16:9 --style raw",
+    "misty lake at dawn, mountains in background, golden sunrise --ar 16:9"
+  ]
+}
+```
+
+As shown, the result contains a `prompts` field with several simplified candidate prompts, each retaining the highest-weighted keywords from Midjourney’s internal analysis while removing duplicate or redundant descriptions.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API returns corresponding error codes and messages. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+This document has introduced how to use the Midjourney Shorten API to analyze and simplify prompts. It is recommended to combine this API with the Midjourney Imagine API: first use the Shorten API to obtain multiple simplified candidates, then select the most suitable one to pass to the Imagine API for image generation. If you have any questions, please feel free to contact our technical support team.
