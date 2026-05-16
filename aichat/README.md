@@ -6,7 +6,7 @@ AI Dialogue service supporting a wide range of large language models for chat, m
 
 API home page: [Ace Data Cloud - AI Chat](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a)
 
-Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, deepseek, grok, streaming, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, grok, streaming, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use AI Chat on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, dee
 
 ## Overview
 
-The AI Chat Conversations API enables you to send a question to a large language model and receive an answer. It supports a broad range of models (GPT-4, GPT-4o, DeepSeek, Grok, GLM, and more), multi-turn stateful conversations, streaming responses, model presets, and image recognition via reference URLs — all without needing to manage message history or token limits yourself.
+The AI Chat Conversations API enables you to send a question to a large language model and receive an answer. It supports a broad range of models (GPT-4, GPT-4o, Grok, GLM, Kimi, and more), multi-turn stateful conversations, streaming responses, model presets, and image recognition via reference URLs — all without needing to manage message history or token limits yourself.
 
 ## Application Process
 
