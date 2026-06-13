@@ -533,7 +533,7 @@ html.dark .flux-page code { background: #2e1065 !important; color: #c4b5fd !impo
 -H "Authorization: Bearer YOUR_API_KEY" \
 -H "Content-Type: application/json" \
 -d '{
-"model": "flux-pro-1.1",
+"model": "flux-2-pro",
 "prompt": "A futuristic cityscape at sunset",
 "width": 1024,
 "height": 1024,
