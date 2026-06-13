@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/glm/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "glm-4.5-air",
+    "model": "glm-4.7",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
