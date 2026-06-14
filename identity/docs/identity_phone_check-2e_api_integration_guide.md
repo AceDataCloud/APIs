@@ -1,0 +1,124 @@
+# Mobile Number Two-Factor Verification API Integration Instructions
+
+This article will introduce a Mobile Number Two-Factor Verification API integration guide, which can be used to verify the authenticity and consistency of mobile numbers and names.
+
+## Application Process
+
+To use Mobile Number Two-Factor Verification API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Mobile Number Two-Factor Verification API →](https://platform.acedata.cloud/documents/identity-phone-check-2e)
+
+## Basic Usage
+
+First, understand the basic usage method, which is to input the mobile number to obtain the processed result. You need to simply pass a `mobile` field. We can then fill in the corresponding content on the interface, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/v6k96j.png" width="500" class="m-auto" ></p>
+
+Here, we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, filled in as `application/json`, which is in JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, we set the Request Body, including:
+
+- `name`: the user's name to be processed, which is a required parameter.
+- `mobile`: the mobile number to be processed, which is a required parameter.
+- `encryption`: optional, sensitive field encryption parameter (if you need to send encrypted data).
+
+After selection, you can find that the corresponding code is also generated on the right side, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/lq800o.png" width="500" class="m-auto" ></p>
+
+Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
+
+```json
+{
+  "result": "0",
+  "description": "Verification result is consistent"
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `result`, the authentication result code, with the following charging situation.
+  - Charging result codes:
+    - 0: Verification result is consistent
+    - 1: Verification result is inconsistent
+  - Non-charging result codes:
+    - -1: No record found
+    - -2: Unknown engine error
+    - -3: Engine service exception
+    - -4: Name verification failed
+    - -5: Mobile number is invalid
+    - -6: Authentication attempts exceeded the daily limit, please try again the next day
+- `description`, business result description.
+
+It can be seen that the authenticity and consistency of the mobile number and name have been queried.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/identity/phone/check-2e' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "name": "***",
+  "mobile": "***"
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/identity/phone/check-2e"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "name": "***",
+    "mobile": "***"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Mobile Number Two-Factor Verification API to verify the authenticity and consistency of mobile numbers and names. We hope this document can help you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

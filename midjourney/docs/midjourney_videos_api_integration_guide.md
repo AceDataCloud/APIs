@@ -4,19 +4,21 @@ This article will introduce a Midjourney Videos API integration guide, which all
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Midjourney Videos API](https://platform.acedata.cloud/documents/midjourney-videos) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use Midjourney Videos API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon your first application, there will be a free quota available for you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Midjourney Videos API →](https://platform.acedata.cloud/documents/midjourney-videos)
 
 ## Basic Usage
 
 First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, and the array of reference images for the first and last frames `image_url` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, which mainly includes two actions: generate video (`generate`), extend video (`extend`), as detailed below:
 
-<p><img src="https://cdn.acedata.cloud/pi72m9.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/pi72m9.png" width="500" class="m-auto" ></p>
 
 Here, we can see that we have set the Request Headers, including:
 
@@ -38,7 +40,7 @@ Additionally, the Request Body is set, including:
 
 After selection, you can see that the corresponding code is generated on the right side, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/y0cw0p.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/y0cw0p.png" width="500" class="m-auto" ></p>
 
 Click the "Try" button to test, as shown in the above image, and we get the following result:
 
@@ -107,11 +109,11 @@ Next, you must fill in the prompt for the next step to customize the video gener
 
 An example of the filled-in content is as follows:
 
-<p><img src="https://cdn.acedata.cloud/855hnj.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/855hnj.png" width="500" class="m-auto" ></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/p58w39.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/p58w39.png" width="500" class="m-auto" ></p>
 
 The corresponding Python code:
 
@@ -168,13 +170,13 @@ Let’s understand how to operate specifically through an example.
 
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, a public Webhook sample site https://webhook.site/ is used, and opening this site will provide a Webhook URL, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/lali6d.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/lali6d.png" width="500" class="m-auto" ></p>
 
 Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/556e6971-b41f-4fa8-9151-6e91acd0399f`.
 
 Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/vk0l0a.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vk0l0a.png" width="500" class="m-auto" ></p>
 
 Clicking run, we can find that an immediate result is obtained, as follows:
 
@@ -186,7 +188,7 @@ Clicking run, we can find that an immediate result is obtained, as follows:
 
 After a moment, we can observe the generated video result at `https://webhook.site/556e6971-b41f-4fa8-9151-6e91acd0399f`, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/7hcuw8.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/7hcuw8.png" width="500" class="m-auto" ></p>
 
 The content is as follows:
 

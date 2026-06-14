@@ -1,0 +1,121 @@
+# Bank Card Basic Information Query API Integration Instructions
+
+This article will introduce a Bank Card Basic Information Query API integration instruction, which can be used for querying basic information of bank cards.
+
+## Application Process
+
+To use Bank Card Basic Information Query API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Bank Card Basic Information Query API →](https://platform.acedata.cloud/documents/identity-bankcard-check-1e)
+
+## Basic Usage
+
+First, understand the basic usage method, which is to input the bank card number to obtain the processed verification result. You need to simply pass a `bank_card` field, and then we can fill in the corresponding content on the interface, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/h41nrh.png" width="500" class="m-auto" ></p>
+
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which is in JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, the Request Body is set, including:
+
+- `bank_card`: bank card number.
+- `encryption`: optional, sensitive field encryption parameter (if you need to send encrypted data).
+
+After selection, you can find that the corresponding code is also generated on the right side, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/grfra7.png" width="500" class="m-auto" ></p>
+
+Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
+
+```json
+{
+  "result": "0",
+  "description": "Query successful",
+  "account_bank": "Industrial and Commercial Bank of China",
+  "account_type": 1
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `result`, authentication result code, with the following charging situation.
+  - Charging result codes:
+    - 0: Query successful
+    - -1: No information found
+  - Non-charging result codes:
+    - -2: Verification center service busy
+    - -3: Bank card does not exist
+- `description`, business result description.
+- `account_bank`, account bank.
+- `account_type`, card nature: 1. Debit card; 2. Credit card; 3. Prepaid card; 4. Quasi-credit card.
+
+It can be seen that the basic information of the bank card has been queried.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/identity/bankcard/check-1e' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "bank_card": "****"
+}'
+```
+
+The integration code in Python is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/identity/bankcard/check-1e"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "bank_card": "****"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Bank Card Basic Information Query API to query the basic information of the input bank card number. We hope this document can help you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

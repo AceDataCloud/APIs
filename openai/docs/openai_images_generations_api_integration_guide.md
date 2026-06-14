@@ -6,13 +6,15 @@ This document mainly introduces the usage process of the OpenAI Images Generatio
 
 ## Application Process
 
-To use the OpenAI Images Generations API, first visit the [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) page and click the "Acquire" button to obtain the credentials required for requests:
+To use OpenAI Images Generations API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page to register and log in. After logging in or registering, you will be automatically redirected back to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There is a free quota granted upon the first application, allowing free use of the API.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [OpenAI Images Generations API →](https://platform.acedata.cloud/documents/openai-images-generations)
 
 ## GPT-Image-2 Model
 
@@ -96,7 +98,7 @@ Returned result:
 
 Generated image:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/ab58a5df-6f46-4874-bff6-93169e2849a3_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/ab58a5df-6f46-4874-bff6-93169e2849a3_0.png" width="500" class="m-auto" ></p>
 
 ### Scenario 2: Vintage Travel Poster (with Text Rendering)
 
@@ -112,7 +114,7 @@ payload = {
 
 The `url` field in the returned result corresponds to the following image:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/c6061f92-3fae-498e-af8e-688e7f415ba3_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/c6061f92-3fae-498e-af8e-688e7f415ba3_0.png" width="500" class="m-auto" ></p>
 
 The model accurately reproduces the Art Deco poster visual style, and the title texts `AMALFI` and `ITALIA 1958` are rendered clearly and correctly.
 
@@ -130,7 +132,7 @@ payload = {
 
 Generated image:
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/64a3b932-a082-4cad-9f85-9d30474b104d_0.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/gpt-image/64a3b932-a082-4cad-9f85-9d30474b104d_0.png" width="500" class="m-auto" ></p>
 
 The number of books on the three shelves (1 / 3 / 7) matches the prompt exactly, which was difficult to achieve stably in the `dall-e-3` era.
 
@@ -214,7 +216,7 @@ Returned result:
 
 The generated image can be accessed directly via the returned `url`:
 
-<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png" width="500" class="m-auto" ></p>
 
 ### Upgrade to Flagship Model `nano-banana-pro`
 
@@ -242,7 +244,7 @@ Example return:
 }
 ```
 
-<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6227fcc9-3442-4aa3-a76c-4a4441a99649.png" width="500" class="m-auto"></p>
+<p><img src="https://platform.cdn.acedata.cloud/nanobanana/6227fcc9-3442-4aa3-a76c-4a4441a99649.png" width="500" class="m-auto" ></p>
 
 ### Asynchronous Callback
 
@@ -252,13 +254,13 @@ The `callback_url` asynchronous callback mechanism also applies to nano-banana. 
 
 Next, you can fill in the corresponding content on the interface as shown:
 
-<p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto" ></p>
 
 When using this interface for the first time, at least three fields need to be filled: one is `authorization`, which can be selected directly from the dropdown list; another is `model`, which is the OpenAI DALL-E official model category you want to use (mainly one model here, details can be found in the provided models); the last is `prompt`, which is the text prompt for image generation.
 
 You can also notice that the corresponding call code is generated on the right side. You can copy the code to run directly or click the "Try" button to test.
 
-<p><img src="https://cdn.acedata.cloud/pbss4f.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/pbss4f.png" width="500" class="m-auto" ></p>
 
 Python sample call code:
 
@@ -303,7 +305,7 @@ Returned results include multiple fields:
 
 The `data` contains detailed information about the generated image, where the `url` is the link to the generated image, as shown below.
 
-<p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto" ></p>
 
 ## Image Quality Parameter `quality`
 
@@ -311,11 +313,11 @@ Next, we introduce how to set detailed parameters for image generation results. 
 
 Below is the setting for `quality` as `standard`:
 
-<p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto" ></p>
 
 You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
 
-<p><img src="https://cdn.acedata.cloud/c0ps6i.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/c0ps6i.png" width="500" class="m-auto" ></p>
 
 Python sample call code:
 
@@ -356,11 +358,11 @@ Returned result:
 
 The returned result is consistent with basic usage. The image generated with `quality` set to `standard` is shown below:
 
-<p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto" ></p>
 
 Performing the same operation but setting `quality` to `hd` yields the following image:
 
-<p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto" ></p>
 
 You can see that `hd` produces images with finer details and greater consistency than `standard`.
 
@@ -370,11 +372,11 @@ You can also set the size of the generated image.
 
 Below is the setting for image size as `1024x1024`:
 
-<p><img src="https://cdn.acedata.cloud/dx5rwh.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/dx5rwh.png" width="500" class="m-auto" ></p>
 
 You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
 
-<p><img src="https://cdn.acedata.cloud/0sbybl.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/0sbybl.png" width="500" class="m-auto" ></p>
 
 Python sample call code:
 
@@ -415,7 +417,7 @@ Returned result:
 
 The returned result is consistent with basic usage. The generated image with size `1024x1024` is shown below:
 
-<p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto" ></p>
 
 Performing the same operation but setting the size to `1792x1024` yields the following image:
 
@@ -429,11 +431,11 @@ The image style parameter `style` has two options: `vivid` means the generated i
 
 Below is the setting for `style` as `vivid`:
 
-<p><img src="https://cdn.acedata.cloud/609l9i.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/609l9i.png" width="500" class="m-auto" ></p>
 
 You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
 
-<p><img src="https://cdn.acedata.cloud/ee3u9o.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/ee3u9o.png" width="500" class="m-auto" ></p>
 
 Python sample call code:
 
@@ -474,11 +476,11 @@ Returned result:
 
 The returned result is consistent with basic usage. The image generated with `style` set to `vivid` is shown below:
 
-<p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto" ></p>
 
 Performing the same operation but setting `style` to `natural` yields the following image:
 
-<p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto" ></p>
 
 You can see that `vivid` produces more vivid and lifelike images than `natural`.
 
@@ -488,11 +490,11 @@ The last parameter is the image link format `response_format`, which has two opt
 
 Below is the setting for `response_format` as `url`:
 
-<p><img src="https://cdn.acedata.cloud/2zbgrg.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/2zbgrg.png" width="500" class="m-auto" ></p>
 
 You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
 
-<p><img src="https://cdn.acedata.cloud/a9exmp.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/a9exmp.png" width="500" class="m-auto" ></p>
 
 Python sample call code:
 
@@ -533,7 +535,7 @@ Returned result:
 
 The returned result is consistent with basic usage. The image link with `response_format` set to `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02), which can be accessed directly. The image is shown below:
 
-<p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto" ></p>
 
 Performing the same operation but setting `response_format` to `b64_json` returns the Base64 encoded image link, as shown below:
 
