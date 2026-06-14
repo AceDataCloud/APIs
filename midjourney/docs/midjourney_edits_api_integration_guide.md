@@ -1,22 +1,22 @@
-# Midjourney Edits API Integration Instructions
-
 This article will introduce a Midjourney Edits API integration guide, which allows for editing incoming images through input prompts.
 
 ## Application Process
 
-To use the API, you first need to apply for the corresponding service on the [Midjourney Edits API](https://platform.acedata.cloud/documents/midjourney-edits) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use Midjourney Edits API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon your first application, there will be a free quota available for you to use the API at no cost.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Midjourney Edits API →](https://platform.acedata.cloud/documents/midjourney-edits)
 
 ## Basic Usage
 
 First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, and the reference image `image_url` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, as detailed below:
 
-<p><img src="https://cdn.acedata.cloud/m44i6n.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/m44i6n.png" width="500" className="m-auto" /></p>
 
 Here, we can see that we have set the Request Headers, including:
 
@@ -35,7 +35,7 @@ Additionally, the Request Body is set, including:
 
 After selection, you can see that the corresponding code is generated on the right side, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/9wed3b.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/9wed3b.png" width="500" className="m-auto" /></p>
 
 Click the "Try" button to test, as shown in the image above, and we get the following result:
 
@@ -104,7 +104,7 @@ Copy this URL, and it can be used as a Webhook. The sample here is `https://webh
 
 Next, we can set the `callback_url` field to the above Webhook URL while filling in the corresponding parameters, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/q3fnhv.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/q3fnhv.png" width="500" className="m-auto" /></p>
 
 Clicking run, we can see that an immediate result is obtained, as follows:
 
@@ -116,7 +116,7 @@ Clicking run, we can see that an immediate result is obtained, as follows:
 
 After a moment, we can observe the generated video result at `https://webhook.site/556e6971-b41f-4fa8-9151-6e91acd0399f`, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/t8cupr.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/t8cupr.png" width="500" className="m-auto" /></p>
 
 The content is as follows:
 ```json

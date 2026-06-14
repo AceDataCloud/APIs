@@ -1,5 +1,3 @@
-# Google SERP API Integration Instructions
-
 Google SERP (Search Engine Results Page) is the results page that users see after entering a query in the Google search engine. It displays organic search results, ads, featured snippets, knowledge graphs, as well as various content such as images and videos, aiming to provide users with the most relevant information.
 
 This article will provide a detailed introduction to the Google SERP API, which can provide results for queries entered in the Google search engine. The results include many types, such as featured snippets, knowledge graphs, and images.
@@ -8,13 +6,15 @@ This document will introduce the integration instructions for the Google SERP AP
 
 ## Application Process
 
-To use the Google SERP API, you need to first apply for the corresponding service on the [Google SERP API](https://platform.acedata.cloud/documents/44c86226-8eaa-49bf-85f3-1fae8d2e23f1) page. After entering the page, click the "Acquire" button, as shown in the image:
+To use Google SERP API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Google SERP API →](https://platform.acedata.cloud/documents/serp-google)
 
 ## Basic Usage
 
@@ -22,7 +22,7 @@ First, understand the basic usage method, which is to input the type of search r
 
 For example, to find information about "apple inc," we can fill in the corresponding content on the interface, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/lnqiye.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/lnqiye.png" width="500" className="m-auto" /></p>
 
 Here, we have set the Request Headers, including:
 
@@ -41,7 +41,7 @@ Additionally, the Request Body is set, including:
 
 After selection, you can find that the corresponding code is also generated on the right side, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/1j81zr.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/1j81zr.png" width="500" className="m-auto" /></p>
 
 Click the "Try" button to test, as shown in the image above, and we have obtained the following results:
 ```json
@@ -227,7 +227,7 @@ If you customize the type of search resource, we can modify the parameter `type`
 Now let's demonstrate the specific operation.
 
 First, set the `type` parameter to `videos`, and normally pass the `query` parameter, as shown:
-<p><img src="https://cdn.acedata.cloud/czlt12.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/czlt12.png" width="500" className="m-auto" /></p>
 
 The corresponding code is as follows:
 
@@ -354,7 +354,7 @@ As you can see, there is a `videos` field in the returned results, which mainly 
 
 This interface also supports limiting the country of the search results. We can add the `country` parameter to limit the country, with the input parameter being the abbreviation of the country, such as cn (China), us (United States). This article will take China as an example, and the specific information is as follows:
 
-<p><img src="https://cdn.acedata.cloud/gztpwi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/gztpwi.png" width="500" className="m-auto" /></p>
 
 The output effect is as follows:
 ```json
@@ -455,7 +455,7 @@ The output effect is as follows:
 ```
 We can also customize the language of the search results. Here we additionally add the `language` field, with the content being `zh-cn`, which refers to the Simplified Chinese language. Other languages are also supported, but the language abbreviation must be entered, such as en (English), fr (French), zh-cn (Chinese (Simplified)), etc., as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/yyrssp.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/yyrssp.png" width="500" className="m-auto" /></p>
 
 The corresponding code is as follows:
 
@@ -632,7 +632,7 @@ As can be seen, the results displayed here are all in Simplified Chinese, and th
 ## Customizing the Time Range of Search Results
 This article also allows customizing the time range of search results, which includes five options: `qdr:h` (past hour), `qdr:d` (past day), `qdr:w` (past week), `qdr:m` (past month), and the default is unlimited. We can pass the corresponding time range through `range`, for example, setting it to `qdr:d` indicates searching for results from the past day, so the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/qccfib.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/qccfib.png" width="500" className="m-auto" /></p>
 
 The corresponding code is as follows:
 
@@ -791,7 +791,7 @@ As we can see, we successfully obtained the search results from the past day, an
 
 This API also supports customizing the pagination display of search results, where `number` and `page` represent the page size and page number for pagination. This article will set the format to display 20 search results per page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/dqla1e.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/dqla1e.png" width="500" className="m-auto" /></p>
 
 > Note: When the number of results per page exceeds 10, the deducted points will double.
 

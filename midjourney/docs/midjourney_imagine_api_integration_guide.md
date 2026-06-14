@@ -1,18 +1,18 @@
-# Midjourney Imagine API Application and Usage
-
 Midjourney is a very powerful AI drawing tool that can generate exquisite images in just one or two minutes by simply inputting keywords. Midjourney stands out in the industry with its outstanding drawing capabilities, and it has been widely applied across various industries and fields, with its influence becoming increasingly significant.
 
 This document mainly introduces the usage process of the Imagine operation in the Midjourney API, allowing us to easily generate the required images through text.
 
 ## Application Process
 
-To use the Midjourney Imagine API, you can first go to the [Midjourney Imagine API](https://platform.acedata.cloud/documents/e52c028d-897a-4d51-b110-60fccbe6118d "Midjourney Imagine API") page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Midjourney Imagine API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Midjourney Imagine API →](https://platform.acedata.cloud/documents/midjourney-imagine "Midjourney Imagine API")
 
 ## Basic Usage
 
@@ -34,7 +34,7 @@ Main request parameters:
 - `action`/`image_id`: Required to specify when continuing operations on historical images.
 - `callback_url`: Asynchronous callback address.
 
-<p><img src="https://cdn.acedata.cloud/zv3db5.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/zv3db5.png" width="500" className="m-auto" /></p>
 
 After the call, we find the returned result as follows:
 

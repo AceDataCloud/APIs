@@ -1,5 +1,3 @@
-# Midjourney Describe API Integration and Usage
-
 The main function of the Midjourney Describe API is to obtain descriptions of images by uploading them. To use this API, you only need to provide the image file URL, and the API will return a detailed description of the image. There is no need for complicated parameter settings to obtain high-quality image descriptions.
 
 It supports various image formats: whether it's JPEG, PNG, or GIF, all mainstream image formats can be easily recognized and processed.
@@ -8,13 +6,15 @@ This document will provide a detailed introduction to the integration instructio
 
 ## Application Process
 
-To use the Midjourney Describe API, you need to first apply for the corresponding service on the application page [Midjourney Describe API](https://platform.acedata.cloud/documents/870e973b-712a-4686-ab8b-beae27f129ce). After entering the page, click the "Acquire" button, as shown in the image below:
+To use Midjourney Describe API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There is a free quota available for first-time applicants, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Midjourney Describe API →](https://platform.acedata.cloud/documents/midjourney-describe)
 
 ## Request Example
 
@@ -43,7 +43,7 @@ Set it as shown in the image below:
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/8edj9z.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/8edj9z.png" width="400" className="m-auto" /></p>
 
 Some code examples are as follows:
 

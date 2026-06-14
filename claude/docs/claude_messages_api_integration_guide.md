@@ -1,18 +1,18 @@
-# Claude Messages API Application and Usage
-
 Anthropic Claude is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. The Claude Messages API is the official native API format from Anthropic, which differs from the OpenAI compatible format (Chat Completion) by adopting Anthropic's own request and response structure, allowing better utilization of Claude's unique capabilities, such as multimodal content input, tool invocation, and advanced features like Extended Thinking.
 
 This document mainly introduces the usage process of the Claude Messages API, allowing us to use the native interface consistent with Anthropic's official standards to invoke Claude's dialogue capabilities.
 
 ## Application Process
 
-To use the Claude Messages API, you can first visit the [Claude Messages API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Claude Messages API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Claude Messages API →](https://platform.acedata.cloud/documents/claude-chat-completions)
 
 ## Basic Usage
 
