@@ -6,13 +6,13 @@ This document will provide detailed integration instructions for the Nano Banana
 
 ## Request Example
 
-The Nano Banana Tasks API can be used to query the results of the Nano Banana Images API. For information on how to use the Nano Banana Images API, please refer to the document [Nano Banana Images API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f).
+The Nano Banana Tasks API can be used to query the results of the Nano Banana Images API. For information on how to use the Nano Banana Images API, please refer to the document [Nano Banana Images API](https://platform.acedata.cloud/documents/veo-videos).
 
 We will demonstrate how to use this API with an example task ID returned by the Nano Banana Images API. Suppose we have a task ID: 4d320ead-4af4-4a55-8f3e-f2afebdf4fd0, we will show how to pass in a task ID.
 
 ### Task Example Image
 
-<p><img src="https://cdn.acedata.cloud/nuiuth.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/nuiuth.png" width="500" class="m-auto" /></p>
 
 ### Setting Request Headers and Request Body
 
@@ -28,13 +28,13 @@ We will demonstrate how to use this API with an example task ID returned by the 
 
 Set as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/nuiuth.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/nuiuth.png" width="500" class="m-auto" /></p>
 
 ### Code Example
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/r1u4vl.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/r1u4vl.png" width="500" class="m-auto" /></p>
 
 Some code examples are as follows:
 
