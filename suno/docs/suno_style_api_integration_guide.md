@@ -32,10 +32,12 @@ The result is as follows:
   "success": true,
   "task_id": "8e887548-7185-48a9-b7cb-e51754f7b87b",
   "trace_id": "ac4ec363-4245-400b-9643-0b6fed8c6b20",
-  "data": {
-    "upsampled_tags": "Bright, festive bells and crisp acoustic guitar open, with sleigh bells and warm upright piano filling the verse. Lush strings sweep in for the pre-chorus, leading to a soaring full-band chorus enhanced by brass accents. The bridge softens with glockenspiel, then returns to a jubilant finale."
-  }
+  "data": [
+    {
+      "file_url": "https://cdn1.suno.ai/style_8e887548-7185-48a9-b7cb-e51754f7b87b.json"
+    }
+  ]
 }
 ```
 
-As can be seen, the `upsampled_tags` field in `data` is the style parameters optimized based on the prompt.
+As can be seen, the `file_url` field in `data` is the URL to the generated style result.

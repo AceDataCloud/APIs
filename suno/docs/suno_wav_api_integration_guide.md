@@ -13,7 +13,7 @@ url = "https://api.acedata.cloud/suno/wav"
 
 headers = {
     "accept": "application/json",
-    "authorization": "Bearer aa287fa4cc54401087a9fab3f99630af",
+    "authorization": "Bearer {token}",
     "content-type": "application/json"
 }
 
