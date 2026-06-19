@@ -22,7 +22,8 @@ When using this interface for the first time, you need to fill in at least three
 
 - `authorization`: Select the Bearer Token directly from the dropdown list.
 - `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.1`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.2`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.1`: High-performance model with strong overall capabilities.
   - `glm-4.7`: Excellent performance on reasoning, tool calling, and code tasks.
   - `glm-4.6`: General-purpose dialogue model, balancing capability and cost.
   - `glm-3-turbo`: Classic dialogue model, suitable for general text generation tasks.
@@ -276,6 +277,7 @@ If the model decides to call a tool, the `finish_reason` in the return result wi
 
 | Model | Use Case |
 | --- | --- |
+| `glm-5.2` | Latest flagship model; recommended for the most demanding tasks |
 | `glm-5.1` | Strongest overall capabilities; recommended for complex reasoning and long document analysis |
 | `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
 | `glm-4.6` | Balanced choice for general dialogue and content creation |
