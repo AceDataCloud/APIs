@@ -82,6 +82,72 @@ Among them, `choices` contains the response information from Gemini, and the `ch
 
 It can be seen that the `content` field in `choices` contains the specific content of Gemini's reply.
 
+## Image Understanding (Multimodal Input)
+
+Gemini is a natively multimodal model that can directly "see" images. To pass an image, change the `content` of a message from a plain string to a **content block array** containing both a `text` block and an `image_url` block — this is fully compatible with the OpenAI and official Gemini OpenAI-compatible formats.
+
+`image_url.url` supports two forms:
+
+- **Base64 `data:` URI (recommended, most reliable)**: format is `data:<media-type>;base64,<data>`, e.g. `data:image/jpeg;base64,/9j/4AAQ...`. The media type (MIME) is embedded in the `data:` prefix, so there is no separate `media_type` field.
+- **Publicly accessible image URL**: e.g. `https://cdn.acedata.cloud/4hfydw.jpg`.
+
+Supported image types: `png`, `jpeg`, `webp`, `heic`, `heif`.
+
+Python sample code (base64 data URI):
+
+```python
+import base64
+import requests
+
+url = "https://api.acedata.cloud/gemini/chat/completions"
+
+# Read a local image and encode it as a base64 data URI
+with open("image.jpg", "rb") as f:
+    base64_image = base64.b64encode(f.read()).decode("utf-8")
+data_uri = f"data:image/jpeg;base64,{base64_image}"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "******",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "gemini-3.1-pro",
+    "messages": [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Describe this image in one sentence."},
+                {"type": "image_url", "image_url": {"url": data_uri}}
+            ]
+        }
+    ]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+You can also pass a publicly accessible image URL directly:
+
+```python
+payload = {
+    "model": "gemini-3.1-pro",
+    "messages": [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Describe this image in one sentence."},
+                {"type": "image_url", "image_url": {"url": "https://cdn.acedata.cloud/4hfydw.jpg"}}
+            ]
+        }
+    ]
+}
+```
+
+> 💡 `image_url` only accepts a `url` field (which can be an image URL or a base64 `data:` URI) and an optional `detail` field. **Do not pass `media_type`** — that is Anthropic Claude's image field and is not part of the OpenAI / Gemini `image_url` format.
+
 ## Streaming Response
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
