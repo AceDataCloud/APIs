@@ -1041,11 +1041,6 @@ print(image.data[0].url)</pre>
 <div class="oa-rel-info"><h3>Grok</h3><p>xAI</p></div>
 <span class="oa-rel-arrow">→</span>
 </a>
-<a class="oa-rel-card" href="/services/midjourney">
-<span class="oa-rel-icon">🎨</span>
-<div class="oa-rel-info"><h3>Midjourney</h3><p>AI Painting</p></div>
-<span class="oa-rel-arrow">→</span>
-</a>
 </div>
 </div>
 </section>

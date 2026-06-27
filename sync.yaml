@@ -24,11 +24,6 @@ mappings:
     exclude:
       - .github
       - .gitbooks
-  midjourney:
-    repo: AceDataCloud/MidjourneyAPI
-    exclude:
-      - .github
-      - .gitbooks
   serp:
     repo: AceDataCloud/SerpAPI
     exclude:
