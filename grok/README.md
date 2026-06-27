@@ -17,7 +17,7 @@ Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tool
 
 ## Overview
 
-xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging.
+xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging. Available models include `grok-4` and `grok-3`.
 
 ## Application Process
 
@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/grok/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "grok-3",
+    "model": "grok-4",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
