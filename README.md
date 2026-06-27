@@ -11,7 +11,6 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `sora/` | [SoraAPI](https://github.com/AceDataCloud/SoraAPI) | Sora video generation API docs |
 | `veo/` | [VeoAPI](https://github.com/AceDataCloud/VeoAPI) | Veo video generation API docs |
 | `flux/` | [FluxAPI](https://github.com/AceDataCloud/FluxAPI) | Flux image generation API docs |
-| `midjourney/` | [MidjourneyAPI](https://github.com/AceDataCloud/MidjourneyAPI) | Midjourney image generation API docs |
 | `serp/` | [SerpAPI](https://github.com/AceDataCloud/SerpAPI) | Web search API docs |
 | `nanobanana/` | [NanoBananaAPI](https://github.com/AceDataCloud/NanoBananaAPI) | NanoBanana image generation API docs |
 | `openai/` | [OpenAIAPI](https://github.com/AceDataCloud/OpenAIAPI) | OpenAI-compatible API docs |
@@ -30,7 +29,6 @@ Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextproto
 |---|---|
 | Flux MCP Server | [docs.acedata.cloud/mcp/flux](https://docs.acedata.cloud/mcp/flux) |
 | Luma MCP Server | [docs.acedata.cloud/mcp/luma](https://docs.acedata.cloud/mcp/luma) |
-| Midjourney MCP Server | [docs.acedata.cloud/mcp/midjourney](https://docs.acedata.cloud/mcp/midjourney) |
 | Nanobanana MCP Server | [docs.acedata.cloud/mcp/nanobanana](https://docs.acedata.cloud/mcp/nanobanana) |
 | Seedance MCP Server | [docs.acedata.cloud/mcp/seedance](https://docs.acedata.cloud/mcp/seedance) |
 | Seedream MCP Server | [docs.acedata.cloud/mcp/seedream](https://docs.acedata.cloud/mcp/seedream) |
