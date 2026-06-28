@@ -14,12 +14,14 @@ First-time applicants receive a free usage quota.
 
 ## Basic Usage
 
-The simplest usage is to send a question and receive an answer. You only need to provide a `question` field and specify the `model`.
+The recommended endpoint is `https://api.acedata.cloud/aichat2/conversations` (the legacy compatibility endpoint is `https://api.acedata.cloud/aichat/conversations`).
+
+The simplest usage is to send a question and receive an answer by providing `model` and `question`.
 
 For example, asking "What's your name?":
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -34,7 +36,7 @@ Python equivalent:
 ```python
 import requests
 
-url = "https://api.acedata.cloud/aichat/conversations"
+url = "https://api.acedata.cloud/aichat2/conversations"
 
 headers = {
     "accept": "application/json",
@@ -55,17 +57,18 @@ The response looks like:
 
 ```json
 {
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
   "answer": "I am an AI language model developed by OpenAI and I don't have a personal name. However, you can call me GPT or simply Chatbot. How can I assist you today?"
 }
 ```
 
-The `answer` field contains the model's reply.
+The `answer` field contains the model's reply, and `id` is the conversation ID.
 
 ### Request Headers
 
 | Header | Description |
 | --- | --- |
-| `accept` | Response format: `application/json` (default) or `application/x-ndjson` for streaming |
+| `accept` | Response format: `application/json` (default), `application/x-ndjson`, or `text/event-stream` |
 | `authorization` | Bearer token obtained from your Ace Data Cloud account |
 
 ### Request Body
@@ -73,17 +76,22 @@ The `answer` field contains the model's reply.
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `model` | string | ✅ | The model to use (see supported models below) |
-| `question` | string | ✅ | The prompt or question to answer |
-| `id` | string | ❌ | Conversation ID for multi-turn conversations |
-| `stateful` | boolean | ❌ | Enable stateful (multi-turn) conversation mode |
+| `question` | string | ❌ | Prompt text for chat mode |
+| `action` | string | ❌ | Action type: `chat`, `retrieve`, `retrieve_batch`, `update`, `delete` |
+| `message` | string / array | ❌ | Multimodal input (text/image/file blocks) |
+| `id` | string | ❌ | Conversation ID (required for retrieval/update/delete and multi-turn continuation) |
+| `stateful` | boolean | ❌ | Enable stateful (multi-turn) conversation mode; default is `true` |
 | `preset` | string | ❌ | System-level preset (equivalent to `system_prompt`) |
 | `references` | array of strings | ❌ | Image URLs for vision/image-recognition requests |
+| `max_turns` | integer | ❌ | Maximum retained turns in stateful conversations |
+| `async` | boolean | ❌ | Enable asynchronous processing |
+| `callback_url` | string | ❌ | Callback URL for async results |
 
 ### Supported Models
 
-The following models are supported as values for the `model` field:
+The following models are currently supported as values for the `model` field:
 
-`gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-flash`, `grok-3`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`
+`gpt-4`, `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-5-all`, `gpt-5.1-all`, `gpt-5.2-pro`, `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-image-1`, `claude-3-5-haiku-20241022`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-7-sonnet-20250219`, `claude-3-haiku-20240307`, `claude-3-opus-20240229`, `claude-3-sonnet-20240229`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805`, `claude-opus-4-20250514`, `claude-opus-4-5-20251101`, `claude-opus-4-6`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-4-20250514`, `claude-sonnet-4-5-20250929`, `claude-sonnet-4-6`, `gemini-2.0-flash-lite`, `gemini-2.5-flash-lite`, `gemini-3-pro-preview`, `gemini-3.1-flash-image-preview`, `gemini-3.1-flash-lite-preview`, `gemini-3.1-pro`, `gemini-3.1-pro-preview`, `grok-3`, `grok-3-fast`, `grok-4`, `grok-4-0709`, `deepseek-chat`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-reasoner`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v3.2-exp`, `deepseek-v4-flash`, `kimi-k2-0711-preview`, `kimi-k2-0905-preview`, `kimi-k2-instruct-0905`, `kimi-k2-thinking`, `kimi-k2-thinking-turbo`, `kimi-k2-turbo-preview`, `kimi-k2.5`, `glm-3-turbo`, `glm-4.5`, `glm-4.5v`, `glm-4.6`, `glm-4.7`, `glm-5`, `glm-5-turbo`, `glm-5.2`, `glm-5.1`, `o1`, `o1-mini`, `o1-pro`, `o3`, `o3-mini`, `o3-pro`, `o4-mini`
 
 ## Multi-Turn Conversations
 
@@ -92,7 +100,7 @@ To enable multi-turn (stateful) conversations, pass the `stateful: true` paramet
 **First request:**
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -115,7 +123,7 @@ Response:
 **Second request** (pass the `id` from the previous response):
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -147,7 +155,7 @@ The API supports streaming responses, which is useful for web applications that 
 ```python
 import requests
 
-url = "https://api.acedata.cloud/aichat/conversations"
+url = "https://api.acedata.cloud/aichat2/conversations"
 
 headers = {
     "accept": "application/x-ndjson",
@@ -167,16 +175,14 @@ for line in response.iter_lines():
     print(line.decode())
 ```
 
-Each streamed line is a JSON object:
+Each streamed line is a JSON object (NDJSON chunk), for example:
 
 ```json
-{"answer": "Hello", "delta_answer": "Hello", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
-{"answer": "Hello!", "delta_answer": "!", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
-{"answer": "Hello! How", "delta_answer": " How", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
-{"answer": "Hello! How can", "delta_answer": " can", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
-{"answer": "Hello! How can I assist you today?", "delta_answer": "?", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
+{"type": "text_delta", "content": " today", "delta_answer": " today", "answer": "Hello! How can I assist you today", "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"}
 ```
 
+- `type`: Stream chunk type (for example `text_delta`).
+- `content`: Token content for this chunk.
 - `answer`: The full answer accumulated so far.
 - `delta_answer`: The newly added token(s) in this chunk.
 
@@ -185,7 +191,7 @@ Each streamed line is a JSON object:
 ```javascript
 const axios = require("axios");
 
-const url = "https://api.acedata.cloud/aichat/conversations";
+const url = "https://api.acedata.cloud/aichat2/conversations";
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/x-ndjson",
@@ -213,7 +219,7 @@ axios
 **Java example:**
 
 ```java
-String url = "https://api.acedata.cloud/aichat/conversations";
+String url = "https://api.acedata.cloud/aichat2/conversations";
 OkHttpClient client = new OkHttpClient();
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\"question\": \"Hello\", \"stateful\": true, \"model\": \"gpt-4o\"}");
@@ -250,7 +256,7 @@ client.newCall(request).enqueue(new Callback() {
 The `preset` field sets a system-level prompt for the model (equivalent to `system_prompt` in OpenAI's API). For example, to make the model act as a professional artist:
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -275,7 +281,7 @@ Response:
 Vision-capable models can analyze images passed via the `references` field. Provide image URLs in the array, and select a vision-capable model such as `gpt-4-vision-preview` or `gpt-4o`.
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -301,12 +307,15 @@ Response:
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | string | The model's reply to the question |
-| `id` | string | Conversation ID (returned when `stateful` is `true`) |
+| `id` | string | Conversation ID |
+| `type` | string | Stream chunk type (`application/x-ndjson` / `text/event-stream`) |
+| `content` | string | Stream chunk content (`application/x-ndjson` / `text/event-stream`) |
+| `delta_answer` | string | Newly added text in the current stream chunk |
 
-### Error (400 / 401 / 429 / 500)
+### Error (400 / 401 / 404 / 429 / 500)
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error.code` | string | Error code (e.g. `token_mismatched`, `invalid_token`, `too_many_requests`, `api_error`) |
+| `error.code` | string | Error code (e.g. `bad_request`, `token_mismatched`, `invalid_token`, `not_found`, `too_many_requests`, `chat_error`) |
 | `error.message` | string | Human-readable error description |
 | `trace_id` | string | Trace ID for debugging |

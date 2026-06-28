@@ -32,7 +32,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 - Docs: [Developer documentation](https://docs.acedata.cloud)
 
 ```bash
-curl --request POST "https://api.acedata.cloud/aichat/conversations" \
+curl --request POST "https://api.acedata.cloud/aichat2/conversations" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
@@ -47,7 +47,8 @@ Explore the supported endpoints and integration guides for AI Chat.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
+| [AI Chat Conversations API (recommended)](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat2/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
+| [AI Chat Conversations API (compatibility)](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
 ## Related Resources
 
