@@ -49,3 +49,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  seedance:
+    repo: AceDataCloud/SeedanceAPI
+    exclude:
+      - .github
+      - .gitbooks
