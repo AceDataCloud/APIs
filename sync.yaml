@@ -39,10 +39,6 @@ mappings:
     exclude:
       - .github
       - .gitbooks
-  pixverse:
-    repo: AceDataCloud/PixverseAPI
-    exclude:
-      - .github
       - .gitbooks
   wan:
     repo: AceDataCloud/WanAPI
