@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-2` / `dall-e-3`, the text rendering enhanced `gpt-image-1`, the enhanced cost-efficient **`gpt-image-1.5`**, the latest generation **`gpt-image-2`** (along with the `gpt-image-2:reverse` and `gpt-image-2:official` variants), as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -247,6 +247,56 @@ Example return:
 ### Asynchronous Callback
 
 The `callback_url` asynchronous callback mechanism also applies to nano-banana. The calling process is the same as other models; see the [Asynchronous Callback](#asynchronous-callback) section below.
+
+## GPT-Image-1.5 Model
+
+`gpt-image-1.5` is a cost-efficient image generation model that sits between `gpt-image-1` and `gpt-image-2` in capability and price. It delivers noticeably better image quality and instruction-following than `gpt-image-1` while costing less than `gpt-image-2`, making it a practical choice when you need higher fidelity than the classic models without paying for the full `gpt-image-2` tier.
+
+The calling method is identical to other models — simply set `model` to `gpt-image-1.5`:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/generations"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "******",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "gpt-image-1.5",
+    "prompt": "A cute baby sea otter",
+    "size": "1024x1024"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+> **Note:** Like `gpt-image-1` and `gpt-image-2`, `gpt-image-1.5` does not support `n > 1`. Only one image is returned per request.
+
+## GPT-Image-2 Variants: `gpt-image-2:reverse` and `gpt-image-2:official`
+
+In addition to the standard `gpt-image-2` model, two specialised variants are available:
+
+| Model | Description |
+| --- | --- |
+| `gpt-image-2:reverse` | Routes requests through an alternative upstream path, useful when the standard `gpt-image-2` endpoint is congested or returns errors. Behaviour and output quality are equivalent to `gpt-image-2`. |
+| `gpt-image-2:official` | Calls the official OpenAI API directly, ensuring full compatibility with the latest upstream features and the strictest content-policy enforcement. |
+
+Use these variants by setting the `model` field accordingly:
+
+```python
+payload = {
+    "model": "gpt-image-2:official",
+    "prompt": "Cinematic minimal portrait of a solitary man standing in an intense orange-to-red gradient environment.",
+    "size": "1024x1536"
+}
+```
+
+All other parameters (`size`, `quality`, `output_format`, `callback_url`, etc.) behave identically to the standard `gpt-image-2` model.
 
 ## Basic Usage
 

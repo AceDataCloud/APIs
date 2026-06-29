@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `dall-e-3`, `gpt-image-1`, the cost-efficient **`gpt-image-1.5`**, the latest **`gpt-image-2`** (along with `gpt-image-2:reverse` and `gpt-image-2:official` variants), as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -260,6 +260,33 @@ print(response.text)
 
 The `callback_url` asynchronous callback mechanism also applies to nano-banana; the calling process is exactly the same as for other models, see the [Asynchronous Callback](#asynchronous-callback) section below.
 
+## GPT-Image-1.5 Model
+
+`gpt-image-1.5` is a cost-efficient image editing model that delivers better quality than `gpt-image-1` at a lower cost than `gpt-image-2`. It supports the same editing interface and parameters as `gpt-image-1` and `gpt-image-2`, making it a practical choice when you need higher fidelity than the classic model without paying for the full `gpt-image-2` tier.
+
+To use it, set the `model` field to `gpt-image-1.5`. Both `multipart/form-data` file uploads and JSON + image URL are supported.
+
+```shell
+curl -X POST "https://api.acedata.cloud/openai/images/edits" \
+  -H "Authorization: ******" \
+  -F "model=gpt-image-1.5" \
+  -F "image=@photo.png" \
+  -F "prompt=Change the background to a sunny beach"
+```
+
+> **Note:** Like `gpt-image-1` and `gpt-image-2`, `gpt-image-1.5` does not support `n > 1`. Only one image is returned per request.
+
+## GPT-Image-2 Variants: `gpt-image-2:reverse` and `gpt-image-2:official`
+
+Two specialised variants of `gpt-image-2` are available for the editing interface:
+
+| Model | Description |
+| --- | --- |
+| `gpt-image-2:reverse` | Routes requests through an alternative upstream path, useful when the standard `gpt-image-2` endpoint is congested or returns errors. Behaviour and output quality are equivalent to `gpt-image-2`. |
+| `gpt-image-2:official` | Calls the official OpenAI API directly, ensuring full compatibility with the latest upstream features and the strictest content-policy enforcement. |
+
+All other parameters (`size`, `quality`, `output_format`, `callback_url`, etc.) behave identically to the standard `gpt-image-2` model.
+
 ## Basic Usage
 
 You can now use code to call the API. Below is a CURL example:
@@ -318,7 +345,7 @@ After calling, you will find an image named `gift-basket.png` generated in the c
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
-Thus, we have completed the image editing operation. Currently, the Edits interface supports three models: `dall-e-2`, `gpt-image-1`, and `gpt-image-2`, with `gpt-image-2` being the recommended model, see the [GPT-Image-2 Model](#gpt-image-2-model) section above.
+Thus, we have completed the image editing operation. The Edits interface supports multiple models including `dall-e-2`, `dall-e-3`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-2` (and its variants), with `gpt-image-2` being the recommended model, see the [GPT-Image-2 Model](#gpt-image-2-model) section above.
 
 ## Asynchronous Callback
 
