@@ -55,3 +55,23 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  producer:
+    repo: AceDataCloud/ProducerAPI
+    exclude:
+      - .github
+      - .gitbooks
+  fish:
+    repo: AceDataCloud/FishAPI
+    exclude:
+      - .github
+      - .gitbooks
+  face:
+    repo: AceDataCloud/FaceAPI
+    exclude:
+      - .github
+      - .gitbooks
+  shorturl:
+    repo: AceDataCloud/ShortURLAPI
+    exclude:
+      - .github
+      - .gitbooks
