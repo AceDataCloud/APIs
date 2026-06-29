@@ -75,3 +75,23 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  kling:
+    repo: AceDataCloud/KlingAPI
+    exclude:
+      - .github
+      - .gitbooks
+  hailuo:
+    repo: AceDataCloud/HailuoAPI
+    exclude:
+      - .github
+      - .gitbooks
+  claude:
+    repo: AceDataCloud/ClaudeAPI
+    exclude:
+      - .github
+      - .gitbooks
+  gemini:
+    repo: AceDataCloud/GeminiAPI
+    exclude:
+      - .github
+      - .gitbooks
