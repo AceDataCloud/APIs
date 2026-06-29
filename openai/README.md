@@ -643,7 +643,7 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 <section class="oa-section-sm oa-bg-gray">
 <div class="oa-container">
 <div class="oa-stats">
-<div class="oa-stat"><div class="oa-stat-val">25+</div><div class="oa-stat-lbl">Available Models</div></div>
+<div class="oa-stat"><div class="oa-stat-val">28+</div><div class="oa-stat-lbl">Available Models</div></div>
 <div class="oa-stat"><div class="oa-stat-val">5</div><div class="oa-stat-lbl">API Endpoints</div></div>
 <div class="oa-stat"><div class="oa-stat-val">Token</div><div class="oa-stat-lbl">Pay-as-you-go</div></div>
 <div class="oa-stat"><div class="oa-stat-val">∞</div><div class="oa-stat-lbl">No Rate Limits</div></div>
@@ -879,6 +879,13 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">o4-mini</span>
 <span class="oa-mdl-tag">o1</span>
 <span class="oa-mdl-tag">o1-pro</span>
+</div>
+</div>
+<div class="oa-mdl-card">
+<h3>🆓 Free Tier</h3>
+<p class="mdl-desc">Free-tier open-source GPT model, ideal for getting started and low-cost experimentation.</p>
+<div class="oa-mdl-tags">
+<span class="oa-mdl-tag">gpt-oss:free</span>
 </div>
 </div>
 <div class="oa-mdl-card">
