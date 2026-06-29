@@ -16,7 +16,6 @@ The most basic usage is to input a `content` array containing a single text item
 
 - `model`: the model used to generate the video. Available values:
   - **Seedance 2.0 series** (multimodal reference: real-person / character image, reference audio, reference video): `doubao-seedance-2-0-260128` (standard), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
-  - **Seedance 1.x**: `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
   - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
   - `image_url`: `{ "type": "image_url", "role": "first_frame|last_frame|reference_image", "image_url": { "url": "https://..." } }`.
@@ -29,7 +28,6 @@ The most basic usage is to input a `content` array containing a single text item
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
-- `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
 
