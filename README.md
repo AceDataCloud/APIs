@@ -17,6 +17,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `pixverse/` | [PixverseAPI](https://github.com/AceDataCloud/PixverseAPI) | Pixverse video generation API docs |
 | `wan/` | [WanAPI](https://github.com/AceDataCloud/WanAPI) | Wan (Tongyi Wanxiang) video generation API docs |
 | `seedance/` | [SeedanceAPI](https://github.com/AceDataCloud/SeedanceAPI) | Seedance (ByteDance) video generation API docs |
+| `seedream/` | [SeedreamAPI](https://github.com/AceDataCloud/SeedreamAPI) | Seedream (ByteDance) image generation API docs |
 | `aichat/` | — | AI Dialogue (multi-model chat) API docs |
 
 ## MCP Servers

@@ -54,3 +54,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  seedream:
+    repo: AceDataCloud/SeedreamAPI
+    exclude:
+      - .github
+      - .gitbooks
