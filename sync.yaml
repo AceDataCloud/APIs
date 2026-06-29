@@ -95,3 +95,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  webextrator:
+    repo: AceDataCloud/WebExtratorAPI
+    exclude:
+      - .github
+      - .gitbooks
