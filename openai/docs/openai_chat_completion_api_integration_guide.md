@@ -461,7 +461,13 @@ In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mi
 
 ## GPT-4o Drawing Model
 
-Request example:
+### Image Generation Based on Reference Image
+
+The following example demonstrates generating an image in a custom style from a reference image. First, let's look at the input reference image shown below:
+
+![](https://cdn.acedata.cloud/qzx2z1.png)
+
+The reference image is a photo of a real person. We can transform it into a different style, such as an anime style. Here is the specific request example:
 
 ```json
 {
@@ -472,11 +478,11 @@ Request example:
       "content": [
         {
           "type": "text",
-          "text": "Generate an image in the style of Studio Ghibli, and wear a hat"
+          "text": "Generate an image in anime style, and wear a hat"
         },
         {
-          "type": "file_url",
-          "file_url": {
+          "type": "image_url",
+          "image_url": {
             "url": "https://cdn.acedata.cloud/qzx2z1.png"
           }
         }
@@ -491,27 +497,171 @@ Example result:
 
 ```json
 {
-  "id": "chatcmpl-89CXTr5EHi7WgiO3qSzWxvmqwfryP",
-  "object": "chat.completion.chunk",
+  "id": "chatcmpl-89DPQxbLuyRNzH5YLCPYM5WElV3dm",
+  "object": "chat.completion",
+  "created": 1781020664,
   "model": "gpt-4o-image",
-  "created": 1744395060,
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿色植物和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
+        "content": "\n\n> 🎨 Generating...\n\n![https://pro.filesystem.site/cdn/20260609/0f7b6cf1b14843b1bab8e261fe5765b3.png](https://pro.filesystem.site/cdn/20260609/0f7b6cf1b14843b1bab8e261fe5765b3.png)\n\n[Click to download](https://pro.filesystem.site/cdn/download/20260609/0f7b6cf1b14843b1bab8e261fe5765b3.png)"
       },
+      "logprobs": null,
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 70,
-    "completion_tokens": 17,
-    "total_tokens": 87
+    "prompt_tokens": 100,
+    "completion_tokens": 122,
+    "total_tokens": 222,
+    "prompt_tokens_details": {
+      "text_tokens": 93,
+      "cached_tokens_details": {}
+    },
+    "completion_tokens_details": {}
   }
 }
 ```
+
+The `message.content` inside `choices` is the complete generated result, with the image included in Markdown format (the image URL is temporary — please download and save it promptly). As you can see, the generated image is in anime style:
+
+<p><img src="https://cdn.acedata.cloud/qmr391.jpg" width="400" class="m-auto"></p>
+
+### Text-to-Image
+
+We can use a prompt to generate an image and have it returned in a conversational format. Here is an example using the prompt `Create an image of a futuristic city at sunset`:
+
+```json
+{
+  "model": "gpt-4o-image",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Create an image of a futuristic city at sunset"
+        }
+      ]
+    }
+  ],
+  "stream": false
+}
+```
+
+Example result:
+
+```json
+{
+  "id": "chatcmpl-89DqkpQoPGkQqJ6kPKMKWejjLXVxQ",
+  "object": "chat.completion",
+  "created": 1781020587,
+  "model": "gpt-4o-image",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\n> 🎨 Generating...\n\n![https://pro.filesystem.site/cdn/20260609/ed2cca68732540fc99162ddc10ddc153.png](https://pro.filesystem.site/cdn/20260609/ed2cca68732540fc99162ddc10ddc153.png)\n\n[Click to download](https://pro.filesystem.site/cdn/download/20260609/ed2cca68732540fc99162ddc10ddc153.png)"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 104,
+    "total_tokens": 121,
+    "prompt_tokens_details": {
+      "text_tokens": 10,
+      "cached_tokens_details": {}
+    },
+    "completion_tokens_details": {}
+  }
+}
+```
+
+The result matches the prompt, as shown below:
+
+<p><img src="https://cdn.acedata.cloud/q502uk.jpg" width="400" class="m-auto"></p>
+
+### Multiple Images to One Image
+
+You can also use multiple reference images to generate a single composite image. For example, using a photo of a person and a photo of coffee, you can generate an image of that person drinking coffee. Here are the reference images:
+
+<p><img src="https://cdn.acedata.cloud/pqquv3.jpg" width="400" class="m-auto"></p>
+
+<p><img src="https://cdn.acedata.cloud/h8j2i0.jpg" width="400" class="m-auto"></p>
+
+Here is an example using the prompt `Generate a man holding up coffee about to drink it`:
+
+```json
+{
+  "model": "gpt-4o-image",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Generate a man holding up coffee about to drink it"
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://cdn.acedata.cloud/pqquv3.jpg"
+          }
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": "https://cdn.acedata.cloud/h8j2i0.jpg"
+          }
+        }
+      ]
+    }
+  ],
+  "stream": false
+}
+```
+
+Example result:
+
+```json
+{
+  "id": "chatcmpl-89DnHbbzOIQvU1VzJrNjzMU8BRUgG",
+  "object": "chat.completion",
+  "created": 1781021018,
+  "model": "gpt-4o-image",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\n> 🎨 Generating...\n\n![https://pro.filesystem.site/cdn/20260610/f1d9ddee3c304230a9f92929f04b95be.png](https://pro.filesystem.site/cdn/20260610/f1d9ddee3c304230a9f92929f04b95be.png)\n\n[Click to download](https://pro.filesystem.site/cdn/download/20260610/f1d9ddee3c304230a9f92929f04b95be.png)"
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 193,
+    "completion_tokens": 116,
+    "total_tokens": 309,
+    "prompt_tokens_details": {
+      "text_tokens": 186,
+      "cached_tokens_details": {}
+    },
+    "completion_tokens_details": {}
+  }
+}
+```
+
+The generated result combines both reference images:
+
+<p><img src="https://cdn.acedata.cloud/89vnpx.jpg" width="400" class="m-auto"></p>
 
 ## Error Handling
 

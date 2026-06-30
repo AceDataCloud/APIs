@@ -831,6 +831,18 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-mdl-grid">
 <div class="oa-mdl-card">
+<h3>🆓 Free-Tier Models</h3>
+<p class="mdl-desc">Free quota models available for new accounts and trial usage.</p>
+<div class="oa-mdl-tags">
+<span class="oa-mdl-tag">gpt-oss:free</span>
+<span class="oa-mdl-tag">gpt-5.5:free</span>
+<span class="oa-mdl-tag">gpt-5:free</span>
+<span class="oa-mdl-tag">gpt-4.1:free</span>
+<span class="oa-mdl-tag">gpt-4o:free</span>
+<span class="oa-mdl-tag">gpt-4o-mini:free</span>
+</div>
+</div>
+<div class="oa-mdl-card">
 <h3>🚀 GPT-5 Series</h3>
 <p class="mdl-desc">The latest flagship conversational model, significantly enhanced reasoning and creative capabilities.</p>
 <div class="oa-mdl-tags">
