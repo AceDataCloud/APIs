@@ -1,0 +1,106 @@
+# Fish Model Query API Integration Guide
+
+This document introduces the Fish Model Query API (`GET /fish/model`) integration instructions. This interface is fully compatible with the [Fish Audio Official OpenAPI](https://docs.fish.audio/resources/api-reference/model), and is used for **paginated querying** of clone voice models visible to the current account or across the entire platform.
+
+> For creating voices, please refer to [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model). To query details of a single voice model by `_id`, see [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get).
+
+## Application Process
+
+To use Fish Model API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Differences from the Official API
+
+- **Authentication Method**: Uses `Authorization: ****** where `{token}` is the key applied for on this platform.
+- **Response Structure**: Directly passes through Fish upstream's paginated response without platform envelope wrapping; in case of errors, uses the platform's standard structure `{success:false, error:{code,message}, trace_id}`.
+
+## Request Example
+
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  --data-urlencode 'page_size=10' \
+  --data-urlencode 'page_number=1' \
+  --data-urlencode 'self=true'
+```
+
+## Query Parameters
+
+Consistent with Fish official:
+
+- `page_size`: Number of items per page, default 10.
+- `page_number`: Page number, starting from 1.
+- `title`: Fuzzy search by title.
+- `tag`: Filter by tags.
+- `self`: When set to `true`, only returns voices created by the current account.
+- `author_id`: Filter by creator.
+- `language`: Filter by voice language.
+- `title_language`: Filter by title language.
+
+## Response Example
+
+Successful responses directly pass through Fish platform's paginated structure:
+
+```json
+{
+  "items": [
+    {
+      "_id": "d7900c21663f485ab63ebdb7e5905036",
+      "title": "My Clone Voice",
+      "description": "A voice cloned from a podcast recording",
+      "cover_image": "https://example.com/cover.png",
+      "type": "tts",
+      "state": "trained",
+      "tags": [],
+      "languages": ["zh", "en"],
+      "visibility": "private",
+      "created_at": "2025-05-09T12:34:56.789Z",
+      "updated_at": "2025-05-09T12:34:56.789Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+The returned `_id` can be used as the `reference_id` in the [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts) for speech synthesis with this clone voice.
+
+## Billing Information
+
+This API is free of charge — paginated querying of voice models is free. Only when creating a new voice with `POST /fish/model` and including the `voices` field in the request body is billing applicable.
+
+## Error Handling
+
+- `400 token_mismatched`: Missing or invalid request parameters.
+- `400 api_not_implemented`: Unsupported request method or parameters.
+- `401 invalid_token`: Missing or invalid authentication information.
+- `429 too_many_requests`: Exceeded the rate limit for the current account.
+- `500 api_error`: Internal server error.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+The Fish Model Query API provides voice model retrieval capabilities fully compatible with Fish Audio's official API, enabling you to maintain your own clone voice library on this platform. Coupled with [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get), you can retrieve complete details of individual voice models by ID.
+
+## Support
+
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)

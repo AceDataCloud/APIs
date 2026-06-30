@@ -1,0 +1,111 @@
+# Fish Model Get API Integration Guide
+
+This document introduces the integration guide for the Fish Model Get API (`GET /fish/model/{id}`). This endpoint is fully compatible with the [Fish Audio official OpenAPI](https://docs.fish.audio/resources/api-reference/model) and is used to **query the complete details of a single cloned voice by voice ID**.
+
+> For creating voices, please refer to the [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model). For paginated list queries, please refer to the [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query).
+
+## Application Process
+
+To use Fish Model API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Differences from the Official API
+
+- **Authentication method**: Uses `Authorization: ****** where `{token}` is the key applied for on this platform.
+- **Response structure**: Directly passes through the ModelEntity object from the Fish upstream without platform envelope wrapping; errors use the platform standard structure `{success:false, error:{code,message}, trace_id}`.
+- **Path parameter**: `{id}` is the voice's `_id`, which can be obtained from the response when creating via the [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model) or from paginated queries via the [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query).
+
+## Request Example
+
+```shell
+curl 'https://api.acedata.cloud/fish/model/d7900c21663f485ab63ebdb7e5905036' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******'
+```
+
+Simply replace `{id}` in the URL path with the specific voice ID. No query parameters or request body are needed.
+
+## Response Example
+
+A successful response directly passes through the ModelEntity object from the Fish platform:
+
+```json
+{
+  "_id": "d7900c21663f485ab63ebdb7e5905036",
+  "type": "tts",
+  "title": "My Cloned Voice",
+  "description": "A voice cloned from a podcast recording",
+  "cover_image": "https://example.com/cover.png",
+  "train_mode": "fast",
+  "state": "trained",
+  "tags": [],
+  "samples": [
+    {
+      "audio": "https://example.com/sample-voice.mp3",
+      "text": ""
+    }
+  ],
+  "created_at": "2025-05-09T12:34:56.789Z",
+  "updated_at": "2025-05-09T12:34:56.789Z",
+  "languages": ["zh", "en"],
+  "visibility": "private",
+  "lock_visibility": false,
+  "default_text": "",
+  "default_mode": "fast",
+  "like_count": 0,
+  "mark_count": 0,
+  "shared_count": 0,
+  "task_count": 0,
+  "unliked": false,
+  "liked": false,
+  "marked": false,
+  "author": {
+    "_id": "00000000000000000000000000000000",
+    "nickname": "",
+    "avatar": ""
+  }
+}
+```
+
+The returned `_id` can be used as the value of the `reference_id` field in the subsequent [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts) to perform speech synthesis using this cloned voice.
+
+## Billing Information
+
+This endpoint is free of charge — querying voice details by ID is a free operation. Only `POST /fish/model` with the `voices` field in the request body for creating new voices is billable.
+
+## Error Handling
+
+- `400 token_mismatched`: Missing or invalid request parameters.
+- `400 api_not_implemented`: Request method or parameters are currently not supported.
+- `401 invalid_token`: Missing or invalid authentication information.
+- `404 not_found`: The specified `_id` voice does not exist or is not visible to the current account.
+- `429 too_many_requests`: Rate limit exceeded for the current account.
+- `500 api_error`: Internal server error.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+The Fish Model Get API provides fully compatible single voice detail query capabilities with Fish Audio official APIs. After obtaining the voice ID, you can use this endpoint to fetch the complete ModelEntity object (including samples, status, visibility, statistics, etc.), and then use the [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts) to complete the end-to-end cloning and synthesis process.
+
+## Support
+
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)

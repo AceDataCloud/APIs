@@ -1,0 +1,154 @@
+# Fish Model API Integration Guide
+
+This document introduces the integration guide for the Fish Model API, which is fully compatible with the [Fish Audio Official OpenAPI](https://docs.fish.audio/resources/api-reference/model). It includes:
+
+- `POST /fish/model`: Create a new cloned voice model based on audio samples.
+- `GET /fish/model`: Paginate and query the list of voice models visible to the current account or across the platform.
+
+## Application Process
+
+To use Fish Model API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Differences from the Official API
+
+- **Authentication method**: Uses `Authorization: ****** where `{token}` is the key applied for on this platform.
+- **Sample upload when creating a model**: This interface currently only supports submission in JSON format, passing audio sample URLs through the `voices` field. The official Fish API supports direct binary upload via multipart/msgpack, which is not yet implemented on this platform. The URL method covers about 80% of common scenarios.
+- **Response structure**: Both `POST /fish/model` and `GET /fish/model` directly forward the upstream Fish responses without platform envelope wrapping. Errors use the platform standard structure `{success:false, error:{code,message}, trace_id}`.
+
+## Create Voice Model (POST /fish/model)
+
+The minimum creation request requires the `title` and `voices` fields. `voices` is a list of audio sample URLs, with each file recommended to be longer than 30 seconds and sampled at 16kHz or higher.
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/model' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "title": "My Cloned Voice",
+    "description": "Voice cloned from a podcast recording",
+    "voices": [
+      "https://example.com/sample-voice.mp3"
+    ],
+    "cover_image": "https://example.com/cover.png",
+    "visibility": "private"
+  }'
+```
+
+A successful response directly returns the Fish platform's ModelEntity object:
+
+```json
+{
+  "_id": "d7900c21663f485ab63ebdb7e5905036",
+  "type": "tts",
+  "title": "My Cloned Voice",
+  "description": "Voice cloned from a podcast recording",
+  "cover_image": "https://example.com/cover.png",
+  "train_mode": "fast",
+  "state": "trained",
+  "tags": [],
+  "samples": [],
+  "created_at": "2025-05-09T12:34:56.789Z",
+  "updated_at": "2025-05-09T12:34:56.789Z",
+  "languages": ["zh", "en"],
+  "visibility": "private",
+  "lock_visibility": false,
+  "like_count": 0,
+  "mark_count": 0,
+  "shared_count": 0,
+  "task_count": 0,
+  "author": {
+    "_id": "user_id",
+    "nickname": "user_nickname",
+    "avatar": "user_avatar"
+  }
+}
+```
+
+The returned `_id` can be used as the value for the `reference_id` field in subsequent `POST /fish/tts` requests to synthesize speech using the cloned voice model.
+
+## Query Voice Model List (GET /fish/model)
+
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  --data-urlencode 'page_size=10' \
+  --data-urlencode 'page_number=1' \
+  --data-urlencode 'self=true'
+```
+
+Available query parameters (same as official Fish API):
+
+- `page_size`: Number of items per page, default is 10.
+- `page_number`: Page number, starting from 1.
+- `title`: Fuzzy search by title.
+- `tag`: Filter by tag.
+- `self`: When set to `true`, only returns voice models created by the current account.
+- `author_id`: Filter by creator.
+- `language`: Filter by voice model language.
+- `title_language`: Filter by title language.
+
+A successful response also directly forwards the Fish platform's pagination structure:
+
+```json
+{
+  "items": [
+    {
+      "_id": "d7900c21663f485ab63ebdb7e5905036",
+      "title": "My Cloned Voice",
+      "description": "Voice cloned from a podcast recording",
+      "cover_image": "https://example.com/cover.png",
+      "type": "tts",
+      "state": "trained",
+      "tags": [],
+      "languages": ["zh", "en"],
+      "visibility": "private",
+      "created_at": "2025-05-09T12:34:56.789Z",
+      "updated_at": "2025-05-09T12:34:56.789Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+## Billing Information
+
+This interface only charges when "creating a voice model" (`POST /fish/model` with `voices` field in the request body). "Querying voice model list" (`GET /fish/model`) is free of charge.
+
+## Error Handling
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+The Fish Model API is fully compatible with the Fish Audio Official OpenAPI ModelEntity interface, allowing migration of existing cloned voice management code with zero code changes. The created voice model `_id` can be directly used as the `reference_id` field in the [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts) for speech synthesis.
+
+## Support
+
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
