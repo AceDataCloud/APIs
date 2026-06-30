@@ -51,7 +51,7 @@ headers = {
 }
 
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.2",
     "messages": [
         {"role": "user", "content": "hello"}
     ]
@@ -66,7 +66,7 @@ After the call, we find the return result is as follows:
 ```json
 {
   "id": "msg_202604262252030313862701a04e33",
-  "model": "glm-4.7",
+  "model": "glm-5.2",
   "object": "chat.completion",
   "created": 1777215124,
   "choices": [

@@ -41,11 +41,11 @@ curl -X POST 'https://api.acedata.cloud/seedance/videos' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "doubao-seedance-2-0-260128",
     "content": [
-      { "type": "text", "text": "A street dancer doing breakdancing moves in an urban setting" }
+      { "type": "text", "text": "A white ceramic coffee mug on a glossy marble countertop with soft morning window light. The camera slowly orbits 360 degrees around the mug, steam gently rising." }
     ],
-    "resolution": "1080p",
+    "model": "doubao-seedance-2-0-fast-260128",
+    "resolution": "720p",
     "ratio": "16:9",
     "duration": 5
   }'
@@ -56,13 +56,16 @@ curl -X POST 'https://api.acedata.cloud/seedance/videos' \
 ```json
 {
   "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
+  "task_id": "9777f36b-4f44-47ff-962d-45cd2f7aeaa8",
+  "trace_id": "ce5da2ca-6695-4459-9d2c-2ef9f86db752",
   "data": {
-    "task_id": "cgt-20251222005129-62fhb",
+    "task_id": "7e4e1773-510a-4a73-9ab4-98dd1a0b2a7f",
     "status": "succeeded",
-    "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
-    "model": "doubao-seedance-2-0-260128"
+    "model": "doubao-seedance-2-0-fast-260128",
+    "duration": 5,
+    "resolution": "720p",
+    "ratio": "16:9",
+    "video_url": "https://platform2.cdn.acedata.cloud/seedance/036f24ed-a9b1-49b3-92c4-30049a3bc152.mp4"
   }
 }
 ```

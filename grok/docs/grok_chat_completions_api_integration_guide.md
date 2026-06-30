@@ -37,7 +37,7 @@ After the call, we find the returned result as follows:
 ```json
 {
   "id": "foaicmpl-13936918-cb99-49e1-b94c-bde98b482ed4",
-  "model": "grok-3",
+  "model": "grok-4",
   "object": "chat.completion",
   "created": 1755839683,
   "choices": [

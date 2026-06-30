@@ -38,7 +38,7 @@ After the call, we find that the return result is as follows:
 ```json
 {
   "id": "msg_bdrk_01Q6WN27v95ypCa1kbanAQ6K",
-  "model": "claude-opus-4-20250514",
+  "model": "claude-opus-4-8",
   "object": "chat.completion",
   "created": 1768619365,
   "choices": [

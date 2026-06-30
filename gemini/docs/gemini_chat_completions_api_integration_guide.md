@@ -26,12 +26,14 @@ You can also notice that there is corresponding code generation on the right sid
 
 <p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto" /></p>
 
+> **Tip**: `gemini-3.x` flash models are reasoning models and consume reasoning tokens first. Set `max_tokens` to 512+; otherwise, the response may be empty.
+
 After the call, we find that the returned result is as follows:
 
 ```json
 {
   "id": "chatcmpl-20251122212413908150493uPhjTUO9",
-  "model": "gemini-2.5-pro",
+  "model": "gemini-3.5-flash",
   "object": "chat.completion",
   "created": 1763817866,
   "choices": [

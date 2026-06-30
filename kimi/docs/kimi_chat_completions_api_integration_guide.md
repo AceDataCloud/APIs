@@ -33,7 +33,7 @@ After the call, we find that the returned result is as follows:
   "id": "chatcmpl-b5d9e1b799c137e3",
   "object": "chat.completion",
   "created": 1770991864,
-  "model": "kimi-k2.5",
+  "model": "kimi-k2-thinking",
   "choices": [
     {
       "index": 0,

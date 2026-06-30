@@ -18,8 +18,10 @@ If you are not logged in or registered, you will be automatically redirected to 
 
 Send a POST request to `/v1beta/models/{model}:generateContent`:
 
+> **Tip**: `gemini-3.x` flash models are reasoning models and consume reasoning tokens first. Set `generationConfig.maxOutputTokens` to 512+; otherwise, the response may be empty.
+
 ```bash
-curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-2.5-flash:generateContent" \
+curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-3.5-flash:generateContent" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -59,7 +61,7 @@ Example return result:
     "candidatesTokenCount": 150,
     "totalTokenCount": 160
   },
-  "modelVersion": "gemini-2.5-flash"
+  "modelVersion": "gemini-3.5-flash"
 }
 ```
 

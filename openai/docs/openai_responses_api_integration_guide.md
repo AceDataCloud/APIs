@@ -50,7 +50,7 @@ After the call, we find the returned result as follows:
   "instructions": null,
   "max_output_tokens": null,
   "max_tool_calls": null,
-  "model": "gpt-4.1",
+  "model": "gpt-5.5",
   "output": [
     {
       "id": "msg_68a98323422c8191a7f383eea48ba5160554cad0b36c0400",

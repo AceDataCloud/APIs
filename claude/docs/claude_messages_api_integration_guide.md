@@ -41,7 +41,7 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-opus-4-8",
     "max_tokens": 1024,
     "messages": [
       {
@@ -66,7 +66,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-opus-4-8",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, Claude"}
@@ -90,7 +90,7 @@ After the call, the returned result is as follows:
       "text": "Hi! My name is Claude. How can I help you today?"
     }
   ],
-  "model": "claude-sonnet-4-20250514",
+  "model": "claude-opus-4-8",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
