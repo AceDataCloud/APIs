@@ -17,7 +17,7 @@ Keywords: gemini-api, google-gemini, chat-completions, generate-content, rest-ap
 
 ## Overview
 
-Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
+Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode. Gemini also supports AI video generation from text prompts and reference images.
 
 ## Application Process
 
@@ -49,3 +49,5 @@ Explore the supported endpoints and integration guides for Gemini.
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
 | [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Videos API](https://platform.acedata.cloud/documents/gemini-videos-api) | `/gemini/videos` | [Gemini Videos API Integration Guide](docs/gemini_videos_api_integration_guide.md) |
+| [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-videos-api) | `/gemini/tasks` | [Gemini Videos API Integration Guide](docs/gemini_videos_api_integration_guide.md) |
