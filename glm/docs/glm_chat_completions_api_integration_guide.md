@@ -22,7 +22,10 @@ When using this interface for the first time, you need to fill in at least three
 
 - `authorization`: Select the Bearer Token directly from the dropdown list.
 - `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.1`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.2`: The latest generation flagship model with the strongest overall capabilities.
+  - `glm-5`: High-performance general-purpose model, strong across reasoning and dialogue tasks.
+  - `glm-5-turbo`: Fast, cost-efficient variant of GLM-5 for high-throughput scenarios.
+  - `glm-5.1`: Flagship model from the GLM-5.x series with strong overall capabilities.
   - `glm-4.7`: Excellent performance on reasoning, tool calling, and code tasks.
   - `glm-4.6`: General-purpose dialogue model, balancing capability and cost.
   - `glm-3-turbo`: Classic dialogue model, suitable for general text generation tasks.
@@ -276,7 +279,10 @@ If the model decides to call a tool, the `finish_reason` in the return result wi
 
 | Model | Use Case |
 | --- | --- |
-| `glm-5.1` | Strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.2` | Strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5` | High-performance general-purpose model across reasoning and dialogue |
+| `glm-5-turbo` | Fast, cost-efficient variant of GLM-5; suitable for high-throughput scenarios |
+| `glm-5.1` | Previous-generation GLM-5 flagship; strong reasoning, also available as a fallback |
 | `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
 | `glm-4.6` | Balanced choice for general dialogue and content creation |
 | `glm-3-turbo` | General text generation tasks; cost-sensitive scenarios |
@@ -303,7 +309,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 }
 ```
 
-When `api_error` is returned with the message `Service is temporarily unavailable, please retry later.`, it usually means the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff, or temporarily switch to another available GLM model (e.g., switch from `glm-5.1` to `glm-4.7` or `glm-3-turbo`).
+When `api_error` is returned with the message `Service is temporarily unavailable, please retry later.`, it usually means the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff, or temporarily switch to another available GLM model (e.g., switch from `glm-5.2` to `glm-5.1` or `glm-4.7`).
 
 ## Conclusion
 
