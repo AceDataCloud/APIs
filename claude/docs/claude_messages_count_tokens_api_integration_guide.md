@@ -19,6 +19,8 @@ The request path for the Claude Messages Count Tokens API is `/v1/messages/count
 - `model`: Choose the Claude model to use, such as `claude-sonnet-4-5-20250929`, `claude-opus-4-20250514`, etc.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
+Latest available Claude model options include `claude-fable-5` and `claude-sonnet-5`.
+
 Common optional parameters:
 
 - `system`: System prompt, which will be included in the token count.

@@ -31,6 +31,8 @@ Common optional parameters:
 - `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 
+Latest available Claude model options include `claude-fable-5` and `claude-sonnet-5`.
+
 <p><img src="https://cdn.acedata.cloud/v6lbjo.png" width="400" class="m-auto" /></p>
 
 After the call, we find that the return result is as follows:

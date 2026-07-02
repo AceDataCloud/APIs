@@ -22,6 +22,8 @@ The request path for the Claude Messages API is `/v1/messages`, consistent with 
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
+Latest available Claude model options include `claude-fable-5` and `claude-sonnet-5`.
+
 Common optional parameters:
 
 - `system`: System prompt used to set the model's behavior and role.
@@ -362,11 +364,15 @@ As you can see, the `content` array contains two content blocks:
 
 - `type: "thinking"`: The model's internal thought process, showing the reasoning steps.
 - `type: "text"`: The final answer result.
+- `type: "redacted_thinking"`: Redacted reasoning content may be returned as `data` in sensitive cases.
+- `signature`: May be attached to thinking content blocks for verification.
 
 Notes:
 
 - When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
 - The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+- `thinking.type` supports `enabled`, `disabled`, and `adaptive`.
+- When `thinking.type` is `enabled` or `adaptive`, `display` can be set to `summarized` or `omitted`.
 
 ## Visual Model
 
