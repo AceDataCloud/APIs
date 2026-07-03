@@ -5,14 +5,16 @@ as plugins, so your Coze bots and workflows can generate music, images and video
 and later search the web — through a single Bearer token.
 
 Coze imports **standard OpenAPI 3.0** schemas, so every file here can be imported
-directly with no code. We start with **Suno (AI music)**; more services follow the
-exact same pattern (one `<service>.yaml` per plugin).
+directly with no code. We ship **Suno (music)** and **image generation (GPT Image /
+Nano Banana / DALL·E)**; more services follow the exact same pattern (one
+`<service>.yaml` per plugin).
 
 ## Plugins
 
 | File | Tool (`operationId`) | AceData API | What it does |
 |---|---|---|---|
 | [`suno.yaml`](./suno.yaml) | `generateMusic` | `POST /suno/audios` | Generate a full song from a prompt or custom lyrics |
+| [`image.yaml`](./image.yaml) | `generateImage` | `POST /openai/images/generations` | Generate images — GPT Image, Nano Banana or DALL·E (pick the model) |
 
 ## Import into Coze (扣子)
 
@@ -37,9 +39,9 @@ exact same pattern (one `<service>.yaml` per plugin).
 ## Notes
 
 - **Synchronous by design.** These endpoints return the result inline (the `200`
-  body already contains `audio_url`), which is what Coze tools expect. Do **not**
-  add `callback_url` / `async` to the schema — that switches the API into webhook
-  mode and Coze would only receive a task id.
+  body already contains the `audio_url` / image `url`), which is what Coze tools
+  expect. Do **not** add `callback_url` / `async` to the schema — that switches the
+  API into webhook mode and Coze would only receive a task id.
 - **One token, all services.** The base URL is `https://api.acedata.cloud` and the
   same token style works across services, so additional plugins here reuse the same
   auth setup.
@@ -47,8 +49,25 @@ exact same pattern (one `<service>.yaml` per plugin).
   purpose — the platform's internal OpenAPI specs use `$t(...)` i18n placeholders
   that would otherwise show up literally as tool/parameter names inside Coze.
 
-## Roadmap
+## Roadmap & priorities
 
-Same pattern, one file each: `flux.yaml` (image), `luma.yaml` / `veo.yaml` (video),
-`serp.yaml` (web search). Contributions welcome — copy `suno.yaml`, swap the path,
-parameters and descriptions, and add a row to the table above.
+AceData Cloud already ships a batch of plugins **live in the Coze store** — Suno,
+Midjourney, DeepSeek, Grok, SERP — each with real usage (Suno alone: ~789 installs /
+157 calls). This folder is the **versioned source** for their OpenAPI schemas so the
+team can re-import and update them consistently instead of hand-editing in the Coze UI.
+
+Highest-value services to add next, by market traction + platform fit (Coze is a
+ByteDance product, so ByteDance's own Seedream / Seedance fit especially well):
+
+| Service | Category | Why |
+|---|---|---|
+| Seedream | image | ByteDance image — platform fit |
+| Sora | video | Top video buzz |
+| Kling | video | Leading China video model |
+| Seedance | video | ByteDance video — platform fit |
+| Veo | video | Google video |
+| Flux | image | Strong open image model |
+
+Same pattern, one file each — copy an existing `.yaml`, swap the path, parameters and
+descriptions (take **real** params + endpoint from `PlatformBackend/openapi/<uuid>.json`,
+never invent them), and add a row to the Plugins table above.
