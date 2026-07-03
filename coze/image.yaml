@@ -1,0 +1,126 @@
+openapi: 3.0.1
+info:
+  title: AceData Image — GPT Image, Nano Banana & DALL·E
+  description: >-
+    Generate images from a text prompt using OpenAI GPT Image
+    (gpt-image-1 / 1.5 / 2), Google Nano Banana (nano-banana / -2 / -pro) or
+    DALL·E — one endpoint, just pick the model — powered by AceData Cloud
+    (https://platform.acedata.cloud). Import this schema into Coze / 扣子 as a
+    plugin to let your bots and workflows generate images on demand.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /openai/images/generations:
+    post:
+      operationId: generateImage
+      summary: Generate an image from a text prompt
+      description: >-
+        Create one or more images from a text prompt. Pick the model — GPT Image,
+        Nano Banana or DALL·E. When `async` is not set, the response returns
+        synchronously and already contains the image URLs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+                - model
+              properties:
+                prompt:
+                  type: string
+                  description: >-
+                    Text description of the image to generate. GPT Image models
+                    support up to 32000 characters.
+                  example: A cute baby sea otter
+                model:
+                  type: string
+                  enum:
+                    - gpt-image-2
+                    - gpt-image-1.5
+                    - gpt-image-1
+                    - nano-banana-pro
+                    - nano-banana-2
+                    - nano-banana
+                    - dall-e-3
+                    - dall-e-2
+                  default: gpt-image-2
+                  description: Which image model to use.
+                size:
+                  type: string
+                  default: auto
+                  description: >-
+                    Image size as WIDTHxHEIGHT (e.g. 1024x1024, 1024x1536,
+                    1536x1024) or "auto".
+                  example: 1024x1024
+                quality:
+                  type: string
+                  enum:
+                    - auto
+                    - high
+                    - medium
+                    - low
+                    - hd
+                    - standard
+                  default: auto
+                  description: Rendering quality.
+                background:
+                  type: string
+                  enum:
+                    - auto
+                    - transparent
+                    - opaque
+                  default: auto
+                  description: >-
+                    Background handling. Use "transparent" for cut-out PNGs
+                    (GPT Image only).
+                n:
+                  type: integer
+                  minimum: 1
+                  maximum: 10
+                  default: 1
+                  description: How many images to generate.
+                output_format:
+                  type: string
+                  enum:
+                    - png
+                    - jpeg
+                    - webp
+                  default: png
+                  description: Output image file format.
+      responses:
+        "200":
+          description: The generated images.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: number
+                    description: Unix timestamp when the images were created.
+                  data:
+                    type: array
+                    description: The generated images.
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          description: >-
+                            URL of the generated image (returned when
+                            response_format is "url", the default).
+                        revised_prompt:
+                          type: string
+                          description: >-
+                            The prompt actually used to generate the image, if it
+                            was revised.
