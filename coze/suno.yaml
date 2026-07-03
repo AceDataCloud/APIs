@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: AceData Suno — AI Music Generation
+  description: >-
+    Generate full songs (vocals + instrumental) from a text prompt or your own
+    lyrics using Suno models, powered by AceData Cloud
+    (https://platform.acedata.cloud). Import this schema into Coze / 扣子 as a
+    plugin to let your bots and workflows create music on demand.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /suno/audios:
+    post:
+      operationId: generateMusic
+      summary: Generate a song from a text prompt or lyrics
+      description: >-
+        Create AI-generated music (usually two variations) from a short text
+        prompt, or from your own lyrics in custom mode. When `async` is not set,
+        the response returns synchronously and already contains the audio URLs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  description: >-
+                    What the song should be about, in natural language, e.g.
+                    "an upbeat pop song about summer road trips". Used when
+                    `custom` is false; ignored in custom mode.
+                  example: an upbeat pop song about summer road trips
+                model:
+                  type: string
+                  enum:
+                    - chirp-v5-5
+                    - chirp-v5
+                    - chirp-v4-5-plus
+                    - chirp-v4-5
+                    - chirp-v4
+                    - chirp-v3-5
+                    - chirp-v3-0
+                  default: chirp-v5-5
+                  description: Suno model version. Newer versions generally sound better.
+                custom:
+                  type: boolean
+                  default: false
+                  description: >-
+                    When true, use `lyric`, `style` and `title` exactly as given
+                    (custom mode) instead of generating from `prompt`.
+                lyric:
+                  type: string
+                  description: >-
+                    Full lyrics to sing, used in custom mode. Use section tags
+                    like [Verse], [Chorus], [Bridge] to structure the song.
+                style:
+                  type: string
+                  description: >-
+                    Musical style / genre, e.g. "uplifting orchestral with
+                    sleigh bells and warm strings".
+                title:
+                  type: string
+                  description: Song title, used in custom mode.
+                instrumental:
+                  type: boolean
+                  default: false
+                  description: When true, generate an instrumental track with no vocals.
+                vocal_gender:
+                  type: string
+                  description: >-
+                    Preferred vocal gender, e.g. "male" or "female". Leave empty
+                    to let the model decide.
+      responses:
+        "200":
+          description: The generated songs, including playable audio URLs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Whether the request succeeded.
+                  task_id:
+                    type: string
+                    description: Unique id of this generation task.
+                  trace_id:
+                    type: string
+                    description: Trace id for support / debugging.
+                  data:
+                    type: array
+                    description: The generated songs (usually two variations).
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique id of the song.
+                        title:
+                          type: string
+                          description: Song title.
+                        audio_url:
+                          type: string
+                          description: URL of the generated MP3 audio.
+                        image_url:
+                          type: string
+                          description: Cover image URL.
+                        lyric:
+                          type: string
+                          description: The lyrics of the song.
+                        duration:
+                          type: number
+                          description: Length of the song in seconds.
+                        model:
+                          type: string
+                          description: The model that produced the song.
