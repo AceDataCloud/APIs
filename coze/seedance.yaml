@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: AceData Seedance — AI Video Generation
+  description: >-
+    Generate videos using ByteDance Seedance (Doubao) models, powered by AceData
+    Cloud (https://platform.acedata.cloud). Import this schema into Coze / 扣子 as
+    a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /seedance/videos:
+    post:
+      operationId: generateVideo
+      summary: Generate a video from a text prompt
+      description: >-
+        Create a video with Seedance. Provide the input as a `content` array — for
+        text-to-video a single text item is enough. When `async` is not set, the
+        response returns synchronously and already contains the video URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - model
+                - content
+              properties:
+                model:
+                  type: string
+                  enum:
+                    - doubao-seedance-2-0-260128
+                    - doubao-seedance-2-0-fast-260128
+                    - doubao-seedance-2-0-mini-260615
+                    - doubao-seedance-1-5-pro-251215
+                    - doubao-seedance-1-0-pro-250528
+                    - doubao-seedance-1-0-pro-fast-251015
+                    - doubao-seedance-1-0-lite-t2v-250428
+                    - doubao-seedance-1-0-lite-i2v-250428
+                  default: doubao-seedance-2-0-260128
+                  description: Seedance model version.
+                content:
+                  type: array
+                  description: >-
+                    Generation input. For text-to-video pass a single text item:
+                    {"type":"text","text":"<your prompt> --rs 720p --rt 16:9 --dur 5"}.
+                    Flags you can append in the text — --rs resolution (480p/720p/1080p),
+                    --rt aspect ratio, --dur seconds, --fps frame rate, --seed.
+                  items:
+                    type: object
+                    required:
+                      - type
+                      - text
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - text
+                      text:
+                        type: string
+                        example: A kitten yawning at the camera. --rs 720p --rt 16:9 --dur 5
+      responses:
+        "200":
+          description: The generated video.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  data:
+                    type: array
+                    description: The generated videos.
+                    items:
+                      type: object
+                      properties:
+                        video_url:
+                          type: string
+                          description: URL of the generated video.

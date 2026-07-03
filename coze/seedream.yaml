@@ -1,0 +1,93 @@
+openapi: 3.0.1
+info:
+  title: AceData Seedream — AI Image Generation
+  description: >-
+    Generate images from a text prompt using ByteDance Seedream (Doubao) models,
+    powered by AceData Cloud (https://platform.acedata.cloud). Import this schema
+    into Coze / 扣子 as a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /seedream/images:
+    post:
+      operationId: generateImage
+      summary: Generate an image from a text prompt
+      description: >-
+        Create an image from a text prompt using a Seedream model. When `async`
+        is not set, the response returns synchronously and already contains the
+        image URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+                - model
+              properties:
+                prompt:
+                  type: string
+                  description: Text description of the image to generate.
+                  example: a white siamese cat
+                model:
+                  type: string
+                  enum:
+                    - doubao-seedream-5-0-260128
+                    - doubao-seedream-4-5-251128
+                    - doubao-seedream-4-0-250828
+                    - doubao-seedream-3-0-t2i-250415
+                    - doubao-seededit-3-0-i2i-250628
+                  default: doubao-seedream-5-0-260128
+                  description: Seedream model version. Newer versions generally look better.
+                size:
+                  type: string
+                  enum:
+                    - 1K
+                    - 2K
+                    - 3K
+                    - 4K
+                    - adaptive
+                  default: 2K
+                  description: Output resolution tier.
+                seed:
+                  type: integer
+                  description: Optional seed for reproducible results.
+                output_format:
+                  type: string
+                  enum:
+                    - jpeg
+                    - png
+                  description: Output image file format.
+      responses:
+        "200":
+          description: The generated image.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  data:
+                    type: array
+                    description: The generated images.
+                    items:
+                      type: object
+                      properties:
+                        image_url:
+                          type: string
+                          description: URL of the generated image.
+                        prompt:
+                          type: string
+                          description: The prompt used to generate the image.

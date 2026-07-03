@@ -1,0 +1,91 @@
+openapi: 3.0.1
+info:
+  title: AceData Flux — AI Image Generation
+  description: >-
+    Generate or edit images from a text prompt using Black Forest Labs Flux
+    models, powered by AceData Cloud (https://platform.acedata.cloud). Import this
+    schema into Coze / 扣子 as a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /flux/images:
+    post:
+      operationId: generateImage
+      summary: Generate or edit an image from a text prompt
+      description: >-
+        Create an image from a text prompt (`action` = generate), or edit an
+        existing image (`action` = edit, with `image_url`). When `async` is not
+        set, the response returns synchronously and already contains the image URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+                - action
+              properties:
+                prompt:
+                  type: string
+                  description: Text description of the image to generate or the edit to apply.
+                  example: a white siamese cat
+                action:
+                  type: string
+                  enum:
+                    - generate
+                    - edit
+                  default: generate
+                  description: generate a new image, or edit an existing one (needs image_url).
+                model:
+                  type: string
+                  enum:
+                    - flux-2-pro
+                    - flux-2-max
+                    - flux-2-flex
+                    - flux-2-klein
+                    - flux-pro
+                    - flux-dev
+                    - flux-kontext-pro
+                    - flux-kontext-max
+                  default: flux-2-pro
+                  description: Flux model version.
+                size:
+                  type: string
+                  description: Image size as WIDTHxHEIGHT, e.g. 1024x1024.
+                  example: 1024x1024
+                count:
+                  type: integer
+                  description: How many images to generate.
+                image_url:
+                  type: string
+                  description: Source image URL to edit (for action = edit).
+      responses:
+        "200":
+          description: The generated image.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  data:
+                    type: array
+                    description: The generated images.
+                    items:
+                      type: object
+                      properties:
+                        image_url:
+                          type: string
+                          description: URL of the generated image.
