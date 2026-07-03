@@ -1,0 +1,109 @@
+openapi: 3.0.1
+info:
+  title: AceData Kling — AI Video Generation
+  description: >-
+    Generate videos from a text prompt using Kuaishou Kling models, powered by
+    AceData Cloud (https://platform.acedata.cloud). Import this schema into Coze /
+    扣子 as a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /kling/videos:
+    post:
+      operationId: generateVideo
+      summary: Generate a video from a text prompt
+      description: >-
+        Create a video with Kling. For text-to-video keep `action` = text2video
+        and give a `prompt`; for image-to-video set `action` = image2video and a
+        `start_image_url`. When `async` is not set, the response returns
+        synchronously and already contains the video URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+              properties:
+                prompt:
+                  type: string
+                  description: Text description of the video to generate.
+                  example: A white ceramic coffee mug on a marble countertop, camera slowly orbiting 360 degrees.
+                action:
+                  type: string
+                  enum:
+                    - text2video
+                    - image2video
+                    - extend
+                  default: text2video
+                  description: Generation mode.
+                model:
+                  type: string
+                  enum:
+                    - kling-v1
+                    - kling-v1-6
+                    - kling-v2-master
+                    - kling-v2-1-master
+                    - kling-v2-5-turbo
+                    - kling-v2-6
+                    - kling-v3
+                    - kling-v3-omni
+                    - kling-video-o1
+                  default: kling-v2-6
+                  description: Kling model version.
+                duration:
+                  type: number
+                  enum:
+                    - 5
+                    - 10
+                  description: Video length in seconds.
+                aspect_ratio:
+                  type: string
+                  enum:
+                    - "16:9"
+                    - "9:16"
+                    - "1:1"
+                  description: Video aspect ratio.
+                mode:
+                  type: string
+                  enum:
+                    - std
+                    - pro
+                    - 4k
+                  description: Rendering quality mode.
+                start_image_url:
+                  type: string
+                  description: First-frame image URL (for action = image2video).
+                negative_prompt:
+                  type: string
+                  description: What to avoid in the video.
+      responses:
+        "200":
+          description: The generated video.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  video_url:
+                    type: string
+                    description: URL of the generated video.
+                  duration:
+                    type: string
+                    description: Video length in seconds.
+                  state:
+                    type: string
+                    description: Generation state (e.g. succeed).
+                  task_id:
+                    type: string

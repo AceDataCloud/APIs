@@ -1,0 +1,98 @@
+openapi: 3.0.1
+info:
+  title: AceData Veo — AI Video Generation
+  description: >-
+    Generate videos from a text prompt using Google Veo models, powered by
+    AceData Cloud (https://platform.acedata.cloud). Import this schema into Coze /
+    扣子 as a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /veo/videos:
+    post:
+      operationId: generateVideo
+      summary: Generate a video from a text prompt
+      description: >-
+        Create a video with Google Veo. For text-to-video keep `action` =
+        text2video and give a `prompt`; for image-to-video set `action` =
+        image2video and provide `image_urls`. When `async` is not set, the
+        response returns synchronously and already contains the video URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+              properties:
+                prompt:
+                  type: string
+                  description: Text description of the video to generate.
+                  example: A white ceramic coffee mug on a marble counter, camera slowly orbiting 360 degrees.
+                action:
+                  type: string
+                  enum:
+                    - text2video
+                    - image2video
+                  default: text2video
+                  description: Generation mode.
+                model:
+                  type: string
+                  enum:
+                    - veo3-fast
+                    - veo31-fast
+                    - veo31
+                    - veo3
+                    - veo2-fast
+                    - veo31-fast-ingredients
+                  default: veo3-fast
+                  description: Veo model version.
+                resolution:
+                  type: string
+                  enum:
+                    - 4k
+                    - 1080p
+                    - gif
+                  default: 1080p
+                  description: Output resolution.
+                aspect_ratio:
+                  type: string
+                  enum:
+                    - "16:9"
+                    - "9:16"
+                  description: Video aspect ratio.
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: 1-2 reference images (first frame, or first + last) for action = image2video.
+      responses:
+        "200":
+          description: The generated video.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  data:
+                    type: array
+                    description: The generated videos.
+                    items:
+                      type: object
+                      properties:
+                        video_url:
+                          type: string
+                          description: URL of the generated video.

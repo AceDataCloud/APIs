@@ -5,9 +5,9 @@ as plugins, so your Coze bots and workflows can generate music, images and video
 and later search the web — through a single Bearer token.
 
 Coze imports **standard OpenAPI 3.0** schemas, so every file here can be imported
-directly with no code. We ship **Suno (music)** and **image generation (GPT Image /
-Nano Banana / DALL·E)**; more services follow the exact same pattern (one
-`<service>.yaml` per plugin).
+directly with no code. We ship **music (Suno)**, **image** (GPT Image / Nano Banana /
+DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
+`<service>.yaml` per plugin, all synchronous.
 
 ## Plugins
 
@@ -15,6 +15,12 @@ Nano Banana / DALL·E)**; more services follow the exact same pattern (one
 |---|---|---|---|
 | [`suno.yaml`](./suno.yaml) | `generateMusic` | `POST /suno/audios` | Generate a full song from a prompt or custom lyrics |
 | [`image.yaml`](./image.yaml) | `generateImage` | `POST /openai/images/generations` | Generate images — GPT Image, Nano Banana or DALL·E (pick the model) |
+| [`seedream.yaml`](./seedream.yaml) | `generateImage` | `POST /seedream/images` | Generate images with ByteDance Seedream (Doubao) |
+| [`flux.yaml`](./flux.yaml) | `generateImage` | `POST /flux/images` | Generate or edit images with Flux |
+| [`sora.yaml`](./sora.yaml) | `generateVideo` | `POST /sora/videos` | Generate videos with OpenAI Sora |
+| [`kling.yaml`](./kling.yaml) | `generateVideo` | `POST /kling/videos` | Generate videos with Kuaishou Kling |
+| [`veo.yaml`](./veo.yaml) | `generateVideo` | `POST /veo/videos` | Generate videos with Google Veo |
+| [`seedance.yaml`](./seedance.yaml) | `generateVideo` | `POST /seedance/videos` | Generate videos with ByteDance Seedance |
 
 ## Import into Coze (扣子)
 
@@ -56,18 +62,11 @@ Midjourney, DeepSeek, Grok, SERP — each with real usage (Suno alone: ~789 inst
 157 calls). This folder is the **versioned source** for their OpenAPI schemas so the
 team can re-import and update them consistently instead of hand-editing in the Coze UI.
 
-Highest-value services to add next, by market traction + platform fit (Coze is a
-ByteDance product, so ByteDance's own Seedream / Seedance fit especially well):
+The six highest-value services by market traction + platform fit — **Seedream, Flux,
+Sora, Kling, Veo, Seedance** (Coze is a ByteDance product, so ByteDance's own Seedream
+/ Seedance fit especially well) — are now shipped in the Plugins table above.
 
-| Service | Category | Why |
-|---|---|---|
-| Seedream | image | ByteDance image — platform fit |
-| Sora | video | Top video buzz |
-| Kling | video | Leading China video model |
-| Seedance | video | ByteDance video — platform fit |
-| Veo | video | Google video |
-| Flux | image | Strong open image model |
-
-Same pattern, one file each — copy an existing `.yaml`, swap the path, parameters and
-descriptions (take **real** params + endpoint from `PlatformBackend/openapi/<uuid>.json`,
-never invent them), and add a row to the Plugins table above.
+To add more, same pattern, one file each — copy an existing `.yaml`, swap the path,
+parameters and descriptions (take **real** params + endpoint from
+`PlatformBackend/openapi/<uuid>.json`, never invent them), and add a row to the Plugins
+table above. Next candidates: Hailuo, Luma, Wan (video), Fish (audio).

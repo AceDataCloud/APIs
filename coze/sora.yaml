@@ -1,0 +1,98 @@
+openapi: 3.0.1
+info:
+  title: AceData Sora — AI Video Generation
+  description: >-
+    Generate videos from a text prompt using OpenAI Sora models, powered by
+    AceData Cloud (https://platform.acedata.cloud). Import this schema into Coze /
+    扣子 as a plugin.
+  version: "1.0.0"
+servers:
+  - url: https://api.acedata.cloud
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+paths:
+  /sora/videos:
+    post:
+      operationId: generateVideo
+      summary: Generate a video from a text prompt
+      description: >-
+        Create a video from a text prompt using a Sora model. When `async` is not
+        set, the response returns synchronously and already contains the video URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+                - model
+              properties:
+                prompt:
+                  type: string
+                  description: Text description of the video to generate.
+                  example: cat running on the river
+                model:
+                  type: string
+                  enum:
+                    - sora-2
+                    - sora-2-pro
+                  default: sora-2
+                  description: Sora model version.
+                duration:
+                  type: integer
+                  enum:
+                    - 4
+                    - 8
+                    - 10
+                    - 12
+                    - 15
+                    - 25
+                  description: Video length in seconds.
+                orientation:
+                  type: string
+                  enum:
+                    - landscape
+                    - portrait
+                  description: Video orientation.
+                size:
+                  type: string
+                  enum:
+                    - small
+                    - large
+                    - 720x1280
+                    - 1280x720
+                    - 1024x1792
+                    - 1792x1024
+                  description: Video resolution.
+      responses:
+        "200":
+          description: The generated video.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  data:
+                    type: array
+                    description: The generated videos.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        video_url:
+                          type: string
+                          description: URL of the generated video.
+                        state:
+                          type: string
+                          description: Generation state (e.g. succeeded).
