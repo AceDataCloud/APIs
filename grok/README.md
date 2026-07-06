@@ -1,12 +1,12 @@
 # Grok API
 
-xAI Grok generative services, including chat completions.
+xAI Grok generative services, including chat completions and video generation.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
 API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/service/grok)
 
-Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: grok-api, xai-grok, chat-completions, video-generation, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Grok on Ace Data Cloud
 
@@ -17,11 +17,11 @@ Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tool
 
 ## Overview
 
-xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging.
+xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging. In addition to chat completions, Grok also provides video generation capabilities through the Grok Imagine video models.
 
 ## Application Process
 
-To use the Grok API, apply for the corresponding service on the [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) page. After entering the page, click the "Acquire" button.
+To use the Grok API, open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token. A single token works across all services on the platform.
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 
@@ -47,4 +47,6 @@ Explore the supported endpoints and integration guides for Grok.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/chat/completions` | [Grok Chat Completion API Integration Guide](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Chat Completion API](https://platform.acedata.cloud/documents/grok-chat-completions) | `/grok/chat/completions` | [Grok Chat Completion API Integration Guide](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Videos Generation API](https://platform.acedata.cloud/documents/grok-videos) | `/grok/videos` | [Grok Videos Generation API Integration Guide](docs/grok_videos_api_integration_guide.md) |
+| [Grok Tasks API](https://platform.acedata.cloud/documents/grok-tasks) | `/grok/tasks` | [Grok Tasks API Integration Guide](docs/grok_tasks_api_integration_guide.md) |
