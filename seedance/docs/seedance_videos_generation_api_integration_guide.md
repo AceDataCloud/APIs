@@ -79,6 +79,24 @@ The returned result contains the following fields:
 
 Download the generated video from the `video_url` field.
 
+## Inline Parameter Syntax
+
+Alternatively, you can pass generation parameters inline at the end of the `content[].text` prompt using `--parameter value` notation. The complete inline parameter list is as follows:
+
+| Inline Parameter | Corresponding Field | Description | Value Range |
+| ---------------- | ------------------- | ----------- | ----------- |
+| `--rs`           | `resolution`        | Output resolution | `480p` / `720p` / `1080p` |
+| `--rt`           | `ratio`             | Aspect ratio | `16:9` / `4:3` / `1:1` / `3:4` / `9:16` / `21:9` / `adaptive` |
+| `--dur`          | `duration`          | Video duration (seconds) | 2–15 |
+| `--frames`       | `frames`            | Number of video frames | Integers satisfying 25+4n in [29, 361] |
+| `--fps`          | `framespersecond`   | Frame rate | Only supports `24` |
+| `--seed`         | `seed`              | Random seed | -1 to 4294967295 |
+| `--cf`           | `camerafixed`       | Whether to fix the camera | `true` / `false` |
+| `--wm`           | `watermark`         | Whether to add a watermark | `true` / `false` |
+
+> **Recommended Practice**: Use the corresponding top-level fields (such as `resolution`, `ratio`, etc.) in the request body for strong validation mode. If parameters are filled incorrectly, clear error messages are returned, making it easier to troubleshoot issues.
+
+
 ## Workflows
 
 ### Text-to-Video

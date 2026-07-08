@@ -30,6 +30,7 @@ We will take a task ID returned by the Seedance Videos Generation API as an exam
 **Request Body** includes:
 
 - `id`: The task ID returned by the Seedance Videos Generation API.
+- `action`: The operation to perform. Use `retrieve` (default) to query a single task, or `retrieve_batch` to query multiple tasks at once.
 
 ### Code Example
 
@@ -38,10 +39,11 @@ We will take a task ID returned by the Seedance Videos Generation API as an exam
 ```bash
 curl -X POST 'https://api.acedata.cloud/seedance/tasks' \
   -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
+  -H 'authorization: ******' \
   -H 'content-type: application/json' \
   -d '{
-    "id": "ec22ae22-0140-4033-8c86-a48b536da595"
+    "id": "ec22ae22-0140-4033-8c86-a48b536da595",
+    "action": "retrieve"
   }'
 ```
 
@@ -53,10 +55,10 @@ import requests
 url = "https://api.acedata.cloud/seedance/tasks"
 headers = {
     "accept": "application/json",
-    "authorization": "Bearer {token}",
+    "authorization": "******",
     "content-type": "application/json",
 }
-payload = {"id": "ec22ae22-0140-4033-8c86-a48b536da595"}
+payload = {"id": "ec22ae22-0140-4033-8c86-a48b536da595", "action": "retrieve"}
 
 response = requests.post(url, json=payload, headers=headers)
 print(response.json())
@@ -64,44 +66,86 @@ print(response.json())
 
 ### Response Example
 
-While the task is still running, the `status` will not yet be `succeeded`:
-
 ```json
 {
-  "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": {
-    "task_id": "cgt-20251222005129-62fhb",
-    "status": "processing"
-  }
-}
-```
-
-When the task has completed, the response includes the final `video_url`:
-
-```json
-{
-  "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": {
-    "task_id": "cgt-20251222005129-62fhb",
-    "status": "succeeded",
-    "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
-    "model": "doubao-seedance-2-0-260128"
+  "id": "ec22ae22-0140-4033-8c86-a48b536da595",
+  "request": {
+    "model": "doubao-seedance-1-0-pro-250528",
+    "content": [
+      {
+        "type": "text",
+        "text": "A kitten yawning at the camera."
+      }
+    ]
+  },
+  "response": {
+    "success": true,
+    "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
+    "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
+    "data": {
+      "task_id": "cgt-20251222005129-62fhb",
+      "status": "succeeded",
+      "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
+      "last_frame_url": null,
+      "model": "doubao-seedance-1-0-pro-250528"
+    }
   }
 }
 ```
 
 The returned result contains the following fields:
 
-- `success`: whether the query succeeded.
-- `task_id`: the ID of the video generation task.
-- `trace_id`: the trace ID for this request.
-- `data`: the task result, including `status` and — once the task is `succeeded` — the `video_url` and `model`.
+- `id`: The ID of the generated task, used to uniquely identify this generation task.
+- `request`: The request body when the task was created.
+- `response`: The response body of the task, including `success`, `task_id`, `trace_id`, and `data`.
+  - `data.status`: The current task status (`processing`, `succeeded`, or a failure state).
+  - `data.video_url`: The generated video URL (available once `status` is `succeeded`).
+  - `data.model`: The model used to generate the video.
 
-Poll this endpoint until `data.status` is `succeeded` (or a terminal failure state), then download the video from `data.video_url`.
+Poll this endpoint until `response.data.status` is `succeeded` (or a terminal failure state), then download the video from `response.data.video_url`.
+
+## Batch Query
+
+To query multiple tasks at once, use `action: "retrieve_batch"` with an `ids` array instead of a single `id`:
+
+```bash
+curl -X POST 'https://api.acedata.cloud/seedance/tasks' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "ids": ["ec22ae22-0140-4033-8c86-a48b536da595", "d9e576bd-ca14-4c6f-a541-f4734e941dbe"],
+    "action": "retrieve_batch"
+  }'
+```
+
+The response contains an `items` array of task records and a `count` field:
+
+```json
+{
+  "items": [
+    {
+      "id": "ec22ae22-0140-4033-8c86-a48b536da595",
+      "request": { "model": "doubao-seedance-1-0-pro-250528", "content": [...] },
+      "response": {
+        "success": true,
+        "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
+        "data": { "status": "succeeded", "video_url": "https://platform.cdn.acedata.cloud/seedance/..." }
+      }
+    },
+    {
+      "id": "d9e576bd-ca14-4c6f-a541-f4734e941dbe",
+      "request": { "model": "doubao-seedance-1-0-pro-250528", "content": [...] },
+      "response": {
+        "success": true,
+        "task_id": "d9e576bd-ca14-4c6f-a541-f4734e941dbe",
+        "data": { "status": "succeeded", "video_url": "https://platform.cdn.acedata.cloud/seedance/..." }
+      }
+    }
+  ],
+  "count": 2
+}
+```
 
 ## Error Codes
 
