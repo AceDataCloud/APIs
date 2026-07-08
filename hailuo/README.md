@@ -23,13 +23,11 @@ The Hailuo Tasks API provides a way to query the execution status of video gener
 
 ## Application Process
 
-To use the Hailuo Videos Generation API, you can first visit the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Hailuo Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
-
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Basic Usage
 

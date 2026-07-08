@@ -21,9 +21,11 @@ The Producer Audios Generation API generates AI songs from a text `prompt` or cu
 
 ## Application Process
 
-To use the Producer Audios Generation API, apply for the corresponding service on the [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) page. After entering the page, click the "Acquire" button.
+To use the Producer Music Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 

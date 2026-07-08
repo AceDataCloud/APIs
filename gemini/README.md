@@ -21,9 +21,11 @@ Google Gemini is a powerful AI conversation system that supports both OpenAI-com
 
 ## Application Process
 
-To use the Gemini API, apply for the corresponding service on the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page. After entering the page, click the "Acquire" button.
+To use the Gemini API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 

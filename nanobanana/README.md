@@ -1092,7 +1092,7 @@ Explore the supported endpoints and integration guides for Nano Banana Image Gen
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d) | `/nano-banana/images` | [Nano Banana Images API Integration Guide](https://platform.acedata.cloud/documents/2fb479f8-63ec-424c-a93e-b12cd4250f9e) |
-| [$t(document_title_nanobanana_tasks_api)](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](https://platform.acedata.cloud/documents/e01ef840-3158-4eec-a6e7-337dada8d155) |
+| [Nano Banana Tasks API](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](https://platform.acedata.cloud/documents/e01ef840-3158-4eec-a6e7-337dada8d155) |
 
 ## Related Resources
 

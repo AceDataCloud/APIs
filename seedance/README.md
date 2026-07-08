@@ -25,9 +25,11 @@ The Seedance Tasks API queries the execution status of tasks by inputting the ta
 
 ## Application Process
 
-To use the Seedance Videos Generation API, apply for the corresponding service on the [Seedance Videos Generation API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8) page. After entering the page, click the "Acquire" button.
+To use the Seedance Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
