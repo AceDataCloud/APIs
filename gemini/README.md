@@ -1,6 +1,6 @@
 # Gemini API
 
-Google Gemini generative services, including chat completions and native generate content API.
+Google Gemini generative services, including chat completions, native generate content APIs, video generation, and task polling.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
@@ -17,7 +17,7 @@ Keywords: gemini-api, google-gemini, chat-completions, generate-content, rest-ap
 
 ## Overview
 
-Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
+Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, JSON mode, video generation, and asynchronous task polling.
 
 ## Application Process
 
@@ -48,4 +48,7 @@ Explore the supported endpoints and integration guides for Gemini.
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
-| [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| Gemini Generate Content API | `/v1beta/models/{model}:generateContent` | Native Gemini request format for multimodal prompts, tools, and structured generation. |
+| Gemini Stream Generate Content API | `/v1beta/models/{model}:streamGenerateContent` | Streaming variant of `generateContent` for incremental token delivery. |
+| Gemini Videos API | `/gemini/videos` | Submit Gemini video generation jobs with prompt- or image-driven workflows. |
+| Gemini Tasks API | `/gemini/tasks` | Retrieve asynchronous Gemini job status and final results by task ID. |

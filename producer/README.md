@@ -56,8 +56,12 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
+| Producer Upload API | `/producer/upload` | Register a reference audio file and reuse its returned `audio_id` for cover or extension workflows. |
+| Producer Wav API | `/producer/wav` | Export a generated song to WAV audio. |
+| Producer Videos API | `/producer/videos` | Export a generated song to MP4 video. |
 | [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
 | [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| Producer Lyrics API | `/producer/lyrics` | Generate song lyrics from a short natural-language prompt. |
 
 ## Related Resources
 
