@@ -24,8 +24,11 @@ The most basic usage is to input a `content` array containing a single text item
   - `video_url` (Seedance 2.0): `{ "type": "video_url", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
 - `resolution`: output resolution, one of `480p`, `720p`, `1080p`, `4k`. `4k` is supported only by `doubao-seedance-2-0-260128`; `doubao-seedance-2-0-fast-260128` and `doubao-seedance-2-0-mini-260615` cap at `720p`. If omitted, a default resolution is selected based on the chosen model.
 - `ratio`: aspect ratio, one of `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9`, `adaptive`. Default `16:9`.
-- `duration`: video duration in seconds, `2`–`15` (the Seedance 2.0 series supports `4`–`15`).
-- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Mutually exclusive with `duration`.
+- `duration`: video duration in seconds, model-specific:
+  - Seedance 1.0 Pro / 1.0 Pro Fast: `2`–`12`.
+  - Seedance 1.5 Pro: `4`–`12`, or `-1` for automatic duration.
+  - Seedance 2.0 series: `4`–`15`, or `-1` for automatic duration.
+- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
