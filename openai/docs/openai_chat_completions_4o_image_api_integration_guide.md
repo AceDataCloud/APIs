@@ -1,28 +1,29 @@
 # OpenAI Chat Completion 4o Image API Application and Usage
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, ChatGPT has been widely applied in various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a powerful AI conversational system that can generate smooth and natural replies within seconds based on input prompts. ChatGPT stands out in the industry for its excellent language understanding and generation capabilities. Today, ChatGPT is widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, professional consulting, or code programming, ChatGPT provides impressive intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion 4o Image API, which allows us to easily utilize the official OpenAI ChatGPT's multimodal dialogue capabilities.
+This document mainly introduces the usage process of the OpenAI Chat Completion 4o Image API, which allows us to easily utilize the official OpenAI ChatGPT's multimodal conversational features.
 
 ## Application Process
 
-To use the OpenAI Chat Completion 4o Image API, you can first visit the [OpenAI Chat Completion 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use OpenAI Chat Completion 4o Image API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There is a free quota available for first-time applicants, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
+> 📘 Full documentation: [OpenAI Chat Completion 4o Image API →](https://platform.acedata.cloud/documents/openai-chat-completions)
 ## GPT-4o Drawing Model
 
-### Generate Images Based on Reference Images
+### Generating Images Based on Reference Images
 
 Below is an example of generating a custom style image based on a reference image. First, let's look at the input image, as shown below:
 
 ![](https://cdn.acedata.cloud/qzx2z1.png)
 
-The reference image is a real person's picture, and we can change its style, for example, transforming it into an anime-style image. The specific request example is as follows:
+The reference image is a photo of a real person. We can transform its style, for example, turning it into an anime-style image. The specific request example is:
 
 ```json
 {
