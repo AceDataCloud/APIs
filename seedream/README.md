@@ -8,27 +8,26 @@ Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, do
 
 ## Overview
 
-The Seedream Images API generates and edits ByteDance Seedream (Doubao) images by inputting custom parameters. Models: `doubao-seedream-3-0-t2i-250415`, `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-260128`, `doubao-seedream-5.0-lite`, and `doubao-seededit-3-0-i2i-250628` (image edit). The Seedream Tasks API queries async task status.
+The Seedream Images API generates and edits ByteDance Seedream (Doubao) images by inputting custom parameters. Models: `doubao-seedream-5.0-lite` (latest), `doubao-seedream-4.5`, `doubao-seedream-4.0`, `doubao-seedream-3.0-t2i`, and `doubao-seededit-3.0-i2i` (image edit). The Seedream Tasks API queries single or batch task results.
 
 ## Quick Start
 
 ```bash
 curl --request POST "https://api.acedata.cloud/seedream/images" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "Authorization: ******" \
   --header "Content-Type: application/json" \
-  --data '{"model": "doubao-seedream-5-0-260128", "prompt": "a serene mountain lake at sunrise, photorealistic", "size": "2K"}'
+  --data '{"action": "generate", "model": "doubao-seedream-5.0-lite", "prompt": "a serene mountain lake at sunrise, photorealistic", "size": "2K"}'
 ```
 
 ## Models
 
 | Model | Notes |
 | ---- | ---- |
-| `doubao-seedream-5-0-260128` | Latest, highest quality (推荐) |
-| `doubao-seedream-5.0-lite` | Lightweight 5.0 |
-| `doubao-seedream-4-5-251128` | 4.5 |
-| `doubao-seedream-4-0-250828` | 4.0 |
-| `doubao-seedream-3-0-t2i-250415` | 3.0 text-to-image |
-| `doubao-seededit-3-0-i2i-250628` | SeedEdit 3.0 image editing |
+| `doubao-seedream-5.0-lite` | Latest (default) |
+| `doubao-seedream-4.5` | 4.5 |
+| `doubao-seedream-4.0` | 4.0 |
+| `doubao-seedream-3.0-t2i` | 3.0 text-to-image |
+| `doubao-seededit-3.0-i2i` | SeedEdit 3.0 image editing |
 
 ## APIs and Guides
 
