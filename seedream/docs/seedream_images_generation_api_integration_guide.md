@@ -10,7 +10,7 @@ Apply for the service on the [Seedream Images API](https://platform.acedata.clou
 
 Request body fields:
 
-- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-5.0-lite`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`, `doubao-seedream-3-0-t2i-250415`, `doubao-seededit-3-0-i2i-250628`.
+- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`, `doubao-seedream-3-0-t2i-250415`, `doubao-seededit-3-0-i2i-250628`.
 - `prompt`: image description (required).
 - `size`: output resolution `1K` / `2K` / `4K`.
 - `image_url`: source image for editing (SeedEdit `doubao-seededit-3-0-i2i-250628`).
