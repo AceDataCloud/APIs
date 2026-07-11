@@ -4,13 +4,15 @@ This article will introduce the integration instructions for the Veo Videos Gene
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Veo Videos Generation API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use Veo Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There will be a free quota granted upon your first application, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Veo Videos Generation API →](https://platform.acedata.cloud/documents/veo-videos)
 
 ## Basic Usage
 
@@ -124,8 +126,8 @@ If you want to generate a video based on the first and last frame images, you ca
 
 Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
-- `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, and `veo3-fast`.
-- `image_urls`: when selecting the image-to-video action `image2video`, you must upload the reference image links for the first and last frames.
+- `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
+- `image_urls`: when selecting the image-to-video action `image2video`, you must upload the reference image links.
 - `prompt`: prompt words.
 
 An example of filling in is as follows:
