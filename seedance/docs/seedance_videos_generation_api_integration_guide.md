@@ -20,8 +20,8 @@ The most basic usage is to input a `content` array containing a single text item
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
   - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
   - `image_url`: `{ "type": "image_url", "role": "first_frame|last_frame|reference_image", "image_url": { "url": "https://..." } }`.
-  - `audio_url` (Seedance 2.0): `{ "type": "audio_url", "audio_url": { "url": "https://..." } }` — reference audio for voice timbre / background music.
-  - `video_url` (Seedance 2.0): `{ "type": "video_url", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
+  - `audio_url` (Seedance 2.0): `{ "type": "audio_url", "role": "reference_audio", "audio_url": { "url": "https://..." } }` — reference audio for voice timbre / background music.
+  - `video_url` (Seedance 2.0): `{ "type": "video_url", "role": "reference_video", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
 - `resolution`: output resolution, one of `480p`, `720p`, `1080p`, `4k`. `4k` is supported only by `doubao-seedance-2-0-260128`; `doubao-seedance-2-0-fast-260128` and `doubao-seedance-2-0-mini-260615` cap at `720p`. If omitted, a default resolution is selected based on the chosen model.
 - `ratio`: aspect ratio, one of `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9`, `adaptive`. Default `16:9`.
 - `duration`: video duration in seconds, model-specific:
@@ -35,6 +35,8 @@ The most basic usage is to input a `content` array containing a single text item
 - `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
+- `return_last_frame`: optional boolean, default `false`. When `true`, the last frame of the generated video is also returned as an image.
+- `execution_expires_after`: optional integer (seconds). How long the task result is kept before expiration. Range: `3600`–`259200` (1 hour – 3 days); default `172800` (48 hours).
 
 ### Request Example
 
@@ -59,14 +61,30 @@ curl -X POST 'https://api.acedata.cloud/seedance/videos' \
 ```json
 {
   "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": {
-    "task_id": "cgt-20251222005129-62fhb",
-    "status": "succeeded",
-    "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
-    "model": "doubao-seedance-2-0-260128"
-  }
+  "task_id": "93f11baf-347b-4bb4-9520-8653cb46d6a3",
+  "trace_id": "a9063166-26ed-4451-85b5-54e896817c69",
+  "data": [
+    {
+      "id": "cgt-20250528123456-abcde",
+      "model": "doubao-seedance-2-0-260128",
+      "status": "succeeded",
+      "content": {
+        "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4"
+      },
+      "seed": 10,
+      "resolution": "1080p",
+      "ratio": "16:9",
+      "duration": 5,
+      "framespersecond": 24,
+      "execution_expires_after": 172800,
+      "usage": {
+        "completion_tokens": 108900,
+        "total_tokens": 108900
+      },
+      "created_at": 1743414619,
+      "updated_at": 1743414673
+    }
+  ]
 }
 ```
 
@@ -75,9 +93,18 @@ The returned result contains the following fields:
 - `success`: the status of the video generation task.
 - `task_id`: the ID of the video generation task.
 - `trace_id`: the trace ID for this request.
-- `data`: the result of the video generation task, including `status`, `video_url`, and `model`.
+- `data`: array of result objects. Each item includes:
+  - `id`: the internal generation task ID.
+  - `model`: the model used.
+  - `status`: the task status (`succeeded`, `processing`, `failed`).
+  - `content.video_url`: URL of the generated video.
+  - `seed`: the seed value used.
+  - `resolution`, `ratio`, `duration`, `framespersecond`: generation parameters echoed back.
+  - `execution_expires_after`: seconds until the task result expires.
+  - `usage.completion_tokens`, `usage.total_tokens`: token consumption for billing.
+  - `created_at`, `updated_at`: Unix timestamps.
 
-Download the generated video from the `video_url` field.
+Download the generated video from `data[0].content.video_url`.
 
 ## Workflows
 
@@ -135,8 +162,8 @@ The Seedance 2.0 series also accepts reference audio (voice timbre, background m
   "content": [
     { "type": "text", "text": "a singer performing on stage, matching the reference voice and motion" },
     { "type": "image_url", "role": "reference_image", "image_url": { "url": "https://example.com/person.jpg" } },
-    { "type": "audio_url", "audio_url": { "url": "https://example.com/voice.mp3" } },
-    { "type": "video_url", "video_url": { "url": "https://example.com/motion.mp4" } }
+    { "type": "audio_url", "role": "reference_audio", "audio_url": { "url": "https://example.com/voice.mp3" } },
+    { "type": "video_url", "role": "reference_video", "video_url": { "url": "https://example.com/motion.mp4" } }
   ],
   "generate_audio": true
 }

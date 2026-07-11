@@ -29,7 +29,11 @@ We will take a task ID returned by the Seedance Videos Generation API as an exam
 
 **Request Body** includes:
 
-- `id`: The task ID returned by the Seedance Videos Generation API.
+- `id`: The task ID returned by the Seedance Videos Generation API (single retrieval).
+- `ids`: An array of task IDs for batch retrieval (use with `action: "retrieve_batch"`).
+- `action`: The retrieval action. One of:
+  - `retrieve` (default) — retrieve a single task by `id`.
+  - `retrieve_batch` — retrieve multiple tasks by `ids`.
 
 ### Code Example
 
@@ -71,26 +75,44 @@ While the task is still running, the `status` will not yet be `succeeded`:
   "success": true,
   "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
   "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": {
-    "task_id": "cgt-20251222005129-62fhb",
-    "status": "processing"
-  }
+  "data": [
+    {
+      "id": "cgt-20251222005129-62fhb",
+      "status": "processing"
+    }
+  ]
 }
 ```
 
-When the task has completed, the response includes the final `video_url`:
+When the task has completed, the response includes the final `content.video_url`:
 
 ```json
 {
   "success": true,
   "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
   "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": {
-    "task_id": "cgt-20251222005129-62fhb",
-    "status": "succeeded",
-    "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
-    "model": "doubao-seedance-2-0-260128"
-  }
+  "data": [
+    {
+      "id": "cgt-20251222005129-62fhb",
+      "model": "doubao-seedance-2-0-260128",
+      "status": "succeeded",
+      "content": {
+        "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4"
+      },
+      "seed": 10,
+      "resolution": "1080p",
+      "ratio": "16:9",
+      "duration": 5,
+      "framespersecond": 24,
+      "execution_expires_after": 172800,
+      "usage": {
+        "completion_tokens": 108900,
+        "total_tokens": 108900
+      },
+      "created_at": 1743414619,
+      "updated_at": 1743414673
+    }
+  ]
 }
 ```
 
@@ -99,9 +121,35 @@ The returned result contains the following fields:
 - `success`: whether the query succeeded.
 - `task_id`: the ID of the video generation task.
 - `trace_id`: the trace ID for this request.
-- `data`: the task result, including `status` and — once the task is `succeeded` — the `video_url` and `model`.
+- `data`: array of task result objects. Each item includes:
+  - `id`: the internal generation task ID.
+  - `model`: the model used (present when task is complete).
+  - `status`: the task status (`processing`, `succeeded`, `failed`).
+  - `content.video_url`: URL of the generated video (present when `status` is `succeeded`).
+  - `seed`, `resolution`, `ratio`, `duration`, `framespersecond`: generation parameters.
+  - `execution_expires_after`: seconds until the task result expires.
+  - `usage.completion_tokens`, `usage.total_tokens`: token consumption for billing.
+  - `created_at`, `updated_at`: Unix timestamps.
 
-Poll this endpoint until `data.status` is `succeeded` (or a terminal failure state), then download the video from `data.video_url`.
+Poll this endpoint until `data[0].status` is `succeeded` (or a terminal failure state), then download the video from `data[0].content.video_url`.
+
+## Batch Retrieval
+
+To retrieve multiple tasks at once, use `action: "retrieve_batch"` with an `ids` array:
+
+```bash
+curl -X POST 'https://api.acedata.cloud/seedance/tasks' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "action": "retrieve_batch",
+    "ids": [
+      "ec22ae22-0140-4033-8c86-a48b536da595",
+      "fa33bf33-0251-5144-9d97-b59c647eb6a6"
+    ]
+  }'
+```
 
 ## Error Codes
 
