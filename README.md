@@ -7,6 +7,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | Directory | Standalone Repo | Description |
 |---|---|---|
 | `luma/` | [LumaAPI](https://github.com/AceDataCloud/LumaAPI) | Luma video generation API docs |
+| `maestro/` | [MaestroAPI](https://github.com/AceDataCloud/MaestroAPI) | Maestro end-to-end AI video production API docs |
 | `suno/` | [SunoAPI](https://github.com/AceDataCloud/SunoAPI) | Suno music generation API docs |
 | `sora/` | [SoraAPI](https://github.com/AceDataCloud/SoraAPI) | Sora video generation API docs |
 | `veo/` | [VeoAPI](https://github.com/AceDataCloud/VeoAPI) | Veo video generation API docs |
