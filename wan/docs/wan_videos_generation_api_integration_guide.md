@@ -4,13 +4,15 @@ This article will introduce the Wan Videos Generation API integration instructio
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c) page. After entering the page, click the "Acquire" button, as shown in the image:
+To use Wan Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There will be a free quota offered for the first application, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Wan Videos Generation API →](https://platform.acedata.cloud/documents/wan-videos)
 
 ## Basic Usage
 
@@ -80,7 +82,6 @@ curl -X POST 'https://api.acedata.cloud/wan/videos' \
 ```
 
 ## Image-to-Video Functionality
-
 If you want to generate a video based on a reference image or reference video, you can set the parameter `action` to `image2video`, and input the required reference image link or reference video link. Next, you must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
 - `model`: The model for generating the video, mainly including `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v` models.
@@ -141,7 +142,7 @@ Since the time taken by the Wan Videos Generation API is relatively long, approx
 
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field information, representing the current task ID. When the task is completed, the generated video result will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Let's understand how to operate specifically through an example.
+Let’s understand how to operate specifically through an example.
 
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own built HTTP server. For demonstration purposes, a public Webhook sample site https://webhook.site/ is used, and opening this site will provide a Webhook URL, as shown in the image:
 

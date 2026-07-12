@@ -6,13 +6,15 @@ This document mainly introduces the usage process of the OpenAI Chat Completion 
 
 ## Application Process
 
-To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Completion API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use OpenAI Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [OpenAI Chat Completion API →](https://platform.acedata.cloud/documents/openai-chat-completions)
 
 ## Basic Usage
 
@@ -40,7 +42,7 @@ After the call, we find that the return result is as follows:
   "id": "chatcmpl-Cmd6uwSxN75F4PAdQSFEO8f2QPs4E",
   "object": "chat.completion",
   "created": 1765706120,
-  "model": "gpt-5.4",
+  "model": "gpt-5.2",
   "choices": [
     {
       "index": 0,
@@ -517,11 +519,11 @@ Example result:
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
+- `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
+- `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
+- `429 too_many_requests`：请求过多，您已超出速率限制。
+- `500 api_error`：内部服务器错误，服务器出现问题。
 
 ### Error Response Example
 
@@ -530,7 +532,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "fetch failed"
+    "message": "获取失败"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
