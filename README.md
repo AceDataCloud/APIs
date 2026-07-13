@@ -12,6 +12,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `sora/` | [SoraAPI](https://github.com/AceDataCloud/SoraAPI) | Sora video generation API docs |
 | `veo/` | [VeoAPI](https://github.com/AceDataCloud/VeoAPI) | Veo video generation API docs |
 | `flux/` | [FluxAPI](https://github.com/AceDataCloud/FluxAPI) | Flux image generation API docs |
+| `happyhorse/` | [HappyHorseAPI](https://github.com/AceDataCloud/HappyHorseAPI) | Happy Horse video generation and editing API docs |
 | `serp/` | [SerpAPI](https://github.com/AceDataCloud/SerpAPI) | Web search API docs |
 | `nanobanana/` | [NanoBananaAPI](https://github.com/AceDataCloud/NanoBananaAPI) | NanoBanana image generation API docs |
 | `openai/` | [OpenAIAPI](https://github.com/AceDataCloud/OpenAIAPI) | OpenAI-compatible API docs |
