@@ -4,6 +4,11 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  maestro:
+    repo: AceDataCloud/MaestroAPI
+    exclude:
+      - .github
+      - .gitbooks
   suno:
     repo: AceDataCloud/SunoAPI
     exclude:
