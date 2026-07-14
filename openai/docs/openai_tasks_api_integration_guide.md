@@ -6,7 +6,7 @@ The OpenAI Tasks API lets you query tasks that were previously submitted to an O
 
 ## Application Process
 
-The OpenAI Tasks API is bundled with the existing OpenAI service. If you already have access to [OpenAI Images Generations](https://platform.acedata.cloud/services/06f2acb7-3a85-4b5a-bda8-2d9bbe2b4c8f) you can call this endpoint with the same authorization token — no additional application is required.
+The OpenAI Tasks API is bundled with the existing OpenAI service. If you already have access to OpenAI Images Generations you can call this endpoint with the same authorization token — no additional application is required.
 
 There is a free quota available for first-time users, allowing you to use the API for free.
 
@@ -39,7 +39,7 @@ Supported actions on the request body:
 | `id` | string | one of | Task ID returned by the original image request |
 | `trace_id` | string | one of | Custom trace ID you supplied via `trace_id` on the original request |
 
-At least one of `id` or `trace_id` must be provided. When both are supplied, `trace_id` takes precedence.
+At least one of `id` or `trace_id` must be provided. The normal flow is to use the `id` returned by the submit response — supply `trace_id` only when you want to look the task up by your own business identifier.
 
 ### Code Example
 
@@ -69,7 +69,7 @@ headers = {
 }
 payload = {
     "action": "retrieve",
-    "trace_id": "my-custom-trace-001",
+    "id": "7489df4c-ef03-4de0-b598-e9a590793434",
 }
 response = requests.post(url, json=payload, headers=headers)
 print(response.json())
@@ -117,7 +117,7 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 
 - `id` — the task ID generated when the original image request was accepted.
 - `trace_id` — the custom trace identifier you sent with the original request (optional, useful for client-side correlation).
-- `type` — the upstream API type. Tasks submitted via the `gpt-image` series (e.g., `gpt-image-2`) use `images`; the legacy OpenAI channel (e.g., `gpt-image-1`, nano-banana) uses `images_generations` / `images_edits`; some chat-based image APIs use `chat_completions_image`.
+- `type` — the upstream API type, e.g. `images_generations`, `images_edits`, `chat_completions_image`.
 - `request` — the request body originally sent to the upstream image API.
 - `response` — the final response returned by the upstream image API after callback completion.
 - `created_at` / `finished_at` / `duration` — Unix timestamps (seconds) and elapsed seconds.
@@ -134,7 +134,7 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 | `trace_ids` | string[] | Look up tasks by a list of custom trace IDs |
 | `application_id` | string | List all tasks for an application |
 | `user_id` | string | List all tasks for an end user |
-| `type` | string | Filter by upstream type (`images`, `images_generations`, `images_edits`) |
+| `type` | string | Filter by upstream type (`images_generations`, `images_edits`, …) |
 | `offset` | int | Pagination offset (default `0`) |
 | `limit` | int | Page size (default `12`) |
 | `created_at_min` | float | Earliest creation timestamp (Unix seconds) |
@@ -163,8 +163,8 @@ curl -X POST 'https://api.acedata.cloud/openai/tasks' \
       "_id": "67a1b2c3d4e5f6a7b8c9d0e1",
       "id": "7489df4c-ef03-4de0-b598-e9a590793434",
       "trace_id": "my-trace-001",
-      "type": "images",
-      "request": { "model": "gpt-image-2", "prompt": "A cat" },
+      "type": "images_generations",
+      "request": { "model": "gpt-image-1", "prompt": "A cat" },
       "response": { "data": [{ "url": "https://...png" }] },
       "created_at": 1763142607.967,
       "finished_at": 1763142637.404
@@ -176,10 +176,10 @@ curl -X POST 'https://api.acedata.cloud/openai/tasks' \
 
 ## End-to-End Example: Submit-and-Poll
 
-The Tasks API is most useful in callback mode. Below is a complete flow:
+The Tasks API is most useful in callback mode. In callback mode the submit endpoint **returns the `task_id` to you immediately**, so the polling step just hands that `task_id` back to the Tasks API — no custom `trace_id` required.
 
 ```python
-import os, time, uuid, requests
+import os, time, requests
 
 API = "https://api.acedata.cloud"
 HEADERS = {
@@ -187,8 +187,8 @@ HEADERS = {
     "content-type": "application/json",
 }
 
-# 1. Submit the image generation task with callback_url + trace_id
-trace_id = str(uuid.uuid4())
+# 1. Submit the image generation task (callback mode: any callback_url makes
+#    the endpoint return a task_id synchronously).
 submit = requests.post(
     f"{API}/openai/images/generations",
     headers=HEADERS,
@@ -196,17 +196,18 @@ submit = requests.post(
         "model": "gpt-image-1",
         "prompt": "a watercolor cat sitting on a desk",
         "callback_url": "https://webhook.site/your-uuid",
-        "trace_id": trace_id,
     },
 ).json()
 print("submitted:", submit)
 
-# 2. Poll the Tasks API until the task is finished
+task_id = submit["task_id"]
+
+# 2. Poll the Tasks API with that task_id until the task is finished.
 while True:
     task = requests.post(
         f"{API}/openai/tasks",
         headers=HEADERS,
-        json={"action": "retrieve", "trace_id": trace_id},
+        json={"action": "retrieve", "id": task_id},
     ).json()
     if task and task.get("response"):
         print("finished:", task["response"])
