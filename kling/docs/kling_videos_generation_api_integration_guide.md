@@ -4,13 +4,15 @@ This article introduces the Kling Videos Generation API integration instructions
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) page. After entering the page, click the "Acquire" button, as shown in the image:
+To use Kling Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-There will be a free quota offered for the first application, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Kling Videos Generation API →](https://platform.acedata.cloud/documents/kling-videos)
 
 ## Basic Usage
 
@@ -110,7 +112,7 @@ Notes:
 - `kling-v3` / `kling-v3-omni` accept any integer `duration` between 3–15 seconds; all other models only accept 5 or 10.
 - `generate_audio` defaults to `false`. Only `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (pro mode) support it.
 
-## Video Extension
+## Extend Video Feature
 
 To extend an already generated Kling video, set the `action` parameter to `extend` and provide the `video_id` of the video you want to continue. The video ID is obtained from the basic usage response, as shown below:
 
