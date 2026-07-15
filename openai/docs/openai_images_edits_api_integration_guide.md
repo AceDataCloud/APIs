@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input any number of images and instructions, outputting modified images. Currently, the interface supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -41,7 +41,7 @@ The same upstream hard constraints on custom sizes apply: width and height must 
 
 > **About the `n` parameter**
 >
-> The `gpt-image-2` editing interface currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate edited images at once, please **make multiple concurrent requests yourself**. This limitation also applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only editing model that natively supports `n > 1`.
+> The `gpt-image-2` editing interface currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate edited images at once, please **make multiple concurrent requests yourself**. This limitation also applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only editing model that natively supports `n > 1`.
 
 Below are two real examples from different perspectives to showcase the editing capabilities of `gpt-image-2`.
 

@@ -49,3 +49,4 @@ Explore the supported endpoints and integration guides for Gemini.
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
 | [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Videos Generation API](https://platform.acedata.cloud/documents/gemini-videos) | `/gemini/videos` | [Gemini Videos Generation API Integration Guide](docs/gemini_videos_api_integration_guide.md) |

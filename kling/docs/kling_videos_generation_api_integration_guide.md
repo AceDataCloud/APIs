@@ -176,6 +176,72 @@ After running, you will get the following result:
 
 The result is consistent with what is described in the Basic Usage section, achieving the video extension functionality.
 
+## Omni All-Purpose Reference (Video Editing / Reference Video / Multi-Image / Subject Reference)
+
+The `kling-video-o1` model supports "all-purpose reference" capabilities: based on text-to-video (`action=text2video`), additional reference images, reference subjects, or reference videos can be provided to achieve **multi-image reference, subject reference, reference video, and direct editing of existing videos**.
+
+**Core Agreement**: Reference materials must be referenced in the `prompt` in the form of `<<<image_1>>>`, `<<<element_1>>>`, `<<<video_1>>>` (with numbering starting from 1) corresponding to the positions in `image_list` / `element_list` / `video_list`, for the model to apply these references. If materials are provided without being referenced in the prompt, they will be ignored.
+
+### Reference Video and Video Editing (`video_list`)
+
+`video_list` is used to pass in reference videos. The fields of the array elements are as follows:
+
+- `video_url`: Reference video link, cannot be empty. Requirements: Format MP4/MOV; Resolution 720px–2160px; Duration 3–10 seconds; Frame rate 24–60fps; File size ≤200MB; At most 1 video.
+- `refer_type`: Reference type, optional `base` (default, **editable base video** — can add/delete/modify elements, change composition, style, color, weather, etc.) or `feature` (**feature reference** — reference its style / camera movement / continue to the next shot).
+- `keep_original_sound`: Whether to keep the original video audio, optional `yes` (keep) or `no` (remove).
+
+> Note: When a reference video exists, `generate_audio` must be `false`. Videos with `refer_type=base` cannot specify the first frame / last frame.
+
+Example: editing an existing video to anime style:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/kling/videos' -H 'accept: application/json' -H 'authorization: ******' -H 'content-type: application/json' -d '{
+  "action": "text2video",
+  "model": "kling-video-o1",
+  "mode": "std",
+  "duration": 5,
+  "prompt": "Change <<<video_1>>> to a movie-level anime style, keeping the original movement and composition",
+  "video_list": [
+    {
+      "video_url": "https://cdn.acedata.cloud/your-reference-video.mp4",
+      "refer_type": "base",
+      "keep_original_sound": "no"
+    }
+  ]
+}'
+```
+
+### Multi-image Reference (`image_list`)
+
+`image_list` is used to pass in reference images (elements / scenes / styles). The fields of the array elements are as follows:
+
+- `image_url`: Reference image link, cannot be empty. Requirements: Format .jpg/.jpeg/.png; File size ≤10MB; Shortest side ≥300px; Aspect ratio 1:2.5 ~ 2.5:1.
+- `type`: Optional. If not provided, treated as a pure reference image; if `first_frame` / `end_frame` is provided, treated as the first frame / last frame (equivalent to `start_image_url` / `end_image_url`).
+
+Must be referenced in `prompt` as `<<<image_1>>>`, `<<<image_2>>>`. Quantity limit: without a reference video, reference images + subjects ≤ 7; with a reference video, ≤ 4.
+
+> Note: If both `start_image_url` / `end_image_url` and `image_list` are provided, the first / last frame will be placed before `image_list`. It is recommended to choose one approach.
+
+Example: generating a video with multi-image reference:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/kling/videos' -H 'accept: application/json' -H 'authorization: ******' -H 'content-type: application/json' -d '{
+  "action": "text2video",
+  "model": "kling-video-o1",
+  "mode": "std",
+  "duration": 5,
+  "prompt": "Let the character in <<<image_1>>> stand in the scene of <<<image_2>>>, cinematic lighting",
+  "image_list": [
+    { "image_url": "https://cdn.acedata.cloud/subject.png" },
+    { "image_url": "https://cdn.acedata.cloud/scene.png" }
+  ]
+}'
+```
+
+### Subject Reference (`element_list`)
+
+`element_list` is used to reference elements uploaded to the "subject library". Each element has an `element_id` field (integer). Must be referenced in `prompt` as `<<<element_1>>>`. Quantity limit combined with image references: without a reference video ≤ 7; with a reference video ≤ 4.
+
 ## Asynchronous Callback
 
 Since the Kling Videos Generation API takes a relatively long time (approximately 1–2 minutes), keeping the HTTP connection open for the full duration may cause unnecessary resource consumption. Therefore, the API also supports asynchronous callbacks.

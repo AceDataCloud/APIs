@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering-capable `gpt-image-1`, the latest generation **`gpt-image-2`**, and the series of models **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** that can be accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -25,6 +25,15 @@ There is a free quota granted upon the first application, allowing free use of t
 
 The calling method is exactly the same as other models, just set the `model` field to `gpt-image-2`. The returned `url` in the result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be directly opened in a browser or embedded in a webpage.
 
+### Official Relay / Reverse Variant (`:official` / `:reverse`)
+
+`gpt-image-2` defaults to the reverse route. You can explicitly choose the route by appending the model name suffix:
+
+- **`gpt-image-2:official`**: Official relay route. Supports `n > 1` (returns multiple images at once) and true 2K / 4K resolution, **billed per image at double the price of the default `gpt-image-2`**. Currently only provided by the openai-hk channel; if the route is unavailable, it will return an error directly and will not downgrade to the reverse route.
+- **`gpt-image-2:reverse`**: Completely equivalent to the default `gpt-image-2` (reverse route), used to explicitly declare the reverse route, with unchanged pricing.
+
+> The restrictions mentioned below regarding the `n` parameter only apply to the default / reverse routes; `gpt-image-2:official` supports `n > 1` and is billed per image.
+
 ### Supported `size` Values
 
 `gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
@@ -47,7 +56,7 @@ Upstream hard constraints for custom sizes: width and height must be multiples o
 
 > **About the `n` parameter**
 >
-> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
+> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, and the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
 
 Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
 
