@@ -707,7 +707,7 @@ Make stable REST API calls to Google DeepMind's Veo video generation model. Supp
 -H "Content-Type: application/json" \
 -d '{
 "action": "text2video",
-"model": "veo2-fast",
+"model": "veo31-fast",
 "prompt": "A cinematic drone shot flying over a futuristic Tokyo at sunset, neon lights reflecting on wet streets, 4k",
 "aspect_ratio": "16:9",
 "callback_url": "https://your-app.com/webhook"
