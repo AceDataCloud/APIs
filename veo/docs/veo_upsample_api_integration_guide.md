@@ -67,7 +67,7 @@ If the `action` value is not one of the above, the default charge is 0.50 Credit
 
 ## Asynchronous Callback
 
-This API supports asynchronous mode. Pass a `callback_url` field in the request body, and the result will be delivered via a POST request to that URL once the task completes.
+This API supports asynchronous mode. Pass a `callback_url` field in the request body, and the result will be delivered via a POST request to that URL once the task completes. If there is no public callback address, you can also set `async` to `true`, and the interface will immediately return `task_id`, after which you can poll the corresponding task query interface to obtain the result.
 
 ## Error Handling
 

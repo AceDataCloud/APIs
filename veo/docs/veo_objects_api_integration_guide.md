@@ -60,7 +60,7 @@ The response format is the same as `/veo/videos`.
 
 ## Asynchronous Callback
 
-This API supports asynchronous mode. Pass a `callback_url` field in the request body, and the result will be delivered via a POST request to that URL once the task completes.
+This API supports asynchronous mode. Pass a `callback_url` field in the request body, and the result will be delivered via a POST request to that URL once the task completes. If there is no public callback address, you can also set `async` to `true`, and the interface will immediately return `task_id`, after which you can poll the corresponding task query interface to obtain the result.
 
 ## Error Handling
 
