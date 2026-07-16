@@ -14,7 +14,7 @@ There will be a free quota offered for the first application, allowing you to us
 
 ## Basic Usage
 
-First, understand the basic usage method: input the prompt `prompt`, the generation action `action`, an optional first-frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to pass the `action` field, whose value is `text2video`. The API supports three main actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). You also need to specify the model `model`. The currently supported models are `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-video-o1`. The specific content is as follows:
+First, understand the basic usage method: input the prompt `prompt`, the generation action `action`, an optional first-frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to pass the `action` field, whose value is `text2video`. The API supports three main actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). You also need to specify the model `model`. The currently supported models are `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`. The specific content is as follows:
 
 <p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" class="m-auto"></p>
 
@@ -25,19 +25,19 @@ Here we have set the Request Headers, including:
 
 Additionally, we set the Request Body, including:
 
-- `model`: the model used to generate the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, `kling-video-o1`.
+- `model`: the model used to generate the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, `kling-o1`.
 - `mode`: the mode for generating the video. Options: standard mode `std`, high-quality mode `pro`, and native 4K mode `4k`. The `4k` mode is only supported by `kling-v3` and `kling-v3-omni`, and is not compatible with `camera_control` (motion control).
 - `action`: the action for this video generation task. Options: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when the `image2video` action is selected, you must provide a first-frame reference image URL.
 - `end_image_url`: optional for image-to-video, specifies the last frame. Only valid with `action=image2video` and a non-empty `start_image_url`.
-- `duration`: video duration in seconds. For `kling-v3` and `kling-v3-omni` models, supports flexible duration of 3–15 seconds (integer). For other models, supports 5 or 10 seconds.
+- `duration`: video duration in seconds. `kling-v3` and `kling-v3-omni` support integer durations from 3–15 seconds; `kling-o1` supports 5 seconds only; other models support 5 or 10 seconds.
 - `generate_audio`: whether to generate audio along with the video, optional boolean. Supported only by `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (pro mode only). Default is `false`.
 - `aspect_ratio`: the aspect ratio of the video, optional. Options: `16:9`, `9:16`, `1:1`. Default is `16:9`.
 - `cfg_scale`: degree of correlation strength, range [0, 1]. A higher value means the output follows the prompt more closely.
 - `camera_control`: optional object for controlling camera movement. Supports type/simple presets and configuration fields: `horizontal`, `vertical`, `pan`, `tilt`, `roll`, `zoom`.
 - `negative_prompt`: optional, content you do not want to appear in the video. Maximum 200 characters.
-- `element_list`: list of reference subjects. Only applicable to the `kling-video-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
-- `video_list`: reference video, obtained via URL. Only applicable to the `kling-video-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
+- `image_list`: Omni reference images for `kling-o1` and `kling-v3-omni`. Each item contains `image_url` and optional `type` (`first_frame` or `end_frame`). Cite them as `<<<image_1>>>`, `<<<image_2>>>`, and so on.
+- `video_list`: one Omni reference video for `kling-o1` and `kling-v3-omni`. The item contains `video_url`, `refer_type` (`feature` or `base`), and `keep_original_sound` (`yes` or `no`). Cite it as `<<<video_1>>>`.
 - `prompt`: the text prompt for video generation.
 - `callback_url`: the URL to which the result will be sent upon completion.
 
@@ -101,14 +101,65 @@ Different models support different parameters. The following matrix is compiled 
 | `kling-v3` | std / pro | ✅ | ✅ | ✅ | `duration` range: 3–15 seconds |
 | `kling-v3` | 4k | ✅ | ✅ | ❌ | 4K mode is incompatible with motion control |
 | `kling-v3-omni` | std / pro / 4k | ✅ | ✅ | ❌ | |
-| `kling-video-o1` | std / pro | ✅ | ❌ | ❌ | `duration=5/10` only |
+| `kling-o1` | std / pro | ✅ | ❌ | ❌ | `duration=5` only; Omni references |
 
 Notes:
 
 - `mode=4k` is only supported by `kling-v3` and `kling-v3-omni`, and is mutually exclusive with `camera_control` (motion control).
 - `end_image_url` can only be used with `action=image2video` together with `start_image_url`. Providing only `end_image_url` (without `start_image_url`) will be rejected.
-- `kling-v3` / `kling-v3-omni` accept any integer `duration` between 3–15 seconds; all other models only accept 5 or 10.
+- `kling-v3` / `kling-v3-omni` accept any integer `duration` between 3–15 seconds; `kling-o1` accepts 5 seconds only; other models accept 5 or 10.
 - `generate_audio` defaults to `false`. Only `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (pro mode) support it.
+
+## Omni Image and Video References
+
+`kling-o1` and `kling-v3-omni` are separate models that both support Omni image/video references. Use `action=text2video` and cite every supplied reference in the prompt.
+
+### Reference video / video editing
+
+```shell
+curl -X POST 'https://api.acedata.cloud/kling/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "text2video",
+  "model": "kling-o1",
+  "mode": "std",
+  "duration": 5,
+  "prompt": "turn <<<video_1>>> into hand-painted animation while preserving motion",
+  "video_list": [
+    {
+      "video_url": "https://cdn.example.com/source.mp4",
+      "refer_type": "base",
+      "keep_original_sound": "no"
+    }
+  ]
+}'
+```
+
+Use `refer_type=feature` to reference a video's style, camera motion, or neighboring shot. Use `refer_type=base` to edit the supplied video. A base video cannot be combined with first/end frames.
+
+### Multiple reference images
+
+```json
+{
+  "action": "text2video",
+  "model": "kling-v3-omni",
+  "mode": "std",
+  "duration": 5,
+  "prompt": "place the subject from <<<image_1>>> in the scene from <<<image_2>>>",
+  "image_list": [
+    { "image_url": "https://cdn.example.com/subject.jpg" },
+    { "image_url": "https://cdn.example.com/scene.jpg" }
+  ]
+}
+```
+
+Without a reference video, the request supports up to 7 reference images including first/end frames. With a reference video, it supports up to 4. An end frame requires a first frame.
+
+Omni reference requests do not support `negative_prompt`, `cfg_scale`, `camera_control`, or `mode=4k`. With `video_list`, `generate_audio` must be `false`.
+
+`element_list` is intentionally unavailable because upstream Element Library IDs belong to the provider account namespace and are not tenant-scoped. Use `image_list` for subject references.
 
 ## Video Extension
 
@@ -126,10 +177,10 @@ The video ID is:
 
 Next, provide the required parameters for the extension:
 
-- `model`: the model for generating the video. Supported models: `kling-v1`, `kling-v1-5`, and `kling-v1-6`.
-- `mode`: the mode for video generation. Options: standard mode `std`, high-quality mode `pro`, and native 4K mode `4k` (`kling-v3` and `kling-v3-omni` only; incompatible with motion control).
+- `model`: the model for extending the video. Supported models: `kling-v1`, `kling-v1-6`, and `kling-v2-5-turbo`.
+- `mode`: the extension mode, either standard `std` or high-quality `pro`.
 - `duration`: the duration of this video generation task, supports 5s and 10s.
-- `start_image_url`: when the `image2video` action is selected, the first-frame reference image URL is required.
+- `video_id`: the ID of the existing Kling video to extend.
 - `prompt`: the text prompt.
 
 An example is shown below:
