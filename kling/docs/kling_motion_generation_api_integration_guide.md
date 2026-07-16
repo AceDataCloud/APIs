@@ -27,6 +27,7 @@ Additionally, we set the Request Body, including:
 
 - `image_url`: reference image. The characters, backgrounds, and other elements in the generated video are based on this reference image.
 - `video_url`: reference video URL. The character movements in the generated video are consistent with those in the reference video.
+- `model_name`: optional, the model used for motion generation. Options: `kling-v2-6`, `kling-v3`.
 - `mode`: the mode for generating the video. Options: standard mode `std` and high-quality mode `pro`.
 - `keep_original_sound`: optional, whether to keep the original sound of the video. Options: `yes` (keep) or `no` (remove).
 - `character_orientation`: the orientation of the characters in the generated video. Options: consistent with the image (`image`) or consistent with the video (`video`).

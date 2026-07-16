@@ -14,7 +14,7 @@ There will be a free quota offered for the first application, allowing you to us
 
 ## Basic Usage
 
-First, understand the basic usage method: input the prompt `prompt`, the generation action `action`, an optional first-frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to pass the `action` field, whose value is `text2video`. The API supports three main actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). You also need to specify the model `model`. The currently supported models are `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-video-o1`. The specific content is as follows:
+First, understand the basic usage method: input the prompt `prompt`, the generation action `action`, an optional first-frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to pass the `action` field, whose value is `text2video`. The API supports three main actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). You also need to specify the model `model`. The currently supported models are `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`. The specific content is as follows:
 
 <p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" class="m-auto"></p>
 
@@ -25,7 +25,7 @@ Here we have set the Request Headers, including:
 
 Additionally, we set the Request Body, including:
 
-- `model`: the model used to generate the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, `kling-video-o1`.
+- `model`: the model used to generate the video. Supported models: `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, `kling-o1`.
 - `mode`: the mode for generating the video. Options: standard mode `std`, high-quality mode `pro`, and native 4K mode `4k`. The `4k` mode is only supported by `kling-v3` and `kling-v3-omni`, and is not compatible with `camera_control` (motion control).
 - `action`: the action for this video generation task. Options: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when the `image2video` action is selected, you must provide a first-frame reference image URL.
@@ -36,8 +36,8 @@ Additionally, we set the Request Body, including:
 - `cfg_scale`: degree of correlation strength, range [0, 1]. A higher value means the output follows the prompt more closely.
 - `camera_control`: optional object for controlling camera movement. Supports type/simple presets and configuration fields: `horizontal`, `vertical`, `pan`, `tilt`, `roll`, `zoom`.
 - `negative_prompt`: optional, content you do not want to appear in the video. Maximum 200 characters.
-- `element_list`: list of reference subjects. Only applicable to the `kling-video-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
-- `video_list`: reference video, obtained via URL. Only applicable to the `kling-video-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
+- `element_list`: list of reference subjects. Only applicable to the `kling-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
+- `video_list`: reference video, obtained via URL. Only applicable to the `kling-o1` model. For usage details, refer to the [official documentation](https://docs.qingque.cn/d/home/eZQAyImcbaS0fz-8ANjXvU5ed?identityId=1oEG9JKKMFv#section=h.5t7wme23nn6z).
 - `prompt`: the text prompt for video generation.
 - `callback_url`: the URL to which the result will be sent upon completion.
 
@@ -101,7 +101,7 @@ Different models support different parameters. The following matrix is compiled 
 | `kling-v3` | std / pro | ✅ | ✅ | ✅ | `duration` range: 3–15 seconds |
 | `kling-v3` | 4k | ✅ | ✅ | ❌ | 4K mode is incompatible with motion control |
 | `kling-v3-omni` | std / pro / 4k | ✅ | ✅ | ❌ | |
-| `kling-video-o1` | std / pro | ✅ | ❌ | ❌ | `duration=5/10` only |
+| `kling-o1` | std / pro | ✅ | ❌ | ❌ | `duration=5/10` only |
 
 Notes:
 
