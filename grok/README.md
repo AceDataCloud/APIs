@@ -1,12 +1,12 @@
 # Grok API
 
-xAI Grok generative services, including chat completions.
+xAI Grok generative services, including chat completions and video generation.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
 API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/service/grok)
 
-Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: grok-api, xai-grok, chat-completions, video-generation, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Grok on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tool
 
 ## Overview
 
-xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging.
+xAI Grok is a powerful AI dialogue and video generation system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and video generation from text prompts or reference images, with a range of models suited for daily conversations, creative writing, technical analysis, code debugging, and cinematic video creation.
 
 ## Application Process
 
@@ -48,3 +48,5 @@ Explore the supported endpoints and integration guides for Grok.
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/chat/completions` | [Grok Chat Completion API Integration Guide](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Videos API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/videos` | [Grok Videos API Integration Guide](docs/grok_videos_api_integration_guide.md) |
+| [Grok Tasks API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/tasks` | [Grok Tasks API Integration Guide](docs/grok_tasks_api_integration_guide.md) |
