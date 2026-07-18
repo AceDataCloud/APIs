@@ -1,0 +1,182 @@
+# Grok Videos Generation API Integration Instructions
+
+This document will introduce the integration instructions for the Grok Videos Generation API, which can generate Grok Imagine (xAI) videos by inputting text prompts, input images, and optional reference images.
+
+## Application Process
+
+To use the Grok Videos Generation API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, after which you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Grok Videos Generation API →](https://platform.acedata.cloud/documents/grok-videos)
+
+## Model Description
+
+This API supports two models:
+
+- `grok-imagine-video-1.5-fast` (default): Supports text-to-video (only pass `prompt`) and image-to-video (pass `image_url`), with a maximum duration of 30 seconds and a lower price.
+- `grok-imagine-video-1.5`: Only supports image-to-video, **must** pass `image_url`, with a maximum duration of 15 seconds.
+
+## Basic Usage
+
+First, understand the basic usage method by inputting parameters such as the text prompt `prompt`, model `model`, etc., to generate the corresponding video.
+
+Here we set the Request Headers, including:
+
+- `accept`: The format of the response result you want to receive, here filled as `application/json`, which means JSON format.
+- `authorization`: The key to call the API, which can be directly selected after application.
+
+Additionally, we set the Request Body, including:
+
+- `prompt`: The text prompt describing the content of the video to be generated. Required when using `grok-imagine-video-1.5-fast` for text-to-video; optional when passing `image_url`.
+- `model`: The model for generating the video, can be `grok-imagine-video-1.5-fast` (default) or `grok-imagine-video-1.5`.
+- `image_url`: The input image link for image-to-video. Required when `model` is `grok-imagine-video-1.5`.
+- `reference_image_urls`: An optional array of reference image links used to guide the style or content of the video.
+- `aspect_ratio`: The aspect ratio of the generated video, optional `1:1` / `16:9` / `9:16` / `4:3` / `3:4` / `3:2` / `2:3`.
+- `resolution`: The output resolution, optional `480p` (default), `720p`, or `1080p`.
+- `duration`: The duration of the generated video (seconds). The range for `grok-imagine-video-1.5-fast` is 1–30, for `grok-imagine-video-1.5` is 1–15, default is 6. It is recommended to use 6 seconds or 10 seconds, as these two standard durations are relatively stable.
+- `callback_url`: The asynchronous callback address. After setting, the API will immediately return `task_id`, and when the task is completed, it will POST the result to this address.
+- `async`: Optional, set to `true` for the interface to immediately return `task_id` without providing `callback_url`, and then poll the corresponding task query interface to obtain the result.
+
+Click the "Try" button to test, and the result will be similar to the following:
+
+```json
+{
+  "success": true,
+  "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
+  "trace_id": "fb751e1e-4705-49ea-9fd4-5024b7865ea2",
+  "data": [
+    {
+      "id": "grok-imagine-video-1.5-fast:41eb9a5f-3b2d-4d1e-9f5a-6c2f1a0b9e77",
+      "video_url": "https://cdn.acedata.cloud/c8cbf53aa0.mp4",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `success`: Whether the video generation request was successful.
+- `task_id`: The ID of the video generation task.
+- `trace_id`: The tracking ID of this request, used for troubleshooting.
+- `data`: The list of generated video results.
+  - `id`: The unique identifier of the generated video.
+  - `video_url`: The link address of the generated video.
+  - `state`: The status of the video generation task, optional `pending` / `succeeded` / `failed`.
+
+We only need to obtain the generated video using the `video_url` link address in the `data` result.
+
+The corresponding CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/grok/videos' \
+-H 'authorization: Bearer ${bearer_token}' \
+-H 'accept: application/json' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+  "model": "grok-imagine-video-1.5-fast",
+  "resolution": "480p",
+  "duration": 6
+}'
+```
+
+The corresponding Python code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/grok/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+    "model": "grok-imagine-video-1.5-fast",
+    "resolution": "480p",
+    "duration": 6
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Image-to-Video
+
+If you want to generate a video based on an input image, you can pass `image_url`. When using `grok-imagine-video-1.5`, this field must be provided:
+
+```json
+{
+  "prompt": "The character slowly turns around and smiles at the camera",
+  "model": "grok-imagine-video-1.5",
+  "image_url": "https://cdn.acedata.cloud/5hmkdg.jpg",
+  "resolution": "720p",
+  "duration": 6
+}
+```
+
+## Reference Image Guidance
+
+If you want to use one or more reference images to guide the style or content of the generated video, you can pass an array of image links in `reference_image_urls`:
+
+```json
+{
+  "prompt": "A character dancing in the same art style",
+  "model": "grok-imagine-video-1.5-fast",
+  "reference_image_urls": [
+    "https://cdn.acedata.cloud/vunnjf.png"
+  ]
+}
+```
+
+## Asynchronous Callback
+
+Video generation requires some processing time. If you do not wish to maintain a long connection waiting, you can pass `callback_url`, at which point the API will immediately return `task_id`, and after the task is completed, it will POST the final result to that address:
+
+```json
+{
+  "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+  "model": "grok-imagine-video-1.5-fast",
+  "duration": 6,
+  "callback_url": "https://your-domain.com/callback/grok"
+}
+```
+
+The result returned immediately is as follows:
+
+```json
+{
+  "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea"
+}
+```
+
+## Query Task Results
+If you have used asynchronous callbacks or wish to actively query the task status, you can check the latest status and results of the task based on `task_id` through the [Grok Tasks API](https://platform.acedata.cloud/documents/grok-tasks) (`POST https://api.acedata.cloud/grok/tasks`).
+
+## Billing Explanation
+
+The billing method for this service is determined by the `model`:
+
+- `grok-imagine-video-1.5-fast`: Billed by duration, regardless of resolution—`1–10` seconds, `11–20` seconds, and `21–30` seconds correspond to different pricing tiers.
+- `grok-imagine-video-1.5`: Billed by "output seconds," total price = unit price × `duration`, `1080p` is more expensive than `480p`/`720p`.
+
+Specific unit prices are subject to the pricing page. Failed requests are not charged and do not count against the free quota.
+
+## Error Handling
+
+When there is an issue with the request, the API will return the corresponding error code and description, commonly as follows:
+
+- `400`: Request parameters are incorrect, such as missing `prompt` for text-to-video, or missing `image_url` for `grok-imagine-video-1.5`, or `duration` out of range (`grok-imagine-video-1.5-fast` is 1–30, `grok-imagine-video-1.5` is 1–15).
+- `401`: Authentication failed, token is invalid or does not match the API.
+- `403`: Insufficient balance, or the prompt hits content review and is rejected.
+- `429`: Too many requests, please try again later.
+- `500`: Video generation failed or service exception.
