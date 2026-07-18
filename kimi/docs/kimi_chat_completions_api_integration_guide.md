@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Kimi official model we choose to use. Here we mainly have 7 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Kimi official model we choose to use. Here we mainly have 9 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -33,7 +33,7 @@ After the call, we find that the returned result is as follows:
   "id": "chatcmpl-b5d9e1b799c137e3",
   "object": "chat.completion",
   "created": 1770991864,
-  "model": "kimi-k2.5",
+  "model": "kimi-k2.6",
   "choices": [
     {
       "index": 0,
@@ -98,7 +98,7 @@ headers = {
 }
 
 payload = {
-    "model": "kimi-k2.5",
+    "model": "kimi-k2.6",
     "messages": [{"role":"user","content":"Hello"}],
     "stream": True
 }
@@ -118,7 +118,7 @@ const options = {
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    "model": "kimi-k2.5",
+    "model": "kimi-k2.6",
     "messages": [{"role":"user","content":"Hello"}],
     "stream": true
   })
@@ -134,7 +134,7 @@ Java sample code:
 
 ```java
 JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "kimi-k2.5");
+jsonObject.put("model", "kimi-k2.6");
 jsonObject.put("messages", [{"role":"user","content":"Hello"}]);
 jsonObject.put("stream", true);
 MediaType mediaType = "application/json; charset=utf-8".toMediaType();
@@ -174,7 +174,7 @@ headers = {
 }
 
 payload = {
-    "model": "kimi-k2.5",
+    "model": "kimi-k2.6",
     "messages": [{"role":"assistant","content":"Hello! How can I help you today?"},{"role":"user","content":"What model are you?"}]
 }
 
@@ -189,13 +189,13 @@ By uploading multiple query words, you can easily achieve multi-turn dialogue an
   "id": "chatcmpl-81e5f161ea077f5e",
   "object": "chat.completion",
   "created": 1770992310,
-  "model": "kimi-k2.5",
+  "model": "kimi-k2.6",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.5** series.",
+        "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.6** series.",
         "refusal": null,
         "tool_calls": []
       },
