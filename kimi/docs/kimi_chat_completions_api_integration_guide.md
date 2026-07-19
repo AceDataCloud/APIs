@@ -4,9 +4,11 @@ Kimi is a very powerful AI dialogue system that can generate smooth and natural 
 
 This document mainly introduces the usage process of the Kimi Chat Completion API, allowing us to easily utilize the official Kimi dialogue features.
 
+The recommended model is `kimi-k3`, which supports reasoning, vision, tool calling, a 1,048,576-token context window, and up to 16,384 output tokens. Kimi K2 models remain available for compatibility.
+
 ## Application Process
 
-To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) page and click the "Acquire" button to obtain the credentials needed for the request:
 
 ![](https://cdn.acedata.cloud/nyq0xz.png)
 
@@ -20,13 +22,13 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Kimi official model we choose to use. Here we mainly have 7 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3` for the current flagship or select a compatible K2 model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" class="m-auto"></p>
 
-After the call, we find that the returned result is as follows:
+The following response snapshot was captured from a K2.5 request and is retained to illustrate the response structure. When you use the K3 examples below, the response `model` field will be `kimi-k3` and the generated content will reflect K3:
 
 ```json
 {
@@ -98,7 +100,7 @@ headers = {
 }
 
 payload = {
-    "model": "kimi-k2.5",
+    "model": "kimi-k3",
     "messages": [{"role":"user","content":"Hello"}],
     "stream": True
 }
@@ -118,7 +120,7 @@ const options = {
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    "model": "kimi-k2.5",
+    "model": "kimi-k3",
     "messages": [{"role":"user","content":"Hello"}],
     "stream": true
   })
@@ -134,7 +136,7 @@ Java sample code:
 
 ```java
 JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "kimi-k2.5");
+jsonObject.put("model", "kimi-k3");
 jsonObject.put("messages", [{"role":"user","content":"Hello"}]);
 jsonObject.put("stream", true);
 MediaType mediaType = "application/json; charset=utf-8".toMediaType();
@@ -174,7 +176,7 @@ headers = {
 }
 
 payload = {
-    "model": "kimi-k2.5",
+    "model": "kimi-k3",
     "messages": [{"role":"assistant","content":"Hello! How can I help you today?"},{"role":"user","content":"What model are you?"}]
 }
 
@@ -182,7 +184,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple query words, you can easily achieve multi-turn dialogue and receive responses like the following:
+By uploading multiple query words, you can easily achieve multi-turn dialogue. The following retained K2.5 snapshot illustrates the response structure; a K3 request returns `model: kimi-k3` and K3-generated content:
 
 ```json
 {
