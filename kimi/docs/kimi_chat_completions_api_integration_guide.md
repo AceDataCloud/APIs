@@ -1,6 +1,6 @@
 # Kimi Chat Completion API Application and Usage
 
-Kimi is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompt words. Kimi provides amazing intelligent assistance, greatly enhancing human work efficiency and creativity.
+Kimi is Moonshot AI's family of AI models. The recommended `kimi-k3` model is designed for long-horizon coding, agents, complex reasoning, and knowledge work, and it can be called through an OpenAI-compatible Chat Completions API.
 
 This document mainly introduces the usage process of the Kimi Chat Completion API, allowing us to easily utilize the official Kimi dialogue features.
 
@@ -22,20 +22,20 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3` for the current flagship or select a compatible K2 model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: `authorization`, which can be selected directly from the dropdown list; `model`, which should usually be set to `kimi-k3`; and `messages`, which is an array of our input questions. Each message contains `role` and `content`, and `role` supports `user`, `assistant`, `system`, and `tool`.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" class="m-auto"></p>
 
-The following response snapshot was captured from a K2.5 request and is retained to illustrate the response structure. When you use the K3 examples below, the response `model` field will be `kimi-k3` and the generated content will reflect K3:
+The following response snapshot illustrates the response structure for a `kimi-k3` request:
 
 ```json
 {
   "id": "chatcmpl-b5d9e1b799c137e3",
   "object": "chat.completion",
   "created": 1770991864,
-  "model": "kimi-k2.5",
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
@@ -72,7 +72,40 @@ Among them, `choices` contains Kimi's response information, and the `choices` in
 
 <p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply.
+As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply. K3 responses may also return `reasoning_content`, which represents the model's reasoning output.
+
+## K3 Reasoning Effort
+
+`kimi-k3` always runs with reasoning enabled. The top-level `reasoning_effort` field is supported, and the only value currently guaranteed to be supported is `max`. If you omit this field, `max` is also used by default. Other values such as `standard`, `high`, or arbitrary strings may be tolerated by some upstream-compatible implementations, but you should not rely on them to change reasoning behavior.
+
+```bash
+curl https://api.acedata.cloud/kimi/chat/completions \
+  -H "Authorization: ******" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kimi-k3",
+    "messages": [{"role": "user", "content": "Review this code and suggest a fix."}],
+    "reasoning_effort": "max"
+  }'
+```
+
+When using the OpenAI SDK, you can pass this field directly:
+
+```python
+response = client.chat.completions.create(
+    model="kimi-k3",
+    messages=[{"role": "user", "content": "Design a reliable task queue."}],
+    reasoning_effort="max",
+)
+```
+
+For multi-turn dialogue and tool calling, send the full assistant message from the previous turn back in `messages`, including `reasoning_content` and `tool_calls`.
+
+### Official References
+
+- [Thinking Effort](https://platform.kimi.ai/docs/guide/use-thinking-effort): explains that Kimi K3 always reasons and that `max` is the only currently supported `reasoning_effort` value.
+- [Model Parameter Reference](https://platform.kimi.ai/docs/api/models-overview): compares K3 and K2-series reasoning settings, context windows, and tool-calling differences.
+- [Create Chat Completion](https://platform.kimi.ai/docs/api/chat): Moonshot's official Chat Completions request, response, and OpenAPI field reference.
 
 ## Streaming Response
 
@@ -184,20 +217,20 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple query words, you can easily achieve multi-turn dialogue. The following retained K2.5 snapshot illustrates the response structure; a K3 request returns `model: kimi-k3` and K3-generated content:
+By uploading multiple query words, you can easily achieve multi-turn dialogue. The following example illustrates the response structure for a K3 request:
 
 ```json
 {
   "id": "chatcmpl-81e5f161ea077f5e",
   "object": "chat.completion",
   "created": 1770992310,
-  "model": "kimi-k2.5",
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.5** series.",
+        "content": "I'm Kimi K3, an AI assistant made by Moonshot AI.",
         "refusal": null,
         "tool_calls": []
       },
@@ -244,4 +277,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official Kimi dialogue function using the Kimi Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the Kimi Chat Completion API for standard chat, streaming responses, multi-turn dialogue, and K3 reasoning control through `reasoning_effort`.
