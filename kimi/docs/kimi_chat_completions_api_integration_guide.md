@@ -6,13 +6,15 @@ This document mainly introduces the usage process of the Kimi Chat Completion AP
 
 ## Application Process
 
-To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Kimi Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Kimi Chat Completion API →](https://platform.acedata.cloud/documents/kimi-chat-completions)
 
 ## Basic Usage
 
@@ -40,6 +42,8 @@ After the call, we find that the returned result is as follows:
       "message": {
         "role": "assistant",
         "content": " Hello! How can I help you today?",
+        "reasoning_content": " The user has simply said \"Hello\". This is a straightforward greeting. I should respond in a friendly, helpful manner while being ready to assist with whatever they need next. Since there's no specific question or task yet, I'll acknowledge their greeting and ask how I can help.\n\nI should keep it:\n- Friendly and welcoming\n- Professional but warm\n- Open-ended to invite them to share what they need help with\n- Concise but not too brief\n\nPossible responses:\n1. \"Hello! How can I help you today?\"\n2. \"Hi there! What can I do for you?\"\n3. \"Hello! I'm ready to assist. What would you like to know or work on?\"\n4. \"Hey! Great to meet you. How can I be of service?\"\n\nI'll go with something warm and professional that invites them to share what they need. ",
+        "reasoning": " The user has simply said \"Hello\". This is a straightforward greeting. I should respond in a friendly, helpful manner while being ready to assist with whatever they need next. Since there's no specific question or task yet, I'll acknowledge their greeting and ask how I can help.\n\nI should keep it:\n- Friendly and welcoming\n- Professional but warm\n- Open-ended to invite them to share what they need help with\n- Concise but not too brief\n\nPossible responses:\n1. \"Hello! How can I help you today?\"\n2. \"Hi there! What can I do for you?\"\n3. \"Hello! I'm ready to assist. What would you like to know or work on?\"\n4. \"Hey! Great to meet you. How can I be of service?\"\n\nI'll go with something warm and professional that invites them to share what they need. ",
         "refusal": null,
         "tool_calls": []
       },
@@ -70,7 +74,7 @@ Among them, `choices` contains Kimi's response information, and the `choices` in
 
 <p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply.
+As can be seen, the `content` field in `choices` contains the specific content of the Gemini reply.
 
 ## Streaming Response
 
@@ -106,6 +110,50 @@ payload = {
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
+
+The output effect is as follows:
+```json
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"content": "", "role": "assistant"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " The", "reasoning": " The"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " user said \"Hello\". This is a simple greeting", "reasoning": " user said \"Hello\". This is a simple greeting"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": ". I should respond in a friendly, welcoming manner", "reasoning": ". I should respond in a friendly, welcoming manner"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": ". Since this is the start of a conversation,", "reasoning": ". Since this is the start of a conversation,"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " I should ask how I can help them today.\n\n", "reasoning": " I should ask how I can help them today.\n\n"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": "Let me craft a response:\n- Acknowledge the", "reasoning": "Let me craft a response:\n- Acknowledge the"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " greeting\n- Offer assistance\n- Keep it warm", "reasoning": " greeting\n- Offer assistance\n- Keep it warm"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " and professional\n\nSomething like: \"Hello! How", "reasoning": " and professional\n\nSomething like: \"Hello! How"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " can I help you today?\" or \"Hi there", "reasoning": " can I help you today?\" or \"Hi there"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": "! What can I do for you?\"\n\nActually", "reasoning": "! What can I do for you?\"\n\nActually"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": ", looking at the context, this seems to be", "reasoning": ", looking at the context, this seems to be"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " a general conversation starter. I'll keep it simple and", "reasoning": " a general conversation starter. I'll keep it simple and"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"reasoning_content": " open-ended to encourage them to share what they need", "reasoning": " open-ended to encourage them to share what they need"}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"content": " Hello! How can I help", "reasoning_content": " help with. ", "reasoning": " help with. "}, "logprobs": null, "finish_reason": null}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [{"index": 0, "delta": {"content": " you today?"}, "logprobs": null, "finish_reason": "stop"}], "usage": null}
+
+data: {"id": "chatcmpl-952dd5e75583c4d1", "object": "chat.completion.chunk", "created": 1770992031, "model": "kimi-k2.5", "system_fingerprint": null, "choices": [], "usage": {"prompt_tokens": 9, "completion_tokens": 135, "total_tokens": 144, "prompt_tokens_details": {"cached_tokens_details": {}}, "completion_tokens_details": {}}}
+
+data: [DONE]
+```
+You can see that there are many `data` in the response, and the `choices` within `data` are the latest response content, consistent with the content introduced above. `choices` are the newly added response content, and you can integrate it into your system based on the results. The end of the streaming response is determined by the content of `data`; if the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, described as follows:
+
+- `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
+- `model`, the selected Kimi official website model.
+- `choices`, the response information provided by Kimi for the query.
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
@@ -196,6 +244,8 @@ By uploading multiple query words, you can easily achieve multi-turn dialogue an
       "message": {
         "role": "assistant",
         "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.5** series.",
+        "reasoning_content": " The user is asking \"What model are you?\" They want to know which AI model I am.\n\n I should identify myself as Kimi, an AI assistant made by Moonshot AI. I should mention that I'm Kimi from the K2.5 series specifically, as that's the model currently deployed.\n\n Key points:\n - I am Kimi\n - Made by Moonshot AI\n - Currently Kimi K2.5 (or just say I'm part of the K2.5 series)\n - I should be helpful and direct\n\n I should not:\n - Claim to be a different model (like GPT-4, Gemini, etc.)\n - Be evasive about my identity\n - Make up version numbers that aren't correct\n\n The current model identity is Kimi K2.5 (though sometimes the exact series designation might vary by deployment, but K2.5 is the current flagship). I'll identify myself as Kimi, an AI assistant by Moonshot AI, and mention I'm from the K2.5 series.\n\n Simple, direct, accurate. ",
+        "reasoning": " The user is asking \"What model are you?\" They want to know which AI model I am.\n\n I should identify myself as Kimi, an AI assistant made by Moonshot AI. I should mention that I'm Kimi from the K2.5 series specifically, as that's the model currently deployed.\n\n Key points:\n - I am Kimi\n - Made by Moonshot AI\n - Currently Kimi K2.5 (or just say I'm part of the K2.5 series)\n - I should be helpful and direct\n\n I should not:\n - Claim to be a different model (like GPT-4, Gemini, etc.)\n - Be evasive about my identity\n - Make up version numbers that aren't correct\n\n The current model identity is Kimi K2.5 (though sometimes the exact series designation might vary by deployment, but K2.5 is the current flagship). I'll identify myself as Kimi, an AI assistant by Moonshot AI, and mention I'm from the K2.5 series.\n\n Simple, direct, accurate. ",
         "refusal": null,
         "tool_calls": []
       },
@@ -229,7 +279,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ### Error Response Example
 
-```json
+```
 {
   "success": false,
   "error": {
@@ -242,4 +292,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official Kimi dialogue function using the Kimi Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official Gemini dialogue function using the Gemini Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

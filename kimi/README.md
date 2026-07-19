@@ -21,9 +21,9 @@ Kimi is Moonshot AI's powerful AI dialogue system featuring strong reasoning cap
 
 ## Application Process
 
-To use the Kimi API, apply for the corresponding service on the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) page. After entering the page, click the "Acquire" button.
+To use the Kimi API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+A single API Token works across every service on the platform — no need to subscribe per service. New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -47,4 +47,4 @@ Explore the supported endpoints and integration guides for Kimi.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Kimi Chat Completion API](https://platform.acedata.cloud/documents/b23bbfa3-c820-47ee-b307-6c6dedc9d0cf) | `/kimi/chat/completions` | [Kimi Chat Completion API Integration Guide](docs/kimi_chat_completions_api_integration_guide.md) |
+| [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) | `/kimi/chat/completions` | [Kimi Chat Completion API Integration Guide](docs/kimi_chat_completions_api_integration_guide.md) |
