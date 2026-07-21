@@ -6,7 +6,7 @@ xAI Grok generative services, including chat completions.
 
 API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/service/grok)
 
-Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: grok-api, xai-grok, grok-4.5, grok-4, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Grok on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: grok-api, xai-grok, chat-completions, rest-api, ai-api, developer-tool
 
 ## Overview
 
-xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging.
+xAI Grok is a powerful AI dialogue system known for its unique humorous style and real-time web information retrieval capabilities. The current flagship, `grok-4.5`, leads the lineup, with `grok-4`, `grok-4-0709`, `grok-3`, and `grok-3-fast` also available. Grok supports multi-turn conversations, streaming responses, and a range of models suited for daily conversations, creative writing, technical analysis, and code debugging.
 
 ## Application Process
 
@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/grok/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "grok-3",
+    "model": "grok-4.5",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```

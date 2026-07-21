@@ -6,7 +6,7 @@ Anthropic Claude generative services, including chat completions and native mess
 
 API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/service/claude)
 
-Keywords: claude-api, anthropic, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: claude-api, anthropic, claude-fable-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Claude on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: claude-api, anthropic, claude-chat-completions, claude-messages, rest-
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The current flagship `claude-fable-5` leads the lineup, alongside `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
 
 ## Application Process
 
@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/v1/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "claude-opus-4-20250514",
+    "model": "claude-fable-5",
     "messages": [{"role": "user", "content": "Hello, Claude!"}]
   }'
 ```

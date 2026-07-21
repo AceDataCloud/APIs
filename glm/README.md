@@ -6,7 +6,7 @@ GLM (General Language Model) generative services by Zhipu AI, including chat com
 
 API home page: [Ace Data Cloud - GLM](https://platform.acedata.cloud/service/glm)
 
-Keywords: glm-api, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: glm-api, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use GLM on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: glm-api, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-ap
 
 ## Overview
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. GLM-5.1, GLM-4.7, GLM-4.6 and other new-generation models have been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The current flagship `glm-5.2`, along with `glm-5.1`, `glm-5`, `glm-4.7`, `glm-4.6` and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
 ## Application Process
 
@@ -36,7 +36,7 @@ curl --request POST "https://api.acedata.cloud/glm/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "glm-4.7",
+    "model": "glm-5.2",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
