@@ -1,6 +1,6 @@
 # GLM Chat Completion API Integration Guide
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. GLM-5.1, GLM-4.7, GLM-4.6 and other new-generation models have been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.2, along with GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
 This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
 
@@ -22,7 +22,10 @@ When using this interface for the first time, you need to fill in at least three
 
 - `authorization`: Select the Bearer Token directly from the dropdown list.
 - `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.1`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.2`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.1`: High-capability model for reasoning, tool calling, and code tasks.
+  - `glm-5`: General-purpose flagship-tier dialogue model.
+  - `glm-5-turbo`: Faster, cost-efficient variant of the GLM-5 series.
   - `glm-4.7`: Excellent performance on reasoning, tool calling, and code tasks.
   - `glm-4.6`: General-purpose dialogue model, balancing capability and cost.
   - `glm-3-turbo`: Classic dialogue model, suitable for general text generation tasks.
@@ -276,7 +279,9 @@ If the model decides to call a tool, the `finish_reason` in the return result wi
 
 | Model | Use Case |
 | --- | --- |
-| `glm-5.1` | Strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.2` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.1` | High-capability model for reasoning, tool calling, and code tasks |
+| `glm-5` | General-purpose flagship-tier dialogue model |
 | `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
 | `glm-4.6` | Balanced choice for general dialogue and content creation |
 | `glm-3-turbo` | General text generation tasks; cost-sensitive scenarios |
