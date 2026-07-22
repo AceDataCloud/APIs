@@ -30,10 +30,12 @@ There is a free quota available for first-time applicants, allowing you to use t
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
 - Service page: [Fish Voice Generation on Ace Data Cloud](https://platform.acedata.cloud/service/fish)
 - Docs: [Developer documentation](https://docs.acedata.cloud)
+- Optional `model` request header: `s1`, `s2-pro`, or `s2.1-pro` (default: `s2-pro`)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/fish/tts" \
   --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "model: s2.1-pro" \
   --header "Content-Type: application/json" \
   --data '{
     "text": "Hello, this is a demonstration of AI voice synthesis."

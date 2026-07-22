@@ -12,7 +12,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 ## Basic Usage
 
-The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
+The most basic usage is to input `text`. The result is a synthesized audio file. You can also set the optional `model` request header to `s1`, `s2-pro`, or `s2.1-pro` (default: `s2-pro`). The request body fields are described below:
 
 - `text`: the text to synthesize into speech (required).
 - `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
@@ -35,6 +35,7 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
   -H 'accept: application/json' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
+  -H 'model: s2.1-pro' \
   -d '{
     "text": "The quick brown fox jumps over the lazy dog.",
     "format": "mp3"
