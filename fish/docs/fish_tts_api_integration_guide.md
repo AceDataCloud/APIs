@@ -1,73 +1,215 @@
 # Fish TTS API Integration Instructions
 
-This article introduces the Fish TTS API integration instructions, which converts text into natural speech and can optionally use a custom cloned voice model.
+This interface is based on the [Fish Audio Official TTS API](https://docs.fish.audio/text-to-speech/text-to-speech), with differences only in the authentication method (using the platform token) and asynchronous callback (`callback_url` extension). The request body structure is consistent with the upstream. The address is `POST https://api.acedata.cloud/fish/tts`.
 
 ## Application Process
 
-To use the Fish TTS API, apply for the corresponding service on the [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) page. After entering the page, click the "Acquire" button.
+To use the Fish TTS API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in. After completion, you will be automatically returned to the current page.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a free trial; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 
-## Basic Usage
+> 📘 Complete documentation: [Fish TTS API →](https://platform.acedata.cloud/services/fish)
 
-The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
+## Request Headers
 
-- `text`: the text to synthesize into speech (required).
-- `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
-- `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
-- `latency`: latency mode (`normal` / `balanced`).
-- `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
-- `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
-- `normalize`: whether to normalize text before synthesis.
-- `prosody`: prosody controls.
-- `references`: inline reference samples.
-- `callback_url`: an asynchronous callback URL.
-- `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
+| Header          | Required | Description                                                                                                     |
+| --------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| `authorization` | Yes      | `****** where `{token}` is the key applied for on this platform.                                    |
+| `content-type`  | Yes      | `application/json`.                                                                                            |
+| `accept`        | No       | `application/json`.                                                                                            |
+| `model`         | No       | TTS model, optional `s1`, `s2-pro`, or `s2.1-pro`, default is `s2-pro`. `s2.1-pro` is the latest generation, `s2-pro` is expressive; `s1` is more stable and less prone to deviation with long texts. All three are priced the same. |
 
-### Request Example
+## Request Body Fields
 
-```bash
+| Field             | Type                | Required | Description                                                                                                                                                                         |
+| ----------------- | ------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`            | string              | Yes      | The text to be synthesized, a non-empty string.                                                                                                                                   |
+| `format`          | string              | Yes      | Output audio format. **Must explicitly provide a value currently**, optional `mp3` or `pcm`. Even if the official documentation lists `wav`, this interface will return `400 Input should be 'pcm' or 'mp3'`. |
+| `reference_id`    | string / string[]   | No       | Cloned voice ID (can be created by [Fish Model API](https://platform.acedata.cloud/documents/fish-model) or retrieved in [Fish Model Query](https://platform.acedata.cloud/documents/fish-model-query)). |
+| `references`      | object[]            | No       | Inline reference samples, structure consistent with upstream, each containing `audio` and `text`. One of `reference_id` or `references` must be provided.                                                                 |
+| `sample_rate`     | integer             | No       | Sample rate, commonly `16000`, `22050`, `44100`. Default is `44100` for `format=mp3`.                                                                                          |
+| `mp3_bitrate`     | integer             | No       | MP3 bitrate, optional `64`, `128`, `192`. Only effective for `format=mp3`.                                                                                                      |
+| `prosody`         | object              | No       | Prosody overrides, supports `speed` (speech rate, 1.0 is normal speed) and `volume` (volume gain dB). For example `{"speed":1.2,"volume":0}`.                                   |
+| `chunk_length`    | integer             | No       | Upstream chunk length, default determined by upstream.                                                                                                                            |
+| `temperature`     | number              | No       | Sampling temperature, range approximately 0.0–1.0.                                                                                                                               |
+| `top_p`           | number              | No       | Top-p sampling parameter.                                                                                                                                                          |
+| `latency`         | string              | No       | `normal` or `balanced`, defaults to `normal` automatically filled by this interface (directly passing an empty string will be rejected by upstream).                               |
+| `normalize`       | boolean             | No       | Whether to normalize the text.                                                                                                                                                     |
+| `callback_url`    | string              | No       | Asynchronous callback address, see below "Asynchronous Callback". **This is an extension relative to the official interface**.                                                    |
+
+> Field naming is completely consistent with upstream. Except for `callback_url`, the meanings and values of other fields refer to the [Fish Official TTS Documentation](https://docs.fish.audio/text-to-speech/text-to-speech).
+
+## Example 1: Minimum Request (`text` + `format=mp3`)
+
+```shell
 curl -X POST 'https://api.acedata.cloud/fish/tts' \
-  -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
+  -H 'authorization: ******' \
   -H 'content-type: application/json' \
   -d '{
-    "text": "The quick brown fox jumps over the lazy dog.",
+    "text": "Hello world.",
     "format": "mp3"
   }'
 ```
 
-### Response Example
+Response:
 
 ```json
 {
-  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "audio_url": "https://platform.r2.fish.audio/task/05f81919f2e04e35bb404a88fb177854.mp3"
 }
 ```
 
-Download the generated audio from the `audio_url` field.
+`audio_url` is a direct link from Fish R2, which can be directly downloaded via GET or played in `<audio>`. The signature is usually valid for 1 hour, and it is recommended to transfer and store it in your own object storage after landing.
 
-## Workflows
+## Example 2: Using Cloned Voice `reference_id`
 
-### Synthesize with a Cloned Voice
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "Hermanos míos, hoy es un buen día.",
+    "reference_id": "8d2c17a9b26d4d83888ea67a1ee565b2",
+    "format": "mp3"
+  }'
+```
 
-First create a voice model with the Fish Model Create API (`POST /fish/model`) to obtain a model ID, then pass it as `reference_id`:
+Response:
 
 ```json
 {
-  "text": "Welcome to our platform.",
-  "reference_id": "d7900c21663f485ab63ebdb7e5905036"
+  "audio_url": "https://platform.r2.fish.audio/task/560078cf603d4584a2313ca4cd742056.mp3"
 }
 ```
 
-## Gotchas
+## Example 3: Adjusting Speech Rate / Volume (`prosody`)
 
-- Pricing is based on the byte count of the generated audio.
-- Voice cloning requires a clear reference audio sample.
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "Faster speech with prosody overrides.",
+    "prosody": { "speed": 1.2, "volume": 0 },
+    "format": "mp3"
+  }'
+```
+
+Response:
+
+```json
+{
+  "audio_url": "https://platform.r2.fish.audio/task/f16759a3335748f1b4d1e56ed54d81dd.mp3"
+}
+```
+
+`speed` greater than 1 speeds up, less than 1 slows down; `volume` is in dB, 0 means no change, positive numbers indicate gain, negative numbers indicate attenuation.
+
+## Example 4: Switching Models + Controlling Bitrate
+
+Switch to the stable model via HTTP header `model: s1`, add `mp3_bitrate: 128` in the request body to control the MP3 bitrate:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -H 'model: s1' \
+  -d '{
+    "text": "high bitrate mp3",
+    "format": "mp3",
+    "mp3_bitrate": 128
+  }'
+```
+
+Response:
+
+```json
+{
+  "audio_url": "https://platform.r2.fish.audio/task/6b660348776e40529e537aa30b1051d2.mp3"
+}
+```
+
+## Example 5: PCM Raw Waveform
+
+For scenarios that require real-time stitching in the browser or subsequent processing (mixing, speed change) on the client side, it is recommended to use `pcm`:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "hi",
+    "format": "pcm",
+    "sample_rate": 16000
+  }'
+```
+
+Response:
+
+```json
+{
+  "audio_url": "https://platform.r2.fish.audio/task/2052cc1f33b049d99a18fcc496f4462e.mp3"
+}
+```
+
+> The extension of the current response link is fixed as `.mp3`, while the actual content is the byte stream of the `format` specified in the request. When downloading, it should be determined how to parse based on the `format` in the request.
+
+## Asynchronous Callback (`callback_url`)
+
+Synthesis of long texts may take several seconds to tens of seconds. After passing `callback_url` in the request body, the interface will immediately return `{task_id, started_at}`, and when the upstream is truly completed, it will callback the complete result in POST JSON format to that URL, with the same `task_id` in the request body.
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "The weather is really nice today.",
+    "format": "mp3",
+    "callback_url": "https://webhook.site/4815f79f-a40f-4078-ac85-1cc126b6bb34"
+  }'
+```
+
+Immediately returns:
+
+```json
+{
+  "task_id": "79d82713-2897-4eeb-9934-e7544d471aa7",
+  "started_at": "2026-05-11T01:23:04.742Z"
+}
+```
+
+Later, `callback_url` will receive:
+
+```json
+{
+  "task_id": "79d82713-2897-4eeb-9934-e7544d471aa7",
+  "audio_url": "https://platform.r2.fish.audio/task/b627c2f7d38a4083a837570ba6d0962f.mp3"
+}
+```
+
+You can also actively pull results by `task_id` using the [Fish Tasks API](https://platform.acedata.cloud/documents/fish-tasks).
+
+## Error Handling
+
+- `400 token_mismatched`: Missing or invalid request parameters (most commonly missing `format`, or `text` is empty).
+- `401 invalid_token`: Authentication token does not exist or is invalid.
+- `429 too_many_requests`: Triggered account rate limit.
+- `500 api_error`: Internal server error.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
 
 ## Support
 
