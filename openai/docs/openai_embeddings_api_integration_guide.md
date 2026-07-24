@@ -6,19 +6,21 @@ This document mainly introduces the usage process of the OpenAI Embeddings API, 
 
 ## Application Process
 
-To use the OpenAI Embeddings API, you can first go to the [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use OpenAI Embeddings API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [OpenAI Embeddings API →](https://platform.acedata.cloud/documents/openai-embeddings)
 
 ## Basic Usage
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/4qtbvr.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/4qtbvr.png)
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the OpenAI official website. Here we mainly have 3 types of models; details can be found in the models we provide. The last parameter is `input`, which is the text we need to convert into a word vector.
 
@@ -29,7 +31,7 @@ Optional parameters:
 - `dimensions`: Crop vector dimensions; the default output is the full dimension.
 - `encoding_format`: Return format, optional `float` or `base64`.
 
-<p><img src="https://cdn.acedata.cloud/gqulm9.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/gqulm9.png)
 
 Python sample call code:
 

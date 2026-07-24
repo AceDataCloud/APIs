@@ -1,63 +1,57 @@
-# Producer Music Generation API
+# Producer API
 
-AI music generation service supporting songs, lyrics, covers, extensions, stem separation, WAV/MP4 export, and reference-audio uploads.
+AI music generation APIs for songs, lyrics, uploads, WAV export, MP4 export, and task polling.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Producer Music Generation](https://platform.acedata.cloud/service/producer)
+API home page: [Ace Data Cloud - Producer](https://platform.acedata.cloud/service/producer)
 
-Keywords: producer-api, ai-music, music-generation, song-generation, lyrics, cover, extend, stems, text-to-music, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: producer-api, ai-music, audios, lyrics, upload, wav, videos, tasks, song-generation, rest-api, ai-api, Ace Data Cloud
 
-## Why Use Producer Music Generation on Ace Data Cloud
+## Why Use Producer on Ace Data Cloud
 
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
+- Unified developer platform with one API token, billing system, and usage tracking.
+- Production-ready API endpoints served from https://api.acedata.cloud.
+- English integration guides, API references, and service documentation.
+- Shared trial quota and consistent authentication across Ace Data Cloud services.
 
 ## Overview
 
-The Producer Audios Generation API generates AI songs from a text `prompt` or custom `lyric`, with support for instrumental-only tracks, covers, extensions, and section replacement. The Producer Lyrics Generation API drafts lyrics from a prompt. The Producer Wav / Videos APIs export a finished track to WAV audio or MP4 video, the Upload API registers a reference audio for cover/extend, and the Tasks API polls asynchronous jobs.
+Producer supports end-to-end music workflows: generate songs with `/producer/audios`, draft lyrics with `/producer/lyrics`, register reference audio with `/producer/upload`, export results with `/producer/videos` or `/producer/wav`, and poll jobs with `/producer/tasks`.
 
 ## Application Process
 
-To use the Producer Audios Generation API, apply for the corresponding service on the [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) page. After entering the page, click the "Acquire" button.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+Open the Producer service page, generate your Ace Data Cloud API token, and call the endpoints below. Trial quota is available for first-time users, and authentication is shared across services.
 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Producer Music Generation on Ace Data Cloud](https://platform.acedata.cloud/service/producer)
+- Service page: [Producer on Ace Data Cloud](https://platform.acedata.cloud/service/producer)
 - Docs: [Developer documentation](https://docs.acedata.cloud)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/producer/audios" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
+  --header "accept: application/json" \
+  --header "authorization: ******" \
+  --header "content-type: application/json" \
   --data '{
     "action": "generate",
     "prompt": "upbeat electronic dance track with synth leads"
   }'
 ```
 
-## Models
-
-| Model | Notes |
-| ---- | ---- |
-| `FUZZ-2.0 Pro` | Default, highest quality |
-| `FUZZ-2.0` | Standard quality |
-| `FUZZ-2.0 Raw` | Raw output variant |
-| `FUZZ-1.1 Pro` | Pro v1.1 |
-| `FUZZ-1.0 Pro` | Pro v1.0 |
-| `FUZZ-1.1` / `FUZZ-1.0` / `FUZZ-0.8` | Earlier versions |
-
 ## APIs and Guides
 
+Explore the supported endpoints and local integration guides for Producer.
+
 | API | Path | Integration Guidance |
-| ---- | ---- | ------------ |
-| [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
-| [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| ---- | ---- | -------------------- |
+| Producer Audios Generation API | `/producer/audios` | [producer_audios_generation_api_integration_guide.md](docs/producer_audios_generation_api_integration_guide.md) |
+| Producer Lyrics API | `/producer/lyrics` | [producer_lyrics_api_integration_guide.md](docs/producer_lyrics_api_integration_guide.md) |
+| Producer Upload API | `/producer/upload` | [producer_upload_api_integration_guide.md](docs/producer_upload_api_integration_guide.md) |
+| Producer Videos API | `/producer/videos` | [producer_videos_api_integration_guide.md](docs/producer_videos_api_integration_guide.md) |
+| Producer WAV API | `/producer/wav` | [producer_wav_api_integration_guide.md](docs/producer_wav_api_integration_guide.md) |
+| Producer Tasks API | `/producer/tasks` | [producer_tasks_api_integration_guide.md](docs/producer_tasks_api_integration_guide.md) |
 
 ## Related Resources
 
@@ -68,4 +62,4 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+If you run into issues, check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
