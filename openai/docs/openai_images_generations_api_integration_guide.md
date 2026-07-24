@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1` / `gpt-image-1.5`, the latest generation **`gpt-image-2`** (including `gpt-image-2:reverse` and `gpt-image-2:official` variants), as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -47,7 +47,7 @@ Upstream hard constraints for custom sizes: width and height must be multiples o
 
 > **About the `n` parameter**
 >
-> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
+> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, `gpt-image-2:reverse` / `gpt-image-2:official`, and the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
 
 Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
 
@@ -154,6 +154,17 @@ Generated landscape illustration:
 
 `gpt-image-2` single calls usually take 60–90 seconds. If you do not want to keep a long connection, you can use the `callback_url` asynchronous callback mechanism described later. The calling process is the same as other models.
 
+### GPT-Image-2 Variants
+
+In addition to the standard `gpt-image-2`, two specialized variants are available through the same interface:
+
+| Model | Description |
+| --- | --- |
+| `gpt-image-2:reverse` | Optimized for reverse-style image generation tasks. |
+| `gpt-image-2:official` | Official upstream model with stricter content policies. |
+
+Use them exactly like `gpt-image-2` — simply set the `model` field to the desired variant value.
+
 ## Nano Banana Series Models
 
 The `nano-banana` series are image generation models based on Gemini, integrated through the same `/openai/images/generations` interface without switching endpoints. Just change the `model` to any of the following:
@@ -161,6 +172,7 @@ The `nano-banana` series are image generation models based on Gemini, integrated
 | Model | Billing (Credits / call) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image generation, fastest speed, lowest cost |
+| `nano-banana-2-lite` | 0.21 | Lightweight upgrade with improved consistency |
 | `nano-banana-2` | 0.28 | Significant improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
 

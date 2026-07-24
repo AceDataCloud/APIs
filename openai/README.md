@@ -879,6 +879,18 @@ print(image.data[0].url)</pre>
 </div>
 </div>
 <div class="oa-mdl-card">
+<h3>🆓 Free Tier Models</h3>
+<p class="mdl-desc">Zero-cost access variants for evaluation and light usage.</p>
+<div class="oa-mdl-tags">
+<span class="oa-mdl-tag">gpt-oss:free</span>
+<span class="oa-mdl-tag">gpt-5.5:free</span>
+<span class="oa-mdl-tag">gpt-5:free</span>
+<span class="oa-mdl-tag">gpt-4.1:free</span>
+<span class="oa-mdl-tag">gpt-4o:free</span>
+<span class="oa-mdl-tag">gpt-4o-mini:free</span>
+</div>
+</div>
+<div class="oa-mdl-card">
 <h3>🧠 o Series Reasoning</h3>
 <p class="mdl-desc">Designed for complex reasoning, provides high-quality answers after deep thinking.</p>
 <div class="oa-mdl-tags">
@@ -895,10 +907,14 @@ print(image.data[0].url)</pre>
 <p class="mdl-desc">Text-to-image generation and image editing.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-image-1</span>
+<span class="oa-mdl-tag">gpt-image-1.5</span>
 <span class="oa-mdl-tag">gpt-image-2</span>
+<span class="oa-mdl-tag">gpt-image-2:reverse</span>
+<span class="oa-mdl-tag">gpt-image-2:official</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
 <span class="oa-mdl-tag">nano-banana</span>
+<span class="oa-mdl-tag">nano-banana-2-lite</span>
 <span class="oa-mdl-tag">nano-banana-2</span>
 <span class="oa-mdl-tag">nano-banana-pro</span>
 </div>

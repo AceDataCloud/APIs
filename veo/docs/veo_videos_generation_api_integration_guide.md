@@ -14,7 +14,7 @@ There will be a free quota granted upon your first application, allowing you to 
 
 ## Basic Usage
 
-First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, the array of reference images for the first and last frames `image_urls`, and the model `model` to obtain the processed result. You first need to simply pass a field `action`, with the value set to `text2video`. It mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and get 1080p video (`get1080p`). Then, we also need to input the model `model`, which currently mainly includes `veo2`, `veo2-fast`, `veo3`, `veo31`, `veo31-fast`, `veo31-fast-ingredients`, and `veo3-fast` models, as detailed below:
+First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, the array of reference images for the first and last frames `image_urls`, and the model `model` to obtain the processed result. You first need to simply pass a field `action`, with the value set to `text2video`. It mainly includes four actions: text-to-video (`text2video`), image-to-video (`image2video`), multi-image fusion (`ingredients2video`), and get 1080p video (`get1080p`). Then, we also need to input the model `model`, which currently mainly includes `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients` models, as detailed below:
 
 <p><img src="https://cdn.acedata.cloud/vv5pe8.png" width="500" class="m-auto"></p>
 
@@ -25,22 +25,21 @@ Here we can see that we have set the Request Headers, including:
 
 Additionally, the Request Body is set, including:
 
-- `model`: the model for generating the video, mainly including `veo2`, `veo2-fast`, `veo3`, `veo31`, `veo31-fast`, `veo31-fast-ingredients`, and `veo3-fast` models.
-- `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`), and get 1080p video (`get1080p`).
-- `image_urls`: when selecting the image-to-video action `image2video`, it is necessary to upload the reference image links. `veo2-fast` supports only **1 image** (first frame mode); `veo31-fast-ingredients` supports up to **3 images** (multi-image fusion mode); all other models support up to **2 images** (first and last frame mode).
+- `model`: the model for generating the video, mainly including `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients` models.
+- `action`: the action for this video generation task, mainly including four actions: text-to-video (`text2video`), image-to-video (`image2video`), multi-image fusion (`ingredients2video`), and get 1080p video (`get1080p`).
+- `image_urls`: when selecting the image-to-video action `image2video`, it is necessary to upload the reference image links. `veo31-fast-ingredients` supports up to **3 images** (multi-image fusion mode); all other models support up to **2 images** (first and last frame mode).
 - `resolution`: choose the resolution of the generated video, where the veo31 model supports 4k resolution, while other models do not. All models support 1080p and gif resolutions. If this value is not provided, the default resolution is 720p, mainly divided into: `1080p`, `gif`, `4k`.
 - `prompt`: the prompt.
 - `callback_url`: the URL to receive the callback result.
+- `async`: when set to `true`, the API returns immediately with a `task_id`; poll the result with the Veo Tasks API.
 
 ### 📌 Model Summary
 
 | **Model Name**                   | **Supported Modes**                          | **Image Input Rules**                        |
 | -------------------------- | --------------------------------- | --------------------------------- |
-| **veo2-fast**              | Text-to-video (no image)<br>Image-to-video mode (with image)           | Only supports **1 image** → First frame mode                |
 | **veo3-fast**              | Text-to-video (no image)<br>Image-to-video mode (with image)           | **1 image** → First frame mode<br>**2 images** → First and last frame mode |
 | **veo31-fast**             | Text-to-video (no image)<br>Image-to-video mode (with image)           | **1 image** → First frame mode<br>**2 images** → First and last frame mode |
 | **veo31-fast-ingredients** | ❌ Text-to-video (not supported)<br>✅ **Forced multi-image fusion** (must provide images) | **1-3 images** → Multi-image fusion mode (up to 3 images)        |
-| **veo2**                   | Text-to-video (no image)<br>Image-to-video mode (with image)           | **1 image** → First frame mode<br>**2 images** → First and last frame mode |
 | **veo3**                   | Text-to-video (no image)<br>Image-to-video mode (with image)           | **1 image** → First frame mode<br>**2 images** → First and last frame mode |
 | **veo31**                  | Text-to-video (no image)<br>Image-to-video mode (with image)           | **1 image** → First frame mode<br>**2 images** → First and last frame mode |
 
@@ -56,8 +55,8 @@ Additionally, the Request Body is set, including:
    - **First and last frame mode** (2 images): The first and last frames are fixed as the input images.
    - **Multi-image fusion mode** (1-3 images): Only supported by `veo31-fast-ingredients`, fuses multiple images to generate a video.
 3. **Mode Classification**:
-   - **Fast Mode**: `veo2-fast`, `veo3-fast`, `veo31-fast`, `veo31-fast-ingredients`.
-   - **Quality Mode**: `veo2`, `veo3`, `veo31` (higher generation quality).
+   - **Fast Mode**: `veo3-fast`, `veo31-fast`, `veo31-fast-ingredients`.
+   - **Quality Mode**: `veo3`, `veo31` (higher generation quality).
 
 ---
 
@@ -65,7 +64,6 @@ Additionally, the Request Body is set, including:
 
 - **The only model that requires image input**: `veo31-fast-ingredients` must have images provided (1-3 images), otherwise it cannot run.
 - **Image quantity limit**:
-  - `veo2-fast` supports only **1 image** as input (first frame mode).
   - `veo31-fast-ingredients` supports **1-3 images** as input (multi-image fusion mode).
   - All other models support a maximum of **2 images** as input (first and last frame mode).
 
@@ -113,7 +111,7 @@ curl -X POST 'https://api.acedata.cloud/veo/videos' \
 -H 'content-type: application/json' \
 -d '{
   "action": "text2video",
-  "model": "veo2",
+  "model": "veo3",
   "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
 }'
 ```
@@ -124,7 +122,7 @@ If you want to generate a video based on the first and last frame images, you ca
 
 Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
-- `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, and `veo3-fast`.
+- `model`: the model for generating the video, mainly `veo3`, `veo3-fast`, `veo31`, and `veo31-fast`.
 - `image_urls`: when selecting the image-to-video action `image2video`, you must upload the reference image links for the first and last frames.
 - `prompt`: prompt words.
 
@@ -151,7 +149,7 @@ headers = {
 
 payload = {
     "action": "image2video",
-    "model": "veo2",
+    "model": "veo3",
     "prompt": "Let it dance",
     "image_urls": ["https://cdn.acedata.cloud/7p1jhy.png"]
 }
@@ -181,6 +179,42 @@ Clicking run, you can find that a result is obtained, as follows:
 
 It can be seen that the result content is consistent with the above text, thus achieving the image-to-video function.
 
+## Multi-Image Fusion Function
+
+If you want to fuse multiple reference images to create a video (only supported by `veo31-fast-ingredients`), you can set the parameter `action` to `ingredients2video` and provide 1 to 3 image links in `image_urls`.
+
+- `model`: must be `veo31-fast-ingredients`.
+- `action`: `ingredients2video`.
+- `image_urls`: an array of 1 to 3 reference image URLs to fuse into the video.
+- `prompt`: optional description to guide the generated video content.
+
+Example request:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/veo/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "******",
+    "content-type": "application/json"
+}
+
+payload = {
+    "action": "ingredients2video",
+    "model": "veo31-fast-ingredients",
+    "prompt": "Blend these images into a seamless scene",
+    "image_urls": [
+        "https://cdn.acedata.cloud/image1.png",
+        "https://cdn.acedata.cloud/image2.png"
+    ]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
 ## Get 1080p Video Function
 
 If you want to get 1080p for an already generated Veo video, you can set the parameter `action` to `get1080p`, and input the ID of the video you need to get 1080p for. The video ID can be obtained based on basic usage, as shown in the following image:
@@ -197,7 +231,7 @@ At this time, you can see that the video ID is:
 
 Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
-- `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
+- `model`: the model for generating the video, mainly `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
 - `video_id`: the reference video ID used to get the 1080p video.
 
 An example of filling in is as follows:
@@ -233,8 +267,8 @@ It can be seen that the result content is consistent with the above text, thus a
 
 If you want to specify the generation of a custom-sized Veo video, you can set the parameter `aspect_ratio` to the desired size. Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
-- `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
-- `aspect_ratio`: the size of the video, currently supporting: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`, with the default being `16:9`.
+- `model`: the model for generating the video, mainly `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
+- `aspect_ratio`: the size of the video, currently supporting: `16:9`, `9:16`, with the default being `16:9`.
 - `translation`: whether to enable automatic translation of prompt words, default is `false`.
   An example of filling in is as follows:
 

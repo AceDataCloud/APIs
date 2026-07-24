@@ -1,6 +1,6 @@
 # Producer Audios Generation API Integration Instructions
 
-This article introduces the Producer Audios Generation API integration instructions, which generate AI songs from a text prompt or custom lyrics, with support for instrumental tracks, covers, extensions, and section replacement.
+This article introduces the Producer Audios Generation API integration instructions, which generate AI songs from a text prompt or custom lyrics, with support for instrumental tracks, covers, extensions, variations, vocal/instrumental swapping, stem separation, and section replacement.
 
 ## Application Process
 
@@ -14,7 +14,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 The most basic usage is to input an `action` plus a `prompt`. The request body fields are described below:
 
-- `action`: the operation type. `generate` (new song), `cover`, `extend`, `replace_section`.
+- `action`: the operation type. `generate` (new song), `cover`, `extend`, `variation`, `swap_vocals`, `swap_instrumentals`, `replace_section`, `stems`.
 - `prompt`: the song description used when `custom` is false.
 - `model`: the model used to generate the song (e.g. `FUZZ-2.0 Pro`). Defaults to the highest-quality model.
 - `custom`: enable custom lyrics mode (`true` / `false`).
@@ -91,6 +91,38 @@ Send `action: "generate"` with a `prompt` (see the request example above).
 
 ```json
 { "action": "replace_section", "audio_id": "existing-audio-id", "replace_section_start": 15, "replace_section_end": 30 }
+```
+
+### Create a Variation
+
+Generate a creative variation of an existing song while keeping the same overall style:
+
+```json
+{ "action": "variation", "audio_id": "existing-audio-id" }
+```
+
+### Swap Vocals
+
+Replace the vocal track with a new AI-generated performance:
+
+```json
+{ "action": "swap_vocals", "audio_id": "existing-audio-id" }
+```
+
+### Swap Instrumentals
+
+Replace the instrumental backing while keeping the original vocals:
+
+```json
+{ "action": "swap_instrumentals", "audio_id": "existing-audio-id" }
+```
+
+### Separate Stems
+
+Separate an existing audio track into individual stems (vocals, drums, bass, other):
+
+```json
+{ "action": "stems", "audio_id": "existing-audio-id" }
 ```
 
 ## Related Endpoints

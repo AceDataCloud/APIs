@@ -1,6 +1,6 @@
 # Producer Music Generation API
 
-AI music generation service supporting songs, lyrics, covers, extensions, stem separation, WAV/MP4 export, and reference-audio uploads.
+AI music generation service supporting songs, lyrics, covers, extensions, variations, vocal/instrumental swapping, stem separation, WAV/MP4 export, and reference-audio uploads.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
@@ -17,7 +17,7 @@ Keywords: producer-api, ai-music, music-generation, song-generation, lyrics, cov
 
 ## Overview
 
-The Producer Audios Generation API generates AI songs from a text `prompt` or custom `lyric`, with support for instrumental-only tracks, covers, extensions, and section replacement. The Producer Lyrics Generation API drafts lyrics from a prompt. The Producer Wav / Videos APIs export a finished track to WAV audio or MP4 video, the Upload API registers a reference audio for cover/extend, and the Tasks API polls asynchronous jobs.
+The Producer Audios Generation API generates AI songs from a text `prompt` or custom `lyric`, with support for instrumental-only tracks, covers, extensions, variations, vocal/instrumental swapping, stem separation, and section replacement. The Producer Lyrics Generation API drafts lyrics from a prompt. The Producer Wav / Videos APIs export a finished track to WAV audio or MP4 video, the Upload API registers a reference audio for cover/extend, and the Tasks API polls asynchronous jobs.
 
 ## Application Process
 

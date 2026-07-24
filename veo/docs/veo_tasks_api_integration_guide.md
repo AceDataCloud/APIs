@@ -102,7 +102,7 @@ Upon a successful request, the API will return the details of the video task her
   "request": {
     "callback_url": "https://webhook.site/aed5cd28-f8aa-4dca-9480-8ec9b42137dc",
     "action": "text2video",
-    "model": "veo2",
+    "model": "veo3",
     "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
   },
   "trace_id": "d1d53c04-58c5-4c40-bb63-f00188540e56",
@@ -168,7 +168,7 @@ Upon a successful request, the API will return the specific details of all batch
       "request": {
         "callback_url": "https://webhook.site/aed5cd28-f8aa-4dca-9480-8ec9b42137dc",
         "action": "text2video",
-        "model": "veo2",
+        "model": "veo3",
         "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
       },
       "trace_id": "d1d53c04-58c5-4c40-bb63-f00188540e56",
@@ -199,7 +199,7 @@ Upon a successful request, the API will return the specific details of all batch
       "request": {
         "callback_url": "https://webhook.site/aed5cd28-f8aa-4dca-9480-8ec9b42137dc",
         "action": "text2video",
-        "model": "veo2",
+        "model": "veo3",
         "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
       },
       "trace_id": "d1d53c04-58c5-4c40-bb63-f00188540e56",
