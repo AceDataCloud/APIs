@@ -294,6 +294,48 @@ Response:
 }
 ```
 
+## AI Chat 2 Conversations API
+
+The OpenAPI spec also exposes a newer `/aichat2/conversations` endpoint. It uses the same bearer-token authentication and base URL as `/aichat/conversations`, but its request body is broader and only requires `model`.
+
+For simple usage, you can still send a direct question:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+-H 'accept: application/json' \
+-H 'authorization: ******' \
+-H 'content-type: application/json' \
+-d '{
+  "model": "gpt-5.5",
+  "question": "Summarize the key features of this API.",
+  "stateful": true,
+  "title": "API summary"
+}'
+```
+
+In addition to the `/aichat/conversations` fields (`id`, `question`, `preset`, `stateful`, and `references`), `/aichat2/conversations` also accepts:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `action` | string | Operation selector for the conversation request |
+| `message` | object | Single structured message payload |
+| `messages` | array | Structured message array |
+| `max_turns` | integer | Maximum turn limit for the conversation |
+| `async` | boolean | Whether to process the request asynchronously |
+| `callback_url` | string | Callback URL for async completion notifications |
+| `allowed_skills` | array of strings | Limit the skills the request may use |
+| `allowed_mcp_servers` | array of strings | Limit the MCP servers the request may use |
+| `unattended_policy` | object | Unattended execution policy configuration |
+| `tool_results` | array | Tool result payloads to send with the request |
+| `title` | string | Conversation title |
+| `user_id` | string | End-user identifier |
+| `application_id` | string | Application identifier |
+| `model_group` | string | Model group alias |
+| `offset` | integer | Offset control for conversation data |
+| `limit` | integer | Limit control for conversation data |
+
+Successful responses still return `answer` and, when applicable, `id`. Error responses may also include `404` with `error` and `trace_id` fields.
+
 ## Response Schema
 
 ### Success (200)
@@ -303,7 +345,7 @@ Response:
 | `answer` | string | The model's reply to the question |
 | `id` | string | Conversation ID (returned when `stateful` is `true`) |
 
-### Error (400 / 401 / 429 / 500)
+### Error (400 / 401 / 404 / 429 / 500)
 
 | Field | Type | Description |
 | --- | --- | --- |

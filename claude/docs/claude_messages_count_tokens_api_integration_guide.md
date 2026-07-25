@@ -16,7 +16,7 @@ This API is completely free to use and does not consume any quota.
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use, such as `claude-sonnet-4-5-20250929`, `claude-opus-4-20250514`, etc.
+- `model`: Choose the Claude model to use, such as `claude-opus-5`, `claude-sonnet-5`, `claude-opus-4-8`, etc.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:

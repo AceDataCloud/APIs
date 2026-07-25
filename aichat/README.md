@@ -17,7 +17,7 @@ Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, gro
 
 ## Overview
 
-The AI Chat Conversations API enables you to send a question to a large language model and receive an answer. It supports a broad range of models (GPT-4, GPT-4o, Grok, GLM, Kimi, and more), multi-turn stateful conversations, streaming responses, model presets, and image recognition via reference URLs — all without needing to manage message history or token limits yourself.
+The AI Chat APIs expose `/aichat/conversations` for straightforward question-and-answer flows and `/aichat2/conversations` for expanded conversation control. They support a broad range of models (GPT-4, GPT-4o, Grok, GLM, Kimi, and more), multi-turn stateful conversations, streaming responses, model presets, and image recognition via reference URLs — all without needing to manage message history or token limits yourself.
 
 ## Application Process
 
@@ -48,6 +48,7 @@ Explore the supported endpoints and integration guides for AI Chat.
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
+| [AI Chat 2 Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat2/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
 ## Related Resources
 
