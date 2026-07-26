@@ -43,7 +43,7 @@ import requests
 response = requests.post(
     "https://api.acedata.cloud/maestro/tasks",
     headers={
-        "Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}",
+        "Authorization": os.environ["ACEDATACLOUD_API_TOKEN"],
         "Content-Type": "application/json",
     },
     json={
@@ -141,7 +141,7 @@ backoff_factor = float(os.environ["MAESTRO_POLL_BACKOFF_FACTOR"])
 while True:
     response = requests.post(
         "https://api.acedata.cloud/maestro/tasks",
-        headers={"Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}"},
+        headers={"Authorization": os.environ["ACEDATACLOUD_API_TOKEN"]},
         json={"id": task_id, "action": "retrieve"},
         timeout=30,
     )

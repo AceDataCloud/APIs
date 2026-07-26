@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -25,6 +25,13 @@ There is a free quota granted upon the first application, allowing free use of t
 
 The calling method is exactly the same as other models, just set the `model` field to `gpt-image-2`. The returned `url` in the result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be directly opened in a browser or embedded in a webpage.
 
+### Line Variants (`:official` / `:reverse`)
+
+`gpt-image-2` defaults to the standard line. You can explicitly select the line through the model name suffix:
+
+- **`gpt-image-2:official`**: Official channel, stable and compliant. Supports true 2K / 4K resolution, **billed per image, with a unit price 2 times that of the default `gpt-image-2`**. If the line is unavailable, it will return an error directly and will not automatically downgrade.
+- **`gpt-image-2:reverse`**: Completely equivalent to the default `gpt-image-2`, with a better cost-performance ratio, price unchanged.
+
 ### Supported `size` Values
 
 `gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
@@ -47,7 +54,7 @@ Upstream hard constraints for custom sizes: width and height must be multiples o
 
 > **About the `n` parameter**
 >
-> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
+> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return and bill for the corresponding number of images. To ensure that multiple results have differences, it is recommended to pass different `prompt` or `seed` simultaneously. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-2` also natively supports this, while `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successfully generated parts will be returned and billed.
 
 Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
 
@@ -161,18 +168,19 @@ The `nano-banana` series are image generation models based on Gemini, integrated
 | Model | Billing (Credits / call) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image generation, fastest speed, lowest cost |
+| `nano-banana-2-lite` | 0.14 | Gemini 3.1 lightweight image model, supports only 1K, low latency output |
 | `nano-banana-2` | 0.28 | Significant improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
 
 > **Important: Supported Parameters**
 >
-> Nano Banana is integrated via an adaptation layer to the OpenAI protocol and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`.
+> Nano Banana is integrated via an adaptation layer to the OpenAI protocol and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`, `n`.
 >
 > - `size` will be mapped to internal `aspect_ratio` as per the table below; unlisted sizes default to `1:1`:
 >   - `1024x1024` / `512x512` / `256x256` → `1:1`
 >   - `1792x1024` → `16:9`
 >   - `1024x1792` → `9:16`
-> - Does not support `n`, `quality`, `style`, `response_format`, `background`, `output_format`, etc.; these will be ignored if provided.
+> - Does not support `quality`, `style`, `response_format`, `background`, `output_format`, etc.; these will be ignored if provided. `n > 1` is supported (1–10), which will return and charge for the corresponding number of images.
 > - Return structure follows OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
 
 ### Basic Call

@@ -21,9 +21,9 @@ The Fish TTS API converts text into natural speech, optionally using a cloned vo
 
 ## Application Process
 
-To use the Fish TTS API, apply for the corresponding service on the [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) page. After entering the page, click the "Acquire" button.
+Create an API token in the [Ace Data Cloud console](https://platform.acedata.cloud/console/applications) before calling the Fish APIs.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+There is a free quota available for first-time applicants, allowing you to use this API for free. One API token works across every Ace Data Cloud service, so you do not need to apply separately for each Fish endpoint.
 
 ## Quick Start
 

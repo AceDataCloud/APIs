@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -21,7 +21,15 @@ Compared to `gpt-image-1`, `gpt-image-2` offers significant improvements in imag
 - **More stable structure retention**: Changing skins, colors, or backgrounds almost never disrupts the original layout and composition.
 - **More accurate text preservation**: Text in infographics, posters, menus, etc., remains clear and readable after editing.
 - **Supports direct URL input**: Besides traditional `multipart/form-data` file uploads, `gpt-image-2` additionally supports passing image URLs via JSON, eliminating the need to download images locally first, which is ideal for server-side pipeline integration.
+- **Supports base64 direct input**: Consistent with the official interface, the `image` field also accepts `data:image/png;base64,...` or raw base64, so local images can be edited without uploading them to image hosting first.
 - **Supports high-resolution redraws**: You can input a 1K original image and request 2K / 4K output via the `size` parameter; the model will perform upscaling during editing.
+
+### Line Variants (`:official` / `:reverse`)
+
+`gpt-image-2` defaults to the standard line. You can explicitly select the line by appending the model name suffix:
+
+- **`gpt-image-2:official`**: Official channel, stable and compliant. Supports true 2K / 4K high resolution, **charged per image, with a unit price twice that of the default `gpt-image-2`**. If the line is unavailable, it will return an error directly without automatic downgrade.
+- **`gpt-image-2:reverse`**: Completely equivalent to the default `gpt-image-2`, offering better cost performance, with unchanged pricing.
 
 ### Supported `size` Values
 
@@ -41,7 +49,7 @@ The same upstream hard constraints on custom sizes apply: width and height must 
 
 > **About the `n` parameter**
 >
-> The `gpt-image-2` editing interface currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate edited images at once, please **make multiple concurrent requests yourself**. This limitation also applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only editing model that natively supports `n > 1`.
+> The `gpt-image-2` editing interface supports `n > 1`: a single request can return and charge for the corresponding number of editing results (with `n` values from 1 to 10). This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-2` also natively supports this. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and charged.
 
 Below are two real examples from different perspectives to showcase the editing capabilities of `gpt-image-2`.
 
@@ -116,6 +124,26 @@ The edited image is shown below:
 You can see that the module structure, information partition, and typography are strictly preserved, with only the color scheme inverted to a dark theme.
 
 > **Tip**: The `image` field also supports passing an array, e.g., `"image": ["url1", "url2", "url3"]`, allowing up to 16 reference images simultaneously for the model to consider comprehensively during editing.
+
+> **Base64 direct transmission**: The `image` field (and each item in the array) can also be base64 — `data:image/png;base64,...` or raw base64 — which is useful when you do not want to upload local images to public storage first. For example:
+>
+> ```python
+> import base64
+> import requests
+>
+> b64 = base64.b64encode(open("input.png", "rb").read()).decode()
+> payload = {
+>     "model": "gpt-image-2",
+>     "image": f"data:image/png;base64,{b64}",
+>     "prompt": "Convert this infographic to dark mode.",
+>     "size": "1024x1536"
+> }
+> requests.post(
+>     "https://api.acedata.cloud/openai/images/edits",
+>     json=payload,
+>     headers={"authorization": "******"}
+> )
+> ```
 
 ### Method 2: JSON + Multiple Reference Images
 
@@ -194,15 +222,16 @@ The `nano-banana` series is also integrated with `/openai/images/edits` for edit
 | Model | Cost (Credits / request) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image editing, fastest and lowest cost |
+| `nano-banana-2-lite` | 0.14 | Gemini 3.1 lightweight image model, supports only 1K, low-latency editing |
 | `nano-banana-2` | 0.28 | Noticeable improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best retention of structure, text, and style |
 
 > **Important: Supported Parameters**
 >
-> Nano Banana accesses the OpenAI protocol via an adaptation layer and only supports the following parameters: `model`, `prompt`, `image`.
+> Nano Banana accesses the OpenAI protocol via an adaptation layer and only supports the following parameters: `model`, `prompt`, `image`, `n`.
 >
 > - `image` can be uploaded via `multipart/form-data` (internally converted to `data:<mime>;base64,...` for upstream) or passed as a URL string in the form field.
-> - Parameters like `mask`, `n`, `size`, `response_format` are not supported and will be ignored if provided.
+> - Parameters like `mask`, `size`, and `response_format` are not supported and will be ignored if provided. `n > 1` is supported (1–10) and will return and charge for the corresponding number of edited results.
 > - The response structure follows the OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
 
 ### Calling via Form + Image URL

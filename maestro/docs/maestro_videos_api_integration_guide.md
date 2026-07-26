@@ -103,7 +103,7 @@ import requests
 response = requests.post(
     "https://api.acedata.cloud/maestro/videos",
     headers={
-        "Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}",
+        "Authorization": os.environ["ACEDATACLOUD_API_TOKEN"],
         "Content-Type": "application/json",
     },
     json={
