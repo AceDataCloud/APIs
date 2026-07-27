@@ -28,6 +28,11 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 - `callback_url`: an asynchronous callback URL.
 - `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
 
+> The TTS engine is selected with the **`model` request header** — not a body field.
+> Supported values are `s1`, `s2-pro` (default) and `s2.1-pro`. `s2.1-pro` is the latest
+> generation and `s2-pro` is the most expressive, while `s1` is steadier on long passages.
+> All three are priced the same.
+
 ### Request Example
 
 ```bash
