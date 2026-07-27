@@ -18,7 +18,7 @@ Upon first application, there will be a free quota provided, allowing you to use
 
 The request path for the Claude Messages API is `/v1/messages`, consistent with the Anthropic official API. We need to provide at least three required parameters:
 
-- `model`: Choose the Claude model to use, such as `claude-opus-4-20250514`, `claude-sonnet-4-20250514`, etc.
+- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
