@@ -115,7 +115,7 @@ Upon successful request, the API will return the detailed information of the vid
         "model": "minimax-t2v",
         "prompt": "Internal heat",
         "first_image_url": null,
-        "video_url": "https://file.aigpai.com/czjl/tjU3QYKgU96IJFgpL0eMfBFhmy0qXz9Y05P2IBhShCYaDCFUA/tmp5uligw3a.output.mp4",
+        "video_url": "https://platform.cdn.acedata.cloud/czjl/tjU3QYKgU96IJFgpL0eMfBFhmy0qXz9Y05P2IBhShCYaDCFUA/tmp5uligw3a.output.mp4",
         "state": "succeeded"
       }
     ]
@@ -215,7 +215,7 @@ Upon successful request, the API will return the specific details of all batch v
             "model": "minimax-t2v",
             "prompt": "Internal heat",
             "first_image_url": null,
-            "video_url": "https://file.aigpai.com/czjl/6cTYBRBDVJIQANzG7GaPwPblbeIiFe4yUDcVoMkkXttqJCFUA/tmpm4ke45c5.output.mp4",
+            "video_url": "https://platform.cdn.acedata.cloud/czjl/6cTYBRBDVJIQANzG7GaPwPblbeIiFe4yUDcVoMkkXttqJCFUA/tmpm4ke45c5.output.mp4",
             "state": "succeeded"
           }
         ]
@@ -244,7 +244,7 @@ Upon successful request, the API will return the specific details of all batch v
             "model": "minimax-t2v",
             "prompt": "Internal heat",
             "first_image_url": null,
-            "video_url": "https://file.aigpai.com/czjl/tjU3QYKgU96IJFgpL0eMfBFhmy0qXz9Y05P2IBhShCYaDCFUA/tmp5uligw3a.output.mp4",
+            "video_url": "https://platform.cdn.acedata.cloud/czjl/tjU3QYKgU96IJFgpL0eMfBFhmy0qXz9Y05P2IBhShCYaDCFUA/tmp5uligw3a.output.mp4",
             "state": "succeeded"
           }
         ]
