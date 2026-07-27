@@ -6,17 +6,15 @@ This document will provide detailed integration instructions for the Sora Tasks 
 
 ## Application Process
 
-To use the Sora Tasks API, you first need to apply for the corresponding service on the application page [Sora Videos Generation API](https://platform.acedata.cloud/documents/99a24421-2e22-4028-8201-e19cb834b67e), and then copy the task ID from the Sora Videos Generation API, as shown in the image:
+To use Sora Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-<p><img src="https://cdn.acedata.cloud/za62pb.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-Finally, go to the Tasks API page [Sora Tasks API](https://platform.acedata.cloud/documents/c9d81bad-9064-4796-86b6-4fb43cc93a16) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use the API for free.
+> 📘 Full documentation: [Sora Videos Generation API →](https://platform.acedata.cloud/documents/sora-videos)
 
 ## Request Example
 
@@ -26,7 +24,7 @@ We will take one task ID returned by the Sora Videos Generation API as an exampl
 
 ### Task Example Image
 
-<p><img src="https://cdn.acedata.cloud/za62pb.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/za62pb.png)
 
 ### Setting Request Headers and Request Body
 
@@ -42,13 +40,13 @@ We will take one task ID returned by the Sora Videos Generation API as an exampl
 
 Set as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/fe19dd.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/fe19dd.png)
 
 ### Code Example
 
 You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/ou5lfa.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/ou5lfa.png)
 
 Some code examples are as follows:
 
@@ -120,7 +118,7 @@ Upon successful request, the API will return the details of the video task here.
     "data": [
       {
         "id": "sora-2:task_01k777hjrbfrgs2060q5zvf2a5",
-        "video_url": "https://platform.cdn.acedata.cloud/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
+        "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
         "state": "succeeded"
       }
     ]
@@ -145,12 +143,12 @@ This is for querying the details of video tasks for multiple task IDs, and unlik
 
 Set as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/9cf4j8.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/9cf4j8.png)
 
 ### Code Example
 It can be found that various language codes have been automatically generated on the right side of the page, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/8ci2tg.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/8ci2tg.png)
 
 Some code examples are as follows:
 
@@ -189,7 +187,7 @@ After a successful request, the API will return the specific details of all batc
         "data": [
           {
             "id": "sora-2:task_01k777hjrbfrgs2060q5zvf2a5",
-            "video_url": "https://platform.cdn.acedata.cloud/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
+            "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
             "state": "succeeded"
           }
         ]
@@ -223,7 +221,7 @@ After a successful request, the API will return the specific details of all batc
         "data": [
           {
             "id": "sora-2:task_01k777hjrbfrgs2060q5zvf2a5",
-            "video_url": "https://platform.cdn.acedata.cloud/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
+            "video_url": "https://filesystem.site/gptimage/vg-assets/assets%2Ftask_01k777hjrbfrgs2060q5zvf2a5%2Ftask_01k777hjrbfrgs2060q5zvf2a5_genid_b8e2e5d1-a579-49ca-a21c-cb3869685cce_25_10_10_14_15_147334%2Fvideos%2F00000%2Fsrc.mp4?st=2025-10-10T12%3A38%3A49Z&se=2025-10-16T13%3A38%3A49Z&sks=b&skt=2025-10-10T12%3A38%3A49Z&ske=2025-10-16T13%3A38%3A49Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=p4aMqXqkP%2FI1IhOVGCB9JL8vUUvfNBBF12ESpKhKXOk%3D&az=oaivgprodscus",
             "state": "succeeded"
           }
         ]

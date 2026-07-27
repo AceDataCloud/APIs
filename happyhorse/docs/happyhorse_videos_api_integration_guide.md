@@ -1,20 +1,34 @@
 # HappyHorse Videos API Integration Instructions
-This document introduces the integration method for the HappyHorse Videos API. This interface supports text-to-video, first-frame image-to-video, reference image-to-video, and video editing through a unified `/happyhorse/videos` entry and the `action` parameter.
+
+This document introduces the integration method for the HappyHorse Videos API. This interface supports text-to-video, first-frame image-to-video, reference image-to-video, and video editing through a unified `/happyhorse/videos` endpoint and the `action` parameter.
+
 ## Application Process
+
 To use the HappyHorse Videos API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
+
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)
-If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
-**One API Token can call all services on the platform, without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
-> 📘 Complete documentation: [HappyHorse Videos API →](https://platform.acedata.cloud/documents/happyhorse-videos)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, after which you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [HappyHorse Videos API →](https://platform.acedata.cloud/documents/happyhorse-videos)
+
 ## Operation Types
+
 The `action` determines the generation mode for this request:
+
 - `generate`: Text-to-video, default action, supports `happyhorse-1.0-t2v` and `happyhorse-1.1-t2v`, must provide `prompt`.
 - `image_to_video`: First-frame image-to-video, supports `happyhorse-1.0-i2v` and `happyhorse-1.1-i2v`, must provide `image_url`.
 - `reference_to_video`: Reference image-to-video, supports `happyhorse-1.0-r2v` and `happyhorse-1.1-r2v`, must provide `prompt` and 1–9 `image_urls`.
 - `video_edit`: Video editing, supports `happyhorse-1.0-video-edit`, must provide `prompt` and `video_url`, can additionally provide 0–5 reference images `image_urls`.
+
 Each action defaults to using the 1.1 model; `video_edit` currently only has `happyhorse-1.0-video-edit`.
+
 ## Basic Usage
-Text-to-video only requires providing `prompt`, and you can also specify parameters such as `resolution`, `ratio`, and `duration`:
+
+Text-to-video only requires providing `prompt`, and you can also specify parameters like `resolution`, `ratio`, `duration`, etc.:
+
 ```json
 {
   "action": "generate",
@@ -25,7 +39,9 @@ Text-to-video only requires providing `prompt`, and you can also specify paramet
   "duration": 5
 }
 ```
+
 An example of the returned result is as follows:
+
 ```json
 {
   "success": true,
@@ -43,18 +59,22 @@ An example of the returned result is as follows:
   ]
 }
 ```
+
 Field descriptions:
+
 - `success`: Whether this request was successful.
-- `task_id`: Ace Data Cloud task ID, which can be used to query task status.
-- `trace_id`: The tracking ID for this request, used for troubleshooting.
+- `task_id`: Ace Data Cloud task ID, can be used to query task status.
+- `trace_id`: Tracking ID for this request, used for troubleshooting.
 - `data`: List of video results.
-  - `id`: The HappyHorse-side task ID.
+  - `id`: Task ID on the HappyHorse side.
   - `video_url`: CDN link address of the generated video.
   - `state`: Task status, can be `pending` / `succeeded` / `error`.
   - `duration`: Billing video duration, in seconds; for `video_edit`, it is the total duration of input and output videos.
   - `resolution`: Output resolution.
   - `ratio`: Output aspect ratio.
+
 The corresponding CURL code is as follows:
+
 ```shell
 curl -X POST 'https://api.acedata.cloud/happyhorse/videos' \
 -H 'authorization: Bearer ${bearer_token}' \
@@ -69,15 +89,20 @@ curl -X POST 'https://api.acedata.cloud/happyhorse/videos' \
   "duration": 5
 }'
 ```
+
 The corresponding Python code is as follows:
+
 ```python
 import requests
+
 url = "https://api.acedata.cloud/happyhorse/videos"
+
 headers = {
     "accept": "application/json",
     "authorization": "Bearer {token}",
     "content-type": "application/json",
 }
+
 payload = {
     "action": "generate",
     "model": "happyhorse-1.1-t2v",
@@ -86,11 +111,15 @@ payload = {
     "ratio": "16:9",
     "duration": 5,
 }
+
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
+
 ## First-Frame Image-to-Video
+
 When using `image_to_video`, the `image_url` will serve as the first frame of the video. The output aspect ratio will try to follow the first frame image, so this action does not require passing `ratio`.
+
 ```json
 {
   "action": "image_to_video",
@@ -101,8 +130,11 @@ When using `image_to_video`, the `image_url` will serve as the first frame of th
   "duration": 5
 }
 ```
+
 ## Reference Image-to-Video
-When using `reference_to_video`, `image_urls` can include 1–9 reference images. In the prompt, you can reference the corresponding images using `character1`, `character2`, etc.
+
+When using `reference_to_video`, you can pass in 1–9 reference images in `image_urls`. You can reference the corresponding images in the prompt using `character1`, `character2`, etc.
+
 ```json
 {
   "action": "reference_to_video",
@@ -117,8 +149,11 @@ When using `reference_to_video`, `image_urls` can include 1–9 reference images
   "duration": 5
 }
 ```
+
 ## Video Editing
-When using `video_edit`, you must provide the video URL to be edited `video_url` and the editing intent `prompt`. Optional `image_urls` will serve as reference images, for example, for changing outfits, style transfer, or partial replacement. The `audio_setting` can be `auto` or `origin`, where `origin` means to keep the original video audio.
+
+When using `video_edit`, you must provide the video URL to be edited `video_url` and the editing intent `prompt`. Optional `image_urls` will serve as reference images, such as for changing outfits, style transfer, or partial replacement. The `audio_setting` can be `auto` or `origin`, where `origin` means to keep the original video audio.
+
 ```json
 {
   "action": "video_edit",
@@ -132,8 +167,10 @@ When using `video_edit`, you must provide the video URL to be edited `video_url`
   "audio_setting": "auto"
 }
 ```
+
 ## Asynchronous Callback
-Video generation requires a certain processing time. If you do not wish to maintain a long connection while waiting, you can pass in `callback_url`. In this case, the API will immediately return `task_id`, and once the task is completed, it will POST the final result to that address:
+Video generation requires a certain processing time. If you do not wish to maintain a long connection while waiting, you can pass in `callback_url`, at which point the API will immediately return `task_id`, and once the task is completed, it will POST the final result to that address:
+
 ```json
 {
   "action": "generate",
@@ -142,23 +179,33 @@ Video generation requires a certain processing time. If you do not wish to maint
   "callback_url": "https://your-domain.com/callback/happyhorse"
 }
 ```
+
 The result returned immediately is as follows:
+
 ```json
 {
   "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea"
 }
 ```
+
 If you only wish to poll and do not need a callback, you can also pass in `"async": true`, and then query the task results through the [HappyHorse Tasks API](https://platform.acedata.cloud/documents/happyhorse-tasks).
+
 ## Billing Information
+
 HappyHorse charges based on the output video duration and resolution:
+
 - `720P`: as low as about $0.105 / second.
 - `1080P`: as low as about $0.18 / second.
-- `video_edit`: charged based on the total duration of the input and output videos, with the actual billing duration based on the statistics recorded after the task is completed.
+- `video_edit`: charged based on the total duration of the input and output videos, with the actual billing duration based on the statistics after the task is completed.
+
 Failed tasks are not charged and do not count against the free quota.
+
 ## Error Handling
+
 When there is an issue with the request, the API will return the corresponding error code and description, commonly as follows:
+
 - `400`: Request parameters are incorrect, such as action and model not matching, missing `prompt` / `image_url` / `video_url`, or `duration` exceeding the range of 3–15 seconds.
 - `401`: Authentication failed, token is invalid or does not match the API.
 - `403`: Insufficient balance, or the prompt hits content review and is rejected.
-- `429`: Requests are too frequent and hit the rate limit, please try again later.
+- `429`: Requests are too frequent, triggering rate limiting, please try again later.
 - `500`: Internal server error or generation failure.

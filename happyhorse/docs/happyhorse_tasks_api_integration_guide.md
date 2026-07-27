@@ -1,36 +1,51 @@
-# Happy Horse Tasks API Integration Guide
+# HappyHorse Tasks API Integration and Usage
 
-Use the Happy Horse Tasks API to retrieve video generation and editing jobs submitted through
-`POST /happyhorse/videos`.
+The HappyHorse Tasks API is used to query the video generation or editing tasks created by the HappyHorse Videos API.
 
-## Endpoint
+## Application Process
 
-```text
-POST https://api.acedata.cloud/happyhorse/tasks
-```
+To use the HappyHorse Videos API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
 
-```http
-Authorization: Bearer YOUR_API_KEY
-Content-Type: application/json
-```
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-## Retrieve One Task
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token is sufficient to call all services on the platform, and there is no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [HappyHorse Videos API →](https://platform.acedata.cloud/documents/happyhorse-videos)
+
+## Request Example
+
+The HappyHorse Tasks API can be used to query the results of the HappyHorse Videos API.
+
+### Setting Request Headers and Request Body
+
+**Request Headers** include:
+
+- `accept`: Specifies that the response result should be in JSON format, set to `application/json`.
+- `authorization`: The key to call the API, which can be selected directly after application.
+
+**Request Body** includes:
+
+- `id`: The task ID to query.
+- `action`: The operation method for the task, set to `retrieve` for a single query.
+
+### CURL Code Example
 
 ```bash
-curl --request POST "https://api.acedata.cloud/happyhorse/tasks" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
-    "action": "retrieve"
-  }'
+curl -X POST 'https://api.acedata.cloud/happyhorse/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
+  "action": "retrieve"
+}'
 ```
 
-`action` defaults to `retrieve`, but sending it explicitly makes the request unambiguous.
+### Response Example
 
-## Single-Task Response
-
-The task record preserves both the original video request and its current or final response:
+Upon successful request, the API will return the details of the task. The `request` field contains the request body when the task was created, and the `response` field contains the response body returned after the task is completed, for example:
 
 ```json
 {
@@ -61,87 +76,25 @@ The task record preserves both the original video request and its current or fin
 }
 ```
 
-Important fields:
+Field descriptions are as follows:
 
-| Field | Meaning |
-|---|---|
-| `id` | Ace Data Cloud task ID |
-| `request` | Original `/happyhorse/videos` request body |
-| `response` | Current or final Videos API response |
-| `response.data[].state` | `pending`, `succeeded`, or `error` |
-| `response.data[].video_url` | Final CDN URL when successful |
-| `response.trace_id` | Trace ID for support and debugging |
+- `id`: The ID of the generated task, used to uniquely identify this generation task.
+- `request`: The request information when the task was created.
+- `response`: The current or final return information of the task.
 
-If `response` or its final `video_url` is not available yet, wait about 15 seconds and query the
-same task again. Stop polling on a final video URL or terminal error.
+## Batch Query Operation
 
-## Retrieve Multiple Tasks
-
-Set `action` to `retrieve_batch` and pass the IDs array:
+When querying task details for multiple task IDs, set the `action` to `retrieve_batch` and pass the task ID array through `ids`:
 
 ```bash
-curl --request POST "https://api.acedata.cloud/happyhorse/tasks" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "ids": [
-      "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
-      "27837f92-d1c1-4db4-ad9a-4e6e81d9f6c1"
-    ],
-    "action": "retrieve_batch"
-  }'
+curl -X POST 'https://api.acedata.cloud/happyhorse/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "ids": ["b8976e18-32dc-4718-9ed8-1ea090fcb6ea"],
+  "action": "retrieve_batch"
+}'
 ```
 
-The response contains:
-
-```json
-{
-  "items": [],
-  "count": 0
-}
-```
-
-`items` contains matching task records in the same shape as the single-task response. `count` is
-the number of matching records.
-
-## Python Polling Example
-
-```python
-import time
-
-import requests
-
-task_id = "YOUR_TASK_ID"
-headers = {
-    "Authorization": "Bearer YOUR_API_KEY",
-    "Content-Type": "application/json",
-}
-
-for _ in range(100):
-    task = requests.post(
-        "https://api.acedata.cloud/happyhorse/tasks",
-        headers=headers,
-        json={"id": task_id, "action": "retrieve"},
-        timeout=30,
-    ).json()
-    response = task.get("response") or {}
-    videos = response.get("data") or []
-    if videos and videos[0].get("video_url"):
-        print(videos[0]["video_url"])
-        break
-    if videos and videos[0].get("state") == "error":
-        raise RuntimeError(response)
-    time.sleep(15)
-else:
-    raise TimeoutError(f"Task {task_id} did not finish in time")
-```
-
-## Errors
-
-| Status | Meaning |
-|---|---|
-| `400` | Missing IDs or invalid action |
-| `401` | Missing or invalid API token |
-| `500` | Internal task lookup failure |
-
-Use the same token that submitted the video task.
+The returned result will include the `items` and `count` fields, where `items` is the array of task details, and `count` is the number of tasks matched in this query.

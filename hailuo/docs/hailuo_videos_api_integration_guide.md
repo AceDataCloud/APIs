@@ -1,41 +1,44 @@
 # Hailuo Videos Generation API Integration Instructions
 
-This article introduces the Hailuo Videos Generation API integration guide, which allows you to generate official Hailuo videos by inputting custom parameters.
+This article will introduce the integration instructions for the Hailuo Videos Generation API, which can generate official Hailuo videos by inputting custom parameters.
 
 ## Application Process
 
-To use the API, you first need to apply for the corresponding service on the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use the Hailuo Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page, inviting you to register and log in. After completing this, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota available for you to use the API for free.
+**One API Token can call all services on the platform, without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Hailuo Videos Generation API →](https://platform.acedata.cloud/documents/hailuo-videos-integration)
 
 ## Basic Usage
 
-First, understand the basic usage method, which involves inputting the prompt `prompt`, the generation action `action`, the first frame reference image `first_image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then input the model. Currently, the main models are the image-to-video model `minimax-i2v` and the text-to-video model `minimax-t2v`, as detailed below:
+First, understand the basic usage, which involves inputting the prompt `prompt`, the action `action`, the first frame reference image `first_image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then we also need to input the model, which currently mainly includes the image-to-video model `minimax-i2v` and the text-to-video model `minimax-t2v`. The specific content is as follows:
 
-<p><img src="https://cdn.acedata.cloud/7jyu0n.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/7jyu0n.png)
 
-Here, we can see that we have set the Request Headers, including:
+Here we can see that we have set the Request Headers, including:
 
-- `accept`: the format of the response you want to receive, filled in as `application/json`, which means JSON format.
-- `authorization`: the key to call the API, which can be selected directly after application.
+- `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
 
-Additionally, the Request Body is set, including:
+Additionally, we set the Request Body, including:
 
 - `model`: the model for generating the video, mainly the image-to-video model `minimax-i2v` and the text-to-video model `minimax-t2v`.
 - `action`: the action for this video generation task.
-- `first_image_url`: the first frame reference image link that must be uploaded when using the image-to-video model `minimax-i2v`. Base64 encoding is not supported.
+- `first_image_url`: the link to the first frame reference image that must be uploaded when selecting the image-to-video model `minimax-i2v`, Base64 encoding is not supported.
 - `prompt`: the prompt.
-- `callback_url`: the URL for callback results.
+- `callback_url`: the URL to receive the callback result.
+- `async`: optional, when set to `true`, the interface immediately returns `task_id`, and there is no need to provide `callback_url`, then the result can be polled through the corresponding task query interface.
 
-After selection, you can see that the corresponding code is generated on the right side, as shown in the image below:
+After selection, you can find that the corresponding code is also generated on the right side, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/8psuxw.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/8psuxw.png)
 
-Click the "Try" button to test, as shown in the image above, and we get the following result:
+Click the "Try" button to test, as shown in the above figure, we obtained the following result:
 
 ```json
 {
@@ -56,19 +59,19 @@ Click the "Try" button to test, as shown in the image above, and we get the foll
 
 The returned result contains multiple fields, described as follows:
 
-- `success`: the status of the current video generation task.
-- `task_id`: the ID of the current video generation task.
-- `trace_id`: the trace ID of the current video generation task.
-- `data`: the result list of the current video generation task.
-  - `id`: the video ID of the current video generation task.
-  - `prompt`: the prompt of the current video generation task.
-  - `model`: the model of the current video generation task.
-  - `video_url`: the video link of the current video generation task.
-  - `state`: the status of the current video generation task.
+- `success`: the status of the video generation task at this time.
+- `task_id`: the ID of the video generation task at this time.
+- `trace_id`: the tracking ID of the video generation at this time.
+- `data`: the result list of the video generation task at this time.
+    - `id`: the video ID of the video generation task at this time.
+    - `prompt`: the prompt of the video generation task at this time.
+    - `model`: the cover link of the video generation task at this time.
+    - `video_url`: the video link of the video generation task at this time.
+    - `state`: the status of the video generation task at this time.
 
-We can see that we have obtained satisfactory video information. We only need to obtain the generated Hailuo video using the video link address from `data`.
+We can see that we have obtained satisfactory video information, and we only need to access the generated Hailuo video using the video link address in `data`.
 
-Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code. For example, the CURL code is as follows:
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/hailuo/videos' \
@@ -83,23 +86,23 @@ curl -X POST 'https://api.acedata.cloud/hailuo/videos' \
 
 ## Asynchronous Callback
 
-Since the generation time of the Hailuo Videos Generation API is relatively long, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+Since the time taken by the Hailuo Videos Generation API to generate is relatively long, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the generated video result will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the generated video will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Let's understand how to operate specifically through an example.
+Let’s understand how to operate specifically through an example.
 
-First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, a public Webhook sample site https://webhook.site/ is used, and opening this site will provide a Webhook URL, as shown in the image:
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can open the site to obtain a Webhook URL, as shown in the figure:
 
 ![](https://cdn.acedata.cloud/cjjfly.png)
 
 Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/580b81f5-596e-4321-b03f-606770b0bb83`.
 
-Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the image:
+Next, we can set the field `callback_url` to the above Webhook URL, while filling in the corresponding parameters, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/odabh3.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/odabh3.png)
 
-Clicking run, we can find that an immediate result is obtained, as follows:
+Click to run, and you will immediately receive a result, as follows:
 
 ```
 {
@@ -107,12 +110,11 @@ Clicking run, we can find that an immediate result is obtained, as follows:
 }
 ```
 
-After a moment, we can observe the generated video result at `https://webhook.site/580b81f5-596e-4321-b03f-606770b0bb83`, as shown in the image:
+After a moment, we can observe the result of the generated video at `https://webhook.site/580b81f5-596e-4321-b03f-606770b0bb83`, as shown in the figure:
 
 ![](https://cdn.acedata.cloud/7jngb4.png)
 
 The content is as follows:
-
 ```json
 {
     "success": true,
@@ -130,7 +132,7 @@ The content is as follows:
 }
 ```
 
-As you can see, the result contains a `task_id` field, and the other fields are similar to the above text, allowing the task to be associated through this field.
+You can see that the result contains a `task_id` field, and the other fields are similar to the above text. This field can be used to associate tasks.
 
 ## Error Handling
 
@@ -157,4 +159,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to use the Hailuo Videos Generation API to generate videos by inputting prompt words and a first frame reference image. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the Hailuo Videos Generation API to generate videos by inputting prompt words and a reference image for the first frame. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

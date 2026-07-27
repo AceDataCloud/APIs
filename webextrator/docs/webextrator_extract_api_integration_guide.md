@@ -1,33 +1,28 @@
-# WebExtrator Extract API Integration Guide
+# WebExtrator Intelligent Extraction API Integration Guide
 
 `POST https://api.acedata.cloud/webextrator/extract`
 
-The WebExtrator Extract API turns a URL into a typed, structured payload —
-Article, Product, Recipe, Video, Discussion, Job — with markdown and clean text
-on the side. It is the right endpoint to call when you want **clean structured
-data** rather than raw HTML.
+The WebExtrator Intelligent Extraction API converts a URL into **typed structured results** — articles, products, recipes, videos, discussions, job postings, etc., along with cleaned Markdown and plain text. This is the interface to use when you want "clean structured data" instead of raw HTML.
 
-Under the hood Extract runs a three-tier pipeline:
+At the core is a three-layer pipeline:
 
-1. **schema.org JSON-LD mapper** — deterministic, zero LLM cost. Covers
-   Wikipedia / BestBuy / AllRecipes / YouTube / most news / most product pages.
-2. **LLM-first typed extractor** — for pages without JSON-LD (Amazon, Hacker
-   News, Greenhouse, blogs). Zod-validated typed payload per kind.
-3. **Readability + markdown fallback** — always runs; populates the basic
-   top-level fields when neither layer above filled them.
+1. **schema.org JSON-LD Mapper** — Deterministic, zero LLM cost. Covers Wikipedia / BestBuy / AllRecipes / YouTube / most news / most product pages.
+2. **Typed LLM Extraction** — Triggered only when schema.org is not hit. Select Schema by page type, strict validation with Zod.
+3. **Readability + Markdown Fallback** — Always runs, filling in top-level fields that the first two layers did not.
 
-Repeat URL requests hit a Redis result cache and return in <1 ms.
-
----
+Repeated requests for the same URL will be caught by Redis result caching, returning in <1 ms.
 
 ## Application Process
 
-To use the WebExtrator Extract API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/service/webextrator).
-Click **Acquire** to obtain the credentials needed for the request. A free
-quota is provided to first-time applicants.
+To use the WebExtrator service page, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
----
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and will return to the current page upon completion.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [WebExtrator Service Page →](https://platform.acedata.cloud/service/webextrator)
 
 ## Authentication
 
@@ -36,28 +31,18 @@ Authorization: Bearer YOUR_API_KEY
 Content-Type:  application/json
 ```
 
----
+## Request Parameters
 
-## Request Body
+Extract accepts **all** [Render API](webextrator_render_api_integration_guide.md) parameters (`url`, `user_agent`, `timeout`, `wait_until`, `delay`, `wait_for_selector`, `block_resources`, `headers`, `cookies`, `callback_url`, `bypass_cache`, `cache_ttl_seconds`, `async`), plus two Extract-specific fields:
 
-Extract accepts **everything** Render accepts (see
-[Render API guide](webextrator_render_api_integration_guide.md#request-body) —
-`url`, `user_agent`, `timeout`, `wait_until`, `delay`, `wait_for_selector`,
-`block_resources`, `headers`, `cookies`, `callback_url`, `bypass_cache`,
-`cache_ttl_seconds`, `async`) plus the two Extract-specific fields:
+| Field             | Type     | Required | Default      | Description                                                                                     |
+| ----------------- | -------- | :------: | ------------ | ----------------------------------------------------------------------------------------------- |
+| `expected_type`   | enum     |   ❌     | Auto-detect  | Page type hint: `product` / `article` / `general`. Skips URL / text heuristics, directly follows the corresponding branch. |
+| `enable_llm`      | boolean  |   ❌     | `false`      | Allows LLM extraction when schema.org is not hit. Needs to be enabled on pages like Amazon / HN / Greenhouse that lack JSON-LD to obtain typed results. |
 
-| Field | Type | Required | Default | Description |
-|---|---|:---:|---|---|
-| `expected_type` | enum | ❌ | auto | Hint at the page kind: `product` \| `article` \| `general`. Skips the URL/text heuristic and dispatches directly. |
-| `enable_llm` | boolean | ❌ | `false` | Allow the LLM-first extractor to run when schema.org returned nothing. Required for the typed payload on Amazon / HN / Greenhouse-style pages. |
+> When the page has its own schema.org JSON-LD, `enable_llm` is ineffective — the deterministic mapper directly produces results, never wasting LLM calls. You get **free** typed results.
 
-> When the page already ships schema.org JSON-LD, `enable_llm` has no effect —
-> the deterministic mapper wins and we never spend the LLM call. You always
-> get the typed payload for free.
-
----
-
-## Response (Sync)
+## Synchronous Response
 
 ```json
 {
@@ -81,11 +66,11 @@ Extract accepts **everything** Render accepts (see
     "images": ["https://en.wikipedia.org/static/images/icons/enwiki-25.svg"],
     "links": ["https://en.wikipedia.org/wiki/Machine_learning"],
     "markdown": "# Diffbot\n\nDiffbot is a developer of machine learning ...",
-    "text":     "Diffbot is a developer of machine learning algorithms ...",
+    "text": "Diffbot is a developer of machine learning algorithms ...",
     "structured": {
-      "schemaOrg": { "primary": { /* typed entity */ }, "breadcrumbs": [], "all": [] },
+      "schemaOrg": { "primary": { /* Typed entity */ }, "breadcrumbs": [], "all": [] },
       "openGraph": { "title": "...", "description": "...", "image": "...", "type": "..." },
-      "jsonLd":   [ /* raw passthrough */ ]
+      "jsonLd": [ /* Raw JSON-LD */ ]
     },
     "rawSignals": {
       "hasJsonLd": true,
@@ -99,119 +84,105 @@ Extract accepts **everything** Render accepts (see
 }
 ```
 
-### Top-level data fields
+### Top-Level Fields
 
-| Field | Type | Description |
-|---|---|---|
-| `kind` | string | Always `"extract"`. |
-| `url` | string | The URL you supplied. |
-| `finalUrl` | string | URL after redirects. |
-| `contentType` | enum | `product` \| `article` \| `general`. Derived from `expected_type` if given, else from schema.org primary, else heuristic. |
-| `title` | string | Readability `<title>` or render `document.title`. |
-| `description` | string? | First non-empty of: `<meta name="description">` → `og:description` → schema.org / LLM payload → trimmed first paragraph. |
-| `byline` | string? | Author / channel / company name. Sourced from `<meta name="author">`, then schema.org / LLM payload. |
-| `language` | string? | `<html lang>` value. |
-| `siteName` | string? | `og:site_name`. |
-| `publishedAt` | string? | ISO 8601. `article:published_time` meta → `<time datetime>` → schema.org / LLM payload. |
-| `images` | string[] | Up to 50 `<img src>` values, resolved to absolute URLs, deduped, `data:` URIs dropped. |
-| `links` | string[] | Up to 100 outbound link URLs, fragment-only / `javascript:` / `mailto:` / `tel:` filtered. |
-| `markdown` | string | Turndown-rendered body markdown. |
-| `text` | string | Mozilla Readability `textContent`. |
-| `structured` | object | Full structured payload — see below. |
-| `rawSignals` | object | Diagnostic counts for debugging. |
-| `cached` | boolean? | `true` if served from cache. |
-| `cacheStoredAt` | number? | Unix-ms when the cached entry was first stored. |
+| Field             | Type      | Description                                                                                  |
+| ----------------- | --------- | -------------------------------------------------------------------------------------------- |
+| `kind`            | string    | Fixed `"extract"`.                                                                          |
+| `url`             | string    | The URL you submitted.                                                                       |
+| `finalUrl`        | string    | The final URL after redirection.                                                             |
+| `contentType`     | enum      | `product` / `article` / `general`, determined by `expected_type` → schema.org primary → heuristics in order. |
+| `title`           | string    | Readability `<title>` or rendered `document.title`.                                          |
+| `description`     | string?   | Priority: `<meta name="description" />` → `og:description` → schema.org / LLM extraction → truncated first paragraph of the body. |
+| `byline`          | string?   | Author / channel / company. Source `<meta name="author" />` → schema.org / LLM.               |
+| `language`        | string?   | `<html lang>`.                                                                              |
+| `siteName`        | string?   | `og:site_name`.                                                                             |
+| `publishedAt`     | string?   | ISO 8601. Priority: `article:published_time` → `<time datetime>` → schema.org / LLM.       |
+| `images`          | string[]  | Up to 50 `<img src />`, resolved to absolute URLs, deduplicated, discarded `data:` URIs.      |
+| `links`           | string[]  | Up to 100 external links, filtered for fragments / `javascript:` / `mailto:` / `tel:`.      |
+| `markdown`        | string    | Markdown output from Turndown.                                                               |
+| `text`            | string    | `textContent` extracted by Mozilla Readability.                                              |
+| `structured`      | object    | Complete structured results, see below.                                                      |
+| `rawSignals`      | object    | Diagnostic information for debugging.                                                         |
+| `cached`          | boolean?  | `true` when cache hit.                                                                       |
+| `cacheStoredAt`   | number?   | Unix millisecond timestamp when the cache entry was first written.                          |
 
-### `data.structured`
+### `data.structured` Subfields
+| Subfield        | When it appears         | Description                                                                 |
+| --------------- | ----------------------- | -------------------------------------------------------------------------- |
+| `schemaOrg`     | Always                  | `{ primary, breadcrumbs, all }`. `primary` is the highest priority typed entity; returns `null` if not found. |
+| `openGraph`     | Always                  | `{ title, description, image, type }`, sourced from `<meta property="og:*" />`.   |
+| `jsonLd`        | Always                  | Raw JSON array of all `<script type="application/ld+json">` blocks.               |
+| `llm`           | When LLM runs successfully | `{ kind, data, model, promptCharCount }`, typed results validated by Zod.              |
+| `llmError`      | When LLM runs but fails | `{ kind, error, model }`, the request will not crash, heuristic results will still return.                         |
+| `amazon`        | When URL is `amazon.*`  | Old amazon-specific scraper results (to be gradually deprecated).                                            |
 
-| Sub-field | When present | Description |
-|---|---|---|
-| `schemaOrg` | always | `{ primary, breadcrumbs, all }`. `primary` is the highest-priority typed entity (see below); `null` if none found. |
-| `openGraph` | always | `{ title, description, image, type }` from `<meta property="og:*">`. |
-| `jsonLd` | always | Raw passthrough of every `<script type="application/ld+json">` block parsed into JSON. |
-| `llm` | when LLM ran & succeeded | `{ kind, data, model, promptCharCount }`. Typed Zod-validated payload — see [LLM extractor schemas](#llm-extractor-schemas). |
-| `llmError` | when LLM ran & failed | `{ kind, error, model }`. Errors never crash the request; the heuristic payload still ships. |
-| `amazon` | when URL is `amazon.*` | Legacy pre-LLM amazon scraper output. Will be deprecated. |
+## schema.org Mapper Coverage
 
----
+Sorted by priority (hit is treated as `structured.schemaOrg.primary`):
 
-## schema.org mapper coverage
+| schema.org Type                                                                                              | Mapping Kind  | Output Fields                                                                                                                                                                                     |
+| ---------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Product`                                                                                                  | product       | `name, sku, gtin, model, color, brand, url, images, offer.{price,currency,availability,condition,seller}, rating.{value,count}, reviews[], properties[]`                                 |
+| `Recipe`                                                                                                   | recipe        | `name, description, image, datePublished, author, cookTime, prepTime, totalTime, recipeYield, ingredients[], instructions[], nutrition, rating, keywords, recipeCategory, recipeCuisine` |
+| `VideoObject`                                                                                              | video         | `name, description, thumbnailUrl, uploadDate, duration, embedUrl, contentUrl, channel, interactionCount`                                                                                 |
+| `JobPosting`                                                                                               | job           | `title, description, datePosted, validThrough, hiringOrganization, jobLocation, baseSalary, employmentType`                                                                              |
+| `Event` (including `*Event`)                                                                                | event         | `name, description, startDate, endDate, location.{name,address}, organizer, offer.{url,price,currency}`                                                                                  |
+| `Article` / `NewsArticle` / `BlogPosting` / `ScholarlyArticle` / `TechArticle` / `Report` / `*NewsArticle` | article       | `subtype, headline, description, datePublished, dateModified, author, publisher, image[], url, sameAs[]`                                                                                 |
+| `FAQPage`                                                                                                  | faq           | `questions[{question, answer}]`                                                                                                                                                          |
+| `BreadcrumbList`                                                                                           | (attached to sibling) | Always output to `structured.schemaOrg.breadcrumbs[]`, will not be treated as primary.                                                                                                                                 |
 
-The mapper recognises these types (priority order — first match wins as
-`structured.schemaOrg.primary`):
+Mapper processes:
 
-| schema.org type | mapped kind | Surfaced fields |
-|---|---|---|
-| `Product` | product | `name, sku, gtin, model, color, brand, url, images, offer.{price,currency,availability,condition,seller}, rating.{value,count}, reviews[], properties[]` |
-| `Recipe` | recipe | `name, description, image, datePublished, author, cookTime, prepTime, totalTime, recipeYield, ingredients[], instructions[], nutrition, rating, keywords, recipeCategory, recipeCuisine` |
-| `VideoObject` | video | `name, description, thumbnailUrl, uploadDate, duration, embedUrl, contentUrl, channel, interactionCount` |
-| `JobPosting` | job | `title, description, datePosted, validThrough, hiringOrganization, jobLocation, baseSalary, employmentType` |
-| `Event` (and `*Event`) | event | `name, description, startDate, endDate, location.{name,address}, organizer, offer.{url,price,currency}` |
-| `Article` / `NewsArticle` / `BlogPosting` / `ScholarlyArticle` / `TechArticle` / `Report` / `*NewsArticle` | article | `subtype, headline, description, datePublished, dateModified, author, publisher, image[], url, sameAs[]` |
-| `FAQPage` | faq | `questions[{question, answer}]` |
-| `BreadcrumbList` | (sibling) | Always surfaced in `structured.schemaOrg.breadcrumbs[]`, never as primary. |
+- `@graph` container (recursively expanded);
+- `@type` array (e.g., `["Recipe", "NewsArticle"]` — both recognized, with priority winning);
+- Variants with `http://schema.org/` prefix;
+- Nested `Offer` and `AggregateOffer` (the latter reads `lowPrice`);
+- Relative image URLs (resolved to absolute by `finalUrl`).
 
-The mapper handles:
+## LLM Typed Schema
 
-- `@graph` containers (recursively flattened).
-- `@type` arrays (e.g. `["Recipe", "NewsArticle"]` — both are recognised, the
-  higher-priority kind wins).
-- The `http://schema.org/` prefix variant.
-- Nested `Offer` and `AggregateOffer` (reads `lowPrice` on the latter).
-- Relative image URLs (resolved against `finalUrl`).
+When `enable_llm: true` **and** schema.org has no primary, the extractor uses URL heuristics
+(or `expected_type` hints) to select one of the Zod Schema validation model outputs below:
 
----
+| Kind         | URL Heuristic                                                                            | Required Fields       | Optional Fields                                                                                                                                                                         |
+| ------------ | ---------------------------------------------------------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `article`    | Text ≥400 words and others not hit                                                                    | `headline`            | `description, byline, publishedAt, language, topics[], sections[{heading,summary}]`                                                                                          |
+| `product`    | `amazon.* / ebay.* / aliexpress.* / temu.* / walmart.* / bestbuy.*`                | `name`                | `description, brand, sku, price, currency, availability, rating.{value,count}, bullets[], specifications[{name,value}]`                                                      |
+| `discussion` | `news.ycombinator.com / reddit.com / lobste.rs`                                    | `title`               | `author, postedAt, points, commentCount, body, url`                                                                                                                          |
+| `recipe`     | `allrecipes / foodnetwork / seriouseats / epicurious / bonappetit / simplyrecipes` | `name`                | `description, author, cookTime, prepTime, totalTime, recipeYield, ingredients[], instructions[], nutrition, rating, keywords[]`                                              |
+| `video`      | `youtube.com/watch / youtu.be / vimeo.com/<id> / tiktok.com/@/video`               | `name`                | `description, channel, uploadDate, duration, viewCount, likeCount, thumbnailUrl, transcript`                                                                                 |
+| `job`        | `greenhouse.io / lever.co / jobs.* / careers.* / workable.com / bamboohr`          | `title`               | `description, company, location, remote, employmentType, datePosted, validThrough, salaryMin, salaryMax, salaryCurrency, salaryPeriod, responsibilities[], qualifications[]` |
 
-## LLM extractor schemas
+When LLM is successful, it will also backfill the top-level fields as a "last-resort":
 
-When `enable_llm: true` **and** schema.org returned no primary entity, the
-extractor picks one of these typed schemas based on URL heuristics (or your
-`expected_type` hint) and validates the model's JSON output against it:
-
-| Kind | URL heuristic | Required field | Optional fields |
-|---|---|---|---|
-| `article` | text ≥ 400 chars and no other match | `headline` | `description, byline, publishedAt, language, topics[], sections[{heading,summary}]` |
-| `product` | `amazon.* / ebay.* / aliexpress.* / temu.* / walmart.* / bestbuy.*` | `name` | `description, brand, sku, price, currency, availability, rating.{value,count}, bullets[], specifications[{name,value}]` |
-| `discussion` | `news.ycombinator.com / reddit.com / lobste.rs` | `title` | `author, postedAt, points, commentCount, body, url` |
-| `recipe` | `allrecipes / foodnetwork / seriouseats / epicurious / bonappetit / simplyrecipes` | `name` | `description, author, cookTime, prepTime, totalTime, recipeYield, ingredients[], instructions[], nutrition, rating, keywords[]` |
-| `video` | `youtube.com/watch / youtu.be / vimeo.com/<id> / tiktok.com/@/video` | `name` | `description, channel, uploadDate, duration, viewCount, likeCount, thumbnailUrl, transcript` |
-| `job` | `greenhouse.io / lever.co / jobs.* / careers.* / workable.com / bamboohr` | `title` | `description, company, location, remote, employmentType, datePosted, validThrough, salaryMin, salaryMax, salaryCurrency, salaryPeriod, responsibilities[], qualifications[]` |
-
-When the LLM call succeeds you also get the typed payload back-filling the
-top-level fields:
-
-- `article` → `description`, `byline`, `publishedAt`, `language`
+- `article` → `description` / `byline` / `publishedAt` / `language`
 - `product` → `description`
-- `discussion` → `description` (= body, ≤ 280 chars), `byline` (= author), `publishedAt` (= postedAt)
-- `recipe` → `description`, `byline` (= author)
-- `video` → `description`, `byline` (= channel), `publishedAt` (= uploadDate)
-- `job` → `description`, `byline` (= company), `publishedAt` (= datePosted)
+- `discussion` → `description` (first 280 characters of body) / `byline` (author) / `publishedAt` (postedAt)
+- `recipe` → `description` / `byline` (author)
+- `video` → `description` / `byline` (channel) / `publishedAt` (uploadDate)
+- `job` → `description` / `byline` (company) / `publishedAt` (datePosted)
 
-Back-fills only fire if the deterministic source didn't already populate that
-field — the LLM is always a last resort.
+Backfill is triggered only when the deterministic data source **has not filled** the corresponding fields — LLM is always the last fallback.
 
----
+## Cache
 
-## Caching
+Identical requests will be hashed to the same Redis Key:
+`webextrator:cache:extract:<sha256(canonical-json)>`. Cache Key **ignores** `async`,
+`bypass_cache`, `cache_ttl_seconds` (this is an operational switch, does not affect response). `cookies` /
+`headers` **will** be bucketed for caching.
 
-Identical requests hash to the same Redis key:
-`webextrator:cache:extract:<sha256(canonical-json)>`. Cache keys ignore `async`,
-`bypass_cache`, and `cache_ttl_seconds` (those are operational toggles, not
-part of the response). Cookies / headers DO partition the cache.
+| Field                     | Effect                         |
+| ------------------------ | ------------------------------ |
+| `bypass_cache: true`     | Skip reading; this result will still be written back to cache, allowing the same request to hit next time. |
+| `cache_ttl_seconds: 0`   | This response **will not be cached**.               |
+| `cache_ttl_seconds: N`   | Custom TTL for this entry (default 3600 seconds).    |
 
-| Field | Effect |
-|---|---|
-| `bypass_cache: true` | Skip the read; still write the fresh result back so subsequent identical calls hit. |
-| `cache_ttl_seconds: 0` | Don't cache this response at all. |
-| `cache_ttl_seconds: N` | Override the 3600 s default for this entry. |
+Responses hitting the cache will include `data.cached: true` and `data.cacheStoredAt: <unix-ms>`.
 
-Cached responses set `data.cached: true` and `data.cacheStoredAt: <unix-ms>`.
+## Asynchronous Mode and Callback
 
----
-
-## Async mode and callbacks
-
-Set `async: true` to fire-and-forget (providing `callback_url` also automatically enables async mode). The platform immediately returns (HTTP 200):
+Set `async: true` to enter asynchronous mode (providing `callback_url` will also automatically enter). The platform immediately returns (HTTP 200):
 
 ```json
 {
@@ -222,15 +193,11 @@ Set `async: true` to fire-and-forget (providing `callback_url` also automaticall
 }
 ```
 
-The final envelope is posted to your `callback_url` (if provided) once the task finishes. Use
-[`/webextrator/tasks`](webextrator_tasks_api_integration_guide.md) to look up
-results by `task_id` or `trace_id` later.
+When the task is complete, the full envelope will be `POST`ed to your `callback_url` (if configured). You can also actively query later through [`/webextrator/tasks`](webextrator_tasks_api_integration_guide.md).
 
----
+## Example
 
-## Examples
-
-### 1. Article from Wikipedia (schema.org wins; no LLM needed)
+### 1. Wikipedia Article (schema.org hit, no LLM needed)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
@@ -242,8 +209,7 @@ curl -X POST https://api.acedata.cloud/webextrator/extract \
   }'
 ```
 
-Key fields in `data.structured.schemaOrg.primary`:
-
+`data.structured.schemaOrg.primary` key fields:
 ```json
 {
   "kind": "article",
@@ -256,7 +222,7 @@ Key fields in `data.structured.schemaOrg.primary`:
 }
 ```
 
-### 2. Product page (BestBuy ships JSON-LD)
+### 2. BestBuy Product Page (schema.org Hit)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
@@ -268,7 +234,7 @@ curl -X POST https://api.acedata.cloud/webextrator/extract \
   }'
 ```
 
-Surfaced from schema.org:
+schema.org Extraction:
 
 ```json
 {
@@ -283,7 +249,7 @@ Surfaced from schema.org:
 }
 ```
 
-### 3. Recipe page (Recipe + nutrition + steps)
+### 3. AllRecipes Recipe Page (Including Nutrition and Steps)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
@@ -294,7 +260,7 @@ curl -X POST https://api.acedata.cloud/webextrator/extract \
   }'
 ```
 
-Surfaced from schema.org:
+schema.org Extraction:
 
 ```json
 {
@@ -309,7 +275,7 @@ Surfaced from schema.org:
 }
 ```
 
-### 4. HN discussion (no JSON-LD — LLM is required)
+### 4. HN Discussion Page (No JSON-LD — LLM Needs to be Enabled)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
@@ -321,7 +287,7 @@ curl -X POST https://api.acedata.cloud/webextrator/extract \
   }'
 ```
 
-Look in `data.structured.llm.data`:
+`data.structured.llm.data`:
 
 ```json
 {
@@ -334,10 +300,9 @@ Look in `data.structured.llm.data`:
 }
 ```
 
-The top-level response is also back-filled: `byline = "alice"`,
-`publishedAt = "..."`.
+Top-level fields are also filled: `byline = "alice"`、`publishedAt = "..."`。
 
-### 5. Amazon product (Amazon ships no JSON-LD — LLM is required)
+### 5. Amazon Product Page (Amazon No JSON-LD — LLM Needs to be Enabled)
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/extract \
@@ -350,7 +315,7 @@ curl -X POST https://api.acedata.cloud/webextrator/extract \
   }'
 ```
 
-`data.structured.llm.data` (typed `product`):
+`data.structured.llm.data` (Typed `product`):
 
 ```json
 {
@@ -392,7 +357,7 @@ print("title:      ", data["title"])
 print("byline:     ", data.get("byline"))
 print("publishedAt:", data.get("publishedAt"))
 if primary and primary["kind"] == "article":
-    print("headline:   ", primary["headline"])
+    print("headline:    ", primary["headline"])
     print("dateModified:", primary.get("dateModified"))
 ```
 
@@ -413,27 +378,14 @@ const res = await fetch('https://api.acedata.cloud/webextrator/extract', {
 });
 const { data } = await res.json();
 const recipe = data?.structured?.schemaOrg?.primary;
-console.log(recipe.name, recipe.cookTime, recipe.ingredients.length, 'ingredients');
+console.log(recipe.name, recipe.cookTime, recipe.ingredients.length, 'types of ingredients');
 ```
 
----
+## Tips and Pitfalls
 
-## Tips and Gotchas
-
-- **Always set `expected_type` when you know it.** Free hint, no cost, skips
-  the URL/text heuristic. Especially valuable on pages whose URL doesn't
-  match the built-in patterns.
-- **`enable_llm: true` is free when schema.org wins.** The LLM is only called
-  when no schema.org primary was found, so flipping it on by default is safe
-  for traffic dominated by sites that ship JSON-LD.
-- **Inspect `rawSignals.hasJsonLd` first when debugging.** If `true` and
-  `structured.schemaOrg.primary` is `null`, the JSON-LD present uses a `@type`
-  the mapper doesn't recognise — open an issue and we'll add it.
-- **`structured.llmError` is informational.** The request still succeeds and
-  the heuristic-only payload still ships. Check `llmError.error` for the
-  reason (timeout, JSON parse failure, Zod validation failure).
-- **Don't rely on `links[]` being clean for non-article pages.** It's
-  best-effort — we keep up to 100 outbound URLs, fragment-only and
-  `javascript:` filtered, but no content-relevance ranking.
-- **Cache hits are still billed.** Caching is for *latency* (and to protect
-  the underlying browser pool), not for cost.
+- **If `expected_type` can be passed, do so.** Free tip, skip heuristic judgments, especially useful for pages not in the built-in list.
+- **`enable_llm: true` is free on schema.org hit pages.** LLM is only called when schema.org does not have primary, so it's safe to keep it on by default.
+- **Check `rawSignals.hasJsonLd` first during debugging.** If `true` but `structured.schemaOrg.primary` is `null`, it means the page used a `@type` that our mapper has not covered — please file an issue, and we will add it.
+- **`structured.llmError` is informational.** The request is still successful, and heuristic results are still returned. Check `llmError.error` to locate the reason (timeout, JSON parsing failure, Zod validation failure).
+- **Non-article page `links[]` will not be sorted by relevance.** Only cleaned up according to "up to 100 entries + filtering invalid protocols."
+- **Cache hits are also charged.** Caching is for latency and protecting the browser pool, not for saving money.
