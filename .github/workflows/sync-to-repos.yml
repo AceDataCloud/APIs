@@ -116,11 +116,16 @@ jobs:
           done < "$GITHUB_WORKSPACE/sync.yaml"
 
           # Sync files: monorepo subdir -> target repo root
-          # Delete files in target that don't exist in source (except .git, .github, .gitbooks)
+          # --delete prunes files removed from the monorepo. $EXCLUDES comes from
+          # sync.yaml; the literals below also shield repo-governance files that
+          # only ever live in the target repo.
           rsync -av --delete \
             --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.gitbooks' \
+            --exclude='LICENSE*' \
+            --exclude='CONTRIBUTING*' \
+            --exclude='CODE_OF_CONDUCT*' \
+            --exclude='SECURITY*' \
+            $EXCLUDES \
             "$GITHUB_WORKSPACE/${DIR}/" /tmp/target/
 
           # Check for changes

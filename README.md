@@ -19,7 +19,20 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `wan/` | [WanAPI](https://github.com/AceDataCloud/WanAPI) | Wan (Tongyi Wanxiang) video generation API docs |
 | `seedance/` | [SeedanceAPI](https://github.com/AceDataCloud/SeedanceAPI) | Seedance (ByteDance) video generation API docs |
 | `seedream/` | [SeedreamAPI](https://github.com/AceDataCloud/SeedreamAPI) | Seedream (ByteDance) image generation API docs |
-| `aichat/` | — | AI Dialogue (multi-model chat) API docs |
+| `kling/` | [KlingAPI](https://github.com/AceDataCloud/KlingAPI) | Kling video generation API docs |
+| `hailuo/` | [HailuoAPI](https://github.com/AceDataCloud/HailuoAPI) | Hailuo video generation API docs |
+| `producer/` | [ProducerAPI](https://github.com/AceDataCloud/ProducerAPI) | Producer music generation API docs |
+| `claude/` | [ClaudeAPI](https://github.com/AceDataCloud/ClaudeAPI) | Claude chat completions API docs |
+| `gemini/` | [GeminiAPI](https://github.com/AceDataCloud/GeminiAPI) | Gemini chat completions API docs |
+| `fish/` | [FishAPI](https://github.com/AceDataCloud/FishAPI) | Fish Audio TTS and voice cloning API docs |
+| `face/` | [FaceAPI](https://github.com/AceDataCloud/FaceAPI) | Face transformation API docs |
+| `shorturl/` | [ShortURLAPI](https://github.com/AceDataCloud/ShortURLAPI) | Short URL API docs |
+| `webextrator/` | [WebExtratorAPI](https://github.com/AceDataCloud/WebExtratorAPI) | Web extraction and rendering API docs |
+| `aichat/` | [AiChatAPI](https://github.com/AceDataCloud/AiChatAPI) | AI Dialogue (multi-model chat) API docs |
+| `grok/` | [GrokAPI](https://github.com/AceDataCloud/GrokAPI) | Grok chat completions API docs |
+| `glm/` | [GlmAPI](https://github.com/AceDataCloud/GlmAPI) | GLM chat completions API docs |
+| `kimi/` | [KimiAPI](https://github.com/AceDataCloud/KimiAPI) | Kimi chat completions API docs |
+| `coze/` | [CozeAPI](https://github.com/AceDataCloud/CozeAPI) | Importable OpenAPI plugin schemas for Coze / 扣子 |
 
 ## MCP Servers
 
