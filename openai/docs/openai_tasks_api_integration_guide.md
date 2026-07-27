@@ -90,9 +90,9 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 ### Field Description
 - `id` — the task ID generated when the original image request was accepted.
 - `trace_id` — the custom trace identifier you sent with the original request (optional, useful for client-side correlation).
-- `type` — the upstream API type, e.g. `images_generations`, `images_edits`, `chat_completions_image`.
-- `request` — the request body originally sent to the upstream image API.
-- `response` — the final response returned by the upstream image API after callback completion.
+- `type` — the task type, e.g. `images_generations`, `images_edits`, `chat_completions_image`.
+- `request` — the request body originally submitted to the image API.
+- `response` — the final response returned once the callback completes.
 - `created_at` / `finished_at` / `duration` — Unix timestamps (seconds) and elapsed seconds.
 - `application_id` / `user_id` / `credential_id` — identifiers of the application, end-user and credential associated with the task.
 ## Batch Query (`retrieve_batch`)
@@ -104,7 +104,7 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 | `trace_ids` | string[] | Look up tasks by a list of custom trace IDs |
 | `application_id` | string | List all tasks for an application |
 | `user_id` | string | List all tasks for an end user |
-| `type` | string | Filter by upstream type (`images_generations`, `images_edits`, …) |
+| `type` | string | Filter by task type (`images_generations`, `images_edits`, …) |
 | `offset` | int | Pagination offset (default `0`) |
 | `limit` | int | Page size (default `12`) |
 | `created_at_min` | float | Earliest creation timestamp (Unix seconds) |

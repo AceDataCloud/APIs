@@ -48,7 +48,7 @@ Field descriptions:
 - `task_id`: Ace Data Cloud task ID, which can be used to query task status.
 - `trace_id`: The tracking ID for this request, used for troubleshooting.
 - `data`: List of video results.
-  - `id`: Upstream HappyHorse task ID.
+  - `id`: The HappyHorse-side task ID.
   - `video_url`: CDN link address of the generated video.
   - `state`: Task status, can be `pending` / `succeeded` / `error`.
   - `duration`: Billing video duration, in seconds; for `video_edit`, it is the total duration of input and output videos.
@@ -153,12 +153,12 @@ If you only wish to poll and do not need a callback, you can also pass in `"asyn
 HappyHorse charges based on the output video duration and resolution:
 - `720P`: as low as about $0.105 / second.
 - `1080P`: as low as about $0.18 / second.
-- `video_edit`: charged based on the total duration of the input and output videos, with the actual billing duration based on upstream statistics after the task is completed.
+- `video_edit`: charged based on the total duration of the input and output videos, with the actual billing duration based on the statistics recorded after the task is completed.
 Failed tasks are not charged and do not count against the free quota.
 ## Error Handling
 When there is an issue with the request, the API will return the corresponding error code and description, commonly as follows:
 - `400`: Request parameters are incorrect, such as action and model not matching, missing `prompt` / `image_url` / `video_url`, or `duration` exceeding the range of 3–15 seconds.
 - `401`: Authentication failed, token is invalid or does not match the API.
 - `403`: Insufficient balance, or the prompt hits content review and is rejected.
-- `429`: Requests are too frequent, triggering upstream rate limiting, please try again later.
-- `500`: Internal server error or upstream generation failure.
+- `429`: Requests are too frequent and hit the rate limit, please try again later.
+- `500`: Internal server error or generation failure.

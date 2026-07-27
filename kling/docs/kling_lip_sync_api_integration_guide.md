@@ -101,8 +101,8 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
 | 400 | `bad_request` | Missing/invalid params (e.g. no mode, video/audio conflict, text over 120 chars) |
 | 401 | `authorization_missing` | Missing or invalid API key |
 | 403 | `forbidden` | Blocked by content moderation |
-| 429 | `too_many_requests` | Upstream concurrency limit, retry later |
-| 500 | `api_error` | Upstream or internal error |
+| 429 | `too_many_requests` | Concurrency limit reached, retry later |
+| 500 | `api_error` | Generation or internal error |
 ## Notes
 - `video_id` must be a Kling video generated **within 30 days** and **5s or 10s**; otherwise pass a constraint-compliant video via `video_url`.
 - A clear, frontal, single-person video gives the best lip-sync.

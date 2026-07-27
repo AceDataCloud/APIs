@@ -194,7 +194,7 @@ By uploading multiple question words, multi-turn dialogue can be easily achieved
 ```
 As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
 ## Integrating OpenAI-Python
-The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed in the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
+The OpenAI Chat Completion API is compatible with the official OpenAI interface, so you can integrate with the official SDK [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 1. First, set up a local `Python` environment, this process can be searched on Google.
 2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.

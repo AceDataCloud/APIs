@@ -63,7 +63,7 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
 }'
 ```
 ## Model Capability Matrix
-Different models have varying support for parameters. The following matrix is organized from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Please verify that the current `model` / `mode` / `duration` combination supports the features you need before calling, otherwise, upstream will return errors such as `model/mode/duration(...) is not supported with image_tail`.
+Different models have varying support for parameters. The following matrix is organized from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Please verify that the current `model` / `mode` / `duration` combination supports the features you need before calling, otherwise the request will return errors such as `model/mode/duration(...) is not supported with image_tail`.
 | Model                | Mode            | `end_image_url` (First and Last Frame) | `generate_audio` (Accompanying Audio) | `camera_control` (Camera Movement) | Remarks                                         |
 | ------------------- | -------------- | -------------------- | -------------------- | -------------------- | -------------------------------------------- |
 | `kling-v1`          | std / pro      | ✅ Only `duration=5`     | ❌                    | ✅ Only `duration=5`     | `extend` does not support `negative_prompt` and `cfg_scale` |
@@ -136,7 +136,7 @@ It can be seen that the result content is consistent with the above, thus achiev
 ## Omni Universal Reference (Video Editing / Reference Video / Multi-Image Reference)
 `kling-o1` and `kling-v3-omni` are two independent models, both supporting "universal reference" capabilities. Based on text-to-video (`action=text2video`), additional reference images or videos can be provided to achieve **multi-image reference, reference video, and direct editing of existing videos**.
 **Core Agreement**: Reference materials must be referenced in the `prompt` in the form of `&lt;&lt;<image_1>>>`, `&lt;&lt;<video_1>>>` (with numbering starting from 1) corresponding to the positions in `image_list` / `video_list`, for the model to apply these references. If materials are provided without being referenced in the prompt, they will be ignored.
-> Safety Note: The current API does not open `element_list`. The upstream ID of the Kling Element Library belongs to the provider account namespace. Before providing tenant isolation through the Element Management API, customers should use `image_list` to pass in the main reference images.
+> Safety Note: The current API does not open `element_list`. Kling Element Library IDs are not tenant-isolated. Before providing tenant isolation through the Element Management API, customers should use `image_list` to pass in the main reference images.
 Omni requests do not support `negative_prompt`, `cfg_scale`, or `camera_control`, and cannot use `mode=4k`. When including reference videos, `generate_audio` must be `false`.
 ### Reference Video and Video Editing (`video_list`)
 `video_list` is used to pass in reference videos, which is the most commonly used scenario for this capability. The fields of the array elements are as follows:
