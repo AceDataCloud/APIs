@@ -47,7 +47,7 @@ Click the "Try" button to test, as shown in the image above, and we get the foll
       "id": "0pv8yhe4fdrge0cmckpv23pd2g",
       "model": "minimax-t2v",
       "prompt": "Internal heat",
-      "video_url": "https://file.aigpai.com/czjl/qoueLWBokF3ud6tdVD6VJTZuXTnK5HaMO2qAOS46Ef8VSBFUA/tmp9e3u11c1.output.mp4",
+      "video_url": "https://platform.cdn.acedata.cloud/czjl/qoueLWBokF3ud6tdVD6VJTZuXTnK5HaMO2qAOS46Ef8VSBFUA/tmp9e3u11c1.output.mp4",
       "state": "succeeded"
     }
   ]
@@ -123,7 +123,7 @@ The content is as follows:
             "id": "t80jhsf96srg80cmcm6b0rk8gm",
             "model": "minimax-t2v",
             "prompt": "Internal heat",
-            "video_url": "https://file.aigpai.com/czjl/YPaUz2DcwpJqItTXAG9XHAoEoj3dbF0XPU69LT5nefCMzBFUA/tmp8s_59jez.output.mp4",
+            "video_url": "https://platform.cdn.acedata.cloud/czjl/YPaUz2DcwpJqItTXAG9XHAoEoj3dbF0XPU69LT5nefCMzBFUA/tmp8s_59jez.output.mp4",
             "state": "succeeded"
         }
     ]

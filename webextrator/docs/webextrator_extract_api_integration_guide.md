@@ -44,7 +44,7 @@ Extract accepts **everything** Render accepts (see
 [Render API guide](webextrator_render_api_integration_guide.md#request-body) —
 `url`, `user_agent`, `timeout`, `wait_until`, `delay`, `wait_for_selector`,
 `block_resources`, `headers`, `cookies`, `callback_url`, `bypass_cache`,
-`cache_ttl_seconds`, `mode`) plus the two Extract-specific fields:
+`cache_ttl_seconds`, `async`) plus the two Extract-specific fields:
 
 | Field | Type | Required | Default | Description |
 |---|---|:---:|---|---|
@@ -195,7 +195,7 @@ field — the LLM is always a last resort.
 ## Caching
 
 Identical requests hash to the same Redis key:
-`webextrator:cache:extract:<sha256(canonical-json)>`. Cache keys ignore `mode`,
+`webextrator:cache:extract:<sha256(canonical-json)>`. Cache keys ignore `async`,
 `bypass_cache`, and `cache_ttl_seconds` (those are operational toggles, not
 part of the response). Cookies / headers DO partition the cache.
 
@@ -211,9 +211,18 @@ Cached responses set `data.cached: true` and `data.cacheStoredAt: <unix-ms>`.
 
 ## Async mode and callbacks
 
-Set `mode: "async"` to fire-and-forget. The platform returns
-`{ "jobId": "...", "status": "queued" }` (HTTP 202) immediately and posts the
-final envelope to your `callback_url` (if provided) once the job finishes. Use
+Set `async: true` to fire-and-forget (providing `callback_url` also automatically enables async mode). The platform immediately returns (HTTP 200):
+
+```json
+{
+  "success": true,
+  "task_id": "550e8400-...",
+  "trace_id": "6ba7b810-...",
+  "started_at": "2026-05-02T10:30:00.123Z"
+}
+```
+
+The final envelope is posted to your `callback_url` (if provided) once the task finishes. Use
 [`/webextrator/tasks`](webextrator_tasks_api_integration_guide.md) to look up
 results by `task_id` or `trace_id` later.
 
