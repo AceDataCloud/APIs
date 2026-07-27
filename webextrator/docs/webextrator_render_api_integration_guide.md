@@ -46,10 +46,10 @@ Content-Type:  application/json
 | `block_resources` | string[] | ❌ | `["image","font","media"]` (server default) | Resource types to drop. Choices: `image`, `font`, `media`, `stylesheet`, `xhr`, `fetch`. Blocking saves bandwidth and renders faster. |
 | `headers` | object | ❌ | — | Additional request headers sent to the target site (e.g. `{"Accept-Language": "en-US"}`). |
 | `cookies` | array | ❌ | — | Cookies to install before navigation. See [Cookie shape](#cookie-shape). |
-| `callback_url` | string | ❌ | — | If set with `mode=async`, the platform `POST`s the final envelope here when the job finishes. |
+| `callback_url` | string | ❌ | — | If set, the platform `POST`s the final envelope here when the job finishes (also enables async mode automatically). |
 | `bypass_cache` | boolean | ❌ | false | Skip the Redis result cache for this request (still writes the fresh result back). |
 | `cache_ttl_seconds` | number | ❌ | 3600 | Override the global cache TTL for this entry. `0` is allowed and means "don't cache this response". |
-| `mode` | enum | ❌ | `sync` | `sync` waits inline; `async` returns a job id immediately and (optionally) posts to `callback_url`. |
+| `async` | boolean | ❌ | `false` | Set to `true` to return `task_id` immediately; result is delivered via `callback_url` or the Tasks API. |
 
 > Note: parameters use **snake_case** on the platform contract. The internal
 > render service uses `camelCase`; both are documented in the OpenAPI spec but
@@ -116,13 +116,18 @@ The envelope is the standard AceDataCloud `success / error` shape.
 
 ## Response (Async mode)
 
-When `mode=async`:
+When `async: true` (or `callback_url` is set):
 
 ```json
-{ "jobId": "550e8400-...", "status": "queued" }
+{
+  "success": true,
+  "task_id": "550e8400-...",
+  "trace_id": "6ba7b810-...",
+  "started_at": "2026-05-02T10:30:00.123Z"
+}
 ```
 
-Status code is `202`. Result is delivered either by `POST` to your `callback_url`
+Status code is `200`. Result is delivered either by `POST` to your `callback_url`
 or by polling [`/webextrator/tasks`](webextrator_tasks_api_integration_guide.md).
 
 ### Callback shape
@@ -141,7 +146,7 @@ to `callback_url` with `Content-Type: application/json`. Acknowledge with any
 | 401 | `unauthorized` | Missing or invalid `Authorization: Bearer …`. |
 | 402 | (x402) | Insufficient platform balance — see x402 payment envelope. |
 | 408 | `timeout` | Navigation exceeded `timeout`. |
-| 429 | `queue_busy` | Sync queue depth too high — retry, or use `mode=async`. |
+| 429 | `queue_busy` | Sync queue depth too high — retry, or use `async: true`. |
 | 500 | `internal_error` | Unhandled server-side failure (browser crash, etc.). Auto-retried by the worker once. |
 
 Errors share the standard envelope:
@@ -233,12 +238,12 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
   -H "Content-Type: application/json" \
   -d '{
     "url": "https://example.com",
-    "mode": "async",
+    "async": true,
     "callback_url": "https://your-app.example.com/hooks/webextrator"
   }'
 ```
 
-You will receive `{ "jobId": "...", "status": "queued" }` immediately. Your
+You will receive `{ "success": true, "task_id": "...", "trace_id": "...", "started_at": "..." }` immediately. Your
 `callback_url` will be called once the job finishes (typically within a few
 seconds for normal pages, up to a minute for heavy SPAs).
 
@@ -261,8 +266,8 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
 - **`wait_until` choice matters.** `networkidle` is the safest but slowest;
   `domcontentloaded` is fast but may miss late XHR-injected content; `load`
   works well for classic static pages.
-- **Cache key ignores `mode`.** A `sync` and `async` request for the same URL
-  hit the same cache entry — flip `mode` freely without invalidating anything.
+- **Cache key ignores `async`.** Sync and async requests for the same URL
+  hit the same cache entry — flip `async` freely without invalidating anything.
 - **Cache key ignores `bypass_cache` and `cache_ttl_seconds`.** Those are
   operational toggles, not part of the response.
 - **Cookies and headers DO partition the cache.** If you customise them per

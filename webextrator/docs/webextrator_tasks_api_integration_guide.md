@@ -156,10 +156,10 @@ BASE = "https://api.acedata.cloud"
 queue = requests.post(
     f"{BASE}/webextrator/extract",
     headers={"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"},
-    json={"url": "https://example.com", "mode": "async"},
+    json={"url": "https://example.com", "async": True},
 ).json()
 
-job_id = queue["jobId"]
+job_id = queue["task_id"]
 
 # 2) Poll the Tasks API until the task finishes.
 while True:
