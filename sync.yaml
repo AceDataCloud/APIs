@@ -110,3 +110,28 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  aichat:
+    repo: AceDataCloud/AiChatAPI
+    exclude:
+      - .github
+      - .gitbooks
+  grok:
+    repo: AceDataCloud/GrokAPI
+    exclude:
+      - .github
+      - .gitbooks
+  glm:
+    repo: AceDataCloud/GlmAPI
+    exclude:
+      - .github
+      - .gitbooks
+  kimi:
+    repo: AceDataCloud/KimiAPI
+    exclude:
+      - .github
+      - .gitbooks
+  coze:
+    repo: AceDataCloud/CozeAPI
+    exclude:
+      - .github
+      - .gitbooks
