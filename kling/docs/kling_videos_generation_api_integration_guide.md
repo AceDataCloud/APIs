@@ -13,7 +13,7 @@ Here we can see that we have set the Request Headers, including:
 - `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
 - `authorization`: the key to call the API, which can be directly selected after application.
 Additionally, we have set the Request Body, including:
-- `model`: the model for generating the video, mainly including `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`.
+- `model`: the model for generating the video, mainly including `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`. If omitted, the default is `kling-v1`.
 - `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
 - `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when selecting the image-to-video action `image2video`, the first frame reference image link must be uploaded.
