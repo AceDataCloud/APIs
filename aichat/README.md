@@ -1,6 +1,6 @@
 # AI Chat API
 
-AI Dialogue service supporting a wide range of large language models for chat, multi-turn conversations, streaming responses, and image recognition.
+AI Dialogue service supporting a wide range of large language models for chat, multi-turn conversations, streaming responses, image recognition, and next-generation agentic workflows.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
@@ -17,27 +17,28 @@ Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, gro
 
 ## Overview
 
-The AI Chat Conversations API enables you to send a question to a large language model and receive an answer. It supports a broad range of models (GPT-4, GPT-4o, Grok, GLM, Kimi, and more), multi-turn stateful conversations, streaming responses, model presets, and image recognition via reference URLs — all without needing to manage message history or token limits yourself.
+AI Chat provides two conversation APIs. The classic [`/aichat/conversations`](https://platform.acedata.cloud/documents/aichat-conversations) endpoint offers a simplified chat workflow with built-in multi-turn context, streaming responses, model presets, and image recognition via reference URLs. The newer [`/aichat2/conversations`](https://platform.acedata.cloud/documents/aichat2-conversations) endpoint is backward compatible with the classic API while adding multimodal `message` input, structured streaming events, built-in tool invocation, asynchronous execution, and conversation CRUD actions.
 
 ## Application Process
 
-To use the AI Chat API, apply for the corresponding service on the [AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) page. After entering the page, click the "Acquire" button.
+To use the AI Chat API, open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+A single API token works across services on the platform, so you do not need to apply separately for AI Chat. New accounts receive free starter credit, and you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [AI Chat on Ace Data Cloud](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a)
+- Recommended endpoint: [`/aichat2/conversations`](https://platform.acedata.cloud/documents/aichat2-conversations)
+- Classic endpoint: [`/aichat/conversations`](https://platform.acedata.cloud/documents/aichat-conversations)
 - Docs: [Developer documentation](https://docs.acedata.cloud)
 
 ```bash
-curl --request POST "https://api.acedata.cloud/aichat/conversations" \
+curl --request POST "https://api.acedata.cloud/aichat2/conversations" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "gpt-4o",
-    "question": "What is the capital of France?"
+    "model": "gpt-5.4",
+    "question": "Introduce AceDataCloud in one sentence."
   }'
 ```
 
@@ -47,7 +48,8 @@ Explore the supported endpoints and integration guides for AI Chat.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
+| [AI Chat v2 API](https://platform.acedata.cloud/documents/aichat2-conversations) | `/aichat2/conversations` | [AI Chat v2 API Integration Guide](docs/aichat2_conversations_api_integration_guide.md) |
+| [AI Chat Conversations API](https://platform.acedata.cloud/documents/aichat-conversations) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
 ## Related Resources
 
