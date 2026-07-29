@@ -4,13 +4,13 @@ The AI Chat Conversations API provided by Ace Data Cloud simplifies integration 
 
 ## Application Process
 
-To use the API, visit the [AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) page and click the "Acquire" button.
+To use the API, open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
 If you are not yet logged in or registered, you will be redirected to the login page. After logging in, you will be returned to this page automatically.
 
-First-time applicants receive a free usage quota.
+One API Token works across Ace Data Cloud services, so you do not need to apply separately for AI Chat. New accounts receive free starter credit, and you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin) when needed.
 
 ## Basic Usage
 
@@ -66,7 +66,7 @@ The `answer` field contains the model's reply.
 | Header | Description |
 | --- | --- |
 | `accept` | Response format: `application/json` (default) or `application/x-ndjson` for streaming |
-| `authorization` | Bearer token obtained from your Ace Data Cloud account |
+| `authorization` | API Token copied from the Ace Data Cloud console |
 
 ### Request Body
 
