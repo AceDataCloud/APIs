@@ -33,6 +33,8 @@ The most basic usage is to input a `content` array containing a single text item
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
 - `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
+- `return_last_frame`: whether to include the last frame image URL in the result. Default `false`.
+- `execution_expires_after`: task timeout duration in seconds. Range `3600`–`259200` (1 hour – 3 days). Default `172800` (48 hours).
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
 
