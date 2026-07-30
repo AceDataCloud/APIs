@@ -89,16 +89,15 @@ If no task is found with the given id / trace id, returns
 
 ```json
 {
-  "tasks": [
+  "items": [
     { /* same shape as single-task `.task` */ },
     { /* ... */ }
   ],
-  "offset": 0,
-  "limit":  50
+  "count": 2
 }
 ```
 
-Missing ids return no error — they are simply absent from `tasks`.
+Missing ids return no error — they are simply absent from `items`.
 
 ---
 
