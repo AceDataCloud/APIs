@@ -20,19 +20,21 @@ The most basic usage is to input a `content` array containing a single text item
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
   - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
   - `image_url`: `{ "type": "image_url", "role": "first_frame|last_frame|reference_image", "image_url": { "url": "https://..." } }`.
-  - `audio_url` (Seedance 2.0): `{ "type": "audio_url", "audio_url": { "url": "https://..." } }` — reference audio for voice timbre / background music.
-  - `video_url` (Seedance 2.0): `{ "type": "video_url", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
+  - `audio_url` (Seedance 2.0): `{ "type": "audio_url", "role": "reference_audio", "audio_url": { "url": "https://..." } }` — reference audio for voice timbre / background music.
+  - `video_url` (Seedance 2.0): `{ "type": "video_url", "role": "reference_video", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
 - `resolution`: output resolution, one of `480p`, `720p`, `1080p`, `4k`. `4k` is supported only by `doubao-seedance-2-0-260128`; `doubao-seedance-2-0-fast-260128` and `doubao-seedance-2-0-mini-260615` cap at `720p`. If omitted, a default resolution is selected based on the chosen model.
 - `ratio`: aspect ratio, one of `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9`, `adaptive`. Default `16:9`.
 - `duration`: video duration in seconds, model-specific:
   - Seedance 1.0 Pro / 1.0 Pro Fast: `2`–`12`.
   - Seedance 1.5 Pro: `4`–`12`, or `-1` for automatic duration.
   - Seedance 2.0 series: `4`–`15`, or `-1` for automatic duration.
-- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
+- `frames`: frame count, integers satisfying 25+4n in the range `29`–`289`. Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
-- `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
+- `generate_audio`: whether to generate audio. Only supported by `doubao-seedance-1-5-pro-251215`; other models ignore it. Default `false`.
+- `return_last_frame`: whether to return the URL of the last frame of the generated video. Default `false`.
+- `execution_expires_after`: task expiry time in seconds, range `3600`–`259200`. Default `172800` (48 hours).
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
 
@@ -135,8 +137,8 @@ The Seedance 2.0 series also accepts reference audio (voice timbre, background m
   "content": [
     { "type": "text", "text": "a singer performing on stage, matching the reference voice and motion" },
     { "type": "image_url", "role": "reference_image", "image_url": { "url": "https://example.com/person.jpg" } },
-    { "type": "audio_url", "audio_url": { "url": "https://example.com/voice.mp3" } },
-    { "type": "video_url", "video_url": { "url": "https://example.com/motion.mp4" } }
+    { "type": "audio_url", "role": "reference_audio", "audio_url": { "url": "https://example.com/voice.mp3" } },
+    { "type": "video_url", "role": "reference_video", "video_url": { "url": "https://example.com/motion.mp4" } }
   ],
   "generate_audio": true
 }
@@ -154,9 +156,12 @@ Video generation can take time. To avoid long-held HTTP connections, use one of 
 | HTTP Status | Code | Meaning |
 | ---- | ---- | ---- |
 | 400 | `bad_request` | Invalid request, e.g. an invalid `model`. |
+| 400 | `token_mismatched` | The token does not match the API. |
+| 400 | `api_not_implemented` | The requested API is not implemented. |
+| 400 | `no_token` | No token was specified for the request. |
 | 401 | `invalid_token` | The token is invalid or wrong. |
 | 401 | `token_expired` | The token has expired. |
-| 400 | `no_token` | No token was specified for the request. |
-| 500 | `internal_error` | An internal or upstream error occurred. |
+| 429 | `too_many_requests` | Rate limit exceeded. |
+| 500 | `api_error` | An internal or upstream error occurred. |
 
 Each error response includes a `trace_id` to help with debugging and support.
