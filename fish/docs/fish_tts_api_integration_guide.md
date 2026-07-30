@@ -16,9 +16,9 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 
 - `text`: the text to synthesize into speech (required).
 - `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `format`: output audio format (optional, default `mp3`). Supports `mp3`, `wav`, `pcm`. Note: `wav` and `pcm` both return WAV container. `opus` is not supported and returns `400`.
 - `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
+- `mp3_bitrate`: encoding bitrate for MP3 output.
 - `latency`: latency mode (`normal` / `balanced`).
 - `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
@@ -50,7 +50,7 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 
 ```json
 {
-  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "audio_url": "https://platform2.cdn.acedata.cloud/fish/e2ffcc06-18da-4a8c-b9aa-9337d0f9ec1d.mp3"
 }
 ```
 

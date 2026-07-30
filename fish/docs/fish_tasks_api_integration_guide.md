@@ -56,7 +56,7 @@ print(response.json())
   "data": {
     "task_id": "8a72ff98-4023-4006-a9f7-4cb2fa04f978",
     "status": "succeeded",
-    "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+    "audio_url": "https://platform2.cdn.acedata.cloud/fish/bd66b8c5-7543-4557-b684-baa72407e336.mp3"
   },
   "success": true
 }
