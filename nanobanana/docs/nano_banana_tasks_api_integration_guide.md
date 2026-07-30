@@ -111,6 +111,10 @@ The returned result contains multiple fields, where the request field is the req
 - `id`: The ID of the generated task, used to uniquely identify this generation task.
 - `request`: The request information in the task query.
 - `response`: The return information in the task query.
+- `created_at`: The task creation time as a Unix timestamp in seconds.
+- `started_at`: The task start time as an ISO-8601 UTC timestamp.
+- `finished_at`: The task completion time as a Unix timestamp in seconds. This field is absent until the task finishes.
+- `elapsed`: The task runtime in seconds. This field is absent until the task finishes.
 
 ## Batch Query Operation
 

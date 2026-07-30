@@ -48,3 +48,4 @@ Explore the supported endpoints and integration guides for Grok.
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/chat/completions` | [Grok Chat Completion API Integration Guide](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Tasks API](https://platform.acedata.cloud/documents/grok-videos-tasks) | `/grok/tasks` | [Grok Tasks API Integration Guide](docs/grok_tasks_api_integration_guide.md) |

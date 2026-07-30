@@ -129,6 +129,10 @@ The returned result contains multiple fields, with the request field being the r
 - `id`: The ID of the image task generated, used to uniquely identify this image generation task.
 - `request`: The request information in the image task.
 - `response`: The return information in the image task.
+- `created_at`: The task creation time as a Unix timestamp in seconds.
+- `started_at`: The task start time as an ISO-8601 UTC timestamp.
+- `finished_at`: The task completion time as a Unix timestamp in seconds. This field is absent until the task finishes.
+- `elapsed`: The task runtime in seconds. This field is absent until the task finishes.
 
 ## Batch Query Operation
 

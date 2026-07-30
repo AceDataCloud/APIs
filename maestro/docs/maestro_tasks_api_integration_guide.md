@@ -114,6 +114,7 @@ Key fields:
 - `progress.stage`, `message`, `activity`, and `render`: latest available production telemetry. Optional values may be `null`.
 - `request`: normalized creation request stored with the task.
 - `response`: final result or failure information when available.
+- `created_at`, `started_at`, `finished_at`, and `elapsed`: lifecycle timestamps and total runtime for the task.
 - `response.data.variants`: delivered language variants. Read each actual `output_url` from this array.
 - `response.data.project`: project-level artifacts when present.
 - `response.data.progress`: append-only production event history when present.

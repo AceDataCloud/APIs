@@ -61,13 +61,14 @@ When the task is found:
   "_id": "67a1b2c3d4e5f6a7b8c9d0e1",
   "id": "7489df4c-ef03-4de0-b598-e9a590793434",
   "trace_id": "my-custom-trace-001",
-  "type": "images_generations",
+  "type": "images",
   "application_id": "9dec7b2a-1cad-41ff-8536-d4ddaf2525d4",
   "user_id": "5d8e7f6a-1234-4abc-9def-0123456789ab",
   "credential_id": "68253cc8-505d-47f4-97ad-0050a62e4975",
   "created_at": 1763142607.967,
+  "started_at": "2025-11-14T17:50:07.970000000Z",
   "finished_at": 1763142637.404,
-  "duration": 29.437,
+  "elapsed": 29.437,
   "request": {
     "model": "gpt-image-1",
     "prompt": "A cat sitting on a table",
@@ -93,7 +94,9 @@ When no task matches the supplied `id` / `trace_id` the API returns an empty obj
 - `type` — the task type. Tasks submitted via the `gpt-image` series (e.g. `gpt-image-2`) use `images`; `gpt-image-1`, nano-banana and similar models use `images_generations` / `images_edits`; some chat interfaces use `chat_completions_image`.
 - `request` — the request body originally submitted to the image API.
 - `response` — the final response returned once the callback completes.
-- `created_at` / `finished_at` / `duration` — Unix timestamps (seconds) and elapsed seconds.
+- `created_at` / `finished_at` — Unix timestamps in seconds.
+- `started_at` — the ISO-8601 UTC timestamp when the task began running.
+- `elapsed` — total runtime in seconds.
 - `application_id` / `user_id` / `credential_id` — identifiers of the application, end-user and credential associated with the task.
 ## Batch Query (`retrieve_batch`)
 ### Request Body
@@ -128,7 +131,7 @@ curl -X POST 'https://api.acedata.cloud/openai/tasks' \
       "_id": "67a1b2c3d4e5f6a7b8c9d0e1",
       "id": "7489df4c-ef03-4de0-b598-e9a590793434",
       "trace_id": "my-trace-001",
-      "type": "images_generations",
+      "type": "images",
       "request": { "model": "gpt-image-1", "prompt": "A cat" },
       "response": { "data": [{ "url": "https://...png" }] },
       "created_at": 1763142607.967,

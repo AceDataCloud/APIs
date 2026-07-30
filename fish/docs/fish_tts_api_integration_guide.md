@@ -1,6 +1,6 @@
 # Fish TTS API Integration Instructions
 
-This article introduces the Fish TTS API integration instructions, which converts text into natural speech and can optionally use a custom cloned voice model.
+This article introduces the Fish TTS API integration instructions, which convert text into natural speech and optionally use a cloned voice model while keeping the upstream Fish request body format.
 
 ## Application Process
 
@@ -15,18 +15,17 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
 
 - `text`: the text to synthesize into speech (required).
-- `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
-- `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
-- `latency`: latency mode (`normal` / `balanced`).
-- `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
-- `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
+- `format`: output audio format. Supported values are `mp3` (default), `wav`, and `pcm`. `wav` and `pcm` both return WAV containers; `opus` is not supported.
+- `reference_id`: one voice model ID, or an array of voice model IDs, to use for the timbre. Create them with the Fish Model APIs.
+- `references`: inline reference samples. Use this instead of `reference_id` when you want to send audio/text examples directly in the request.
+- `sample_rate`: output sample rate, such as `16000`, `22050`, or `44100`.
+- `mp3_bitrate`: MP3 bitrate. This field is used only when `format` is `mp3`.
+- `prosody`: prosody overrides, including `speed` and `volume`.
+- `chunk_length`: upstream chunk sizing parameter.
+- `temperature` and `top_p`: generation controls.
+- `latency`: latency mode (`normal` or `balanced`). When omitted, Ace Data Cloud fills in `normal`.
 - `normalize`: whether to normalize text before synthesis.
-- `prosody`: prosody controls.
-- `references`: inline reference samples.
-- `callback_url`: an asynchronous callback URL.
-- `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
+- `callback_url`: an asynchronous callback URL. This is an Ace Data Cloud extension beyond the upstream Fish API.
 
 > The TTS engine is selected with the **`model` request header** — not a body field.
 > Supported values are `s1`, `s2-pro` (default) and `s2.1-pro`. `s2.1-pro` is the latest
@@ -54,7 +53,7 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 }
 ```
 
-Download the generated audio from the `audio_url` field.
+Download the generated audio from the `audio_url` field. When you submit `callback_url`, the API returns a `task_id` immediately and later POSTs the final result to your callback URL; you can also query it with the Fish Tasks API.
 
 ## Workflows
 

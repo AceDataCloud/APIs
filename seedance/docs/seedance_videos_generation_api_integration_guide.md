@@ -15,8 +15,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input a `content` array containing a single text item plus a `model`. The result is the generated video. The request body fields are described below:
 
 - `model`: the model used to generate the video. Available values:
+  - **Seedance 1.x series**: `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
   - **Seedance 2.0 series** (multimodal reference: real-person / character image, reference audio, reference video): `doubao-seedance-2-0-260128` (standard), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
-  - **Seedance 1.x**: `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
   - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
   - `image_url`: `{ "type": "image_url", "role": "first_frame|last_frame|reference_image", "image_url": { "url": "https://..." } }`.
@@ -28,11 +28,12 @@ The most basic usage is to input a `content` array containing a single text item
   - Seedance 1.0 Pro / 1.0 Pro Fast: `2`–`12`.
   - Seedance 1.5 Pro: `4`–`12`, or `-1` for automatic duration.
   - Seedance 2.0 series: `4`–`15`, or `-1` for automatic duration.
-- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
-- `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
+- `generate_audio`: whether to generate audio. Supported only by `doubao-seedance-1-5-pro-251215`; other models ignore it.
+- `return_last_frame`: whether to include the last frame image URL in the result.
+- `execution_expires_after`: task timeout in seconds. Supported range: `3600`–`259200`.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
 

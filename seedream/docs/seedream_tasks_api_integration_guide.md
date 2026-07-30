@@ -26,7 +26,7 @@ curl -X POST 'https://api.acedata.cloud/seedream/tasks' \
 }
 ```
 
-Poll until `data.status` is `succeeded`, then download `data.image_url`.
+Poll until `data.status` is `succeeded`, then download `data.image_url`. Returned task records also include `created_at`, `started_at`, `finished_at`, and `elapsed` when those lifecycle timestamps are available.
 
 ## Error Codes
 
