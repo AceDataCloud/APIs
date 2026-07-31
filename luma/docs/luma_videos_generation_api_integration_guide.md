@@ -1,5 +1,3 @@
-# Luma Video Generation API Integration Instructions
-
 With the widespread application of AI, various AI programs have gradually become popular. AI has gradually penetrated all aspects of people's work and life. The industries involved in AI are also increasing, from the initial writing, to medical education, and now to video.
 
 Luma is a professional high-quality video generation platform where users only need to upload materials to automatically generate high-quality videos based on different styles and effects. This AI video generator is developed by team members from well-known technology companies, aiming to allow everyone to easily create outstanding videos without complex editing tools.
@@ -8,23 +6,25 @@ However, Luma does not officially provide an API. AceDataCloud offers a set of L
 
 ## Application and Usage
 
-To use the Luma Videos API, you can first visit the [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Luma Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Luma Videos Generation API →](https://platform.acedata.cloud/documents/luma-videos)
 
 ## Basic Usage
 
 To generate a video, you can input any text. For example, if I want to generate a video about astronauts shuttling between space and volcanoes, I can input `Astronauts shuttle from space to volcano`, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/yub02j.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/yub02j.png" width="500" className="m-auto" /></p>
 
 The generated code is as follows:
 
-<p><img src="https://cdn.acedata.cloud/ieq7yn.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/ieq7yn.png" width="500" className="m-auto" /></p>
 
 Main request parameters:
 
@@ -87,16 +87,16 @@ Next, we need to customize the video generation based on the start and end frame
 
 An example of the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/zvzydx.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/zvzydx.png" width="500" className="m-auto" /></p>
 
 After filling in, the generated code is as follows:
 
-<p><img src="https://cdn.acedata.cloud/tx80pu.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/tx80pu.png" width="500" className="m-auto" /></p>
 
 Corresponding code:
 
 ```python
-import requests
+
 
 url = "https://api.acedata.cloud/luma/videos"
 
@@ -140,7 +140,7 @@ The final result is similar to the previous one, with the generated video start 
 
 An example of the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/20igwi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/20igwi.png" width="500" className="m-auto" /></p>
 
 Finally, the result is as follows:
 ```json
@@ -165,7 +165,7 @@ The result is similar to the above, and the generated video contains images of b
 
 If you want to continue generating the video, you can set the parameter `action` to `extend`, and input the ID or video link of the video you want to continue generating. The video ID and video link can be obtained based on the basic usage, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/fwknj4.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/fwknj4.png" width="500" className="m-auto" /></p>
 
 At this point, you can see that the video ID is:
 
@@ -186,16 +186,16 @@ To continue generating the video, you must upload the video link or video ID. Be
 
 An example of the filled form is as follows:
 
-<p><img src="https://cdn.acedata.cloud/vv0rxk.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vv0rxk.png" width="500" className="m-auto" /></p>
 
 After filling it out, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/woapxi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/woapxi.png" width="500" className="m-auto" /></p>
 
 The corresponding Python code:
 
 ```python
-import requests
+
 
 url = "https://api.acedata.cloud/luma/videos"
 
@@ -237,7 +237,7 @@ It can be seen that this video is an extension based on the video that needs to 
 
 Of course, we can also specify the video link to perform the extension generation by filling in the following information:
 
-<p><img src="https://cdn.acedata.cloud/0cv0hg.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/0cv0hg.png" width="500" className="m-auto" /></p>
 
 After running, the following result is obtained:
 
@@ -265,7 +265,7 @@ Finally, we can also specify an image for the last frame in the extended video. 
 
 Next, we will add the last frame image information based on the above, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/9p1vrj.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/9p1vrj.png" width="500" className="m-auto" /></p>
 
 After clicking run, the following information is obtained:
 
@@ -296,13 +296,13 @@ Next, let's understand how to operate specifically through an example.
 
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we will use a public Webhook sample site https://webhook.site/, and opening this site will provide a Webhook URL, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/q78okf.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/q78okf.png" width="500" className="m-auto" /></p>
 
 Copy this URL, and it can be used as a Webhook. The sample here is https://webhook.site/0c87ca0e-cd74-4577-8d68-f2b80fbf8a13.
 
 Next, we can set the `callback_url` field to the above Webhook URL and fill in the `prompt`, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/n2fjvi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/n2fjvi.png" width="500" className="m-auto" /></p>
 
 Clicking run, we can find that a result is immediately obtained, as follows:
 

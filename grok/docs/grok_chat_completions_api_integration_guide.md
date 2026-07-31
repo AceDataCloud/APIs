@@ -1,26 +1,26 @@
-# Grok Chat Completion API Application and Usage
-
 xAI Grok is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. Grok stands out in the industry with its unique humorous style and real-time web information retrieval capabilities. Today, Grok has emerged in multiple innovative fields, and its influence is rapidly expanding. Whether for daily conversations, creative writing, or technical analysis and code debugging, Grok can provide insightful intelligent assistance, bringing a new dimension of support to users' decision-making and creation.
 
 This document mainly introduces the usage process of the Grok Chat Completion API, allowing us to easily utilize the official Grok dialogue features.
 
 ## Application Process
 
-To use the Grok Chat Completion API, you can first visit the [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Grok Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Grok Chat Completion API →](https://platform.acedata.cloud/documents/grok-chat-completions)
 
 ## Basic Usage
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/vunnjf.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vunnjf.png" width="400" className="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the Grok official model we choose to use. The current flagship is `grok-4.5`, with `grok-4`, `grok-4-0709`, `grok-3`, and `grok-3-fast` also available; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Grok official model we choose to use. Here we mainly have 8 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -30,7 +30,7 @@ Common optional parameters:
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: How many candidate replies to generate at once.
 
-<p><img src="https://cdn.acedata.cloud/d7iwun.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/d7iwun.png" width="400" className="m-auto" /></p>
 
 After the call, we find the returned result as follows:
 
@@ -81,7 +81,7 @@ The returned result contains multiple fields, described as follows:
 
 Among them, `choices` contains the response information from Grok, and the `choices` inside it shows the specific information of Grok's response, as can be seen in the figure.
 
-<p><img src="https://cdn.acedata.cloud/p8vupk.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/p8vupk.png" width="400" className="m-auto" /></p>
 
 It can be seen that the `content` field inside `choices` contains the specific content of Grok's reply.
 
@@ -93,14 +93,14 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/k883qa.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/k883qa.png" width="400" className="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
 ```python
-import requests
+
 
 url = "https://api.acedata.cloud/grok/chat/completions"
 
@@ -119,6 +119,65 @@ payload = {
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
+
+The output effect is as follows:
+
+```json
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "Yo, "}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "what"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data:
+{"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "'s g"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "ood?"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": " Rea"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "dy t"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "o di"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "ve i"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "nto "}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "what"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "ever"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": " you"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "'re "}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "pond"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "erin"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "g ab"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "out "}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "toda"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {"content": "y?"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null} 
+
+data: {"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": null, "choices": [{"delta": {}, "logprobs": null, "finish_reason": "stop", "index": 0}], "usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "prompt_tokens_details": {"cached_tokens": 0, "text_tokens": 0, "audio_tokens": 0, "image_tokens": 0}, "completion_tokens_details": {"text_tokens": 0, "audio_tokens": 0, "reasoning_tokens": 0}, "input_tokens": 0, "output_tokens": 0, "input_tokens_details": null}} 
+
+data:
+{"id": "foaicmpl-503ab14f-3f22-46ab-9f91-3fb44773be38", "object": "chat.completion.chunk", "created": 1755839790, "model": "grok-3", "system_fingerprint": "", "choices": [], "usage": {"prompt_tokens": 8, "completion_tokens": 18, "total_tokens": 26, "prompt_tokens_details": {"cached_tokens": 0, "text_tokens": 0, "audio_tokens": 0, "image_tokens": 0}, "completion_tokens_details": {"text_tokens": 0, "audio_tokens": 0, "reasoning_tokens": 0}, "input_tokens": 0, "output_tokens": 0, "input_tokens_details": null}} 
+
+data: [DONE]
+```
+ 
+
+You can see that there are many `data` in the response, and the `choices` in `data` is the latest response content, consistent with the content introduced above. The `choices` is the newly added response content, and you can integrate it into your system based on the results. The end of the streaming response is determined by the content of `data`; if the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, described as follows:
+
+- `id`, the ID generated for this conversation task, used to uniquely identify this conversation task.
+- `model `, the selected Grok official model.
+- `choices`, the response information provided by Grok for the question words.
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
@@ -171,12 +230,12 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 If you want to integrate multi-turn conversation functionality, you need to upload multiple question words in the `messages` field. The specific example of multiple question words is shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/t8cya8.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/t8cya8.png" width="400" className="m-auto" /></p>
 
 Python sample call code:
 
 ```python
-import requests
+
 
 url = "https://api.acedata.cloud/grok/chat/completions"
 
@@ -249,7 +308,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ### Error Response Example
 
-```json
+```
 {
   "success": false,
   "error": {
@@ -262,4 +321,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the conversation functionality of the official Grok using the Grok Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the conversation functionality of the official OpenAI ChatGPT using the OpenAI Chat Completion API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
