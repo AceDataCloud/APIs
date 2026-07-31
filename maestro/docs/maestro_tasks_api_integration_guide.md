@@ -112,6 +112,10 @@ Key fields:
 - `status`: authoritative lifecycle state. Terminal values are `succeeded` and `failed`.
 - `progress.percent`: normalized progress from 0 through 100.
 - `progress.stage`, `message`, `activity`, and `render`: latest available production telemetry. Optional values may be `null`.
+- `created_at`: task creation time (Unix timestamp, seconds).
+- `started_at`: task start execution time (Unix timestamp, seconds; `null` before execution starts).
+- `finished_at`: task completion time (Unix timestamp, seconds; `null` when unfinished).
+- `elapsed`: task execution time in seconds.
 - `request`: normalized creation request stored with the task.
 - `response`: final result or failure information when available.
 - `response.data.variants`: delivered language variants. Read each actual `output_url` from this array.

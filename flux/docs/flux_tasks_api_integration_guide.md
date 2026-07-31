@@ -129,6 +129,10 @@ The returned result contains multiple fields, with the request field being the r
 - `id`: The ID of the image task generated, used to uniquely identify this image generation task.
 - `request`: The request information in the image task.
 - `response`: The return information in the image task.
+- `created_at`: The task creation time, Unix timestamp (seconds, float).
+- `started_at`: The task start execution time, ISO-8601 UTC time string.
+- `finished_at`: The task completion time, Unix timestamp (seconds, float). This field is not returned if the task is not completed.
+- `elapsed`: The time taken for task execution, in seconds (float, rounded to 3 decimal places). This field is not returned if the task is not completed.
 
 ## Batch Query Operation
 

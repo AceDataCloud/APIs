@@ -65,6 +65,13 @@ print(response.json())
 }
 ```
 
+Task records returned by `retrieve` / `retrieve_batch` include the following metadata fields:
+
+- `created_at`: task creation time (Unix timestamp in seconds).
+- `started_at`: task start execution time (ISO-8601 UTC string).
+- `finished_at`: task completion time (Unix timestamp in seconds; omitted when unfinished).
+- `elapsed`: task execution time in seconds (float; omitted when unfinished).
+
 Only `state: "complete"` with `success: true` means the job is finished. While `state` is `pending`, the API may return an intermediate `audio_url` (streaming preview) — keep polling every 3–5 seconds until the state is complete.
 
 ## Support

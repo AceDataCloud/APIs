@@ -62,6 +62,13 @@ print(response.json())
 }
 ```
 
+Task records returned by `retrieve` / `retrieve_batch` include the following metadata fields:
+
+- `created_at`: task creation time (Unix timestamp in seconds).
+- `started_at`: task start execution time (ISO-8601 UTC string).
+- `finished_at`: task completion time (Unix timestamp in seconds; omitted when unfinished).
+- `elapsed`: task execution time in seconds (float; omitted when unfinished).
+
 ## Support
 
 If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)

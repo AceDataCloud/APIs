@@ -100,6 +100,10 @@ The returned result contains the following fields:
 - `task_id`: the ID of the video generation task.
 - `trace_id`: the trace ID for this request.
 - `data`: the task result, including `status` and — once the task is `succeeded` — the `video_url` and `model`.
+- `created_at`: task creation time (Unix timestamp in seconds).
+- `started_at`: task start execution time (ISO-8601 UTC string).
+- `finished_at`: task completion time (Unix timestamp in seconds; omitted when unfinished).
+- `elapsed`: task execution time in seconds (float; omitted when unfinished).
 
 Poll this endpoint until `data.status` is `succeeded` (or a terminal failure state), then download the video from `data.video_url`.
 

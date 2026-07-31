@@ -71,6 +71,10 @@ Important fields:
 | `response.data[].state` | `pending`, `succeeded`, or `error` |
 | `response.data[].video_url` | Final CDN URL when successful |
 | `response.trace_id` | Trace ID for support and debugging |
+| `created_at` | Task creation time (Unix timestamp, seconds) |
+| `started_at` | Task start time (ISO-8601 UTC string) |
+| `finished_at` | Task completion time (Unix timestamp, seconds; omitted when unfinished) |
+| `elapsed` | Task execution time in seconds (float; omitted when unfinished) |
 
 If `response` or its final `video_url` is not available yet, wait about 15 seconds and query the
 same task again. Stop polling on a final video URL or terminal error.

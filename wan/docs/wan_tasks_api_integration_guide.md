@@ -115,7 +115,7 @@ Upon a successful request, the API will return the details of the video task her
     "state": "completed",
     "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
   },
-  "duration": 787.3310000896454,
+  "elapsed": 787.3310000896454,
   "finished_at": 1769263509.094
 }
 ```
@@ -125,6 +125,10 @@ The returned result contains multiple fields, with the request field being the r
 - `id`: The ID of the video task generated, used to uniquely identify this video generation task.
 - `request`: The request information in the video task.
 - `response`: The return information in the video task.
+- `created_at`: The task creation time, Unix timestamp (seconds, float).
+- `started_at`: The task start execution time, ISO-8601 UTC time string.
+- `finished_at`: The task completion time, Unix timestamp (seconds, float). This field is not returned if the task is not completed.
+- `elapsed`: The time taken for task execution, in seconds (float, rounded to 3 decimal places). This field is not returned if the task is not completed.
 
 ## Batch Query Operation
 
@@ -176,7 +180,7 @@ Upon a successful request, the API will return the specific details of all batch
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
       },
-      "duration": 787.3310000896454,
+      "elapsed": 787.3310000896454,
       "finished_at": 1769263509.094
     },
     {
@@ -202,7 +206,7 @@ Upon a successful request, the API will return the specific details of all batch
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
       },
-      "duration": 787.3310000896454,
+      "elapsed": 787.3310000896454,
       "finished_at": 1769263509.094
     }
   ],

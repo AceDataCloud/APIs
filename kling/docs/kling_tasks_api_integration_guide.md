@@ -80,7 +80,7 @@ After a successful request, the API will return the detailed information of the 
     "state": "succeed",
     "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
   },
-  "duration": 317.1300001144409,
+  "elapsed": 317.1300001144409,
   "finished_at": 1740969852.463
 }
 ```
@@ -88,6 +88,10 @@ The returned result contains multiple fields, with the request field being the r
 - `id`: The ID of the video task generated, used to uniquely identify this video generation task.
 - `request`: The request information in the video task.
 - `response`: The return information in the video task.
+- `created_at`: The task creation time, Unix timestamp (seconds, float).
+- `started_at`: The task start execution time, ISO-8601 UTC time string.
+- `finished_at`: The task completion time, Unix timestamp (seconds, float). This field is not returned if the task is not completed.
+- `elapsed`: The time taken for task execution, in seconds (float, rounded to 3 decimal places). This field is not returned if the task is not completed.
 ## Batch Query Operation
 This is for querying the details of video tasks for multiple task IDs, and unlike the above, the action needs to be selected as retrieve_batch.
 **Request Body** includes:
@@ -129,7 +133,7 @@ After a successful request, the API will return the specific details of all batc
         "state": "succeed",
         "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
       },
-      "duration": 317.1300001144409,
+      "elapsed": 317.1300001144409,
       "finished_at": 1740969852.463
     },
     {
@@ -156,7 +160,7 @@ After a successful request, the API will return the specific details of all batc
         "state": "succeed",
         "task_id": "e3a575aa-a4bd-49c8-9b12-cde38d5462e0"
       },
-      "duration": 316.3180000782013,
+      "elapsed": 316.3180000782013,
       "finished_at": 1740969297.937
     }
   ],

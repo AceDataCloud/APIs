@@ -16,7 +16,7 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 
 - `text`: the text to synthesize into speech (required).
 - `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `format`: output audio format. Supported values are `mp3` (default), `wav`, and `pcm` (`wav` and `pcm` both return a WAV container). `opus` is not supported.
 - `sample_rate`: output sample rate.
 - `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
 - `latency`: latency mode (`normal` / `balanced`).

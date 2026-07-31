@@ -144,6 +144,10 @@ The response contains multiple fields, the request field is the request body whe
 - `id`, the ID of the song generation task, used to uniquely identify this song generation task.
 - `request`, the request information in the song task.
 - `response`, the return information in the song task.
+- `created_at`, the task creation time, Unix timestamp (seconds, float).
+- `started_at`, the task start execution time, ISO-8601 UTC time string.
+- `finished_at`, the task completion time, Unix timestamp (seconds, float). This field is not returned if the task is not completed.
+- `elapsed`, the time taken for task execution, in seconds (float, rounded to 3 decimal places). This field is not returned if the task is not completed.
 
 ## Batch Query Operation
 
