@@ -21,9 +21,13 @@ xAI Grok is a powerful AI dialogue system known for its unique humorous style an
 
 ## Application Process
 
-To use the Grok API, apply for the corresponding service on the [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -47,4 +51,6 @@ Explore the supported endpoints and integration guides for Grok.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be) | `/grok/chat/completions` | [Grok Chat Completion API Integration Guide](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Chat Completion API Application and Usage](https://platform.acedata.cloud/documents/grok-chat-completions) | `/grok/chat/completions` | [Grok Chat Completion API Application and Usage](docs/grok_chat_completions_api_integration_guide.md) |
+| [Grok Videos Generation API Integration Instructions](https://platform.acedata.cloud/documents/grok-videos) | `/grok/videos` | [Grok Videos Generation API Integration Instructions](docs/grok_videos_api_integration_guide.md) |
+| [Grok Tasks API Integration and Usage](https://platform.acedata.cloud/documents/grok-videos) | `/grok/tasks` | [Grok Tasks API Integration and Usage](docs/grok_tasks_api_integration_guide.md) |

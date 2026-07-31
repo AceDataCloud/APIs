@@ -21,9 +21,13 @@ The Fish TTS API converts text into natural speech, optionally using a cloned vo
 
 ## Application Process
 
-To use the Fish TTS API, apply for the corresponding service on the [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -42,13 +46,17 @@ curl --request POST "https://api.acedata.cloud/fish/tts" \
 
 ## APIs and Guides
 
+Explore the supported endpoints and integration guides for Fish voice generation.
+
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) | `/fish/tts` | [Fish TTS API Integration Guide](docs/fish_tts_api_integration_guide.md) |
-| [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523) | `/fish/tasks` | [Fish Tasks API Integration Guide](docs/fish_tasks_api_integration_guide.md) |
-| [Fish Model Create API](https://platform.acedata.cloud/documents/82dcabe9-b1a3-541f-80f1-decb183b920c) | `/fish/model` | Create a custom voice model from reference audio |
-| [Fish Model Query API](https://platform.acedata.cloud/documents/0a2c983b-e20f-5926-a45f-07b61373617d) | `/fish/model` | List voice models |
-| [Fish Model Get API](https://platform.acedata.cloud/documents/70f84537-7c48-57d3-9a21-b2a4f55e8f31) | `/fish/model/{id}` | Fetch a single voice model |
+| [Fish Audios Generation API Integration Instructions](https://platform.acedata.cloud/documents/fish-audios) | `/fish/audios` | [Fish Audios Generation API Integration Instructions](docs/fish_audios_api_integration_guide.md) |
+| [Fish Model API Integration Guide](https://platform.acedata.cloud/services/fish) | `/fish/model` | [Fish Model API Integration Guide](docs/fish_model_api_integration_guide.md) |
+| [Fish Model Get API Integration Guide](https://platform.acedata.cloud/documents/fish-model) | `/fish/model/d7900c21663f485ab63ebdb7e5905036` | [Fish Model Get API Integration Guide](docs/fish_model_get_api_integration_guide.md) |
+| [Fish Model Query API Integration Guide](https://platform.acedata.cloud/documents/fish-model) | `/fish/model` | [Fish Model Query API Integration Guide](docs/fish_model_query_api_integration_guide.md) |
+| [Fish TTS API Integration Instructions](https://platform.acedata.cloud/services/fish) | `/fish/tts` | [Fish TTS API Integration Instructions](docs/fish_tts_api_integration_guide.md) |
+| [Fish Voices Generation API Integration Instructions](https://platform.acedata.cloud/documents/fish-voices) | `/fish/voices` | [Fish Voices Generation API Integration Instructions](docs/fish_voices_api_integration_guide.md) |
+| [Fish Tasks API Integration and Usage](https://platform.acedata.cloud/documents/fish-tts) | `/fish/tasks` | [Fish Tasks API Integration and Usage](docs/fish_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

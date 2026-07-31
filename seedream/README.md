@@ -32,10 +32,12 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 
 ## APIs and Guides
 
-| API | Path | Guide |
-| ---- | ---- | ---- |
-| [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e) | `/seedream/images` | [Integration Guide](docs/seedream_images_generation_api_integration_guide.md) |
-| [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75) | `/seedream/tasks` | [Integration Guide](docs/seedream_tasks_api_integration_guide.md) |
+Explore the supported endpoints and integration guides for ByteDance Seedream Image Generation.
+
+| API | Path | Integration Guidance |
+| ---- | ---- | ------------ |
+| [SeeDream Images Generation API Integration Instructions](https://platform.acedata.cloud/documents/seedream-images) | `/seedream/images` | [SeeDream Images Generation API Integration Instructions](docs/seedream_images_generation_api_integration_guide.md) |
+| [SeeDream Tasks API Integration and Usage](https://platform.acedata.cloud/documents/seedream-images) | `/seedream/tasks` | [SeeDream Tasks API Integration and Usage](docs/seedream_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

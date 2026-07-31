@@ -23,9 +23,13 @@ The Wan Tasks API queries the execution status of tasks by inputting the task ID
 
 ## Application Process
 
-To use the Wan Videos Generation API, apply for the corresponding service on the [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -47,12 +51,12 @@ curl --request POST "https://api.acedata.cloud/wan/videos" \
 
 ## APIs and Guides
 
-Explore the supported endpoints and integration guides for Wan Video Generation.
+Explore the supported endpoints and integration guides for Tongyi Wansiang Video Generation.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c) | `/wan/videos` | [Wan Videos Generation API Integration Guide](docs/wan_videos_generation_api_integration_guide.md) |
-| [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018) | `/wan/tasks` | [Wan Tasks API Integration Guide](docs/wan_tasks_api_integration_guide.md) |
+| [Wan Videos Generation API Integration Instructions](https://platform.acedata.cloud/documents/wan-videos) | `/wan/videos` | [Wan Videos Generation API Integration Instructions](docs/wan_videos_generation_api_integration_guide.md) |
+| [Wan Tasks API Integration and Usage](https://platform.acedata.cloud/documents/wan-videos) | `/wan/tasks` | [Wan Tasks API Integration and Usage](docs/wan_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

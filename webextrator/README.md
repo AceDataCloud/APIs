@@ -166,17 +166,13 @@ for `bypass_cache` and `cache_ttl_seconds`.
 
 ## Application Process
 
-To use the WebExtrator API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/service/webextrator).
-After landing on the page, click the **Acquire** button to obtain credentials.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-If you are not logged in or registered, you will be automatically redirected to
-the login page inviting you to register and log in.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-A free quota is provided to first-time applicants — try the API before
-committing to paid usage.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
----
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## SDKs and Tooling
 

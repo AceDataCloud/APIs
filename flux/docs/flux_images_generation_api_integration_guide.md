@@ -1,16 +1,16 @@
-# Flux Images Generation API Integration Instructions
-
 This article will introduce the integration instructions for the Flux Images Generation API, which can generate official Flux images by inputting custom parameters.
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use Flux Images Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon your first application, there will be a free quota available for you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Flux Images Generation API →](https://platform.acedata.cloud/documents/flux-images)
 
 ## Basic Usage
 
@@ -39,7 +39,9 @@ The parameter `size` has some special restrictions, mainly divided into two type
 | flux-2-flex        | Supports aspect ratio x >= 64 must be a multiple of 32          |
 | flux-2-pro         | Supports aspect ratio x >= 64 must be a multiple of 32          |
 | flux-2-max         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-dev           | Supports aspect ratio 256 <= x <= 1440 must be a multiple of 32 |
+| flux-pro-1.1       | Supports aspect ratio 256 &lt;= x &lt;= 1440 must be a multiple of 32 |
+| flux-dev           | Supports aspect ratio 256 &lt;= x &lt;= 1440 must be a multiple of 32 |
+| flux-pro-1.1-ultra | Does not support aspect ratio supports image ratio                     |
 | flux-kontext-pro   | Does not support aspect ratio supports image ratio                     |
 | flux-kontext-max   | Does not support aspect ratio supports image ratio                     |
 

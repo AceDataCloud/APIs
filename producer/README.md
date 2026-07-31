@@ -21,9 +21,13 @@ The Producer Audios Generation API generates AI songs from a text `prompt` or cu
 
 ## Application Process
 
-To use the Producer Audios Generation API, apply for the corresponding service on the [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -54,10 +58,16 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 
 ## APIs and Guides
 
+Explore the supported endpoints and integration guides for Producer Music Generation.
+
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
-| [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| [Producer Audios Generation API Integration Instructions](https://platform.acedata.cloud/documents/producer-audios) | `/producer/audios` | [Producer Audios Generation API Integration Instructions](docs/producer_audios_generation_api_integration_guide.md) |
+| [Producer Lyrics Generation API Integration Instructions](https://platform.acedata.cloud/documents/producer-audios) | `/producer/lyrics` | [Producer Lyrics Generation API Integration Instructions](docs/producer_lyrics_api_integration_guide.md) |
+| [Producer Upload Reference Audio API Integration Instructions](https://platform.acedata.cloud/documents/producer-audios-integration) | `/producer/upload` | [Producer Upload Reference Audio API Integration Instructions](docs/producer_upload_api_integration_guide.md) |
+| [Producer Video Download API Integration Instructions](https://platform.acedata.cloud/documents/producer-audios) | `/producer/videos` | [Producer Video Download API Integration Instructions](docs/producer_videos_api_integration_guide.md) |
+| [Producer Download WAV API Integration Instructions](https://platform.acedata.cloud/documents/producer-audios) | `/producer/wav` | [Producer Download WAV API Integration Instructions](docs/producer_wav_api_integration_guide.md) |
+| [Integration and Use of Producer Tasks API](https://platform.acedata.cloud/documents/producer-audios) | `/producer/tasks` | [Integration and Use of Producer Tasks API](docs/producer_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

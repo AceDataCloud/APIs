@@ -21,9 +21,13 @@ The AI Chat Conversations API enables you to send a question to a large language
 
 ## Application Process
 
-To use the AI Chat API, apply for the corresponding service on the [AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -43,11 +47,12 @@ curl --request POST "https://api.acedata.cloud/aichat/conversations" \
 
 ## APIs and Guides
 
-Explore the supported endpoints and integration guides for AI Chat.
+Explore the supported endpoints and integration guides for AI Dialogue.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
+| [AI Chat v2 API Integration Instructions](https://platform.acedata.cloud/documents/aichat-conversations) | `/aichat2/conversations` | [AI Chat v2 API Integration Instructions](docs/aichat2_conversations_api_integration_guide.md) |
+| [AI Chat API Integration Instructions](https://platform.acedata.cloud/documents/aichat-conversations) | `/aichat/conversations` | [AI Chat API Integration Instructions](docs/aichat_conversations_api_integration_guide.md) |
 
 ## Related Resources
 

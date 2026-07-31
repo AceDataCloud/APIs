@@ -1,0 +1,216 @@
+This article will introduce a Recaptcha2 protocol recognition API integration instruction, which allows users to bypass recognizing and clicking on Recaptcha2 verification images, and achieve automatic decoding in the background by simply submitting the Website Key.
+
+## Application Process
+
+To use the Recaptcha2 protocol recognition API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Recaptcha2 Protocol Recognition API →](https://platform.acedata.cloud/documents/captcha-token-recaptcha2)
+
+## Basic Usage
+
+First, understand the basic usage method, which is to input the URL of the website that needs to process the verification code to obtain the processed result. You first need to simply pass a `website_url` field. Our example website is: `https://www.google.com/recaptcha/api2/demo`, and we need to obtain the `website_key` from the `website_url` page. First, open this webpage, press F12 to enter the console, and then perform a global search for `recaptcha-demo` on the Element page. We can get the following result:
+
+<p><img src="https://cdn.acedata.cloud/hvx41c.png" width="500" class="m-auto"></p>
+
+The string corresponding to `data-sitekey` is the value of the `website_key`. Below are the specific parameter results:
+
+<p><img src="https://cdn.acedata.cloud/8oowyw.png" width="500" class="m-auto"></p>
+
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which is JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, the Request Body is set, including:
+
+- `website_url`: the URL of the website that needs to process the verification code.
+- `website_key`: the website key identifier in Recaptcha2.
+- `proxy`: optional, bring your own proxy. After setting, the upstream will use the proxy IP you provide to decode the verification code, used to control the quality of the exit IP (for example, to avoid being blocked by the target site due to public proxy IP returning `410 Gone`). The format is `scheme://[user:pass@]host:port`, where `scheme` supports `http`/`https`/`socks4`/`socks5`, for example, `http://user:pass@1.2.3.4:8080`. If not filled, the platform's default proxy will be used.
+
+After selection, you can find that the corresponding code is also generated on the right side, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/pudujk.png" width="500" class="m-auto"></p>
+
+Click the "Try" button to conduct a test, as shown in the above figure, and we have obtained the following result:
+```json
+{
+  "token": "03AFcWeA5kjJyDQ9S1a9UYimR6nuxnpEnAs5x2Pixao0dXZhMBjiR2MwAwN7K3NXik02Vl--cEmCwxDuf7mNBMbGlfLHb5948cvCdk1jnp_mjbWzT9ZyxzSnny52TiWVZo1xvTTad5QIQz9iRfJrjcM1BkBj5OpwT4mRVK-Yoz8Q8m5MlXEwQ5Zyp0Lxh_L-32EkdwyyCIOlG-Q1wJ-lR7utNB6E8MCrtTM1tox75-3KPvMNHbTjvqSf1l3FO_bASk39mtleI_NjThAPHCBL__cHu2wJxRYITYxqYgCu3FYcmC3OfcUJJEmgg4KEpQTIjo1X2N1m81obHWKrOrrNqfQvELnXrhHU4gVcFwpaMladoLysqOrDqHsYxNeUTp5YiEu6_Xl2eC6r9IKTbeddIf5QXQML_OILc4Ee3-vEUepmelWq7GE4wOKf8zQ8Xfz1MbJM3daEmiVEMFs4EQsjGgioPeyQUjiJT5U2sZfiJbgyGdUVletCBn4abnSLBYVI-rKKlETKu4IQVGCmh_hNn7cnkX3E5p_Kqu3gifOYHSbCu2ctuaPe9G3M8XxbQ57b_UFgg1MMToSAcZDL2NWtL4yPag5Y4lCnpmfrGOwvX-QFF0JF-DrbRn_Opv52JrLD9GrfGxo99kiucQIZkAzpWLV3Kkhtep2DB8OiA4rSb5R6xT4nNoawg1BM2cM5jazL-1U6LzSs9Hq1XWV1nwj-8-mTDwHmBYMI6fmSfl1-bOX0uHGgWHnzEAW2mw4EErVVUTUJJcUr_LZ2woRkexk-CPQTtdlHmQHbt_1FsOzfGtnXY87xIbhCJReVyv-_HQ48d9xCDuQ-JnNjX98NfDsfvpxe9Zar_LjcQCBNtvHgKH_JkniBDiWrZBAoDJIonDjJ6X1mmWLyPDxYmBR6O7QkxR3DxdDvZQRaZnfD-_sA9T9JEkYWHdBlpumEBq9wVs8dSm60TiRAOZU1ZLjieGP5vI5_aV-ct5SwOmWHF-VQkJUfNZ33MoEkZW2Rvh7_ERbI_PRS_u65BCkhuOh8fmQcxJU5YACpoLXXkwGM8qmSB1yBBeOQL-wWUfo8GREpZIu1oGQVQ8k3FcNJzFQQAYcLBWfGn-8qMxfAJEd356lJYIUuU1CY2rhR1u_7C1R_bH0WTifDqYLCRGzn-tzqBOXybrkOs_KURL-gT6wAoZRpUvBBAEa1mRg5gxap0pOkpdf7MPb5PsWVME7E3stvordioyN2tdLKr6VC-0kiQZD1WzykazPZzkl302Y_kpQ2vKPawWVWmNhy5Vm_cwT6afOAuSHnU1aYtFNvEDpBcXXH2YcqS-sBnMb3KlO5KpfZSp-tGzvjds46ajyoD7bHGzxvCx9EplICVrGWQ8gRYe2MCVJ3OocE-VK7PxI1iKXJK_LBl4hQR7uUKaDVEbmBYMcgS1z5YmXbJV89yjrU-u5ncTn5JkJgoSdOvMi8l2fsZIl2wYi-hWgQjP6LLI6M6wr8AhyiSZBQ34adR07niQPzLfX5Ntwr_8NyMg69bWKlLXknv8O2KznYXQQwsWA3okJCGwhfJkp35QnkHsprTN9LD48cwg8zP7a1mgM-2WHuZmoCpqg1XJgT_tPjc7X9kCQt8e3YirW6IJs-CdBUDkbp12FCukip48mDz7SOWjnLruoNABfo_zCurdOQY_tfcWe4g_ef0y_vey3hLGvxuay_ZMGzDLIo-7_WEp7jU09YKqWOZV7cSxDPm65M1v69ND6b5awsopISEe7E3hKMGrVSonRa9_bkiQ2fuPa5-xitNr4IMxwWMepqDk54v_cyVzUBdAAq8V8w3VHvV4-tjTXFqp0L54RBhJ_EaCXO7nwNbVLqCirfDpKRASfkYoaqsoXbwFMpfFrh-KzDZVIuU6D-VBF5k50ufGPnoXTA8kIF0GjAepW5SCxYupoQos4La6W2f--cl4WAl8oKhSpFtRpb1CNMKmtD7_BJrPDxpnXiA-ENBFe8Y4EOoG5uavVeQl6YftHej52JOTKurOqD-NE-UDBLInNuOo0ayCdV1w8XDAnORgxbkYP65GO5FdytK4zrDVNQEK26D54e0xLpDqUG8UUmUT_VNj9UY78WyWGPTXiGwYAA2_iVUKbT8-phHLDDqeoG3Q5iTP7RUpaW49JmM-tlSeczqqyy9Wc8iZh2Cf9veRJ7HiUeIEMeKGnqD7E9nXxcjC75GzIo477c83U7QN_1QXQjWuAr0C3KFq2W7dJmO08pQ0Z13dG7tz4Ilg1Bc3LIcNgeJLkCTZYpDpn7JpeZRbe6fqvmbqWPQ",
+  "elapsed": 31.6
+}
+```
+
+The return result has multiple fields, described as follows:
+
+- `token`, the verification result after processing the Recaptcha2 captcha task.
+- `started_at`, `finished_at`: the time when this request started processing and produced results (ISO-8601 UTC).
+- `elapsed`: the total time taken for this processing (seconds).
+
+As we can see, we have obtained the verification result for processing the Recaptcha2 captcha, which we can use for POST or simulate submission to the target website, for one-time use, valid for 120 seconds, and it is recommended to use it within 60 seconds. Next, a Python version will be provided to submit the processed token to the target website to pass the Recaptcha2 captcha.
+
+First, we need to find out how the website sends the POST request so that we can pass the generated token into it. We need to open the F12 console first, then manually go through the verification, and finally, we can see that the website sent a POST request. We only need to check the construction of this POST request, and the specific process is as follows:
+
+- First, manually go through the verification, as shown in the figure below:
+
+<p><img src="https://cdn.acedata.cloud/gwiflr.png" width="500" class="m-auto"></p>
+
+- Then click submit and watch the changes in the console's network, as shown in the figure below:
+<p><img src="https://cdn.acedata.cloud/6hm5kj.png" width="500" class="m-auto"></p>
+
+- Analyze the construction of the POST request submitted this time, and finally, you can right-click the request to copy the CURL code, as shown in the figure below:
+
+<p><img src="https://cdn.acedata.cloud/m7y35w.png" width="500" class="m-auto"></p>
+
+From the analysis of the above figure, the URL of this POST request is: `https://www.google.com/recaptcha/api2/demo`, we only need to submit the parameter `g-recaptcha-response`, then we just need to pass the processed token into the data below, the specific CURL code for calling the token for verification is as follows:
+
+```shell
+curl 'https://www.google.com/recaptcha/api2/demo' \
+  --data-raw 'g-recaptcha-response={token}’
+```
+
+The corresponding Python code for calling the token verification is as follows:
+
+```python
+import requests
+
+token = '{token}'
+
+data = {
+    'g-recaptcha-response': token,
+}
+
+response = requests.post('https://www.google.com/recaptcha/api2/demo', data=data)
+
+if response.status_code:
+    print(response.text)
+
+```
+
+Then we run the code and observe that the console has the following result:
+
+<p><img src="https://cdn.acedata.cloud/ku22tk.png" width="500" class="m-auto"></p>
+
+Finally, we have passed the Recaptcha2 verification protocol.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/captcha/token/recaptcha2' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "website_key": "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
+  "website_url": "https://www.google.com/recaptcha/api2/demo"
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/captcha/token/recaptcha2"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "website_key": "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
+    "website_url": "https://www.google.com/recaptcha/api2/demo"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Asynchronous Mode (async)
+
+By default, the API is synchronous and blocking: a request will wait until the token processing is complete before returning. If you are doing multi-solver rotation and want to "get the task_id immediately after submitting the task, schedule other solvers, and come back later to get the result," you can pass `async: true` in the request body.
+
+After passing `async: true`, the interface will immediately return a `task_id` without blocking:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/captcha/token/recaptcha2' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "website_key": "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
+  "website_url": "https://www.google.com/recaptcha/api2/demo",
+  "async": true
+}'
+```
+
+```json
+{
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "trace_id": "2efa9340-b21b-4e26-9e14-4aac95f343ab"
+}
+```
+
+Then use the `task_id` to poll `POST /captcha/tasks` (recommended every 3-5 seconds) to get the result:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/captcha/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002"
+}'
+```
+
+During processing, it will return `status: processing`:
+
+```json
+{ "success": true, "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002", "status": "processing" }
+```
+
+When processing is complete, it will return `status: ready` and the token:
+
+```json
+{
+  "success": true,
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "status": "ready",
+  "token": "03AFcWeA5kjJyDQ9S1a9UYimR6nuxnpEnAs5x2Pixao0dXZhMB......"
+}
+```
+
+Billing explanation: In asynchronous mode, creating tasks and polling "processing" do not incur charges; **only when successfully obtaining results is there a one-time charge** (consistent with the price of synchronous mode). Therefore, canceling unfinished tasks during rotation will not incur costs. `/captcha/tasks` is universal for all captcha interfaces (token and recognition series), and you can poll with the same `task_id`.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Recaptcha2 protocol recognition API to allow users to bypass recognizing and clicking on Recaptcha2 verification images, achieving backend automatic decoding by simply submitting the Website Key. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

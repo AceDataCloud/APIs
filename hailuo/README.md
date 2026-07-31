@@ -23,13 +23,13 @@ The Hailuo Tasks API provides a way to query the execution status of video gener
 
 ## Application Process
 
-To use the Hailuo Videos Generation API, you can first visit the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Basic Usage
 
@@ -92,8 +92,8 @@ Explore the supported endpoints and integration guides for Hailuo Video Generati
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) | `/hailuo/videos` | [Hailuo Videos Generation API Integration Guide](docs/hailuo_videos_api_integration_guide.md) |
-| [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04) | `/hailuo/tasks` | [Hailuo Tasks API Integration Guide](docs/hailuo_tasks_api_integration_guide.md) |
+| [Hailuo Videos Generation API Integration Instructions](https://platform.acedata.cloud/documents/hailuo-videos-integration) | `/hailuo/videos` | [Hailuo Videos Generation API Integration Instructions](docs/hailuo_videos_api_integration_guide.md) |
+| [Hailuo Tasks API Integration and Usage](https://platform.acedata.cloud/documents/hailuo-videos-integration) | `/hailuo/tasks` | [Hailuo Tasks API Integration and Usage](docs/hailuo_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

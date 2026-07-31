@@ -25,9 +25,13 @@ The Kling Motion Generation API generates videos with character motion driven by
 
 ## Application Process
 
-To use the Kling Videos Generation API, apply for the corresponding service on the [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) page. After entering the page, click the "Acquire" button.
+To use the APIs in this service, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -48,13 +52,15 @@ curl --request POST "https://api.acedata.cloud/kling/videos" \
 
 ## APIs and Guides
 
-Explore the supported endpoints and integration guides for Kling Video Generation.
+Explore the supported endpoints and integration guides for Kling video generation.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) | `/kling/videos` | [Kling Videos Generation API Integration Guide](docs/kling_videos_generation_api_integration_guide.md) |
-| [Kling Tasks API](https://platform.acedata.cloud/documents/6b43ff7b-8298-49c8-a390-83df85c2c5e5) | `/kling/tasks` | [Kling Tasks API Integration Guide](docs/kling_tasks_api_integration_guide.md) |
-| [Kling Motion Generation API](https://platform.acedata.cloud/documents/d3f2c369-102d-4856-9565-702ac5f2df63) | `/kling/motion` | [Kling Motion Generation API Integration Guide](docs/kling_motion_generation_api_integration_guide.md) |
+| [Kling Lip Sync API](https://platform.acedata.cloud/documents/kling-motion) | `/kling/lip-sync` | [Kling Lip Sync API](docs/kling_lip_sync_api_integration_guide.md) |
+| [Kling Motion Generation API Integration Instructions](https://platform.acedata.cloud/documents/kling-motion) | `/kling/motion` | [Kling Motion Generation API Integration Instructions](docs/kling_motion_generation_api_integration_guide.md) |
+| [Kling Talking Photo API](https://platform.acedata.cloud/documents/kling-motion) | `/kling/talking-photo` | [Kling Talking Photo API](docs/kling_talking_photo_api_integration_guide.md) |
+| [Kling Videos Generation API Integration Instructions](https://platform.acedata.cloud/documents/kling-videos) | `/kling/videos` | [Kling Videos Generation API Integration Instructions](docs/kling_videos_generation_api_integration_guide.md) |
+| [Integration and Use of Kling Tasks API](https://platform.acedata.cloud/documents/kling-videos) | `/kling/tasks` | [Integration and Use of Kling Tasks API](docs/kling_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

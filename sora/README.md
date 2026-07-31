@@ -1144,8 +1144,8 @@ Explore the supported endpoints and integration guides for Sora Video Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Sora Tasks API](https://platform.acedata.cloud/documents/c9d81bad-9064-4796-86b6-4fb43cc93a16) | `/sora/tasks` | [Sora Tasks API Integration Guide](https://platform.acedata.cloud/documents/a90964ff-27e4-4645-8d77-80755c8e731b) |
-| [Sora Videos Generation API](https://platform.acedata.cloud/documents/99a24421-2e22-4028-8201-e19cb834b67e) | `/sora/videos` | [Sora Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/ac9a395e-9306-460f-b22e-9edda07514fc) |
+| [Sora Videos Generation API Integration Instructions](https://platform.acedata.cloud/documents/sora-videos) | `/sora/videos` | [Sora Videos Generation API Integration Instructions](docs/sora_videos_generation_api_integration_guide.md) |
+| [Sora Tasks API Integration and Usage](https://platform.acedata.cloud/documents/sora-videos) | `/sora/tasks` | [Sora Tasks API Integration and Usage](docs/sora_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

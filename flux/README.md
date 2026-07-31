@@ -751,8 +751,8 @@ Explore the supported endpoints and integration guides for Flux Image Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394) | `/flux/images` | [Flux Images Generation API Integration Guide](https://platform.acedata.cloud/documents/92754994-3970-4f2a-9bf3-113149c25c11) |
-| [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b) | `/flux/tasks` | [Flux Tasks API Integration Guide](https://platform.acedata.cloud/documents/5998d153-b9a6-4798-b5d9-8f523d0d626f) |
+| [Flux Images Generation API Integration Instructions](https://platform.acedata.cloud/documents/flux-images) | `/flux/images` | [Flux Images Generation API Integration Instructions](docs/flux_images_generation_api_integration_guide.md) |
+| [Integration and Use of Flux Tasks API](https://platform.acedata.cloud/documents/flux-images) | `/flux/tasks` | [Integration and Use of Flux Tasks API](docs/flux_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

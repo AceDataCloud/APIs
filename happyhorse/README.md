@@ -62,10 +62,12 @@ curl --request POST "https://api.acedata.cloud/happyhorse/tasks" \
 
 ## APIs and Guides
 
-| API | Path | Integration guide |
-|---|---|---|
-| [Happy Horse Videos API](https://platform.acedata.cloud/documents/happyhorse-videos) | `/happyhorse/videos` | [Videos API Integration Guide](docs/happyhorse_videos_api_integration_guide.md) |
-| [Happy Horse Tasks API](https://platform.acedata.cloud/documents/happyhorse-tasks) | `/happyhorse/tasks` | [Tasks API Integration Guide](docs/happyhorse_tasks_api_integration_guide.md) |
+Explore the supported endpoints and integration guides for HappyHorse Video.
+
+| API | Path | Integration Guidance |
+| ---- | ---- | ------------ |
+| [HappyHorse Videos API Integration Instructions](https://platform.acedata.cloud/documents/happyhorse-videos) | `/happyhorse/videos` | [HappyHorse Videos API Integration Instructions](docs/happyhorse_videos_api_integration_guide.md) |
+| [HappyHorse Tasks API Integration and Usage](https://platform.acedata.cloud/documents/happyhorse-videos) | `/happyhorse/tasks` | [HappyHorse Tasks API Integration and Usage](docs/happyhorse_tasks_api_integration_guide.md) |
 
 ## Agent Integrations
 
