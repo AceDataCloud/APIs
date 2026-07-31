@@ -1089,6 +1089,7 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
 | [$t(document_title_openai_embeddings_api)](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](https://platform.acedata.cloud/documents/) |
 | [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
+| [OpenAI Audio Transcriptions API](https://platform.acedata.cloud/documents/openai-audio-transcriptions) | `/v1/audio/transcriptions` | [OpenAI Audio Transcriptions API Integration Guide](docs/openai_audio_transcriptions_api_integration_guide.md) |
 
 ## Related Resources
 
