@@ -94,8 +94,8 @@ payload, and `description / byline / publishedAt` are back-filled from it:
   "success": true,
   "task_id": "550e8400-e29b-41d4-a716-446655440000",
   "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z",
-  "finished_at": "2026-05-02T10:30:02.535Z",
+  "started_at": 1777717800.123,
+  "finished_at": 1777717802.535,
   "elapsed": 2.412,
   "data": {
     "kind": "extract",

@@ -81,8 +81,8 @@ The envelope is the standard AceDataCloud `success / error` shape.
   "success": true,
   "task_id": "550e8400-e29b-41d4-a716-446655440000",
   "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": "2026-05-02T10:30:00.123Z",
-  "finished_at": "2026-05-02T10:30:01.234Z",
+  "started_at": 1777717800.123,
+  "finished_at": 1777717801.234,
   "elapsed": 1.111,
   "data": {
     "kind": "render",
@@ -123,7 +123,7 @@ When `async=true` (or when `callback_url` is provided), the platform immediately
   "success": true,
   "task_id": "550e8400-...",
   "trace_id": "6ba7b810-...",
-  "started_at": "2026-05-02T10:30:00.123Z"
+  "started_at": 1777717800.123
 }
 ```
 
@@ -156,8 +156,8 @@ Errors share the standard envelope:
   "success": false,
   "task_id": "...",
   "trace_id": "...",
-  "started_at": "...",
-  "finished_at": "...",
+  "started_at": 1777717800.123,
+  "finished_at": 1777717800.135,
   "elapsed": 0.012,
   "error": {
     "code": "bad_request",
@@ -243,7 +243,7 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
   }'
 ```
 
-You will receive `{ "success": true, "task_id": "...", "trace_id": "...", "started_at": "..." }` immediately;
+You will receive `{ "success": true, "task_id": "...", "trace_id": "...", "started_at": 1777717800.123 }` immediately;
 when the task finishes the platform will POST the complete result to your `callback_url`.
 
 ### Forcing a re-render past the cache
