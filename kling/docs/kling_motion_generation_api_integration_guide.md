@@ -1,18 +1,32 @@
 # Kling Motion Generation API Integration Instructions
+
 This article will introduce the integration instructions for the Kling Motion Generation API, which can generate official Kling videos by inputting custom parameters.
+
 ## Application Process
+
 To use Kling Motion Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
 If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
 **A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
 > 📘 Full documentation: [Kling Motion Generation API →](https://platform.acedata.cloud/documents/kling-motion)
+
 ## Basic Usage
+
 First, understand the basic usage method, which involves inputting the prompt `prompt`, reference image `image_url`, and reference video link `video_url` to obtain the processed result. We also need to input the model `mode`, which currently mainly includes `std` and `pro` models, as detailed below:
+
 <p><img src="https://cdn.acedata.cloud/5qlpjt.png" width="500" class="m-auto"></p>
+
 Here we can see that we have set the Request Headers, including:
+
 - `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
 - `authorization`: the key to call the API, which can be selected directly after application.
+
 Additionally, we have set the Request Body, including:
+
 - `image_url`: the reference image, which serves as the basis for the characters, backgrounds, and other elements in the generated video.
 - `video_url`: the link to obtain the reference video. The actions of the characters in the generated video will be consistent with the reference video.
 - `mode`: the mode for generating the video, mainly including standard mode `std` and high-speed mode `pro`.
@@ -20,9 +34,13 @@ Additionally, we have set the Request Body, including:
 - `character_orientation`: the orientation of the characters in the generated video, which can be chosen to be consistent with the image or the video, with enumerated values: image, video.
 - `prompt`: the prompt.
 - `callback_url`: the URL to receive the callback result.
+
 After selection, you can see that the corresponding code is generated on the right side, as shown in the image:
+
 <p><img src="https://cdn.acedata.cloud/buwczd.png" width="500" class="m-auto"></p>
+
 Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
+
 ```json
 {
   "success": true,
@@ -33,15 +51,20 @@ Click the "Try" button to conduct a test, as shown in the image above, and we ob
   "task_id": "363c7a84-e880-472e-a4d4-098e50cfc292"
 }
 ```
+
 The returned result contains multiple fields, described as follows:
+
 - `success`: the status of the video generation task at this time.
 - `task_id`: the ID of the video generation task at this time.
 - `video_id`: the video ID of the video generation task at this time.
 - `video_url`: the video link of the video generation task at this time.
 - `duration`: the duration of the video generation task at this time.
 - `state`: the status of the video generation task at this time.
+
 We can see that we have obtained satisfactory video information, and we only need to access the generated Kling video using the video link address in the `data` result.
+
 Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
+
 ```shell
 curl -X POST 'https://api.acedata.cloud/kling/motion' \
 -H 'accept: application/json' \
@@ -55,24 +78,38 @@ curl -X POST 'https://api.acedata.cloud/kling/motion' \
   "character_orientation": "image"
 }'
 ```
+
 ## Asynchronous Callback
+
 Since the time taken by the Kling Motion Generation API to generate is relatively long, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the generated video will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
+
 Let’s understand how to operate specifically through an example.
+
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we will use a public Webhook sample site https://webhook.site/, where you can open the site to obtain a Webhook URL, as shown in the image:
+
 ![](https://cdn.acedata.cloud/tbcnai.png)
 Copy this URL to use it as a Webhook, the example here is `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`.
+
 Next, we can set the field `callback_url` to the above Webhook URL, while filling in the corresponding parameters, the specific content is as shown in the image:
+
 <p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" class="m-auto"></p>
+
 Clicking run, you will find that a result is immediately obtained, as follows:
+
 ```
 {
   "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
 }
 ```
+
 After a moment, we can observe the generated video results at `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`, as shown in the image:
+
 ![](https://cdn.acedata.cloud/zv5u2q.png)
+
 The content is as follows:
+
 ```json
 {
     "success": true,
@@ -83,15 +120,21 @@ The content is as follows:
     "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
 }
 ```
+
 It can be seen that the result contains a `task_id` field, and the other fields are similar to the above text, which allows for task association through this field.
+
 ## Error Handling
+
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
 - `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
 - `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
 - `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
 - `500 api_error`: Internal server error, something went wrong on the server.
+
 ### Error Response Example
+
 ```json
 {
   "success": false,
@@ -102,5 +145,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
 ```
+
 ## Conclusion
+
 Through this document, you have learned how to use the Kling Motion Generation API to implement the official motion control features of Kling. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

@@ -1,61 +1,53 @@
-# WebExtrator Render API Integration Guide
+# WebExtrator Web Page Rendering API Integration Guide
 
 `POST https://api.acedata.cloud/webextrator/render`
 
-The WebExtrator Render API is a headless-Chromium rendering service. Give it a
-URL and get back the fully-rendered HTML (including JavaScript-injected
-content), plain text, page title, and the final URL after redirects.
+The WebExtrator Web Page Rendering API is a web rendering service based on headless Chromium. Given a URL, it returns the fully rendered HTML (including content injected by JS), plain text, page title, and final URL.
 
-Render is the lowest-level WebExtrator endpoint. If you want **structured**
-content extraction (article body, product price, recipe ingredients, …) use
-[`/webextrator/extract`](webextrator_extract_api_integration_guide.md) instead —
-it runs the same render + a typed extraction pipeline on top.
-
----
+Render is the lowest-level interface of WebExtrator. If you need **structured** extraction results (article body, product prices, recipe ingredients, etc.), please use [`/webextrator/extract`](development_webextrator_extract) — it runs a complete set of typed extraction pipelines based on the same rendering foundation.
 
 ## Application Process
 
-To use the WebExtrator Render API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/service/webextrator).
-Click **Acquire** to obtain the credentials needed for the request. A free
-quota is provided to first-time applicants.
+To use the WebExtrator service page, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
----
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and will return to the current page automatically after completion.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a free trial; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [WebExtrator Service Page →](https://platform.acedata.cloud/service/webextrator)
 
 ## Authentication
 
-All WebExtrator endpoints use the standard AceDataCloud bearer-token scheme:
+All WebExtrator interfaces use standard Bearer Token authentication:
 
 ```
 Authorization: Bearer YOUR_API_KEY
 Content-Type:  application/json
 ```
 
----
+## Request Parameters
 
-## Request Body
+| Field                | Type     | Required | Default                     | Description                                                              |
+| ------------------- | -------- | :------: | --------------------------- | ------------------------------------------------------------------------ |
+| `url`               | string   |   ✅    | —                           | The URL of the page to render, must be `http(s)://`.                   |
+| `user_agent`        | string   |   ❌    | Built-in UA pool rotation   | Custom User-Agent.                                                      |
+| `timeout`           | number   |   ❌    | `30`                        | Single navigation timeout (**seconds**).                               |
+| `wait_until`        | enum     |   ❌    | `networkidle`               | Load completion event: `load` / `domcontentloaded` / `networkidle` / `commit`. |
+| `delay`             | number   |   ❌    | `0`                         | **Additional wait seconds** after `wait_until` is triggered (for SPA re-rendering). |
+| `wait_for_selector` | string   |   ❌    | —                           | Wait for this CSS selector to appear, more stable than `networkidle`.   |
+| `block_resources`   | string[] |   ❌    | `["image","font","media"]` | Types of resources to block, optional: `image` / `font` / `media` / `stylesheet` / `xhr` / `fetch`. |
+| `headers`           | object   |   ❌    | —                           | Additional HTTP request headers (e.g., `{"Accept-Language": "en-US"}`). |
+| `cookies`           | array    |   ❌    | —                           | Cookies injected before navigation, structure as below.                 |
+| `callback_url`      | string   |   ❌    | —                           | Callback address in asynchronous mode, the platform will `POST` the complete result to this address when the task is completed. |
+| `bypass_cache`      | boolean  |   ❌    | `false`                    | Bypass Redis cache reading (but will still write this result back to cache). |
+| `cache_ttl_seconds` | number   |   ❌    | `3600`                     | Custom TTL for this write to cache, passing `0` means do not cache this response. |
+| `async`             | boolean  |   ❌    | `false`                    | Set to `true` to immediately return `task_id`, results can be retrieved via `callback_url` or Tasks API. |
 
-| Field | Type | Required | Default | Description |
-|---|---|:---:|---|---|
-| `url` | string | ✅ | — | Page URL to render. Must be `http(s)://`. |
-| `user_agent` | string | ❌ | rotating modern Chrome UA | Override the browser User-Agent header. |
-| `timeout` | number | ❌ | 30 | Per-request navigation timeout in **seconds**. |
-| `wait_until` | enum | ❌ | `networkidle` | Page-ready condition: `load` \| `domcontentloaded` \| `networkidle` \| `commit`. |
-| `delay` | number | ❌ | 0 | Extra wait **in seconds** after `wait_until` fires (use for SPAs that re-render). |
-| `wait_for_selector` | string | ❌ | — | CSS selector to wait for before considering the page ready. Cuts down on flaky `networkidle` failures. |
-| `block_resources` | string[] | ❌ | `["image","font","media"]` (server default) | Resource types to drop. Choices: `image`, `font`, `media`, `stylesheet`, `xhr`, `fetch`. Blocking saves bandwidth and renders faster. |
-| `headers` | object | ❌ | — | Additional request headers sent to the target site (e.g. `{"Accept-Language": "en-US"}`). |
-| `cookies` | array | ❌ | — | Cookies to install before navigation. See [Cookie shape](#cookie-shape). |
-| `callback_url` | string | ❌ | — | Callback address in asynchronous mode; the platform `POST`s the final envelope here when the task finishes. Providing this field automatically enables async mode. |
-| `bypass_cache` | boolean | ❌ | false | Skip the Redis result cache for this request (still writes the fresh result back). |
-| `cache_ttl_seconds` | number | ❌ | 3600 | Override the global cache TTL for this entry. `0` is allowed and means "don't cache this response". |
-| `async` | boolean | ❌ | `false` | Set to `true` to return `task_id` immediately; results are delivered via `callback_url` or the Tasks API. |
+> The platform contract uniformly uses **snake_case**. The internal rendering service supports camelCase, but external calls always use snake_case.
 
-> Note: parameters use **snake_case** on the platform contract. The internal
-> render service uses `camelCase`; both are documented in the OpenAPI spec but
-> external callers should always use snake_case.
-
-### Cookie shape
+### Cookie Structure
 
 ```json
 {
@@ -70,11 +62,7 @@ Content-Type:  application/json
 }
 ```
 
----
-
-## Response (Sync mode)
-
-The envelope is the standard AceDataCloud `success / error` shape.
+## Synchronous Response
 
 ```json
 {
@@ -98,25 +86,23 @@ The envelope is the standard AceDataCloud `success / error` shape.
 }
 ```
 
-| Field | Type | Description |
-|---|---|---|
-| `data.kind` | string | Always `"render"`. |
-| `data.url` | string | The URL you supplied. |
-| `data.finalUrl` | string | The URL after redirects. |
-| `data.title` | string | `document.title` of the rendered page. |
-| `data.status` | number \| null | HTTP status of the main navigation response. |
-| `data.html` | string | Full rendered HTML. |
-| `data.text` | string | `document.body.innerText` — quick plain-text snapshot (Extract API returns a cleaner Readability text). |
-| `data.userAgent` | string | UA actually used (after pool rotation, if any). |
-| `data.elapsedMs` | number | Render time (browser only). |
-| `data.cached` | boolean? | `true` if served from Redis cache. |
-| `data.cacheStoredAt` | number? | Unix-ms timestamp when the cached entry was first stored. |
+| Field                   | Type             | Description                                           |
+| ---------------------- | ---------------- | --------------------------------------------------- |
+| `data.kind`            | string           | Fixed `"render"`.                                   |
+| `data.url`             | string           | The URL you submitted.                              |
+| `data.finalUrl`        | string           | The final URL after following redirects.           |
+| `data.title`           | string           | The rendered `document.title`.                      |
+| `data.status`          | number \| null   | The HTTP status code of the main navigation.       |
+| `data.html`            | string           | The complete rendered HTML.                         |
+| `data.text`            | string           | Snapshot of `document.body.innerText` (use Extract for cleaner body). |
+| `data.userAgent`       | string           | The actual UA used.                                |
+| `data.elapsedMs`       | number           | Time taken for browser rendering only.             |
+| `data.cached`          | boolean?         | `true` when cache is hit.                          |
+| `data.cacheStoredAt`   | number?          | Unix millisecond timestamp when the cache entry was first written. |
 
----
+## Asynchronous Response
 
-## Response (Async mode)
-
-When `async=true` (or when `callback_url` is provided), the platform immediately returns (HTTP 200):
+When `async=true` (or providing `callback_url`), it immediately returns (HTTP 200):
 
 ```json
 {
@@ -127,48 +113,37 @@ When `async=true` (or when `callback_url` is provided), the platform immediately
 }
 ```
 
-The result is delivered either by `POST` to your `callback_url`
-or by polling [`/webextrator/tasks`](webextrator_tasks_api_integration_guide.md).
+The result will be pushed to `callback_url` via `POST` (if configured), or can be actively queried through [`/webextrator/tasks`](development_webextrator_tasks).
 
-### Callback shape
+### Callback Structure
 
-The platform `POST`s the **same envelope** you would have received in sync mode
-to `callback_url` with `Content-Type: application/json`. Acknowledge with any
-`2xx`; the platform retries `5xx` with exponential backoff for ~5 minutes.
+The platform `POST`s an envelope identical to the synchronous mode to `callback_url`, `Content-Type: application/json`. Returning any `2xx` is considered confirmed; `5xx` will be retried with exponential backoff for about 5 minutes.
 
----
+## Error Response
+| HTTP | `error.code`     | Meaning                                |
+| ---- | ---------------- | --------------------------------- |
+| 400  | `bad_request`    | The request body did not pass Zod validation (missing `url`, incorrect type, etc.).    |
+| 401  | `unauthorized`   | Missing or invalid `Authorization: Bearer …`. |
+| 402  | (x402)           | Insufficient platform balance, returning x402 payment request envelope.     |
+| 408  | `timeout`        | Navigation exceeded `timeout`.                   |
+| 429  | `queue_busy`     | The sync queue is congested, please retry or use `async=true`.       |
+| 500  | `internal_error` | Unhandled exception on the server side (browser crash, etc.), Worker will automatically retry once.  |
 
-## Error Responses
-
-| HTTP | `error.code` | Meaning |
-|---|---|---|
-| 400 | `bad_request` | Body failed Zod validation (missing `url`, wrong types, …). |
-| 401 | `unauthorized` | Missing or invalid `Authorization: Bearer …`. |
-| 402 | (x402) | Insufficient platform balance — see x402 payment envelope. |
-| 408 | `timeout` | Navigation exceeded `timeout`. |
-| 429 | `queue_busy` | Sync queue depth too high — retry, or use `async=true`. |
-| 500 | `internal_error` | Unhandled server-side failure (browser crash, etc.). Auto-retried by the worker once. |
-
-Errors share the standard envelope:
+Error structure:
 
 ```json
 {
   "success": false,
   "task_id": "...",
   "trace_id": "...",
-  "started_at": 1777717800.123,
-  "finished_at": 1777717800.135,
+  "started_at": "...",
+  "finished_at": "...",
   "elapsed": 0.012,
-  "error": {
-    "code": "bad_request",
-    "message": "url: Invalid url"
-  }
+  "error": { "code": "bad_request", "message": "url: Invalid url" }
 }
 ```
 
----
-
-## Examples
+## Example
 
 ### cURL
 
@@ -186,8 +161,7 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
 ### Python (requests)
 
 ```python
-import os
-import requests
+import os, requests
 
 API_KEY = os.environ["ACEDATA_API_KEY"]
 
@@ -230,7 +204,7 @@ const { data } = await res.json();
 console.log(data.title, data.status, data.html.length);
 ```
 
-### Async + callback
+### Asynchronous + Callback
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/render \
@@ -243,10 +217,10 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
   }'
 ```
 
-You will receive `{ "success": true, "task_id": "...", "trace_id": "...", "started_at": 1777717800.123 }` immediately;
-when the task finishes the platform will POST the complete result to your `callback_url`.
+Immediately returns `{ "success": true, "task_id": "...", "trace_id": "...", "started_at": "..." }`;
+When the task is completed, the platform will POST the complete result to your `callback_url`.
 
-### Forcing a re-render past the cache
+### Force Bypass Cache
 
 ```bash
 curl -X POST https://api.acedata.cloud/webextrator/render \
@@ -258,22 +232,11 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
   }'
 ```
 
----
+## Tips and Pitfalls
 
-## Tips and Gotchas
-
-- **`wait_until` choice matters.** `networkidle` is the safest but slowest;
-  `domcontentloaded` is fast but may miss late XHR-injected content; `load`
-  works well for classic static pages.
-- **Cache key ignores `async`.** Synchronous and asynchronous requests for the same URL
-  hit the same cache entry — switching freely will not invalidate anything.
-- **Cache key ignores `bypass_cache` and `cache_ttl_seconds`.** Those are
-  operational toggles, not part of the response.
-- **Cookies and headers DO partition the cache.** If you customise them per
-  request, expect cache misses on the first call per unique combination.
-- **Heavy pages can exceed the default 30 s timeout.** For SPAs that lazy-load,
-  set `timeout: 60` and `wait_until: "domcontentloaded"` + `delay: 4` and a
-  `wait_for_selector` for the element you actually care about.
-- **`block_resources` is your fastest path to lower latency.** Default already
-  blocks images / fonts / media. Add `stylesheet` if your extraction doesn't
-  need CSS-driven layout.
+- **Choosing `wait_until` correctly is important.** `networkidle` is the most stable but slowest; `domcontentloaded` is fast but may miss asynchronously injected content; `load` is suitable for traditional static pages.
+- **Cache Key ignores `async`.** Synchronous and asynchronous requests for the same URL hit the same cache entry, switching freely will not invalidate it.
+- **Cache Key ignores `bypass_cache` and `cache_ttl_seconds`.** These two are operational switches and do not affect the response content.
+- **`cookies` and `headers` will bucket cache.** Customizing these two will cause the first hit of the same combination to fail.
+- **Heavy SPAs often exceed the default 30 seconds.** It is recommended to use `timeout: 60`, `wait_until: "domcontentloaded"`, `delay: 4`, and combine with `wait_for_selector` to wait for the elements you really care about.
+- **`block_resources` is the fastest way to reduce latency.** By default, images/fonts/media are blocked; if your extraction does not rely on CSS layout, adding `stylesheet` can make it even faster.

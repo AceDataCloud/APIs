@@ -1,20 +1,34 @@
 # Kling Videos Generation API Integration Instructions
+
 This article will introduce the integration instructions for the Kling Videos Generation API, which can generate official Kling videos by inputting custom parameters.
+
 ## Application Process
+
 To use the Kling Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)
-If you are not logged in or registered, you will be automatically redirected to the login page, inviting you to register and log in. After completing this, you will be automatically returned to the current page.
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, after which you will be automatically returned to the current page.
+
 **One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
 > 📘 Complete Documentation: [Kling Videos Generation API →](https://platform.acedata.cloud/documents/kling-videos)
+
 ## Basic Usage
-First, understand the basic usage, which involves inputting the prompt `prompt`, the generation action `action`, the first frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action` with the value `text2video`, which mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). Then, we also need to input the model `model`, which currently includes `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`, with specific details as follows:
+
+First, understand the basic usage, which involves inputting the prompt `prompt`, the generation action `action`, the first frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action` with the value `text2video`, which mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). Then, we also need to input the model `model`, which currently includes `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`, with specific content as follows:
+
 <p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" class="m-auto"></p>
+
 Here we can see that we have set the Request Headers, including:
+
 - `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
 - `authorization`: the key to call the API, which can be directly selected after application.
-Additionally, we have set the Request Body, including:
+
+Additionally, we set the Request Body, including:
+
 - `model`: the model for generating the video, mainly including `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`.
-- `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
+- `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera control).
 - `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when selecting the image-to-video action `image2video`, the first frame reference image link must be uploaded.
 - `end_image_url`: optional for image-to-video, specifies the last frame.
@@ -22,16 +36,20 @@ Additionally, we have set the Request Body, including:
 - `generate_audio`: whether to generate audio synchronously, optional, boolean value. Supports `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (only in pro mode). Default is `false`.
 - `aspect_ratio`: video aspect ratio, optional, supports `16:9`, `9:16`, `1:1`, default is `16:9`.
 - `cfg_scale`: correlation strength, range [0,1], larger values are more aligned with the prompt.
-- `camera_control`: optional, parameters to control camera movement, supports type/simple presets and configurations such as horizontal, vertical, pan, tilt, roll, zoom, etc.
+- `camera_control`: optional, controls the parameters for camera movement, supports type/simple presets and configurations such as horizontal, vertical, pan, tilt, roll, zoom, etc.
 - `negative_prompt`: optional, reverse prompt words that you do not want to appear, up to 200 characters.
 - `image_list`: Omni reference image list, applicable to models `kling-o1` and `kling-v3-omni`, usage is described in the section "Omni All-Purpose Reference" below.
 - `video_list`: Omni reference video list (supports video editing), applicable to models `kling-o1` and `kling-v3-omni`, usage is described in the section "Omni All-Purpose Reference" below.
 - `prompt`: prompt words.
-- `callback_url`: the URL to receive callback results.
+- `callback_url`: the URL to receive the callback result.
 - `async`: optional, when set to `true`, the interface immediately returns `task_id`, no need to provide `callback_url`, and then the result can be polled through the corresponding task query interface.
+
 After selection, you can see that the corresponding code is generated on the right side, as shown in the figure:
+
 <p><img src="https://cdn.acedata.cloud/3yjql0.png" width="500" class="m-auto"></p>
+
 Click the "Try" button to test, as shown in the above figure, we obtained the following result:
+
 ```json
 {
   "success": true,
@@ -42,15 +60,20 @@ Click the "Try" button to test, as shown in the above figure, we obtained the fo
   "task_id": "6c68c267-065b-4423-b66b-a0e4c59ee0d5"
 }
 ```
+
 The returned result contains multiple fields, described as follows:
-- `success`: the status of the video generation task at this time.
-- `task_id`: the ID of the video generation task at this time.
-- `video_id`: the video ID of the video generation task at this time.
-- `video_url`: the video link of the video generation task at this time.
-- `duration`: the duration of the video generation task at this time.
-- `state`: the status of the video generation task at this time.
+
+- `success`, the status of the video generation task at this time.
+- `task_id`, the ID of the video generation task at this time.
+- `video_id`, the video ID of the video generation task at this time.
+- `video_url`, the video link of the video generation task at this time.
+- `duration`, the duration of the video generation task at this time.
+- `state`, the status of the video generation task at this time.
+
 We can see that we have obtained satisfactory video information, and we only need to access the generated Kling video using the video link address in the `data` result.
+
 Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
 ```shell
 curl -X POST 'https://api.acedata.cloud/kling/videos' \
 -H 'accept: application/json' \
@@ -62,11 +85,13 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
   "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
 }'
 ```
+
 ## Model Capability Matrix
-Different models have varying support for parameters. The following matrix is organized from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Please verify that the current `model` / `mode` / `duration` combination supports the features you need before calling, otherwise the request will return errors such as `model/mode/duration(...) is not supported with image_tail`.
+
+Different models have varying support for parameters. The following matrix is organized from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Please verify that the current `model` / `mode` / `duration` combination supports the features you need before calling, otherwise it will return errors such as `model/mode/duration(...) is not supported with image_tail`.
 | Model                | Mode            | `end_image_url` (First and Last Frame) | `generate_audio` (Accompanying Audio) | `camera_control` (Camera Movement) | Remarks                                         |
 | ------------------- | -------------- | -------------------- | -------------------- | -------------------- | -------------------------------------------- |
-| `kling-v1`          | std / pro      | ✅ Only `duration=5`     | ❌                    | ✅ Only `duration=5`     | `extend` does not support `negative_prompt` and `cfg_scale` |
+| `kling-v1`          | std / pro      | ✅ Only `duration=5`  | ❌                    | ✅ Only `duration=5`  | `extend` does not support `negative_prompt` and `cfg_scale` |
 | `kling-v1-6`        | std            | ❌                    | ❌                    | ❌                    | Multi-image video, `extend` available in all modes                         |
 | `kling-v1-6`        | pro            | ✅                    | ❌                    | ❌                    |                                              |
 | `kling-v2-master`   | —              | ❌                    | ❌                    | ❌                    | Single mode, only `duration=5/10`                       |
@@ -79,38 +104,57 @@ Different models have varying support for parameters. The following matrix is or
 | `kling-v3`          | 4k             | ✅                    | ✅                    | ❌                    | 4K mode is incompatible with camera movement                                  |
 | `kling-v3-omni`     | std / pro / 4k | ✅                    | ✅                    | ❌                    |                                              |
 | `kling-o1`          | std / pro      | ✅                    | ❌                    | ❌                    | Only supports `duration=5`                             |
+
 Notes:
+
 - `mode=4k` is only supported by `kling-v3` and `kling-v3-omni`; it is mutually exclusive with `camera_control`.
-- `end_image_url` can only be used with `start_image_url` when `action=image2video`. Providing only `end_image_url` (without `start_image_url`) will be rejected.
+- `end_image_url` can only be used with `start_image_url` when `action=image2video` is selected. Providing only `end_image_url` (without `start_image_url`) will be rejected.
 - `kling-v3` / `kling-v3-omni` accept any integer `duration` from 3 to 15 seconds; `kling-o1` only accepts 5; other models only accept 5 or 10.
 - `generate_audio` defaults to `false`. Only `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (pro mode) support it.
+
 ## Video Extension Functionality
+
 If you want to continue generating a Kling video that has already been created, you can set the parameter `action` to `extend` and input the ID of the video you want to continue generating. The video ID can be obtained based on basic usage, as shown in the image below:
+
 <p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto"></p>
-At this point, you can see the video ID is:
+
+At this point, you can see that the video ID is:
+
 ```
 "video_id": "030bb06d-98d4-4044-9042-0aa0822e8c8c"
 ```
+
 > Note that the `video_id` here is the ID of the generated video. If you do not know how to generate a video, you can refer to the basic usage mentioned above.
+
 Next, we must fill in the prompt for the next step to customize the generated video, specifying the following content:
+
 - `model`: The model for generating the video, mainly `kling-v1`, `kling-v1-5`, and `kling-v1-6`.
 - `mode`: The mode for generating the video, with optional values of standard mode `std`, high-speed mode `pro`, and native 4K mode `4k` (only supported by `kling-v3` and `kling-v3-omni`, incompatible with camera control).
 - `duration`: The duration of this video generation task, mainly including 5s and 10s.
 - `start_image_url`: When selecting the image-to-video action `image2video`, the first frame reference image link must be uploaded.
 - `prompt`: The prompt.
+
 An example of filling in is as follows:
+
 <p><img src="https://cdn.acedata.cloud/ejimqy.png" width="500" class="m-auto"></p>
+
 After filling it out, the code is automatically generated as follows:
+
 <p><img src="https://cdn.acedata.cloud/52x4u5.png" width="500" class="m-auto"></p>
+
 Corresponding Python code:
+
 ```python
 import requests
+
 url = "https://api.acedata.cloud/kling/videos"
+
 headers = {
     "accept": "application/json",
     "authorization": "Bearer {token}",
     "content-type": "application/json"
 }
+
 payload = {
     "action": "extend",
     "model": "kling-v1",
@@ -118,10 +162,13 @@ payload = {
     "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle.",
     "duration": 10
 }
+
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
-Clicking run, you can find that you will get a result as follows:
+
+Clicking run, you can see that a result is obtained, as follows:
+
 ```json
 {
   "success": true,
@@ -132,19 +179,30 @@ Clicking run, you can find that you will get a result as follows:
   "task_id": "3ece87e6-3ee3-4f5e-bd70-5ae5eca89a23"
 }
 ```
+
 It can be seen that the result content is consistent with the above, thus achieving the video extension functionality.
-## Omni Universal Reference (Video Editing / Reference Video / Multi-Image Reference)
-`kling-o1` and `kling-v3-omni` are two independent models, both supporting "universal reference" capabilities. Based on text-to-video (`action=text2video`), additional reference images or videos can be provided to achieve **multi-image reference, reference video, and direct editing of existing videos**.
+
+## Omni All-Purpose Reference (Video Editing / Reference Video / Multi-Image Reference)
+
+`kling-o1` and `kling-v3-omni` are two independent models, both supporting "all-purpose reference" capabilities. Based on text-to-video (`action=text2video`), additional reference images or videos can be provided to achieve **multi-image reference, reference video, and direct editing of existing videos**.
+
 **Core Agreement**: Reference materials must be referenced in the `prompt` in the form of `&lt;&lt;<image_1>>>`, `&lt;&lt;<video_1>>>` (with numbering starting from 1) corresponding to the positions in `image_list` / `video_list`, for the model to apply these references. If materials are provided without being referenced in the prompt, they will be ignored.
-> Safety Note: The current API does not open `element_list`. Kling Element Library IDs are not tenant-isolated. Before providing tenant isolation through the Element Management API, customers should use `image_list` to pass in the main reference images.
+
+> Safety Note: The current API does not open `element_list`. The IDs of the Kling Element Library are not tenant-isolated. Please use `image_list` to provide the main reference image until a tenant-isolated Element Management API is provided.
+
 Omni requests do not support `negative_prompt`, `cfg_scale`, or `camera_control`, and cannot use `mode=4k`. When including reference videos, `generate_audio` must be `false`.
+
 ### Reference Video and Video Editing (`video_list`)
-`video_list` is used to pass in reference videos, which is the most commonly used scenario for this capability. The fields of the array elements are as follows:
+`video_list` is used to pass in reference videos, which is the most commonly used scenario for this capability. The array element fields are as follows:
+
 - `video_url`: Reference video link, cannot be empty. Requirements: format MP4/MOV; resolution 720px–2160px; duration 3–10 seconds; frame rate 24–60fps; file size ≤200MB; up to 1 video.
-- `refer_type`: Reference type, optional `base` (default, **the basic video to be edited**, i.e., "directly edit the video", can add/delete/modify elements, change composition, change style, change color, change weather, etc.) or `feature` (**feature reference**, reference its style / camera movement / continuation of the next shot).
+- `refer_type`: Reference type, optional `base` (default, **editable base video**, i.e., "directly edit the video", can add/delete/modify elements, change composition, change style, change color, change weather, etc.) or `feature` (**feature reference**, reference its style / camera movement / continue to the next shot).
 - `keep_original_sound`: Whether to keep the original video audio, optional `yes` (keep) or `no` (remove).
+
 > Note: When a reference video exists, `generate_audio` must be `false`. Videos with `refer_type=base` cannot specify the first frame / last frame.
+
 An example of CURL for editing an existing video (changing the video to an anime style) is as follows:
+
 ```shell
 curl -X POST 'https://api.acedata.cloud/kling/videos' \
 -H 'accept: application/json' \
@@ -155,7 +213,7 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
   "model": "kling-o1",
   "mode": "std",
   "duration": 5,
-  "prompt": "Change <<<video_1>>> to a movie-level anime style, keeping the original motion and composition",
+  "prompt": "Change <<<video_1>>> to a movie-level anime style, keeping the original movement and composition",
   "video_list": [
     {
       "video_url": "https://cdn.acedata.cloud/your-reference-video.mp4",
@@ -165,13 +223,20 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
   ]
 }'
 ```
-### Multi-Image Reference (`image_list`)
-`image_list` is used to pass in reference images (elements / scenes / styles, etc.), the fields of the array elements are as follows:
+
+### Multi-image Reference (`image_list`)
+
+`image_list` is used to pass in reference images (elements / scenes / styles, etc.), the array element fields are as follows:
+
 - `image_url`: Reference image link, cannot be empty. Requirements: format .jpg/.jpeg/.png; file size ≤10MB; shortest side ≥300px; aspect ratio 1:2.5 ~ 2.5:1.
-- `type`: Optional. If not provided, treated as a pure reference image; if `first_frame` / `end_frame` is provided, treated as the first frame / last frame (equivalent to `start_image_url` / `end_image_url`).
+- `type`: Optional. If not provided, treated as a pure reference image; if `first_frame` / `end_frame` is provided, it is treated as the first frame / last frame (equivalent to `start_image_url` / `end_image_url`).
+
 When using, it should be referenced in `prompt` as `&lt;&lt;<image_1>>>`, `&lt;&lt;<image_2>>>`. Quantity limit: if there is no reference video, reference images ≤ 7; if there is a reference video, reference images ≤ 4. If only the first / last frame is provided, `start_image_url` / `end_image_url` can also be used directly, but the last frame must be used together with the first frame.
+
 > Note: If both `start_image_url` / `end_image_url` and `image_list` are provided, the first / last frame will be placed before `image_list`, which may affect the corresponding relationship of `&lt;&lt;<image_N>>>`. It is recommended to choose one: if first / last frames are needed, specify directly in `image_list` using `type`, do not mix with `start_image_url` / `end_image_url`.
+
 An example of CURL for generating a video with multi-image reference:
+
 ```shell
 curl -X POST 'https://api.acedata.cloud/kling/videos' \
 -H 'accept: application/json' \
@@ -189,24 +254,39 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
   ]
 }'
 ```
+
 ## Asynchronous Callback
+
 Due to the relatively long generation time of the Kling Videos Generation API, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field information, representing the current task ID. When the task is completed, the result of the generated video will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
-Let’s understand how to operate specifically through an example.
-First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, a public Webhook sample site https://webhook.site/ is used, and opening this site will provide a Webhook URL, as shown in the image:
+
+Let's understand how to operate specifically through an example.
+
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For convenience, a public Webhook sample site https://webhook.site/ is used for demonstration. Opening this site will provide a Webhook URL, as shown in the image:
+
 ![](https://cdn.acedata.cloud/tbcnai.png)
+
 Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`.
+
 Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the image:
+
 <p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" class="m-auto"></p>
-Clicking run, you can find that an immediate result is obtained, as follows:
+
+Clicking run, you will immediately receive a result, as follows:
+
 ```
 {
   "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
 }
 ```
-After a moment, we can observe the result of the generated video at `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`, as shown in the image:
+
+After a moment, we can observe the generated video result at `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`, as shown in the image:
+
 ![](https://cdn.acedata.cloud/zv5u2q.png)
+
 The content is as follows:
+
 ```json
 {
     "success": true,
@@ -217,14 +297,19 @@ The content is as follows:
     "task_id": "20068983-0cc9-4c6a-aeb6-9c6a3c668be0"
 }
 ```
+
 It can be seen that the result contains a `task_id` field, and the other fields are similar to those mentioned above, allowing the task to be associated through this field.
+
 ## Error Handling
+
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
 - `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
 - `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
 - `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
 - `500 api_error`: Internal server error, something went wrong on the server.
+
 ### Error Response Example
 ```json
 {
@@ -236,5 +321,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
 ```
+
 ## Conclusion
-Through this document, you have learned how to use the Kling Videos Generation API to generate videos by inputting prompt words and a reference image for the first frame. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+
+Through this document, you have learned how to use the Kling Videos Generation API to generate videos by inputting prompt words and a reference image for the first frame. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

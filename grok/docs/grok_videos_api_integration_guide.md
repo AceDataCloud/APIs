@@ -1,0 +1,185 @@
+# Grok Videos Generation API Integration Instructions
+
+This document will introduce the integration instructions for the Grok Videos Generation API, which can generate Grok Imagine (xAI) videos by inputting text prompts, input images, and optional reference images.
+
+## Application Process
+
+To use the Grok Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Grok Videos Generation API →](https://platform.acedata.cloud/documents/grok-videos)
+
+## Model Description
+
+This API selects upstream endpoints based on the suffix of the model name: `:reverse` accesses the fast/standard endpoint (cheaper), and `:official` accesses the official endpoint (higher quality, billed by output seconds). A total of four models are supported:
+
+- `grok-imagine-video-1.5-fast:reverse` (default): Supports text-to-video (only pass `prompt`) and image-to-video (pass `image_url`), duration 6–30 seconds, billed by duration, the cheapest.
+- `grok-imagine-video:reverse`: Supports text-to-video and image-to-video, duration 1–15 seconds, billed by output seconds.
+- `grok-imagine-video:official`: Official endpoint, supports text-to-video and image-to-video, duration 1–15 seconds, billed by output seconds, higher quality.
+- `grok-imagine-video-1.5:official`: Official endpoint, **only supports image-to-video**, **must** pass `image_url`, duration 1–15 seconds, supports up to `1080p`, billed by output seconds.
+
+## Basic Usage
+
+First, understand the basic usage method, inputting parameters such as the prompt `prompt`, model `model`, etc., to generate the corresponding video.
+
+Here we set the Request Headers, including:
+
+- `accept`: The format of the response result you want to receive, here filled as `application/json`, which is JSON format.
+- `authorization`: The key to call the API, which can be directly selected after application.
+
+Additionally, the Request Body is set, including:
+
+- `prompt`: The text prompt describing the content of the video you want to generate. **Required** for text-to-video; optional when passing `image_url`.
+- `model`: The model for generating the video, optional `grok-imagine-video-1.5-fast:reverse` (default), `grok-imagine-video:reverse`, `grok-imagine-video:official`, or `grok-imagine-video-1.5:official`.
+- `image_url`: The input image link for image-to-video. **Required** when `model` is `grok-imagine-video-1.5:official`.
+- `reference_image_urls`: An optional array of reference image links used to guide the style or content of the video.
+- `aspect_ratio`: The aspect ratio of the generated video, optional `1:1` / `16:9` / `9:16` / `4:3` / `3:4` / `3:2` / `2:3`.
+- `resolution`: The output resolution, optional `480p` (default), `720p`, or `1080p`.
+- `duration`: The duration of the generated video (seconds). The range for `grok-imagine-video-1.5-fast:reverse` is 6–30, while the range for other models is 1–15, defaulting to 6. It is recommended to use 6 seconds or 10 seconds, as these two standard durations are relatively stable.
+- `callback_url`: The asynchronous callback address. After setting, the API will immediately return `task_id`, and when the task is completed, it will POST the result to that address.
+- `async`: Optional, set to `true` for the interface to immediately return `task_id` without providing `callback_url`, and then poll the corresponding task query interface to obtain results.
+
+Click the "Try" button to test, and the result will be similar to the following:
+
+```json
+{
+  "success": true,
+  "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea",
+  "trace_id": "fb751e1e-4705-49ea-9fd4-5024b7865ea2",
+  "data": [
+    {
+      "id": "grok-imagine-video-1.5-fast:reverse:41eb9a5f-3b2d-4d1e-9f5a-6c2f1a0b9e77",
+      "video_url": "https://cdn.acedata.cloud/c8cbf53aa0.mp4",
+      "state": "succeeded"
+    }
+  ]
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `success`: Whether the video generation request was successful.
+- `task_id`: The ID of the video generation task.
+- `trace_id`: The tracking ID of this request, used for troubleshooting.
+- `data`: The list of generated video results.
+  - `id`: The unique identifier of the generated video.
+  - `video_url`: The link address of the generated video.
+  - `state`: The status of the video generation task, optional `pending` / `succeeded` / `failed`.
+
+We only need to obtain the generated video from the `video_url` link address in the `data` result.
+
+The corresponding CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/grok/videos' \
+-H 'authorization: Bearer ${bearer_token}' \
+-H 'accept: application/json' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+  "model": "grok-imagine-video-1.5-fast:reverse",
+  "resolution": "480p",
+  "duration": 6
+}'
+```
+
+The corresponding Python code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/grok/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+    "model": "grok-imagine-video-1.5-fast:reverse",
+    "resolution": "480p",
+    "duration": 6
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Image-to-Video
+
+If you want to generate a video based on an input image, you can pass `image_url`. When using `grok-imagine-video-1.5:official`, this field must be provided:
+
+```json
+{
+  "prompt": "The character slowly turns around and smiles at the camera",
+  "model": "grok-imagine-video-1.5:official",
+  "image_url": "https://cdn.acedata.cloud/5hmkdg.jpg",
+  "resolution": "720p",
+  "duration": 6
+}
+```
+
+## Reference Image Guidance
+
+If you want to use one or more reference images to guide the style or content of the generated video, you can pass an array of image links in `reference_image_urls`:
+
+```json
+{
+  "prompt": "A character dancing in the same art style",
+  "model": "grok-imagine-video-1.5-fast:reverse",
+  "reference_image_urls": [
+    "https://cdn.acedata.cloud/vunnjf.png"
+  ]
+}
+```
+
+## Asynchronous Callback
+Video generation requires a certain processing time. If you do not wish to maintain a long connection while waiting, you can pass in `callback_url`, at which point the API will immediately return `task_id`, and once the task is completed, it will POST the final result to that address:
+
+```json
+{
+  "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+  "model": "grok-imagine-video-1.5-fast:reverse",
+  "duration": 6,
+  "callback_url": "https://your-domain.com/callback/grok"
+}
+```
+
+The immediately returned result is as follows:
+
+```json
+{
+  "task_id": "b8976e18-32dc-4718-9ed8-1ea090fcb6ea"
+}
+```
+
+## Query Task Results
+
+If you have used asynchronous callbacks or wish to actively query the task status, you can check the latest status and results of the task using the [Grok Tasks API](https://platform.acedata.cloud/documents/grok-tasks) (`POST https://api.acedata.cloud/grok/tasks`) based on `task_id`.
+
+## Billing Explanation
+
+The billing method for this service is determined by the `model`:
+
+- `grok-imagine-video-1.5-fast:reverse`: billed by duration, unrelated to resolution—`6–10` seconds, `11–20` seconds, `21–30` seconds correspond to different pricing tiers.
+- `grok-imagine-video:reverse`: billed by "output seconds", total price = unit price × `duration`.
+- `grok-imagine-video:official` and `grok-imagine-video-1.5:official`: official endpoints, billed by "output seconds", higher resolution results in a higher unit price; official models will still be billed even if content review fails.
+
+Specific unit prices are subject to the pricing page. Failed requests are not billed and do not consume free quotas.
+
+## Error Handling
+
+When there is an issue with the request, the API will return the corresponding error code and description, commonly as follows:
+
+- `400`: Request parameters are incorrect, for example, the text-to-video is missing `prompt`, or `grok-imagine-video-1.5:official` is missing `image_url`, or `duration` is out of range (`grok-imagine-video-1.5-fast:reverse` is 6–30, other models are 1–15).
+- `401`: Authentication failed, token is invalid or does not match the API.
+- `403`: Insufficient balance, or the prompt hits content review and is rejected.
+- `429`: Too many requests, please try again later.
+- `500`: Video generation failed or service exception.
