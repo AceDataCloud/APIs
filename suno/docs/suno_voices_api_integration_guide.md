@@ -36,9 +36,24 @@ The result is as follows:
 
 As can be seen, the `persona_id` field in `data` is the ID of the created voice persona. Voice personas created from uploaded audio are always private (`is_public: false`).
 
-With the voice persona ID, you can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate songs in that voice. Pass `action` as `artist_consistency` (or `artist_consistency_vox` for Persona-v2-vox) and include the `persona_id` returned above.
+With the voice persona ID, you can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate songs in that voice. Pass `action` as `generate` and include the `persona_id` returned above, and the generated song will be sung with the cloned voice. The `persona_id` can also be used with the `cover` action to cover an existing song with the cloned voice.
 
-The corresponding Python code:
+> **Note:** Voice cloning only supports the models `chirp-v4-5` and above (such as `chirp-v4-5`, `chirp-v5`, `chirp-v5-5`); `chirp-v4` is not supported.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/suno/audios' \
+-H 'accept: application/json' \
+-H 'authorization: ******' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "generate",
+  "model": "chirp-v5-5",
+  "prompt": "A warm synth-pop song about city nights",
+  "persona_id": "dde0be60-5280-4bd2-89a0-4020ddd3db52"
+}'
+```
+
+The corresponding Python code for creating the voice persona:
 
 ```python
 import requests

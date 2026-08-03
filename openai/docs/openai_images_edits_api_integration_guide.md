@@ -25,7 +25,7 @@ Compared to `gpt-image-1`, `gpt-image-2` offers significant improvements in imag
 
 ### Supported `size` Values
 
-The `size` constraint for the editing interface is identical to the generation interface — `gpt-image-2` accepts `size` as `auto`, empty, or in the `WIDTHxHEIGHT` format; any other format will return a 400 error. **All sizes (1K / 2K / 4K / custom) are charged per single image uniformly, regardless of the original image resolution or the requested `size`.**
+The `size` format validation for the editing interface is identical to the generation interface — `gpt-image-2` accepts `size` as `auto`, empty, or in the `WIDTHxHEIGHT` format; any other format will return a 400 error. **All sizes (1K / 2K / 4K / custom) are charged per single image uniformly, regardless of the original image resolution or the requested `size`.**
 
 The same size limits on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, and total pixels ≤ 8,294,400.
 
@@ -37,7 +37,9 @@ The same size limits on custom sizes apply: width and height must be multiples o
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> For example: If the original image is `1024x1024`, passing `size` as `2048x2048` will cause the model to redraw and output a 2K image according to the editing instructions; passing `3840x2160` outputs a 4K landscape image; passing `auto` or omitting the parameter lets the model decide. All three are charged equally.
+> For example: If the original image is `1024x1024`, passing `size` as `2048x2048` will cause the model to redraw and output a 2K image according to the editing instructions; passing `3840x2160` outputs a 4K landscape image. All of them are charged equally.
+>
+> When passing `auto` (or omitting `size`), the output **keeps the aspect ratio of the reference image** — in the example above the original image is 1:1, so the result is also 1:1 instead of being squeezed into another aspect ratio. This differs from the generation interface: the generation interface has no reference image, so `auto` picks the aspect ratio from the semantics of the prompt. Specify `size` explicitly when you want to change the aspect ratio.
 
 > **About the `n` parameter**
 >
