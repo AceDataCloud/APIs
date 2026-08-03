@@ -39,7 +39,7 @@ Size limits for custom sizes: width and height must be multiples of 16, the long
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> You can also pass `size: "auto"` or **omit the `size` field**, in which case the model will choose the default size automatically.
+> Passing `size: "auto"` (the default) makes the model select an aspect ratio from the prompt: a prompt such as "ultrawide cinematic 21:9 banner" produces `3024x1296`, while "vertical 9:16 poster" produces `1440x2560`. Prompts without an aspect-ratio cue default to `2048x2048`. Omitting `size` has the same effect.
 >
 > For the 1K tier, the output does not guarantee strict pixel alignment — if you pass `1024x1024`, you might get `1254x1254`, but the aspect ratio is maintained. If you reuse this as `size`, the billing remains unchanged.
 >

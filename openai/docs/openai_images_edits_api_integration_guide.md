@@ -37,7 +37,9 @@ The same size limits on custom sizes apply: width and height must be multiples o
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> For example: If the original image is `1024x1024`, passing `size` as `2048x2048` will cause the model to redraw and output a 2K image according to the editing instructions; passing `3840x2160` outputs a 4K landscape image; passing `auto` or omitting the parameter lets the model decide. All three are charged equally.
+> For example: If the original image is `1024x1024`, passing `size` as `2048x2048` will cause the model to redraw and output a 2K image according to the editing instructions; passing `3840x2160` outputs a 4K landscape image. All sizes are charged equally.
+>
+> Passing `auto` (the default) or omitting `size` preserves the reference image's aspect ratio. For example, a 1:1 reference image produces a 1:1 result rather than being forced to a different aspect ratio. This differs from the generation endpoint, where `auto` selects an aspect ratio based on the prompt. Specify `size` when you want to change the aspect ratio.
 
 > **About the `n` parameter**
 >
