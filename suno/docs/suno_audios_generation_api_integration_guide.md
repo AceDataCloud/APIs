@@ -63,7 +63,7 @@ Additionally, we set the Request Body, including:
 - `replace_section_start`: the starting time for the replacement segment.
 - `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
 - `weirdness`: advanced parameter for `weirdness`.
-- `duration`: the target length of the generated track in seconds, given as an integer between 10 and 360. It is used for generation in custom mode (`custom` is `true`). It is a hint rather than a bound — the model takes it into account but does not commit to it, and the actual length of each returned track is reported by the `duration` field in the response, usually shorter than the value you asked for.
+- `duration`: the target length of the generated track in seconds, given as an integer between 10 and 360. It is used for generation in custom mode (`custom` is `true`). It is a hint rather than a bound — the model takes it into account but does not commit to it, and the actual length of each returned track is reported by the `duration` field in the response, usually shorter than the value you asked for and not repeatable across identical requests.
 - `lyric_prompt`: the prompt for generating lyrics, effective only when `custom` is `true` and `lyric` is not provided.
 - `callback_url`: the URL for callback results.
 
@@ -1014,7 +1014,7 @@ Thus, custom songs were generated using advanced parameters, and the results are
 
 By default the model decides how long a generated track is, typically somewhere between 30 seconds and 4 minutes. To ask for a longer or shorter result, pass `duration` — an integer number of seconds between 10 and 360.
 
-It is used for custom mode (`custom` is `true`). Note that `duration` is a **hint, not a bound**: the model weighs it while composing but does not commit to it. In practice the result is often noticeably shorter than requested, and the two tracks in a single response can differ several-fold. Do not treat it as precise length control — if you need an exact length, trim the finished track or retry.
+It is used for custom mode (`custom` is `true`). Note that `duration` is a **hint, not a bound**: the model weighs it while composing but does not commit to it. In practice the result is often noticeably shorter than requested, and the two tracks in a single response can differ several-fold. Even an identical request submitted twice can come back with very different lengths. Do not treat it as precise length control — if you need an exact length, trim the finished track or retry.
 
 The corresponding Python code:
 
