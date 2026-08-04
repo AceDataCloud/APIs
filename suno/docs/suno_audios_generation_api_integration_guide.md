@@ -1,4 +1,4 @@
-# Suno Song Generation API Integration Instructions
+# Suno Song Generation API Integration Guide
 
 With the widespread application of AI, various AI programs have gradually become popular. AI has gradually penetrated all aspects of people's work and life. The industries involved in AI are also increasing, from the initial writing, to medical education, and now to music.
 
@@ -6,28 +6,32 @@ Suno is a professional high-quality AI song and music creation platform. Users o
 
 Here is the progress of model updates:
 
-| Version | model           | Launch Date   | prompt Limit | style Limit | Maximum Song Duration |
-| ------- | --------------- | -------------- | ------------ | ----------- | --------------------- |
-| v5.5    | chirp-v5-5      | 2026.03.27     | 5000         | 1000        | 8 minutes             |
-| v5      | chirp-v5        | 2025.09.23     | 5000         | 1000        | 8 minutes             |
-| v4.5+   | chirp-v4-5-plus | 2025.07.17     | 5000         | 1000        | 8 minutes             |
-| v4.5    | chirp-v4-5      | 2025.05.03     | 5000         | 1000        | 4 minutes             |
-| v4      | chirp-v4        | 2024.12.17     | 3000         | 200         | 150 seconds           |
-| v3.5    | chirp-v3-5      | ---            | 3000         | 200         | 120 seconds           |
+| Version | model           | Release Date | lyric Limit | style Limit | Max Song Length |
+| ------- | --------------- | ------------ | ----------- | ----------- | --------------- |
+| v5.5    | chirp-v5-5      | 2026.03.27   | 5000        | 1000        | 8 minutes       |
+| v5      | chirp-v5        | 2025.09.23   | 5000        | 1000        | 8 minutes       |
+| v4.5+   | chirp-v4-5-plus | 2025.07.17   | 5000        | 1000        | 8 minutes       |
+| v4.5    | chirp-v4-5      | 2025.05.03   | 5000        | 1000        | 4 minutes       |
+| v4      | chirp-v4        | 2024.12.17   | 3000        | 200         | 150 seconds     |
+| v3.5    | chirp-v3-5      | ---          | 3000        | 200         | 120 seconds     |
 
-Suno now supports the latest `chirp-v5-5` model. To use the newest version, set the `model` parameter to `chirp-v5-5`; `chirp-v5` and earlier versions remain available.
+> The `lyric` and `style` limits in the above table are the upper limits under custom mode (`custom` is `true`). Non-custom inspiration mode (`custom` is `false`) only fills in `prompt`, with a length limit of 500 characters (consistent across models).
+
+Suno now supports the latest `chirp-v5-5` model. When calling the latest version, set the `model` parameter to `chirp-v5-5`; `chirp-v5` and earlier versions can still be used.
 
 However, Suno does not officially provide an API. AceDataCloud offers a set of Suno APIs that simulate the official Suno integration, making it easy and quick to generate the desired music.
 
 ## Application and Usage
 
-To use the Suno Audios API, you can first visit the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Suno Audios Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to get your API Token for backup.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page to register and log in, and after completion, you will be automatically returned to the current page.
 
-Upon first application, there will be a free quota available for use of the API.
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application grants free quota for free trial; when the quota is insufficient, you can recharge the general balance in the [Console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Suno Audios Generation API →](https://platform.acedata.cloud/documents/suno-audios)
 
 ## Basic Usage
 
@@ -42,30 +46,30 @@ Here we can see that we have set the Request Headers, including:
 
 Additionally, we set the Request Body, including:
 
-- `action`: the action of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`.
-- `prompt`: the prompt for the inspiration mode from Suno.
-- `model`: the model for this music generation task, default is `chirp-v4`, mainly includes: `chirp-v3`, `chirp-v4`, `chirp-v3-5`, `chirp-v4-5`, `chirp-v4-5-plus`, `chirp-v5`, `chirp-v5-5`.
-- `lyric`: the lyrics content for the custom mode from Suno.
-- `custom`: whether to use the custom mode, default is: `false`.
-- `instrumental`: the pure music option for the inspiration mode from Suno.
-- `title`: the music title for the custom mode from Suno.
-- `style`: the music style for the custom mode from Suno.
-- `style_negative`: the excluded style for the custom mode from Suno.
-- `audio_weight`: the proportion of the uploaded reference audio, range 0-1, the larger the more it relies on the reference audio.
-- `audio_id`: the ID of the reference music.
-- `overpainting_start`/`overpainting_end`: the start and end time in seconds for adding vocals to existing pure music.
-- `underpainting_start`/`underpainting_end`: the start and end time in seconds for adding accompaniment to a cappella.
-- `samples_start`/`samples_end`: the start and end time in seconds for adding samples to an uploaded music track; used with the `samples` action.
-- `persona_id`: the artist's song ID.
-- `continue_at`: the time in seconds to continue the existing audio. For example, 213.5 means continue to 3 minutes and 33.5 seconds.
-- `style_influence`: advanced parameter for `style_influence`.
-- `replace_section_end`: the final time for the replacement segment.
-- `replace_section_start`: the starting time for the replacement segment.
-- `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
-- `weirdness`: advanced parameter for `weirdness`.
-- `duration`: the target length of the generated track in seconds, given as an integer, typically between 10 and 360. It is mainly used for generation in custom mode (`custom` is `true`); some models or actions may not support it, in which case the value is ignored or an error is returned. This is a target — the actual length of each returned track is reported by the `duration` field in the response and may vary slightly.
-- `lyric_prompt`: the prompt for generating lyrics, effective only when `custom` is `true` and `lyric` is not provided.
-- `callback_url`: the URL for callback results.
+- `action`: The behavior of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`.
+- `prompt`: The official inspiration mode prompt from Suno (effective when `custom` is `false`), maximum 500 characters.
+- `model`: The model for this music generation task, default is `chirp-v4`, mainly includes: `chirp-v3`, `chirp-v4`, `chirp-v3-5`, `chirp-v4-5`, `chirp-v4-5-plus`, `chirp-v5`, `chirp-v5-5`.
+- `lyric`: The lyrics content of the official custom mode from Suno. Maximum 3000 characters for `chirp-v3-5` and `chirp-v4`; maximum 5000 characters for `chirp-v4-5` and above (including `chirp-v5`, `chirp-v5-5`).
+- `custom`: Whether to use custom mode, default is: `false`.
+- `instrumental`: The pure music option of the official inspiration mode from Suno.
+- `title`: The music title of the official custom mode from Suno. Maximum 80 characters for `chirp-v3-5`, `chirp-v4`; maximum 100 characters for `chirp-v4-5` and above.
+- `style`: The music style of the official custom mode from Suno. Maximum 200 characters for `chirp-v3-5` and `chirp-v4`; maximum 1000 characters for `chirp-v4-5` and above (including `chirp-v5`, `chirp-v5-5`).
+- `style_negative`: The excluded styles of the official custom mode from Suno.
+- `audio_weight`: The proportion of the uploaded reference audio, range 0-1, the larger the more it relies on the reference audio.
+- `audio_id`: The ID of the reference music.
+- `overpainting_start`/`overpainting_end`: The start and end time in seconds for adding vocals to existing pure music.
+- `underpainting_start`/`underpainting_end`: The start and end time in seconds for adding accompaniment to a cappella.
+- `persona_id`: The artist's song ID.
+- `continue_at`: The time in seconds to continue the existing audio. For example, 213.5 means continue to 3 minutes and 33.5 seconds.
+- `style_influence`: The "Style Influence" advanced parameter in custom mode, range 0-1, the larger the more it fits the selected style.
+- `replace_section_end`: The final time for the replacement segment.
+- `replace_section_start`: The starting time for the replacement segment.
+- `vocal_gender`: Controls the preference for male or female vocals, female `f`, male `m`, effective for models 4.5 and above; it is a preference item and does not guarantee strict adherence.
+- `weirdness`: The "Weirdness" advanced parameter in custom mode, range 0-1, the larger the more creative and experimental.
+- `duration`: The expected song length, in seconds, must be an integer, usually recommended between 10 and 360. This parameter is mainly used for song generation in custom mode (`custom` is `true`), some models or operations may not support it, in which case this value will be ignored or return an error. This is the target length, the actual product length is subject to the `duration` field in the response, which may have slight deviations.
+- `lyric_prompt`: The prompt for generating lyrics, effective only when `custom` is `true` and `lyric` is not provided.
+- `callback_url`: The URL to receive the callback result.
+- `async`: Optional, set to `true` for the interface to immediately return `task_id`, no need to provide `callback_url`, and then poll the corresponding task query interface to get the result.
 
 The generated code is as follows:
 
