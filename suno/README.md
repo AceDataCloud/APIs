@@ -637,7 +637,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 <div class="hero-highlights">
 <span class="h-item">⚡ 6 Model Versions</span>
 <span class="h-div"></span>
-<span class="h-item">🎵 16 Actions</span>
+<span class="h-item">🎵 17 Actions</span>
 <span class="h-div"></span>
 <span class="h-item">📄 OpenAPI 3.0 Specification</span>
 <span class="h-div"></span>
@@ -650,7 +650,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 <div class="stats-grid">
 <div>
 <div class="stat-icon">🎵</div>
-<div class="stat-val">16</div>
+<div class="stat-val">17</div>
 <div class="stat-lbl">Available Actions</div>
 </div>
 <div>
@@ -660,7 +660,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 <div>
 <div class="stat-icon">📡</div>
-<div class="stat-val">12</div>
+<div class="stat-val">13</div>
 <div class="stat-lbl">API Endpoints</div>
 </div>
 <div>
@@ -696,7 +696,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 <div class="feat-card">
 <div class="feat-icon">🔄</div>
-<h3>16 Actions, One API</h3>
+<h3>17 Actions, One API</h3>
 <p>Generate, Extend, Cover, Blend, Stems, Remaster, Underpaint, Overpaint, Replace Section, etc.—all accomplished through the <code>/suno/audios</code> endpoint.</p>
 </div>
 <div class="feat-card">
@@ -798,7 +798,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 <section class="s-section s-bg-gray">
 <div class="s-container">
 <div class="s-header">
-<h2>16 Actions, One API</h2>
+<h2>17 Actions, One API</h2>
 <p>The most comprehensive Suno API—covering every music creation workflow</p>
 </div>
 <div class="actions-grid">
@@ -867,6 +867,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 <span class="tag-item">+ Upload Cover</span>
 <span class="tag-item">+ Persona Voice</span>
 <span class="tag-item">+ Sample</span>
+<span class="tag-item">+ Inspo</span>
 <span class="tag-item">+ Full Stems</span>
 </div>
 </div>
@@ -953,7 +954,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 <td>Partially supported</td>
 </tr>
 <tr>
-<td>16 Actions (Extend, Cover, Stems, etc.)</td>
+<td>17 Actions (Extend, Cover, Stems, etc.)</td>
 <td class="cmp-us"><span class="ck">✓</span></td>
 <td>Partially supported</td>
 </tr>
@@ -1094,6 +1095,7 @@ Explore the supported endpoints and integration guides for Suno Music Generation
 | [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) | `/suno/audios` | [Suno Audios Generation API Integration Guide](https://platform.acedata.cloud/documents/d016ee3f-421b-4b6e-989a-8beba8701701) |
 | [Suno Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) | `/suno/persona` | [Suno Persona API Integration Guide](https://platform.acedata.cloud/documents/a1ae233c-c52a-4a62-97dd-0db0c089da5a) |
 | [Suno MP4 API](https://platform.acedata.cloud/documents/adf030f2-ac31-4342-bb65-afd9669272f9) | `/suno/mp4` | [Suno MP4 API Integration Guide](https://platform.acedata.cloud/documents/9dff19bb-3360-4578-8115-91c5efc130a3) |
+| [Suno Voices API](https://platform.acedata.cloud/documents/suno-voices) | `/suno/voices` | [Suno Voices API Integration Guide](https://docs.acedata.cloud/en/guides/suno/suno_voices) |
 | [Suno Vox API](https://platform.acedata.cloud/documents/ae804856-897a-4f5b-9329-8514a86a1d43) | `/suno/vox` | [Suno Vox API Integration Guide](https://platform.acedata.cloud/documents/4d487ecc-0b64-4e8f-a40b-908b9d776c76) |
 | [$t(document_title_suno_timing_generation_api)](https://platform.acedata.cloud/documents/e8b5a84f-742f-4078-8b7d-a52a68aa253f) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/149a2dd6-8af9-43f1-8994-0f4466b16c6f) |
 | [Suno Wav API](https://platform.acedata.cloud/documents/c55b2b82-416b-46d7-9854-4c3bf28a3cc5) | `/suno/wav` | [Suno Wav API Integration Guide](https://platform.acedata.cloud/documents/e48efa85-ed94-4ea8-8613-c16d734a3138) |
