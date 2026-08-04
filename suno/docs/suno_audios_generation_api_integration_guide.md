@@ -63,6 +63,7 @@ Additionally, we set the Request Body, including:
 - `replace_section_start`: the starting time for the replacement segment.
 - `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
 - `weirdness`: advanced parameter for `weirdness`.
+- `duration`: the target length of the generated track in seconds, given as an integer, typically between 10 and 360. It is mainly used for generation in custom mode (`custom` is `true`); some models or actions may not support it, in which case the value is ignored or an error is returned. This is a target — the actual length of each returned track is reported by the `duration` field in the response and may vary slightly.
 - `lyric_prompt`: the prompt for generating lyrics, effective only when `custom` is `true` and `lyric` is not provided.
 - `callback_url`: the URL for callback results.
 
@@ -1008,6 +1009,43 @@ Clicking run, you can find that a result is obtained as follows:
 ```
 
 Thus, custom songs were generated using advanced parameters, and the results are similar to the previous text.
+
+## Controlling Track Length
+
+By default the model decides how long a generated track is, typically somewhere between 30 seconds and 4 minutes. To ask for a longer or shorter result, pass `duration` — an integer number of seconds, usually somewhere between 10 and 360.
+
+It is mainly intended for custom mode (`custom` is `true`), which is where it has the most effect. Support varies by model and action, so it is worth trying your combination and checking the returned track length.
+
+The corresponding Python code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/suno/audios"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "action": "generate",
+    "model": "chirp-v5-5",
+    "custom": True,
+    "title": "Under the City Lights",
+    "style": "lo-fi piano",
+    "lyric": "[Verse]\nSunrise creepin\nGold on the floor\n[Chorus]\nUnder the city lights\n",
+    "duration": 330
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Note that `duration` in the **request** is the length you are asking for, while the `duration` field on each track in the **response** is that track's **actual** length. The two share a name but mean different things, and the actual value varies around the requested one rather than matching it exactly.
+
+Whether a particular combination is honoured is decided by the model, so if a value has no effect, try a different model or switch to custom mode.
 
 ## Add Instrumental Function
 
