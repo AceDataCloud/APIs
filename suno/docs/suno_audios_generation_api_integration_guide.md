@@ -1043,7 +1043,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Note that `duration` in the **request** is the length you are asking for, while the `duration` field on each track in the **response** is that track's **actual** length. The two share a name but mean different things, and the actual value varies around the requested one rather than matching it exactly.
+Note that `duration` in the **request** is the length you are asking for, while the `duration` field on each track in the **response** is that track's **actual** length. The two share a name but mean different things: `duration` is a preference hint rather than a hard constraint, so the model takes it into account without guaranteeing it. In practice the actual length is often shorter than requested, and the two tracks returned by a single request may differ noticeably from each other. Lyric length, style and model all affect the final result, so if you need a longer track it helps to also supply fuller lyrics.
 
 Whether a particular combination is honoured is decided by the model, so if a value has no effect, try a different model or switch to custom mode.
 
