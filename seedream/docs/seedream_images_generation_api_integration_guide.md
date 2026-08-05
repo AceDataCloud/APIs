@@ -10,10 +10,10 @@ Apply for the service on the [Seedream Images API](https://platform.acedata.clou
 
 Request body fields:
 
-- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`, `doubao-seedream-3-0-t2i-250415`, `doubao-seededit-3-0-i2i-250628`.
+- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`.
 - `prompt`: image description (required).
-- `size`: output resolution `1K` / `2K` / `4K`.
-- `image_url`: source image for editing (SeedEdit `doubao-seededit-3-0-i2i-250628`).
+- `size`: output resolution; supported presets vary by model. 5.0 Pro supports `1K`/`2K`, 5.0 Lite supports `2K`/`3K`/`4K`, 4.5 supports `2K`/`4K`, and 4.0 supports `1K`/`2K`/`4K`.
+- `image`: source image URL or Base64 value array for editing. All supported models accept image input.
 - `callback_url` / `async`: async modes; `async: true` returns a `task_id` polled via Seedream Tasks API.
 
 ### Request Example
@@ -41,15 +41,15 @@ curl -X POST 'https://api.acedata.cloud/seedream/images' \
 }
 ```
 
-## Image Editing (SeedEdit)
+## Image Editing
 
-Use `doubao-seededit-3-0-i2i-250628` with `image_url`:
+Use a supported model with the `image` array:
 
 ```json
 {
-  "model": "doubao-seededit-3-0-i2i-250628",
+  "model": "doubao-seedream-5-0-260128",
   "prompt": "make the sky golden hour, add warm tone",
-  "image_url": "https://example.com/photo.png"
+  "image": ["https://example.com/photo.png"]
 }
 ```
 
