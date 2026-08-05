@@ -50,7 +50,7 @@ Additionally, we set the Request Body, including:
 - `instrumental`: the pure music option for the inspiration mode from Suno.
 - `title`: the music title for the custom mode from Suno.
 - `style`: the music style for the custom mode from Suno.
-- `style_negative`: the excluded style for the custom mode from Suno.
+- `negative_tags`: music styles or genres to exclude when `custom` is `true`.
 - `audio_weight`: the proportion of the uploaded reference audio, range 0-1, the larger the more it relies on the reference audio.
 - `audio_id`: the ID of the reference music.
 - `overpainting_start`/`overpainting_end`: the start and end time in seconds for adding vocals to existing pure music.
