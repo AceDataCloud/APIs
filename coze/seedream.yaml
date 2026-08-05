@@ -41,11 +41,10 @@ paths:
                 model:
                   type: string
                   enum:
+                    - doubao-seedream-5-0-pro-260628
                     - doubao-seedream-5-0-260128
                     - doubao-seedream-4-5-251128
                     - doubao-seedream-4-0-250828
-                    - doubao-seedream-3-0-t2i-250415
-                    - doubao-seededit-3-0-i2i-250628
                   default: doubao-seedream-5-0-260128
                   description: Seedream model version. Newer versions generally look better.
                 size:
@@ -58,9 +57,6 @@ paths:
                     - adaptive
                   default: 2K
                   description: Output resolution tier.
-                seed:
-                  type: integer
-                  description: Optional seed for reproducible results.
                 output_format:
                   type: string
                   enum:
