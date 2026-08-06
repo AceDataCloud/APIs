@@ -2,7 +2,7 @@
 
 GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.2, along with GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
-This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
+This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models. To use `glm-5.2` in Coze, see the [Coze custom model tutorial](https://platform.acedata.cloud/documents/coze-integration) and select the OpenAI Chat Completions protocol.
 
 ## Application Process
 
