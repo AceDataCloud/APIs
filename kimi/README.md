@@ -17,13 +17,13 @@ Keywords: kimi-api, moonshot-ai, kimi-k3, kimi-k2, chat-completions, rest-api, a
 
 ## Overview
 
-Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3`, supports reasoning, vision, tool calling, a 1,048,576-token context window, and up to 16,384 output tokens. Kimi K2 models remain available for compatibility with existing applications.
+Kimi is a series of AI models launched by Dark Side of the Moon. The recommended `kimi-k3` model is aimed at long-range programming, agents, complex reasoning, and knowledge work, and can be called through the OpenAI-compatible Chat Completions API. Compatible K2 models, including `kimi-k2.6`, `kimi-k2-thinking-turbo`, `kimi-k2.5`, and `kimi-k2-thinking`, remain available.
 
 ## Application Process
 
-To use the Kimi API, apply for the corresponding service on the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) page. After entering the page, click the "Acquire" button.
+To use the Kimi API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token. One API Token can call all services on the platform without applying separately for each service.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+The first application grants a free trial quota. When the quota is insufficient, recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -37,7 +37,8 @@ curl --request POST "https://api.acedata.cloud/kimi/chat/completions" \
   --header "Content-Type: application/json" \
   --data '{
     "model": "kimi-k3",
-    "messages": [{"role": "user", "content": "Hello!"}]
+    "messages": [{"role": "user", "content": "Hello!"}],
+    "reasoning_effort": "max"
   }'
 ```
 
