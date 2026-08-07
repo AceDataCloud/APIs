@@ -20,8 +20,9 @@ curl -X POST https://api.acedata.cloud/minimax/videos \
   -d '{
     "model": "minimax-h3",
     "prompt": "A red fox running through a snowy forest at dawn, low tracking shot",
+    "resolution": "768P",
     "ratio": "16:9",
-    "duration": 6,
+    "duration": 4,
     "async": true
   }'
 ```
@@ -39,11 +40,16 @@ curl -X POST https://api.acedata.cloud/minimax/tasks \
 
 The API does not accept `action`. It infers the mode:
 
-1. `audio_urls` present → audio-guided video
-2. otherwise `image_urls` present → image-to-video
-3. otherwise prompt-only → text-to-video
+1. prompt only → text-to-video
+2. one image without audio → first-frame image-to-video
+3. multiple images or any audio → multimodal reference video
 
-Public pricing is **$0.25 per generated second**. Failed tasks are not charged.
+Pricing is resolution-based:
+
+- `768P`: **$0.057143/second**
+- `2K`: **$0.091429/second**
+
+Only successful tasks are billed.
 
 - [Video generation guide](docs/videos.md)
 - [Task API guide](docs/tasks.md)

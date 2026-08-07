@@ -11,6 +11,8 @@
 }
 ```
 
+`action` defaults to `retrieve`, so sending only `id` is also valid.
+
 ## Retrieve several
 
 ```json
@@ -20,7 +22,7 @@
 }
 ```
 
-The response contains `items` and `count`. Poll approximately every five seconds until the stored `response` contains a successful result or an error.
+The response contains `items` and `count`. Batch queries can also filter with `trace_ids`, `application_id`, `created_at_min`, `created_at_max`, `offset`, and `limit`.
 
 ## Delete a task record
 
@@ -31,4 +33,4 @@ The response contains `items` and `count`. Poll approximately every five seconds
 }
 ```
 
-Deletion removes the stored task record only. It does not cancel a generation already in progress.
+Deletion removes only the stored task record in AceDataCloud. It does not cancel generation already in progress or delete downloaded videos.
