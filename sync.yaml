@@ -90,6 +90,11 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  minimax:
+    repo: AceDataCloud/MiniMaxAPI
+    exclude:
+      - .github
+      - .gitbooks
   happyhorse:
     repo: AceDataCloud/HappyHorseAPI
     exclude:

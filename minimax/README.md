@@ -2,6 +2,8 @@
 
 Generate 4–15 second videos from text, one to nine reference images, or one to three audio references through AceDataCloud.
 
+MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
+
 ## Endpoints
 
 | Method | Path | Purpose |
