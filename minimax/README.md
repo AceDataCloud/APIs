@@ -7,7 +7,7 @@ Generate 4–15 second videos from text, one to nine reference images, or one to
 | Method | Path | Purpose |
 | --- | --- | --- |
 | POST | `https://api.acedata.cloud/minimax/videos` | Create a video task |
-| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve or delete task records |
+| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve task records |
 
 ## Quick start
 
