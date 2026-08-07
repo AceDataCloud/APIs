@@ -6,57 +6,63 @@
 
 | Field | Type | Default | Constraints |
 | --- | --- | --- | --- |
-| `model` | string | `minimax-h3` | only `minimax-h3` |
-| `prompt` | string | — | required in every mode; max 7000 chars |
-| `image_urls` | string[] | — | 1–9 public HTTP(S) URLs |
-| `audio_urls` | string[] | — | 1–3 public HTTP(S) URLs |
-| `resolution` | string | `2K` | `768P` or `2K` |
-| `ratio` | string | `16:9` | `16:9` or `9:16` |
+| `model` | string | — | required; `MiniMax-H3` |
+| `content` | object[] | — | required; non-empty multimodal content array |
+| `resolution` | string | — | required; `768P` or `2K` |
+| `duration` | integer | — | required; 4–15 |
+| `ratio` | string | — | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
 | `aigc_watermark` | boolean | false | add an AIGC watermark |
-| `duration` | integer | 4 | 4–15 |
-| `async` | boolean | false | return task ID immediately |
 | `callback_url` | string | — | public HTTP(S) webhook |
 
-`prompt` is required in every mode. Audio references also require at least one image.
+Each `content` item has a `type`: `text`, `image_url`, `video_url`, or `audio_url`. A text item provides the required prompt, with a maximum length of 7000 characters. Media items contain a media object such as `"image_url": {"url": "https://..."}` and a `role`: `first_frame`, `last_frame`, `reference_image`, `reference_video`, or `reference_audio`. Media URLs support public URLs, `mm_file://{file_id}`, and matching Base64 data URIs.
 
-## Image-to-video example
-
-```json
-{
-  "model": "minimax-h3",
-  "prompt": "Preserve the character while the camera slowly pushes in",
-  "image_urls": ["https://cdn.acedata.cloud/b1c82e4937.png"],
-  "resolution": "768P",
-  "ratio": "9:16",
-  "duration": 8,
-  "async": true
-}
-```
-
-## Audio-guided example
+Text-to-video requires a non-`adaptive` `ratio`:
 
 ```json
 {
-  "model": "minimax-h3",
-  "prompt": "A dancer moves naturally to the rhythm",
-  "image_urls": ["https://cdn.acedata.cloud/b1c82e4937.png"],
-  "audio_urls": ["https://cdn.acedata.cloud/6f7d62b18b.wav"],
-  "resolution": "768P",
-  "ratio": "9:16",
-  "duration": 8,
-  "async": true
+  "model": "MiniMax-H3",
+  "content": [
+    {
+      "type": "text",
+      "text": "A red fox running through a snowy forest at dawn, low tracking shot"
+    }
+  ],
+  "resolution": "2K",
+  "duration": 5,
+  "ratio": "16:9"
 }
 ```
 
-## Final result fields
+## First-frame image-to-video example
 
-A successful final response contains `success`, `task_id`, `trace_id`, and `data`. The first result includes:
+```json
+{
+  "model": "MiniMax-H3",
+  "content": [
+    {
+      "type": "text",
+      "text": "Preserve the character while the camera slowly pushes in"
+    },
+    {
+      "type": "image_url",
+      "image_url": { "url": "https://cdn.acedata.cloud/b1c82e4937.png" },
+      "role": "first_frame"
+    }
+  ],
+  "resolution": "2K",
+  "duration": 5,
+  "ratio": "adaptive"
+}
+```
 
-- `id`: public AceDataCloud task ID
-- `model`: `minimax-h3`
-- `mode`: `text_to_video`, `image_to_video`, or `audio_guided`
-- `video_url`: AceDataCloud CDN URL
-- `state`: `succeeded`
-- `duration`: final billed seconds
-- `ratio`: output aspect ratio
-- `resolution`: `768P` or `2K`
+First- and last-frame image items may be combined. Reference images, videos, and audio can also be combined using `reference_image`, `reference_video`, and `reference_audio` roles. Multimodal references support up to nine images, three videos, and three audio clips. Do not mix first/last-frame items with multimodal references.
+
+## Create response
+
+```json
+{
+  "task_id": "TASK_ID"
+}
+```
+
+Creation is always asynchronous. Retrieve the successful video or task error through the task API.
