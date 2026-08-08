@@ -6,17 +6,21 @@ This document mainly describes the usage process of the Claude Messages Count To
 
 ## Application Process
 
-To use the Claude Messages Count Tokens API, you can first go to the [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) page and click the "Acquire" button to obtain the credentials needed for the request.
+To use Claude Messages Count Tokens API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-This API is completely free to use and does not consume any quota.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Claude Messages Count Tokens API →](https://platform.acedata.cloud/documents/claude-messages-count-tokens)
 
 ## Basic Usage
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`; older releases such as `claude-sonnet-4-5-20250929` remain available.
+- `model`: Choose the Claude model to use, such as `claude-sonnet-4-5-20250929`, `claude-opus-4-20250514`, etc.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:

@@ -1,12 +1,12 @@
 # Claude API
 
-Anthropic Claude generative services, including chat completions and native messages API.
+Anthropic Claude generative services, including chat completions, native messages, and token counting APIs.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
 API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/service/claude)
 
-Keywords: claude-api, anthropic, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: claude-api, anthropic, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-sonnet-4-6, claude-opus-4-7, claude-opus-4-6, claude-chat-completions, claude-messages, claude-count-tokens, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Claude on Ace Data Cloud
 
@@ -17,13 +17,13 @@ Keywords: claude-api, anthropic, claude-fable-5, claude-opus-5, claude-opus-4-8,
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The current flagship `claude-fable-5` leads the lineup, alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The current flagship `claude-fable-5` leads the lineup, alongside `claude-opus-5`, `claude-opus-4-8`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-opus-4-7`, `claude-opus-4-6`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, extended thinking, and token counting.
 
 ## Application Process
 
-To use the Claude API, apply for the corresponding service on the [Claude Chat Completion API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page. After entering the page, click the "Acquire" button.
+To use the Claude API, open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+A single API Token works across every service on the platform. New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 

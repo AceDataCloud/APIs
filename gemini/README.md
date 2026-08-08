@@ -1,12 +1,12 @@
 # Gemini API
 
-Google Gemini generative services, including chat completions and native generate content API.
+Google Gemini generative services, including chat completions, native generate content, and video generation APIs.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
 API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/service/gemini)
 
-Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.0-pro, gemini-3.5-flash, chat-completions, generate-content, stream-generate-content, gemini-videos, gemini-tasks, omni-flash, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Gemini on Ace Data Cloud
 
@@ -17,13 +17,13 @@ Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-comp
 
 ## Overview
 
-Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. The current flagship models are `gemini-3.1-pro` and `gemini-3.5-flash`, with `gemini-3-pro-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`, and other variants also available. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, and JSON mode.
+Google Gemini is a powerful AI conversation system that supports both OpenAI-compatible chat completions format and Google's native `generateContent` / `streamGenerateContent` endpoints. The current flagship models are `gemini-3.1-pro`, `gemini-3.0-pro`, and `gemini-3.5-flash`, with `gemini-2.5-pro`, `gemini-2.5-flash`, and other variants also available. Gemini models support multi-modal inputs (text and images), thinking mode, function calling, JSON mode, and `omni-flash` video generation with task polling.
 
 ## Application Process
 
-To use the Gemini API, apply for the corresponding service on the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page. After entering the page, click the "Acquire" button.
+To use the Gemini API, open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+A single API Token works across every service on the platform. New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -47,5 +47,8 @@ Explore the supported endpoints and integration guides for Gemini.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
+| [Gemini Chat Completion API](https://platform.acedata.cloud/documents/gemini-chat-completions) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
 | [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Stream Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:streamGenerateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Videos Generation API](https://platform.acedata.cloud/documents/gemini-videos) | `/gemini/videos` | [Gemini Videos Generation API Integration Guide](docs/gemini_videos_generation_api_integration_guide.md) |
+| [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-tasks) | `/gemini/tasks` | [Gemini Tasks API Integration Guide](docs/gemini_tasks_api_integration_guide.md) |

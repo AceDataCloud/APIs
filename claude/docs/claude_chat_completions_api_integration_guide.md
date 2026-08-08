@@ -6,13 +6,15 @@ This document mainly introduces the usage process of the Claude Chat Completion 
 
 ## Application Process
 
-To use the Claude Chat Completion API, you can first visit the [Claude Chat Completion API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Claude Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Claude Chat Completion API →](https://platform.acedata.cloud/documents/claude-chat-completions)
 
 ## Basic Usage
 
@@ -425,7 +427,7 @@ Then you can obtain the following result, where the field information in the res
   }
 }
 ```
-The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-sonnet-4-20250514 model can be easily utilized through the above two methods.
+The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-3-7-sonnet-20250219 model can be easily utilized through the above two methods.
 
 ## Error Handling
 
