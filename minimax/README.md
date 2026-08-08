@@ -1,6 +1,6 @@
 # MiniMax H3 API
 
-Generate 4–15 second videos from text, one to nine reference images, or one to three audio references through AceDataCloud.
+Generate 4–15 second videos from text, first or last frames, and image, video, or audio references through AceDataCloud.
 
 MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
 
@@ -9,7 +9,7 @@ MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
 | Method | Path | Purpose |
 | --- | --- | --- |
 | POST | `https://api.acedata.cloud/minimax/videos` | Create a video task |
-| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve or delete task records |
+| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve, list, cancel, or delete task records |
 
 ## Quick start
 
@@ -18,12 +18,17 @@ curl -X POST https://api.acedata.cloud/minimax/videos \
   -H "Authorization: Bearer $ACEDATACLOUD_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "minimax-h3",
-    "prompt": "A red fox running through a snowy forest at dawn, low tracking shot",
-    "resolution": "768P",
+    "model": "MiniMax-H3",
+    "content": [
+      {
+        "type": "text",
+        "text": "A red fox running through a snowy forest at dawn, low tracking shot"
+      }
+    ],
+    "resolution": "2K",
+    "duration": 5,
     "ratio": "16:9",
-    "duration": 4,
-    "async": true
+    "aigc_watermark": false
   }'
 ```
 
@@ -38,15 +43,15 @@ curl -X POST https://api.acedata.cloud/minimax/tasks \
 
 ## Modes
 
-The API does not accept `action`. It infers the mode:
+The API uses MiniMax H3's multimodal `content` array and is always asynchronous. It does not accept legacy fields such as `prompt`, `image_urls`, `audio_urls`, `messages`, `first_frame_image`, or `async`.
 
-1. `audio_urls` present with images → audio-guided video
-2. otherwise `image_urls` present → image-to-video
-3. otherwise prompt-only → text-to-video
+Common content roles:
 
-`prompt` is required in every mode; audio requires at least one image.
+- text only → text-to-video; `ratio` is required and cannot be `adaptive`
+- `image_url` with `first_frame` and/or `last_frame` → first-frame, last-frame, or first/last-frame video
+- `image_url`, `video_url`, or `audio_url` with `reference_*` roles → multimodal reference video
 
-Public pricing is **$0.057143/s for 768P** and **$0.091429/s for 2K** on the largest package. Failed tasks are not charged.
+Each request must include a non-empty text content item. Only successful tasks are charged; task retrieval is free.
 
 - [Video generation guide](docs/videos.md)
 - [Task API guide](docs/tasks.md)
