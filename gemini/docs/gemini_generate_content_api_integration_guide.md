@@ -6,6 +6,16 @@ Google Gemini is a very powerful AI conversation system that can generate smooth
 
 The Gemini Generate Content API uses Google's official native request format (`contents` field), rather than the OpenAI-compatible format (`messages` field). If you are already using the Google Gemini SDK or are familiar with the official API format, you can use this API directly without modifying the request format.
 
+## Currently Supported Capabilities
+
+Text, images, videos, thinking configuration, and custom function declarations are currently supported. The following capabilities are not available:
+
+- Audio input or output;
+- Built-in tools such as `codeExecution`, `googleSearch`, and `urlContext`;
+- Explicit context caching through `cachedContent`.
+
+These capabilities require granular, verifiable usage details before they can be accurately billed. Requests that include these fields return a clear `400` response rather than silently ignoring them or charging them as ordinary text.
+
 ## Application Process
 
 To use the Gemini Generate Content API, you can first visit the [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) page and click the "Acquire" button to obtain the credentials needed for the request.
@@ -62,6 +72,12 @@ Example return result:
   "modelVersion": "gemini-2.5-flash"
 }
 ```
+
+Token fields in `usageMetadata` use native Gemini billing semantics:
+
+- `promptTokenCount` includes `cachedContentTokenCount`; the cached portion is charged at the cache-read price, rather than again as regular input.
+- `candidatesTokenCount` and `thoughtsTokenCount` are charged at the output-token price.
+- `toolUsePromptTokenCount` is a separate tool-input token count and is charged at the input-token price.
 
 ### Streaming
 
