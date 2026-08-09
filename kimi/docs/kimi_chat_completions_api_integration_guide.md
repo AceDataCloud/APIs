@@ -78,7 +78,7 @@ As can be seen, the `content` field in `choices` contains the specific content o
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
 
-If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
+If you want to return responses in a streaming manner, you can set the `stream` field in the JSON request body to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
@@ -94,7 +94,7 @@ import requests
 url = "https://api.acedata.cloud/kimi/chat/completions"
 
 headers = {
-    "accept": "application/json",
+    "accept": "text/event-stream",
     "authorization": "Bearer {token}",
     "content-type": "application/json"
 }
@@ -109,49 +109,140 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
+The response uses Server-Sent Events. Each event starts with `data:` and ends with a blank line. With `stream_options.include_usage=true`, the final JSON chunk can contain `choices: []` and a top-level `usage` object. Always wait for `data: [DONE]` before treating the response as complete.
+
+```text
+data: {"id":"chatcmpl-example","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null}],"usage":null}
+
+data: {"id":"chatcmpl-example","object":"chat.completion.chunk","choices":[],"usage":{"prompt_tokens":1,"completion_tokens":1,"total_tokens":2}}
+
+data: [DONE]
+```
+
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
 ```javascript
-const options = {
-  method: "post",
-  headers: {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-  },
-  body: JSON.stringify({
-    "model": "kimi-k3",
-    "messages": [{"role":"user","content":"Hello"}],
-    "stream": true
-  })
-};
+async function main() {
+  const response = await fetch("https://api.acedata.cloud/kimi/chat/completions", {
+    method: "POST",
+    headers: {
+      "accept": "text/event-stream",
+      "authorization": "Bearer {token}",
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      "model": "kimi-k3",
+      "messages": [{"role": "user", "content": "Hello"}],
+      "reasoning_effort": "max",
+      "stream": true,
+      "stream_options": {"include_usage": true}
+    })
+  });
 
-fetch("https://api.acedata.cloud/kimi/chat/completions", options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+  if (!response.ok || !response.body) {
+    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  let done = false;
+
+  while (!done) {
+    const result = await reader.read();
+    buffer += decoder.decode(result.value || new Uint8Array(), {stream: !result.done}).replaceAll("\r\n", "\n");
+
+    let boundary;
+    while ((boundary = buffer.indexOf("\n\n")) !== -1) {
+      const event = buffer.slice(0, boundary);
+      buffer = buffer.slice(boundary + 2);
+      const data = event.split("\n").filter(line => line.startsWith("data:")).map(line => line.slice(5).trimStart()).join("\n");
+      if (!data) continue;
+      if (data === "[DONE]") {
+        done = true;
+        break;
+      }
+
+      const chunk = JSON.parse(data);
+      if (chunk.usage) console.error("usage:", chunk.usage);
+      const delta = chunk.choices?.[0]?.delta;
+      if (delta?.reasoning_content) process.stdout.write(delta.reasoning_content);
+      if (delta?.content) process.stdout.write(delta.content);
+    }
+
+    if (result.done) break;
+  }
+}
+
+main().catch(console.error);
 ```
 
 Java sample code:
 
 ```java
-JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "kimi-k3");
-jsonObject.put("messages", [{"role":"user","content":"Hello"}]);
-jsonObject.put("stream", true);
-MediaType mediaType = "application/json; charset=utf-8".toMediaType();
-RequestBody body = jsonObject.toString().toRequestBody(mediaType);
-Request request = new Request.Builder()
-  .url("https://api.acedata.cloud/kimi/chat/completions")
-  .post(body)
-  .addHeader("accept", "application/json")
-  .addHeader("authorization", "Bearer {token}")
-  .addHeader("content-type", "application/json")
-  .build();
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-OkHttpClient client = new OkHttpClient();
-Response response = client.newCall(request).execute();
-System.out.print(response.body!!.string())
+public class Main {
+  public static void main(String[] args) throws Exception {
+    JSONObject payload = new JSONObject()
+      .put("model", "kimi-k3")
+      .put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello")))
+      .put("reasoning_effort", "max")
+      .put("stream", true)
+      .put("stream_options", new JSONObject().put("include_usage", true));
+    RequestBody body = RequestBody.create(payload.toString(), MediaType.parse("application/json; charset=utf-8"));
+    Request request = new Request.Builder()
+      .url("https://api.acedata.cloud/kimi/chat/completions")
+      .post(body)
+      .addHeader("accept", "text/event-stream")
+      .addHeader("authorization", "Bearer {token}")
+      .addHeader("content-type", "application/json")
+      .build();
+
+    try (Response response = new OkHttpClient().newCall(request).execute()) {
+      if (!response.isSuccessful() || response.body() == null) {
+        throw new IllegalStateException("HTTP " + response.code());
+      }
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), StandardCharsets.UTF_8))) {
+        StringBuilder eventData = new StringBuilder();
+        for (String line; (line = reader.readLine()) != null; ) {
+          if (line.isEmpty()) {
+            if (consumeEvent(eventData.toString())) break;
+            eventData.setLength(0);
+          } else if (line.startsWith("data:")) {
+            if (eventData.length() > 0) eventData.append('\n');
+            eventData.append(line.substring(5).stripLeading());
+          }
+        }
+      }
+    }
+  }
+
+  private static boolean consumeEvent(String data) {
+    if (data.isEmpty()) return false;
+    if (data.equals("[DONE]")) return true;
+    JSONObject chunk = new JSONObject(data);
+    if (chunk.has("usage") && !chunk.isNull("usage")) System.err.println("usage: " + chunk.getJSONObject("usage"));
+    JSONArray choices = chunk.optJSONArray("choices");
+    if (choices != null && choices.length() > 0) {
+      JSONObject delta = choices.getJSONObject(0).optJSONObject("delta");
+      if (delta != null) {
+        System.out.print(delta.optString("reasoning_content", ""));
+        System.out.print(delta.optString("content", ""));
+      }
+    }
+    return false;
+  }
+}
 ```
 
 Other languages can be rewritten accordingly; the principle is the same.
