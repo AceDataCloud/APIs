@@ -1,6 +1,6 @@
 # Task Retrieval
 
-`POST https://api.acedata.cloud/minimax/tasks` is free and never charges the generation again.
+`POST https://api.acedata.cloud/minimax/tasks` retrieves or deletes async and historical tasks. It is free and never charges the generation again.
 
 ## Retrieve one
 

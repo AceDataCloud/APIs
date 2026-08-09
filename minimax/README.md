@@ -31,7 +31,9 @@ curl -X POST https://api.acedata.cloud/minimax/videos \
   }'
 ```
 
-Poll the returned `task_id`:
+By default the request waits for generation to finish and returns a complete `task`; read the video from `task.content.url`.
+
+To return immediately, send `"async": true` or `callback_url`, then poll the returned `task_id`:
 
 ```bash
 curl -X POST https://api.acedata.cloud/minimax/tasks \
@@ -40,7 +42,7 @@ curl -X POST https://api.acedata.cloud/minimax/tasks \
   -d '{"action":"retrieve","id":"TASK_ID"}'
 ```
 
-The API uses a `content` array for the required text prompt and optional image, video, and audio references. Poll the task about every 10 seconds until it reaches a terminal status.
+The API uses a `content` array for the required text prompt and optional image, video, and audio references. In async mode, poll the task about every 10 seconds until it reaches a terminal status.
 
 - [Video generation guide](docs/videos.md)
 - [Task API guide](docs/tasks.md)
