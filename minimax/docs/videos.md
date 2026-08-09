@@ -1,62 +1,89 @@
 # Video Generation
 
-## Request
-
 `POST https://api.acedata.cloud/minimax/videos`
 
-| Field | Type | Default | Constraints |
+## Authentication
+
+```http
+Authorization: ******
+Content-Type: application/json
+Accept: application/json
+```
+
+## Request
+
+| Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `model` | string | `minimax-h3` | only `minimax-h3` |
-| `prompt` | string | — | required in every mode; max 7000 chars |
-| `image_urls` | string[] | — | 1–9 public HTTP(S) URLs |
-| `audio_urls` | string[] | — | 1–3 public HTTP(S) URLs |
-| `resolution` | string | `2K` | `768P` or `2K` |
-| `ratio` | string | `16:9` | `16:9` or `9:16` |
-| `aigc_watermark` | boolean | false | add an AIGC watermark |
-| `duration` | integer | 4 | 4–15 |
-| `async` | boolean | false | return task ID immediately |
-| `callback_url` | string | — | public HTTP(S) webhook |
+| `model` | string | yes | Must be `MiniMax-H3` |
+| `content` | object[] | yes | Ordered multimodal input blocks (see below) |
+| `resolution` | string | yes | `768P` or `2K` |
+| `duration` | integer | yes | Output duration in seconds |
+| `ratio` | string | no | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
+| `callback_url` | string | no | Public webhook URL for async completion callbacks |
+| `aigc_watermark` | boolean | no | Whether to add an AIGC watermark (default `false`) |
 
-`prompt` is required in every mode. Audio references also require at least one image.
+### `content` item format
 
-## Image-to-video example
+Each item in `content` is an object with a required `type`:
 
-```json
-{
-  "model": "minimax-h3",
-  "prompt": "Preserve the character while the camera slowly pushes in",
-  "image_urls": ["https://cdn.acedata.cloud/b1c82e4937.png"],
-  "resolution": "768P",
-  "ratio": "9:16",
-  "duration": 8,
-  "async": true
-}
-```
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `type` | string | yes | `text`, `image_url`, `video_url`, or `audio_url` |
+| `text` | string | conditional | Required when `type` is `text` (max length 7000) |
+| `image_url` | object | conditional | Required when `type` is `image_url`; shape: `{ "url": "https://..." }` |
+| `video_url` | object | conditional | Required when `type` is `video_url`; shape: `{ "url": "https://..." }` |
+| `audio_url` | object | conditional | Required when `type` is `audio_url`; shape: `{ "url": "https://..." }` |
+| `role` | string | no | `first_frame`, `last_frame`, `reference_image`, `reference_video`, or `reference_audio` |
 
-## Audio-guided example
+## Text-to-video example
 
 ```json
 {
-  "model": "minimax-h3",
-  "prompt": "A dancer moves naturally to the rhythm",
-  "image_urls": ["https://cdn.acedata.cloud/b1c82e4937.png"],
-  "audio_urls": ["https://cdn.acedata.cloud/6f7d62b18b.wav"],
+  "model": "MiniMax-H3",
+  "content": [
+    {
+      "type": "text",
+      "text": "A red fox running through a snowy forest at dawn, low tracking shot"
+    }
+  ],
   "resolution": "768P",
-  "ratio": "9:16",
-  "duration": 8,
-  "async": true
+  "duration": 5,
+  "ratio": "16:9"
 }
 ```
 
-## Final result fields
+## Image-guided example
 
-A successful final response contains `success`, `task_id`, `trace_id`, and `data`. The first result includes:
+```json
+{
+  "model": "MiniMax-H3",
+  "content": [
+    {
+      "type": "image_url",
+      "image_url": { "url": "https://cdn.acedata.cloud/reference.png" },
+      "role": "first_frame"
+    },
+    {
+      "type": "text",
+      "text": "Preserve the character while the camera slowly pushes in"
+    }
+  ],
+  "resolution": "2K",
+  "duration": 5,
+  "ratio": "adaptive"
+}
+```
 
-- `id`: public AceDataCloud task ID
-- `model`: `minimax-h3`
-- `mode`: `text_to_video`, `image_to_video`, or `audio_guided`
-- `video_url`: AceDataCloud CDN URL
-- `state`: `succeeded`
-- `duration`: final billed seconds
-- `ratio`: output aspect ratio
-- `resolution`: `768P` or `2K`
+## Accepted response
+
+```json
+{
+  "task_id": "c0f63a98-a7dc-4a09-a1fb-46d32b312a28"
+}
+```
+
+Retrieve the final result with `POST /minimax/tasks`.
+
+## Errors
+
+Common status codes: `400`, `401`, `403`, `422`, `429`, `500`.
