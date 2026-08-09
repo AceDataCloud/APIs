@@ -9,7 +9,7 @@ MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
 | Method | Path | Purpose |
 | --- | --- | --- |
 | POST | `https://api.acedata.cloud/minimax/videos` | Create a video task |
-| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve or delete task records |
+| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve (single or batch) or delete task records |
 
 ## Quick start
 

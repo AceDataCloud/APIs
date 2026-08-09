@@ -10,7 +10,7 @@
 | `content` | object[] | — | required; contains one non-empty `text` item (max 7000 chars) |
 | `resolution` | string | — | required; `768P` or `2K` |
 | `duration` | integer | — | required; 4–15 |
-| `ratio` | string | `adaptive` | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
+| `ratio` | string | — | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
 | `callback_url` | string | — | public HTTP(S) webhook |
 
 The API does not accept legacy `prompt`, `image_urls`, `audio_urls`, `messages`, `first_frame_image`, or `async` fields.
