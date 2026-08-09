@@ -668,7 +668,7 @@ Make stable REST API calls to Google DeepMind's Veo video generation model. Supp
 <div class="feat-card">
 <div class="feat-icon">🖼️</div>
 <h3>Image-to-Video</h3>
-<p>Upload reference images, and Veo will transform them into smooth dynamic videos. Perfectly retains the composition, lighting, and style of the original image, supporting custom aspect ratios.</p>
+<p>Upload reference images, and Veo will transform them into smooth dynamic videos. Retains the composition, lighting, and style of the original image in 16:9 landscape or 9:16 portrait format.</p>
 </div>
 <div class="feat-card">
 <div class="feat-icon">📐</div>
@@ -683,7 +683,7 @@ Make stable REST API calls to Google DeepMind's Veo video generation model. Supp
 <div class="feat-card">
 <div class="feat-icon">🌐</div>
 <h3>Multiple Aspect Ratios</h3>
-<p>Supports various aspect ratios such as 16:9, 9:16, 1:1, 4:3, 3:4, easily adapting to different platform formats like landscape, portrait, and square.</p>
+<p>Supports 16:9 landscape and 9:16 portrait video formats.</p>
 </div>
 <div class="feat-card">
 <div class="feat-icon">🔗</div>
@@ -1015,10 +1015,6 @@ Explore the supported endpoints and integration guides for Veo Video Generation.
 | ---- | ---- | ------------ |
 | [Veo Videos Generation API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f) | `/veo/videos` | [Veo Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/0df6db8d-8b46-4af8-bca5-a15166b938e2) |
 | [Veo Tasks API](https://platform.acedata.cloud/documents/52778f8b-93ce-4db3-a62c-bcf0a92e5f3c) | `/veo/tasks` | [Veo Tasks API Integration Guide](https://platform.acedata.cloud/documents/add58f98-765a-4c2a-b036-a60ee6044879) |
-| Veo Upsample API | `/veo/upsample` | [Veo Upsample API Integration Guide](docs/veo_upsample_api_integration_guide.md) |
-| Veo Extend API | `/veo/extend` | [Veo Extend API Integration Guide](docs/veo_extend_api_integration_guide.md) |
-| Veo Reshoot API | `/veo/reshoot` | [Veo Reshoot API Integration Guide](docs/veo_reshoot_api_integration_guide.md) |
-| Veo Objects API | `/veo/objects` | [Veo Objects API Integration Guide](docs/veo_objects_api_integration_guide.md) |
 
 ## Related Resources
 

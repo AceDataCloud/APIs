@@ -234,7 +234,7 @@ It can be seen that the result content is consistent with the above text, thus a
 If you want to specify the generation of a custom-sized Veo video, you can set the parameter `aspect_ratio` to the desired size. Next, we must fill in the prompt words needed for the next step to customize the generated video, specifying the following content:
 
 - `model`: the model for generating the video, mainly `veo2`, `veo2-fast`, `veo3`, `veo3-fast`, `veo31`, `veo31-fast`, and `veo31-fast-ingredients`.
-- `aspect_ratio`: the size of the video, currently supporting: `16:9`, `9:16`, `3:4`, `4:3`, `1:1`, with the default being `16:9`.
+- `aspect_ratio`: the video aspect ratio. Supported values are `16:9` and `9:16`, with the default being `16:9`.
 - `translation`: whether to enable automatic translation of prompt words, default is `false`.
   An example of filling in is as follows:
 
@@ -342,11 +342,6 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 Through this document, you have learned how to use the Veo Videos Generation API to generate videos by inputting prompt words and reference images of the first frame. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
 
-## Related APIs
+## Related API
 
-After video generation is complete, you can further process the video using the following APIs:
-
-- [Veo Upsample API Integration Guide](veo_upsample_api_integration_guide.md): Upsample a generated video to 1080p / 4K or export a GIF preview.
-- [Veo Extend API Integration Guide](veo_extend_api_integration_guide.md): Extend the duration of a generated video (only veo31 series models supported).
-- [Veo Reshoot API Integration Guide](veo_reshoot_api_integration_guide.md): Keep the scene content and re-generate with a new camera motion (push, pull, pan, tilt, etc.).
-- [Veo Objects API Integration Guide](veo_objects_api_integration_guide.md): Insert or remove objects in a video.
+Use the [Veo Tasks API Integration Guide](veo_tasks_api_integration_guide.md) to retrieve asynchronous task results.
