@@ -824,7 +824,7 @@ Explore the supported endpoints and integration guides for Search Engine.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Google SERP API](https://platform.acedata.cloud/documents/44c86226-8eaa-49bf-85f3-1fae8d2e23f1) | `/serp/google` | [Google SERP API Integration Guide](https://platform.acedata.cloud/documents/cc2ce913-df8f-4d22-a051-93fa33b2e51b) |
+| [Google SERP API](https://platform.acedata.cloud/documents/serp-google) | `/serp/google` | [Google SERP API Integration Guide](https://platform.acedata.cloud/documents/serp-google) |
 
 ## Related Resources
 
