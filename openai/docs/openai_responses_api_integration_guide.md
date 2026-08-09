@@ -30,7 +30,7 @@ Common optional parameters:
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
-- `tools`: Function/tool call definitions.
+- `tools`: Tool definition. Available fields depend on the selected tool type.
 - `background`: Whether to run asynchronously in the background.
 
 <p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto"></p>
