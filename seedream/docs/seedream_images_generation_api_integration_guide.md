@@ -12,7 +12,7 @@ Request body fields:
 
 - `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`.
 - `prompt`: image description (required).
-- `size`: output resolution; supported presets vary by model. 5.0 Pro supports `1K`/`2K`, 5.0 Lite supports `2K`/`3K`/`4K`, 4.5 supports `2K`/`4K`, and 4.0 supports `1K`/`2K`/`4K`.
+- `size`: output resolution.
 - `image`: source image URL or Base64 value array for editing. All supported models accept image input.
 - `callback_url` / `async`: async modes; `async: true` returns a `task_id` polled via Seedream Tasks API.
 
@@ -37,7 +37,12 @@ curl -X POST 'https://api.acedata.cloud/seedream/images' \
   "success": true,
   "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
   "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
-  "data": { "image_url": "https://platform.cdn.acedata.cloud/seedream/xxxx.png", "model": "doubao-seedream-5-0-260128" }
+  "data": [
+    {
+      "image_url": "https://platform.cdn.acedata.cloud/seedream/xxxx.png",
+      "model": "doubao-seedream-5-0-260128"
+    }
+  ]
 }
 ```
 
