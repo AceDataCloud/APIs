@@ -11,9 +11,10 @@
 | `resolution` | string | — | required; `768P` or `2K` |
 | `duration` | integer | — | required; 4–15 |
 | `ratio` | string | `adaptive` | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
-| `callback_url` | string | — | public HTTP(S) webhook |
+| `async` | boolean | `false` | `false` waits for and returns the completed task; `true` returns task identifiers immediately |
+| `callback_url` | string | — | public HTTP(S) webhook; enables asynchronous mode |
 
-The API does not accept legacy `prompt`, `image_urls`, `audio_urls`, `messages`, `first_frame_image`, or `async` fields.
+The API does not accept legacy `prompt`, `image_urls`, `audio_urls`, `messages`, or `first_frame_image` fields. Put prompts and media in `content`; do not send legacy and current formats together.
 
 ## Content items
 
@@ -52,10 +53,30 @@ For text-only requests, provide only the `text` item and use a fixed `ratio`. Fo
 
 ## Response and callbacks
 
-Creating a video returns a task ID:
+By default, the request waits for completion and returns the completed task. Read the generated video from `task.content.url` when `task.status` is `succeeded`:
 
 ```json
-{ "task_id": "TASK_ID" }
+{
+  "task": {
+    "id": "TASK_ID",
+    "model": "MiniMax-H3",
+    "status": "succeeded",
+    "content": {
+      "url": "https://cdn.acedata.cloud/minimax/TASK_ID.mp4"
+    },
+    "resolution": "2K",
+    "duration": 8,
+    "ratio": "9:16",
+    "task_type": "generation",
+    "modality": "video"
+  }
+}
 ```
 
-When `callback_url` is set, first return the POSTed `challenge` value unchanged within three seconds to verify the callback address. Then handle POSTed task status notifications. Save the `task_id` and poll the task API as a fallback.
+Set `async` to `true` (or provide `callback_url`) to return immediately:
+
+```json
+{ "task_id": "TASK_ID", "trace_id": "TRACE_ID" }
+```
+
+When `callback_url` is set, it receives the final task result. Save the returned `task_id` and poll the task API as a fallback.
