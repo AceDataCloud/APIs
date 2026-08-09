@@ -548,7 +548,7 @@ html.dark .serp-page code { background: #1e3a5f !important; color: #93c5fd !impo
 <div class="sp-feat-card">
 <div class="sp-feat-icon">🖼️</div>
 <h3>Image Search</h3>
-<p>Search Google images, returning structured data such as image URLs, thumbnails, and sources for image collection and analysis.</p>
+<p>Search Google images, returning structured data such as image URLs, thumbnails, and sources for image collection and analysis. Use <code>image_size</code> to filter image searches by size.</p>
 </div>
 <div class="sp-feat-card">
 <div class="sp-feat-icon">📰</div>
@@ -558,7 +558,7 @@ html.dark .serp-page code { background: #1e3a5f !important; color: #93c5fd !impo
 <div class="sp-feat-card">
 <div class="sp-feat-icon">🌍</div>
 <h3>Multilingual and Multiregional</h3>
-<p>Specify the country and language for search using <code>gl</code> and <code>hl</code> parameters to get localized search results.</p>
+<p>Specify the country and language for search using <code>country</code> and <code>language</code> parameters to get localized search results.</p>
 </div>
 </div>
 </div>
@@ -568,7 +568,7 @@ html.dark .serp-page code { background: #1e3a5f !important; color: #93c5fd !impo
 <div class="sp-code-grid">
 <div class="sp-code-left">
 <h2>Get search results in one line of code</h2>
-<p>Concise RESTful API design, structured Google search data can be obtained with a GET request.</p>
+<p>Concise RESTful API design, structured Google search data can be obtained with a POST request.</p>
 </div>
 <div>
 <div class="sp-code-wrap">
@@ -576,23 +576,21 @@ html.dark .serp-page code { background: #1e3a5f !important; color: #93c5fd !impo
 <pre class="sp-code">import requests
  
 
-response = requests.get(
+response = requests.post(
 "https://api.acedata.cloud/serp/google",
 headers={
 "Authorization": "Bearer YOUR_API_KEY"
 },
-params={
-"q": "artificial intelligence",
+json={
+"query": "artificial intelligence",
 "number": 10,
-"gl": "us",
-"hl": "en"
+"country": "us",
+"language": "en"
 }
 )
-```python
 data = response.json()
-for result in data["results"]:
+for result in data["organic"]:
     print(result["title"], result["link"])
-```
 </pre>
 </div>
 </div>
@@ -674,7 +672,7 @@ for result in data["results"]:
 </div>
 <div class="sp-param-grid">
 <div class="sp-param-card">
-<div class="sp-param-val">q</div>
+<div class="sp-param-val">query</div>
 <h3>Search Keywords</h3>
 <p class="param-desc">The keywords or query statements to search for, supporting Google search syntax.</p>
 </div>
@@ -684,24 +682,24 @@ for result in data["results"]:
 <p class="param-desc">The number of search results to return, affecting billing tiers (≤10 or >10).</p>
 </div>
 <div class="sp-param-card">
-<div class="sp-param-val">gl</div>
+<div class="sp-param-val">country</div>
 <h3>Country/Region</h3>
 <p class="param-desc">Specify the target country for the search (e.g., <code>us</code>, <code>cn</code>, <code>jp</code>) to get localized results.</p>
 </div>
 <div class="sp-param-card">
-<div class="sp-param-val">hl</div>
+<div class="sp-param-val">language</div>
 <h3>Language</h3>
 <p class="param-desc">Specify the language of the search results (e.g., <code>en</code>, <code>zh-CN</code>, <code>ja</code>).</p>
 </div>
 <div class="sp-param-card">
 <div class="sp-param-val">type</div>
 <h3>Search Type</h3>
-<p class="param-desc">Search types: web (search), images (images), news (news), etc.</p>
+<p class="param-desc">Search types: web (search), images (images), news (news), maps, places, and videos.</p>
 </div>
 <div class="sp-param-card">
-<div class="sp-param-val">start</div>
-<h3>Starting Position</h3>
-<p class="param-desc">The offset of search results, used for pagination to get more results.</p>
+<div class="sp-param-val">page</div>
+<h3>Page Number</h3>
+<p class="param-desc">The page number to return, from 1 to 100.</p>
 </div>
 </div>
 </div>
@@ -755,11 +753,11 @@ for result in data["results"]:
 </div>
 <div class="sp-faq-item">
 <div class="sp-faq-q"><span>How to get more search results?</span><span class="sp-faq-chev">›</span></div>
-<div class="sp-faq-a"><p>Use the <code>number</code> parameter to control the number of results returned each time, combined with the <code>start</code> parameter for pagination to obtain a large number of search results.</p></div>
+<div class="sp-faq-a"><p>Use the <code>number</code> parameter to control the number of results returned each time, combined with the <code>page</code> parameter for pagination to obtain a large number of search results.</p></div>
 </div>
 <div class="sp-faq-item">
 <div class="sp-faq-q"><span>Can I search for results from specific countries/languages?</span><span class="sp-faq-chev">›</span></div>
-<div class="sp-faq-a"><p>Yes. Specify the country for the search using the <code>gl</code> parameter (e.g., <code>us</code>), and the result language using the <code>hl</code> parameter (e.g., <code>en</code>) to accurately locate the results you need.</p></div>
+<div class="sp-faq-a"><p>Yes. Specify the country for the search using the <code>country</code> parameter (e.g., <code>us</code>), and the result language using the <code>language</code> parameter (e.g., <code>en</code>) to accurately locate the results you need.</p></div>
 </div>
 <div class="sp-faq-item">
 <div class="sp-faq-q"><span>Is it suitable for use with AI Agents?</span><span class="sp-faq-chev">›</span></div>
@@ -815,7 +813,7 @@ for result in data["results"]:
 curl --request POST "https://api.acedata.cloud/serp/google" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
-  --data '{}'
+  --data '{"query":"apple inc"}'
 ```
 
 ## APIs and Guides
