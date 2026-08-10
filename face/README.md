@@ -47,11 +47,11 @@ curl --request POST "https://api.acedata.cloud/face/swap" \
 | ---- | ---- | ------------ |
 | [Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e) | `/face/swap` | [Face Swap API Integration Guide](docs/face_swap_api_integration_guide.md) |
 | [Face Beautify API](https://platform.acedata.cloud/documents/7d536eb6-8fea-48d5-a050-43aa57a23f7e) | `/face/beautify` | [Face Beautify API Integration Guide](docs/face_beautify_api_integration_guide.md) |
-| [Face Analyze API](https://platform.acedata.cloud/documents/e4fbc3b6-4f44-48fb-a049-40f5c27c7cd3) | `/face/analyze` | Detect face keypoints and shape |
-| [Face ChangeAge API](https://platform.acedata.cloud/documents/2c7f6468-58d9-4611-885b-1e34664d49e9) | `/face/change-age` | Age a face up or down |
-| [Face ChangeGender API](https://platform.acedata.cloud/documents/2f64e798-d272-460d-92c5-9c1ff99f223b) | `/face/change-gender` | Swap perceived gender |
-| [Face Cartoon API](https://platform.acedata.cloud/documents/1bbce3f9-beec-46bd-8423-5642f0c9e3b8) | `/face/cartoon` | Cartoonify a portrait |
-| [Face DetectLive API](https://platform.acedata.cloud/documents/96006810-b5b7-4585-90eb-90c2ca127b67) | `/face/detect-live` | Liveness detection |
+| [Face Analyze API](https://platform.acedata.cloud/documents/e4fbc3b6-4f44-48fb-a049-40f5c27c7cd3) | `/face/analyze` | [Face Analyze API Integration Guide](docs/face_analyze_api_integration_guide.md) |
+| [Face ChangeAge API](https://platform.acedata.cloud/documents/2c7f6468-58d9-4611-885b-1e34664d49e9) | `/face/change-age` | [Face Change Age API Integration Guide](docs/face_change_age_api_integration_guide.md) |
+| [Face ChangeGender API](https://platform.acedata.cloud/documents/2f64e798-d272-460d-92c5-9c1ff99f223b) | `/face/change-gender` | [Face Change Gender API Integration Guide](docs/face_change_gender_api_integration_guide.md) |
+| [Face Cartoon API](https://platform.acedata.cloud/documents/1bbce3f9-beec-46bd-8423-5642f0c9e3b8) | `/face/cartoon` | [Face Cartoon API Integration Guide](docs/face_cartoon_api_integration_guide.md) |
+| [Face DetectLive API](https://platform.acedata.cloud/documents/96006810-b5b7-4585-90eb-90c2ca127b67) | `/face/detect-live` | [Face Detect Live API Integration Guide](docs/face_detect_live_api_integration_guide.md) |
 
 ## Related Resources
 

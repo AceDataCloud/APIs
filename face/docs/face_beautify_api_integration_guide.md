@@ -1,49 +1,124 @@
-# Face Beautify API Integration Instructions
+# Face Beautification API Integration Instructions
 
-This article introduces the Face Beautify API integration instructions, which enhances a portrait with adjustable smoothing, whitening, face-lifting, and eye-enlarging controls.
+This document will introduce a Face Beautification API integration guide, which can accurately locate facial features and achieve beautification functions such as skin smoothing, skin brightening, and acne removal through a user-uploaded face image (up to five faces can be processed from a single image).
 
 ## Application Process
 
-To use the Face Beautify API, apply for the corresponding service on the [Face Beautify API](https://platform.acedata.cloud/documents/7d536eb6-8fea-48d5-a050-43aa57a23f7e) page. After entering the page, click the "Acquire" button.
+To use Face Beautification API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Face Beautification API →](https://platform.acedata.cloud/documents/face-beautify)
 
 ## Basic Usage
 
-The most basic usage is to provide an `image_url`. The result is the beautified image. The request body fields are described below:
+First, understand the basic usage method, which is to input the image link and beautification information to obtain the processed result image. You need to simply pass an `image_url` field, as shown in the face image below:
 
-- `image_url`: the portrait to beautify (required).
-- `smoothing`: skin smoothing strength.
-- `whitening`: skin whitening strength.
-- `face_lifting`: face slimming strength.
-- `eye_enlarging`: eye enlargement strength.
+<p><img src="https://cdn.acedata.cloud/ohgrs3.png" width="500" class="m-auto" /></p>
 
-### Request Example
+Next, we also need to upload the parameters related to face beautification information, as detailed in the request body information below. We can then fill in the corresponding content on the interface, as shown in the image below:
 
-```bash
-curl -X POST 'https://api.acedata.cloud/face/beautify' \
-  -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
-  -H 'content-type: application/json' \
-  -d '{
-    "image_url": "https://example.com/portrait.jpg",
-    "smoothing": 5,
-    "whitening": 5
-  }'
-```
+<p><img src="https://cdn.acedata.cloud/gjzkwv.png" width="500" class="m-auto" /></p>
 
-### Response Example
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, we set the Request Body, including:
+
+- `image_url`: the link to the face image that needs to be processed.
+- `smoothing`: the degree of skin smoothing, with a range of [0,100]. 0 means no smoothing, and 100 represents the highest degree. The default value is 10.
+- `whitening`: the degree of skin whitening, with a range of [0,100]. 0 means no whitening, and 100 represents the highest degree. The default value is 30.
+- `face_lifting`: the degree of face slimming, with a range of [0,100]. 0 means no slimming, and 100 represents the highest degree. The default value is 70.
+- `eye_enlarging`: the degree of eye enlargement, with a range of [0,100]. 0 means no enlargement, and 100 represents the highest degree. The default value is 70.
+
+After selection, you can see that the corresponding code is also generated on the right side, as shown in the image below:
+
+<p><img src="https://cdn.acedata.cloud/nhq282.png" width="500" class="m-auto" /></p>
+
+Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
 
 ```json
 {
-  "image_url": "https://faceeffect-1254418846.cos.ap-guangzhou.myqcloud.com/fmu/BeautifyPic/1256437459/4027c868-60e9-40e0-b929-0fdb69dcf3c1"
+  "image_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001"
 }
 ```
 
-Download the beautified image from the `image_url` field.
+As you can see, the returned result contains an `image_url` field, which is the face image after beautification based on the input changes. The changed face information is shown below:
 
-## Support
+<p><img src="https://cdn.acedata.cloud/g809b1.png" width="500" class="m-auto" /></p>
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+You can see that the face in the image has changed according to the input beautification information.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/face/beautify' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "image_url": "https://cdn.acedata.cloud/lrbtcn.jpg",
+  "smoothing": 50,
+  "whitening": 50,
+  "face_lifting": 50,
+  "eye_enlarging": 50
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/face/beautify"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "image_url": "https://cdn.acedata.cloud/lrbtcn.jpg",
+    "smoothing": 50,
+    "whitening": 50,
+    "face_lifting": 50,
+    "eye_enlarging": 50
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Face Beautification API for a user-uploaded face image (up to five faces can be processed from a single image), accurately locate facial features, and achieve beautification functions such as skin smoothing, skin brightening, and acne removal. We hope this document can help you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

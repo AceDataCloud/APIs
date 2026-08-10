@@ -6,19 +6,21 @@ This document mainly describes the usage process of the OpenAI Responses API, wh
 
 ## Application Process
 
-To use the OpenAI Responses API, you can first go to the [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use OpenAI Responses API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [OpenAI Responses API →](https://platform.acedata.cloud/documents/openai-responses)
 
 ## Basic Usage
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/8lu8di.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/8lu8di.png" width="400" class="m-auto" /></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI ChatGPT model category we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `input`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
@@ -33,7 +35,7 @@ Common optional parameters:
 - `tools`: Function/tool call definitions.
 - `background`: Whether to run asynchronously in the background.
 
-<p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto" /></p>
 
 After the call, we find the returned result as follows:
 
@@ -111,7 +113,7 @@ The returned result contains multiple fields, described as follows:
 
 Among them, `output` contains the response information from ChatGPT, and the `output` inside it is from ChatGPT, as shown in the figure.
 
-<p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto" /></p>
 
 You can see that the `content` field in `output` contains the specific content of ChatGPT's reply.
 
@@ -123,7 +125,7 @@ If you want to return responses in a streaming manner, you can change the `strea
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto" /></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
 
@@ -189,169 +191,9 @@ data: {"type": "response.content_part.done", "sequence_number": 15, "item_id": "
 
 data: {"type": "response.output_item.done", "sequence_number": 16, "output_index": 0, "item": {"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}, "model": "gpt-4.1"} 
 
-data: {"type": "response.completed", "sequence_number": 17, "response": {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "completed", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [{"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage": {"input_tokens": 8, "input_tokens_details": {"cached_tokens": 0}, "output_tokens": 11, "output_tokens_details": {"reasoning_tokens": 0}, "total_tokens": 19}, "user": null, "metadata": {}}, "model": "gpt-4.1"}
-
-```
-
-You can see that there are many `data` entries in the response. The `delta` inside `data` is the latest response content, consistent with the introduction above. The `delta` is newly added response content, which you can use to connect to your system. The end of the streaming response is determined by the `type` field in `data` — when `type` is `response.completed`, the streaming response has fully ended. The returned `data` result contains multiple fields, described as follows:
-
-- `item_id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
-- `type`: The type of this Responses dialogue task.
-- `model`: The selected OpenAI ChatGPT model.
-
-JavaScript is also supported. For example, the Node.js streaming call code is as follows:
-
-```javascript
-const options = {
-  method: "post",
-  headers: {
-    accept: "application/json",
-    authorization: "Bearer {token}",
-    "content-type": "application/json",
-  },
-  body: JSON.stringify({
-    model: "gpt-4.1",
-    input: [{ role: "user", content: "Hello" }],
-    stream: true,
-  }),
-};
-
-fetch("https://api.acedata.cloud/openai/responses", options)
-  .then((response) => response.json())
-  .then((response) => console.log(response))
-  .catch((err) => console.error(err));
-```
-
-## Multi-round Dialogue
-
-If you want to integrate multi-round dialogue functionality, you need to upload multiple prompts in the `input` field. The specific examples of multiple prompts are shown in the image below:
-
-<p><img src="https://cdn.acedata.cloud/1jqwnf.png" width="400" class="m-auto"></p>
-
-Python sample call code:
-
+data: {"type": "response.completed", "sequence_number": 17, "response": {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "completed", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [{"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage":
 ```python
 import requests
-
-url = "https://api.acedata.cloud/openai/responses"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "model": "gpt-4.1",
-    "input": [{"role":"user","content":"Hello"},{"role":"assistant","content":"Hello! How can I help you today? 😊"},{"role":"user","content":"What did I just say?"}]
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-By uploading multiple prompts, multi-round dialogue can be easily achieved, resulting in the following response:
-
-```json
-{
-  "id": "resp_68a989c03c508191a1dd82ce2e37e88a0932a4328c0a5d5b",
-  "object": "response",
-  "created_at": 1755941312,
-  "status": "completed",
-  "background": false,
-  "content_filters": null,
-  "error": null,
-  "incomplete_details": null,
-  "instructions": null,
-  "max_output_tokens": null,
-  "max_tool_calls": null,
-  "model": "gpt-4.1",
-  "output": [
-    {
-      "id": "msg_68a989c092e4819189821a9eb8247e1e0932a4328c0a5d5b",
-      "type": "message",
-      "status": "completed",
-      "content": [
-        {
-          "type": "output_text",
-          "annotations": [],
-          "text": "You just said \"Hello.\" \n\nWould you like to continue the conversation or ask a question?"
-        }
-      ],
-      "role": "assistant"
-    }
-  ],
-  "parallel_tool_calls": true,
-  "previous_response_id": null,
-  "prompt_cache_key": null,
-  "reasoning": {
-    "effort": null,
-    "summary": null
-  },
-  "safety_identifier": null,
-  "service_tier": "default",
-  "store": true,
-  "temperature": 1,
-  "text": {
-    "format": {
-      "type": "text"
-    }
-  },
-  "tool_choice": "auto",
-  "tools": [],
-  "top_p": 1,
-  "truncation": "disabled",
-  "usage": {
-    "input_tokens": 32,
-    "input_tokens_details": {
-      "cached_tokens": 0
-    },
-    "output_tokens": 20,
-    "output_tokens_details": {
-      "reasoning_tokens": 0
-    },
-    "total_tokens": 52
-  },
-  "user": null,
-  "metadata": {}
-}
-```
-
-You can see that the information in `output` is consistent with the basic usage content, which contains the specific replies from ChatGPT for multiple conversations, allowing responses to be provided based on multiple dialogue turns.
-
-## Vision Model
-
-gpt-4o is a multimodal large language model developed by OpenAI. It adds visual understanding capabilities on top of GPT-4, allowing it to process both text and image inputs simultaneously to achieve cross-modal understanding and generation.
-
-Using the gpt-4o model for text processing is consistent with the basic usage described above. Below is a brief introduction to how to use the model's image processing capabilities.
-
-The image processing capability of the gpt-4o model is mainly enabled by adding a `type` field to the original `content`, through which you can specify whether the input is text or an image. The following describes how to use this feature with both Curl and Python.
-
-- Curl
-
-```
-curl -X POST 'https://api.acedata.cloud/openai/responses' \
--H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
--H 'content-type: application/json' \
--d '{
-    "model": "gpt-4.1",
-    "input": [
-      {
-        "role": "user",
-        "content": [
-          {"type": "input_text", "text": "what is in this image?"},
-          {
-            "type": "input_image",
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
-          }
-        ]
-      }
-    ]
-  }'
-```
-
-- Python
 
 url = "https://api.acedata.cloud/openai/responses"
 
@@ -597,4 +439,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official OpenAI Responses creation feature using the OpenAI Responses API. We hope this document can help you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official OpenAI's creation of Responses feature using the OpenAI Responses API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
