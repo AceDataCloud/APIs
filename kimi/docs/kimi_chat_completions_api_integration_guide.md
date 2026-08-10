@@ -78,7 +78,7 @@ As can be seen, the `content` field in `choices` contains the specific content o
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
 
-If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
+If you want to return responses in a streaming manner, you can set the `stream` field in the JSON request body to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
@@ -105,53 +105,92 @@ payload = {
     "stream": True
 }
 
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
+response = requests.post(url, json=payload, headers=headers, stream=True)
+for line in response.iter_lines():
+    if line:
+        print(line.decode("utf-8"))
+```
+
+The response uses Server-Sent Events. Each event starts with `data:` and ends with a blank line. The final chunk before `data: [DONE]` may contain a `usage` object summarizing token consumption. Always wait for `data: [DONE]` before treating the response as complete.
+
+```text
+data: {"id":"chatcmpl-example","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":"Hello"},"finish_reason":null}],"usage":null}
+
+data: {"id":"chatcmpl-example","object":"chat.completion.chunk","choices":[],"usage":{"prompt_tokens":1,"completion_tokens":1,"total_tokens":2}}
+
+data: [DONE]
 ```
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
 ```javascript
 const options = {
-  method: "post",
+  method: "POST",
   headers: {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
+    accept: "application/json",
+    authorization: "Bearer {token}",
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    "model": "kimi-k3",
-    "messages": [{"role":"user","content":"Hello"}],
-    "stream": true
+    model: "kimi-k3",
+    messages: [{ role: "user", content: "Hello" }],
+    stream: true
   })
 };
 
-fetch("https://api.acedata.cloud/kimi/chat/completions", options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+const response = await fetch("https://api.acedata.cloud/kimi/chat/completions", options);
+const reader = response.body.getReader();
+const decoder = new TextDecoder("utf-8");
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  process.stdout.write(decoder.decode(value));
+}
 ```
 
 Java sample code:
 
 ```java
-JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "kimi-k3");
-jsonObject.put("messages", [{"role":"user","content":"Hello"}]);
-jsonObject.put("stream", true);
-MediaType mediaType = "application/json; charset=utf-8".toMediaType();
-RequestBody body = jsonObject.toString().toRequestBody(mediaType);
-Request request = new Request.Builder()
-  .url("https://api.acedata.cloud/kimi/chat/completions")
-  .post(body)
-  .addHeader("accept", "application/json")
-  .addHeader("authorization", "Bearer {token}")
-  .addHeader("content-type", "application/json")
-  .build();
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-OkHttpClient client = new OkHttpClient();
-Response response = client.newCall(request).execute();
-System.out.print(response.body!!.string())
+public class Main {
+  public static void main(String[] args) throws Exception {
+    JSONObject payload = new JSONObject()
+      .put("model", "kimi-k3")
+      .put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello")))
+      .put("stream", true);
+    RequestBody body = RequestBody.create(payload.toString(), MediaType.parse("application/json; charset=utf-8"));
+    Request request = new Request.Builder()
+      .url("https://api.acedata.cloud/kimi/chat/completions")
+      .post(body)
+      .addHeader("accept", "application/json")
+      .addHeader("authorization", "Bearer {token}")
+      .addHeader("content-type", "application/json")
+      .build();
+
+    try (Response response = new OkHttpClient().newCall(request).execute()) {
+      if (!response.isSuccessful() || response.body() == null) {
+        throw new IllegalStateException("HTTP " + response.code());
+      }
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), StandardCharsets.UTF_8))) {
+        for (String line; (line = reader.readLine()) != null; ) {
+          if (!line.isEmpty()) {
+            System.out.println(line);
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 Other languages can be rewritten accordingly; the principle is the same.
