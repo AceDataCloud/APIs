@@ -44,11 +44,11 @@ curl --request POST "https://api.acedata.cloud/fish/tts" \
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) | `/fish/tts` | [Fish TTS API Integration Guide](docs/fish_tts_api_integration_guide.md) |
-| [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523) | `/fish/tasks` | [Fish Tasks API Integration Guide](docs/fish_tasks_api_integration_guide.md) |
-| [Fish Model Create API](https://platform.acedata.cloud/documents/82dcabe9-b1a3-541f-80f1-decb183b920c) | `/fish/model` | Create a custom voice model from reference audio |
-| [Fish Model Query API](https://platform.acedata.cloud/documents/0a2c983b-e20f-5926-a45f-07b61373617d) | `/fish/model` | List voice models |
-| [Fish Model Get API](https://platform.acedata.cloud/documents/70f84537-7c48-57d3-9a21-b2a4f55e8f31) | `/fish/model/{id}` | Fetch a single voice model |
+| [Fish TTS API](https://platform.acedata.cloud/services/fish) | `/fish/tts` | [Fish TTS API Integration Instructions](docs/fish_tts_api_integration_guide.md) |
+| [Fish Tasks API](https://platform.acedata.cloud/documents/fish-tasks) | `/fish/tasks` | [Fish Tasks API Integration and Usage](docs/fish_tasks_api_integration_guide.md) |
+| [Fish Model API](https://platform.acedata.cloud/documents/fish-model) | `/fish/model` | [Fish Model API Integration Guide](docs/fish_model_api_integration_guide.md) |
+| [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query) | `/fish/model` | [Fish Model Query API Integration Guide](docs/fish_model_query_api_integration_guide.md) |
+| [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get) | `/fish/model/{id}` | [Fish Model Get API Integration Guide](docs/fish_model_get_api_integration_guide.md) |
 
 ## Related Resources
 

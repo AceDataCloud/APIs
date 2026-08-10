@@ -17,7 +17,7 @@ Keywords: producer-api, ai-music, music-generation, song-generation, lyrics, cov
 
 ## Overview
 
-The Producer Audios Generation API generates AI songs from a text `prompt` or custom `lyric`, with support for instrumental-only tracks, covers, extensions, and section replacement. The Producer Lyrics Generation API drafts lyrics from a prompt. The Producer Wav / Videos APIs export a finished track to WAV audio or MP4 video, the Upload API registers a reference audio for cover/extend, and the Tasks API polls asynchronous jobs.
+The Producer Audios Generation API generates AI songs from a text `prompt` or custom `lyric`, with support for instrumental-only tracks, covers, extensions, and section replacement. The Producer Lyrics Generation API drafts lyrics from a prompt. The Producer WAV and Videos APIs export a finished track to WAV audio or MP4 video, the Upload API registers a reference audio for cover/extend, and the Tasks API polls asynchronous jobs.
 
 ## Application Process
 
@@ -56,8 +56,12 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
-| [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| [Producer Upload Reference Audio API](https://platform.acedata.cloud/documents/producer-upload) | `/producer/upload` | [Producer Upload Reference Audio API Integration Instructions](docs/producer_upload_reference_audio_api_integration_guide.md) |
+| [Producer Video Download API](https://platform.acedata.cloud/documents/producer-videos) | `/producer/videos` | [Producer Video Download API Integration Instructions](docs/producer_video_download_api_integration_guide.md) |
+| [Producer Download WAV API](https://platform.acedata.cloud/documents/producer-wav) | `/producer/wav` | [Producer Download WAV API Integration Instructions](docs/producer_download_wav_api_integration_guide.md) |
+| [Producer Audios Generation API](https://platform.acedata.cloud/documents/producer-audios) | `/producer/audios` | [Producer Audios Generation API Integration Instructions](docs/producer_audios_generation_api_integration_guide.md) |
+| [Producer Tasks API](https://platform.acedata.cloud/documents/producer-tasks) | `/producer/tasks` | [Integration and Use of Producer Tasks API](docs/producer_tasks_api_integration_guide.md) |
+| [Producer Lyrics Generation API](https://platform.acedata.cloud/documents/producer-lyrics) | `/producer/lyrics` | [Producer Lyrics Generation API Integration Instructions](docs/producer_lyrics_generation_api_integration_guide.md) |
 
 ## Related Resources
 
