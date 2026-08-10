@@ -102,7 +102,7 @@ import requests
 url = "https://api.acedata.cloud/gemini/chat/completions"
 
 headers = {
-    "accept": "text/event-stream",
+    "accept": "application/json",
     "authorization": "Bearer {token}",
     "content-type": "application/json"
 }
@@ -113,8 +113,10 @@ payload = {
     "stream": True
 }
 
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
+response = requests.post(url, json=payload, headers=headers, stream=True)
+for line in response.iter_lines():
+    if line:
+        print(line.decode("utf-8"))
 ```
 
 The output effect is as follows:
@@ -145,58 +147,28 @@ It can be seen that there are many `data` in the response, and the `choices` in 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
 ```javascript
-async function main() {
-  const response = await fetch("https://api.acedata.cloud/gemini/chat/completions", {
-    method: "POST",
-    headers: {
-      "accept": "text/event-stream",
-      "authorization": "Bearer {token}",
-      "content-type": "application/json"
-    },
-    body: JSON.stringify({
-      "model": "gemini-2.5-pro",
-      "messages": [{"role": "user", "content": "Hello, what model are you?"}],
-      "stream": true,
-      "stream_options": {"include_usage": true}
-    })
-  });
+const options = {
+  method: "POST",
+  headers: {
+    accept: "application/json",
+    authorization: "Bearer {token}",
+    "content-type": "application/json"
+  },
+  body: JSON.stringify({
+    model: "gemini-2.5-pro",
+    messages: [{ role: "user", content: "Hello, what model are you?" }],
+    stream: true
+  })
+};
 
-  if (!response.ok || !response.body) {
-    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
-  }
-
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = "";
-  let done = false;
-
-  while (!done) {
-    const result = await reader.read();
-    buffer += decoder.decode(result.value || new Uint8Array(), {stream: !result.done}).replaceAll("\r\n", "\n");
-
-    let boundary;
-    while ((boundary = buffer.indexOf("\n\n")) !== -1) {
-      const event = buffer.slice(0, boundary);
-      buffer = buffer.slice(boundary + 2);
-      const data = event.split("\n").filter(line => line.startsWith("data:")).map(line => line.slice(5).trimStart()).join("\n");
-      if (!data) continue;
-      if (data === "[DONE]") {
-        done = true;
-        break;
-      }
-
-      const chunk = JSON.parse(data);
-      if (chunk.usage) console.error("usage:", chunk.usage);
-      const delta = chunk.choices?.[0]?.delta;
-      if (delta?.reasoning_content) process.stdout.write(delta.reasoning_content);
-      if (delta?.content) process.stdout.write(delta.content);
-    }
-
-    if (result.done) break;
-  }
+const response = await fetch("https://api.acedata.cloud/gemini/chat/completions", options);
+const reader = response.body.getReader();
+const decoder = new TextDecoder("utf-8");
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  process.stdout.write(decoder.decode(value));
 }
-
-main().catch(console.error);
 ```
 
 Java sample code:
@@ -218,13 +190,12 @@ public class Main {
     JSONObject payload = new JSONObject()
       .put("model", "gemini-2.5-pro")
       .put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello, what model are you?")))
-      .put("stream", true)
-      .put("stream_options", new JSONObject().put("include_usage", true));
+      .put("stream", true);
     RequestBody body = RequestBody.create(payload.toString(), MediaType.parse("application/json; charset=utf-8"));
     Request request = new Request.Builder()
       .url("https://api.acedata.cloud/gemini/chat/completions")
       .post(body)
-      .addHeader("accept", "text/event-stream")
+      .addHeader("accept", "application/json")
       .addHeader("authorization", "Bearer {token}")
       .addHeader("content-type", "application/json")
       .build();
@@ -234,34 +205,13 @@ public class Main {
         throw new IllegalStateException("HTTP " + response.code());
       }
       try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), StandardCharsets.UTF_8))) {
-        StringBuilder eventData = new StringBuilder();
         for (String line; (line = reader.readLine()) != null; ) {
-          if (line.isEmpty()) {
-            if (consumeEvent(eventData.toString())) break;
-            eventData.setLength(0);
-          } else if (line.startsWith("data:")) {
-            if (eventData.length() > 0) eventData.append('\n');
-            eventData.append(line.substring(5).stripLeading());
+          if (!line.isEmpty()) {
+            System.out.println(line);
           }
         }
       }
     }
-  }
-
-  private static boolean consumeEvent(String data) {
-    if (data.isEmpty()) return false;
-    if (data.equals("[DONE]")) return true;
-    JSONObject chunk = new JSONObject(data);
-    if (chunk.has("usage") && !chunk.isNull("usage")) System.err.println("usage: " + chunk.getJSONObject("usage"));
-    JSONArray choices = chunk.optJSONArray("choices");
-    if (choices != null && choices.length() > 0) {
-      JSONObject delta = choices.getJSONObject(0).optJSONObject("delta");
-      if (delta != null) {
-        System.out.print(delta.optString("reasoning_content", ""));
-        System.out.print(delta.optString("content", ""));
-      }
-    }
-    return false;
   }
 }
 ```
