@@ -27,4 +27,3 @@ curl -X POST 'https://api.acedata.cloud/gemini/videos' \
 ## Response
 
 A completed request returns `success`, `task_id`, `trace_id`, and `data`. Each data item has an `id`, `video_url`, `state` (`pending`, `succeeded`, or `failed`), `aspect_ratio`, and `prompt`. Asynchronous requests return a `task_id`; query it through the Gemini Tasks API.
-
