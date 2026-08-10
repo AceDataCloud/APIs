@@ -26,6 +26,8 @@ You can also notice that there is corresponding code generation on the right sid
 
 <p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto" /></p>
 
+> **Note**: Flash models in the `gemini-3.x` series are thinking models and consume reasoning tokens first. Set `max_tokens` to at least 512 to avoid an empty response. `gemini-3.6-flash` is the currently recommended Flash model; it supports up to one million tokens of context, image input, tool calling, and streaming responses through the Chat Completions API.
+
 After the call, we find that the returned result is as follows:
 
 ```json
