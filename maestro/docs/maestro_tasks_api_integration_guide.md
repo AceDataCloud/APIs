@@ -2,7 +2,7 @@
 
 `POST https://api.acedata.cloud/maestro/tasks`
 
-The Maestro Tasks API retrieves one video job or lists recent jobs belonging to the authenticated user. Polling and history retrieval are free.
+The Maestro Tasks API retrieves one video job belonging to the authenticated user. Polling is free.
 
 ## Authentication
 
@@ -158,50 +158,6 @@ print(task)
 ```
 
 Choose these client-side timing values for your workload and current service behavior; the API does not publish fixed polling-interval guarantees.
-
-## List Recent Tasks
-
-Use `retrieve_batch` to list the authenticated user's tasks in reverse creation order.
-
-| Field | Type | Required | Default | Description |
-|---|---|---:|---|---|
-| `action` | string | yes | - | Must be `retrieve_batch` |
-| `limit` | integer | no | `20` | Maximum page size requested |
-| `created_at_min` | integer | no | - | Return tasks newer than this Unix timestamp |
-| `created_at_max` | integer | no | - | Return tasks older than this Unix timestamp; use for pagination |
-
-```bash
-curl --request POST 'https://api.acedata.cloud/maestro/tasks' \
-  --header 'Authorization: Bearer YOUR_API_TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "action": "retrieve_batch",
-    "limit": 20
-  }'
-```
-
-Illustrative response shape:
-
-```json
-{
-  "count": 6,
-  "items": [
-    {
-      "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
-      "status": "succeeded",
-      "created_at": 1750000000,
-      "progress": {"percent": 100, "stage": "producing", "message": null},
-      "request": {"prompt": "Create a product video.", "langs": ["en"]},
-      "response": {"success": true, "data": {"variants": []}}
-    }
-  ]
-}
-```
-
-- `count` is the authenticated user's total task count and is independent of any `created_at_min`/`created_at_max` window.
-- `items` contains the requested page in newest-first order.
-- For the next page, pass the oldest returned item's `created_at` as `created_at_max`.
-- Identity comes from the authenticated request. A body-level `user_id` must not be used to select another user's tasks.
 
 ## Errors
 

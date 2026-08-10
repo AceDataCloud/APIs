@@ -26,11 +26,11 @@ Keep tokens outside source control and never expose them in client-side code or 
 | `action` | string | no | `generate` | `generate`, `remix`, `edit`, or `extend` |
 | `ref_task_id` | string | conditional | - | Required when `action` is `remix`, `edit`, or `extend` |
 | `file_urls` | string[] | no | - | Public image, video, or audio references |
-| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
+| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary; maximum 4 items |
 | `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
-| `duration` | integer | no | `30` | Target length in seconds, from 1 through 600 |
-| `quality` | string | no | `standard` | `draft`, `standard`, or `premium` |
-| `scenario` | string | no | `auto` | `auto`, `narrated`, `drama`, `avatar`, `motion`, or `slideshow` |
+| `duration` | integer | no | `30` | Target length in seconds, from 5 through 300 |
+| `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |
+| `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama` |
 | `style` | string | no | `auto` | Named preset or freeform visual-style hint |
 | `voice` | string | no | `auto` | Voice preset or a 32-hex-character Fish reference ID |
 | `callback_url` | string | no | - | Public webhook URL called when the task reaches a terminal state |
@@ -42,13 +42,13 @@ Keep tokens outside source control and never expose them in client-side code or 
 - `edit`: apply targeted changes to an earlier video.
 - `extend`: continue or lengthen an earlier video.
 
-Every non-`generate` action requires `ref_task_id` and creates a new task ID.
+Every non-`generate` action requires `ref_task_id` and creates a new task ID. `lite` quality supports `generate` and `edit`; `standard` adds `remix`; `pro` adds `extend`.
 
 ### Quality Tiers
 
-- `draft`: faster rough cut for validating direction.
-- `standard`: balanced default.
-- `premium`: more detailed production with a higher quality multiplier and longer turnaround.
+- `lite`: fast 720p production for short videos.
+- `standard`: balanced 1080p default.
+- `pro`: advanced production for longer, higher-fidelity output.
 
 ### Scenarios
 
@@ -56,8 +56,7 @@ Every non-`generate` action requires `ref_task_id` and creates a new task ID.
 - `narrated`: multi-scene explainer, documentary, brand, history, or product video.
 - `drama`: character and dialogue-driven short drama.
 - `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`.
-- `motion`: kinetic type, data, logo, or abstract motion graphics.
-- `slideshow`: presentation, pitch, or slide-led production.
+- `captions`: caption-focused route that requires source video in `file_urls`.
 
 ### Styles and Voices
 
@@ -86,7 +85,7 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
     "langs": ["en", "de"],
     "aspect": "16:9",
     "duration": 45,
-    "quality": "premium",
+    "quality": "pro",
     "scenario": "narrated",
     "style": "editorial",
     "voice": "documentary-male"
@@ -112,7 +111,7 @@ response = requests.post(
         "langs": ["en", "de"],
         "aspect": "16:9",
         "duration": 45,
-        "quality": "premium",
+        "quality": "pro",
         "scenario": "narrated",
         "style": "editorial",
     },
