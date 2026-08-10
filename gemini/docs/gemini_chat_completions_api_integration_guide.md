@@ -6,13 +6,15 @@ This document mainly describes the usage process of the Gemini Chat Completion A
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page and click the "Acquire" button to obtain the credentials needed for the request:
+Create an API Token in the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications), then send it in the `Authorization` header for Gemini requests:
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and returned automatically after login.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+One API Token works across Ace Data Cloud services. New accounts receive starter credit, and you can top up shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+Full documentation: [Gemini Chat Completion API](https://platform.acedata.cloud/documents/gemini-chat-completions)
 
 ## Basic Usage
 
@@ -20,7 +22,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of the questions we input. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: `authorization`, the `model` to call, and `messages`. The `messages` field is an array that allows multiple turns to be uploaded together, and each message contains `role` and `content`. Typical roles are `user`, `assistant`, and `system`.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -82,11 +84,27 @@ Among them, `choices` contains the response information from Gemini, and the `ch
 
 It can be seen that the `content` field in `choices` contains the specific content of Gemini's reply.
 
+## Supported Models and Common Request Options
+
+The current Gemini Chat Completions OpenAPI documents the following model values:
+
+- `gemini-3.1-pro`
+- `gemini-3.5-flash`
+- `gemini-3.1-flash-lite-preview`
+- `gemini-3.0-pro`
+- `gemini-3-flash-preview`
+- `gemini-2.5-pro`
+- `gemini-2.5-flash`
+- `gemini-2.5-flash-lite`
+- `gemini-2.0-flash`
+
+In addition to `model` and `messages`, the request body can also include fields such as `stream`, `response_format`, `max_completion_tokens`, `reasoning_effort`, `tools`, `tool_choice`, `web_search_options`, and `service_tier`.
+
 ## Streaming Response
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
 
-If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
+If you want to return responses in a streaming manner, set the `stream` field in the JSON request body to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
@@ -406,7 +424,7 @@ It can be seen from the above that the Gemini 3.0 model supports multimodal unde
 
 ## Gemini-3.1 Multimodal Model
 
-Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
+Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. On Ace Data Cloud, the public request model remains `gemini-3.1-pro`; current upstream documentation notes that the underlying Gemini 3.1 Pro family maps to `gemini-3.1-pro-preview`. The usage is otherwise consistent with Gemini 3.0 Pro.
 
 Request example:
 

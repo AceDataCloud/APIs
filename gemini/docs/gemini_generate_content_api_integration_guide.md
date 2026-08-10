@@ -6,11 +6,15 @@ Google Gemini is a very powerful AI conversation system that can generate smooth
 
 The Gemini Generate Content API uses Google's official native request format (`contents` field), rather than the OpenAI-compatible format (`messages` field). If you are already using the Google Gemini SDK or are familiar with the official API format, you can use this API directly without modifying the request format.
 
+The current OpenAPI documents `contents` as the required request body field. It also accepts optional `systemInstruction`, `generationConfig`, `tools`, `toolConfig`, and `safetySettings` fields.
+
 ## Application Process
 
-To use the Gemini Generate Content API, you can first visit the [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) page and click the "Acquire" button to obtain the credentials needed for the request.
+Create an API Token in the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications), then send it in the `Authorization` header for Gemini requests.
 
-If you are not logged in or registered, you will be automatically redirected to the login page. Upon the first application, there will be a free quota provided.
+One API Token works across Ace Data Cloud services. New accounts receive starter credit, and you can top up shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+Full documentation: [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api)
 
 ## Basic Usage
 
@@ -87,16 +91,19 @@ curl -X POST "https://api.acedata.cloud/v1beta/models/gemini-2.5-flash:streamGen
 
 Streaming responses return content incrementally in SSE (Server-Sent Events) format.
 
-## Supported Models
+## Common Model Values
 
 | Model Name | Description |
 |---------|------|
-| `gemini-2.5-flash` | Excellent cost-performance ratio, suitable for high-volume low-latency tasks |
-| `gemini-2.5-pro` | Most advanced model, deep reasoning for complex tasks |
-| `gemini-2.5-flash-lite` | Fastest and most economical multi-modal model |
-| `gemini-3-flash-preview` | Frontier-level performance with lower cost |
-| `gemini-3.1-pro` | Advanced intelligence with powerful agent and coding capabilities |
-| `gemini-2.0-flash` | Second-generation main model |
+| `gemini-3.1-pro` | Advanced reasoning and multimodal capabilities |
+| `gemini-3.5-flash` | Fast general-purpose Gemini chat/generation model |
+| `gemini-3.1-flash-lite-preview` | Lightweight Gemini 3.1 variant |
+| `gemini-3.0-pro` | Gemini 3.0 multimodal model |
+| `gemini-3-flash-preview` | Preview flash model |
+| `gemini-2.5-pro` | Strong reasoning for complex tasks |
+| `gemini-2.5-flash` | Good cost/performance balance |
+| `gemini-2.5-flash-lite` | Lower-cost flash-lite variant |
+| `gemini-2.0-flash` | Earlier Gemini 2.0 flash model |
 
 ## Advanced Features
 
@@ -215,6 +222,8 @@ Models that support thinking (such as gemini-2.5-flash, gemini-2.5-pro) can enab
 }
 ```
 
+If you need additional control over how tools are selected or invoked, the request body also accepts a `toolConfig` object in the native Gemini format.
+
 ### Multi-turn Conversation
 
 ```json
@@ -275,10 +284,10 @@ You can control content filtering via `safetySettings`:
 
 ## Error Handling
 
+The current Gemini OpenAPI explicitly documents the following error for the native `generateContent` endpoint:
+
 | HTTP Status Code | Meaning |
 |------------|------|
 | 400 | Invalid request parameters |
-| 401 | Authentication failed, please check Token |
-| 403 | Content blocked by safety filter |
-| 429 | Too many requests |
-| 500 | Internal server error |
+
+Authentication still uses the standard `Authorization` header, and successful streaming calls return Server-Sent Events from `streamGenerateContent`.

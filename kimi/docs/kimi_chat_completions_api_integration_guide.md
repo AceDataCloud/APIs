@@ -8,13 +8,13 @@ The recommended model is `kimi-k3`, which supports reasoning, vision, tool calli
 
 ## Application Process
 
-To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) page and click the "Acquire" button to obtain the credentials needed for the request:
+Get an API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications):
 
 ![](https://cdn.acedata.cloud/nyq0xz.png)
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**One API Token can call all platform services.** New accounts receive a free quota; recharge shared balance in the [console](https://platform.acedata.cloud/console/coin) when needed.
 
 ## Basic Usage
 
@@ -22,41 +22,35 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3` for the current flagship or select a compatible K2 model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, provide `authorization`, the recommended `model` (`kimi-k3`), and `messages`. Each message has a `role` and `content`; supported roles are `user`, `assistant`, `system`, and `tool`.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" class="m-auto"></p>
 
-The following response snapshot was captured from a K2.5 request and is retained to illustrate the response structure. When you use the K3 examples below, the response `model` field will be `kimi-k3` and the generated content will reflect K3:
+The following is a K3 response (unused extended fields are omitted):
 
 ```json
 {
-  "id": "chatcmpl-b5d9e1b799c137e3",
+  "id": "msg_2D4Btbg1WgvkNE3tCYkR4xGA",
   "object": "chat.completion",
-  "created": 1770991864,
-  "model": "kimi-k2.5",
+  "created": 1784466588,
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " Hello! How can I help you today?",
-        "refusal": null,
-        "tool_calls": []
+        "content": "Hello! How can I help you today?"
       },
       "logprobs": null,
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 9,
-    "completion_tokens": 184,
-    "total_tokens": 193,
-    "prompt_tokens_details": {
-      "cached_tokens_details": {}
-    },
-    "completion_tokens_details": {}
+    "prompt_tokens": 86,
+    "completion_tokens": 206,
+    "total_tokens": 292
   }
 }
 ```
@@ -72,13 +66,17 @@ Among them, `choices` contains Kimi's response information, and the `choices` in
 
 <p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply.
+As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply. K3 may also return `reasoning_content`.
+
+## K3 Reasoning Intensity
+
+`kimi-k3` always enables reasoning. The top-level `reasoning_effort` request field supports `max`; omitting it also uses `max`. Do not rely on other values changing reasoning behavior. For multi-turn conversations and tool calls, return the complete previous assistant message, including `reasoning_content` and `tool_calls`.
 
 ## Streaming Response
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
 
-If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
+To return streaming responses, set the JSON body field `stream` to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
@@ -102,6 +100,7 @@ headers = {
 payload = {
     "model": "kimi-k3",
     "messages": [{"role":"user","content":"Hello"}],
+    "reasoning_effort": "max",
     "stream": True
 }
 
@@ -188,35 +187,29 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple query words, you can easily achieve multi-turn dialogue. The following retained K2.5 snapshot illustrates the response structure; a K3 request returns `model: kimi-k3` and K3-generated content:
+By uploading multiple query words, you can easily achieve multi-turn dialogue. The following is a K3 response:
 
 ```json
 {
-  "id": "chatcmpl-81e5f161ea077f5e",
+  "id": "msg_Rqp8nPGBDHWwBlL4VpxuafOp",
   "object": "chat.completion",
-  "created": 1770992310,
-  "model": "kimi-k2.5",
+  "created": 1784466628,
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.5** series.",
-        "refusal": null,
-        "tool_calls": []
+        "content": "I’m Kimi, an AI assistant developed by Moonshot AI."
       },
       "logprobs": null,
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 28,
-    "completion_tokens": 235,
-    "total_tokens": 263,
-    "prompt_tokens_details": {
-      "cached_tokens_details": {}
-    },
-    "completion_tokens_details": {}
+    "prompt_tokens": 134,
+    "completion_tokens": 346,
+    "total_tokens": 480
   }
 }
 ```
