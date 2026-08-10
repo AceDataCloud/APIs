@@ -8,13 +8,15 @@ However, Luma does not officially provide an API. AceDataCloud offers a set of L
 
 ## Application and Usage
 
-To use the Luma Videos API, you can first visit the [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Luma Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Luma Videos Generation API →](https://platform.acedata.cloud/documents/luma-videos)
 
 ## Basic Usage
 
@@ -44,7 +46,7 @@ You can click the "Try" button to directly test the API. After waiting for 1-2 m
   "task_id": "e4018a99-1522-4f24-9330-62c2a9b50b59",
   "video_id": "155838f8-7f1e-44d8-b387-192f3b4b509d",
   "prompt": "Astronauts shuttle from space to volcano",
-  "video_url": "https://storage.cdn-luma.com/dream_machine/af94e7ca-da35-4b5f-a636-2d7254184d0d/watermarked_video0585de3737db946e5a0ac895384ecd180.mp4",
+  "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4?example=video-001",
   "video_height": 752,
   "video_width": 1360,
   "state": "completed",
@@ -320,17 +322,17 @@ The content is as follows:
 
 ```json
 {
-    "success": true,
-    "task_id": "732f8282-7cf8-401c-95f2-42c33aa079a6",
-    "video_id": "4d8013c3-5de0-41aa-966e-0b1a51d1c633",
-    "prompt": "Astronauts shuttle from space to volcano",
-    "video_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.mp4",
-    "video_height": 752,
-    "video_width": 1360,
-    "state": "completed",
-    "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.jpg",
-    "thumbnail_width": 1360,
-    "thumbnail_height": 752
+  "success": true,
+  "task_id": "732f8282-7cf8-401c-95f2-42c33aa079a6",
+  "video_id": "4d8013c3-5de0-41aa-966e-0b1a51d1c633",
+  "prompt": "Astronauts shuttle from space to volcano",
+  "video_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.mp4",
+  "video_height": 752,
+  "video_width": 1360,
+  "state": "completed",
+  "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.jpg",
+  "thumbnail_width": 1360,
+  "thumbnail_height": 752
 }
 ```
 

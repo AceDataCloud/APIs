@@ -1,61 +1,66 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering-capable `gpt-image-1`, the latest generation **`gpt-image-2`**, and the series of models **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** that can be accessed through the same interface. They can all generate high-quality images based on text descriptions.
 
-This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
+This document mainly introduces the usage process of the OpenAI Images Generations API, allowing us to easily utilize the image generation capabilities of the OpenAI series.
 
 ## Application Process
 
-To use the OpenAI Images Generations API, first visit the [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) page and click the "Acquire" button to obtain the credentials required for requests:
+To use the OpenAI Images Generations API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page to register and log in. After logging in or registering, you will be automatically redirected back to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
 
-There is a free quota granted upon the first application, allowing free use of the API.
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [OpenAI Images Generations API →](https://platform.acedata.cloud/documents/openai-images-generations)
 
 ## GPT-Image-2 Model
 
-`gpt-image-2` is the new generation image generation model launched by OpenAI. Compared with `dall-e-3` and `gpt-image-1`, it has significant improvements in the following aspects:
+`gpt-image-2` is the new generation image generation model launched by OpenAI, which has significant improvements over `dall-e-3` and `gpt-image-1` in the following aspects:
 
-- **Stronger instruction adherence**: Able to accurately understand complex composition, counting, positional relationships, and other structured instructions.
-- **Clearer text rendering**: English and numbers in scenes like posters, menus, infographics, and logos are almost never garbled.
-- **Richer style expression**: Natively supports various styles such as cinematic portraits, vintage posters, children's illustrations, product photography, infographics, etc.
-- **Native multi-aspect ratio + high-resolution support**: Covers 5 aspect ratios (1:1, 4:3, 3:4, 16:9, 9:16) with 3 resolution tiers (1K / 2K / 4K).
+- **Stronger instruction-following ability**: Can accurately understand complex compositions, counting, positional relationships, and other structured instructions.
+- **Clearer text rendering**: English and numbers in scenarios such as posters, menus, infographics, and logos are almost never garbled.
+- **Richer style expression**: Natively supports various styles such as cinematic portraits, retro posters, children's illustrations, product photography, and infographics.
+- **Native multi-aspect ratio + high-resolution support**: Covers 5 aspect ratios (1:1, 4:3, 3:4, 16:9, 9:16) with a total of 3 resolution tiers (1K / 2K / 4K).
 
-The calling method is exactly the same as other models, just set the `model` field to `gpt-image-2`. The returned `url` in the result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be directly opened in a browser or embedded in a webpage.
+The calling method is completely consistent with other models; just set the `model` field to `gpt-image-2`. The `url` in the returned result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be opened directly in a browser or embedded in a webpage.
+
+### Line Variants (`:official` / `:reverse`)
+
+`gpt-image-2` defaults to the standard line. You can explicitly select the line through the model name suffix:
+
+- **`gpt-image-2:official`**: Official channel, stable and compliant. Supports true 2K / 4K resolution, **billed per image, with a unit price 2 times that of the default `gpt-image-2`**. If the line is unavailable, it will return an error directly without automatic downgrade.
+- **`gpt-image-2:reverse`**: Completely equivalent to the default `gpt-image-2`, with a better cost-performance ratio, price unchanged.
 
 ### Supported `size` Values
 
-`gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
+`gpt-image-2` only checks the format of `size`; as long as it is not `auto` or an empty string, it needs to match `WIDTHxHEIGHT` (e.g., `1024x1024`, `2048x1152`, `800x600`); any other form will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, without additional charges based on size.**
 
-Size limits for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels ≤ 8,294,400. Exceeding these limits returns 4xx.
+Size limitations: Custom sizes must meet the criteria of both width and height being multiples of 16, long side ≤ 3840, total pixel count ≤ 8,294,400; exceeding the range will return a 4xx error.
 
-| Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
-| --- | --- | --- | --- |
-| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
-| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
-| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
-| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
-| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+| Ratio   | 1K Recommended | 2K Recommended | 4K Recommended |
+| ---- | ------------- | ------------- | ------------- |
+| 1:1  | `1024x1024`   | `2048x2048`   | `2880x2880`   |
+| 4:3  | `1536x1024`   | `2048x1536`   | `3264x2448`   |
+| 3:4  | `1024x1536`   | `1536x2048`   | `2448x3264`   |
+| 16:9 | `1792x1024`   | `2048x1152`   | `3840x2160`   |
+| 9:16 | `1024x1792`   | `1152x2048`   | `2160x3840`   |
 
-> You can also pass `size: "auto"` or **omit the `size` field**, in which case the model will choose the default size automatically.
->
-> For the 1K tier, the output does not guarantee strict pixel alignment — if you pass `1024x1024`, you might get `1254x1254`, but the aspect ratio is maintained. If you reuse this as `size`, the billing remains unchanged.
->
-> 4K single calls usually take 4–8 minutes; it is recommended to use the `callback_url` asynchronous callback mechanism described later.
+> When explicitly passing `size: "auto"`, the platform will plan the canvas in a continuous aspect ratio space and determine based on the following priorities: explicit pixels or ratios in the prompt, naming standards (paper / print / platform ad / advertisement / device / photography / film), medium conventions, and finally composition inference. Therefore, in addition to common ratios like `1:1`, `4:5`, `9:16`, `21:9`, it can also retain non-predefined ratios like `1.91:1`, `1.85:1`, `2.39:1`, ISO paper `1:√2`; the final size will be automatically adjusted to the service-supported multiples of 16 and pixel budget. If automatic judgment is unavailable, it will revert to the model's default aspect ratio without blocking generation. Omitting the `size` field will directly use the model's default aspect ratio; if strict pixel requirements are needed, it is still recommended to directly pass `WIDTHxHEIGHT`.
+> Outputs under the 1K tier do not guarantee strict pixel alignment—if you pass `1024x1024`, you might receive `1254x1254`, maintaining the same ratio. If you pass it back as `size`, the billing remains unchanged.
+> A single call for 4K usually takes 4–8 minutes; it is recommended to use it with the `callback_url` asynchronous callback mentioned later.
 
-> **About the `n` parameter**
->
-> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return and bill for the corresponding number of images. To ensure that multiple results have differences, it is recommended to pass different `prompt` or `seed` simultaneously. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successfully generated parts will be returned and billed.
+> **About the `n` Parameter**
+> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return and bill for the corresponding number of images. To ensure that multiple results have differences, it is recommended to pass different `prompts` or `seeds` simultaneously. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and billed.
 
-Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
+Below are several real examples from different perspectives to intuitively feel the capabilities of `gpt-image-2`.
+### Scene 1: Cinematic Portrait
 
-### Scenario 1: Cinematic Portrait
+In the prompt, you can use film terminology (35mm film, shallow depth of field, neon light, etc.) to precisely control the atmosphere and texture.
 
-You can use cinematic terms in the prompt (35mm film, shallow depth of field, neon lights, etc.) to precisely control the atmosphere and texture.
-
-Python sample code:
+Python sample call code:
 
 ```python
 import requests
@@ -78,7 +83,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
+The returned result is as follows:
 
 ```json
 {
@@ -94,13 +99,13 @@ Returned result:
 }
 ```
 
-Generated image:
+The generated image is shown below:
 
 <p><img src="https://platform.cdn.acedata.cloud/gpt-image/ab58a5df-6f46-4874-bff6-93169e2849a3_0.png" width="500" class="m-auto"></p>
 
-### Scenario 2: Vintage Travel Poster (with Text Rendering)
+### Scene 2: Vintage Travel Poster (with Text Rendering)
 
-`gpt-image-2` performs stably in typography and font rendering, making it very suitable for generating posters, menus, greeting cards, and other text-inclusive designs.
+`gpt-image-2` performs stably in typesetting and font rendering, making it very suitable for generating posters, menus, greeting cards, and other designs with text.
 
 ```python
 payload = {
@@ -110,15 +115,15 @@ payload = {
 }
 ```
 
-The `url` field in the returned result corresponds to the following image:
+The image corresponding to the `url` field in the returned result is as follows:
 
 <p><img src="https://platform.cdn.acedata.cloud/gpt-image/c6061f92-3fae-498e-af8e-688e7f415ba3_0.png" width="500" class="m-auto"></p>
 
-The model accurately reproduces the Art Deco poster visual style, and the title texts `AMALFI` and `ITALIA 1958` are rendered clearly and correctly.
+It can be seen that the model not only accurately restored the visual style of the Art Deco poster, but the title text `AMALFI` and `ITALIA 1958` were also rendered clearly and correctly.
 
-### Scenario 3: Complex Composition and Counting
+### Scene 3: Complex Composition and Counting
 
-The following prompt tests the model's adherence to structured instructions such as "quantity" and "position".
+The following prompt is used to test the model's adherence to structured instructions such as "quantity" and "position."
 
 ```python
 payload = {
@@ -128,15 +133,15 @@ payload = {
 }
 ```
 
-Generated image:
+The generated image is as follows:
 
 <p><img src="https://platform.cdn.acedata.cloud/gpt-image/64a3b932-a082-4cad-9f85-9d30474b104d_0.png" width="500" class="m-auto"></p>
 
-The number of books on the three shelves (1 / 3 / 7) matches the prompt exactly, which was difficult to achieve stably in the `dall-e-3` era.
+It can be seen that the number of books on the three shelves (1 / 3 / 7) is completely consistent with the prompt, which is something that was difficult to achieve stably in the `dall-e-3` era.
 
-### Scenario 4: Illustration Style (Landscape)
+### Scene 4: Illustration Style (Landscape)
 
-By specifying artistic media and mood keywords, the model can be guided to produce stylized illustrations.
+By specifying artistic media and emotional keywords, you can guide the model to produce stylized illustrations.
 
 ```python
 payload = {
@@ -146,34 +151,33 @@ payload = {
 }
 ```
 
-Generated landscape illustration:
+The generated landscape illustration is as follows:
 
 ![](https://platform.cdn.acedata.cloud/gpt-image/6cd57e69-d237-4cc1-a666-759a93964a08_0.png)
 
 ### Asynchronous and Callback
 
-`gpt-image-2` single calls usually take 60–90 seconds. If you do not want to keep a long connection, you can use the `callback_url` asynchronous callback mechanism described later. The calling process is the same as other models.
+`gpt-image-2` typically requires 60 to 90 seconds for a single call. If you do not wish to maintain a long connection, you can use the `callback_url` asynchronous callback mechanism introduced later in this article. The calling process is completely consistent with other models.
 
 ## Nano Banana Series Models
 
-The `nano-banana` series are image generation models based on Gemini, integrated through the same `/openai/images/generations` interface without switching endpoints. Just change the `model` to any of the following:
+The `nano-banana` series is an image generation model based on Gemini, which has been integrated through the same `/openai/images/generations` interface. There is no need to switch endpoints; just change the `model` to any of those in the table below.
 
-| Model | Billing (Credits / call) | Suitable Scenario |
-| --- | --- | --- |
-| `nano-banana` | 0.14 | General image generation, fastest speed, lowest cost |
-| `nano-banana-2` | 0.28 | Significant improvement in quality and detail |
-| `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
+| Model                   | Billing (Credits / Time) | Applicable Scenarios                     |
+| ---------------------- | --------------------- | ------------------------------------ |
+| `nano-banana`          | 0.14                  | General image generation, fastest speed, lowest cost |
+| `nano-banana-2-lite`   | 0.14                  | Gemini 3.1 lightweight image model, supports only 1K, low latency |
+| `nano-banana-2`        | 0.28                  | Significant improvement in quality and detail |
+| `nano-banana-pro`      | 0.35                  | The flagship of the series, best in composition, detail, and text |
 
-> **Important: Supported Parameters**
->
-> Nano Banana is integrated via an adaptation layer to the OpenAI protocol and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`.
->
-> - `size` will be mapped to internal `aspect_ratio` as per the table below; unlisted sizes default to `1:1`:
+> **Important: Parameter Support Range**
+> Nano Banana connects to the OpenAI protocol through an adaptation layer and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`, `n`.
+> - `size` will be mapped to internal `aspect_ratio` as per the table below; unlisted sizes will degrade to `1:1`:
 >   - `1024x1024` / `512x512` / `256x256` → `1:1`
 >   - `1792x1024` → `16:9`
 >   - `1024x1792` → `9:16`
-> - Does not support `n`, `quality`, `style`, `response_format`, `background`, `output_format`, etc.; these will be ignored if provided.
-> - Return structure follows OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
+> - Does not support parameters such as `quality`, `style`, `response_format`, `background`, `output_format`, etc.; any filled will be ignored. `n > 1` is supported (1–10), and will return and charge for the corresponding number of images.
+> - The return structure follows the OpenAI format (`data[].url`), but `created` is fixed at `0`, and `b64_json` will not be returned; `revised_prompt` will always equal the original `prompt`.
 
 ### Basic Call
 
@@ -198,8 +202,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
-
+The returned result is as follows:
 ```json
 {
   "created": 0,
@@ -212,13 +215,13 @@ Returned result:
 }
 ```
 
-The generated image can be accessed directly via the returned `url`:
+The generated image can be accessed directly through the returned `url` field:
 
 <p><img src="https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png" width="500" class="m-auto"></p>
 
-### Upgrade to Flagship Model `nano-banana-pro`
+### Upgrade to flagship model `nano-banana-pro`
 
-Simply change `model` to `nano-banana-pro`, other parameters remain the same:
+Just change the `model` to `nano-banana-pro`, and the other parameters remain exactly the same:
 
 ```python
 payload = {
@@ -228,7 +231,7 @@ payload = {
 }
 ```
 
-Example return:
+Return example:
 
 ```json
 {
@@ -246,21 +249,21 @@ Example return:
 
 ### Asynchronous Callback
 
-The `callback_url` asynchronous callback mechanism also applies to nano-banana. The calling process is the same as other models; see the [Asynchronous Callback](#asynchronous-callback) section below.
+The `callback_url` asynchronous callback mechanism is also effective for nano-banana, and the calling process is completely consistent with other models. For details, see the section [Asynchronous Callback](#异步回调).
 
 ## Basic Usage
 
-Next, you can fill in the corresponding content on the interface as shown:
+Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, at least three fields need to be filled: one is `authorization`, which can be selected directly from the dropdown list; another is `model`, which is the OpenAI DALL-E official model category you want to use (mainly one model here, details can be found in the provided models); the last is `prompt`, which is the text prompt for image generation.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the OpenAI DALL-E official website. Here we mainly have 1 type of model; details can be found in the models we provide. The last parameter is `prompt`, which is the prompt we input to generate the image.
 
-You can also notice that the corresponding call code is generated on the right side. You can copy the code to run directly or click the "Try" button to test.
+You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/pbss4f.png" width="500" class="m-auto"></p>
 
-Python sample call code:
+Python sample calling code:
 
 ```python
 import requests
@@ -282,7 +285,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-After calling, the returned result is as follows:
+After the call, we find the returned result as follows:
 
 ```json
 {
@@ -296,28 +299,28 @@ After calling, the returned result is as follows:
 }
 ```
 
-Returned results include multiple fields:
+The returned result contains multiple fields, described as follows:
 
-- `created`: the ID for this image generation, uniquely identifying the task.
-- `data`: contains the image generation result information.
+- `created`, the ID of the image generation for this task, used to uniquely identify this task.
+- `data`, contains the result information of the image generation.
 
-The `data` contains detailed information about the generated image, where the `url` is the link to the generated image, as shown below.
+Among them, `data` contains the specific information of the model-generated image, and its `url` is the detailed link to the generated image, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
 
 ## Image Quality Parameter `quality`
 
-Next, we introduce how to set detailed parameters for image generation results. The image quality parameter `quality` has two options: the first is `standard`, which generates standard images; the other is `hd`, which creates images with finer details and greater consistency.
+Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below is the setting for `quality` as `standard`:
+Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
-You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
+You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/c0ps6i.png" width="500" class="m-auto"></p>
 
-Python sample call code:
+Python sample calling code:
 
 ```python
 import requests
@@ -340,7 +343,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
+After the call, we find the returned result as follows:
 
 ```json
 {
@@ -353,26 +356,25 @@ Returned result:
   ]
 }
 ```
-
-The returned result is consistent with basic usage. The image generated with `quality` set to `standard` is shown below:
+The returned results are consistent with the basic usage content, and the generated image with the quality parameter set to `standard` is shown below:
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
-Performing the same operation but setting `quality` to `hd` yields the following image:
+With the same operation as above, simply setting the image quality parameter to `hd` will yield the image shown below:
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
-You can see that `hd` produces images with finer details and greater consistency than `standard`.
+It can be seen that the image generated with `hd` has finer details and greater consistency than that generated with `standard`.
 
 ## Image Size Parameter `size`
 
-You can also set the size of the generated image.
+We can also set the size of the generated image, and we can make the following settings.
 
-Below is the setting for image size as `1024x1024`:
+The image size is set to `1024 * 1024`, with the specific settings shown below:
 
 <p><img src="https://cdn.acedata.cloud/dx5rwh.png" width="500" class="m-auto"></p>
 
-You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
+You can also notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button to test.
 
 <p><img src="https://cdn.acedata.cloud/0sbybl.png" width="500" class="m-auto"></p>
 
@@ -399,7 +401,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
+After the call, we found that the returned result is as follows:
 
 ```json
 {
@@ -413,25 +415,25 @@ Returned result:
 }
 ```
 
-The returned result is consistent with basic usage. The generated image with size `1024x1024` is shown below:
+The returned result is consistent with the basic usage content, and the generated image with the size of `1024 * 1024` is shown below:
 
 <p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto"></p>
 
-Performing the same operation but setting the size to `1792x1024` yields the following image:
+With the same operation as above, simply setting the image size to `1792 * 1024` will yield the image shown below:
 
 ![](https://cdn.acedata.cloud/4pilae.png)
 
-You can see the size difference clearly. More sizes can be set; please refer to our official documentation for details.
+It can be seen that the image sizes are noticeably different, and more sizes can be set; for detailed information, please refer to our official documentation.
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` has two options: `vivid` means the generated image is more vivid, and `natural` means the generated image is more natural.
+The image style parameter `style` includes two parameters, the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
 
-Below is the setting for `style` as `vivid`:
+The image style parameter is set to `vivid`, with the specific settings shown below:
 
 <p><img src="https://cdn.acedata.cloud/609l9i.png" width="500" class="m-auto"></p>
 
-You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
+You can also notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button to test.
 
 <p><img src="https://cdn.acedata.cloud/ee3u9o.png" width="500" class="m-auto"></p>
 
@@ -458,7 +460,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
+After the call, we found that the returned result is as follows:
 
 ```json
 {
@@ -472,26 +474,25 @@ Returned result:
 }
 ```
 
-The returned result is consistent with basic usage. The image generated with `style` set to `vivid` is shown below:
+The returned result is consistent with the basic usage content, and the generated image with the style parameter set to `vivid` is shown below:
 
 <p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto"></p>
 
-Performing the same operation but setting `style` to `natural` yields the following image:
+With the same operation as above, simply setting the image style parameter to `natural` will yield the image shown below:
 
 <p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto"></p>
 
-You can see that `vivid` produces more vivid and lifelike images than `natural`.
+It can be seen that the image generated with `vivid` is more vivid and realistic than that generated with `natural`.
 
 ## Image Link Format Parameter `response_format`
 
-The last parameter is the image link format `response_format`, which has two options: `b64_json` encodes the image link in Base64, and `url` is a normal image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types, the first one `b64_json` encodes the image link in Base64, while the other `url` is a regular image link that can be viewed directly.
 
-Below is the setting for `response_format` as `url`:
+The image link format parameter is set to `url`, with the specific settings shown below:
 
 <p><img src="https://cdn.acedata.cloud/2zbgrg.png" width="500" class="m-auto"></p>
 
-You can also notice the corresponding call code generated on the right side, which you can copy to run or click "Try" to test.
-
+You can also notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button to test.
 <p><img src="https://cdn.acedata.cloud/a9exmp.png" width="500" class="m-auto"></p>
 
 Python sample call code:
@@ -517,7 +518,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Returned result:
+After the call, we found the returned result as follows:
 
 ```json
 {
@@ -531,11 +532,11 @@ Returned result:
 }
 ```
 
-The returned result is consistent with basic usage. The image link with `response_format` set to `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02), which can be accessed directly. The image is shown below:
+The returned result is consistent with the basic usage content, and we can see that the format parameter of the image link for `url` generates the image link [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
-Performing the same operation but setting `response_format` to `b64_json` returns the Base64 encoded image link, as shown below:
+With the same operation as above, simply changing the image link format parameter to `b64_json`, we can obtain the result of the Base64 encoded image link, with the specific result shown below:
 
 ```json
 {
@@ -551,19 +552,19 @@ Performing the same operation but setting `response_format` to `b64_json` return
 
 ## Asynchronous Callback
 
-Because the OpenAI Images Generations API may take relatively long to generate images, if the API does not respond for a long time, the HTTP request will keep the connection open, causing additional system resource consumption. Therefore, this API also supports asynchronous callbacks.
+Since the OpenAI Images Generations API may take a relatively long time to generate images, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-The overall process is: when the client initiates a request, it additionally specifies a `callback_url` field. After the client sends the API request, the API immediately returns a result containing a `task_id` field representing the current task ID. When the task is completed, the generated image result will be sent to the client’s specified `callback_url` via POST JSON, including the `task_id` field, so the task result can be associated by ID.
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field information, representing the current task ID. When the task is completed, the generated image result will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Below is an example to understand the specific operation.
+Let’s understand how to operate specifically through an example.
 
-First, the webhook callback is a service that can receive HTTP requests. Developers should replace it with their own HTTP server URL. For demonstration, a public webhook sample site https://webhook.site/ is used. Open the site to get a webhook URL, as shown:
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can open the site to get a Webhook URL, as shown in the image:
 
 ![](https://cdn.acedata.cloud/cjjfly.png)
 
-Copy this URL and use it as the webhook. The example URL is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
+Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
 
-Next, set the `callback_url` field to the above webhook URL and fill in the corresponding parameters, as in the following code:
+Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the following code:
 
 ```python
 import requests
@@ -586,7 +587,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Run it, and you will immediately get a result like this:
+Clicking run, you can find that an immediate result is obtained, as follows:
 
 ```json
 {
@@ -594,7 +595,7 @@ Run it, and you will immediately get a result like this:
 }
 ```
 
-After a short wait, you can observe the generated image result at the webhook URL, content as follows:
+After a moment, we can observe the generated image result on the Webhook URL, with the content as follows:
 
 ```json
 {
@@ -613,12 +614,11 @@ After a short wait, you can observe the generated image result at the webhook UR
 }
 ```
 
-You can see the result contains a `task_id` field, and the `data` field contains the same image generation results as synchronous calls. The `task_id` field allows task association.
+We can see that the result contains a `task_id` field, and the `data` field includes the same image generation result as the synchronous call, allowing the task to be associated through the `task_id` field.
 
 ## Error Handling
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
-
 - `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
 - `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
@@ -640,4 +640,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily use the official OpenAI DALL-E image generation features via the OpenAI Images Generations API. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the official OpenAI DALL-E image generation feature with the OpenAI Images Generations API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

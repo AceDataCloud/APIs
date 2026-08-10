@@ -1,232 +1,267 @@
-# Maestro Tasks API Integration Guide
+# Maestro Task Query API Integration Instructions
+
+The main function of the Maestro Task Query API is to query the execution status and final results of a task using the task ID returned by the [Maestro Video Generation API](development_maestro_videos.md) (`POST /maestro/videos`).
+
+This document will provide detailed instructions for integrating the Maestro Task Query API. Since video generation is an asynchronous task, after submission, this interface needs to be polled to obtain progress and the final product, **polling is free and does not consume credits.**
 
 `POST https://api.acedata.cloud/maestro/tasks`
 
-The Maestro Tasks API retrieves one video job or lists recent jobs belonging to the authenticated user. Polling and history retrieval are free.
+## Application Process
 
-## Authentication
+To use the Maestro Task Query API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future use.
 
-Use the same Ace Data Cloud Bearer token that created the video:
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-```http
-Authorization: Bearer YOUR_API_TOKEN
-Content-Type: application/json
-Accept: application/json
-```
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
 
-## Retrieve One Task
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 
-Request body:
+> 📘 Complete documentation: [Maestro Task Query API →](https://platform.acedata.cloud/documents/maestro-tasks)
 
-| Field | Type | Required | Description |
-|---|---|---:|---|
-| `id` | string | yes | `task_id` returned by `POST /maestro/videos` |
-| `action` | string | no | `retrieve`; this is the default when omitted |
+## Query a Single Task
+
+For information on how to create a video task, please refer to the document [Maestro Video Generation API](development_maestro_videos.md). We will use a task ID returned by it as an example: `f57e99c4f60f4373a15517742ce2357d`, demonstrating how to query its status and results.
+
+### Set Request Headers and Request Body
+
+**Request Headers** include:
+
+- `accept`: Specifies that the response result should be in JSON format, set to `application/json`.
+- `authorization`: The key to call the API, which can be selected directly after application.
+- `content-type`: The format of the request body, set to `application/json`.
+
+**Request Body** includes:
+
+| Field       | Type     | Required | Description                                          |
+| ----------- | -------- | -------- | -------------------------------------------------- |
+| `id`       | string   | Yes      | The `task_id` returned by `POST /maestro/videos`  |
+| `action`   | string   | No       | `retrieve` (default, query a single task) / `retrieve_batch` (query historical task list) |
+
+### Code Example
+
+The corresponding CURL code is as follows:
 
 ```bash
-curl --request POST 'https://api.acedata.cloud/maestro/tasks' \
-  --header 'Authorization: Bearer YOUR_API_TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
-    "action": "retrieve"
-  }'
+curl -X POST 'https://api.acedata.cloud/maestro/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "id": "f57e99c4f60f4373a15517742ce2357d",
+  "action": "retrieve"
+}'
 ```
 
-Python example:
+The corresponding Python code is as follows:
 
 ```python
-import os
-
 import requests
 
-response = requests.post(
-    "https://api.acedata.cloud/maestro/tasks",
-    headers={
-        "Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}",
-        "Content-Type": "application/json",
-    },
-    json={
-        "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
-        "action": "retrieve",
-    },
-    timeout=30,
-)
-response.raise_for_status()
-print(response.json())
+url = "https://api.acedata.cloud/maestro/tasks"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "id": "f57e99c4f60f4373a15517742ce2357d",
+    "action": "retrieve"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
 ```
 
-## Task Shape
+### Response Example
 
-The following is an illustrative shape. URLs and optional fields vary with the delivered production:
+After a successful request, the API will return the status and results of the video task. An example of the return when the task is completed is as follows (each language corresponds to a `variant`):
 
 ```json
 {
-  "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
-  "trace_id": "70e1cb12-c619-4292-a416-90191205996b",
+  "id": "f57e99c4f60f4373a15517742ce2357d",
+  "started_at": 1769262721.823,
+  "finished_at": 1769264698.3,
+  "elapsed": 1976.477,
   "status": "succeeded",
   "progress": {
     "percent": 100,
     "stage": "producing",
-    "message": "Rendering scene 2",
-    "activity": null,
-    "render": null
+    "message": "rendering scene 2"
   },
-  "created_at": 1750000000,
-  "elapsed": 312,
   "request": {
-    "prompt": "Create a beginner-friendly vector database video.",
-    "langs": ["en"],
-    "aspect": "16:9",
-    "duration": 30
+    "prompt": "Explain what a vector database is in 20 seconds, suitable for a zero-based audience, and end with a memorable point",
+    "langs": [
+      "zh-cn",
+      "en"
+    ],
+    "aspect": "9:16",
+    "duration": 20
   },
   "response": {
     "success": true,
     "data": {
       "variants": [
         {
-          "lang": "en",
-          "aspect": "16:9",
+          "lang": "zh-cn",
+          "aspect": "9:16",
           "kind": "video",
-          "title": "What is a vector database?",
-          "output_url": "https://cdn.example/video.mp4"
+          "title": "什么是向量数据库",
+          "output_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001"
+        },
+        {
+          "lang": "en",
+          "aspect": "9:16",
+          "kind": "video",
+          "title": "What is a vector database",
+          "output_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-002"
         }
       ],
       "project": {
-        "tarball_url": "https://cdn.example/project.tar.gz",
-        "outputs": ["https://cdn.example/video.mp4"]
+        "tarball_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-003",
+        "outputs": [
+          "https://…/zh.mp4",
+          "https://…/en.mp4"
+        ]
       },
       "percent": 100,
       "stage": "producing",
       "progress": [
-        {"stage": "producing", "message": "Rendering scene 2", "pct": 100, "t": 1750000300}
+        {
+          "stage": "producing",
+          "message": "rendering scene 2",
+          "pct": 60,
+          "t": 1750000000
+        }
       ]
     }
-  },
-  "agent": null
+  }
 }
 ```
 
-Key fields:
+The field descriptions of the returned result are as follows:
 
-- `status`: authoritative lifecycle state. Terminal values are `succeeded` and `failed`.
-- `progress.percent`: normalized progress from 0 through 100.
-- `progress.stage`, `message`, `activity`, and `render`: latest available production telemetry. Optional values may be `null`.
-- `request`: normalized creation request stored with the task.
-- `response`: final result or failure information when available.
-- `response.data.variants`: delivered language variants. Read each actual `output_url` from this array.
-- `response.data.project`: project-level artifacts when present.
-- `response.data.progress`: append-only production event history when present.
+- `id`: The ID of this video task, used to uniquely identify this video generation task.
+- `status`: The task status, with values `pending → planning → producing → succeeded` (or `failed`). Whether the task is completed is determined by this top-level `status`.
+- `elapsed`: The time spent on the task (in seconds).
+- `progress`: The top-level progress object, `percent` (0–100) will be capped at 100 after the task is successful; `stage` and `message` reflect the most recent progress event from the AI director (thus after success, `stage` may still be the last executed stage such as `producing`), which can be directly used to display a progress bar.
+- `request`: The request body when initiating the task.
+- `response`: The return information of the task.
+  - `success`: Whether the task was successful.
+  - `data.variants`: Each language corresponds to a final product object, containing `lang`, `aspect`, `title`, `output_url` (download link for the final product), etc.
+  - `data.project`: The entire project output, containing `tarball_url` (project package) and `outputs` (all final product links).
+  - `data.progress`: An array of progress events appended by stage (append-only log), which can be used to display detailed real-time progress.
+- `created_at`: The task creation time, Unix timestamp (in seconds).
+- `started_at`: The time the task started execution, Unix timestamp (in seconds). It is null when the task has not yet started.
+- `finished_at`: The time the task was completed, Unix timestamp (in seconds). It is null when the task is not completed.
 
-A succeeded task may retain the name of its last execution stage in `progress.stage`; use top-level `status`, not the stage name, to decide whether the task is complete.
+## Query Historical List
 
-## Polling
+By passing `action: retrieve_batch`, you can obtain the recent tasks of the current user (in reverse order of creation time), which can be used for the "My Videos" list page.
 
-Poll at a reasonable cadence and use exponential backoff with jitter. Continue through nonterminal statuses, then stop at `succeeded` or `failed`. Do not create a duplicate video merely because production is taking time.
+**Request Body** includes:
 
-Example polling logic with application-supplied timing:
+| Field               | Type     | Required | Description                          |
+| ------------------- | -------- | -------- | ------------------------------------ |
+| `action`            | string   | Yes      | Fixed as `retrieve_batch`            |
+| `limit`             | int      | No       | Number of returns, default is 20     |
+| `created_at_max`   | int      | No       | Only return tasks earlier than this Unix timestamp (for pagination) |
+| `created_at_min`   | int      | No       | Only return tasks later than this Unix timestamp | 
 
-```python
-import os
-import random
-import time
+### Code Example
 
-import requests
-
-task_id = "f57e99c4-f60f-4373-a155-17742ce2357d"
-delay = float(os.environ["MAESTRO_INITIAL_POLL_DELAY"])
-maximum_delay = float(os.environ["MAESTRO_MAXIMUM_POLL_DELAY"])
-backoff_factor = float(os.environ["MAESTRO_POLL_BACKOFF_FACTOR"])
-
-while True:
-    response = requests.post(
-        "https://api.acedata.cloud/maestro/tasks",
-        headers={"Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}"},
-        json={"id": task_id, "action": "retrieve"},
-        timeout=30,
-    )
-    response.raise_for_status()
-    task = response.json()
-
-    if task["status"] in {"succeeded", "failed"}:
-        break
-
-    time.sleep(delay + random.random())
-    delay = min(delay * backoff_factor, maximum_delay)
-
-print(task)
-```
-
-Choose these client-side timing values for your workload and current service behavior; the API does not publish fixed polling-interval guarantees.
-
-## List Recent Tasks
-
-Use `retrieve_batch` to list the authenticated user's tasks in reverse creation order.
-
-| Field | Type | Required | Default | Description |
-|---|---|---:|---|---|
-| `action` | string | yes | - | Must be `retrieve_batch` |
-| `limit` | integer | no | `20` | Maximum page size requested |
-| `created_at_min` | integer | no | - | Return tasks newer than this Unix timestamp |
-| `created_at_max` | integer | no | - | Return tasks older than this Unix timestamp; use for pagination |
-
+The corresponding CURL code is as follows:
 ```bash
-curl --request POST 'https://api.acedata.cloud/maestro/tasks' \
-  --header 'Authorization: Bearer YOUR_API_TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "action": "retrieve_batch",
-    "limit": 20
-  }'
+curl -X POST 'https://api.acedata.cloud/maestro/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "retrieve_batch",
+  "limit": 20
+}'
 ```
 
-Illustrative response shape:
+### Response Example
+
+After a successful request, the API will return the current user's history task list:
 
 ```json
 {
-  "count": 6,
+  "count": 2,
   "items": [
     {
-      "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
+      "id": "f57e99c4f60f4373a15517742ce2357d",
+      "started_at": 1769262721.823,
+      "finished_at": 1769264698.3,
+      "elapsed": 1976.477,
       "status": "succeeded",
-      "created_at": 1750000000,
-      "progress": {"percent": 100, "stage": "producing", "message": null},
-      "request": {"prompt": "Create a product video.", "langs": ["en"]},
-      "response": {"success": true, "data": {"variants": []}}
+      "progress": {
+        "percent": 100,
+        "stage": "producing",
+        "message": "rendering scene 2"
+      },
+      "request": {
+        "prompt": "…",
+        "langs": [
+          "zh-cn",
+          "en"
+        ],
+        "aspect": "9:16",
+        "duration": 20
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "variants": [
+            {
+              "lang": "zh-cn",
+              "output_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001"
+            }
+          ]
+        }
+      }
     }
   ]
 }
 ```
 
-- `count` is the authenticated user's total task count and is independent of any `created_at_min`/`created_at_max` window.
-- `items` contains the requested page in newest-first order.
-- For the next page, pass the oldest returned item's `created_at` as `created_at_max`.
-- Identity comes from the authenticated request. A body-level `user_id` must not be used to select another user's tasks.
+The fields in the returned result are described as follows:
 
-## Errors
+- `count`: The total number of tasks for the current user.
+- `items`: An array of tasks, where each element's format is consistent with the return result of "query a single task".
 
-If a single task is not found, the service returns HTTP 404 with a JSON `detail` message:
+## Polling Suggestions
+
+Since video production takes a long time, the `status` will go through `pending → planning → producing → succeeded` (or `failed`). It is recommended to poll every 5–10 seconds until the `status` changes to `succeeded` or `failed`. You can use the top-level `progress.percent` to display a real-time progress bar. **Polling this interface is free and does not consume points.**
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `404 not_found`: Task not found, the given task_id does not exist.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
 
 ```json
 {
-  "detail": "task not found"
-}
-```
-
-Authentication, rate-limit, and infrastructure errors passing through Ace Data Cloud use the standard gateway envelope:
-
-```json
-{
+  "success": false,
   "error": {
-    "code": "invalid_token",
-    "message": "Invalid token"
+    "code": "api_error",
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
 ```
 
-Use the HTTP status and `trace_id` in retry, diagnostics, and support flows.
+## Conclusion
 
-## Related API
+Through this document, you have learned how to use the Maestro task query API to check the status and results of a single task, as well as to pull the current user's history task list. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
 
-Create or iterate on videos with the [Maestro Videos API guide](maestro_videos_api_integration_guide.md).
+## Related Interfaces
+
+- [Maestro Video Generation API Integration Instructions](development_maestro_videos.md): Automatically produce subtitled videos with a natural language prompt, return `task_id` after submission, and then use this interface to poll the results.

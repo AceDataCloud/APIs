@@ -58,6 +58,10 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 | ---- | ---- | ------------ |
 | [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
 | [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| [Producer Lyrics Generation API](https://platform.acedata.cloud/documents/producer-lyrics) | `/producer/lyrics` | [Producer Lyrics Generation API Integration Guide](docs/producer_lyrics_api_integration_guide.md) |
+| [Producer Upload Reference Audio API](https://platform.acedata.cloud/documents/producer-upload) | `/producer/upload` | [Producer Upload Reference Audio API Integration Guide](docs/producer_upload_api_integration_guide.md) |
+| [Producer Video Download API](https://platform.acedata.cloud/documents/producer-videos) | `/producer/videos` | [Producer Video Download API Integration Guide](docs/producer_videos_api_integration_guide.md) |
+| [Producer Download WAV API](https://platform.acedata.cloud/documents/producer-wav) | `/producer/wav` | [Producer Download WAV API Integration Guide](docs/producer_wav_api_integration_guide.md) |
 
 ## Related Resources
 

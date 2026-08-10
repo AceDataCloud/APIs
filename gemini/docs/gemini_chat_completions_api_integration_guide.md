@@ -6,25 +6,27 @@ This document mainly describes the usage process of the Gemini Chat Completion A
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Gemini Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Gemini Chat Completion API →](https://platform.acedata.cloud/documents/gemini-chat-completions)
 
 ## Basic Usage
 
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto"></p>
 
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of the questions we input. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
-<p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto"></p>
 
 After the call, we find that the returned result is as follows:
 
@@ -78,7 +80,7 @@ The returned result contains multiple fields, described as follows:
 
 Among them, `choices` contains the response information from Gemini, and the `choices` inside it shows the specific information of Gemini's response, as can be seen in the figure.
 
-<p><img src="https://cdn.acedata.cloud/v4z6e0.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/v4z6e0.png" width="400" class="m-auto"></p>
 
 It can be seen that the `content` field in `choices` contains the specific content of Gemini's reply.
 
@@ -86,11 +88,11 @@ It can be seen that the `content` field in `choices` contains the specific conte
 
 This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
 
-If you want to return responses in a streaming manner, you can set the `stream` field in the JSON request body to `true`.
+If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
 
 Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
 
-<p><img src="https://cdn.acedata.cloud/o2blmi.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/o2blmi.png" width="400" class="m-auto"></p>
 
 After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain line-by-line results.
 
@@ -113,10 +115,8 @@ payload = {
     "stream": True
 }
 
-response = requests.post(url, json=payload, headers=headers, stream=True)
-for line in response.iter_lines():
-    if line:
-        print(line.decode("utf-8"))
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
 ```
 
 The output effect is as follows:
@@ -148,72 +148,45 @@ JavaScript is also supported, for example, the streaming call code for Node.js i
 
 ```javascript
 const options = {
-  method: "POST",
+  method: "post",
   headers: {
-    accept: "application/json",
-    authorization: "Bearer {token}",
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    model: "gemini-2.5-pro",
-    messages: [{ role: "user", content: "Hello, what model are you?" }],
-    stream: true
+    "model": "gemini-2.5-pro",
+    "messages": [{"role":"user","content":"Hello,What model are you?"}],
+    "stream": true
   })
 };
 
-const response = await fetch("https://api.acedata.cloud/gemini/chat/completions", options);
-const reader = response.body.getReader();
-const decoder = new TextDecoder("utf-8");
-while (true) {
-  const { value, done } = await reader.read();
-  if (done) break;
-  process.stdout.write(decoder.decode(value));
-}
+fetch("https://api.acedata.cloud/gemini/chat/completions", options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
 ```
 
 Java sample code:
 
 ```java
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONObject;
+JSONObject jsonObject = new JSONObject();
+jsonObject.put("model", "gemini-2.5-pro");
+jsonObject.put("messages", [{"role":"user","content":"Hello,What model are you?"}]);
+jsonObject.put("stream", true);
+MediaType mediaType = "application/json; charset=utf-8".toMediaType();
+RequestBody body = jsonObject.toString().toRequestBody(mediaType);
+Request request = new Request.Builder()
+  .url("https://api.acedata.cloud/gemini/chat/completions")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("authorization", "Bearer {token}")
+  .addHeader("content-type", "application/json")
+  .build();
 
-public class Main {
-  public static void main(String[] args) throws Exception {
-    JSONObject payload = new JSONObject()
-      .put("model", "gemini-2.5-pro")
-      .put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello, what model are you?")))
-      .put("stream", true);
-    RequestBody body = RequestBody.create(payload.toString(), MediaType.parse("application/json; charset=utf-8"));
-    Request request = new Request.Builder()
-      .url("https://api.acedata.cloud/gemini/chat/completions")
-      .post(body)
-      .addHeader("accept", "application/json")
-      .addHeader("authorization", "Bearer {token}")
-      .addHeader("content-type", "application/json")
-      .build();
-
-    try (Response response = new OkHttpClient().newCall(request).execute()) {
-      if (!response.isSuccessful() || response.body() == null) {
-        throw new IllegalStateException("HTTP " + response.code());
-      }
-      try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), StandardCharsets.UTF_8))) {
-        for (String line; (line = reader.readLine()) != null; ) {
-          if (!line.isEmpty()) {
-            System.out.println(line);
-          }
-        }
-      }
-    }
-  }
-}
+OkHttpClient client = new OkHttpClient();
+Response response = client.newCall(request).execute();
+System.out.print(response.body!!.string())
 ```
 
 Other languages can be rewritten accordingly; the principle is the same.
@@ -222,7 +195,7 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 If you want to integrate multi-turn dialogue functionality, you need to upload multiple queries in the `messages` field. The specific examples of multiple queries are shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/qvzu06.png" width="400" class="m-auto" /></p>
+<p><img src="https://cdn.acedata.cloud/qvzu06.png" width="400" class="m-auto"></p>
 
 Python sample call code:
 
@@ -322,41 +295,41 @@ Example result:
 
 ```json
 {
-    "id": "chatcmpl-20251206001815715692730UVZe38kB",
-    "model": "gemini-3.0-pro",
-    "object": "chat.completion",
-    "created": 1764951548,
-    "choices": [
-        {
-            "index": 0,
-            "message": {
-                "role": "assistant",
-                "content": "This is a half-length outdoor portrait photo of a young woman.\n\nHere is the main content description of the image:\n\n*   **Appearance**: The girl in the photo has long, straight black hair, delicate features, and fair skin. She has a gentle smile and is looking at the camera.\n*   **Outfit**: She is wearing a cream or light apricot puff-sleeve top, paired with black clothing (which looks like a suspender skirt or vest).\n*   **Lighting Atmosphere**: Sunlight is shining from the left rear, casting a warm golden halo on her hair, creating a fresh and beautiful atmosphere.\n*   **Background**: The background is blurred, indicating that it is outdoors, with an empty road (asphalt) and green trees along the roadside.\n\nOverall, this photo gives a sweet, sunny, and neighborly girl feeling."
-            },
-            "finish_reason": "stop"
-        }
-    ],
-    "usage": {
-        "prompt_tokens": 1092,
-        "completion_tokens": 1271,
-        "total_tokens": 2363,
-        "prompt_tokens_details": {
-            "cached_tokens": 0,
-            "text_tokens": 4,
-            "audio_tokens": 0,
-            "image_tokens": 0
-        },
-        "completion_tokens_details": {
-            "text_tokens": 0,
-            "audio_tokens": 0,
-            "reasoning_tokens": 1072
-        },
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "input_tokens_details": null,
-        "claude_cache_creation_5_m_tokens": 0,
-        "claude_cache_creation_1_h_tokens": 0
+  "id": "chatcmpl-20251206001815715692730UVZe38kB",
+  "model": "gemini-3.0-pro",
+  "object": "chat.completion",
+  "created": 1764951548,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "This is a half-length outdoor portrait photo of a young woman.\n\nHere is the main content description of the image:\n\n*   **Appearance**: The girl in the photo has long, straight black hair, delicate features, and fair skin. She has a gentle smile and is looking at the camera.\n*   **Outfit**: She is wearing a cream or light apricot puff-sleeve top, paired with black clothing (which looks like a suspender skirt or vest).\n*   **Lighting Atmosphere**: Sunlight is shining from the left rear, casting a warm golden halo on her hair, creating a fresh and beautiful atmosphere.\n*   **Background**: The background is blurred, indicating that it is outdoors, with an empty road (asphalt) and green trees along the roadside.\n\nOverall, this photo gives a sweet, sunny, and neighborly girl feeling."
+      },
+      "finish_reason": "stop"
     }
+  ],
+  "usage": {
+    "prompt_tokens": 1092,
+    "completion_tokens": 1271,
+    "total_tokens": 2363,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "text_tokens": 4,
+      "audio_tokens": 0,
+      "image_tokens": 0
+    },
+    "completion_tokens_details": {
+      "text_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1072
+    },
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "input_tokens_details": null,
+    "claude_cache_creation_5_m_tokens": 0,
+    "claude_cache_creation_1_h_tokens": 0
+  }
 }
 ```
 
@@ -389,41 +362,41 @@ Of course, you can also submit a video link, with the specific input as follows:
 Example result:
 ```json
 {
-    "id": "chatcmpl-20251206002711949677736JC9yL8AE",
-    "model": "gemini-3.0-pro",
-    "object": "chat.completion",
-    "created": 1764952060,
-    "choices": [
-        {
-            "index": 0,
-            "message": {
-                "role": "assistant",
-                "content": "The content of this video is full of fun, mainly showcasing a **ginger cat** confidently jogging along a country road at dusk.\n\nSpecific details are as follows:\n\n1.  **Visual Content**:\n    *   The main character is an orange tabby cat.\n    *   The background is during sunset (or sunrise), with soft golden light. There are wooden fences and open fields by the roadside, and a silhouette of a pedestrian in the distance.\n    *   The camera uses a low-angle shot, sometimes capturing the cat running towards the camera, sometimes capturing its departing figure, along with close-ups of the cat's face and patterns.\n\n2.  **Sound Characteristics (Key Points)**:\n    *   The voiceover of the video is very distinctive. Although the visuals show a light-footed cat running, the accompanying sound is **heavy and rhythmic hoofbeats** (or sounds similar to clogs/high heels striking the ground).\n    *   This contrast in sound and visuals creates a sense of humor, as if this cat considers itself a galloping steed.\n\nOverall, this is a pet video that uses the contrast of sound and visuals to create cute and humorous moments."
-            },
-            "finish_reason": "stop"
-        }
-    ],
-    "usage": {
-        "prompt_tokens": 915,
-        "completion_tokens": 1423,
-        "total_tokens": 2338,
-        "prompt_tokens_details": {
-            "cached_tokens": 0,
-            "text_tokens": 5,
-            "audio_tokens": 0,
-            "image_tokens": 0
-        },
-        "completion_tokens_details": {
-            "text_tokens": 0,
-            "audio_tokens": 0,
-            "reasoning_tokens": 1162
-        },
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "input_tokens_details": null,
-        "claude_cache_creation_5_m_tokens": 0,
-        "claude_cache_creation_1_h_tokens": 0
+  "id": "chatcmpl-20251206002711949677736JC9yL8AE",
+  "model": "gemini-3.0-pro",
+  "object": "chat.completion",
+  "created": 1764952060,
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The content of this video is full of fun, mainly showcasing a **ginger cat** confidently jogging along a country road at dusk.\n\nSpecific details are as follows:\n\n1.  **Visual Content**:\n    *   The main character is an orange tabby cat.\n    *   The background is during sunset (or sunrise), with soft golden light. There are wooden fences and open fields by the roadside, and a silhouette of a pedestrian in the distance.\n    *   The camera uses a low-angle shot, sometimes capturing the cat running towards the camera, sometimes capturing its departing figure, along with close-ups of the cat's face and patterns.\n\n2.  **Sound Characteristics (Key Points)**:\n    *   The voiceover of the video is very distinctive. Although the visuals show a light-footed cat running, the accompanying sound is **heavy and rhythmic hoofbeats** (or sounds similar to clogs/high heels striking the ground).\n    *   This contrast in sound and visuals creates a sense of humor, as if this cat considers itself a galloping steed.\n\nOverall, this is a pet video that uses the contrast of sound and visuals to create cute and humorous moments."
+      },
+      "finish_reason": "stop"
     }
+  ],
+  "usage": {
+    "prompt_tokens": 915,
+    "completion_tokens": 1423,
+    "total_tokens": 2338,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "text_tokens": 5,
+      "audio_tokens": 0,
+      "image_tokens": 0
+    },
+    "completion_tokens_details": {
+      "text_tokens": 0,
+      "audio_tokens": 0,
+      "reasoning_tokens": 1162
+    },
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "input_tokens_details": null,
+    "claude_cache_creation_5_m_tokens": 0,
+    "claude_cache_creation_1_h_tokens": 0
+  }
 }
 ```
 
@@ -431,7 +404,7 @@ It can be seen from the above that the Gemini 3.0 model supports multimodal unde
 
 ## Gemini-3.1 Multimodal Model
 
-Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
+Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, with the underlying model being `gemini-3.1-pro-preview`, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
 
 Request example:
 
