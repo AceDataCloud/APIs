@@ -1,0 +1,44 @@
+# Producer WAV Download API Integration Instructions
+
+Producer allows you to download WAV files related to songs. This document explains the integration method for the Producer WAV Download API.
+
+## Basic Usage
+
+This API has one required input parameter:
+
+- `audio_id`: the unique ID of the song.
+
+### Request Example
+
+```bash
+curl -X POST 'https://api.acedata.cloud/producer/wav' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "audio_id": "a54609c6-13e2-4176-be0f-4d7eebc68e1f"
+  }'
+```
+
+### Response Example
+
+```json
+{
+  "success": true,
+  "task_id": "44963173-b6c5-463c-915f-96730d14ec63",
+  "trace_id": "f75d6a27-54bc-49fd-a40e-6d4cd0427764",
+  "data": [
+    {
+      "title": "Woke up with the sun in my eyes",
+      "file_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001"
+    }
+  ]
+}
+```
+
+The `file_url` field in `data` is the download link for the WAV file.
+
+## Support
+
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+
