@@ -146,7 +146,7 @@ Clicking run, you can find that you will immediately get a result, as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/monkey/aEUXJZ6Faj9YXUCQVs01Q_af0cea56c558441c9ba8df67b200812d.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
       "timings": 1752744073
     }
   ]
@@ -194,7 +194,7 @@ The content is as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/f4f8d407-377a-408a-82d0-427a5a836f09_0.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
       "seed": 1698551532,
       "timings": {
         "inference": 3.328

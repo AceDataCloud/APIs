@@ -113,7 +113,7 @@ Upon a successful request, the API will return the detailed information of the i
     "data": [
       {
         "prompt": "a white siamese cat",
-        "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/57d9ff7c-5a00-409e-9dcc-90f35b38d16e_0.png",
+        "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
         "seed": 281520112,
         "timings": {
           "inference": 3.193
@@ -178,7 +178,7 @@ Upon a successful request, the API will return the specific details of all batch
         "data": [
           {
             "prompt": "a white siamese cat",
-            "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/57d9ff7c-5a00-409e-9dcc-90f35b38d16e_0.png",
+            "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
             "seed": 281520112,
             "timings": {
               "inference": 3.193
@@ -208,7 +208,7 @@ Upon a successful request, the API will return the specific details of all batch
         "data": [
           {
             "prompt": "a white siamese cat",
-            "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/57b5c7e5-3436-466d-86ed-583ede4a3d7c_0.png",
+            "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
             "seed": 1437672535,
             "timings": {
               "inference": 3.175
