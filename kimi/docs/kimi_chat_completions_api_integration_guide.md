@@ -1,4 +1,7 @@
-# Kimi Chat Completion API Application and Usage
+---
+title: "Kimi Chat Completion API Application and Usage"
+description: "Kimi integration guide - Ace Data Cloud"
+---
 
 Kimi is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompt words. Kimi provides amazing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
@@ -8,13 +11,15 @@ The recommended model is `kimi-k3`, which supports reasoning, vision, tool calli
 
 ## Application Process
 
-To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Kimi Chat Completion API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications).
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**One API Token can call all services on the platform without applying separately for each service.** The first application grants a free trial quota; recharge the general balance in the [console](https://platform.acedata.cloud/console/coin) when it is insufficient.
+
+> 📘 Complete Documentation: [Kimi Chat Completion API →](https://platform.acedata.cloud/documents/kimi-chat-completions)
 
 ## Basic Usage
 
@@ -22,7 +27,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3` for the current flagship or select a compatible K2 model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, fill in `authorization`, `model`, and `messages`. Use `kimi-k3` for the current flagship or a compatible K2 model. Each message contains `role` and `content`; `role` supports `user`, `assistant`, `system`, `developer`, and `tool`. Message content can be a string or an array of text, image, and file parts.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -102,6 +107,7 @@ headers = {
 payload = {
     "model": "kimi-k3",
     "messages": [{"role":"user","content":"Hello"}],
+    "reasoning_effort": "max",
     "stream": True
 }
 
@@ -177,7 +183,8 @@ headers = {
 
 payload = {
     "model": "kimi-k3",
-    "messages": [{"role":"assistant","content":"Hello! How can I help you today?"},{"role":"user","content":"What model are you?"}]
+    "messages": [{"role":"assistant","content":"Hello! How can I help you today?"},{"role":"user","content":"What model are you?"}],
+    "reasoning_effort": "max"
 }
 
 response = requests.post(url, json=payload, headers=headers)

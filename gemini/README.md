@@ -6,7 +6,7 @@ Google Gemini generative services, including chat completions and native generat
 
 API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/service/gemini)
 
-Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: gemini-api, google-gemini, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, video-generation, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Gemini on Ace Data Cloud
 
@@ -49,3 +49,5 @@ Explore the supported endpoints and integration guides for Gemini.
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
 | [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Videos Generation API](https://platform.acedata.cloud/documents/gemini-videos) | `/gemini/videos` | [Gemini Videos Generation API Integration Guide](docs/gemini_videos_api_integration_guide.md) |
+| [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-tasks) | `/gemini/tasks` | [Gemini Tasks API Integration Guide](docs/gemini_tasks_api_integration_guide.md) |

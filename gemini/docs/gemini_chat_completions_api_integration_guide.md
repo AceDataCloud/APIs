@@ -1,4 +1,7 @@
-# Gemini Chat Completion API Application and Usage
+---
+title: "Gemini Chat Completion API Application and Usage"
+description: "Gemini AI integration guide - Ace Data Cloud"
+---
 
 Google Gemini is a very powerful AI conversation system that can generate smooth and natural replies in just a few seconds by inputting prompts. Gemini provides amazing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
@@ -6,13 +9,15 @@ This document mainly describes the usage process of the Gemini Chat Completion A
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use Gemini Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be redirected to the login page and returned to the console after completing registration.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**One API Token can call all services on the platform without applying separately for each service.** The first application grants a free trial quota; recharge the general balance in the [console](https://platform.acedata.cloud/console/coin) when it is insufficient.
+
+> 📘 Complete Documentation: [Gemini Chat Completion API →](https://platform.acedata.cloud/documents/gemini-chat-completions)
 
 ## Basic Usage
 
@@ -20,7 +25,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of the questions we input. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, fill in `authorization`, `model`, and `messages`. Each message contains `role` and `content`; `role` supports `user`, `assistant`, `system`, `developer`, and `tool`. Use a current supported model such as `gemini-3.1-pro`, `gemini-3.0-pro`, `gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`, `gemini-2.0-flash`, or `gemini-3.1-flash-lite-preview`.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -102,7 +107,7 @@ import requests
 url = "https://api.acedata.cloud/gemini/chat/completions"
 
 headers = {
-    "accept": "application/json",
+    "accept": "text/event-stream",
     "authorization": "Bearer {token}",
     "content-type": "application/json"
 }

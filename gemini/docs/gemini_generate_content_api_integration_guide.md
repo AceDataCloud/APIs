@@ -94,8 +94,11 @@ Streaming responses return content incrementally in SSE (Server-Sent Events) for
 | `gemini-2.5-flash` | Excellent cost-performance ratio, suitable for high-volume low-latency tasks |
 | `gemini-2.5-pro` | Most advanced model, deep reasoning for complex tasks |
 | `gemini-2.5-flash-lite` | Fastest and most economical multi-modal model |
+| `gemini-3.0-pro` | Advanced multimodal model with strong reasoning capabilities |
 | `gemini-3-flash-preview` | Frontier-level performance with lower cost |
 | `gemini-3.1-pro` | Advanced intelligence with powerful agent and coding capabilities |
+| `gemini-3.1-flash-lite-preview` | Lightweight preview model for fast, low-cost requests |
+| `gemini-3.5-flash` | Fast frontier model for general-purpose tasks |
 | `gemini-2.0-flash` | Second-generation main model |
 
 ## Advanced Features
@@ -212,6 +215,18 @@ Models that support thinking (such as gemini-2.5-flash, gemini-2.5-pro) can enab
       ]
     }
   ]
+}
+```
+
+### Tool Configuration
+
+Use `toolConfig` with `tools` to configure function-calling behavior. It is supported by both `generateContent` and `streamGenerateContent`:
+
+```json
+{
+  "contents": [{"role": "user", "parts": [{"text": "What is the weather in London?"}]}],
+  "tools": [{"functionDeclarations": [{"name": "get_weather", "parameters": {"type": "object"}}]}],
+  "toolConfig": {"functionCallingConfig": {"mode": "AUTO"}}
 }
 ```
 
