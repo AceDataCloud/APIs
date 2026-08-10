@@ -146,23 +146,27 @@ JavaScript is also supported, for example, the streaming call code for Node.js i
 
 ```javascript
 const options = {
-  method: "post",
+  method: "POST",
   headers: {
     "accept": "application/json",
     "authorization": "Bearer {token}",
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    "model": "gemini-2.5-pro",
-    "messages": [{"role":"user","content":"Hello,What model are you?"}],
-    "stream": true
+    model: "gemini-2.5-pro",
+    messages: [{ role: "user", content: "Hello, what model are you?" }],
+    stream: true
   })
 };
 
-fetch("https://api.acedata.cloud/gemini/chat/completions", options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+const response = await fetch("https://api.acedata.cloud/gemini/chat/completions", options);
+const reader = response.body.getReader();
+const decoder = new TextDecoder("utf-8");
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  process.stdout.write(decoder.decode(value));
+}
 ```
 
 Java sample code:
@@ -170,10 +174,10 @@ Java sample code:
 ```java
 JSONObject jsonObject = new JSONObject();
 jsonObject.put("model", "gemini-2.5-pro");
-jsonObject.put("messages", [{"role":"user","content":"Hello,What model are you?"}]);
+jsonObject.put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "Hello, what model are you?")));
 jsonObject.put("stream", true);
-MediaType mediaType = "application/json; charset=utf-8".toMediaType();
-RequestBody body = jsonObject.toString().toRequestBody(mediaType);
+MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+RequestBody body = RequestBody.create(jsonObject.toString(), mediaType);
 Request request = new Request.Builder()
   .url("https://api.acedata.cloud/gemini/chat/completions")
   .post(body)
@@ -184,7 +188,7 @@ Request request = new Request.Builder()
 
 OkHttpClient client = new OkHttpClient();
 Response response = client.newCall(request).execute();
-System.out.print(response.body!!.string())
+System.out.println(response.body().string());
 ```
 
 Other languages can be rewritten accordingly; the principle is the same.
