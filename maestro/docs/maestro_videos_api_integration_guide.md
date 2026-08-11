@@ -28,9 +28,9 @@ Keep tokens outside source control and never expose them in client-side code or 
 | `file_urls` | string[] | no | - | Public image, video, or audio references |
 | `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
 | `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
-| `duration` | integer | no | `30` | Target length in seconds, from 1 through 600 |
-| `quality` | string | no | `standard` | `draft`, `standard`, or `premium` |
-| `scenario` | string | no | `auto` | `auto`, `narrated`, `drama`, `avatar`, `motion`, or `slideshow` |
+| `duration` | integer | no | `30` | Target length in seconds, from 5 through 300; the selected SKU sets the maximum |
+| `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |
+| `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama`; availability depends on SKU |
 | `style` | string | no | `auto` | Named preset or freeform visual-style hint |
 | `voice` | string | no | `auto` | Voice preset or a 32-hex-character Fish reference ID |
 | `callback_url` | string | no | - | Public webhook URL called when the task reaches a terminal state |
@@ -44,20 +44,21 @@ Keep tokens outside source control and never expose them in client-side code or 
 
 Every non-`generate` action requires `ref_task_id` and creates a new task ID.
 
-### Quality Tiers
+### Production SKUs
 
-- `draft`: faster rough cut for validating direction.
-- `standard`: balanced default.
-- `premium`: more detailed production with a higher quality multiplier and longer turnaround.
+| SKU | Price | Duration | Output | Languages | Scenarios and actions |
+|---|---:|---:|---|---:|---|
+| `lite` | 0.20 Credits/second | 5–30s | 720p/24fps | 1 | auto/narrated/captions; generate/edit |
+| `standard` | 0.60 Credits/second | 5–120s | 1080p/30fps | 2 | adds avatar and remix |
+| `pro` | 1.20 Credits/second | 5–300s | 1080p/30fps | 4 | adds drama and extend |
 
 ### Scenarios
 
 - `auto`: let the director choose from the brief.
 - `narrated`: multi-scene explainer, documentary, brand, history, or product video.
-- `drama`: character and dialogue-driven short drama.
-- `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`.
-- `motion`: kinetic type, data, logo, or abstract motion graphics.
-- `slideshow`: presentation, pitch, or slide-led production.
+- `captions`: add kinetic captions to a source video supplied in `file_urls`.
+- `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`; Standard or Pro is required.
+- `drama`: character and dialogue-driven short drama; Pro is required.
 
 ### Styles and Voices
 
@@ -86,7 +87,7 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
     "langs": ["en", "de"],
     "aspect": "16:9",
     "duration": 45,
-    "quality": "premium",
+    "quality": "pro",
     "scenario": "narrated",
     "style": "editorial",
     "voice": "documentary-male"
@@ -112,7 +113,7 @@ response = requests.post(
         "langs": ["en", "de"],
         "aspect": "16:9",
         "duration": 45,
-        "quality": "premium",
+        "quality": "pro",
         "scenario": "narrated",
         "style": "editorial",
     },
@@ -173,7 +174,7 @@ The response contains a new `task_id`. Retrieve that new task for the revised ou
 
 ## Billing
 
-Maestro settles a successful job after production based on the actual video duration, quality, scenario, and language variants delivered. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
+Maestro settles a successful job from the delivered integer-second duration: `duration × SKU rate × scenario multiplier + language surcharge`. There is no 30-second minimum. Avatar uses 1.15×, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
 
 ## Errors
 
