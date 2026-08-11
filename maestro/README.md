@@ -14,7 +14,7 @@ Keywords: maestro-api, ai-video, video-production, prompt-to-video, article-to-v
 - Create scripts, visuals, narration, music, captions, and edits in one asynchronous workflow
 - Attach public image, video, and audio references
 - Render localized variants from one production
-- Remix, edit, or extend an earlier Maestro task
+- Remix, edit, or extend an earlier Maestro task with the SKU that supports it
 - Use one Ace Data Cloud API token, billing system, and task history
 
 ## Quick Start

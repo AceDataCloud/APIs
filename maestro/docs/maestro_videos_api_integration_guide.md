@@ -23,14 +23,14 @@ Keep tokens outside source control and never expose them in client-side code or 
 | Field | Type | Required | Default | Description |
 |---|---|---:|---|---|
 | `prompt` | string | yes | - | Natural-language brief covering the subject, audience, content, tone, and desired result |
-| `action` | string | no | `generate` | `generate`, `remix`, `edit`, or `extend` |
+| `action` | string | no | `generate` | `generate` or `edit` on Lite; `remix` on Standard or Pro; `extend` on Pro |
 | `ref_task_id` | string | conditional | - | Required when `action` is `remix`, `edit`, or `extend` |
 | `file_urls` | string[] | no | - | Public image, video, or audio references |
-| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
-| `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
-| `duration` | integer | no | `30` | Target length in seconds, from 1 through 600 |
-| `quality` | string | no | `standard` | `draft`, `standard`, or `premium` |
-| `scenario` | string | no | `auto` | `auto`, `narrated`, `drama`, `avatar`, `motion`, or `slideshow` |
+| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary. Lite supports 1, Standard 2, and Pro 4 |
+| `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1`; Lite renders 720p/24fps, Standard and Pro render 1080p/30fps |
+| `duration` | integer | no | `30` | Target length in seconds: Lite 5–30, Standard 5–120, or Pro 5–300 |
+| `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |
+| `scenario` | string | no | `auto` | Lite: `auto`, `narrated`, or `captions`; Standard adds `avatar`; Pro adds `drama` |
 | `style` | string | no | `auto` | Named preset or freeform visual-style hint |
 | `voice` | string | no | `auto` | Voice preset or a 32-hex-character Fish reference ID |
 | `callback_url` | string | no | - | Public webhook URL called when the task reaches a terminal state |
@@ -44,20 +44,23 @@ Keep tokens outside source control and never expose them in client-side code or 
 
 Every non-`generate` action requires `ref_task_id` and creates a new task ID.
 
-### Quality Tiers
+### Production SKUs
 
-- `draft`: faster rough cut for validating direction.
-- `standard`: balanced default.
-- `premium`: more detailed production with a higher quality multiplier and longer turnaround.
+- `lite`: 720p/24fps production for 5–30-second videos.
+- `standard`: 1080p/30fps production for 5–120-second videos.
+- `pro`: 1080p/30fps high-bitrate production for 5–300-second videos.
+
+Lite supports `generate` and `edit`; Standard adds `remix`; Pro adds `extend`. Every non-`generate` action requires `ref_task_id`.
 
 ### Scenarios
 
 - `auto`: let the director choose from the brief.
 - `narrated`: multi-scene explainer, documentary, brand, history, or product video.
-- `drama`: character and dialogue-driven short drama.
+- `captions`: automatic subtitles for a source video supplied in `file_urls`.
 - `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`.
-- `motion`: kinetic type, data, logo, or abstract motion graphics.
-- `slideshow`: presentation, pitch, or slide-led production.
+- `drama`: character and dialogue-driven short drama.
+
+Lite supports `auto`, `narrated`, and `captions`; Standard adds `avatar`; Pro adds `drama`.
 
 ### Styles and Voices
 
@@ -86,7 +89,7 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
     "langs": ["en", "de"],
     "aspect": "16:9",
     "duration": 45,
-    "quality": "premium",
+    "quality": "pro",
     "scenario": "narrated",
     "style": "editorial",
     "voice": "documentary-male"
@@ -112,7 +115,7 @@ response = requests.post(
         "langs": ["en", "de"],
         "aspect": "16:9",
         "duration": 45,
-        "quality": "premium",
+        "quality": "pro",
         "scenario": "narrated",
         "style": "editorial",
     },
@@ -143,7 +146,7 @@ An accepted task is not a completed video. Poll the returned task ID before pres
 
 ## Multilingual Production
 
-Pass several language codes in `langs`:
+Pass several language codes in `langs`. Lite supports one language, Standard supports up to two, and Pro supports up to four:
 
 ```json
 {
@@ -154,7 +157,7 @@ Pass several language codes in `langs`:
 }
 ```
 
-Successful output is represented by delivered items in `response.data.variants`. Inspect the actual variants instead of assuming every requested language was produced.
+Successful output is represented by delivered items in `response.data.variants`. Inspect the actual variants instead of assuming every requested language was produced; each delivered language after the first costs 6 additional credits.
 
 ## Remix, Edit, or Extend
 
@@ -169,11 +172,21 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
   }'
 ```
 
-The response contains a new `task_id`. Retrieve that new task for the revised output; the source task remains unchanged.
+The response contains a new `task_id`. Retrieve that new task for the revised output; the source task remains unchanged. Lite supports `edit`, Standard adds `remix`, and Pro adds `extend`.
 
 ## Billing
 
-Maestro settles a successful job after production based on the actual video duration, quality, scenario, and language variants delivered. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
+Maestro settles a successful job after production based on actual delivered duration, SKU, scenario, and language variants; billed duration never exceeds the requested duration. Failed tasks are not charged, and polling `POST /maestro/tasks` is free.
+
+`credits = delivered duration in seconds × SKU price per second × scenario multiplier + 6 × max(delivered language count − 1, 0)`
+
+| SKU | Price per second | Maximum duration | Output | Added scenarios and actions |
+|---|---:|---:|---|---|
+| `lite` | 0.20 credits | 30 seconds | 720p / 24fps | `auto`, `narrated`, `captions`; `generate`, `edit` |
+| `standard` | 0.60 credits | 120 seconds | 1080p / 30fps | Adds `avatar` and `remix` |
+| `pro` | 1.20 credits | 300 seconds | 1080p / 30fps high bitrate | Adds `drama` and `extend` |
+
+`avatar` has a 1.15× multiplier, `drama` has a 1.35× multiplier, and all other scenarios use 1×.
 
 ## Errors
 
