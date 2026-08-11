@@ -1,22 +1,27 @@
-# Flux Images Generation API Integration Instructions
+---
+title: "Flux Images Generation API Integration Instructions"
+description: "Flux Image Generation integration guide - Ace Data Cloud"
+---
 
 This article will introduce the integration instructions for the Flux Images Generation API, which can generate official Flux images by inputting custom parameters.
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use Flux Images Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
 
-Upon your first application, there will be a free quota available for you to use the API for free.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Flux Images Generation API →](https://platform.acedata.cloud/documents/flux-images)
 
 ## Basic Usage
 
 First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, and the image size `size` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then we also need to input the prompt, as detailed below:
 
-<p><img src="https://cdn.acedata.cloud/wz85jt.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/wz85jt.png" width="500" className="m-auto" /></p>
 
 Here we can see that we have set the Request Headers, including:
 
@@ -39,15 +44,19 @@ The parameter `size` has some special restrictions, mainly divided into two type
 | flux-2-flex        | Supports aspect ratio x >= 64 must be a multiple of 32          |
 | flux-2-pro         | Supports aspect ratio x >= 64 must be a multiple of 32          |
 | flux-2-max         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-dev           | Supports aspect ratio 256 <= x <= 1440 must be a multiple of 32 |
+| flux-pro-1.1       | Supports aspect ratio 256 &lt;= x &lt;= 1440 must be a multiple of 32 |
+| flux-dev           | Supports aspect ratio 256 &lt;= x &lt;= 1440 must be a multiple of 32 |
+| flux-pro-1.1-ultra | Does not support aspect ratio supports image ratio                     |
 | flux-kontext-pro   | Does not support aspect ratio supports image ratio                     |
 | flux-kontext-max   | Does not support aspect ratio supports image ratio                     |
 
 Reference image ratios: "1:1", "16:9", "21:9", "3:2", "2:3", "4:5", "5:4", "3:4", "4:3", "9:16", "9:21",
 
-After selection, the corresponding code is generated on the right side. Before copying it, confirm that the authorization header uses your own API key; real credentials must never appear in documentation or screenshots.
+After selection, you can see that the corresponding code is also generated on the right side, as shown in the image below:
 
-Click the "Try" button to test, and we get the following result:
+<p><img src="https://cdn.acedata.cloud/8q7aux.png" width="500" className="m-auto" /></p>
+
+Click the "Try" button to test, as shown in the image above, and we get the following result:
 
 ```json
 {
@@ -57,12 +66,12 @@ Click the "Try" button to test, and we get the following result:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/lion/NVhtlwwGYQD6HrGaEfrzu_341484fad6d84b21b73f4f8824a3f98a.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001",
       "timings": 1752743801
     },
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/monkey/8UEQpFbQCYVOK1wKP3aV0_9bbc26fad64049b18d0244b99ef66ad1.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-002",
       "timings": 1752743801
     }
   ]
@@ -104,11 +113,11 @@ If you want to edit a specific image, the parameter `image_url` must first be pa
 
 An example of the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/jn9da5.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/jn9da5.png" width="500" className="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/6cwxb8.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/6cwxb8.png" width="500" className="m-auto" /></p>
 
 The corresponding code:
 
@@ -144,7 +153,7 @@ Clicking run, you can find that you will immediately get a result, as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/monkey/aEUXJZ6Faj9YXUCQVs01Q_af0cea56c558441c9ba8df67b200812d.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001",
       "timings": 1752744073
     }
   ]
@@ -168,7 +177,7 @@ Copy this URL, and it can be used as a Webhook. The sample here is `https://webh
 
 Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/wm6caw.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/wm6caw.png" width="500" className="m-auto" /></p>
 
 Clicking run, you will immediately receive a result as follows:
 
@@ -192,7 +201,7 @@ The content is as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/f4f8d407-377a-408a-82d0-427a5a836f09_0.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png?example=image-001",
       "seed": 1698551532,
       "timings": {
         "inference": 3.328
