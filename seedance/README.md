@@ -19,7 +19,7 @@ Keywords: seedance-api, ai-video, video-generation, bytedance, doubao, text-to-v
 
 The Seedance Videos Generation API generates official ByteDance Seedance (Doubao) videos by inputting custom parameters such as a `content` array (text, image, audio, video), `model`, `resolution`, `ratio`, and `duration`.
 
-The Seedance 2.0 series (`doubao-seedance-2-0-260128`, `doubao-seedance-2-0-fast-260128`, `doubao-seedance-2-0-mini-260615`) adds multimodal reference inputs: real-person / character image references, reference audio, and reference video.
+Seedance 2.5 (`doubao-seedance-2-5-260628`) is the latest flagship: up to 30 seconds, pure-audio or multimodal reference, larger media limits, and video edit/extend. Seedance 2.0 remains available for up to 4k output.
 
 The Seedance Tasks API queries the execution status of tasks by inputting the task ID returned by the Seedance Videos Generation API.
 
@@ -54,7 +54,8 @@ curl --request POST "https://api.acedata.cloud/seedance/videos" \
 
 | Model | Generation | Notes |
 | ---- | ---- | ---- |
-| `doubao-seedance-2-0-260128` | 2.0 | Latest generation, highest quality, multimodal reference, up to 4k (recommended) |
+| `doubao-seedance-2-5-260628` | 2.5 | Latest flagship, up to 30s, pure-audio/multimodal reference, edit/extend (recommended) |
+| `doubao-seedance-2-0-260128` | 2.0 | Highest resolution, multimodal reference, up to 4k |
 | `doubao-seedance-2-0-fast-260128` | 2.0 Fast | Faster 2.0, up to 720p |
 | `doubao-seedance-2-0-mini-260615` | 2.0 Mini | Lightweight / most cost-effective 2.0, up to 720p |
 | `doubao-seedance-1-5-pro-251215` | 1.5 Pro | Supports audio generation |

@@ -15,7 +15,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input a `content` array containing a single text item plus a `model`. The result is the generated video. The request body fields are described below:
 
 - `model`: the model used to generate the video. Available values:
-  - **Seedance 2.0 series** (multimodal reference: real-person / character image, reference audio, reference video): `doubao-seedance-2-0-260128` (standard), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
+  - **Seedance 2.5**: `doubao-seedance-2-5-260628` (latest flagship, 4–30 seconds, edit/extend, pure-audio and multimodal reference).
+  - **Seedance 2.0 series**: `doubao-seedance-2-0-260128` (standard, up to 4k), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
   - **Seedance 1.x**: `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
   - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
@@ -32,7 +33,7 @@ The most basic usage is to input a `content` array containing a single text item
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
-- `generate_audio`: whether to generate audio. Supported by `doubao-seedance-1-5-pro-251215` and the `doubao-seedance-2-0` series; other models ignore it. Default `false`.
+- `generate_audio`: whether to generate audio. Supported by Seedance 1.5 Pro and 2.x; other models ignore it. Default `false`.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
 
@@ -157,6 +158,6 @@ Video generation can take time. To avoid long-held HTTP connections, use one of 
 | 401 | `invalid_token` | The token is invalid or wrong. |
 | 401 | `token_expired` | The token has expired. |
 | 400 | `no_token` | No token was specified for the request. |
-| 500 | `internal_error` | An internal or upstream error occurred. |
+| 500 | `internal_error` | A service processing error occurred. |
 
 Each error response includes a `trace_id` to help with debugging and support.
