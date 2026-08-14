@@ -54,10 +54,10 @@ For text-only requests, provide only the `text` item and use a fixed `ratio`. Fo
 
 ## Response and callbacks
 
-Creating a video returns a task ID:
+Creating a video returns a task ID and trace ID:
 
 ```json
-{ "task_id": "TASK_ID" }
+{ "task_id": "TASK_ID", "trace_id": "TRACE_ID" }
 ```
 
 When `callback_url` is set, first return the POSTed `challenge` value unchanged within three seconds to verify the callback address. Then handle POSTed task status notifications. Save the `task_id` and poll the task API as a fallback.
