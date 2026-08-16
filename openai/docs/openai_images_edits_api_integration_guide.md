@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input images and instructions, and outputs the edited images. The GPT Image series models can accept up to 16 reference images simultaneously. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -41,7 +41,7 @@ The same size limits on custom sizes apply: width and height must be multiples o
 
 > **About the `n` parameter**
 >
-> The `gpt-image-2` editing interface supports `n > 1`: a single request can return and charge for the corresponding number of editing results (`n` values from 1 to 10). This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and charged.
+> The `gpt-image-2` editing interface supports `n > 1`: a single request can return and charge for the corresponding number of editing results (`n` values from 1 to 10). This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and charged.
 
 Below are two real examples from different perspectives to showcase the editing capabilities of `gpt-image-2`.
 
@@ -194,6 +194,7 @@ The `nano-banana` series is also integrated with `/openai/images/edits` for edit
 | Model | Cost (Credits / request) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image editing, fastest and lowest cost |
+| `nano-banana-2-lite` | 0.14 | Gemini 3.1 lightweight image model, supports only 1K, low-latency editing |
 | `nano-banana-2` | 0.28 | Noticeable improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best retention of structure, text, and style |
 
