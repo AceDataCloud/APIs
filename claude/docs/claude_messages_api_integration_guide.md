@@ -18,7 +18,7 @@ Upon first application, there will be a free quota provided, allowing you to use
 
 The request path for the Claude Messages API is `/v1/messages`, consistent with the Anthropic official API. We need to provide at least three required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
+- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
@@ -41,7 +41,7 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
       {
@@ -66,7 +66,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, Claude"}
@@ -78,6 +78,8 @@ print(response.json())
 ```
 
 After the call, the returned result is as follows:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -129,7 +131,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "system": "You are a professional Chinese translation assistant. Please translate the user's input from English to Chinese.",
     "messages": [
@@ -161,7 +163,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "stream": True,
     "messages": [
@@ -185,6 +187,8 @@ Streaming responses are returned in Server-Sent Events (SSE) format, with each l
 - `message_stop`: Message end.
 
 The output effect is as follows:
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
+
 ```
 event: message_start
 data: {"type":"message_start","message":{"id":"msg_01XFDUDYJgAACzvnptvVoYEL","type":"message","role":"assistant","content":[],"model":"claude-sonnet-4-20250514","stop_reason":null,"stop_sequence":null,"usage":{"input_tokens":12,"output_tokens":0}}}
@@ -224,7 +228,7 @@ const options = {
     "content-type": "application/json",
   },
   body: JSON.stringify({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-5",
     max_tokens: 1024,
     stream: true,
     messages: [{ role: "user", content: "Hello, Claude" }],
@@ -260,7 +264,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
         {"role": "user", "content": "Hello, my name is Alice."},
@@ -274,6 +278,8 @@ print(response.json())
 ```
 
 The response is as follows:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -316,11 +322,13 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 16000,
     "thinking": {
-        "type": "enabled",
-        "budget_tokens": 10000
+        "type": "adaptive"
+    },
+    "output_config": {
+        "effort": "high"
     },
     "messages": [
         {"role": "user", "content": "What is the sine of 30 degrees? Show your reasoning."}
@@ -332,6 +340,8 @@ print(response.json())
 ```
 
 The response is as follows:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -365,8 +375,9 @@ As you can see, the `content` array contains two content blocks:
 
 Notes:
 
-- When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
-- The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+- Current models use `thinking: {"type": "adaptive"}` and decide when and how much to think based on task complexity.
+- Use `output_config.effort` to tune reasoning depth and latency; supported levels depend on the selected model.
+- `max_tokens` covers both thinking and the final answer, so leave sufficient headroom and prefer streaming for large outputs.
 
 ## Visual Model
 
@@ -391,7 +402,7 @@ with open("image.png", "rb") as f:
     image_data = base64.standard_b64encode(f.read()).decode("utf-8")
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
         {
@@ -431,7 +442,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
         {
@@ -465,7 +476,7 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "messages": [
       {
@@ -491,6 +502,8 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
 Supported image formats include: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
 
 Example of return result:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -531,7 +544,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "tools": [
         {
@@ -559,6 +572,8 @@ print(response.json())
 ```
 
 When the model decides to call a tool, the `content` in the return result will contain a `tool_use` type content block:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -593,7 +608,7 @@ Note that `stop_reason` is `tool_use`, indicating that the model needs to call a
 
 ```python
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "max_tokens": 1024,
     "tools": [
         {
@@ -649,7 +664,7 @@ Ace Data Cloud provides two formats of the Claude API, with the main differences
 | System Prompt    | Independent `system` field                  | Passed through `role: "system"` in `messages`          |
 | Response Structure     | `content` array (supports multiple types)             | `choices` array (contains `message`)                   |
 | Streaming Format     | SSE events (multiple event types)                   | SSE `data` lines                                 |
-| Deep Thinking     | Native `thinking` parameter                 | Triggered by special model names (e.g., `-thinking` suffix)                  |
+| Deep Thinking     | Native `thinking` parameter                 | Enabled through compatible request parameters                               |
 | Tool Invocation     | Native `tools` + `input_schema`      | OpenAI compatible `functions` format                    |
 | Token Statistics | `input_tokens` / `output_tokens` | `prompt_tokens` / `completion_tokens`        |
 

@@ -35,6 +35,8 @@ Common optional parameters:
 
 After the call, we find that the return result is as follows:
 
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
+
 ```json
 {
   "id": "msg_bdrk_01Q6WN27v95ypCa1kbanAQ6K",
@@ -114,7 +116,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-opus-4-20250514",
+    "model": "claude-opus-5",
     "messages": [{"role":"user","content":"Hello"}],
     "stream": True
 }
@@ -124,6 +126,8 @@ print(response.text)
 ```
 
 The output effect is as follows:
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
+
 ```json
 data: {"id": "msg_bdrk_01LPPqDjLKMgfSwTRMRty9VT", "object": "chat.completion.chunk", "created": 1768619445, "model": "claude-opus-4-20250514", "system_fingerprint": null, "choices": [{"delta": {"content": "", "role": "assistant"}, "logprobs": null, "finish_reason": null, "index": 0}], "usage": null}
 
@@ -159,7 +163,7 @@ const options = {
     "content-type": "application/json",
   },
   body: JSON.stringify({
-    model: "claude-opus-4-20250514",
+    model: "claude-opus-5",
     messages: [{ role: "user", content: "Hello" }],
     stream: true,
   }),
@@ -175,7 +179,7 @@ Java sample code:
 
 ```java
 JSONObject jsonObject = new JSONObject();
-jsonObject.put("model", "claude-opus-4-20250514");
+jsonObject.put("model", "claude-opus-5");
 jsonObject.put("messages", [{"role":"user","content":"Hello"}]);
 jsonObject.put("stream", true);
 MediaType mediaType = "application/json; charset=utf-8".toMediaType();
@@ -215,7 +219,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-opus-4-20250514",
+    "model": "claude-opus-5",
     "messages": [{"role":"user","content":"Hello"},{"role":"assistant","content":"Hello! How can I help you today?"},{"role":"user","content":"What I say just now?"}]
 }
 
@@ -224,6 +228,8 @@ print(response.text)
 ```
 
 By uploading multiple question words, you can easily achieve multi-turn dialogue and receive the following response:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -268,7 +274,7 @@ It can be seen that the information contained in `choices` is consistent with th
 
 ## Deep Thinking Model
 
-The claude-opus-4-20250514-thinking and claude-sonnet-4-20250514-thinking models are different from other models in that they can perform deep thinking based on the question words to provide answers, and return the results of the thinking process to you. This article will demonstrate the deep thinking functionality through a specific example. Next, you can fill in the corresponding content on the Claude Chat Completion API interface, as shown in the figure:
+`claude-opus-5` and `claude-sonnet-5` support deep thinking through request parameters; no `-thinking` model suffix is needed. The historical response below is retained only to demonstrate the reasoning field structure, and its model has retired.
 
 <p><img src="https://cdn.acedata.cloud/d1a4wq.png" width="400" class="m-auto" /></p>
 
@@ -277,6 +283,8 @@ At the same time, you can notice that there is corresponding code generation on 
 <p><img src="https://cdn.acedata.cloud/21nmzq.png" width="400" class="m-auto" /></p>
 
 After the call, we find that the returned result is as follows:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -312,11 +320,11 @@ It can be seen that the response information in `choices` is obtained after deep
 
 ## Visual Model
 
-The claude-sonnet-4-20250514 is a multimodal large language model developed by Claude, which adds visual understanding capabilities based on claude-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
+The claude-sonnet-5 is a multimodal large language model developed by Claude, which adds visual understanding capabilities based on claude-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
 
-The text processing using the claude-sonnet-4-20250514 model is consistent with the basic usage content mentioned above. Below is a brief introduction on how to use the model's image processing capabilities.
+The text processing using the claude-sonnet-5 model is consistent with the basic usage content mentioned above. Below is a brief introduction on how to use the model's image processing capabilities.
 
-The image processing capability of the claude-sonnet-4-20250514 model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the claude-sonnet-4-20250514 model. The following mainly discusses how to call this functionality using Curl and Python.
+The image processing capability of the claude-sonnet-5 model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the claude-sonnet-5 model. The following mainly discusses how to call this functionality using Curl and Python.
 
 - Curl Script Method
 
@@ -326,7 +334,7 @@ curl -X POST 'https://api.acedata.cloud/v1/chat/completions' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "messages": [
       {
         "role": "user",
@@ -361,7 +369,7 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-sonnet-5",
     "messages": [
         {
             "role": "user",
@@ -385,6 +393,8 @@ print(response.text)
 ```
 
 Then you can obtain the following result, where the field information in the result is consistent with the above:
+
+> Historical response snapshot from a retired model; retained only to demonstrate the response structure.
 
 ```json
 {
@@ -425,7 +435,7 @@ Then you can obtain the following result, where the field information in the res
   }
 }
 ```
-The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-sonnet-4-20250514 model can be easily utilized through the above two methods.
+The content of the response can be seen as based on images, so the text and image processing capabilities of the claude-sonnet-5 model can be easily utilized through the above two methods.
 
 ## Error Handling
 
