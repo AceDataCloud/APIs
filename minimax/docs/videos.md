@@ -1,6 +1,6 @@
 # Video Generation
 
-Creation is always asynchronous: save the returned `task_id`, then poll `/minimax/tasks` or use `callback_url`.
+Creation is synchronous by default and returns the completed `task`. For asynchronous creation, set `async` to `true` or provide `callback_url`, save the returned `task_id`, and poll `/minimax/tasks`.
 
 ## Request
 
@@ -13,9 +13,10 @@ Creation is always asynchronous: save the returned `task_id`, then poll `/minima
 | `resolution` | string | — | required; `768P` or `2K` |
 | `duration` | integer | — | required; 4–15 |
 | `ratio` | string | `adaptive` | `adaptive`, `21:9`, `16:9`, `4:3`, `1:1`, `3:4`, or `9:16` |
+| `async` | boolean | `false` | `true` returns task identifiers immediately for polling |
 | `callback_url` | string | — | public HTTP(S) webhook |
 
-The API does not accept legacy `prompt`, `image_urls`, `audio_urls`, `messages`, or `first_frame_image` fields. The optional `async` field is retained for compatibility, but creation is always asynchronous.
+The API does not accept legacy `prompt`, `image_urls`, `audio_urls`, `messages`, or `first_frame_image` fields. Providing `callback_url` automatically enables asynchronous creation.
 
 ## Content items
 
@@ -54,10 +55,26 @@ For text-only requests, provide only the `text` item and use a fixed `ratio`. Fo
 
 ## Response and callbacks
 
-Creating a video returns a task ID:
+By default, creating a video waits for generation to finish and returns the completed task:
 
 ```json
-{ "task_id": "TASK_ID" }
+{
+  "task": {
+    "id": "TASK_ID",
+    "model": "MiniMax-H3",
+    "status": "succeeded",
+    "content": { "url": "https://cdn.acedata.cloud/minimax/TASK_ID.mp4" },
+    "resolution": "2K",
+    "duration": 8,
+    "ratio": "9:16"
+  }
+}
+```
+
+With `"async": true` or `callback_url`, creation returns identifiers immediately:
+
+```json
+{ "task_id": "TASK_ID", "trace_id": "TRACE_ID" }
 ```
 
 When `callback_url` is set, first return the POSTed `challenge` value unchanged within three seconds to verify the callback address. Then handle POSTed task status notifications. Save the `task_id` and poll the task API as a fallback.
