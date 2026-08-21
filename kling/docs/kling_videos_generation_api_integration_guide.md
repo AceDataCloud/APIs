@@ -14,11 +14,11 @@ Here we can see that we have set the Request Headers, including:
 - `authorization`: the key to call the API, which can be directly selected after application.
 Additionally, we have set the Request Body, including:
 - `model`: the model for generating the video, mainly including `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`.
-- `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
+- `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. Defaults to `std`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
 - `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when selecting the image-to-video action `image2video`, the first frame reference image link must be uploaded.
 - `end_image_url`: optional for image-to-video, specifies the last frame.
-- `duration`: video duration, in seconds. `kling-v3` and `kling-v3-omni` support integer durations of 3-15 seconds; `kling-o1` only supports 5 seconds; other models support 5 or 10 seconds.
+- `duration`: video duration, in seconds. Defaults to `5`. `kling-v3` and `kling-v3-omni` support integer durations of 3-15 seconds; `kling-o1` only supports 5 seconds; other models support 5 or 10 seconds.
 - `generate_audio`: whether to generate audio synchronously, optional, boolean value. Supports `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (only in pro mode). Default is `false`.
 - `aspect_ratio`: video aspect ratio, optional, supports `16:9`, `9:16`, `1:1`, default is `16:9`.
 - `cfg_scale`: correlation strength, range [0,1], larger values are more aligned with the prompt.
