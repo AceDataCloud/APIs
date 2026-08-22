@@ -1,163 +1,433 @@
-# Seedance Videos Generation API Integration Instructions
+# SeeDance Videos Generation API Integration Instructions
 
-This article introduces the Seedance Videos Generation API integration instructions, which can generate official ByteDance Seedance (Doubao) videos by inputting custom parameters such as a multimodal `content` array, model, resolution, aspect ratio, and duration.
+This document will introduce the SeeDance Videos Generation API integration instructions, which can generate official SeeDance videos by inputting custom parameters.
 
 ## Application Process
 
-To use the Seedance Videos Generation API, apply for the corresponding service on the [Seedance Videos Generation API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8) page. After entering the page, click the "Acquire" button.
+To use the SeeDance Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a free trial; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [SeeDance Videos Generation API →](https://platform.acedata.cloud/documents/seedance-videos)
 
 ## Basic Usage
 
-The most basic usage is to input a `content` array containing a single text item plus a `model`. The result is the generated video. The request body fields are described below:
+First, understand the basic usage method, which is to input the prompt `content.text`, type `content.type=text`, and model `model`, to obtain the processed result. The specific content is as follows:
 
-- `model`: the model used to generate the video. Available values:
-  - **Seedance 2.5**: `doubao-seedance-2-5-260628` (latest flagship, 4–30 seconds, edit/extend, pure-audio and multimodal reference).
-  - **Seedance 2.0 series**: `doubao-seedance-2-0-260128` (standard, up to 4k), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
-  - **Seedance 1.x**: `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
-- `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
-  - `text`: `{ "type": "text", "text": "..." }` — the prompt (max 1000 characters).
-  - `image_url`: `{ "type": "image_url", "role": "first_frame|last_frame|reference_image", "image_url": { "url": "https://..." } }`.
-  - `audio_url` (Seedance 2.0): `{ "type": "audio_url", "audio_url": { "url": "https://..." } }` — reference audio for voice timbre / background music.
-  - `video_url` (Seedance 2.0): `{ "type": "video_url", "video_url": { "url": "https://..." } }` — reference video for subject, camera movement, motion or overall style.
-- `resolution`: output resolution, one of `480p`, `720p`, `1080p`, `4k`. `4k` is supported only by `doubao-seedance-2-0-260128`; `doubao-seedance-2-0-fast-260128` and `doubao-seedance-2-0-mini-260615` cap at `720p`. If omitted, a default resolution is selected based on the chosen model.
-- `ratio`: aspect ratio, one of `16:9`, `4:3`, `1:1`, `3:4`, `9:16`, `21:9`, `adaptive`. Default `16:9`.
-- `duration`: video duration in seconds, model-specific:
-  - Seedance 1.0 Pro / 1.0 Pro Fast: `2`–`12`.
-  - Seedance 1.5 Pro: `4`–`12`, or `-1` for automatic duration.
-  - Seedance 2.0 series: `4`–`15`, or `-1` for automatic duration.
-- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
-- `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
-- `camerafixed`: whether to fix the camera position, `true` / `false`.
+<p><img src="https://cdn.acedata.cloud/seedance_parameters.png" width="500" class="m-auto"></p>
+
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which is JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, we set the Request Body, including:
+
+- `model`: the model for generating the video.
+  - **Seedance 1.x series**: `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
+  - **Seedance 2.0 series** (supports multi-modal inputs such as face/character references): `doubao-seedance-2-0-260128` (standard), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight). See the section "Face and Character References (Seedance 2.0)" below for details.
+- `content`: input content array, `type` can be `text` (prompt), `image_url` (reference image), `audio_url` (reference audio, 2.0), `video_url` (reference video, 2.0). Images can specify usage through `role`: `first_frame` (first frame) / `last_frame` (last frame) / `reference_image` (face/character/subject reference).
+- `resolution`: output resolution, optional `480p` / `720p` / `1080p` (2.0 standard model also supports `4k`; 2.0's `fast` / `mini` supports up to `720p`).
+- `ratio`: aspect ratio, optional `16:9` / `4:3` / `1:1` / `3:4` / `9:16` / `21:9` / `adaptive`.
+- `duration`: video duration (seconds, integer). The range varies by series: **1.0 series 2–12**; **1.5 Pro 4–12**; **2.0 series 4–15**. 1.5 Pro and 2.0 series also support `-1` (duration automatically selected by the model).
+- `seed`: random seed, integer, -1 to 4294967295.
+- `camerafixed`: whether to fix the camera, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
-- `generate_audio`: whether to generate audio. Supported by Seedance 1.5 Pro and 2.x; other models ignore it. Default `false`.
-- `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
-- `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
+- `generate_audio`: whether to generate a video with sound, `true` / `false`, **only `doubao-seedance-1-5-pro-251215` supports**.
+- `return_last_frame`: whether to return the last frame image URL of the video in the result.
+- `execution_expires_after`: task timeout duration (seconds), range 3600–259200.
+- `callback_url`: asynchronous callback address, after setting, the API immediately returns `task_id`, and when the task is completed, it will POST the result to this address.
+- `async`: optional, set to `true` when the interface immediately returns `task_id`, no need to provide `callback_url`, and then poll the corresponding task query interface to obtain results.
 
-### Request Example
+After selection, you can see that the corresponding code is generated on the right side, as shown in the figure:
 
-```bash
-curl -X POST 'https://api.acedata.cloud/seedance/videos' \
-  -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
-  -H 'content-type: application/json' \
-  -d '{
-    "model": "doubao-seedance-2-0-260128",
-    "content": [
-      { "type": "text", "text": "A street dancer doing breakdancing moves in an urban setting" }
-    ],
-    "resolution": "1080p",
-    "ratio": "16:9",
-    "duration": 5
-  }'
-```
+<p><img src="https://cdn.acedata.cloud/seedance_request.png" width="500" class="m-auto"></p>
 
-### Response Example
+Click the "Try" button to test, as shown in the above figure, we obtained the following result:
 
 ```json
 {
   "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
+  "task_id": "9777f36b-4f44-47ff-962d-45cd2f7aeaa8",
+  "trace_id": "ce5da2ca-6695-4459-9d2c-2ef9f86db752",
   "data": {
-    "task_id": "cgt-20251222005129-62fhb",
+    "task_id": "7e4e1773-510a-4a73-9ab4-98dd1a0b2a7f",
     "status": "succeeded",
-    "video_url": "https://platform.cdn.acedata.cloud/seedance/f592800a-b87c-4705-8796-cbb8018cae35.mp4",
-    "model": "doubao-seedance-2-0-260128"
+    "model": "doubao-seedance-2-0-fast-260128",
+    "duration": 5,
+    "resolution": "720p",
+    "ratio": "16:9",
+    "video_url": "https://platform2.cdn.acedata.cloud/seedance/036f24ed-a9b1-49b3-92c4-30049a3bc152.mp4"
   }
 }
 ```
 
-The returned result contains the following fields:
+The returned result contains multiple fields, described as follows:
 
-- `success`: the status of the video generation task.
-- `task_id`: the ID of the video generation task.
-- `trace_id`: the trace ID for this request.
-- `data`: the result of the video generation task, including `status`, `video_url`, and `model`.
+- `success`, the status of the video generation task at this time.
+- `task_id`, the ID of the video generation task at this time.
+- `trace_id`, the tracking ID of the video generation at this time.
+- `data`, the result list of the video generation task at this time.
+  - `task_id`, the server-side ID of the video generation task at this time.
+  - `video_url`, the video link of the video generation task at this time.
+  - `status`, the status of the video generation task at this time.
+    - `model`, the model used to generate the video.
 
-Download the generated video from the `video_url` field.
+We can see that we have obtained satisfactory video information, and we only need to obtain the generated SeeDance video based on the video link address in the `data` result.
 
-## Workflows
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
 
-### Text-to-Video
+```shell
+curl -X POST 'https://api.acedata.cloud/seedance/videos' \
+-H 'authorization: Bearer ${bearer_token}' \
+-H 'accept: application/json' \
+-H 'content-type: application/json' \
+-d '{
+  "content": [{"type":"text","text":"A white ceramic coffee mug on a glossy marble countertop with soft morning window light. The camera slowly orbits 360 degrees around the mug, steam gently rising."}],
+  "model": "doubao-seedance-2-0-fast-260128",
+  "resolution": "720p",
+  "ratio": "16:9",
+  "duration": 5
+}'
+```
 
-Pass a single `text` item in the `content` array (see the request example above).
+## Inline Parameter Description
 
-### Image-to-Video
+At the end of the `content[].text` prompt, you can pass in generation parameters by appending `--parameter value` (old method, weak validation, defaults will be used if filled incorrectly). The complete parameter list is as follows:
+| Inline Parameter  | Corresponding Field | Description  | Value Range                                                      |
+| ----------------- | ------------------- | ------------ | --------------------------------------------------------------- |
+| `--rs`            | `resolution`        | Output Resolution | `480p` / `720p` / `1080p`                                     |
+| `--rt`            | `ratio`             | Aspect Ratio | `16:9` / `4:3` / `1:1` / `3:4` / `9:16` / `21:9` / `adaptive` |
+| `--dur`           | `duration`          | Video Duration (seconds) | 2–12                                                          |
+| `--frames`        | `frames`            | Video Frame Count | Integers satisfying 25+4n in [29, 289] (**only 1.0 series supports**) |
+| `--fps`           | `framespersecond`   | Frame Rate   | Only supports `24`                                              |
+| `--seed`          | `seed`              | Random Seed  | -1 to 4294967295                                               |
+| `--cf`            | `camerafixed`       | Whether to Fix Camera | `true` / `false`                                              |
+| `--wm`            | `watermark`         | Whether to Add Watermark | `true` / `false`                                              |
 
-Add an `image_url` item with a `role`:
+> **Recommended Practice**: Directly use the corresponding top-level fields (such as `resolution`, `ratio`, etc.) in the Request Body for strict validation mode. If the parameters are filled incorrectly, a clear error message will be returned, making it easier to troubleshoot issues.
+
+## Generate Audio Video
+
+`doubao-seedance-1-5-pro-251215` supports generating videos with audio through the `generate_audio` parameter:
 
 ```json
 {
-  "model": "doubao-seedance-2-0-260128",
+  "model": "doubao-seedance-1-5-pro-251215",
   "content": [
-    { "type": "text", "text": "the person starts dancing gracefully" },
-    { "type": "image_url", "role": "first_frame", "image_url": { "url": "https://example.com/dancer.jpg" } }
+    {
+      "type": "text",
+      "text": "A girl holds a fox, the wind blows her hair, you can hear the sound of the wind"
+    }
   ],
-  "resolution": "720p",
+  "generate_audio": true,
+  "ratio": "16:9",
   "duration": 5
 }
 ```
 
-Image roles:
+Other models do not support this parameter, and it will be ignored if passed.
 
-- `first_frame` — the image is used as the opening frame.
-- `last_frame` — the image is used as the closing frame.
-- `reference_image` — the image is used as a style / subject / real-person reference.
+## Image to Video First Frame
 
-`first_frame` and `last_frame` may be combined in a single request, but `reference_image` is mutually exclusive with `first_frame` / `last_frame`.
+If you want to create a video from an image, the `content` parameter must first include an item with `type` as `image_url`, and the `image_url` field must be in object format: `{"url": "https://..."}` or Base64 format `{"url": "data:image/png;base64,..."}`.
 
-### Real-Person / Character Reference (Seedance 2.0)
+> **Note**: `image_url` does not support being passed in string format (e.g., `"image_url": "https://..."`); it must use object format `"image_url": {"url": "https://..."}`; otherwise, a 400 error will be returned.
 
-The Seedance 2.0 series can keep a specific person or character consistent across a brand-new scene. Pass one or more photos as `image_url` items with `role: "reference_image"` (up to 9):
+Corresponding code:
 
-```json
+```python
+import requests
+
+url = "https://api.acedata.cloud/seedance/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "content": [
+        {
+            "type": "image_url",
+            "image_url": {
+                "url": "https://ark-project.tos-cn-beijing.volces.com/doc_image/i2v_foxrgirl.png"
+            }
+        },
+        {
+            "type": "text",
+            "text": "A girl holds a fox in her arms. She opens her eyes and gazes tenderly at the camera, while the fox affectionately holds her back. As the camera slowly pulls away, her hair is gently blown by the wind. --ratio adaptive  --dur 5"
+        }
+    ],
+    "model": "doubao-seedance-1-0-pro-250528"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run, you can find that you will immediately get a result as follows:
+
+```
 {
-  "model": "doubao-seedance-2-0-260128",
-  "content": [
-    { "type": "text", "text": "the same person walking through a neon-lit night market, cinematic" },
-    { "type": "image_url", "role": "reference_image", "image_url": { "url": "https://example.com/person.jpg" } }
-  ],
-  "resolution": "1080p",
-  "duration": 8
+  "success": true,
+  "task_id": "dc7cceb5-3c12-4de7-a5f4-abcbba3e8e39",
+  "trace_id": "b3b09de3-b7fa-4bb0-88b5-aad4b4a96fd4",
+  "data": {
+    "task_id": "cgt-20251222072003-x2259",
+    "status": "succeeded",
+    "video_url": "https://platform.cdn.acedata.cloud/seedance/6afb78b8-5ba8-424f-adcd-69423a700b50.mp4",
+    "model": "doubao-seedance-1-0-pro-250528"
+  }
 }
 ```
 
-### Reference Audio / Video (Seedance 2.0)
+You can see that the generated effect is an image-to-video, and the result is similar to the above.
 
-The Seedance 2.0 series also accepts reference audio (voice timbre, background music) and reference video (subject, camera movement, motion, overall style). Limits: up to 3 audio and 3 video references.
+## Image to Video First and Last Frame
 
-```json
+If you want to create a video with first and last frames from images, the `content` parameter must first include items of type `image_url`, and set `role` to `first_frame` and `last_frame`, allowing you to specify the following content:
+
+- role: Specify first frame or last frame.
+- image_url
+  - url Image link
+    Additionally, `content` must also include an item of type `text` as a prompt.
+
+Corresponding code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/seedance/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+   "model": "doubao-seedance-1-0-pro-250528",
+    "content": [
+         {
+            "type": "text",
+            "text": "360-degree shot"
+        },
+        {
+            "type": "image_url",
+            "image_url": {
+                "url": "https://ark-project.tos-cn-beijing.volces.com/doc_image/seepro_first_frame.jpeg"
+            },
+            "role": "first_frame"
+        },
+        {
+            "type": "image_url",
+            "image_url": {
+                "url": "https://ark-project.tos-cn-beijing.volces.com/doc_image/seepro_last_frame.jpeg"
+            },
+            "role": "last_frame"
+        }
+    ]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run, you can find that you will immediately get a result as follows:
+
+```
 {
-  "model": "doubao-seedance-2-0-260128",
-  "content": [
-    { "type": "text", "text": "a singer performing on stage, matching the reference voice and motion" },
-    { "type": "image_url", "role": "reference_image", "image_url": { "url": "https://example.com/person.jpg" } },
-    { "type": "audio_url", "audio_url": { "url": "https://example.com/voice.mp3" } },
-    { "type": "video_url", "video_url": { "url": "https://example.com/motion.mp4" } }
-  ],
-  "generate_audio": true
+  "success": true,
+  "task_id": "f7096c6c-9430-4392-8201-d259632d7afd",
+  "trace_id": "4a4a3721-00fb-43d2-aff2-3b516ac01a8a",
+  "data": {
+    "task_id": "cgt-20251222073134-54qcw",
+    "status": "succeeded",
+    "video_url": "https://platform.cdn.acedata.cloud/seedance/95f9f5f0-fc50-4c71-bc6f-e154582c141e.mp4",
+    "model": "doubao-seedance-1-0-pro-250528"
+  }
 }
 ```
 
-## Asynchronous Generation
+You can see that the generated effect is character-generated video, and the result is similar to the above.
 
-Video generation can take time. To avoid long-held HTTP connections, use one of the asynchronous modes:
+## Face and Character Reference (Seedance 2.0)
 
-- **Callback**: set `callback_url`. The API returns immediately with a `task_id` and POSTs the final result to your URL when generation completes.
-- **Polling**: set `"async": true`. The API returns immediately with a `task_id`; poll the result with the [Seedance Tasks API](https://platform.acedata.cloud/documents/c09d6a1b-3cca-4f7c-add3-8c14be60da3c).
+**Seedance 2.0 series** (`doubao-seedance-2-0-260128`, `doubao-seedance-2-0-fast-260128`, `doubao-seedance-2-0-mini-260615`) supports passing in "real person / character" reference materials: add an item in `content` with `type` as `image_url` and `role` as `reference_image`, using a person's photo as a reference. The model will **maintain the appearance characteristics of that person** in the generated video, thus placing the same person into a brand new scene, action, or shot.
 
-## Error Codes
+> 📌 Real person photos will be automatically registered as underlying materials by the platform before being used for generation. The entire process is completely transparent to the caller: **the request and response format remains unchanged**, and no additional parameters are required. Only the first generation will take a few extra seconds for material processing.
 
-| HTTP Status | Code | Meaning |
-| ---- | ---- | ---- |
-| 400 | `bad_request` | Invalid request, e.g. an invalid `model`. |
-| 401 | `invalid_token` | The token is invalid or wrong. |
-| 401 | `token_expired` | The token has expired. |
-| 400 | `no_token` | No token was specified for the request. |
-| 500 | `internal_error` | A service processing error occurred. |
+Usage points:
+- Only the **Seedance 2.0 series** models support `reference_image`; for 1.x models, please use `first_frame` / `last_frame` (the first and last frames of the image-generated video).
+- `reference_image` **cannot** be used in conjunction with `first_frame` / `last_frame`, only one can be chosen.
+- The upper limit for the number of multimodal references: `image_url` can have a maximum of **9** images; 2.0 also supports `audio_url` (with `role` as `reference_audio`, up to 3 entries) and `video_url` (with `role` as `reference_video`, up to 3 entries).
+- **Requirements for reference audio (`audio_url`) materials**: formats `wav` / `mp3`; **single duration 2~15 seconds**, up to 3 entries and **total duration not exceeding 15 seconds**; single entry not exceeding 15 MB. Exceeding the duration range will result in failure during material processing.
+- **Requirements for reference video (`video_url`) materials**: formats `mp4` / `mov`; **single duration 2~15 seconds**, up to 3 entries and **total duration not exceeding 15 seconds**.
+- Reference images are recommended to be **single person, frontal, clear, unobstructed** photos; the clearer the face, the higher the similarity.
 
-Each error response includes a `trace_id` to help with debugging and support.
+### Example 1: Close-up that maintains the person's appearance
+
+Input a face photo, allowing the person to smile and wave at the camera. The corresponding code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/seedance/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "doubao-seedance-2-0-fast-260128",
+    "content": [
+        {
+            "type": "text",
+            "text": "The woman looks at the camera, gives a warm natural smile and waves her hand, soft studio lighting, gentle camera push-in."
+        },
+        {
+            "type": "image_url",
+            "role": "reference_image",
+            "image_url": {
+                "url": "https://platform2.cdn.acedata.cloud/nanobanana/8e075897-0f50-4443-8500-666751791c6c.jpg"
+            }
+        }
+    ],
+    "resolution": "480p",
+    "ratio": "9:16",
+    "duration": 5
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+The returned result is as follows, the generated video maintains the person's appearance consistent with the reference photo:
+
+```json
+{
+  "success": true,
+  "task_id": "895eb5ea-bbe1-41a3-a9e9-48608e03f93a",
+  "trace_id": "83544791-7a84-44de-b8d2-afe171a1c0e4",
+  "data": {
+    "task_id": "458abf29-cc39-4fd0-bcea-24f89a70d8de",
+    "status": "succeeded",
+    "video_url": "https://platform2.cdn.acedata.cloud/seedance/e71d3cc5-27e7-4719-be34-1f0e254eccaf.mp4",
+    "model": "doubao-seedance-2-0-fast-260128",
+    "resolution": "480p",
+    "ratio": "9:16",
+    "duration": 5
+  }
+}
+```
+
+### Example 2: Placing the same person in a brand new scene
+
+The power of `reference_image` lies in: only retaining the **identity of the person**, while the scene, clothing, and actions are entirely determined by the prompt. Below, using the same face photo, the person is depicted wearing a beige coat walking in an autumn park:
+
+```json
+{
+  "model": "doubao-seedance-2-0-fast-260128",
+  "content": [
+    {
+      "type": "text",
+      "text": "The same woman wearing a beige coat walks through a sunny autumn park, golden leaves falling around her, she smiles softly at the camera, cinematic tracking shot."
+    },
+    {
+      "type": "image_url",
+      "role": "reference_image",
+      "image_url": {
+        "url": "https://platform2.cdn.acedata.cloud/nanobanana/8e075897-0f50-4443-8500-666751791c6c.jpg"
+      }
+    }
+  ],
+  "resolution": "720p",
+  "ratio": "9:16",
+  "duration": 5
+}
+```
+
+The returned result is as follows, the person's appearance is preserved, while the scene has switched to an autumn park:
+
+```json
+{
+  "success": true,
+  "task_id": "00872de7-16b7-431f-b4f7-6bf38ae86157",
+  "trace_id": "577a07c3-4f5f-4cc7-86fe-535bb8332614",
+  "data": {
+    "task_id": "32fe1537-ba3e-452a-8749-3ef8890d37fd",
+    "status": "succeeded",
+    "video_url": "https://platform2.cdn.acedata.cloud/seedance/44f47593-556b-4fda-afa5-7a71eefcd228.mp4",
+    "model": "doubao-seedance-2-0-fast-260128",
+    "resolution": "720p",
+    "ratio": "9:16",
+    "duration": 5
+  }
+}
+```
+
+> 💡 If you want the person to accurately replicate the composition in the photo (rather than "the same person in a different scene"), you can switch to `first_frame` (the first frame of the image-generated video), allowing the video to start moving from this photo.
+
+## Asynchronous Callback
+
+Due to the longer generation time of the SeeDance Videos Generation API (approximately 1-2 minutes), you can use the `callback_url` field to employ asynchronous mode, avoiding long HTTP connection occupation.
+
+Overall process: When the client initiates a request, specify the `callback_url`, the API immediately returns a response containing the `task_id`; after the task is completed, the platform will send the generated result to the `callback_url` in POST JSON format, which also contains the `task_id` for association.
+
+```json
+{
+  "task_id": "f7096c6c-9430-4392-8201-d259632d7afd"
+}
+```
+
+When the task is completed, the content pushed to the `callback_url` by the platform is as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "f7096c6c-9430-4392-8201-d259632d7afd",
+  "trace_id": "4a4a3721-00fb-43d2-aff2-3b516ac01a8a",
+  "data": {
+    "task_id": "cgt-20251222073134-54qcw",
+    "status": "succeeded",
+    "video_url": "https://platform.cdn.acedata.cloud/seedance/95f9f5f0-fc50-4c71-bc6f-e154582c141e.mp4",
+    "model": "doubao-seedance-1-0-pro-250528"
+  }
+}
+```
+
+The `task_id` field in the result is consistent with the one returned during the request, allowing for task association through this field.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Example of Error Response
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the SeeDance Videos Generation API to generate videos using prompts, reference images, and the face/character references from Seedance 2.0. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

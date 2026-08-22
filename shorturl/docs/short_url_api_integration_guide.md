@@ -1,44 +1,112 @@
 # Short URL API Integration Instructions
 
-This article introduces the Short URL API integration instructions, which generates a compact short link for a given long URL.
+This document will introduce a Short URL API integration guide that can convert long URLs into short URLs.
 
 ## Application Process
 
-To use the Short URL API, apply for the corresponding service on the [Short URL API](https://platform.acedata.cloud/documents/d57df7ea-e1ba-4873-905c-d4c072e40450) page. After entering the page, click the "Acquire" button.
+To use Short URL API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [Short URL API →](https://platform.acedata.cloud/documents/shorturl)
 
 ## Basic Usage
 
-The most basic usage is to send the original URL in `content`. The result is the short link. The request body fields are described below:
+First, understand the basic usage method, which is to input the long URL that needs to be converted to obtain the processed result. You need to simply pass a `content` field. We can then fill in the corresponding content on the interface, as shown in the image:
 
-- `content`: the long URL to shorten (required).
+<p><img src="https://cdn.acedata.cloud/4ascb2.png" width="500" class="m-auto"></p>
 
-### Request Example
+Here, we have set the Request Headers, including:
 
-```bash
-curl -X POST 'https://api.acedata.cloud/shorturl' \
-  -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
-  -H 'content-type: application/json' \
-  -d '{
-    "content": "https://platform.acedata.cloud/service/shorturl"
-  }'
-```
+- `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be selected directly after application.
 
-### Response Example
+Additionally, we set the Request Body, including:
+
+- `content`: the content of the URL to be shortened.
+
+After selection, you can see that the corresponding code is also generated on the right side, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/r3uakb.png" width="500" class="m-auto"></p>
+
+Click the "Try" button to test, as shown in the above image, and we get the following result:
 
 ```json
 {
-  "data": { "url": "https://suro.id/abc123" },
-  "success": true
+  "success": true,
+  "data": {
+    "url": "https://surl.id/1uHCs01xa5"
+  }
 }
 ```
 
-The shortened link is returned in `data.url`.
+The returned result contains multiple fields, described as follows:
 
-## Support
+- `success`, the status of whether the task was successful.
+- `data`, which contains the converted URL.
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+It can be seen that the original long URL `https://platform.acedata.cloud/documents/shorturl` has been successfully converted to the short URL `https://surl.id/1uHCs01xa5`.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/shorturl' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "content": "https://platform.acedata.cloud/documents/shorturl"
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/shorturl"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "content": "https://platform.acedata.cloud/documents/shorturl"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Short URL API to convert long URLs into short URLs. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.

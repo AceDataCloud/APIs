@@ -1,67 +1,206 @@
-# Seedream Images Generation API Integration Instructions
+# SeeDream Images Generation API Integration Instructions
 
-This article introduces the Seedream Images Generation API integration, generating and editing ByteDance Seedream (Doubao) images via custom parameters.
+This article will introduce the integration instructions for the SeeDream Images Generation API, which can generate official SeeDream images by inputting custom parameters.
 
 ## Application Process
 
-Apply for the service on the [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e) page and click "Acquire". First-time applicants get a free quota. **One API token calls every platform service.**
+To use the SeeDream Images Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in. After completing this, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [SeeDream Images Generation API →](https://platform.acedata.cloud/documents/seedream-images)
 
 ## Basic Usage
 
-Request body fields:
+First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, and the image size `size` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then we also need to input the prompt, as detailed below:
 
-- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`.
-- `prompt`: image description (required).
-- `size`: output resolution.
-- `image`: source image URL or Base64 value array for editing. All supported models accept image input.
-- `callback_url` / `async`: async modes; `async: true` returns a `task_id` polled via Seedream Tasks API.
+<p><img src="https://cdn.acedata.cloud/seedream_request_body.png" width="500" class="m-auto"></p>
 
-### Request Example
+Here we can see that we have set the Request Headers, including:
 
-```bash
-curl -X POST 'https://api.acedata.cloud/seedream/images' \
-  -H 'accept: application/json' \
-  -H 'authorization: Bearer {token}' \
-  -H 'content-type: application/json' \
-  -d '{
-    "model": "doubao-seedream-5-0-260128",
-    "prompt": "a serene mountain lake at sunrise, photorealistic",
-    "size": "2K"
-  }'
-```
+- `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be selected directly after application.
 
-### Response Example
+Additionally, we have set the Request Body, including:
+
+- `prompt`: the prompt.
+- `model`: the generation model, default is `doubao-seedream-5-0-260128` (SeeDream 5.0 Lite, latest). Supports `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`. Among them, `doubao-seedream-5-0-pro-260628` (SeeDream 5.0 Pro) is the flagship single image model, generating only a single image, **does not support group images (`sequential_image_generation`), streaming (`stream`), and online search (`tools`)**. **The `model` must pass the complete model string (e.g., `doubao-seedream-5-0-260128`), passing abbreviations like `doubao-seedream-5.0-lite` will return 400.**
+- `image`: the input image information, supports URL or Base64 encoding. `doubao-seedream-5-0-pro-260628` supports single or multiple image inputs (2-10 images, charged per image starting from the second), `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828` support single or multiple image inputs.
+- `size`: specifies the size information of the generated image, supports the following two methods, which cannot be mixed. Method 1 | Specify the resolution of the generated image and describe the aspect ratio in natural language in the prompt. **Different models support different presets**: `doubao-seedream-5-0-pro-260628` supports `1K`/`2K`; `doubao-seedream-5-0-260128` supports `2K`/`3K`/`4K`; `doubao-seedream-4-5-251128` only supports `2K`/`4K`; `doubao-seedream-4-0-250828` supports `1K`/`2K`/`4K`. Method 2 | Specify the pixel values for the width and height of the generated image: default `2048x2048`, total pixel and aspect ratio value ranges vary by model (for example, 5.0 Pro total pixel range [921600, 4194304], 5.0 Lite / 4.5 total pixel lower limit 3,686,400, 4.0 lower limit 921,600).
+- `sequential_image_generation`: group images: a set of related images generated based on your input content. `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828` support this parameter, default is `disabled`.
+- `stream`: controls whether to enable streaming output mode. `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828` support this parameter, default is `false`.
+- `response_format`: specifies the return format of the generated image. Default is `url`, also supports `b64_json`.
+- `watermark`: whether to add a watermark to the generated image. Default is `true`.
+- `output_format`: specifies the file format of the generated image, supports `jpeg` (default) and `png`. Only `doubao-seedream-5-0-pro-260628` and `doubao-seedream-5-0-260128` support.
+- `tools`: configure the tools the model will call, currently supports `web_search` (online search). Only `doubao-seedream-5-0-260128` supports.
+- `callback_url`: the URL to receive callback results.
+- `async`: whether to process in asynchronous mode. Set to `true` when the interface immediately returns `task_id`, no need to provide `callback_url`, and then poll to get results through `/seedream/tasks`.
+
+After selection, you can see that the corresponding code is generated on the right side, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/seedream_image.png" width="500" class="m-auto"></p>
+
+Click the "Try" button to test, as shown in the image above, we obtained the following result:
 
 ```json
 {
   "success": true,
-  "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "trace_id": "1cc87db0-8ee5-4436-969b-35cc571a9fd5",
+  "task_id": "81246f86-05ff-4d7d-9553-1013e0c1cd32",
+  "trace_id": "ab50a78d-ab1f-457f-a46b-c2259cd5d35b",
   "data": [
     {
-      "image_url": "https://platform.cdn.acedata.cloud/seedream/xxxx.png",
-      "model": "doubao-seedream-5-0-260128"
+      "prompt": "A photorealistic studio product shot of a frosted-glass perfume bottle on wet black slate, single softbox key light, water droplets, dark moody background, 85mm macro.",
+      "size": "2048x2048",
+      "image_url": "https://platform2.cdn.acedata.cloud/seedream/901c6af6-e83a-4849-b233-295f6c20bacb.jpg"
     }
   ]
 }
 ```
 
-## Image Editing
+The returned result contains multiple fields, described as follows:
 
-Use a supported model with the `image` array:
+- `success`, the status of the video generation task at this time.
+- `task_id`, the ID of the video generation task at this time.
+- `trace_id`, the tracking ID of the video generation at this time.
+- `data`, the result list of the image generation task at this time.
+  - `image_url`, the link to the image generation task.
+  - `prompt`, the prompt.
+  - `size`: the pixel size of the generated image.
+
+We can see that we have obtained satisfactory image information, and we only need to retrieve the generated SeeDream image using the image link address in the `data` result.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
+```shell
+curl -X POST 'https://api.acedata.cloud/seedream/images' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer ${token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "generate",
+  "model": "doubao-seedream-5-0-260128",
+  "prompt": "A photorealistic studio product shot of a frosted-glass perfume bottle on wet black slate, single softbox key light, water droplets, dark moody background, 85mm macro."
+}'
+```
+
+## Edit Image Task
+
+If you want to edit a specific image, the parameter `image` must first be passed with the link to the image that needs editing.
+
+- model: The model used for this image editing task, `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828` all support image input.
+- image: Upload the image(s) that need editing, one or more.
+
+An example is as follows:
+
+<p><img src="https://cdn.acedata.cloud/seedream_edit.png" width="500" class="m-auto"></p>
+
+Corresponding code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/flux/images"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "doubao-seedream-4-0-250828",
+  "prompt": "Keep the model pose and the liquid garment flowing shape unchanged. Change the clothing material from silver metal to completely transparent water (or glass). Through the liquid flow, the details of the model skin are visible. The light and shadow effect shifts from reflection to refraction.",
+  "image": ["https://ark-project.tos-cn-beijing.volces.com/doc_image/seedream4_5_imageToimage.png"],
+  "size": "2K",
+  "watermark": False
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run, you can see that an immediate result is obtained, as follows:
 
 ```json
 {
-  "model": "doubao-seedream-5-0-260128",
-  "prompt": "make the sky golden hour, add warm tone",
-  "image": ["https://example.com/photo.png"]
+  "success": true,
+  "task_id": "c9aaffa2-b8ac-40ff-8468-43e77cb9ddde",
+  "trace_id": "131a40c3-2eaf-44c9-af28-c9b408577286",
+  "data": [
+    {
+      "prompt": "Keep the model pose and the liquid garment flowing shape unchanged. Change the clothing material from silver metal to completely transparent water (or glass). Through the liquid flow, the details of the model skin are visible. The light and shadow effect shifts from reflection to refraction.",
+      "size": "2048x2048",
+      "image_url": "https://platform.cdn.acedata.cloud/seedream/3e88db7e-4771-4f6a-adbd-5ae4590c5d59.jpg"
+    }
+  ]
 }
 ```
 
-## Error Codes
+You can see that the generated effect is the edited effect of the original image, and the result is similar to the above.
 
-| HTTP | Code | Meaning |
-| ---- | ---- | ---- |
-| 400 | bad_request | Invalid model/params |
-| 401 | invalid_token / token_expired | Token bad |
-| 500 | internal_error | Upstream error |
+## Asynchronous Callback
+
+Since the SeeDream Images Generation API takes a relatively long time to generate, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the generated image result will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
+
+If you do not have a public address for callbacks, you can also omit the `callback_url` and set the `async` field to `true` in the request. In this case, the interface will also immediately return the `task_id`, but will not push the result. You will need to carry the `task_id` to call the `/seedream/tasks` interface to poll the task status to obtain the final result.
+
+Let’s understand how to operate specifically through an example.
+
+Clicking run, you can see that an immediate result is obtained, as follows:
+
+```
+{
+  "task_id": "c9aaffa2-b8ac-40ff-8468-43e77cb9ddde"
+}
+```
+
+The content is as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "c9aaffa2-b8ac-40ff-8468-43e77cb9ddde",
+  "trace_id": "131a40c3-2eaf-44c9-af28-c9b408577286",
+  "data": [
+    {
+      "prompt": "Keep the model pose and the liquid garment flowing shape unchanged. Change the clothing material from silver metal to completely transparent water (or glass). Through the liquid flow, the details of the model skin are visible. The light and shadow effect shifts from reflection to refraction.",
+      "size": "2048x2048",
+      "image_url": "https://platform.cdn.acedata.cloud/seedream/3e88db7e-4771-4f6a-adbd-5ae4590c5d59.jpg"
+    }
+  ]
+}
+```
+
+You can see that the result contains a `task_id` field, and the other fields are similar to the above, allowing task association through this field.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the SeeDream Images Generation API to generate images by inputting prompts. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

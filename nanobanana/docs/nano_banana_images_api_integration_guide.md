@@ -4,24 +4,35 @@ This document introduces the integration and usage of the Nano Banana Images API
 
 ## Application Process
 
-Before use, please enter the [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d) on the Ace Data Cloud platform and click Acquire to apply for activation. The first application usually has free quotas available. Once activated, you can obtain the Bearer Token used to call the API from the platform.
+To use the Nano Banana Images API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Nano Banana Images API →](https://platform.acedata.cloud/documents/nano-banana-images)
 
 ## Interface Overview
 
 - **Base URL**: `https://api.acedata.cloud`
 - **Endpoint**: `POST /nano-banana/images`
-- **Authentication Method**: Carry `authorization: Bearer {token}` in the HTTP Header
+- **Authentication Method**: Include `authorization: Bearer {token}` in the HTTP Header
 - **Request Headers**:
   - `accept: application/json`
   - `content-type: application/json`
-- **Action**:
+- **Actions**:
   - `generate`: Generate images based on text prompts
   - `edit`: Edit based on given images
-- **Model** (optional):
+- **Models** (optional):
   - `nano-banana` (default): Based on Gemini 2.5 Flash Image, fast speed, low cost
+  - `nano-banana-2-lite`: Based on Gemini 3.1 Flash Lite Image, supports only 1K, fast generation speed
   - `nano-banana-2`: Based on Gemini 3.1 Flash Image Preview, Pro-level quality + Flash speed
   - `nano-banana-pro`: Based on Gemini 3 Pro Image Preview, highest quality
+  - `nano-banana:official`, `nano-banana-2-lite:official`, `nano-banana-2:official`, `nano-banana-pro:official`: Official channel versions of the corresponding models, better image quality and stability, different billing
 - **Asynchronous Callback**: Optional, receive task completion notifications and results via `callback_url`
+- **Number of Images**: Optional, specify 1–4 images via `count`, default is 1; if some fail, only successful images will be returned and billed
 
 ## Quick Start: Generate Image (`action=generate`)
 
@@ -37,6 +48,7 @@ curl -X POST 'https://api.acedata.cloud/nano-banana/images' \
   -H 'content-type: application/json' \
   -d '{
     "action": "generate",
+    "model": "nano-banana-pro",
     "prompt": "A photorealistic close-up portrait of an elderly Japanese ceramicist with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully inspecting a freshly glazed tea bowl. The setting is his rustic, sun-drenched workshop. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the fine texture of the clay. Captured with an 85mm portrait lens, resulting in a soft, blurred background (bokeh). The overall mood is serene and masterful. Vertical portrait orientation.",
     "count": 1
   }'
@@ -55,6 +67,7 @@ headers = {
 }
 payload = {
     "action": "generate",
+    "model": "nano-banana-pro",
     "prompt": (
         "A photorealistic close-up portrait of an elderly Japanese ceramicist "
         "with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully "
@@ -75,12 +88,12 @@ print(resp.json())
 ```json
 {
   "success": true,
-  "task_id": "056f0589-a3dd-4ec2-8440-ad61f5038dfa",
-  "trace_id": "c48de83f-0077-426e-b02b-ff1d58179064",
+  "task_id": "70e6931b-6e34-43db-9e36-8765e2809d04",
+  "trace_id": "60df8d38-f265-4986-aec7-75c9220bced2",
   "data": [
     {
       "prompt": "A photorealistic close-up portrait of an elderly Japanese ceramicist with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully inspecting a freshly glazed tea bowl. The setting is his rustic, sun-drenched workshop. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the fine texture of the clay. Captured with an 85mm portrait lens, resulting in a soft, blurred background (bokeh). The overall mood is serene and masterful. Vertical portrait orientation.",
-      "image_url": "https://platform.cdn.acedata.cloud/nanobanana/69790adb-c85d-4362-ad9e-0c9ba4352cf4.png"
+      "image_url": "https://platform2.cdn.acedata.cloud/nanobanana/1d0160b4-93f9-4229-8926-ea9ef0bed336.png"
     }
   ]
 }
@@ -90,18 +103,19 @@ print(resp.json())
 
 - `success`: Whether the request was successful.
 - `task_id`: Task ID.
-- `trace_id`: Trace ID for troubleshooting.
+- `trace_id`: Link tracking ID, useful for troubleshooting.
+- `count`: The number of images requested for generation or editing, supports 1–4, default is 1. If some fail, `data` only contains successful images.
 - `data[]`: Result list.
   - `prompt`: The prompt used for generation (echo).
   - `image_url`: Direct URL of the generated image.
 
-> Note: Only `action` and `prompt` are required to generate an image at `/nano-banana/images`.
+> Note: Only `action` and `prompt` are required to generate an image at `/nano-banana/images`
 
 ## Edit Image (`action=edit`)
 
-When you want to edit based on an existing image, set `action` to `edit`, and pass the list of image URLs to be edited through `image_urls` (1 or more), while providing a `prompt` describing the editing goal.
+When you want to edit based on an existing image, set `action` to `edit`, and pass the list of image URLs to be edited through `image_urls` (1 or more), while also providing a `prompt` describing the editing goal.
 
-For example, if we provide a photo of a person and a photo of a shirt, we can have the person wear that shirt by passing the image URLs and specifying the action as `edit`. The URLs can be public accessible links using `https` or `http`, or they can be Base64 encoded images, such as `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAVGCAMAAAA6u2FyAAADAFBMVEXq6uwdHCEeHyMdHS....`
+For example, if we provide a photo of a person and a photo of a shirt, we can have the person wear that shirt by passing the image URLs and specifying the action as `edit`. The URLs can be HTTP URLs, publicly accessible links using `https` or `http` protocols, or Base64 encoded images, such as `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAVGCAMAAAA6u2FyAAADAFBMVEXq6uwdHCEeHyMdHS....`
 
 ### Request Example (cURL)
 
@@ -122,7 +136,6 @@ curl -X POST 'https://api.acedata.cloud/nano-banana/images' \
 ```
 
 ### Request Example (Python)
-
 ```python
 import requests
 
@@ -145,7 +158,7 @@ resp = requests.post(url, json=payload, headers=headers)
 print(resp.json())
 ```
 
-### Successful Response Example
+### Example of Successful Return
 
 ```json
 {
@@ -161,21 +174,22 @@ print(resp.json())
 }
 ```
 
-### Field Explanation
+### Field Description
 
-- `image_urls[]`: List of URLs of images to be edited (must be publicly accessible). Multiple images can be passed, and the service will combine these materials with the `prompt` to complete the editing.
-- Other fields are the same as the "Generate Image" response.
+- `image_urls[]`: List of image URLs to be edited (must be publicly accessible). Multiple images can be sent, and the service will combine these materials with the `prompt` to complete the editing.
+- Other fields are the same as the "Generate Image" return.
+
 ---
 
 ## Asynchronous Callback (Optional, Recommended)
 
-Generating or editing may take some time. To avoid long connections occupying resources, it is recommended to use **Webhook Callback** via `callback_url`:
+Generation or editing may take some time. To avoid long connections occupying resources, it is recommended to use **Webhook Callback** via `callback_url`:
 
 1. Add `callback_url` in the request body, for example, your server's Webhook address (must be publicly accessible and support POST JSON).
-2. The API will **immediately return** a response containing `task_id` (or basic results).
-3. When the task is completed, the platform will send the complete JSON to `callback_url` via `POST`. You can associate the request with the result using `task_id`.
+2. The API will **immediately return** a response containing the `task_id` (or basic results).
+3. When the task is completed, the platform will send the complete JSON to the `callback_url` via `POST`. You can associate the request with the result using the `task_id`.
 
-**Callback Payload Example** (field structure is consistent with synchronous success return):
+**Callback Payload Example** (Field structure is consistent with synchronous successful return):
 
 ```json
 {
@@ -195,7 +209,7 @@ Generating or editing may take some time. To avoid long connections occupying re
 
 ## Error Handling
 
-When a call fails, a standard error format and trace ID will be returned. Common errors are as follows:
+When the call fails, a standard error format and trace ID will be returned. Common errors are as follows:
 
 - **400 `token_mismatched`**: The request is invalid or parameters are incorrect.
 - **400 `api_not_implemented`**: The interface is not implemented (please contact support).
@@ -221,8 +235,8 @@ When a call fails, a standard error format and trace ID will be returned. Common
 ## Parameter Correspondence and Notes
 
 - **Required**: `action`, `prompt`
-- **Edit Only**: `image_urls` (array, at least 1 item)
-- **Optional**: `model` (default `nano-banana`, optional `nano-banana-2` or `nano-banana-pro`), `aspect_ratio` (width-to-height ratio, such as `1:1`, `16:9`), `resolution` (resolution, such as `1K`, `2K`, `4K`), `callback_url` (for asynchronous callback)
+- **Editing Specific**: `image_urls` (array, at least 1 item)
+- **Optional**: `model` (default `nano-banana`, optional `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`, or corresponding `:official` official channel version), `aspect_ratio` (width-to-height ratio, such as `1:1`, `16:9`), `resolution` (resolution, such as `1K`, `2K`, `4K`; `nano-banana-2-lite` only supports `1K`), `callback_url` (for asynchronous callback)
 - **Headers**: Must provide `authorization: Bearer {token}`; `accept` is recommended to be set to `application/json`
-- **Image Accessibility**: `image_urls` must be direct links accessible publicly (HTTP/HTTPS), HTTPS is recommended
-- **Idempotency and Tracking**: Retain `task_id` and `trace_id` for troubleshooting and result association
+- **Image Accessibility**: `image_urls` must be direct links that are publicly accessible (HTTP/HTTPS), HTTPS is recommended
+- **Idempotency and Tracking**: Retain `task_id` and `trace_id` for troubleshooting and result association.

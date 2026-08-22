@@ -38,7 +38,7 @@ The result is as follows:
     "id": "24f0827e-5847-4011-b9b7-fc0b62032b65",
     "source_clip_id": "42599b24-fb14-4cd3-a444-e15ffde3661b",
     "status": "complete",
-    "vocal_audio_url": "https://cdn1.suno.ai/processed_24f0827e-5847-4011-b9b7-fc0b62032b65_vocals.m4a",
+    "vocal_audio_url": "https://platform2.cdn.acedata.cloud/fish/5ade0339-5f11-487e-aacc-06a908271706.mp3?example=audio-001",
     "vocal_end_s": 30,
     "vocal_start_s": 20,
     "wave_response": {
@@ -52,7 +52,6 @@ The result is as follows:
               73,
               -2517,
               2887,
-
               294
             ],
             [
@@ -63,7 +62,6 @@ The result is as follows:
           ],
           "mip_map_level": 11
         },
-
         {
           "data": [
             [
@@ -99,7 +97,7 @@ The result is as follows:
 }
 ```
 
-As we can see, the `id` field in `data` is the `vox_audio_id` we want, and then we go to the [Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) to create the new version of Persona-v2-vox: singer style, with the specific input as shown below:
+As we can see, the `id` field in `data` is the `vox_audio_id` we want, and then we go to the [Persona API](https://platform.acedata.cloud/documents/suno-persona) to create the new version of Persona-v2-vox: singer style, with the specific input as shown below:
 
 ```python
 import requests

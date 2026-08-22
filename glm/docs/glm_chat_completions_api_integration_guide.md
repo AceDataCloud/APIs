@@ -1,46 +1,46 @@
-# GLM Chat Completion API Integration Guide
+# GLM Chat Completion API Application and Usage
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.2, along with GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is a new generation of large language model series launched by Zhipu AI (智谱 AI / Z.ai), which possesses strong understanding and generation capabilities in both Chinese and English. It performs excellently in tasks such as Chinese scenarios, code generation, reasoning, and multi-turn dialogue. The new generation models like GLM-5.1, GLM-4.7, and GLM-4.6 have made significant optimizations in long context, tool invocation, and code tasks, and can be widely applied in scenarios such as intelligent Q&A, content creation, code assistance, and customer service robots.
 
-This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
+This document mainly introduces the usage process of the GLM Chat Completion API. With it, you can easily call the GLM series models through a unified OpenAI compatible interface. When using `glm-5.2` in Coze (扣子), please refer to the [Coze Custom Model Tutorial](https://platform.acedata.cloud/documents/coze-integration) and select the OpenAI Chat Completions protocol.
 
 ## Application Process
 
-To use the GLM Chat Completion API, you can first visit the [GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the GLM Chat Completion API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After completing this, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [GLM Chat Completion API →](https://platform.acedata.cloud/documents/glm-chat-completions)
 
 ## Basic Usage
 
-The GLM Chat Completion API endpoint is `https://api.acedata.cloud/glm/chat/completions`, using Bearer Token authentication. The request body is compatible with the OpenAI Chat Completions protocol.
+The request address for the GLM Chat Completion API is `https://api.acedata.cloud/glm/chat/completions`, using Bearer Token for authentication, and the request body is compatible with the OpenAI Chat Completions protocol.
 
-When using this interface for the first time, you need to fill in at least three pieces of information:
+When using this interface for the first time, we need to fill in at least three contents:
 
-- `authorization`: Select the Bearer Token directly from the dropdown list.
-- `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.2`: The latest flagship model with the strongest overall capabilities.
-  - `glm-5.1`: High-capability model for reasoning, tool calling, and code tasks.
-  - `glm-5`: General-purpose flagship-tier dialogue model.
-  - `glm-5-turbo`: Faster, cost-efficient variant of the GLM-5 series.
-  - `glm-4.7`: Excellent performance on reasoning, tool calling, and code tasks.
-  - `glm-4.6`: General-purpose dialogue model, balancing capability and cost.
+- `authorization`: Select Bearer Token directly from the dropdown list.
+- `model`: Choose the GLM model to call, currently supported models include:
+  - `glm-5.2`: The latest flagship model, suitable for complex reasoning, code, and Agent tasks.
+  - `glm-5.1`: The previous generation flagship model, strong overall capability.
+  - `glm-4.7`: Excellent performance in reasoning, tool invocation, and code tasks.
+  - `glm-4.6`: General dialogue model, balancing effect and cost.
   - `glm-3-turbo`: Classic dialogue model, suitable for general text generation tasks.
-- `messages`: An array of prompts. Each message contains `role` and `content`. The `role` supports three values: `user`, `assistant`, and `system`.
+- `messages`: An array of prompts, each message contains `role` and `content`, where `role` supports three roles: `user`, `assistant`, `system`.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
-- `temperature`: Generation randomness, between 0–2; larger values produce more diverse output.
-- `top_p`: Nucleus sampling parameter, controls the cumulative probability threshold for candidate tokens.
+- `max_tokens`: Limits the maximum number of tokens in a single reply.
+- `temperature`: Randomness of generation, between 0-2, the larger the value, the more divergent.
+- `top_p`: Nucleus sampling parameter, controlling the cumulative probability threshold of candidate tokens.
 - `n`: How many candidate replies to generate at once.
-- `stream`: Whether to enable streaming response, default `false`.
-- `stop`: Custom stop sequences.
+- `stream`: Whether to enable streaming response, default is `false`.
+- `stop`: Custom stop sequence.
 
-Below is a simple Python call example:
+Here is the simplest Python call example:
 
 ```python
 import requests
@@ -54,7 +54,7 @@ headers = {
 }
 
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.2",
     "messages": [
         {"role": "user", "content": "hello"}
     ]
@@ -64,12 +64,12 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-After the call, we find the return result is as follows:
+After the call, we find the returned result as follows:
 
 ```json
 {
   "id": "msg_202604262252030313862701a04e33",
-  "model": "glm-4.7",
+  "model": "glm-5.2",
   "object": "chat.completion",
   "created": 1777215124,
   "choices": [
@@ -90,21 +90,21 @@ After the call, we find the return result is as follows:
 }
 ```
 
-The main fields in the return result are described as follows:
+The main fields of the returned result are explained as follows:
 
-- `id`: The unique ID for this dialogue task.
+- `id`: The unique ID of this dialogue task.
 - `created`: The creation time of this dialogue task (Unix timestamp, in seconds).
-- `model`: The actual GLM model name called.
-- `choices`: The list of replies generated by the model. `choices[i].message.content` is the specific text of the model's reply. `finish_reason` indicates the reason for stopping (`stop`, `length`, `tool_calls`, `content_filter`, etc.).
+- `model`: The name of the GLM model actually called.
+- `choices`: The list of replies generated by the model. `choices[i].message.content` is the specific text of the model's reply, and `finish_reason` indicates the reason for ending (`stop`, `length`, `tool_calls`, `content_filter`, etc.).
 - `usage`: Token usage statistics for this request, including `prompt_tokens`, `completion_tokens`, and `total_tokens`.
 
 ## Streaming Response
 
-This API supports streaming response (Server-Sent Events), which is very useful for web integration and allows pages to implement a character-by-character display effect.
+This interface supports streaming responses (Server-Sent Events), which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
 
-To enable streaming response, set the `stream` parameter in the request body to `true`.
+If you want to return responses in a streaming manner, set the `stream` parameter in the request body to `true`.
 
-Python example:
+Python sample call code:
 
 ```python
 import requests
@@ -129,14 +129,15 @@ for line in response.iter_lines():
         print(line.decode("utf-8"))
 ```
 
-Example output (excerpt):
-
+The output effect is as follows (excerpt):
 ```text
 data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "", "role": "assistant"}, "finish_reason": null, "index": 0}], "usage": null}
 
 data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "Hello! How can I"}, "finish_reason": null, "index": 0}], "usage": null}
 
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": " help you?"}, "finish_reason": null, "index": 0}], "usage": null}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "help you"}, "finish_reason": null, "index": 0}], "usage": null}
+
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "?"}, "finish_reason": null, "index": 0}], "usage": null}
 
 data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {}, "finish_reason": "stop", "index": 0}], "usage": null}
 
@@ -145,7 +146,7 @@ data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.ch
 data: [DONE]
 ```
 
-The response contains many `data` entries; each `data` entry contains an incremental chunk. `choices[i].delta.content` is the new text fragment for the current chunk. You can concatenate these fragments to form the complete reply. When the `data` content is `[DONE]`, the streaming response has ended. The last chunk with `usage` summarizes the token usage for this request.
+You can see that there are many `data` in the response, each containing an incremental fragment. `choices[i].delta.content` is the newly added text fragment for the current chunk, and you can concatenate these fragments to form a complete reply. When the content of `data` is `[DONE]`, it indicates the end of the streaming response. The last chunk with `usage` will summarize the token usage for this request.
 
 JavaScript (Node.js) example:
 
@@ -174,11 +175,35 @@ while (true) {
 }
 ```
 
+Java example code:
+
+```java
+JSONObject jsonObject = new JSONObject();
+jsonObject.put("model", "glm-4.7");
+jsonObject.put("messages", new JSONArray().put(new JSONObject().put("role", "user").put("content", "hi")));
+jsonObject.put("stream", true);
+MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+RequestBody body = RequestBody.create(jsonObject.toString(), mediaType);
+Request request = new Request.Builder()
+  .url("https://api.acedata.cloud/glm/chat/completions")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("authorization", "Bearer {token}")
+  .addHeader("content-type", "application/json")
+  .build();
+
+OkHttpClient client = new OkHttpClient();
+Response response = client.newCall(request).execute();
+System.out.println(response.body().string());
+```
+
+Other languages can be rewritten similarly; the principle is the same.
+
 ## Multi-turn Dialogue
 
-To implement multi-turn dialogue, you need to place historical conversations in the `messages` array in order, maintaining the alternating `user` and `assistant` pattern.
+If you want to implement multi-turn dialogue functionality, you need to sequentially place the historical dialogues into the `messages` array, maintaining the alternating order of `user` and `assistant`.
 
-Python example:
+Python example call code:
 
 ```python
 import requests
@@ -204,7 +229,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple messages, you can easily implement multi-turn dialogue:
+By uploading multiple questions, you can easily achieve multi-turn dialogue and receive responses like the following:
 
 ```json
 {
@@ -230,15 +255,17 @@ By uploading multiple messages, you can easily implement multi-turn dialogue:
 }
 ```
 
+As you can see, the information contained in `choices` is consistent with basic usage, and the model provides replies based on the complete dialogue history, thus supporting multi-turn contextual interaction.
+
 ## System Prompt
 
-You can add a message with `role` set to `system` at the beginning of `messages` to constrain the model's role, style, or behavior:
+You can add a message with a `role` of `system` at the beginning of `messages` to constrain the model's role, style, or behavior:
 
 ```python
 payload = {
     "model": "glm-4.7",
     "messages": [
-        {"role": "system", "content": "You are a senior technical writing assistant. Please respond in a concise and professional tone."},
+        {"role": "system", "content": "You are a senior Chinese writing assistant, please respond in a concise and professional tone."},
         {"role": "user", "content": "Please introduce the GLM model in three sentences."}
     ]
 }
@@ -246,7 +273,7 @@ payload = {
 
 ## Function Calling
 
-GLM models support OpenAI-compatible Function Calling. You can declare callable functions through the `tools` parameter, and the model will return structured function call information in `choices[i].message.tool_calls` when needed.
+The GLM model supports OpenAI-compatible Function Calling, and you can declare callable functions through the `tools` parameter. The model will return structured function call information in `choices[i].message.tool_calls` when needed.
 
 ```python
 payload = {
@@ -273,28 +300,27 @@ payload = {
 }
 ```
 
-If the model decides to call a tool, the `finish_reason` in the return result will change to `tool_calls`, and the function name and JSON string parameters will be provided in `message.tool_calls`. You can execute the function and return the result as a message with `role` set to `tool` back to the model to complete the full tool calling loop.
+If the model decides to call a tool, the `finish_reason` in the returned result will change to `tool_calls`, and the function name and parameters in JSON string form will be provided in `message.tool_calls`. You can execute that function and return the result as a message with `role` of `tool` back to the model, thus completing the full tool calling loop.
 
-## Model Selection Guide
-
-| Model | Use Case |
-| --- | --- |
-| `glm-5.2` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
-| `glm-5.1` | High-capability model for reasoning, tool calling, and code tasks |
-| `glm-5` | General-purpose flagship-tier dialogue model |
-| `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
-| `glm-4.6` | Balanced choice for general dialogue and content creation |
-| `glm-3-turbo` | General text generation tasks; cost-sensitive scenarios |
+## Model Selection Recommendations
+```
+| Model           | Applicable Scenarios                     |
+| -------------- | ------------------------------------- |
+| `glm-5.2`      | Latest flagship, recommended for complex reasoning, coding, and Agent tasks |
+| `glm-5.1`      | Previous generation flagship, suitable for complex reasoning and long document analysis |
+| `glm-4.7`      | Tool invocation, code generation, Agent orchestration, and other tasks |
+| `glm-4.6`      | Balanced choice for general conversation and content creation |
+| `glm-3-turbo`  | General text generation tasks, cost-sensitive scenarios |
 
 ## Error Handling
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to unsupported parameters or models.
+- `400 token_mismatched`: Missing or invalid request parameters.
+- `400 api_not_implemented`: Unsupported parameters or models used.
 - `401 invalid_token`: Unauthorized, Bearer Token is missing or invalid.
-- `429 too_many_requests`: Rate limit exceeded, please retry later.
-- `500 api_error`: Internal server error or upstream temporarily unavailable.
+- `429 too_many_requests`: Rate limit triggered, please try again later.
+- `500 api_error`: Internal server error or model service temporarily unavailable.
 
 ### Error Response Example
 
@@ -308,8 +334,8 @@ When calling the API, if an error occurs, the API will return the corresponding 
 }
 ```
 
-When `api_error` is returned with the message `Service is temporarily unavailable, please retry later.`, it usually means the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff, or temporarily switch to another available GLM model (e.g., switch from `glm-5.1` to `glm-4.7` or `glm-3-turbo`).
+When `api_error` is returned and the message is `Service is temporarily unavailable, please retry later.`, it usually indicates that the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff or switch to another available GLM model (for example, temporarily switch from `glm-5.1` to `glm-4.7` or `glm-4.6`).
 
 ## Conclusion
 
-Through this document, you have learned how to use the GLM Chat Completion API to call Zhipu AI's GLM series models, including basic calls, streaming responses, multi-turn dialogue, system prompts, and function calling. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the GLM Chat Completion API to call Zhipu AI's GLM series models, including basic calls, streaming responses, multi-turn conversations, system prompts, and tool invocations. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
