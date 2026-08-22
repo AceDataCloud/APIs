@@ -2,7 +2,7 @@
 This document introduces the integration method for the HappyHorse Videos API. This interface supports text-to-video, first-frame image-to-video, reference image-to-video, and video editing through a unified `/happyhorse/videos` entry and the `action` parameter.
 ## Application Process
 To use the HappyHorse Videos API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
-![](https://cdn.acedata.cloud/5hmkdg.jpg)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
 **One API Token can call all services on the platform, without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 > 📘 Complete documentation: [HappyHorse Videos API →](https://platform.acedata.cloud/documents/happyhorse-videos)

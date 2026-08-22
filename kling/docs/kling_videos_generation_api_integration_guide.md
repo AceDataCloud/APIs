@@ -2,7 +2,7 @@
 This article will introduce the integration instructions for the Kling Videos Generation API, which can generate official Kling videos by inputting custom parameters.
 ## Application Process
 To use the Kling Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
-![](https://cdn.acedata.cloud/5hmkdg.jpg)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 If you are not logged in or registered, you will be automatically redirected to the login page, inviting you to register and log in. After completing this, you will be automatically returned to the current page.
 **One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 > 📘 Complete Documentation: [Kling Videos Generation API →](https://platform.acedata.cloud/documents/kling-videos)
@@ -14,11 +14,11 @@ Here we can see that we have set the Request Headers, including:
 - `authorization`: the key to call the API, which can be directly selected after application.
 Additionally, we have set the Request Body, including:
 - `model`: the model for generating the video, mainly including `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`.
-- `mode`: the mode for generating the video, with optional values of standard mode `std`, fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
+- `mode`: the mode for generating the video, with optional values of standard mode `std` (default), fast mode `pro`, and native 4K mode `4k`. The `4k` mode only supports `kling-v3` and `kling-v3-omni`, and is incompatible with `camera_control` (camera movement control).
 - `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`).
 - `start_image_url`: when selecting the image-to-video action `image2video`, the first frame reference image link must be uploaded.
 - `end_image_url`: optional for image-to-video, specifies the last frame.
-- `duration`: video duration, in seconds. `kling-v3` and `kling-v3-omni` support integer durations of 3-15 seconds; `kling-o1` only supports 5 seconds; other models support 5 or 10 seconds.
+- `duration`: video duration, in seconds, defaulting to 5. `kling-v3` and `kling-v3-omni` support integer durations of 3-15 seconds; `kling-o1` only supports 5 seconds; other models support 5 or 10 seconds.
 - `generate_audio`: whether to generate audio synchronously, optional, boolean value. Supports `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (only in pro mode). Default is `false`.
 - `aspect_ratio`: video aspect ratio, optional, supports `16:9`, `9:16`, `1:1`, default is `16:9`.
 - `cfg_scale`: correlation strength, range [0,1], larger values are more aligned with the prompt.
