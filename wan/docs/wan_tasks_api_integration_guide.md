@@ -111,7 +111,7 @@ Upon a successful request, the API will return the details of the video task her
   "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
   "response": {
     "success": true,
-    "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+    "video_url": "https://cdn.acedata.cloud/wan/example-video.mp4",
     "state": "completed",
     "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
   },
@@ -172,7 +172,7 @@ Upon a successful request, the API will return the specific details of all batch
       "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
       "response": {
         "success": true,
-        "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+        "video_url": "https://cdn.acedata.cloud/wan/example-video.mp4",
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
       },
@@ -198,7 +198,7 @@ Upon a successful request, the API will return the specific details of all batch
       "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
       "response": {
         "success": true,
-        "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+        "video_url": "https://cdn.acedata.cloud/wan/example-video.mp4",
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
       },
