@@ -39,20 +39,19 @@ Monorepo for all AceDataCloud API documentation repositories.
 Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextprotocol.io) servers, allowing AI assistants like Claude, Cursor, Windsurf, and others to directly call our APIs.
 
 > [!TIP]
-> This section introduces the MCP servers provided by Ace Data Cloud, supporting information exchange and integration among multiple AI assistants.
+> This section introduces the active MCP servers provided by Ace Data Cloud. Documentation links point to the canonical pages on the Ace Data Cloud platform.
 
 | MCP Server | Docs |
 |---|---|
-| Flux MCP Server | [docs.acedata.cloud/mcp/flux](https://docs.acedata.cloud/mcp/flux) |
-| Luma MCP Server | [docs.acedata.cloud/mcp/luma](https://docs.acedata.cloud/mcp/luma) |
-| Nanobanana MCP Server | [docs.acedata.cloud/mcp/nanobanana](https://docs.acedata.cloud/mcp/nanobanana) |
-| Seedance MCP Server | [docs.acedata.cloud/mcp/seedance](https://docs.acedata.cloud/mcp/seedance) |
-| Seedream MCP Server | [docs.acedata.cloud/mcp/seedream](https://docs.acedata.cloud/mcp/seedream) |
-| Serp MCP Server | [docs.acedata.cloud/mcp/serp](https://docs.acedata.cloud/mcp/serp) |
-| Shorturl MCP Server | [docs.acedata.cloud/mcp/shorturl](https://docs.acedata.cloud/mcp/shorturl) |
-| Sora MCP Server | [docs.acedata.cloud/mcp/sora](https://docs.acedata.cloud/mcp/sora) |
-| Suno MCP Server | [docs.acedata.cloud/mcp/suno](https://docs.acedata.cloud/mcp/suno) |
-| Veo MCP Server | [docs.acedata.cloud/mcp/veo](https://docs.acedata.cloud/mcp/veo) |
+| Flux MCP Server | [View documentation](https://platform.acedata.cloud/documents/flux-mcp) |
+| Luma MCP Server | [View documentation](https://platform.acedata.cloud/documents/luma-mcp) |
+| Nanobanana MCP Server | [View documentation](https://platform.acedata.cloud/documents/nano-banana-mcp) |
+| Seedance MCP Server | [View documentation](https://platform.acedata.cloud/documents/seedance-mcp) |
+| Seedream MCP Server | [View documentation](https://platform.acedata.cloud/documents/seedream-mcp) |
+| Serp MCP Server | [View documentation](https://platform.acedata.cloud/documents/serp-mcp) |
+| Shorturl MCP Server | [View documentation](https://platform.acedata.cloud/documents/short-url-mcp) |
+| Suno MCP Server | [View documentation](https://platform.acedata.cloud/documents/suno-mcp) |
+| Veo MCP Server | [View documentation](https://platform.acedata.cloud/documents/veo-mcp) |
 
 ## How It Works
 
