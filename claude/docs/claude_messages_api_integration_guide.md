@@ -300,9 +300,9 @@ By passing the complete conversation history in `messages`, Claude can provide a
 
 ## Deep Thinking Model
 
-Claude supports the Extended Thinking feature, which allows the model to perform internal reasoning before responding, improving the accuracy of handling complex questions. When using this feature, the `thinking` parameter needs to be passed.
+Claude thinking and thinking summaries are distinct: the model can reason internally, but the API does not return its raw chain of thought. When reasoning needs to be displayed, the API returns a processed summary.
 
-### Python Example
+Current models should use adaptive thinking and control overall reasoning effort with `output_config.effort`:
 
 ```python
 import requests
@@ -316,14 +316,17 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-opus-5",
     "max_tokens": 16000,
     "thinking": {
-        "type": "enabled",
-        "budget_tokens": 10000
+        "type": "adaptive",
+        "display": "summarized"
+    },
+    "output_config": {
+        "effort": "high"
     },
     "messages": [
-        {"role": "user", "content": "What is the sine of 30 degrees? Show your reasoning."}
+        {"role": "user", "content": "What is the sine of 30 degrees?"}
     ]
 }
 
@@ -331,42 +334,26 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.json())
 ```
 
-The response is as follows:
+The `thinking` response block has this form:
 
 ```json
 {
-  "id": "msg_018J4YaRoGHtbsTVb4Vvz7oH",
-  "type": "message",
-  "role": "assistant",
-  "content": [
-    {
-      "type": "thinking",
-      "thinking": "The user is asking for the sine of 30 degrees. This is a basic trigonometry question.\n\nIn a 30-60-90 triangle, the sides are in the ratio 1:√3:2.\n\nFor a 30° angle:\n- The opposite side is 1\n- The hypotenuse is 2\n- So sin(30°) = opposite/hypotenuse = 1/2 = 0.5"
-    },
-    {
-      "type": "text",
-      "text": "The sine of 30 degrees is **1/2** or **0.5**.\n\nThis is one of the fundamental trigonometric values. In a 30-60-90 triangle, the sides are in the ratio 1:√3:2, where the side opposite to the 30° angle has length 1 and the hypotenuse has length 2, giving us sin(30°) = 1/2."
-    }
-  ],
-  "model": "claude-sonnet-4-20250514",
-  "stop_reason": "end_turn",
-  "stop_sequence": null,
-  "usage": {
-    "input_tokens": 28,
-    "output_tokens": 239
-  }
+  "type": "thinking",
+  "thinking": "The problem asks for a standard trigonometric value...",
+  "signature": "opaque-signature"
 }
 ```
 
-As you can see, the `content` array contains two content blocks:
+- `display: "summarized"` returns a readable thinking summary; it is not the raw chain of thought.
+- `display: "omitted"` returns `thinking: ""`, while retaining an opaque `signature` to support subsequent conversation turns.
+- Fable 5, Opus 5, Sonnet 5, Opus 4.8, and Opus 4.7 default to `omitted`; Opus 4.6, Sonnet 4.6, and earlier thinking-capable models default to `summarized`.
+- Display affects only returned content and streaming latency; it does not disable reasoning or reduce thinking-token charges.
+- Whether thinking is enabled by default and the default display setting are independent. Opus 5 and Sonnet 5 enable adaptive thinking by default; Opus 4.8, 4.7, and 4.6 require explicit enablement.
+- `budget_tokens` is only for older models that support a fixed thinking budget. New models should use `thinking.type=adaptive` and `output_config.effort`.
+- For multi-turn conversations and tool calls, return the complete assistant thinking block and signature unchanged; do not modify or generate a signature yourself.
+- Some compatible routes cannot losslessly process `redacted_thinking` or explicitly disabled thinking. They return a parameter error instead of silently discarding or changing request semantics.
 
-- `type: "thinking"`: The model's internal thought process, showing the reasoning steps.
-- `type: "text"`: The final answer result.
-
-Notes:
-
-- When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
-- The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+For streaming requests, `summarized` produces `thinking_delta`; `omitted` does not produce `thinking_delta`, retaining only the thinking-block lifecycle and `signature_delta`.
 
 ## Visual Model
 
