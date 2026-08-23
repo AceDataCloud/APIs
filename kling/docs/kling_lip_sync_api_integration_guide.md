@@ -1,3 +1,8 @@
+---
+title: "Kling Lip Sync API"
+description: "Kling video generation 集成指南 - Ace Data Cloud"
+---
+
 # Kling Lip Sync API
 Drive an **existing Kling video** (5s or 10s) with audio or text so the character speaks in sync (lip sync). Pair it with `/kling/videos` `image2video` (which animates a still photo) to build a complete **talking-photo / digital-human narration** pipeline.
 - **Endpoint**: `POST https://api.acedata.cloud/kling/lip-sync`

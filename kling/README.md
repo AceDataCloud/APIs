@@ -55,6 +55,8 @@ Explore the supported endpoints and integration guides for Kling Video Generatio
 | [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) | `/kling/videos` | [Kling Videos Generation API Integration Guide](docs/kling_videos_generation_api_integration_guide.md) |
 | [Kling Tasks API](https://platform.acedata.cloud/documents/6b43ff7b-8298-49c8-a390-83df85c2c5e5) | `/kling/tasks` | [Kling Tasks API Integration Guide](docs/kling_tasks_api_integration_guide.md) |
 | [Kling Motion Generation API](https://platform.acedata.cloud/documents/d3f2c369-102d-4856-9565-702ac5f2df63) | `/kling/motion` | [Kling Motion Generation API Integration Guide](docs/kling_motion_generation_api_integration_guide.md) |
+| Kling Lip Sync API | `/kling/lip-sync` | [Kling Lip Sync API Integration Guide](docs/kling_lip_sync_api_integration_guide.md) |
+| Kling Talking Photo API | `/kling/talking-photo` | [Kling Talking Photo API Integration Guide](docs/kling_talking_photo_api_integration_guide.md) |
 
 ## Related Resources
 

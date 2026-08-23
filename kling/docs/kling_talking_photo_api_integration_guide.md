@@ -1,3 +1,8 @@
+---
+title: "Kling Talking Photo API"
+description: "Kling video generation 集成指南 - Ace Data Cloud"
+---
+
 # Kling Talking Photo API
 Turn **one photo + one audio** into a talking video in a single call. The service internally chains two steps: image2video (animate the still photo) then lip-sync (drive the mouth with the audio).
 - **Endpoint**: `POST https://api.acedata.cloud/kling/talking-photo`
@@ -11,9 +16,9 @@ Turn **one photo + one audio** into a talking video in a single call. The servic
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
 | `image_url` | string | yes | — | Public URL of the portrait image; a clear frontal face works best |
-| `audio_url` | string | yes | — | Public URL of the driving audio (.mp3/.wav/.m4a/.aac, <5MB) |
+| `audio_url` | string | yes | — | Public URL of the driving audio (.mp3/.wav/.m4a/.aac, <=5MB) |
 | `prompt` | string | no | — | Motion/expression hint for the animation step |
-| `model` | string | no | `kling-v2-1-master` | Kling model for the animation step |
+| `model` | string | no | `kling-v2-1-master` | Kling model for the animation step. Enum: `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6` |
 | `duration` | integer | no | `5` | Video length (5 or 10 seconds) |
 | `mode` | string | no | `pro` | Animation quality (std/pro) |
 | `callback_url` | string | no | — | If set (or `async=true`), returns task_id and calls back |

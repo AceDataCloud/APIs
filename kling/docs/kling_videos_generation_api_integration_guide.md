@@ -1,3 +1,8 @@
+---
+title: "Kling Videos Generation API Integration Instructions"
+description: "Kling video generation integration guide - Ace Data Cloud"
+---
+
 # Kling Videos Generation API Integration Instructions
 This article will introduce the integration instructions for the Kling Videos Generation API, which can generate official Kling videos by inputting custom parameters.
 ## Application Process

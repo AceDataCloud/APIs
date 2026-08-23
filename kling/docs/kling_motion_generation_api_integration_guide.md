@@ -1,3 +1,8 @@
+---
+title: "Kling Motion Generation API Integration Instructions"
+description: "Kling video generation integration guide - Ace Data Cloud"
+---
+
 # Kling Motion Generation API Integration Instructions
 This article will introduce the integration instructions for the Kling Motion Generation API, which can generate official Kling videos by inputting custom parameters.
 ## Application Process
@@ -7,19 +12,22 @@ If you are not logged in, you will be redirected to sign in and brought back to 
 **A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
 > 📘 Full documentation: [Kling Motion Generation API →](https://platform.acedata.cloud/documents/kling-motion)
 ## Basic Usage
-First, understand the basic usage method, which involves inputting the prompt `prompt`, reference image `image_url`, and reference video link `video_url` to obtain the processed result. We also need to input the model `mode`, which currently mainly includes `std` and `pro` models, as detailed below:
+First, understand the basic usage method, which involves inputting the reference image `image_url`, reference video link `video_url`, and model `mode` to obtain the processed result. The `mode` supports `std` and `pro`, as detailed below:
 <p><img src="https://cdn.acedata.cloud/5qlpjt.png" width="500" class="m-auto"></p>
 Here we can see that we have set the Request Headers, including:
 - `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
 - `authorization`: the key to call the API, which can be selected directly after application.
 Additionally, we have set the Request Body, including:
-- `image_url`: the reference image, which serves as the basis for the characters, backgrounds, and other elements in the generated video.
-- `video_url`: the link to obtain the reference video. The actions of the characters in the generated video will be consistent with the reference video.
-- `mode`: the mode for generating the video, mainly including standard mode `std` and high-speed mode `pro`.
-- `keep_original_sound`: an option to choose whether to keep the original sound of the video, with enumerated values: yes, no.
-- `character_orientation`: the orientation of the characters in the generated video, which can be chosen to be consistent with the image or the video, with enumerated values: image, video.
+- `image_url` (required): the reference image, which serves as the basis for the characters, backgrounds, and other elements in the generated video.
+- `video_url` (required): the link to obtain the reference video. The actions of the characters in the generated video will be consistent with the reference video.
+- `mode` (required): the mode for generating the video. Enum: `std`, `pro`.
+- `keep_original_sound`: whether to keep the original sound of the video. Enum: `yes`, `no`.
+- `character_orientation` (required): whether character orientation follows the image or video. Enum: `image`, `video`.
 - `prompt`: the prompt.
+- `model_name`: optional model. Enum: `kling-v2-6`, `kling-v3`.
+- `watermark_info`: optional object with an `enabled` boolean that controls the watermark.
 - `callback_url`: the URL to receive the callback result.
+- `async`: optional boolean that returns a task ID immediately when `true`.
 After selection, you can see that the corresponding code is generated on the right side, as shown in the image:
 <p><img src="https://cdn.acedata.cloud/buwczd.png" width="500" class="m-auto"></p>
 Click the "Try" button to conduct a test, as shown in the image above, and we obtained the following result:
