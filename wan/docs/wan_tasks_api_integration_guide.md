@@ -6,21 +6,19 @@ This document will provide a detailed description of the Wan Tasks API integrati
 
 ## Application Process
 
-To use the Wan Tasks API, you first need to apply for the corresponding service on the application page [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c), and then copy the task ID from the Wan Videos Generation API, as shown in the image below:
+To use the Wan Tasks API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 
-<p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto"></p>
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-Finally, go to the Tasks API page [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image below:
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
 
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+> 📘 Complete Documentation: [Wan Tasks API →](https://platform.acedata.cloud/documents/wan-tasks)
 
 ## Request Example
 
-The Wan Tasks API can be used to query the results of the Wan Videos Generation API. For information on how to use the Wan Videos Generation API, please refer to the document [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c).
+The Wan Tasks API can be used to query the results of the Wan Videos Generation API. For information on how to use the Wan Videos Generation API, please refer to the document [Wan Videos Generation API](https://platform.acedata.cloud/documents/wan-videos).
 
 We will take a task ID returned by the Wan Videos Generation API as an example to demonstrate how to use this API. Suppose we have a task ID: a4bca552-d964-46a1-8ff7-fd922f916582, and we will demonstrate how to pass in a task ID.
 
@@ -57,7 +55,7 @@ Some code examples are as follows:
 ```bash
 curl -X POST 'https://api.acedata.cloud/wan/tasks' \
 -H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
+-H 'authorization: YOUR_API_TOKEN' \
 -H 'content-type: application/json' \
 -d '{
   "id": "a4bca552-d964-46a1-8ff7-fd922f916582",
@@ -74,7 +72,7 @@ url = "https://api.acedata.cloud/wan/tasks"
 
 headers = {
     "accept": "application/json",
-    "authorization": "Bearer {token}",
+    "authorization": "YOUR_API_TOKEN",
     "content-type": "application/json"
 }
 
@@ -98,6 +96,9 @@ Upon a successful request, the API will return the details of the video task her
   "api_id": "6a4ecdbf-b219-4505-8277-5ec4b1ac14f8",
   "application_id": "52933893-8e8b-4cd6-b9e5-2354eedea000",
   "created_at": 1769262721.763,
+  "started_at": 1769262721.823,
+  "finished_at": 1769263509.094,
+  "elapsed": 787.271,
   "credential_id": "c7173d71-d234-413e-ab72-7bfa6715d12f",
   "request": {
     "action": "text2video",
@@ -111,12 +112,10 @@ Upon a successful request, the API will return the details of the video task her
   "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
   "response": {
     "success": true,
-    "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+    "video_url": "https://cdn.acedata.cloud/43a57990c0.mp4",
     "state": "completed",
     "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
-  },
-  "duration": 787.3310000896454,
-  "finished_at": 1769263509.094
+  }
 }
 ```
 
@@ -125,6 +124,10 @@ The returned result contains multiple fields, with the request field being the r
 - `id`: The ID of the video task generated, used to uniquely identify this video generation task.
 - `request`: The request information in the video task.
 - `response`: The return information in the video task.
+- `created_at`: The task creation time, Unix timestamp in seconds.
+- `started_at`: The task start time, Unix timestamp in seconds.
+- `finished_at`: The task completion time, Unix timestamp in seconds. This field is not returned if the task is not completed.
+- `elapsed`: The task execution time in seconds. This field is not returned if the task is not completed.
 
 ## Batch Query Operation
 
@@ -159,6 +162,9 @@ Upon a successful request, the API will return the specific details of all batch
       "api_id": "6a4ecdbf-b219-4505-8277-5ec4b1ac14f8",
       "application_id": "52933893-8e8b-4cd6-b9e5-2354eedea000",
       "created_at": 1769262721.763,
+      "started_at": 1769262721.823,
+      "finished_at": 1769263509.094,
+      "elapsed": 787.271,
       "credential_id": "c7173d71-d234-413e-ab72-7bfa6715d12f",
       "request": {
         "action": "text2video",
@@ -172,12 +178,10 @@ Upon a successful request, the API will return the specific details of all batch
       "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
       "response": {
         "success": true,
-        "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+        "video_url": "https://cdn.acedata.cloud/43a57990c0.mp4",
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
-      },
-      "duration": 787.3310000896454,
-      "finished_at": 1769263509.094
+      }
     },
     {
       "_id": "6974ce81ff2676299c399252",
@@ -185,6 +189,9 @@ Upon a successful request, the API will return the specific details of all batch
       "api_id": "6a4ecdbf-b219-4505-8277-5ec4b1ac14f8",
       "application_id": "52933893-8e8b-4cd6-b9e5-2354eedea000",
       "created_at": 1769262721.763,
+      "started_at": 1769262721.823,
+      "finished_at": 1769263509.094,
+      "elapsed": 787.271,
       "credential_id": "c7173d71-d234-413e-ab72-7bfa6715d12f",
       "request": {
         "action": "text2video",
@@ -198,12 +205,10 @@ Upon a successful request, the API will return the specific details of all batch
       "job_id": "0d2042f9-ba8d-496d-8ab5-182617e28f9e",
       "response": {
         "success": true,
-        "video_url": "https://dashscope-result-sh.oss-accelerate.aliyuncs.com/1d/db/20260124/da477ba2/0d2042f9-ba8d-496d-8ab5-182617e28f9e.mp4?Expires=1769349278&OSSAccessKeyId=LTAI5tKPD3TMqf2Lna1fASuh&Signature=SjBa4wRcDVx3SSYu%2Fx7BYCFQk0s%3D",
+        "video_url": "https://cdn.acedata.cloud/43a57990c0.mp4",
         "state": "completed",
         "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
-      },
-      "duration": 787.3310000896454,
-      "finished_at": 1769263509.094
+      }
     }
   ],
   "count": 2
@@ -220,7 +225,7 @@ The return result contains multiple fields, among which items include the specif
 ```bash
 curl -X POST 'https://api.acedata.cloud/wan/tasks' \
 -H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
+-H 'authorization: YOUR_API_TOKEN' \
 -H 'content-type: application/json' \
 -d '{
   "ids": ["a4bca552-d964-46a1-8ff7-fd922f916582","a4bca552-d964-46a1-8ff7-fd922f916582"],
@@ -232,8 +237,8 @@ curl -X POST 'https://api.acedata.cloud/wan/tasks' \
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `400 token_mismatched`: Bad request, the token is not matched with this API.
+- `400 api_not_implemented`: Bad request, the API is not implemented.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
 - `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
 - `500 api_error`: Internal server error, something went wrong on the server.
