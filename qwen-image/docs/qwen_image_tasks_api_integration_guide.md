@@ -1,0 +1,12 @@
+# Qwen Image Task API Integration Guide
+
+Use `POST https://api.acedata.cloud/qwen-image/tasks` to query asynchronous image generation tasks. This query interface is free.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/qwen-image/tasks' \
+  -H 'Authorization: ******' \
+  -H 'Content-Type: application/json' \
+  -d '{"action":"retrieve","id":"TASK_ID"}'
+```
+
+For batch queries, use `action=retrieve_batch` and the `ids` array. After the task is successful, `response.data` contains the permanent addresses of the generated images and the actual usage.

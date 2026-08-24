@@ -6,13 +6,11 @@ This document mainly describes the usage process of the Gemini Chat Completion A
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page and click the "Acquire" button to obtain the credentials needed for the request:
+Obtain an API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications).
 
 ![](https://cdn.acedata.cloud/nyq0xz.png)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+One API Token can call all platform services; no separate service application is required. The first application includes a free trial quota, and usage can be recharged in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Basic Usage
 
@@ -26,12 +24,31 @@ You can also notice that there is corresponding code generation on the right sid
 
 <p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto" /></p>
 
+> **Tip:** The `gemini-3.x` Flash models are reasoning models. Set `max_tokens` to at least 512 to avoid empty responses. `gemini-3.6-flash` supports up to one million tokens of context, image input, tool calls, and streaming through this endpoint.
+
+## Image Understanding
+
+Gemini accepts OpenAI-compatible content blocks in `messages[].content`. An `image_url.url` may be a public URL or a base64 `data:` URI. Supported image types are PNG, JPEG, WebP, HEIC, and HEIF; `image_url` accepts only `url` and optional `detail`, not a separate `media_type`.
+
+```json
+{
+  "model": "gemini-3.6-flash",
+  "messages": [{
+    "role": "user",
+    "content": [
+      { "type": "text", "text": "Describe this image." },
+      { "type": "image_url", "image_url": { "url": "data:image/jpeg;base64,/9j/4AAQ..." } }
+    ]
+  }]
+}
+```
+
 After the call, we find that the returned result is as follows:
 
 ```json
 {
   "id": "chatcmpl-20251122212413908150493uPhjTUO9",
-  "model": "gemini-2.5-pro",
+  "model": "gemini-3.6-flash",
   "object": "chat.completion",
   "created": 1763817866,
   "choices": [
@@ -108,7 +125,7 @@ headers = {
 }
 
 payload = {
-    "model": "gemini-2.5-pro",
+    "model": "gemini-3.6-flash",
     "messages": [{"role":"user","content":"Hello,What model are you?"}],
     "stream": True
 }
@@ -155,7 +172,7 @@ const options = {
     "content-type": "application/json"
   },
   body: JSON.stringify({
-    model: "gemini-2.5-pro",
+    model: "gemini-3.6-flash",
     messages: [{ role: "user", content: "Hello, what model are you?" }],
     stream: true
   })
