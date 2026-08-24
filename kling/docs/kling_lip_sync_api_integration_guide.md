@@ -1,5 +1,6 @@
 # Kling Lip Sync API
 Drive an **existing Kling video** (5s or 10s) with audio or text so the character speaks in sync (lip sync). Pair it with `/kling/videos` `image2video` (which animates a still photo) to build a complete **talking-photo / digital-human narration** pipeline.
+> This endpoint is a one-step convenience wrapper provided by AceDataCloud for common audio/text-driven scenarios. It is not a field-by-field mirror of Kling's official multi-step "face detection → Advanced Lip Sync" workflow. Use the parameters on this page as the source of truth.
 - **Endpoint**: `POST https://api.acedata.cloud/kling/lip-sync`
 - **Request format**: `application/json`
 - **Response format**: `application/json`

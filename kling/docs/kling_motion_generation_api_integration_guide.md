@@ -13,8 +13,8 @@ Here we can see that we have set the Request Headers, including:
 - `accept`: the format of the response result you want to receive, filled in as `application/json`, which means JSON format.
 - `authorization`: the key to call the API, which can be selected directly after application.
 Additionally, we have set the Request Body, including:
-- `image_url`: the reference image, which serves as the basis for the characters, backgrounds, and other elements in the generated video.
-- `video_url`: the link to obtain the reference video. The actions of the characters in the generated video will be consistent with the reference video.
+- `image_url`: person appearance reference image URL. Supports JPG/JPEG/PNG, file size ≤50MB, width and height both ≥300px, aspect ratio 1:2.5 to 2.5:1. The person should clearly show upper body or full body including the head.
+- `video_url`: motion reference video URL. Supports MP4/MOV, file size ≤100MB, width and height each 340–3850px, and at least 3 seconds. Max length is 10 seconds when `character_orientation=image` and 30 seconds when `character_orientation=video`. A continuous single-shot video with the person in frame is recommended.
 - `mode`: the mode for generating the video, mainly including standard mode `std` and high-speed mode `pro`.
 - `keep_original_sound`: an option to choose whether to keep the original sound of the video, with enumerated values: yes, no.
 - `character_orientation`: the orientation of the characters in the generated video, which can be chosen to be consistent with the image or the video, with enumerated values: image, video.

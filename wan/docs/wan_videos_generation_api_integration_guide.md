@@ -204,3 +204,28 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ## Conclusion
 
 Through this document, you have learned how to use the Wan Videos Generation API to generate videos by inputting prompt words and the first frame reference image. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
+
+## Wan 3.0 Universal Video Generation
+
+`wan3.0-video` supports text-to-video, first-frame / first+last-frame generation, and image/video/audio/file/web references in the same model. Pass reference assets through the `media` array:
+
+```json
+{
+  "model": "wan3.0-video",
+  "prompt": "Create a cinematic ad using the product in image 1",
+  "media": [
+    {
+      "type": "reference_image",
+      "url": "https://cdn.example.org/product.png"
+    }
+  ],
+  "resolution": "720P",
+  "ratio": "16:9",
+  "duration": 5,
+  "audio": true,
+  "watermark": false,
+  "async": true
+}
+```
+
+`duration` supports integer values from 2–30 seconds, or `-1` to let the model choose automatically. Reference-media mode cannot be mixed with first/last-frame mode. After submission, continue querying status through `/wan/tasks`.

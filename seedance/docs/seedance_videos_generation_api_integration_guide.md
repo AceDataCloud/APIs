@@ -167,4 +167,4 @@ Each error response includes a `trace_id` to help with debugging and support.
 
 ## Seedance 2.5 controls
 
-Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1`. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.
+Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1` and is billed based on actual output duration. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.

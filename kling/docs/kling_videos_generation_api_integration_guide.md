@@ -140,7 +140,7 @@ It can be seen that the result content is consistent with the above, thus achiev
 Omni requests do not support `negative_prompt`, `cfg_scale`, or `camera_control`, and cannot use `mode=4k`. When including reference videos, `generate_audio` must be `false`.
 ### Reference Video and Video Editing (`video_list`)
 `video_list` is used to pass in reference videos, which is the most commonly used scenario for this capability. The fields of the array elements are as follows:
-- `video_url`: Reference video link, cannot be empty. Requirements: format MP4/MOV; resolution 720px–2160px; duration 3–10 seconds; frame rate 24–60fps; file size ≤200MB; up to 1 video.
+- `video_url`: Reference video link, cannot be empty. Up to one MP4/MOV video, file size ≤200MB, frame rate 24–60fps. For `kling-o1`, duration must be 3–10 seconds and width/height must each be 700–2160px. For `kling-v3-omni`, duration must be 3–15.5 seconds, width/height must each be 700–4553px, total pixels must be ≤8,294,400, and aspect ratio must be 0.4–2.
 - `refer_type`: Reference type, optional `base` (default, **the basic video to be edited**, i.e., "directly edit the video", can add/delete/modify elements, change composition, change style, change color, change weather, etc.) or `feature` (**feature reference**, reference its style / camera movement / continuation of the next shot).
 - `keep_original_sound`: Whether to keep the original video audio, optional `yes` (keep) or `no` (remove).
 > Note: When a reference video exists, `generate_audio` must be `false`. Videos with `refer_type=base` cannot specify the first frame / last frame.
