@@ -1,6 +1,6 @@
 # AI Chat Conversations API Integration Guide
 
-The AI Chat Conversations API provided by Ace Data Cloud simplifies integration compared to raw chat completion APIs (such as OpenAI's Chat Completions API). You do not need to manage the `messages` array or handle token-limit issues yourself — the API handles context internally. It also supports multi-turn stateful conversations, conversation querying, and modification, making integration straightforward.
+The AI Chat Conversations API provided by Ace Data Cloud simplifies integration compared to raw chat completion APIs (such as OpenAI's Chat Completions API). You can send a simple `question` or richer `message` content while the API handles context internally. The current `/aichat2/conversations` endpoint also supports multi-turn stateful conversations, conversation querying and modification actions, streaming, async callbacks, and optional tool/MCP controls, making integration straightforward.
 
 ## Application Process
 
@@ -14,12 +14,14 @@ First-time applicants receive a free usage quota.
 
 ## Basic Usage
 
-The simplest usage is to send a question and receive an answer. You only need to provide a `question` field and specify the `model`.
+The current endpoint is `https://api.acedata.cloud/aichat2/conversations`. The legacy `https://api.acedata.cloud/aichat/conversations` endpoint remains available for simple `question`-based requests.
+
+The simplest usage is to send a question and receive an answer. For chat requests, provide a `question` or `message` field and specify the `model`.
 
 For example, asking "What's your name?":
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -34,7 +36,7 @@ Python equivalent:
 ```python
 import requests
 
-url = "https://api.acedata.cloud/aichat/conversations"
+url = "https://api.acedata.cloud/aichat2/conversations"
 
 headers = {
     "accept": "application/json",
@@ -65,7 +67,7 @@ The `answer` field contains the model's reply.
 
 | Header | Description |
 | --- | --- |
-| `accept` | Response format: `application/json` (default) or `application/x-ndjson` for streaming |
+| `accept` | Response format: `application/json` (default), `application/x-ndjson`, or `text/event-stream` for streaming |
 | `authorization` | Bearer token obtained from your Ace Data Cloud account |
 
 ### Request Body
@@ -73,17 +75,37 @@ The `answer` field contains the model's reply.
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `model` | string | ✅ | The model to use (see supported models below) |
-| `question` | string | ✅ | The prompt or question to answer |
-| `id` | string | ❌ | Conversation ID for multi-turn conversations |
-| `stateful` | boolean | ❌ | Enable stateful (multi-turn) conversation mode |
+| `question` | string | ❌ | The prompt or question to answer |
+| `message` | string or array | ❌ | Rich message content. Array items can be `text`, `image_url`, or `file_url` parts |
+| `messages` | array | ❌ | Conversation messages for advanced integrations |
+| `action` | string | ❌ | Conversation action: `chat`, `retrieve`, `retrieve_batch`, `update`, or `delete` |
+| `id` | string | ❌ | Conversation ID for multi-turn conversations or retrieve/update/delete actions |
+| `stateful` | boolean | ❌ | Enable stateful (multi-turn) conversation mode. Defaults to `true` on `/aichat2/conversations` |
 | `preset` | string | ❌ | System-level preset (equivalent to `system_prompt`) |
 | `references` | array of strings | ❌ | Image URLs for vision/image-recognition requests |
+| `max_turns` | integer | ❌ | Maximum number of conversation turns to retain |
+| `async` | boolean | ❌ | Run asynchronously. Defaults to `false` |
+| `callback_url` | string | ❌ | URL called with async results |
+| `allowed_skills` | array of strings | ❌ | Skill allow-list for assisted conversations |
+| `allowed_mcp_servers` | array of strings | ❌ | MCP server allow-list for assisted conversations |
+| `unattended_policy` | object | ❌ | Policy for unattended tool/MCP usage |
+| `tool_results` | array | ❌ | Tool result objects with `tool_use_id`, `output`, and optional `is_error` |
+| `title` | string | ❌ | Conversation title for update actions |
+| `user_id` | string | ❌ | User identifier for filtering or tracking conversations |
+| `application_id` | string | ❌ | Application identifier for filtering or tracking conversations |
+| `model_group` | string | ❌ | Model group filter: `chatgpt`, `claude`, `gemini`, `grok`, `kimi`, `glm`, or `deepseek` |
+| `offset` | integer | ❌ | Pagination offset for batch retrieval. Defaults to `0` |
+| `limit` | integer | ❌ | Pagination limit for batch retrieval, from `1` to `100`. Defaults to `100` |
 
 ### Supported Models
 
-The following models are supported as values for the `model` field:
+The following models are supported as values for the `model` field on `/aichat2/conversations`:
 
-`gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-pro`, `deepseek-v4-flash`, `grok-3`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`
+`gpt-4`, `gpt-4.1`, `gpt-4.1-mini`, `gpt-4.1-nano`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-5-all`, `gpt-5.1-all`, `gpt-5.2-pro`, `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-image-1`, `claude-3-5-haiku-20241022`, `claude-3-5-sonnet-20240620`, `claude-3-5-sonnet-20241022`, `claude-3-7-sonnet-20250219`, `claude-3-haiku-20240307`, `claude-3-sonnet-20240229`, `claude-haiku-4-5-20251001`, `claude-opus-4-1-20250805`, `claude-opus-4-20250514`, `claude-opus-4-5-20251101`, `claude-opus-4-6`, `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-4-20250514`, `claude-sonnet-4-5-20250929`, `claude-sonnet-4-6`, `claude-sonnet-5`, `gemini-2.0-flash-lite`, `gemini-2.5-flash-lite`, `gemini-3-pro-preview`, `gemini-3.1-flash-image-preview`, `gemini-3.1-flash-lite-preview`, `gemini-3.1-pro`, `gemini-3.1-pro-preview`, `grok-3`, `grok-3-fast`, `grok-4`, `grok-4.5`, `grok-4-0709`, `deepseek-chat`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-reasoner`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v3.2-exp`, `deepseek-v4-flash`, `deepseek-v4-pro`, `kimi-k2-thinking`, `kimi-k2-thinking-turbo`, `kimi-k3`, `kimi-k2.6`, `kimi-k2.5`, `glm-3-turbo`, `glm-4.5`, `glm-4.5v`, `glm-4.6`, `glm-4.7`, `glm-5`, `glm-5-turbo`, `glm-5.3`, `glm-5.2`, `glm-5.1`, `o1`, `o1-mini`, `o1-pro`, `o3`, `o3-mini`, `o3-pro`, `o4-mini`
+
+The legacy `/aichat/conversations` endpoint supports:
+`gpt-5.6-luna`, `gpt-5.6-terra`, `gpt-5.6-sol`, `gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-flash`, `deepseek-v4-pro`, `grok-4.5`, `grok-3`, `glm-5.3`, `glm-5.2`, `glm-5`, `glm-5-turbo`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`
+`gpt-5.6-luna`, `gpt-5.6-terra`, `gpt-5.6-sol`, `gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-flash`, `deepseek-v4-pro`, `grok-4.5`, `grok-3`, `glm-5.3`, `glm-5.2`, `glm-5`, `glm-5-turbo`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-pro`, `deepseek-v4-flash`, `grok-3`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`
 
 ## Multi-Turn Conversations
 
@@ -92,7 +114,7 @@ To enable multi-turn (stateful) conversations, pass the `stateful: true` paramet
 **First request:**
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -115,7 +137,7 @@ Response:
 **Second request** (pass the `id` from the previous response):
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -147,7 +169,7 @@ The API supports streaming responses, which is useful for web applications that 
 ```python
 import requests
 
-url = "https://api.acedata.cloud/aichat/conversations"
+url = "https://api.acedata.cloud/aichat2/conversations"
 
 headers = {
     "accept": "application/x-ndjson",
@@ -179,13 +201,15 @@ Each streamed line is a JSON object:
 
 - `answer`: The full answer accumulated so far.
 - `delta_answer`: The newly added token(s) in this chunk.
+- `content`: The chunk content for typed streaming events.
+- `type`: The streaming event type, such as `text_delta`.
 
 **Node.js example:**
 
 ```javascript
 const axios = require("axios");
 
-const url = "https://api.acedata.cloud/aichat/conversations";
+const url = "https://api.acedata.cloud/aichat2/conversations";
 const headers = {
   "Content-Type": "application/json",
   Accept: "application/x-ndjson",
@@ -213,7 +237,7 @@ axios
 **Java example:**
 
 ```java
-String url = "https://api.acedata.cloud/aichat/conversations";
+String url = "https://api.acedata.cloud/aichat2/conversations";
 OkHttpClient client = new OkHttpClient();
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\"question\": \"Hello\", \"stateful\": true, \"model\": \"gpt-4o\"}");
@@ -250,7 +274,7 @@ client.newCall(request).enqueue(new Callback() {
 The `preset` field sets a system-level prompt for the model (equivalent to `system_prompt` in OpenAI's API). For example, to make the model act as a professional artist:
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -275,7 +299,7 @@ Response:
 Vision-capable models can analyze images passed via the `references` field. Provide image URLs in the array, and select a vision-capable model such as `gpt-4-vision-preview` or `gpt-4o`.
 
 ```shell
-curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
 -H 'accept: application/json' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
@@ -303,10 +327,10 @@ Response:
 | `answer` | string | The model's reply to the question |
 | `id` | string | Conversation ID (returned when `stateful` is `true`) |
 
-### Error (400 / 401 / 429 / 500)
+### Error (400 / 401 / 404 / 429 / 500)
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error.code` | string | Error code (e.g. `token_mismatched`, `invalid_token`, `too_many_requests`, `api_error`) |
+| `error.code` | string | Error code (e.g. `bad_request`, `token_mismatched`, `invalid_token`, `not_found`, `too_many_requests`, `chat_error`, `api_error`) |
 | `error.message` | string | Human-readable error description |
 | `trace_id` | string | Trace ID for debugging |

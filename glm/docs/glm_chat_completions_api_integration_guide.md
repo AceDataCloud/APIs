@@ -1,6 +1,6 @@
 # GLM Chat Completion API Integration Guide
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.2, along with GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.3, along with GLM-5.2, GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
 This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
 
@@ -21,24 +21,27 @@ The GLM Chat Completion API endpoint is `https://api.acedata.cloud/glm/chat/comp
 When using this interface for the first time, you need to fill in at least three pieces of information:
 
 - `authorization`: Select the Bearer Token directly from the dropdown list.
-- `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.2`: The latest flagship model with the strongest overall capabilities.
-  - `glm-5.1`: High-capability model for reasoning, tool calling, and code tasks.
-  - `glm-5`: General-purpose flagship-tier dialogue model.
-  - `glm-5-turbo`: Faster, cost-efficient variant of the GLM-5 series.
-  - `glm-4.7`: Excellent performance on reasoning, tool calling, and code tasks.
-  - `glm-4.6`: General-purpose dialogue model, balancing capability and cost.
-  - `glm-3-turbo`: Classic dialogue model, suitable for general text generation tasks.
-- `messages`: An array of prompts. Each message contains `role` and `content`. The `role` supports three values: `user`, `assistant`, and `system`.
+- `model`: The GLM model to call. Currently supported models are: `glm-5.3`, `glm-5.2`, `glm-5`, `glm-5-turbo`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`.
+- `messages`: An array of prompts. Each message contains `role` and `content`. The `role` supports `user`, `assistant`, `system`, `developer`, and `tool`. `content` can be plain text or an array of content parts such as `text`, `image_url`, or `file`.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens` / `max_completion_tokens`: Limit generated tokens for a single response.
 - `temperature`: Generation randomness, between 0–2; larger values produce more diverse output.
-- `top_p`: Nucleus sampling parameter, controls the cumulative probability threshold for candidate tokens.
-- `n`: How many candidate replies to generate at once.
+- `top_p`: Nucleus sampling parameter, between 0–1.
+- `n`: How many candidate replies to generate at once, from 1–128.
 - `stream`: Whether to enable streaming response, default `false`.
-- `stop`: Custom stop sequences.
+- `stream_options.include_usage`: Include usage data in the stream.
+- `stop`: Custom stop sequence or up to four stop sequences.
+- `response_format`: Force `text`, `json_object`, or `json_schema` output.
+- `frequency_penalty` / `presence_penalty`: Penalize repeated or previously seen tokens, from -2 to 2.
+- `seed`: Best-effort deterministic generation seed.
+- `logprobs` / `top_logprobs`: Request token log probabilities.
+- `tools`, `tool_choice`, and `parallel_tool_calls`: Configure OpenAI-compatible function calling.
+- `reasoning_effort`: Reasoning effort for compatible models: `minimal`, `low`, `medium`, or `high`.
+- `service_tier`: Service tier hint: `auto`, `default`, `flex`, `scale`, or `priority`.
+- `user`, `metadata`, `store`, and `logit_bias`: Optional tracking, storage, metadata, and token-bias controls.
+- `modalities`, `audio`, `prediction`, and `web_search_options`: Optional multimodal, audio, prediction, and web-search controls for compatible models.
 
 Below is a simple Python call example:
 
@@ -54,7 +57,7 @@ headers = {
 }
 
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.3",
     "messages": [
         {"role": "user", "content": "hello"}
     ]
@@ -69,7 +72,7 @@ After the call, we find the return result is as follows:
 ```json
 {
   "id": "msg_202604262252030313862701a04e33",
-  "model": "glm-4.7",
+  "model": "glm-5.3",
   "object": "chat.completion",
   "created": 1777215124,
   "choices": [
@@ -118,7 +121,7 @@ headers = {
 }
 
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.3",
     "messages": [{"role": "user", "content": "hi"}],
     "stream": True
 }
@@ -132,15 +135,15 @@ for line in response.iter_lines():
 Example output (excerpt):
 
 ```text
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "", "role": "assistant"}, "finish_reason": null, "index": 0}], "usage": null}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-5.3", "choices": [{"delta": {"content": "", "role": "assistant"}, "finish_reason": null, "index": 0}], "usage": null}
 
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": "Hello! How can I"}, "finish_reason": null, "index": 0}], "usage": null}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-5.3", "choices": [{"delta": {"content": "Hello! How can I"}, "finish_reason": null, "index": 0}], "usage": null}
 
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {"content": " help you?"}, "finish_reason": null, "index": 0}], "usage": null}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-5.3", "choices": [{"delta": {"content": " help you?"}, "finish_reason": null, "index": 0}], "usage": null}
 
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [{"delta": {}, "finish_reason": "stop", "index": 0}], "usage": null}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-5.3", "choices": [{"delta": {}, "finish_reason": "stop", "index": 0}], "usage": null}
 
-data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-4.7", "choices": [], "usage": {"prompt_tokens": 1420, "completion_tokens": 18, "total_tokens": 1438}}
+data: {"id": "msg_2026042622521271f765bbc3734ce1", "object": "chat.completion.chunk", "created": 1777215133, "model": "glm-5.3", "choices": [], "usage": {"prompt_tokens": 1420, "completion_tokens": 18, "total_tokens": 1438}}
 
 data: [DONE]
 ```
@@ -192,7 +195,7 @@ headers = {
 }
 
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.3",
     "messages": [
         {"role": "user", "content": "Hello"},
         {"role": "assistant", "content": "Hi! How can I assist you today?"},
@@ -209,7 +212,7 @@ By uploading multiple messages, you can easily implement multi-turn dialogue:
 ```json
 {
   "id": "msg_20260426225208b95324e9945a48d3",
-  "model": "glm-4.7",
+  "model": "glm-5.3",
   "object": "chat.completion",
   "created": 1777215128,
   "choices": [
@@ -236,7 +239,7 @@ You can add a message with `role` set to `system` at the beginning of `messages`
 
 ```python
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.3",
     "messages": [
         {"role": "system", "content": "You are a senior technical writing assistant. Please respond in a concise and professional tone."},
         {"role": "user", "content": "Please introduce the GLM model in three sentences."}
@@ -250,7 +253,7 @@ GLM models support OpenAI-compatible Function Calling. You can declare callable 
 
 ```python
 payload = {
-    "model": "glm-4.7",
+    "model": "glm-5.3",
     "messages": [
         {"role": "user", "content": "What is the weather like in Beijing today?"}
     ],
@@ -279,9 +282,11 @@ If the model decides to call a tool, the `finish_reason` in the return result wi
 
 | Model | Use Case |
 | --- | --- |
-| `glm-5.2` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.3` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.2` | Flagship model for complex reasoning and long document analysis |
 | `glm-5.1` | High-capability model for reasoning, tool calling, and code tasks |
 | `glm-5` | General-purpose flagship-tier dialogue model |
+| `glm-5-turbo` | Faster, cost-efficient variant of the GLM-5 series |
 | `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
 | `glm-4.6` | Balanced choice for general dialogue and content creation |
 | `glm-3-turbo` | General text generation tasks; cost-sensitive scenarios |
@@ -308,7 +313,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 }
 ```
 
-When `api_error` is returned with the message `Service is temporarily unavailable, please retry later.`, it usually means the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff, or temporarily switch to another available GLM model (e.g., switch from `glm-5.1` to `glm-4.7` or `glm-3-turbo`).
+When `api_error` is returned with the message `Service is temporarily unavailable, please retry later.`, it usually means the upstream GLM service is temporarily unavailable. It is recommended to retry with exponential backoff, or temporarily switch to another available GLM model (e.g., switch from `glm-5.3` to `glm-5.2`, `glm-4.7`, or `glm-3-turbo`).
 
 ## Conclusion
 
