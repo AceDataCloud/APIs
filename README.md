@@ -18,6 +18,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `openai/` | [OpenAIAPI](https://github.com/AceDataCloud/OpenAIAPI) | OpenAI-compatible API docs |
 | `wan/` | [WanAPI](https://github.com/AceDataCloud/WanAPI) | Wan (Tongyi Wanxiang) video generation API docs |
 | `seedance/` | [SeedanceAPI](https://github.com/AceDataCloud/SeedanceAPI) | Seedance (ByteDance) video generation API docs |
+| `qwen-image/` | [QwenImageAPI](https://github.com/AceDataCloud/QwenImageAPI) | Qwen Image 3 generation and editing API docs |
 | `seedream/` | [SeedreamAPI](https://github.com/AceDataCloud/SeedreamAPI) | Seedream (ByteDance) image generation API docs |
 | `kling/` | [KlingAPI](https://github.com/AceDataCloud/KlingAPI) | Kling video generation API docs |
 | `hailuo/` | [HailuoAPI](https://github.com/AceDataCloud/HailuoAPI) | Hailuo video generation API docs |

@@ -55,6 +55,8 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+  qwen-image:
+    repo: AceDataCloud/QwenImageAPI
   seedream:
     repo: AceDataCloud/SeedreamAPI
     exclude:
