@@ -20,18 +20,19 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/8lu8di.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI ChatGPT model category we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `input`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI ChatGPT model category we choose to use. Available model IDs are returned by the Models API; details can be found in the models we provide. The last parameter is `input`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens` / `max_output_tokens`: Limits the maximum number of tokens for a response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: How many candidate responses to generate at once.
-- `response_format`: Sets the return format.
-- `tools`: Function/tool call definitions.
+- `response_format` and `text`: Set structured/text response output options.
+- `tools`, `tool_choice`, and `parallel_tool_calls`: Configure tool/function calling behavior.
 - `background`: Whether to run asynchronously in the background.
+- `include`, `reasoning`, `store`, and `stream_options`: Advanced OpenAI-compatible response options.
 
 <p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto"></p>
 

@@ -792,7 +792,7 @@ print(image.data[0].url)</pre>
 <div class="oa-container">
 <div class="oa-header">
 <h2>API Endpoints</h2>
-<p>5 API endpoints cover the full capabilities of OpenAI</p>
+<p>10 API endpoints cover the full capabilities of OpenAI</p>
 </div>
 <div class="oa-api-grid">
 <div class="oa-api-card">
@@ -819,6 +819,31 @@ print(image.data[0].url)</pre>
 <h3>📐 Embeddings</h3>
 <p class="api-desc">Text vectorization for search, clustering, and RAG.</p>
 <span class="oa-api-path">/openai/embeddings</span>
+</div>
+<div class="oa-api-card">
+<h3>📋 Models</h3>
+<p class="api-desc">List available OpenAI-compatible models.</p>
+<span class="oa-api-path">/openai/models</span>
+</div>
+<div class="oa-api-card">
+<h3>🗂️ Tasks</h3>
+<p class="api-desc">Query asynchronous image generation and editing tasks.</p>
+<span class="oa-api-path">/openai/tasks</span>
+</div>
+<div class="oa-api-card">
+<h3>🔊 Audio Speech</h3>
+<p class="api-desc">Convert text to speech audio.</p>
+<span class="oa-api-path">/v1/audio/speech</span>
+</div>
+<div class="oa-api-card">
+<h3>🎙️ Audio Transcriptions</h3>
+<p class="api-desc">Transcribe audio files to text.</p>
+<span class="oa-api-path">/v1/audio/transcriptions</span>
+</div>
+<div class="oa-api-card">
+<h3>⚡ Realtime</h3>
+<p class="api-desc">Low-latency speech-to-speech WebSocket API.</p>
+<span class="oa-api-path">/v1/realtime</span>
 </div>
 </div>
 </div>
@@ -895,10 +920,14 @@ print(image.data[0].url)</pre>
 <p class="mdl-desc">Text-to-image generation and image editing.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-image-1</span>
+<span class="oa-mdl-tag">gpt-image-1.5</span>
 <span class="oa-mdl-tag">gpt-image-2</span>
+<span class="oa-mdl-tag">gpt-image-2:official</span>
+<span class="oa-mdl-tag">gpt-image-2:reverse</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
 <span class="oa-mdl-tag">nano-banana</span>
+<span class="oa-mdl-tag">nano-banana-2-lite</span>
 <span class="oa-mdl-tag">nano-banana-2</span>
 <span class="oa-mdl-tag">nano-banana-pro</span>
 </div>
@@ -1087,8 +1116,13 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Chat Completions API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](https://platform.acedata.cloud/documents/fc571e00-464f-429e-b920-8896c906c2b9) |
 | [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](https://platform.acedata.cloud/documents/22fce352-b71e-4177-991f-2216841f35e2) |
 | [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
-| [$t(document_title_openai_embeddings_api)](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](https://platform.acedata.cloud/documents/) |
+| [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [OpenAI Embeddings API Integration Guide](docs/openai_embeddings_api_integration_guide.md) |
 | [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
+| OpenAI Models API | `/openai/models` | [OpenAI Models API Integration Guide](docs/openai_models_api_integration_guide.md) |
+| OpenAI Audio Speech API | `/v1/audio/speech` | [OpenAI Audio Speech API Integration Guide](docs/openai_audio_speech_api_integration_guide.md) |
+| OpenAI Audio Transcriptions API | `/v1/audio/transcriptions` | [OpenAI Audio Transcriptions API Integration Guide](docs/openai_audio_transcriptions_api_integration_guide.md) |
+| OpenAI Realtime API | `/v1/realtime` | [OpenAI Realtime API Integration Guide](docs/openai_realtime_api_integration_guide.md) |
+| [OpenAI Tasks API](docs/openai_tasks_api_integration_guide.md) | `/openai/tasks` | [OpenAI Tasks API Integration Guide](docs/openai_tasks_api_integration_guide.md) |
 
 ## Related Resources
 
