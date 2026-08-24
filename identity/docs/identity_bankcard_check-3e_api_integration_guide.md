@@ -1,0 +1,137 @@
+
+This article will introduce a Bank Card Three Elements Verification API integration instruction, which can be used to verify the authenticity and consistency of bank card number, name, and account document number information.
+
+## Application Process
+
+To use the Bank Card Three Elements Verification API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Bank Card Three Elements Verification API →](https://platform.acedata.cloud/documents/identity-bankcard-check-3e)
+
+## Basic Usage
+
+First, understand the basic usage method, which is to input the bank card number information to obtain the processed result image. You need to simply pass a `bank_card` field. We can then fill in the corresponding content on the interface, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/3kh6i2.png" width="500" className="m-auto" /></p>
+
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled as `application/json`, which is JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, the Request Body is set, including:
+
+- `bank_card`: the bank card number information to be processed, which is a required parameter.
+- `id_card`: the account document number, which is a required parameter.
+- `name`: the user's name, which is a required parameter.
+- `cert_type`: the type of account document, which must be consistent with the account document; otherwise, verification cannot be performed.
+- `encryption`: optional, sensitive field encryption parameter (if you need to send encrypted text).
+
+After selection, you can find that the corresponding code is also generated on the right side, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/cpvguu.png" width="500" className="m-auto" /></p>
+
+Click the "Try" button to conduct a test, as shown in the above figure, we obtained the following result:
+
+```json
+{
+  "result": "0",
+  "description": "Authentication passed"
+}
+```
+
+The returned result has multiple fields, described as follows:
+
+- `result`, the authentication result code, with the charging situation as follows.
+    - Charging result codes:
+        - 0: Authentication passed
+        - -1: Authentication not passed
+        - -4: Cardholder information is incorrect
+        - -5: No card payment activated
+        - -6: This card has been confiscated
+        - -7: Invalid card number
+        - -8: This card has no corresponding issuing bank
+        - -9: The card is uninitialized or a dormant card
+        - -10: Fraudulent card, card swallowed
+        - -11: This card has been reported lost
+        - -12: This card has expired
+        - -13: Restricted card
+        - -14: Exceeded the number of incorrect password attempts
+        - -15: The issuing bank does not support this transaction
+    - Non-charging result codes:
+        - -2: Name verification not passed
+        - -3: Bank card number is incorrect
+        - -16: Verification center service busy
+        - -17: Exceeded the number of verifications, please try again the next day
+- `description`, business result description.
+
+It can be seen that the authenticity and consistency of the bank card number, name, and account document number information have been verified.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy it, for example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/identity/bankcard/check-3e' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "name": "***",
+  "bank_card": "***",
+  "id_card": "***"
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/identity/bankcard/check-3e"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "name": "***",
+    "bank_card": "***",
+    "id_card": "***"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Bank Card Three Elements Verification API to verify the authenticity and consistency of bank card number, name, and account document number information. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

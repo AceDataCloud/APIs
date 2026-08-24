@@ -1,0 +1,490 @@
+
+The AI Chat v2 API (`/aichat2/conversations`) is the next generation dialogue interface, a comprehensive upgrade of the [AI Chat API](https://platform.acedata.cloud/documents/aichat-conversations). It expands on the simplicity and multi-turn dialogue hosting of v1 by adding:
+
+- **Multimodal User Input**: Directly transmit text + images + file blocks through the structured `message` field, without needing to first attach via `references`.
+- **Agent-like Tool Invocation**: Built-in tools for web search, web scraping, file reading, etc., and can mount user-authorized MCP servers (Google Drive, Notion, Slack, GitHub, etc.), allowing the model to autonomously call tools multiple times within a single request to complete complex tasks.
+- **Structured Streaming Events**: By using `accept: text/event-stream` or `application/x-ndjson`, you can receive token-by-token events such as `text_delta`, `tool_use`, `tool_result`, `thinking`, `citation`, `card`, `artifact`, etc., making it easier to render them separately in the frontend by type.
+- **Interruptible / Resumable**: The model will emit an `ask_user_question` event and pause when it needs additional information from the user; the next call can continue by filling in the answer through `tool_results`.
+- **New CRUD Actions**: Complete `retrieve` / `retrieve_batch` / `update` / `delete` actions on the same endpoint using the `action` field, eliminating the need for additional session management APIs.
+- **Continuously Updated Model List**: By default, it connects to contemporary models such as GPT-5.4, Claude Opus 4.8, Claude Sonnet 4.6, Gemini 3.1 Pro, GLM 5.1, DeepSeek V4, Kimi K3, etc.
+
+At the same time, it is **fully backward compatible with v1** at the request body level: simply pass `model` + `question` (+ optional `stateful` / `id` / `references` / `preset`) to receive an equivalent `{answer, id}` JSON response as in v1, so migrating from `/aichat/conversations` does not require rewriting the client; just change the path to `/aichat2/conversations`.
+
+> If you are currently using `/aichat/conversations`, the old interface will still be available for service, allowing you to migrate at your own pace.
+
+## Application Process
+
+To use the AI Chat v2 API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for backup.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and will return to the current page automatically after completion.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant free credits for a trial experience; when credits are insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [AI Chat v2 API →](https://platform.acedata.cloud/documents/aichat2-conversations)
+
+## Basic Usage
+
+The simplest usage is identical to v1: pass `model` + `question` to get `{answer, id}`.
+
+CURL Example:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "model": "gpt-5.4",
+    "question": "Introduce AceDataCloud in one sentence."
+  }'
+```
+
+Response:
+
+```json
+{
+  "answer": "AceDataCloud is a unified API platform that aggregates mainstream AI models and multimodal services, allowing developers to access services like GPT, Claude, Gemini, Midjourney, Suno, Veo, etc., with a single key.",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"
+}
+```
+
+Python Example:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/aichat2/conversations"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json",
+}
+
+payload = {
+    "model": "gpt-5.4",
+    "question": "Introduce AceDataCloud in one sentence.",
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())
+```
+
+Available `model` values can be seen directly in the dropdown on the right side of the Try panel, with common categories including:
+
+- OpenAI: `gpt-5.4-mini`, `gpt-5.4-nano`, `gpt-5.2-pro`, `gpt-5.1-all`, `gpt-5-all`, `gpt-4.1`, `gpt-4o`, `gpt-4o-image`, `o3`, `o4-mini`, etc.
+- Anthropic: `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-opus-4-5-20251101`, `claude-sonnet-4-6`, `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`, etc.
+- Google: `gemini-3.1-pro`, `gemini-3.1-pro-preview`, `gemini-3.1-flash-image-preview`, `gemini-3-pro-preview`, `gemini-2.5-flash-lite`, etc.
+- xAI: `grok-4`, etc.
+- DeepSeek: `deepseek-v4-pro`, `deepseek-v4-flash`, `deepseek-v3.2-exp`, `deepseek-r1-0528`, etc.
+- Moonshot: `kimi-k3`, `kimi-k2.6`, `kimi-k2.5`, etc.
+- Zhipu: `glm-5.1`, `glm-5`, `glm-5-turbo`, `glm-4.7`, `glm-4.5v`, etc.
+
+Specific billing rules can be found on the service page's Pricing card.
+
+## Multi-Turn Dialogue
+
+Like v1, pass `stateful: true` to enable session saving, and the API will return an `id`; subsequent requests can continue the conversation by bringing back the `id`, without needing to maintain message history yourself.
+
+First Request:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "model": "gpt-5.4",
+    "stateful": true,
+    "question": "Remember a number: 42."
+  }'
+```
+
+Response:
+
+```json
+{
+  "answer": "Okay, I have remembered 42. What would you like me to do with it?",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"
+}
+```
+
+Second Request, bring the same `id`:
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "model": "gpt-5.4",
+    "stateful": true,
+    "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+    "question": "What number did I just ask you to remember?"
+  }'
+```
+
+```json
+{
+  "answer": "The number you asked me to remember is 42.",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"
+}
+```
+
+> `stateful` defaults to `true`, omitting it is equivalent to explicitly passing `true`. If you do not want the server to save this round of conversation, you can explicitly set `stateful: false`.
+
+## Streaming Response
+
+v2 supports two streaming formats, selected by the `accept` header:
+
+| Scenario                    | `accept`               | Data Format                                       |
+| --------------------- | ---------------------- | ------------------------------------------ |
+| Web Frontend / EventSource  | `text/event-stream`    | `data: {json}\n\n`, last line `data: [DONE]\n\n` |
+| Server / CLI / Node Streaming Parsing | `application/x-ndjson` | One JSON object per line                               |
+| No Streaming                 | `application/json` (default) | Returns `{answer, id}` in one go                       |
+
+### NDJSON Example
+
+```python
+import json
+import requests
+
+url = "https://api.acedata.cloud/aichat2/conversations"
+
+headers = {
+    "accept": "application/x-ndjson",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json",
+}
+
+payload = {
+    "model": "gpt-5.4",
+    "stateful": True,
+    "question": "Introduce Hangzhou in three sentences.",
+}
+
+with requests.post(url, json=payload, headers=headers, stream=True) as resp:
+    answer = ""
+    for line in resp.iter_lines():
+        if not line:
+            continue
+        event = json.loads(line)
+        if event.get("type") == "text_delta":
+            # Compatible with v1: incremental fragments are also provided through delta_answer field
+            answer += event["content"]
+            print(event["delta_answer"], end="", flush=True)
+        elif event.get("type") == "done":
+            print()
+            print("usage =", event.get("usage"))
+```
+
+Each line in NDJSON is a structured event, the most common being `text_delta`:
+
+```json
+{"type":"text_delta","content":"杭","delta_answer":"杭","id":"f2f4b3e8-..."}
+{"type":"text_delta","content":"州","delta_answer":"州","id":"f2f4b3e8-..."}
+{"type":"text_delta","content":"是","delta_answer":"是","id":"f2f4b3e8-..."}
+...
+{"type":"done","conversation_id":"f2f4b3e8-...","usage":{"prompt_tokens":21,"completion_tokens":58,"total_tokens":79},"terminal_reason":"natural_stop"}
+```
+
+### SSE Example
+
+Using `EventSource` on the browser side does not support custom request bodies, it is recommended to use `fetch` + manually slice parsing by `\n\n`:
+
+```javascript
+const resp = await fetch("https://api.acedata.cloud/aichat2/conversations", {
+  method: "POST",
+  headers: {
+    accept: "text/event-stream",
+    authorization: "Bearer {token}",
+    "content-type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "gpt-5.4",
+    stateful: true,
+    question: "Introduce Hangzhou in three sentences.",
+  }),
+});
+
+const reader = resp.body.getReader();
+const decoder = new TextDecoder();
+let buffer = "";
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  buffer += decoder.decode(value, { stream: true });
+  const blocks = buffer.split("\n\n");
+  buffer = blocks.pop() ?? "";
+  for (const block of blocks) {
+    const dataLine = block.split("\n").find((l) => l.startsWith("data: "));
+    if (!dataLine) continue;
+    const payload = dataLine.slice(6);
+    if (payload === "[DONE]") return;
+    const event = JSON.parse(payload);
+    if (event.type === "text_delta") process.stdout.write(event.content);
+  }
+}
+```
+
+### Streaming Event Types
+
+| `type`              | Meaning                                                                                              |
+| ------------------- | ----------------------------------------------------------------------------------------------- |
+| `text_delta`        | Incremental text fragments of the assistant's response. `content` is the new content; for compatibility with v1, the same event also carries `delta_answer` (equal to `content`) and `id`.                  |
+| `thinking`          | The model's thinking process (only appears when the selected model exposes reasoning).                                                                |
+| `tool_use`          | The model decides to call a tool, the event carries `tool_id`, `tool_name`, and `input`.                                                  |
+| `tool_result`       | The result of the tool execution, paired with the previous `tool_use` by `tool_id`, `is_error` indicates whether it failed.                                       |
+| `card`              | Structured cards produced by the tool (such as images, link previews), suitable for direct rendering.                                                                    |
+| `citation`          | Used to supplement the source URL for the corresponding text fragment.                                                                            |
+| `ask_user_question` | The model issues a request for additional information from the user, entering the `awaiting_user_input` state, see below [Resume Paused Conversation](#resume-paused-conversation).                           |
+| `artifact`          | Independent products generated by the model (such as code blocks, documents), which can be saved or downloaded.                                                                      |
+| `system_message`    | System prompt information (not user and assistant content), used only for UI prompts.                                                                     |
+| `compact`           | Events where internal context is compressed, no special handling required.                                                                             |
+| `error`             | An error occurred in this round, `message` describes the error content.                                                                        |
+| `done`              | The streaming response ends, carrying `usage` (including `prompt_tokens` / `completion_tokens` / `total_tokens`) and `terminal_reason`. |
+
+For clients that only care about the final answer, concatenating all `text_delta` `content` is equivalent to the `answer` in `application/json` mode.
+
+## Multimodal Input
+
+If the user input contains images or files, pass `message` (array) instead of `question`. Each array element is a content block:
+
+```json
+{
+  "model": "gpt-5.4",
+  "stateful": true,
+  "message": [
+    { "type": "text", "text": "How many cats are in this picture?" },
+    { "type": "image_url", "image_url": { "url": "https://cdn.acedata.cloud/cats.jpg" } }
+  ]
+}
+```
+
+Supported block types:
+
+- `text` — Plain text, `text` field is required.
+- `image_url` — Image, `image_url.url` is required.
+- `file_url` — File (PDF, CSV, TXT, etc.), `file_url.url` is required.
+
+### Relationship with v1 `references`
+
+To maintain compatibility with old clients, v2 still recognizes the `references: ["https://...", ...]` field:
+- The URL suffix is `jpg / jpeg / png / gif / bmp / webp / svg / heic / heif`, automatically convert to `image_url` block;
+- Other extensions convert to `file_url` block;
+- If a `question` is also provided, then treat it as a `text` block in front.
+
+Therefore, if you only want to migrate from v1 without changing the request body, just change the path to `/aichat2/conversations`, and the original `references` usage will work as usual.
+
+For more precise control (for example, placing multiple images between texts, or if the order is very important), use the `message` array directly.
+
+## Tool Invocation and MCP
+
+The core enhancement of v2 is that the model can autonomously call tools to complete multi-step tasks, **this is enabled by default**, and the client does not need to make any additional configurations in the request. Common scenarios:
+
+- The user asks, "Help me find out what new exhibitions are in Shanghai recently" → the model calls the built-in web search → organizes the results into an answer.
+- The user asks, "Read this PDF and then write a summary" → the model calls file_read → writes a summary.
+- The user has authorized Google Drive / GitHub / Notion, etc., in [Connections](https://platform.acedata.cloud/connections) → the model can call the corresponding MCP tools to read and write their data.
+
+In NDJSON / SSE streams, tool invocation is presented through `tool_use` and `tool_result` event types, for example:
+
+```json
+{"type":"tool_use","tool_id":"toolu_01ABCDEF","tool_name":"web_search","input":{"query":"上海 2026 春季展览"},"id":"f2f4b3e8-..."}
+{"type":"tool_result","tool_id":"toolu_01ABCDEF","output":"...","is_error":false,"id":"f2f4b3e8-..."}
+{"type":"text_delta","content":"目前","delta_answer":"目前","id":"f2f4b3e8-..."}
+{"type":"text_delta","content":"上海","delta_answer":"上海","id":"f2f4b3e8-..."}
+...
+```
+
+If you do not want to display the details of tool invocation on the front end, you can ignore the `tool_use` / `tool_result` / `card` / `citation` event types, and the model's final output will still flow out through `text_delta`.
+
+`max_turns` can limit how many rounds the model can self-invoke tools in this request, with the default limit determined by the platform. Setting it low (for example, `max_turns: 1`) can enforce a single response without allowing any tool invocation.
+
+## Asynchronous Execution and Unattended Authorization
+
+If your invocation comes from an alert Webhook, CI/CD, monitoring system, or other background tasks, you can set `async: true` to let the interface immediately return the task ID, while the background continues to execute:
+
+```json
+{
+  "model": "gpt-5.5",
+  "async": true,
+  "question": "我的服务报警了，用个人微信通知微信群「AceDataCloud团队」……"
+}
+```
+
+Return example:
+
+```json
+{
+  "task_id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+  "conversation_id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+  "status": "queued"
+}
+```
+
+You can then use `action: retrieve` + `id` to query the session result; you can also provide a `callback_url`, and after the task is completed, the platform will POST `{ status, answer, usage, error }` to your callback address. The `callback_url` must use `http` / `https`, and cannot directly specify `localhost` or private IP literal addresses.
+
+Background tasks usually do not have anyone to click to confirm. If you want certain Skills or MCP Servers to perform actions like sending, publishing, writing, etc., in unattended mode, please explicitly pass the pre-authorization list in the request body:
+
+```json
+{
+  "model": "gpt-5.5",
+  "async": true,
+  "allowed_skills": ["acedatacloud/personal-wechat"],
+  "allowed_mcp_servers": [],
+  "question": "我的服务报警了，用个人微信通知微信群「AceDataCloud团队」……"
+}
+```
+
+The values in `allowed_skills` are the slugs of the connected Skills; the values in `allowed_mcp_servers` are the slugs of the connected MCP Servers. Skills / MCP Servers not listed in the pre-authorization can only preview, dry-run, or refuse to execute write operations in unattended mode.
+
+For finer control, you can also use the equivalent `unattended_policy` object:
+
+```json
+{
+  "unattended_policy": {
+    "allowed_skills": ["acedatacloud/personal-wechat"],
+    "allowed_mcp_servers": [],
+    "expires_at": 1790000000
+  }
+}
+```
+
+Pre-authorization is just these two lists themselves: an empty list means no capabilities are authorized, and no additional switch fields are needed.
+
+Note: Pre-authorization only represents "this request allows these capabilities to skip manual confirmation in unattended mode." Specific Skills must still support `--unattended-confirm` or corresponding security mechanisms; otherwise, it will continue to dry-run and not directly execute write operations.
+
+## Resuming Paused Conversations
+
+Some tools will cause the model to "ask the user," at which point the model will emit an `ask_user_question` event, and the conversation will be frozen in the `awaiting_user_input` state:
+
+```json
+{
+  "type": "ask_user_question",
+  "tool_id": "toolu_01XYZW",
+  "tool_name": "ask_user_question",
+  "question": "你希望生成的报告是中文还是英文？",
+  "options": ["中文", "英文"],
+  "id": "f2f4b3e8-..."
+}
+```
+
+Render this event as a card on the front end for the user to select an answer, then initiate the next request with the same `id`, filling in the answer through `tool_results`:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+  -H 'accept: text/event-stream' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "model": "gpt-5.4",
+    "stateful": true,
+    "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+    "tool_results": [
+      {
+        "tool_use_id": "toolu_01XYZW",
+        "output": "中文"
+      }
+    ]
+  }'
+```
+
+The `tool_use_id` in the request body **must** exactly match the `tool_id` from when it was paused; otherwise, it will return 400. When `tool_results` are present in the request, `question` / `message` / `references` will all be ignored.
+
+If the user decides to abandon this question, simply pass a new `question` / `message`, and the platform will automatically mark the paused tool invocation as "user skipped."
+
+## Session Management (CRUD)
+
+v2 provides lightweight session management through the `action` field on the same endpoint, without needing to open another API.
+
+### `action: retrieve` — Pull a session
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat2/conversations' \
+  -H 'accept: application/json' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "action": "retrieve",
+    "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"
+  }'
+```
+
+Return the complete conversation document (including `messages` history, `model`, `title`, `tools_used`, etc.).
+
+### `action: retrieve_batch` —— List conversation summaries
+
+```json
+{
+  "action": "retrieve_batch",
+  "model_group": "chatgpt",
+  "limit": 20,
+  "offset": 0
+}
+```
+
+Return `{ items: [...], total }`. **Summaries do not include `messages`**, suitable for sidebar lists; if the user clicks on a conversation, use `action: retrieve` to fetch its complete messages separately.
+
+Optional filtering parameters: `user_id`, `application_id`, `model_group`, `model`.
+
+### `action: update` —— Change title or rewrite history
+
+```json
+{
+  "action": "update",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44",
+  "title": "Hangzhou Travel Plan"
+}
+```
+
+`messages` can also be passed, but the server will perform strict schema validation (must be in the collapsed `ToolUseContent` form), and non-compliance will return 400. Generally, it is only recommended to change the `title`.
+
+### `action: delete` —— Delete a conversation
+
+```json
+{
+  "action": "delete",
+  "id": "f2f4b3e8-0c0a-4d3a-aaa2-7ff80c0a1c44"
+}
+```
+
+Return `{ id, success: true }`. Once deleted, it cannot be recovered, please confirm before calling.
+
+## Smooth migration from v1
+
+If you are already using [`/aichat/conversations`](https://platform.acedata.cloud/documents/aichat-conversations), migrating to v2 requires almost no code changes:
+
+1. Change the URL from `https://api.acedata.cloud/aichat/conversations` to `https://api.acedata.cloud/aichat2/conversations`.
+2. If you previously passed v1 model names (such as `gpt-3.5`, `gpt-4-browsing`, etc.), it is recommended to upgrade to contemporary models (such as `gpt-5.4`, `claude-opus-4-8`, `gemini-3.1-pro`, etc.) when switching to v2.
+3. The fields of the NDJSON stream remain backward compatible: each `text_delta` event still carries `delta_answer` and `id`, so clients that originally parsed `delta_answer` line by line do not need to change.
+
+After migration, you can enable new capabilities of v2 as needed (multimodal `message`, SSE, tool calls, `action` CRUD), and proceed at your own pace.
+
+## Error handling
+
+Error responses are unified as:
+
+```json
+{
+  "error": {
+    "code": "chat_error",
+    "message": "model service returned an error"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+Common errors:
+
+- `400 bad_request`: Missing required fields, `tool_use_id` mismatch, illegal `messages` schema, etc.
+- `401 invalid_token`: Incorrect `authorization` header.
+- `404 not_found`: The session corresponding to `id` does not exist during `action: retrieve / update / delete`.
+- `429 too_many_requests`: Rate limit triggered.
+- `500 chat_error`: Upstream LLM error or this round `completion_tokens=0` (treated as unconsumed, no charge).
+
+In streaming responses, errors are sent as `{"type":"error","message":"..."}` events, followed immediately by the end of the stream.
+
+## Conclusion
+
+The AI Chat v2 API maintains backward compatibility with v1 while upgrading conversations from "single-turn/multi-turn Q&A" to "agent-based observable dialogues": multimodal input, tool calls, pause/resume, streaming structured events, built-in CRUD. It is recommended for new integrations to use v2 directly; existing v1 integrations can migrate smoothly in phases. If you have any questions, please feel free to contact our technical support team.

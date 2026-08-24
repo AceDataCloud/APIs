@@ -1,0 +1,275 @@
+
+This document will introduce the integration instructions for the Gemini Videos Generation API, which can generate Google Gemini (omni-flash) videos by inputting text prompts (and optional reference images).
+
+## Application Process
+
+To use the Gemini Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and will return to the current page upon completion.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Gemini Videos Generation API →](https://platform.acedata.cloud/documents/gemini-videos)
+
+## Basic Usage
+
+First, understand the basic usage method by inputting the prompt `prompt`, model `model`, and aspect ratio `aspect_ratio`, which will generate the corresponding video.
+
+Here we set the Request Headers, including:
+
+- `accept`: the format of the response you want to receive, here filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be selected directly after application.
+
+Additionally, we set the Request Body, including:
+
+- `prompt`: the text prompt describing the content of the video to be generated, **required**.
+- `model`: the model for generating the video, currently only supports `omni-flash`, which is the default.
+- `aspect_ratio`: the aspect ratio of the generated video, optional `16:9` (landscape) or `9:16` (portrait), default is `16:9`.
+- `resolution`: optional output resolution, can be `720p` or `1080p`, default is `720p`.
+- `image_urls`: an optional array of reference image links used to guide video generation; empty items will be ignored. This parameter is required when using `video_urls` for video editing (at least one image).
+- `video_urls`: an optional array of reference video links (up to 1), used for **video editing / video reference**; when provided, at least one `image_urls` must also be provided.
+- `callback_url`: asynchronous callback address; after setting, the API will immediately return `task_id`, and when the task is completed, it will POST the result to this address.
+- `async`: optional, set to `true` for the interface to immediately return `task_id` without needing to provide `callback_url`, and then poll the corresponding task query interface to obtain results.
+
+Click the "Try" button to test, and the result will be similar to the following:
+
+```json
+{
+  "success": true,
+  "task_id": "9258c45f-bed9-4dde-81c2-a70a710a6904",
+  "trace_id": "862d6aae-cec0-407f-9524-bc1be2291bcb",
+  "data": [
+    {
+      "id": "dc4b7292-070c-49a8-8183-919bdf8ad59e",
+      "video_url": "https://platform2.cdn.acedata.cloud/gemini/9258c45f-bed9-4dde-81c2-a70a710a6904.mp4",
+      "state": "succeeded",
+      "aspect_ratio": "16:9",
+      "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden"
+    }
+  ],
+  "started_at": 1784112953.856,
+  "finished_at": 1784113021.328,
+  "elapsed": 67.472,
+  "cost": {
+    "amount": 1.932,
+    "currency": "credit",
+    "list_amount": 2.1
+  }
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `success`: whether the video generation request was successful.
+- `task_id`: the ID of the video generation task.
+- `trace_id`: the tracking ID of this request, used for troubleshooting.
+- `data`: the list of generated video results.
+  - `id`: the unique identifier of the generated video.
+  - `video_url`: the link to the generated video (will be `null` if `state` is `pending`).
+  - `state`: the status of the video generation task, optional `pending` / `succeeded` / `failed`.
+  - `aspect_ratio`: the aspect ratio of the video, consistent with the request parameters.
+  - `prompt`: the prompt used to generate the video.
+
+When returned synchronously, the top level will also include `started_at`, `finished_at`, `elapsed` (time taken in seconds), and `cost` (the charge for this request, in Credits) fields.
+
+We only need to obtain the generated video from the `video_url` link address in the `data` result.
+
+The corresponding CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/gemini/videos' \
+-H 'authorization: Bearer ${bearer_token}' \
+-H 'accept: application/json' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+  "model": "omni-flash",
+  "aspect_ratio": "16:9"
+}'
+```
+
+The corresponding Python code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/gemini/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "prompt": "A cinematic shot of a kitten chasing a butterfly in a sunlit garden",
+    "model": "omni-flash",
+    "aspect_ratio": "16:9"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Image to Video
+
+If you want to generate a video based on reference images, you can pass one or more image links in `image_urls` to guide video generation:
+
+```json
+{
+  "prompt": "The woman slowly turns around and smiles at the camera, gentle breeze",
+  "model": "omni-flash",
+  "aspect_ratio": "9:16",
+  "image_urls": [
+    "https://platform2.cdn.acedata.cloud/nanobanana/e44bfceb-1458-4b4b-9d10-21024678f1a3.png"
+  ]
+}
+```
+
+## Video Editing / Reference Video (Input Video, Generate Video)
+
+Supports directly "inputting a video to generate a new video": pass a reference video link in `video_urls` (up to 1), and **simultaneously** provide at least one reference image in `image_urls` (a strict requirement from upstream), then use `prompt` to describe the desired editing effect (changing style, changing scenes, adding or removing elements, etc.).
+
+Here is a complete real example—changing a sunny beach video into a snowy winter scene while retaining the layout of the beach, palm trees, and small boats. Video editing takes longer (about 6.5 minutes in this case), so it is submitted asynchronously with `async: true`:
+```json
+{
+  "prompt": "将这个阳光明媚的热带海滩变成一个下雪的冬季场景，伴有大雪纷飞和阴云密布的天空；保持相同的海滩、棕榈树和船只布局。",
+  "model": "omni-flash",
+  "aspect_ratio": "9:16",
+  "resolution": "720p",
+  "image_urls": [
+    "https://cdn.acedata.cloud/99289603bd.png"
+  ],
+  "video_urls": [
+    "https://platform2.cdn.acedata.cloud/seedance/dd3dc063-3383-4f29-bedc-e771a096758c.mp4"
+  ],
+  "async": true
+}
+```
+
+提交后接口立即返回 `task_id`：
+
+```json
+{
+  "task_id": "cd68b4ee-de70-4c94-ac69-997a3fed0284"
+}
+```
+
+之后用该 `task_id` 作为 `id` 轮询 [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-tasks)，任务完成后即可拿到生成的新视频（这是本示例的真实返回结果）：
+
+```json
+{
+  "success": true,
+  "task_id": "cd68b4ee-de70-4c94-ac69-997a3fed0284",
+  "trace_id": "5b22104b-5a6d-4a4f-8063-69acae1dc1c6",
+  "data": [
+    {
+      "id": "e125d316-3d26-4c65-9413-55baf6be46b8",
+      "video_url": "https://platform2.cdn.acedata.cloud/sora/cd68b4ee-de70-4c94-ac69-997a3fed0284.mp4",
+      "state": "succeeded",
+      "aspect_ratio": "9:16",
+      "prompt": "将这个阳光明媚的热带海滩变成一个下雪的冬季场景，伴有大雪纷飞和阴云密布的天空；保持相同的海滩、棕榈树和船只布局。"
+    }
+  ],
+  "started_at": 1784084482.914,
+  "finished_at": 1784084877.09,
+  "elapsed": 394.176,
+  "cost": {
+    "amount": 1.932,
+    "currency": "credit",
+    "list_amount": 2.1
+  }
+}
+```
+
+如需更高清的结果，可将 `resolution` 设为 `1080p`（其余参数不变）。
+
+> 提示：示例中的输入 / 输出媒体链接均为真实生成结果。**平台生成的视频、图片链接有保存期限，过期后会失效**，请在拿到结果后及时下载保存到自己的存储。
+
+> 注意：参考视频最多 1 个；且提供 `video_urls` 时必须提供至少一张 `image_urls`，否则会返回如下参数错误：
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "bad_request",
+    "message": "image_urls (at least one reference image) is required when video_urls is provided."
+  }
+}
+```
+
+## 异步回调
+
+视频生成需要一定的处理时间。如果不希望保持长连接等待，可以传入 `callback_url`，此时 API 会立即返回 `task_id`，任务完成后会将最终结果 POST 到该地址：
+
+```json
+{
+  "prompt": "一只小猫在阳光明媚的花园里追逐蝴蝶的电影镜头",
+  "model": "omni-flash",
+  "aspect_ratio": "16:9",
+  "callback_url": "https://your-domain.com/callback/gemini"
+}
+```
+
+立即返回的结果如下：
+
+```json
+{
+  "task_id": "04a043bd-6b23-4b4e-945c-ce48158c3eee"
+}
+```
+
+## 查询任务结果
+
+如果使用了异步回调或希望主动查询任务状态，可以通过 [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-tasks)（`POST https://api.acedata.cloud/gemini/tasks`）根据 `task_id` 查询任务的最新状态与结果。请求体中传入创建视频时返回的 `task_id` 作为 `id`：
+
+```json
+{
+  "id": "04a043bd-6b23-4b4e-945c-ce48158c3eee"
+}
+```
+
+任务完成后返回的结果类似如下，`response.data` 的结构与同步生成时一致（生成中时 `state` 为 `pending`、`video_url` 为 `null`）：
+
+```json
+{
+  "id": "04a043bd-6b23-4b4e-945c-ce48158c3eee",
+  "type": "videos",
+  "request": {
+    "model": "omni-flash",
+    "prompt": "日出时雪山上云彩的延时摄影",
+    "aspect_ratio": "16:9",
+    "async": true
+  },
+  "response": {
+    "success": true,
+    "task_id": "04a043bd-6b23-4b4e-945c-ce48158c3eee",
+    "data": [
+      {
+        "id": "486ebd5a-6a4b-406c-84ae-33835de4fe19",
+        "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4",
+        "state": "succeeded",
+        "aspect_ratio": "16:9",
+        "prompt": "日出时雪山上云彩的延时摄影"
+      }
+    ],
+    "elapsed": 96.716,
+    "cost": {
+      "amount": 1.932,
+      "currency": "credit",
+      "list_amount": 2.1
+    }
+  }
+}
+```
+
+## 错误处理
+
+当请求出现问题时，API 会返回对应的错误码与说明，常见的如下：
+
+- `400`：请求参数有误，例如缺少 `prompt` 或 `aspect_ratio` 取值非法。
+- `401`：鉴权失败，token 无效或与 API 不匹配。
+- `403`：余额不足，或提示词命中内容审核被拒绝。
+- `500`：服务器内部错误或上游生成失败。

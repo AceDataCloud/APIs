@@ -1,0 +1,139 @@
+
+This interface is based on the [Fish Audio Official Model API](https://docs.fish.audio/resources/api-reference/model) and is used to **create a new cloned voice based on an audio sample**. The address is `POST https://api.acedata.cloud/fish/model`.
+
+> For paginated retrieval of existing voices, please refer to the [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query); for querying details of a single voice by `_id`, please refer to the [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get).
+
+## Application Process
+
+To use the Fish Model API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and will return to the current page upon completion.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Request Body Fields
+
+| Field                    | Type       | Required | Description                                                                      |
+| ----------------------- | -------- | -------- | -------------------------------------------------------------------------------- |
+| `title`                 | string   | Yes      | Voice name, used for identification in the console list.                        |
+| `voices`                | string   | Yes      | HTTP(S) URL of the audio sample (**single string**, not an array). This interface does not support multipart/binary uploads; please place the audio in any publicly accessible object storage first. |
+| `description`           | string   | No       | Voice description.                                                                |
+| `cover_image`           | string   | No       | Cover image HTTP(S) URL.                                                         |
+| `visibility`            | string   | No       | `private` or `public`, default is `private`. `public` means published to the Fish public voice library for others to use. |
+| `tags`                  | string[] | No       | Public library search tags, e.g., `["male","narration","zh"]`.                  |
+| `texts`                 | string[] | No       | Reference texts corresponding to the samples (used for pronunciation correction). |
+| `enhance_audio_quality` | boolean  | No       | Whether to enhance the audio quality of the samples before training.             |
+| `generate_sample`       | boolean  | No       | Whether to automatically generate a sample audio after training is complete.     |
+
+> The fields are identical to the upstream, please also refer to the [Fish Official Documentation](https://docs.fish.audio/resources/api-reference/model).
+
+## Example: Create a Private Cloned Voice
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/model' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "title": "My Cloned Voice",
+    "description": "A Chinese voice cloned from a podcast recording",
+    "voices": "https://example.com/sample-voice.mp3",
+    "cover_image": "https://cdn.acedata.cloud/e724d7f13d.png",
+    "visibility": "private"
+  }'
+```
+
+> Note: `voices` must be a **string** (single audio URL), not an array. Passing it as `["..."]` will be rejected by the upstream.
+
+A successful response directly returns the ModelEntity object from the Fish platform (the following is the smallest usable voice we have tested, with some long fields removed for readability):
+
+```json
+{
+  "_id": "e5c6db52c3ed417f9cb2e5a33fb04667",
+  "type": "tts",
+  "title": "copilot-smoke-test",
+  "description": "smoke test from api.acedata.cloud",
+  "cover_image": "coverimage/e5c6db52c3ed417f9cb2e5a33fb04667",
+  "train_mode": "fast",
+  "state": "trained",
+  "tags": [],
+  "samples": [
+    {
+      "title": "Default Sample",
+      "text": "Master, [with a firm tone] I really can't stand the cold days on this mountain anymore!...",
+      "task_id": "6a1bf398dfae49dca0e23159214342a0",
+      "audio": "https://platform.r2.fish.audio/task/6a1bf398dfae49dca0e23159214342a0.mp3"
+    }
+  ],
+  "created_at": "2026-05-10T03:52:55.601000Z",
+  "updated_at": "2026-05-10T03:52:55.601000Z",
+  "languages": [
+    "zh"
+  ],
+  "visibility": "public",
+  "default_text": "Master, [with a firm tone] I really can't stand the cold days on this mountain anymore!...",
+  "like_count": 0,
+  "mark_count": 0,
+  "shared_count": 0,
+  "task_count": 0,
+  "author": {
+    "_id": "780f2b2f862d41a08c0507bbbda77eb6",
+    "nickname": "Penny Conrad",
+    "avatar": "avatars/780f2b2f862d41a08c0507bbbda77eb6.jpg"
+  }
+}
+```
+
+`_id` can be used as the value for the `reference_id` field in the subsequent [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts) to synthesize speech using this cloned voice:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "Hello, this is a voice synthesized using the cloned voice I just created.",
+    "reference_id": "e5c6db52c3ed417f9cb2e5a33fb04667",
+    "format": "mp3"
+  }'
+```
+
+## Sample Requirements
+
+Experience values (consistent with upstream, can refer to the [Fish Official Documentation](https://docs.fish.audio/resources/api-reference/model)):
+
+- Duration is recommended to be over 30 seconds and within 5 minutes for best results; exceeding 10 minutes yields diminishing returns.
+- Sampling rate of 16 kHz or higher, mono or stereo is acceptable.
+- Content should be as clean as possible: no background music, echoes, or significant environmental noise; same speaker.
+- Format recommended is `mp3` / `wav`.
+
+If you are unsure about the sample quality, you can also pass `enhance_audio_quality: true` to let the upstream enhance the audio quality first.
+
+## Billing Instructions
+
+Creating a voice clone model (`POST /fish/model`) is free of charge; there are no fees for querying voices ([Fish Model Query](https://platform.acedata.cloud/documents/fish-model-query), [Fish Model Get](https://platform.acedata.cloud/documents/fish-model-get)). Fees are only incurred when subsequently calling [Fish TTS](https://platform.acedata.cloud/documents/fish-tts) to synthesize speech based on usage.
+
+## Error Handling
+- `400 token_mismatched`: Missing or invalid request parameters (most commonly, `voices` is not a URL, or it is passed as an array).
+- `401 invalid_token`: Authentication token does not exist or is invalid.
+- `429 too_many_requests`: Account rate limit triggered.
+- `500 api_error`: Internal server error.
+
+Example of an error response:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "voices is required and must be an HTTP(S) URL pointing to an audio file"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+To call this interface, you only need to prepare a publicly accessible sample audio URL, place it in the `voices` field to obtain the `_id`, and then feed it to the `reference_id` of `/fish/tts` to complete the end-to-end "clone → synthesize." A common pitfall is that `voices` must be a string, not an array.

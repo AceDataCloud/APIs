@@ -1,30 +1,31 @@
-# Luma Video Generation API Integration Instructions
 
-With the widespread application of AI, various AI programs have gradually become popular. AI has gradually penetrated all aspects of people's work and life. The industries involved in AI are also increasing, from the initial writing, to medical education, and now to video.
+With the widespread application of AI, various AI programs have gradually become popular. AI has increasingly penetrated all aspects of people's work and life. The industries involved in AI are also growing, from the initial writing, to medical education, and now to video.
 
-Luma is a professional high-quality video generation platform where users only need to upload materials to automatically generate high-quality videos based on different styles and effects. This AI video generator is developed by team members from well-known technology companies, aiming to allow everyone to easily create outstanding videos without complex editing tools.
+Luma is a professional high-quality video generation platform where users can simply upload materials to automatically generate high-quality videos based on different styles and effects. This AI video generator is developed by team members from well-known technology companies, aiming to allow everyone to easily create outstanding videos without complex editing tools.
 
 However, Luma does not officially provide an API. AceDataCloud offers a set of Luma APIs that simulate the integration with Suno's official API, making it convenient and quick to generate the desired videos.
 
 ## Application and Usage
 
-To use the Luma Videos API, you can first visit the [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Luma Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After completing this, you will be automatically returned to the current page.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Luma Videos Generation API →](https://platform.acedata.cloud/documents/luma-videos)
 
 ## Basic Usage
 
 To generate a video, you can input any text. For example, if I want to generate a video about astronauts shuttling between space and volcanoes, I can input `Astronauts shuttle from space to volcano`, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/yub02j.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/yub02j.png" width="500" className="m-auto" /></p>
 
 The generated code is as follows:
 
-<p><img src="https://cdn.acedata.cloud/ieq7yn.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/ieq7yn.png" width="500" className="m-auto" /></p>
 
 Main request parameters:
 
@@ -35,8 +36,9 @@ Main request parameters:
 - `loop`: Whether to generate a looping video, default is false.
 - `timeout`: Optional, timeout in seconds.
 - `callback_url`: Asynchronous callback address.
+- `async`: Optional, when set to `true`, the interface immediately returns `task_id`, no need to provide `callback_url`, and then poll the corresponding task query interface to get the result.
 
-You can click the "Try" button to directly test the API. After waiting for 1-2 minutes, the result is as follows:
+You can click the "Try" button to directly test the API, wait for 1-2 minutes, and the result is as follows:
 
 ```json
 {
@@ -44,7 +46,7 @@ You can click the "Try" button to directly test the API. After waiting for 1-2 m
   "task_id": "e4018a99-1522-4f24-9330-62c2a9b50b59",
   "video_id": "155838f8-7f1e-44d8-b387-192f3b4b509d",
   "prompt": "Astronauts shuttle from space to volcano",
-  "video_url": "https://storage.cdn-luma.com/dream_machine/af94e7ca-da35-4b5f-a636-2d7254184d0d/watermarked_video0585de3737db946e5a0ac895384ecd180.mp4",
+  "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4",
   "video_height": 752,
   "video_width": 1360,
   "state": "completed",
@@ -54,11 +56,11 @@ You can click the "Try" button to directly test the API. After waiting for 1-2 m
 }
 ```
 
-At this point, we can see the relevant information of the video, including video ID, video link, video thumbnail, and other content.
+At this point, we have obtained the relevant information about the video, including video ID, video link, video thumbnail, and other content.
 
 Field descriptions are as follows:
 
-- success: Whether the generation was successful; if successful, it is `true`, otherwise it is `false`.
+- success: Indicates whether the generation was successful; if successful, it is `true`, otherwise it is `false`.
 - task_id: The unique ID of this video generation task.
 - video_id: The unique ID of the video generated from this task.
 - prompt: The keywords for this video generation task.
@@ -80,18 +82,18 @@ At this point, the video start frame `start_image_url` field can accept the foll
 
 Next, we need to customize the video generation based on the start and end frames and keywords, specifying the following content:
 
-- action: The action of the video generation task, usually normal generation `generate` and extended generation `extend`, default is `generate`.
+- action: The behavior of the video generation task, usually normal generation `generate` and extended generation `extend`, default is `generate`.
 - start_image_url: Specifies the start frame of the generated video.
 - end_image_url: Specifies the end frame of the generated video.
 - prompt: The keyword content for generating the video.
 
 An example of the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/zvzydx.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/zvzydx.png" width="500" className="m-auto" /></p>
 
-After filling in, the generated code is as follows:
+After filling it out, the generated code is as follows:
 
-<p><img src="https://cdn.acedata.cloud/tx80pu.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/tx80pu.png" width="500" className="m-auto" /></p>
 
 Corresponding code:
 
@@ -140,9 +142,9 @@ The final result is similar to the previous one, with the generated video start 
 
 An example of the input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/20igwi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/20igwi.png" width="500" className="m-auto" /></p>
+Finally, the following result is obtained:
 
-Finally, the result is as follows:
 ```json
 {
   "success": true,
@@ -159,13 +161,13 @@ Finally, the result is as follows:
 }
 ```
 
-The result is similar to the above, and the generated video contains images of both the first and last frames, thus completing the custom first and last frame generation for the video.
+The result is similar to the above text, and the generated video contains images of both the first and last frames, thus completing the custom first and last frame generation for the video.
 
-## Video Extension Functionality
+## Video Extension Function
 
 If you want to continue generating the video, you can set the parameter `action` to `extend`, and input the ID or video link of the video you want to continue generating. The video ID and video link can be obtained based on the basic usage, as shown in the image below:
 
-<p><img src="https://cdn.acedata.cloud/fwknj4.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/fwknj4.png" width="500" className="m-auto" /></p>
 
 At this point, you can see that the video ID is:
 
@@ -176,21 +178,21 @@ At this point, you can see that the video ID is:
 
 > Note that the `video_id` and `video_url` here are the ID and link of the generated video. If you do not know how to generate a video, you can refer to the basic usage above to generate a video.
 
-To continue generating the video, you must upload the video link or video ID. Below is a demonstration of using the video ID to extend it. Next, we must fill in the keywords to customize the video generation, specifying the following content:
+To continue generating the video, you must upload the video link or video ID. Below is a demonstration of using the video ID to extend it. Next, we must fill in the keywords to customize the video generation, which can specify the following content:
 
 - action: The action for extending the video, which should be `extend`.
 - prompt: The keywords for extending the video.
-- video_url: The link to the video that needs to be extended.
-- video_id: The unique ID of the video that needs to be extended.
-- end_image_url: The link to the image for the last frame of the extended video, optional parameter.
+- video_url: The link of the video to be extended.
+- video_id: The unique ID of the video to be extended.
+- end_image_url: The link of the image for the last frame of the extended video, optional parameter.
 
-An example of the filled form is as follows:
+The sample input is as follows:
 
-<p><img src="https://cdn.acedata.cloud/vv0rxk.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vv0rxk.png" width="500" className="m-auto" /></p>
 
 After filling it out, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/woapxi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/woapxi.png" width="500" className="m-auto" /></p>
 
 The corresponding Python code:
 
@@ -233,11 +235,11 @@ Clicking run, you can find that a result is obtained as follows:
 }
 ```
 
-It can be seen that this video is an extension based on the video that needs to be extended, and the result content is consistent with the above, thus achieving the function of continuing the song generation.
+It can be seen that this video is an extension based on the video that needs to be extended, and the result content is consistent with the above text, thus achieving the function of continuing the song generation.
 
 Of course, we can also specify the video link to perform the extension generation by filling in the following information:
 
-<p><img src="https://cdn.acedata.cloud/0cv0hg.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/0cv0hg.png" width="500" className="m-auto" /></p>
 
 After running, the following result is obtained:
 
@@ -259,13 +261,13 @@ After running, the following result is obtained:
 
 According to the result, it can be seen that the video extension function can also be achieved based on the video link.
 
-Finally, we can also specify an image for the last frame in the extended video. Below is the information for the last frame image:
+Finally, we can also specify an image for the last frame in the extended video to perform the extension. Below is the information for the last frame image:
 
 ![Last Frame](https://cdn.acedata.cloud/0iad3k.png)
 
 Next, we will add the last frame image information based on the above, as shown below:
 
-<p><img src="https://cdn.acedata.cloud/9p1vrj.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/9p1vrj.png" width="500" className="m-auto" /></p>
 
 After clicking run, the following information is obtained:
 
@@ -294,15 +296,15 @@ The overall process is: when the client initiates a request, an additional `call
 
 Next, let's understand how to operate specifically through an example.
 
-First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we will use a public Webhook sample site https://webhook.site/, and opening this site will provide a Webhook URL, as shown in the image:
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we will use a public Webhook sample site https://webhook.site/, where you can obtain a Webhook URL as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/q78okf.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/q78okf.png" width="500" className="m-auto" /></p>
 
 Copy this URL, and it can be used as a Webhook. The sample here is https://webhook.site/0c87ca0e-cd74-4577-8d68-f2b80fbf8a13.
 
 Next, we can set the `callback_url` field to the above Webhook URL and fill in the `prompt`, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/n2fjvi.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/n2fjvi.png" width="500" className="m-auto" /></p>
 
 Clicking run, we can find that a result is immediately obtained, as follows:
 
@@ -320,17 +322,17 @@ The content is as follows:
 
 ```json
 {
-    "success": true,
-    "task_id": "732f8282-7cf8-401c-95f2-42c33aa079a6",
-    "video_id": "4d8013c3-5de0-41aa-966e-0b1a51d1c633",
-    "prompt": "Astronauts shuttle from space to volcano",
-    "video_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.mp4",
-    "video_height": 752,
-    "video_width": 1360,
-    "state": "completed",
-    "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.jpg",
-    "thumbnail_width": 1360,
-    "thumbnail_height": 752
+  "success": true,
+  "task_id": "732f8282-7cf8-401c-95f2-42c33aa079a6",
+  "video_id": "4d8013c3-5de0-41aa-966e-0b1a51d1c633",
+  "prompt": "Astronauts shuttle from space to volcano",
+  "video_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.mp4",
+  "video_height": 752,
+  "video_width": 1360,
+  "state": "completed",
+  "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/732f8282-7cf8-401c-95f2-42c33aa079a6.jpg",
+  "thumbnail_width": 1360,
+  "thumbnail_height": 752
 }
 ```
 

@@ -1,0 +1,155 @@
+
+This document introduces an ID Card Recognition and Information Verification API integration guide, which can verify the authenticity and consistency of the name and ID card number by inputting an ID card image or the name and ID card number. This interface is used to verify the authenticity and consistency of the name and ID card number. You can provide the required verification information by inputting the name and ID card number or uploading the ID card portrait photo.
+
+## Application Process
+
+To use the ID Card Recognition and Information Verification API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in. After completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant free quota for free trial; when the quota is insufficient, you can recharge the general balance in the [Console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Full documentation: [ID Card Recognition and Information Verification API →](https://platform.acedata.cloud/documents/identity-idcard-ocr)
+
+## Basic Usage
+
+First, understand the basic usage method, which is to input the ID card image URL to get the processed verification result. You need to simply pass an `image_url` field. Then you can fill in the corresponding content on the interface, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/qxy9rh.png" width="500" className="m-auto" /></p>
+
+Here you can see we set the Request Headers, including:
+
+- `accept`: the desired response format, here filled as `application/json`, i.e., JSON format.
+- `authorization`: the API key for calling the API, which can be selected directly after application.
+
+Also, set the Request Body, including:
+
+- `image_url`: the URL of the ID card image to be processed.
+- `encryption`: optional, sensitive field encryption parameter (if ciphertext needs to be sent).
+
+After selection, you can see the corresponding code generated on the right side, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/uw90il.png" width="500" className="m-auto" /></p>
+
+Click the "Try" button to test. As shown above, we get the following result:
+
+```json
+{
+  "result": "0",
+  "description": "Name and ID card number match",
+  "name": "ID card name",
+  "id_card": "ID card number",
+  "sex": "ID card gender",
+  "nation": "ID card ethnicity",
+  "birth": "ID card birth date",
+  "address": "ID card home address"
+}
+```
+
+The returned result contains multiple fields, described as follows:
+
+- `result`, authentication result code, charging details as below.
+    - Charged result codes:
+        - 0: Name and ID card number match
+        - -1: Name and ID card number do not match
+    - Non-charged result codes:
+        - -2: Illegal ID card number (length, check digit, etc. incorrect)
+        - -3: Illegal name (length, format, etc. incorrect)
+        - -4: Document database service exception
+        - -5: No such ID card record in the document database
+        - -6: Authoritative comparison system upgrading, please try again later
+        - -7: Authentication attempts exceeded daily limit.
+- `description`, the verification result of the name and ID card number here.
+- `name`, the name information in the ID card; empty if no ID card image uploaded.
+- `id_card`, the ID card number information; empty if no ID card image uploaded.
+- `sex`, the gender information in the ID card; empty if no ID card image uploaded.
+- `nation`, the ethnicity information in the ID card; empty if no ID card image uploaded.
+- `birth`, the birth date information in the ID card; empty if no ID card image uploaded.
+- `address`, the home address information in the ID card; empty if no ID card image uploaded.
+
+It can be seen that the name and ID card number information in the ID card is consistent and valid, and OCR technology is also used to extract and display other information.
+
+If you want to generate the corresponding integration code, you can copy it directly. For example, the CURL code is as follows:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/identity/idcard/ocr' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "image_url": {image_url}
+}'
+```
+
+The Python integration code is as follows:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/identity/idcard/ocr"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "image_url": {image_url}
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+## Custom Information Verification
+
+We also provide a way to verify without leaking ID card image information. You can only pass the name `name` and ID card number `id_card` to verify the authenticity and consistency of the name and ID card number. Below is the specific information filled in:
+
+<p><img src="https://cdn.acedata.cloud/mc5bbw.png" width="500" className="m-auto" /></p>
+
+After clicking run, the following result is obtained:
+
+```json
+{
+  "address": "",
+  "birth": "",
+  "description": "Name and ID card number match",
+  "id_card": "ID card number",
+  "name": "ID card name",
+  "nation": "",
+  "result": "0",
+  "sex": ""
+}
+```
+
+From the result, no other private information is leaked, and this can also complete the verification of the authenticity and consistency of the name and ID card number.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the ID Card Recognition and Information Verification API to verify the authenticity and consistency of the name and ID card number from input images or name and ID card number information. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.

@@ -1,53 +1,52 @@
-# Wan Videos Generation API 对接说明
 
-本文将介绍一种 Wan Videos Generation API 对接说明，它是可以通过输入自定义参数来生成通义万相官方的视频。
+This article will introduce the Wan Videos Generation API integration instructions, which can generate official videos of Tongyi Wanxiang by inputting custom parameters.
 
-## 申请流程
+## Application Process
 
-要使用 Wan Videos Generation API，首先到 [Ace Data Cloud 控制台](https://platform.acedata.cloud/console/applications) 获取您的 API Token，留作备用。
+To use the Wan Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
 
 ![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-如果你尚未登录或注册，会自动跳转到登录页面邀请你注册和登录，完成后会自动返回当前页面。
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completing this, you will be automatically returned to the current page.
 
-**一个 API Token 即可调用平台所有服务，无需为每个服务单独申请。** 首次申请会赠送免费额度，可免费体验；额度不足时可在 [控制台](https://platform.acedata.cloud/console/coin) 充值通用余额。
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
 
-> 📘 完整文档：[Wan Videos Generation API →](https://platform.acedata.cloud/documents/wan-videos)
+> 📘 Complete Documentation: [Wan Videos Generation API →](https://platform.acedata.cloud/documents/wan-videos)
 
-## 基本使用
+## Basic Usage
 
-首先先了解下基本的使用方式，就是输入提示词 `prompt`、 生成行为 `action`、首帧参考图片 `image_url` 以及模型 `model`，便可获得处理后的结果，首先需要简单地传递一个 `action` 字段，它的值为 `text2video`，它主要包含俩种行为：文生视频（`text2video`）、图生视频（`image2video`），然后我们还需要输入模型 `model`，目前主要有 `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v` 模型，具体的内容如下：
+First, understand the basic usage, which involves inputting the prompt `prompt`, the generation action `action`, the first frame reference image `image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action`, with the value `text2video`, which mainly includes two types of actions: text-to-video (`text2video`) and image-to-video (`image2video`). Then we also need to input the model `model`, which currently mainly includes `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v`, with specific content as follows:
 
-<p><img src="https://cdn.acedata.cloud/03gqdz.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/03gqdz.png" width="500" className="m-auto" /></p>
 
-可以看到这里我们设置了 Request Headers，包括：
+Here we can see that we have set the Request Headers, including:
 
-- `accept`：想要接收怎样格式的响应结果，这里填写为 `application/json`，即 JSON 格式。
-- `authorization`：调用 API 的密钥，申请之后可以直接下拉选择。
+- `accept`: the format of the response result you want to receive, filled in as `application/json`, which is in JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
 
-另外设置了 Request Body，包括：
+Additionally, we set the Request Body, including:
 
-- `model`：生成视频的模型，主要有 `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v` 模型。
-- `action`：此次视频生成任务的行为，主要包含三种行为，分别为：文生视频（`text2video`）、图生视频（`image2video`），当是文生视频时，目前只支持模型 `wan2.6-t2v`，当是图生视频时，目前只支持模型 `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`。
-- `image_url`：当选择图生视频行为 `image2video` 就必须需要上传的首帧参考图片链接，目前只支持模型 `wan2.6-i2v`、`wan2.6-i2v-flash`。
-- `reference_video_urls`：图生视频时可选，指定参考的视频链接进行生成，目前只支持模型 `wan2.6-r2v`。
-- `size`：指定生成的视频分辨率，格式为宽*高。该参数的默认值和可用枚举值依赖于 model 参数，具体的规则可参考[官网文档](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2865250)：。
-- `duration`：视频生成的时长，主要支持5、10、15。
-- `shot_type`：可选，指定生成视频的镜头类型，即视频是由一个连续镜头还是多个切换镜头组成。生效条件：仅当"prompt_extend": true 时生效。参数优先级：shot_type > prompt。例如，若 shot_type设置为"single"，即使 prompt 中包含“生成多镜头视频”，模型仍会输出单镜头视频，具体的规则可参考[官网文档](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2865250)。
-- `negative_prompt`：可选，反向提示词，用来描述不希望在视频画面中看到的内容，可以对视频画面进行限制。支持中英文，长度不超过500个字符，超过部分会自动截断。示例值：低分辨率、错误、最差质量、低质量、残缺、多余的手指、比例不良等。
-- `resolution`：指定生成的视频分辨率档位，用于调整视频的清晰度（总像素）。模型根据选择的分辨率档位，自动缩放至相近总像素，视频宽高比将尽量与输入图像 img_url 的宽高比保持一致，更多说明详见参考[官网文档](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2867393)。
-- `audio_url`：音频文件的 URL，模型将使用该音频生成视频。使用方式参考[官网文档](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2867393)。
-- `audio`：是否生成有声视频。参数优先级：audio > audio_url。当 audio=false时，即使传入 audio_url，输出仍为无声视频，且计费按无声视频计算，默认值是true。
-- `prompt_extend`：是否开启prompt智能改写。开启后使用大模型对输入prompt进行智能改写。对于较短的prompt生成效果提升明显，但会增加耗时，默认值是true。
-- `prompt`：提示词。
-- `callback_url`：需要回调结果的URL。
-- `async`：可选，设为 `true` 时接口立即返回 `task_id`，无需提供 `callback_url`，随后通过对应的任务查询接口轮询获取结果。
+- `model`: the model for generating the video, mainly including `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v`.
+- `action`: the action for this video generation task, mainly including three actions: text-to-video (`text2video`), image-to-video (`image2video`). When it is text-to-video, currently only the model `wan2.6-t2v` is supported; when it is image-to-video, currently only the models `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash` are supported.
+- `image_url`: when selecting the image-to-video action `image2video`, it is necessary to upload the first frame reference image link, currently only supporting models `wan2.6-i2v`, `wan2.6-i2v-flash`.
+- `reference_video_urls`: optional for image-to-video, specifies the reference video links for generation, currently only supporting the model `wan2.6-r2v`.
+- `size`: specifies the resolution of the generated video, in the format width*height. The default value and available enumerated values depend on the model parameter; specific rules can be referenced in the [official documentation](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2865250).
+- `duration`: the duration of the video generation, mainly supporting 5, 10, 15.
+- `shot_type`: optional, specifies the type of shots in the generated video, i.e., whether the video consists of a continuous shot or multiple switching shots. Effective condition: only effective when "prompt_extend": true. Parameter priority: shot_type > prompt. For example, if shot_type is set to "single", even if the prompt contains "generate multi-shot video", the model will still output a single-shot video; specific rules can be referenced in the [official documentation](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2865250).
+- `negative_prompt`: optional, reverse prompt words used to describe content that you do not want to see in the video frames, which can limit the video frames. Supports both Chinese and English, with a length not exceeding 500 characters; excess parts will be automatically truncated. Example values: low resolution, errors, worst quality, low quality, incomplete, extra fingers, poor proportions, etc.
+- `resolution`: specifies the resolution tier of the generated video, used to adjust the clarity of the video (total pixels). The model will automatically scale to a similar total pixel count based on the selected resolution tier, and the video aspect ratio will try to maintain consistency with the aspect ratio of the input image img_url; more details can be found in the [official documentation](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2867393).
+- `audio_url`: the URL of the audio file, which the model will use to generate the video. Usage reference can be found in the [official documentation](https://modelstudio.console.alibabacloud.com/ap-southeast-1/?tab=api#/api/?type=model&url=2867393).
+- `audio`: whether to generate a video with sound. Parameter priority: audio > audio_url. When audio=false, even if audio_url is passed, the output will still be a silent video, and billing will be calculated as a silent video; the default value is false.
+- `prompt_extend`: whether to enable intelligent rewriting of the prompt. When enabled, a large model will intelligently rewrite the input prompt. The effect of generation is significantly improved for shorter prompts, but it will increase processing time; the default value is true.
+- `prompt`: prompt words.
+- `callback_url`: the URL to receive the callback result.
+- `async`: optional, set to `true` to have the interface immediately return `task_id`, without needing to provide `callback_url`, and then poll the corresponding task query interface to obtain results.
 
-选择之后，可以发现右侧也生成了对应代码，如图所示：
+After selection, you can see that the corresponding code is also generated on the right side, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/03gqdz.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/03gqdz.png" width="500" className="m-auto" /></p>
 
-点击「Try」按钮即可进行测试，如上图所示，这里我们就得到了如下结果：
+Click the "Try" button to test, as shown in the figure above, we obtained the following result:
 
 ```json
 {
@@ -58,17 +57,16 @@
 }
 ```
 
-返回结果一共有多个字段，介绍如下：
+The returned result contains multiple fields, described as follows:
 
-- `success`，此时视频生成任务的状态情况。
-- `task_id`，此时视频生成任务ID。
-- `video_url`，此时视频生成任务的视频链接。
-- `state`，此时视频生成任务的状态。
+- `success`, the status of the video generation task at this time.
+- `task_id`, the ID of the video generation task at this time.
+- `video_url`, the video link of the video generation task at this time.
+- `state`, the status of the video generation task at this time.
 
-可以看到我们得到了满意的视频信息，我们只需要根据结果中 `video_url` 的视频链接地址获取生成的通义万相视频即可。
+We can see that we have obtained satisfactory video information, and we only need to access the generated Tongyi Wanxiang video using the video link address from `video_url` in the result.
 
-另外如果想生成对应的对接代码，可以直接复制生成，例如 CURL 的代码如下：
-
+Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
 ```shell
 curl -X POST 'https://api.acedata.cloud/wan/videos' \
 -H 'accept: application/json' \
@@ -77,29 +75,29 @@ curl -X POST 'https://api.acedata.cloud/wan/videos' \
 -d '{
   "action": "text2video",
   "model": "wan2.6-t2v",
-  "prompt": "Astronauts shuttle from space to volcano",
+  "prompt": "宇航员从太空穿梭到火山",
   "duration": 5
 }'
 ```
 
-## 图生视频功能
+## Image to Video Function
 
-如果想对参考图或者参考视频来生成视频的话，可以将参数 `action` 设置为 `image2video` ，并且输入需要参考图链接或者参考视频链接，接下来我们要必须填下一步需要扩展的提示词来自定义生成视频，就可以指定如下内容：
+If you want to generate a video based on a reference image or reference video, you can set the parameter `action` to `image2video`, and input the required reference image link or reference video link. Next, we must fill in the prompt words needed for customization to generate the video, which can specify the following content:
 
-- `model`：生成视频的模型，主要有 `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v` 模型。
-- `image_url`：当选择图生视频行为 `image2video` 就必须需要上传的首帧参考图片链接，目前只支持模型 `wan2.6-i2v`、`wan2.6-i2v-flash`。
-- `reference_video_urls`：图生视频时可选，指定参考的视频链接进行生成，目前只支持模型 `wan2.6-r2v`。
-- `prompt`：提示词。
+- `model`: The model for generating the video, mainly including `wan2.6-i2v`, `wan2.6-r2v`, `wan2.6-i2v-flash`, `wan2.6-t2v` models.
+- `image_url`: When choosing the image to video action `image2video`, you must upload the link to the first frame reference image, currently only supporting models `wan2.6-i2v`, `wan2.6-i2v-flash`.
+- `reference_video_urls`: Optional when generating video from images, specify the reference video link for generation, currently only supporting model `wan2.6-r2v`.
+- `prompt`: Prompt words.
 
-填写样例如下：
+The example of filling in is as follows:
 
-<p><img src="https://cdn.acedata.cloud/94l0kk.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/94l0kk.png" width="500" className="m-auto" /></p>
 
-填写完毕之后自动生成了代码如下：
+After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/b5q8tt.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/b5q8tt.png" width="500" className="m-auto" /></p>
 
-对应的 Python 代码：
+The corresponding Python code:
 
 ```python
 import requests
@@ -115,7 +113,7 @@ headers = {
 payload = {
     "action": "image2video",
     "model": "wan2.6-i2v",
-    "prompt": "Astronauts shuttle from space to volcano",
+    "prompt": "宇航员从太空穿梭到火山",
     "duration": 5,
     "image_url": "https://cdn.acedata.cloud/r9vsv9.png",
     "callback_url": "https://www.baidu.com/"
@@ -125,7 +123,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-点击运行，可以发现会得到一个结果，如下：
+Clicking run, you can find that a result is obtained, as follows:
 
 ```json
 {
@@ -136,27 +134,27 @@ print(response.text)
 }
 ```
 
-可以看出，结果内容与上文的是一致的，这也就实现视频的扩展视频功能。
+It can be seen that the result content is consistent with the above text, thus achieving the extended video function.
 
-## 异步回调
+## Asynchronous Callback
 
-由于 Wan Videos Generation API生成的时间相对较长，大约需要 1-2 分钟，如果 API 长时间无响应，HTTP 请求会一直保持连接，导致额外的系统资源消耗，所以本 API 也提供了异步回调的支持。
+Since the time taken by the Wan Videos Generation API is relatively long, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-整体流程是：客户端发起请求的时候，额外指定一个 `callback_url` 字段，客户端发起 API 请求之后，API 会立马返回一个结果，包含一个 `task_id` 的字段信息，代表当前的任务 ID。当任务完成之后，生成视频的结果会通过 POST JSON 的形式发送到客户端指定的 `callback_url`，其中也包括了 `task_id` 字段，这样任务结果就可以通过 ID 关联起来了。
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field information, representing the current task ID. When the task is completed, the result of the generated video will be sent to the client-specified `callback_url` in the form of POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-下面我们通过示例来了解下具体怎样操作。
+Let's understand how to operate specifically through an example.
 
-首先，Webhook 回调是一个可以接收 HTTP 请求的服务，开发者应该替换为自己搭建的 HTTP 服务器的 URL。此处为了方便演示，使用一个公开的 Webhook 样例网站 https://webhook.site/，打开该网站即可得到一个 Webhook URL，如图所示：
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own built HTTP server. For convenience, a public Webhook sample website https://webhook.site/ is used here. Opening this website will give you a Webhook URL, as shown in the figure:
 
 ![](https://cdn.acedata.cloud/tbcnai.png)
 
-将此 URL 复制下来，就可以作为 Webhook 来使用，此处的样例为 `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`。
+Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`.
 
-接下来，我们可以设置字段 `callback_url` 为上述 Webhook URL，同时填入相应的参数，具体的内容如图所示：
+Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the figure:
 
-<p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/vdx12s.png" width="500" className="m-auto" /></p>
 
-点击运行，可以发现会立即得到一个结果，如下：
+Clicking run, you can find that an immediate result is obtained, as follows:
 
 ```
 {
@@ -164,11 +162,11 @@ print(response.text)
 }
 ```
 
-稍等片刻，我们可以在 `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3` 上观察到生成视频的结果，如图所示：
+After a moment, we can observe the result of the generated video at `https://webhook.site/624b2c78-6dbd-4618-9d2b-b32eade6d8c3`, as shown in the figure:
 
 ![](https://cdn.acedata.cloud/zv5u2q.png)
 
-内容如下：
+The content is as follows:
 
 ```json
 {
@@ -179,20 +177,19 @@ print(response.text)
 }
 ```
 
-可以看到结果中有一个 `task_id` 字段，其他的字段都和上文类似，通过该字段即可实现任务的关联。
+It can be seen that the result contains a `task_id` field, and the other fields are similar to the above text, allowing task association through this field.
 
+## Error Handling
 
-## 错误处理
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-在调用 API 时，如果遇到错误，API 会返回相应的错误代码和信息。例如：
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
 
-- `400 token_mismatched`：Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`：Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`：Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`：Too many requests, you have exceeded the rate limit.
-- `500 api_error`：Internal server error, something went wrong on the server.
-
-### 错误响应示例
+### Error Response Example
 
 ```json
 {
@@ -205,18 +202,18 @@ print(response.text)
 }
 ```
 
-## 结论
+## Conclusion
 
-通过本文档，您已经了解了如何使用 Wan Videos Generation API 可通过输入提示词以及首帧参考图片来生成视频。希望本文档能帮助您更好地对接和使用该 API。如有任何问题，请随时联系我们的技术支持团队。
+Through this document, you have learned how to use the Wan Videos Generation API to generate videos by inputting prompt words and the first frame reference image. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
 
-## Wan 3.0 全能视频生成
+## Wan 3.0 All-in-One Video Generation
 
-`wan3.0-video` 在同一模型中支持文生视频、首帧/首尾帧生成，以及图片、视频、音频、文件或网页参考。通过 `media` 数组传入素材：
+`wan3.0-video` supports text-to-video, first frame/last frame generation, as well as image, video, audio, file, or webpage references within the same model. Pass materials through the `media` array:
 
 ```json
 {
   "model": "wan3.0-video",
-  "prompt": "使用图1中的产品制作一段电影感广告",
+  "prompt": "Make a cinematic advertisement using the product in image 1",
   "media": [{"type":"reference_image","url":"https://cdn.example.org/product.png"}],
   "resolution": "720P",
   "ratio": "16:9",
@@ -227,4 +224,4 @@ print(response.text)
 }
 ```
 
-`duration` 支持 2–30 秒整数，或 `-1` 让模型选择时长。参考素材与首尾帧模式不能混用。生成后继续通过 `/wan/tasks` 查询。
+`duration` supports integer values from 2 to 30 seconds, or `-1` to let the model choose the duration. Reference materials and first/last frame modes cannot be mixed. After generation, continue to query through `/wan/tasks`.

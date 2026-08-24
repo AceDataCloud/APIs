@@ -1,69 +1,65 @@
-# Flux Images Generation API Integration Instructions
 
 This article will introduce the integration instructions for the Flux Images Generation API, which can generate official Flux images by inputting custom parameters.
 
 ## Application Process
 
-To use the API, you need to first apply for the corresponding service on the [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394) page. After entering the page, click the "Acquire" button, as shown in the image below:
+To use the Flux Images Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completing this, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota available for you to use the API for free.
+**One API Token can call all services on the platform, and there is no need to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Flux Images Generation API →](https://platform.acedata.cloud/documents/flux-images)
 
 ## Basic Usage
 
-First, understand the basic usage method, which involves inputting the prompt `prompt`, the action `action`, and the image size `size` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then we also need to input the prompt, as detailed below:
+First, understand the basic usage, which involves inputting the prompt `prompt`, the action `action`, and the image size `size` to obtain the processed result. You first need to simply pass a field `action` with the value `generate`, and then we also need to input the prompt, as detailed below:
 
-<p><img src="https://cdn.acedata.cloud/wz85jt.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/wz85jt.png" width="500" className="m-auto" /></p>
 
 Here we can see that we have set the Request Headers, including:
 
-- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which means JSON format.
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which is in JSON format.
 - `authorization`: the key to call the API, which can be directly selected after application.
 
 Additionally, we set the Request Body, including:
 
-- `action`: the action of this image generation task.
-- `size`: the size of the generated image result.
+- `action`: the behavior of this image generation task.
+- `size`: the size of the generated image result. **`flux-2-flex` / `flux-2-pro` / `flux-2-max` series must pass in the image ratio (e.g., `1:1`, `16:9`), pixel sizes like `1024x1024` are not accepted, and the default will return 400.**
 - `count`: the number of images to generate, with a default value of 1; this parameter is only valid for image generation tasks and is invalid for editing tasks.
 - `prompt`: the prompt.
-- `model`: the generation model, default is `flux-dev`.
+- `model`: the generation model, default is `flux-dev`; the latest flagship models are `flux-2-pro`, `flux-2-max` (higher image quality, must be used with the image ratio `size`).
 - `callback_url`: the URL to receive the callback result.
+- `async`: optional, when set to `true`, the interface immediately returns `task_id`, and there is no need to provide `callback_url`, and then the result can be polled through the corresponding task query interface.
 
-The parameter `size` has some special restrictions, mainly divided into two types: `width x height` aspect ratio and `x:y` image ratio, as detailed below:
+The parameter `size` has some special restrictions, mainly divided into `width x height` aspect ratio and `x:y` image ratio types, as detailed below:
 
-| Model                 | Range                                 |
-| ------------------ | ---------------------------------- |
-| flux-2-flex        | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-2-pro         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-2-max         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-dev           | Supports aspect ratio 256 <= x <= 1440 must be a multiple of 32 |
-| flux-kontext-pro   | Does not support aspect ratio supports image ratio                     |
-| flux-kontext-max   | Does not support aspect ratio supports image ratio                     |
+| Model               | Range                                         |
+| ---------------- | ------------------------------------------ |
+| flux-dev         | Supports aspect ratios 1024x1024, 1024x1792, 1792x1024, or image ratios |
+| flux-pro         | Supports aspect ratios 1024x1024, 1024x1792, 1792x1024, or image ratios |
+| flux-2-flex      | Only supports image ratios                                    |
+| flux-2-pro       | Only supports image ratios                                    |
+| flux-2-max       | Only supports image ratios                                    |
+| flux-kontext-pro | Only supports image ratios                                    |
+| flux-kontext-max | Only supports image ratios                                    |
 
-Reference image ratios: "1:1", "16:9", "21:9", "3:2", "2:3", "4:5", "5:4", "3:4", "4:3", "9:16", "9:21",
+Reference image ratios: "21:9", "16:9", "4:3", "3:2", "1:1", "2:3", "3:4", "9:16", "9:21".
 
-After selection, the corresponding code is generated on the right side. Before copying it, confirm that the authorization header uses your own API key; real credentials must never appear in documentation or screenshots.
+After selecting the parameters, the corresponding code will be automatically generated on the right side. Please confirm that the authorization header uses your own API Key before copying, and no real credentials should appear in the documentation and screenshots.
 
-Click the "Try" button to test, and we get the following result:
+Click the "Try" button to test, and we obtained the following result:
 
 ```json
 {
   "success": true,
-  "task_id": "226eb763-9eab-4d06-ad57-d59753a03307",
-  "trace_id": "089f8b46-0167-4f25-88ee-3c3f88d80e84",
+  "task_id": "5456c749-3bbb-4f10-9eb8-cfbcac297500",
+  "trace_id": "ae4eecb8-1dd6-45b4-bfb3-a1c48872536e",
   "data": [
     {
-      "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/lion/NVhtlwwGYQD6HrGaEfrzu_341484fad6d84b21b73f4f8824a3f98a.png",
-      "timings": 1752743801
-    },
-    {
-      "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/monkey/8UEQpFbQCYVOK1wKP3aV0_9bbc26fad64049b18d0244b99ef66ad1.png",
-      "timings": 1752743801
+      "image_url": "https://platform2.cdn.acedata.cloud/flux/5456c749-3bbb-4f10-9eb8-cfbcac297500.jpg"
     }
   ]
 }
@@ -71,14 +67,14 @@ Click the "Try" button to test, and we get the following result:
 
 The returned result contains multiple fields, described as follows:
 
-- `success`, the status of the image generation task at this time.
-- `task_id`, the ID of the image generation task at this time.
-- `trace_id`, the tracking ID of the image generation at this time.
+- `success`, the status of the video generation task at this time.
+- `task_id`, the ID of the video generation task at this time.
+- `trace_id`, the tracking ID of the video generation at this time.
 - `data`, the result list of the image generation task at this time.
   - `image_url`, the link to the image generation task at this time.
   - `prompt`, the prompt.
 
-We can see that we have obtained satisfactory image information, and we only need to obtain the generated Flux image based on the image link address in the `data` result.
+We can see that we have obtained satisfactory image information, and we only need to obtain the generated Flux image based on the image link address in `data`.
 
 Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
 
@@ -89,26 +85,26 @@ curl -X POST 'https://api.acedata.cloud/flux/images' \
 -H 'content-type: application/json' \
 -d '{
   "action": "generate",
-  "prompt": "a white siamese cat",
-  "model": "flux-kontext-pro",
-  "count": 2
+  "prompt": "A photorealistic studio product shot of a frosted-glass perfume bottle on wet black slate, single softbox key light, water droplets, dark moody background, 85mm macro.",
+  "model": "flux-2-pro",
+  "size": "1:1"
 }'
 ```
 
 ## Editing Image Tasks
 
-If you want to edit a specific image, the parameter `image_url` must first be passed with the link to the image that needs to be edited, at this time `action` only supports `edit`, and you can specify the following content:
+If you want to edit a specific image, the parameter `image_url` must first pass in the link to the image that needs to be edited, at this time `action` only supports `edit`, and you can specify the following content:
 
-- model: the model used for this image editing task, which currently supports `flux-kontext-max`, `flux-kontext-pro`.
-- image_url: the link to the image that needs to be uploaded for editing.
+- model: the model used for this image editing task, supporting `flux-dev`, `flux-pro`, `flux-kontext-pro`, `flux-kontext-max`, `flux-2-flex`, `flux-2-pro`, `flux-2-max`.
+- image_url: the uploaded image that needs to be edited.
 
-An example of the input is as follows:
+An example of filling in is as follows:
 
-<p><img src="https://cdn.acedata.cloud/jn9da5.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/jn9da5.png" width="500" className="m-auto" /></p>
 
 After filling in, the code is automatically generated as follows:
 
-<p><img src="https://cdn.acedata.cloud/6cwxb8.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/6cwxb8.png" width="500" className="m-auto" /></p>
 
 The corresponding code:
 
@@ -144,33 +140,33 @@ Clicking run, you can find that you will immediately get a result, as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://fal.media/files/monkey/aEUXJZ6Faj9YXUCQVs01Q_af0cea56c558441c9ba8df67b200812d.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
       "timings": 1752744073
     }
   ]
 }
 ```
-
-As you can see, the generated effect is the result of editing the original image, similar to the previous text.
+It can be seen that the generated effect is an editing effect on the original image, and the result is similar to the above text.
 
 ## Asynchronous Callback
-Due to the relatively long generation time of the Flux Images Generation API, which takes about 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-The overall process is as follows: when the client initiates a request, an additional `callback_url` field is specified. After the client makes the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the generated image will be sent to the `callback_url` specified by the client in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
+Since the Flux Images Generation API takes a relatively long time to generate, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-Let’s understand how to operate specifically through an example.
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the generated image will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can obtain a Webhook URL as shown in the image:
+Let's understand how to operate specifically through an example.
+
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, and opening this site will provide a Webhook URL, as shown in the image:
 
 ![](https://cdn.acedata.cloud/cjjfly.png)
 
 Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
 
-Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the image:
+Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the image:
 
-<p><img src="https://cdn.acedata.cloud/wm6caw.png" width="500" class="m-auto"></p>
+<p><img src="https://cdn.acedata.cloud/wm6caw.png" width="500" className="m-auto" /></p>
 
-Clicking run, you will immediately receive a result as follows:
+Clicking run, we can find that an immediate result is obtained, as follows:
 
 ```
 {
@@ -192,7 +188,7 @@ The content is as follows:
   "data": [
     {
       "prompt": "a white siamese cat",
-      "image_url": "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/outputs/f4f8d407-377a-408a-82d0-427a5a836f09_0.png",
+      "image_url": "https://cdn.acedata.cloud/e724d7f13d.png",
       "seed": 1698551532,
       "timings": {
         "inference": 3.328
@@ -202,7 +198,7 @@ The content is as follows:
 }
 ```
 
-It can be seen that the result contains a `task_id` field, and the other fields are similar to the above, allowing the task to be associated through this field.
+It can be seen that the result contains a `task_id` field, and the other fields are similar to the above text. The task can be associated through this field.
 
 ## Error Handling
 

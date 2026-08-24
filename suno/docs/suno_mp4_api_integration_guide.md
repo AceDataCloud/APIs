@@ -1,4 +1,3 @@
-# Suno MP4 API Integration Instructions
 
 SUNO allows us to obtain the official generated MP4 link for the generated music. This document explains the integration method for the related API.
 
@@ -33,7 +32,7 @@ The result is as follows:
   "task_id": "03ae7cca-c3a2-40a0-98b2-8f33426af438",
   "trace_id": "848d8d5a-d6bb-4e16-bb29-768c22cf1b3b",
   "data": {
-    "video_url": "https://cdn1.suno.ai/275113ab-fe5c-4bca-a33c-0cca96b39fa6.mp4"
+    "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4"
   }
 }
 ```

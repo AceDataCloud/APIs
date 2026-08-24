@@ -1,24 +1,31 @@
-# Kling Talking Photo API
+
 Turn **one photo + one audio** into a talking video in a single call. The service internally chains two steps: image2video (animate the still photo) then lip-sync (drive the mouth with the audio).
+
 - **Endpoint**: `POST https://api.acedata.cloud/kling/talking-photo`
 - **Pricing**: by duration — 5s **16.45 Credits**, 10s **30.45 Credits** (image2video + lip-sync bundle)
+
 ## Headers
+
 | Field | Value |
 | --- | --- |
 | `authorization` | `Bearer ${API_KEY}` |
 | `content-type` | `application/json` |
+
 ## Request parameters
+
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
 | `image_url` | string | yes | — | Public URL of the portrait image; a clear frontal face works best |
-| `audio_url` | string | yes | — | Public URL of the driving audio (.mp3/.wav/.m4a/.aac, <5MB) |
+| `audio_url` | string | yes | — | Public URL of the driving audio (.mp3/.wav/.m4a/.aac, &lt;=5MB) |
 | `prompt` | string | no | — | Motion/expression hint for the animation step |
 | `model` | string | no | `kling-v2-1-master` | Kling model for the animation step |
 | `duration` | integer | no | `5` | Video length (5 or 10 seconds) |
 | `mode` | string | no | `pro` | Animation quality (std/pro) |
 | `callback_url` | string | no | — | If set (or `async=true`), returns task_id and calls back |
 | `async` | boolean | no | `false` | Async mode; poll via `/kling/tasks` or receive callback |
+
 ## Request example
+
 ```bash
 curl -X POST 'https://api.acedata.cloud/kling/talking-photo' \
   -H 'authorization: Bearer ${API_KEY}' \
@@ -29,7 +36,9 @@ curl -X POST 'https://api.acedata.cloud/kling/talking-photo' \
     "duration": 5
   }'
 ```
+
 ## Response example
+
 ```json
 {
   "success": true,
@@ -41,7 +50,9 @@ curl -X POST 'https://api.acedata.cloud/kling/talking-photo' \
   "state": "succeed"
 }
 ```
+
 ## Notes
+
 - Use a clear, frontal, single-person photo.
 - Keep the audio no longer than the video (5s/10s).
 - Billed on success; validation failures (4xx) are not billed.

@@ -1,16 +1,21 @@
-# Kling Lip Sync API
+
 Drive an **existing Kling video** (5s or 10s) with audio or text so the character speaks in sync (lip sync). Pair it with `/kling/videos` `image2video` (which animates a still photo) to build a complete **talking-photo / digital-human narration** pipeline.
+
 - **Endpoint**: `POST https://api.acedata.cloud/kling/lip-sync`
 - **Request format**: `application/json`
 - **Response format**: `application/json`
 - **Pricing**: **2.45 Credits** per successful call (flat)
+
 ## Request Headers
+
 | Field | Value | Description |
 | --- | --- | --- |
 | `authorization` | `Bearer ${API_KEY}` | Your API key, [get it here](https://platform.acedata.cloud) |
 | `content-type` | `application/json` | Request body format |
 | `accept` | `application/json` | Response format |
+
 ## Request Body
+
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
 | `mode` | string | yes | — | Generation mode. Enum: `audio2video`, `text2video` |
@@ -25,8 +30,11 @@ Drive an **existing Kling video** (5s or 10s) with audio or text so the characte
 | `voice_speed` | float | no | `1.0` | Speech rate, range `0.8`–`2.0`, one decimal place (used when `text2video`) |
 | `callback_url` | string | no | — | Callback URL. Providing this (or `async=true`) switches to **async mode**: returns a `task_id` immediately and calls back when done |
 | `async` | boolean | no | `false` | Async mode. When `true`, returns `task_id` immediately; poll via `/kling/tasks` or receive `callback_url` |
+
 ## Request Examples
+
 ### 1) Audio-driven (audio2video)
+
 ```bash
 curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   -H 'authorization: Bearer ${API_KEY}' \
@@ -37,7 +45,9 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
     "audio_url": "https://cdn.acedata.cloud/6f7d62b18b.wav"
   }'
 ```
+
 ### 2) Text-driven (text2video)
+
 ```bash
 curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   -H 'authorization: Bearer ${API_KEY}' \
@@ -51,7 +61,9 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
     "voice_speed": 1.0
   }'
 ```
+
 ## Response (synchronous success)
+
 ```json
 {
   "success": true,
@@ -62,6 +74,7 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   "state": "succeed"
 }
 ```
+
 | Field | Type | Description |
 | --- | --- | --- |
 | `success` | boolean | Whether the call succeeded |
@@ -70,40 +83,54 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
 | `video_url` | string | URL of the talking video (re-hosted on our CDN, long-lived) |
 | `duration` | string | Video duration in seconds |
 | `state` | string | Task status: `succeed` / `failed` |
+
 ## Async mode & querying
+
 When `callback_url` or `async: true` is provided, the endpoint **returns immediately** with a `task_id`. Then:
+
 - **Poll**: `POST /kling/tasks` with body `{ "action": "retrieve", "id": "<task_id>" }` (free)
 - **Callback**: the result is POSTed to your `callback_url` when ready
+
 ## Full pipeline: talking photo (image2video → lip-sync)
+
 ```bash
 # Step 1: animate the photo, get a video_id
 curl -X POST 'https://api.acedata.cloud/kling/videos' \
   -H 'authorization: Bearer ${API_KEY}' -H 'content-type: application/json' \
   -d '{"model":"kling-v2-1-master","action":"image2video","start_image_url":"https://cdn.acedata.cloud/4hfydw.jpg","prompt":"look at camera, natural","duration":5,"mode":"pro"}'
 # → { "video_id": "895055164389466178", ... }
+
 # Step 2: lip-sync it with audio
 curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   -H 'authorization: Bearer ${API_KEY}' -H 'content-type: application/json' \
   -d '{"mode":"audio2video","video_id":"895055164389466178","audio_url":"https://your.cdn/voice.mp3"}'
 # → { "video_url": "https://platform2.cdn.acedata.cloud/kling/....mp4", ... }
 ```
+
 ## Error response
+
 ```json
 {
   "success": false,
-  "error": { "code": "bad_request", "message": "one of video_id or video_url is required" },
+  "error": {
+    "code": "bad_request",
+    "message": "one of video_id or video_url is required"
+  },
   "trace_id": "f07cab09-3c18-4d74-9030-64ee840d9f16",
   "task_id": "f490537f-2e5c-4739-8149-6252fba2091c"
 }
 ```
+
 | HTTP | code | Meaning |
 | --- | --- | --- |
 | 400 | `bad_request` | Missing/invalid params (e.g. no mode, video/audio conflict, text over 120 chars) |
 | 401 | `authorization_missing` | Missing or invalid API key |
 | 403 | `forbidden` | Blocked by content moderation |
-| 429 | `too_many_requests` | Concurrency limit reached, retry later |
-| 500 | `api_error` | Generation or internal error |
+| 429 | `too_many_requests` | Upstream concurrency limit, retry later |
+| 500 | `api_error` | Upstream or internal error |
+
 ## Notes
+
 - `video_id` must be a Kling video generated **within 30 days** and **5s or 10s**; otherwise pass a constraint-compliant video via `video_url`.
 - A clear, frontal, single-person video gives the best lip-sync.
 - Audio/text length should match the video length (audio no longer than the video).

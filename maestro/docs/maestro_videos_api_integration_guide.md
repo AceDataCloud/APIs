@@ -1,205 +1,259 @@
-# Maestro Videos API Integration Guide
+
+Maestro is an **Agent Native** video production interface: you describe the desired video in a natural language `prompt` (optionally attaching reference images/videos/audios with `file_urls`), and a headless "AI director" will automatically complete topic selection, script writing, scene generation, voiceover, music, synthesis, and rendering, ultimately producing a subtitled final product and uploading it to the CDN.
+
+This document will detail the integration instructions for the Maestro video generation API, helping you quickly integrate and fully utilize the capabilities of this API.
+
+This is an **asynchronous task** interface: after submission, it will immediately return a `task_id`, and you can then poll for results through the [Maestro Task Query API](development_maestro_tasks.md) (`POST /maestro/tasks`) (polling is free of charge). To continue iterating on an existing video, you can use `action: remix` / `edit` / `extend` along with `ref_task_id`.
+
+## Application Process
+
+To use the Maestro video generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Maestro Video Generation API →](https://platform.acedata.cloud/documents/maestro-videos)
+
+## Basic Usage
 
 `POST https://api.acedata.cloud/maestro/videos`
 
-The Maestro Videos API accepts a production brief and creates an asynchronous video job. A headless AI director plans the content, generates or selects media, produces voiceover and music, edits, captions, checks, and renders the finished video.
+The most basic usage requires only passing in a natural language `prompt`, and the AI director will automatically decide on the script, scenes, voiceover, and editing. Here we will first understand the request headers and request body that need to be set.
 
-The endpoint returns a `task_id` immediately. Retrieve progress and final output with `POST /maestro/tasks` or provide a `callback_url` for terminal-state delivery.
+**Request Headers** include:
 
-## Authentication
+- `accept`: the format of the response you want to receive, here it is filled in as `application/json`, which means JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+- `content-type`: the format of the request body, here it is filled in as `application/json`.
 
-Create an API token in the [Ace Data Cloud console](https://platform.acedata.cloud/console/applications). Send it as a Bearer token:
+**Request Body** mainly includes:
 
-```http
-Authorization: Bearer YOUR_API_TOKEN
-Content-Type: application/json
-Accept: application/json
-```
+- `prompt`: a natural language description of the video to be made (theme, what to showcase, style, audience).
+- `langs`: an array of output languages, such as `["zh-cn", "en"]`, default is `["zh-cn"]`.
+- `aspect`: aspect ratio, `9:16` (default) / `16:9` / `1:1`.
+- `duration`: target duration (seconds), default is 30.
 
-Keep tokens outside source control and never expose them in client-side code or logs.
+The complete fields of the request body are shown in the table below:
 
-## Request Body
+| Field          | Type     | Required | Description                                                                                                                                                                                                                     |
+| -------------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt`       | string   | Yes      | A natural language description of the video to be made (theme, what to showcase, style, audience). The script, scenes, voiceover, and editing are all determined by AI                                                                 |
+| `action`       | string   | No       | `generate` (default, generate a new video) / `remix` / `edit` / `extend` (iterate on an existing video, must be used with `ref_task_id`)                                                                                     |
+| `ref_task_id`  | string   | No       | Required when `action` is remix / edit / extend: the historical task `task_id` as a starting point                                                                                                                                 |
+| `file_urls`    | string[] | No       | Reference media (image/video/audio URLs), such as product images, logos, or material segments to add subtitles                                                                                                                  |
+| `langs`        | string[] | No       | Output languages, such as `["zh-cn", "en"]`, default is `["zh-cn"]`. The first is the primary language; for each additional language, reuse the scenes, only add voiceover + rendering, **each additional +6 points**                      |
+| `aspect`       | string   | No       | `9:16` (default) / `16:9` / `1:1`. Lite outputs 720p/24fps, Standard and Pro output 1080p/30fps                                                                                                                                 |
+| `duration`     | int      | No       | Target duration (seconds), default is 30. Lite is **5–30 seconds**, Standard is **5–120 seconds**, Pro is **5–300 seconds**. Charged based on actual final video duration, but will not exceed the requested duration                  |
+| `quality`      | string   | No       | Production level: `lite` (quick short video, 0.20 points/second) / `standard` (default, balanced production, 0.60 points/second) / `pro` (high-end production, 1.20 points/second)                                               |
+| `scenario`     | string   | No       | Video type: Lite supports `auto` / `narrated` / `captions`; Standard adds `avatar`; Pro adds `drama`. `captions` requires the source video, `avatar` requires a portrait                                                                 |
+| `style`        | string   | No       | Visual style presets: `auto` (default) / `cinematic` / `glass` / `luxury` / `swiss` / `modern` / `editorial` / `warm` / `vibrant` / `neon` / `mono` / `pastel` / `bold` / `industrial` / `futuristic` / `retro`, also accepts free text as soft prompts. Orthogonal to `scenario`, does not change routing |
+| `voice`        | string   | No       | Voiceover tone (language-independent, cross-language universal): `auto` (default) / `warm-female` / `bright-female` / `anchor-female` / `clean-female` / `calm-male` / `deep-male` / `documentary-male` / `energetic-male` / `storyteller-male` |
 
-| Field | Type | Required | Default | Description |
-|---|---|---:|---|---|
-| `prompt` | string | yes | - | Natural-language brief covering the subject, audience, content, tone, and desired result |
-| `action` | string | no | `generate` | `generate`, `remix`, `edit`, or `extend` |
-| `ref_task_id` | string | conditional | - | Required when `action` is `remix`, `edit`, or `extend` |
-| `file_urls` | string[] | no | - | Public image, video, or audio references |
-| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
-| `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
-| `duration` | integer | no | `30` | Target length in seconds, from 5 through 300; the selected SKU sets the maximum |
-| `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |
-| `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama`; availability depends on SKU |
-| `style` | string | no | `auto` | Named preset or freeform visual-style hint |
-| `voice` | string | no | `auto` | Voice preset or a 32-hex-character Fish reference ID |
-| `callback_url` | string | no | - | Public webhook URL called when the task reaches a terminal state |
-
-### Actions
-
-- `generate`: produce a new video.
-- `remix`: reinterpret an earlier video while retaining it as creative context.
-- `edit`: apply targeted changes to an earlier video.
-- `extend`: continue or lengthen an earlier video.
-
-Every non-`generate` action requires `ref_task_id` and creates a new task ID.
-
-### Production SKUs
-
-| SKU | Price | Duration | Output | Languages | Scenarios and actions |
-|---|---:|---:|---|---:|---|
-| `lite` | 0.20 Credits/second | 5–30s | 720p/24fps | 1 | auto/narrated/captions; generate/edit |
-| `standard` | 0.60 Credits/second | 5–120s | 1080p/30fps | 2 | adds avatar and remix |
-| `pro` | 1.20 Credits/second | 5–300s | 1080p/30fps | 4 | adds drama and extend |
-
-### Scenarios
-
-- `auto`: let the director choose from the brief.
-- `narrated`: multi-scene explainer, documentary, brand, history, or product video.
-- `captions`: add kinetic captions to a source video supplied in `file_urls`.
-- `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`; Standard or Pro is required.
-- `drama`: character and dialogue-driven short drama; Pro is required.
-
-### Styles and Voices
-
-Named style presets include `cinematic`, `glass`, `luxury`, `swiss`, `modern`, `editorial`, `warm`, `vibrant`, `neon`, `mono`, `pastel`, `bold`, `industrial`, `futuristic`, and `retro`. A freeform style string is also accepted as a soft direction.
-
-Voice presets include:
-
-- `auto`
-- `warm-female`, `bright-female`, `anchor-female`, `clean-female`
-- `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`
-
-Voice controls timbre, not language. One preset can speak each language in `langs`. Advanced callers may pass a 32-hex-character Fish `reference_id` instead of a preset.
-
-## Create a Video
+Below is a specific example to demonstrate. Suppose we want to generate a bilingual Chinese-English, vertical, 20-second science popularization short video, the corresponding CURL code is as follows:
 
 ```bash
-curl --request POST 'https://api.acedata.cloud/maestro/videos' \
-  --header 'Authorization: Bearer YOUR_API_TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "prompt": "Create a concise product launch video for first-time customers. Show the camera body and close with a clear call to action.",
-    "file_urls": [
-      "https://example.com/product.jpg",
-      "https://example.com/logo.png"
-    ],
-    "langs": ["en", "de"],
-    "aspect": "16:9",
-    "duration": 45,
-    "quality": "pro",
-    "scenario": "narrated",
-    "style": "editorial",
-    "voice": "documentary-male"
-  }'
+curl -X POST 'https://api.acedata.cloud/maestro/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "Explain what a vector database is in 20 seconds, suitable for a zero-based audience, and end with a memorable point",
+  "langs": ["zh-cn", "en"],
+  "aspect": "9:16",
+  "duration": 20
+}'
 ```
 
-Python example:
-
+The corresponding Python code is as follows:
 ```python
-import os
-
 import requests
 
-response = requests.post(
-    "https://api.acedata.cloud/maestro/videos",
-    headers={
-        "Authorization": f"Bearer {os.environ['ACEDATACLOUD_API_TOKEN']}",
-        "Content-Type": "application/json",
-    },
-    json={
-        "prompt": "Create a concise product launch video for first-time customers.",
-        "file_urls": ["https://example.com/product.jpg"],
-        "langs": ["en", "de"],
-        "aspect": "16:9",
-        "duration": 45,
-        "quality": "pro",
-        "scenario": "narrated",
-        "style": "editorial",
-    },
-    timeout=30,
-)
-response.raise_for_status()
-print(response.json())
+url = "https://api.acedata.cloud/maestro/videos"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "prompt": "Explain what a vector database is in 20 seconds, suitable for a zero-based audience, and end with a memorable point",
+    "langs": ["zh-cn", "en"],
+    "aspect": "9:16",
+    "duration": 20
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
 ```
 
-Accepted response shape:
+Clicking run, you can find that you will immediately get a result, as follows:
 
 ```json
 {
   "success": true,
-  "task_id": "f57e99c4-f60f-4373-a155-17742ce2357d",
+  "task_id": "f57e99c4f60f4373a15517742ce2357d",
   "trace_id": "70e1cb12-c619-4292-a416-90191205996b"
 }
 ```
 
-- `task_id`: UUID used with `POST /maestro/tasks`.
-- `trace_id`: request trace identifier for diagnostics and support.
+The fields in the returned result are described as follows:
 
-An accepted task is not a completed video. Poll the returned task ID before presenting an output URL.
+- `success`: Whether the task was successfully submitted.
+- `task_id`: The ID of this video generation task, which will be used to poll the results via the [Maestro Task Query API](development_maestro_tasks.md).
+- `trace_id`: The tracking ID of this request, which can be provided to technical support for troubleshooting.
 
-## Reference Media
+Since video production takes a long time, the interface **immediately returns `task_id`** and does not wait for the video rendering to complete. Next, you need to use `task_id` to poll the results, see the "Get Results" section for details.
 
-`file_urls` accepts public image, video, and audio URLs. Typical uses include product photos, logos, portrait references, source footage, and reference audio. Local paths are not accessible to the service; upload local files to public storage first.
+## Specify Video Type and Style (scenario / style)
 
-## Multilingual Production
+If `scenario` is not provided, AI will automatically determine it (equivalent to `auto`); if you want to pin the video to a certain type, you can explicitly pass it. For example, to create a **vertical short drama**, you can specify the following content:
 
-Pass several language codes in `langs`:
+- `scenario`: Video type, set to `drama` (a short drama with characters + dialogue).
+- `style`: Visual style, set to `cinematic` (film quality).
 
-```json
-{
-  "prompt": "Explain the three main benefits of our customer-support product.",
+The sample CURL code is as follows:
+
+```bash
+curl -X POST 'https://api.acedata.cloud/maestro/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "Two co-renting roommates fall out and reconcile over a cat, three acts of reversal, ending warmly",
+  "scenario": "drama",
+  "style": "cinematic",
+  "aspect": "9:16",
+  "duration": 40
+}'
+```
+
+Common combinations:
+
+- Narrated short video: `scenario: "narrated"`, supported by Lite / Standard / Pro.
+- Automatic subtitles: `scenario: "captions"`, requires `file_urls` to pass the source video, supported by Lite / Standard / Pro.
+- Digital human / voiceover: `scenario: "avatar"`, requires `file_urls` to pass a portrait, supported by Standard / Pro.
+- Short drama: `scenario: "drama"` (characters + dialogue), supported only by Pro.
+- `style` is a visual style preset (such as `modern` / `neon` / `luxury`), which does not change the type but only affects the visual experience.
+- `voice` is used to specify the tone of the narration (such as `warm-female` / `deep-male`), independent of language and applicable across languages.
+
+The returned result is the same as "Basic Usage," also immediately returning `task_id`.
+
+## Multilingual Output
+
+By passing multiple languages in `langs`, you can produce multilingual versions at once. The first is the main language, and for each additional language, the **same set of visuals will be reused**, only additional voiceovers + rendering, so **each additional language only adds +6 points**. Example:
+
+```bash
+curl -X POST 'https://api.acedata.cloud/maestro/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "prompt": "Introduce our intelligent customer service product, highlighting 3 core selling points",
   "langs": ["zh-cn", "en", "ja"],
   "aspect": "16:9",
   "duration": 30
-}
+}'
 ```
 
-Successful output is represented by delivered items in `response.data.variants`. Inspect the actual variants instead of assuming every requested language was produced.
+After the task is completed, each language will correspond to a `variant` in the result (see [Maestro Task Query API](development_maestro_tasks.md)).
 
-## Remix, Edit, or Extend
+## Iterate on Existing Videos (remix / edit / extend)
+
+By passing `action` and the previous task's `ref_task_id`, you can make differential modifications based on the original project (such as "change the title of Act 2," "change the voiceover," "darken the overall tone"). Small changes are quick, while large changes will require a redo:
 
 ```bash
-curl --request POST 'https://api.acedata.cloud/maestro/videos' \
-  --header 'Authorization: Bearer YOUR_API_TOKEN' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "action": "edit",
-    "ref_task_id": "f57e99c4-f60f-4373-a155-17742ce2357d",
-    "prompt": "Keep the structure and visuals. Tighten the opening and use a warmer narrator."
-  }'
+curl -X POST 'https://api.acedata.cloud/maestro/videos' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "remix",
+  "ref_task_id": "f57e99c4f60f4373a15517742ce2357d",
+  "prompt": "Change the opening title to something more impactful, and darken the overall color scheme"
+}'
 ```
 
-The response contains a new `task_id`. Retrieve that new task for the revised output; the source task remains unchanged.
+- `remix`: Reinterpret the original video structure (retain the theme, adjust the presentation).
+- `edit`: Make fine-tuning to specific parts (such as changing titles, changing voiceovers, color adjustments).
+- `extend`: Expand content based on the original video.
+
+The returned result is also an immediate return of a new `task_id`, which you can use to poll for the final product after iteration.
+
+## Get Results
+
+Since video production takes a long time, this interface immediately returns `task_id` after submission, and you need to use it to poll results via the [Maestro Task Query API](development_maestro_tasks.md):
+
+```bash
+curl -X POST 'https://api.acedata.cloud/maestro/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "id": "f57e99c4f60f4373a15517742ce2357d"
+}'
+```
+
+When the task is completed, it will return the final product information (each language corresponds to a `variant`). The `status` will go through `pending → planning → producing → succeeded` (or `failed`), **polling is free and does not consume points**. For the complete response format and historical list query, please refer to the [Maestro Task Query API Integration Guide](development_maestro_tasks.md).
 
 ## Billing
 
-Maestro settles a successful job from the delivered integer-second duration: `duration × SKU rate × scenario multiplier + language surcharge`. There is no 30-second minimum. Avatar uses 1.15×, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
+**Billing is based on the actual completed product after the task is finished, and failed tasks are not charged.** Billing is based on the actual delivered product duration and the number of languages, and the billed duration will not exceed the requested duration. If a certain language ultimately does not produce a result, the +6 surcharge for that language will not be charged. Submitting a task itself is not charged separately, and `/maestro/tasks` polling is free.
 
-## Errors
+The points for a single completed product are calculated as follows:
 
-Field validation is performed by the Maestro service. A missing `prompt`, an invalid `action`, a `remix`/`edit`/`extend` without `ref_task_id`, a non-list `file_urls`, or an invalid `quality` or `voice` returns HTTP 400 with a plain `detail` message:
-
-```json
-{
-  "detail": "missing field: prompt"
-}
 ```
+Points = Duration in seconds × SKU price per second × Scenario multiplier + 6 × max(Number of languages - 1, 0)
+```
+| SKU        |    Price per second |  Maximum duration | Output                | Scenarios and Actions                                |
+| ---------- | ------: | ----: | ----------------- | ------------------------------------ |
+| `lite`     | 0.20 points |  30 seconds | 720p / 24fps      | auto, narrated, captions; generate, edit |
+| `standard` | 0.60 points | 120 seconds | 1080p / 30fps     | add avatar; add remix                   |
+| `pro`      | 1.20 points | 300 seconds | 1080p / 30fps high bitrate | add drama; add extend                   |
 
-Gateway-level rejections (authentication, balance, rate limiting, infrastructure) use the standard envelope instead:
+Scene multipliers: `drama` 1.35× / `avatar` 1.15× / others 1×.
+
+| Example                  |  Points |
+| ------------------- | --: |
+| Lite 30 seconds           |   6 |
+| Standard 30 seconds       |  18 |
+| Standard 60 seconds       |  36 |
+| Standard 120 seconds      |  72 |
+| Pro 30 seconds            |  36 |
+| Pro 300 seconds           | 360 |
+| For each additional actual delivery language          |  +6 |
+| `/maestro/tasks` polling |  Free |
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 invalid_request`: Bad request, possibly due to a missing `prompt` or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `403 forbidden`: Forbidden, insufficient balance or access.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
 
 ```json
 {
+  "success": false,
   "error": {
-    "code": "bad_request",
-    "message": "Request validation failed"
+    "code": "api_error",
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
 ```
 
-Relevant gateway codes include `bad_request`, `no_token`, `invalid_token`, `token_expired`, `token_mismatched`, `used_up`, `forbidden`, `too_many_requests`, `api_error`, and `timeout`. Use the HTTP status and `trace_id` when handling or reporting failures.
+## Conclusion
 
-## Next Step
+Through this document, you have learned how to use the Maestro video generation API: with just a natural language `prompt`, you can automatically complete scripts, materials, voiceovers, music, editing, subtitles, and rendering, and support specifying video types, styles, tones, multilingual output, and iterating on existing videos. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
 
-Use the [Maestro Tasks API guide](maestro_tasks_api_integration_guide.md) to retrieve progress and finished variants.
+## Related Interfaces
+
+- [Maestro Task Query API Integration Instructions](development_maestro_tasks.md): Use `POST /maestro/videos` to return the `task_id` to query task status and results, or pull the history task list (polling is free).

@@ -26,6 +26,9 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `claude/` | [ClaudeAPI](https://github.com/AceDataCloud/ClaudeAPI) | Claude chat completions API docs |
 | `gemini/` | [GeminiAPI](https://github.com/AceDataCloud/GeminiAPI) | Gemini chat completions API docs |
 | `fish/` | [FishAPI](https://github.com/AceDataCloud/FishAPI) | Fish Audio TTS and voice cloning API docs |
+| `hcaptcha/` | [HCaptchaAPI](https://github.com/AceDataCloud/HCaptchaAPI) | hCaptcha recognition and token API docs |
+| `identity/` | [IdentityAPI](https://github.com/AceDataCloud/IdentityAPI) | Identity verification API docs |
+| `image2text/` | [Image2TextAPI](https://github.com/AceDataCloud/Image2TextAPI) | Image CAPTCHA recognition API docs |
 | `face/` | [FaceAPI](https://github.com/AceDataCloud/FaceAPI) | Face transformation API docs |
 | `shorturl/` | [ShortURLAPI](https://github.com/AceDataCloud/ShortURLAPI) | Short URL API docs |
 | `webextrator/` | [WebExtratorAPI](https://github.com/AceDataCloud/WebExtratorAPI) | Web extraction and rendering API docs |
