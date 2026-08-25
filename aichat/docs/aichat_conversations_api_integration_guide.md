@@ -1,22 +1,58 @@
-# AI Chat Conversations API Integration Guide
+# AI Chat API Integration Instructions
 
-The AI Chat Conversations API provided by Ace Data Cloud simplifies integration compared to raw chat completion APIs (such as OpenAI's Chat Completions API). You do not need to manage the `messages` array or handle token-limit issues yourself — the API handles context internally. It also supports multi-turn stateful conversations, conversation querying, and modification, making integration straightforward.
+We know that integrating some Q&A APIs on the market is relatively not so easy, such as OpenAI's Chat Completions API, which has a `messages` field. To complete a continuous conversation, we need to pass all the historical context, while also needing to handle the issue of token limits being exceeded.
+
+The AI Q&A API provided by AceDataCloud has been optimized for the above situation. While ensuring that the Q&A effect remains unchanged, it encapsulates the implementation of continuous conversations, so there is no need to worry about passing messages during integration, nor about the issue of token limits being exceeded (which is handled automatically within the API). It also provides functions for querying and modifying conversations, greatly simplifying the overall integration.
+
+This document will introduce the integration instructions for the AI Q&A API.
 
 ## Application Process
 
-To use the API, visit the [AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) page and click the "Acquire" button.
+To use the AI Q&A API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not yet logged in or registered, you will be redirected to the login page. After logging in, you will be returned to this page automatically.
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in. After completing this, you will be automatically returned to the current page.
 
-First-time applicants receive a free usage quota.
+**One API Token can call all services on the platform, without needing to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [AI Q&A API →](https://platform.acedata.cloud/documents/aichat-conversations)
 
 ## Basic Usage
 
-The simplest usage is to send a question and receive an answer. You only need to provide a `question` field and specify the `model`.
+First, understand the basic usage, which is to input a question and receive an answer. You only need to simply pass a `question` field and specify the corresponding model.
 
-For example, asking "What's your name?":
+For example, asking: “What's your name?”, we can then fill in the corresponding content on the interface, as shown in the figure:
+
+![](https://cdn.acedata.cloud/xqxda4.png)
+
+Here we can see that we have set the Request Headers, including:
+
+- `accept`: the format of the response result you want to receive, here filled in as `application/json`, which is JSON format.
+- `authorization`: the key to call the API, which can be directly selected after application.
+
+Additionally, we set the Request Body, including:
+
+- `model`: the choice of model, such as the mainstream GPT 3.5, GPT 4, etc.
+- `question`: the question to be asked, which can be any plain text.
+
+After selection, we can see that the corresponding code is also generated on the right side, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/dvkps6.png" width="500" className="m-auto" /></p>
+
+Clicking the "Try" button allows for testing, as shown in the figure above, where we received the following result:
+
+```json
+{
+  "answer": "I am an AI language model developed by OpenAI and I don't have a personal name. However, you can call me GPT or simply Chatbot. How can I assist you today?"
+}
+```
+
+As we can see, the returned result contains an `answer` field, which is the answer to the question. We can input any question and receive any answer.
+
+If you do not need any support for multi-turn conversations, this API can greatly facilitate your integration.
+
+Additionally, if you want to generate the corresponding integration code, you can directly copy the generated code, for example, the CURL code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
@@ -24,12 +60,12 @@ curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-  "model": "gpt-4o",
-  "question": "What'\''s your name?"
+  "model": "gpt-3.5",
+  "question": "What's your name?"
 }'
 ```
 
-Python equivalent:
+The Python integration code is as follows:
 
 ```python
 import requests
@@ -43,7 +79,7 @@ headers = {
 }
 
 payload = {
-    "model": "gpt-4o",
+    "model": "gpt-3.5",
     "question": "What's your name?"
 }
 
@@ -51,45 +87,17 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-The response looks like:
-
-```json
-{
-  "answer": "I am an AI language model developed by OpenAI and I don't have a personal name. However, you can call me GPT or simply Chatbot. How can I assist you today?"
-}
-```
-
-The `answer` field contains the model's reply.
-
-### Request Headers
-
-| Header | Description |
-| --- | --- |
-| `accept` | Response format: `application/json` (default) or `application/x-ndjson` for streaming |
-| `authorization` | Bearer token obtained from your Ace Data Cloud account |
-
-### Request Body
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `model` | string | ✅ | The model to use (see supported models below) |
-| `question` | string | ✅ | The prompt or question to answer |
-| `id` | string | ❌ | Conversation ID for multi-turn conversations |
-| `stateful` | boolean | ❌ | Enable stateful (multi-turn) conversation mode |
-| `preset` | string | ❌ | System-level preset (equivalent to `system_prompt`) |
-| `references` | array of strings | ❌ | Image URLs for vision/image-recognition requests |
-
-### Supported Models
-
-The following models are supported as values for the `model` field:
-
-`gpt-5.5`, `gpt-5.5-pro`, `gpt-5.4`, `gpt-5.4-pro`, `gpt-5.2`, `gpt-5.1`, `gpt-5.1-all`, `gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-all`, `gpt-4`, `gpt-4-all`, `gpt-4-turbo`, `gpt-4-turbo-preview`, `gpt-4-vision-preview`, `gpt-4.1`, `gpt-4.1-2025-04-14`, `gpt-4.1-mini`, `gpt-4.1-mini-2025-04-14`, `gpt-4.1-nano`, `gpt-4.1-nano-2025-04-14`, `gpt-4.5-preview`, `gpt-4.5-preview-2025-02-27`, `gpt-4o`, `gpt-4o-2024-05-13`, `gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`, `gpt-4o-all`, `gpt-4o-image`, `gpt-4o-mini`, `gpt-4o-mini-2024-07-18`, `gpt-4o-mini-search-preview`, `gpt-4o-mini-search-preview-2025-03-11`, `gpt-4o-search-preview`, `gpt-4o-search-preview-2025-03-11`, `o1`, `o1-2024-12-17`, `o1-all`, `o1-mini`, `o1-mini-2024-09-12`, `o1-mini-all`, `o1-preview`, `o1-preview-2024-09-12`, `o1-preview-all`, `o1-pro`, `o1-pro-2025-03-19`, `o1-pro-all`, `o3`, `o3-2025-04-16`, `o3-all`, `o3-mini`, `o3-mini-2025-01-31`, `o3-mini-2025-01-31-high`, `o3-mini-2025-01-31-low`, `o3-mini-2025-01-31-medium`, `o3-mini-all`, `o3-mini-high`, `o3-mini-high-all`, `o3-mini-low`, `o3-mini-medium`, `o3-pro`, `o3-pro-2025-06-10`, `o4-mini`, `o4-mini-2025-04-16`, `o4-mini-all`, `o4-mini-high-all`, `deepseek-r1`, `deepseek-r1-0528`, `deepseek-v3`, `deepseek-v3-250324`, `deepseek-v4-pro`, `deepseek-v4-flash`, `grok-3`, `glm-5.1`, `glm-4.7`, `glm-4.6`, `glm-3-turbo`
-
 ## Multi-Turn Conversations
 
-To enable multi-turn (stateful) conversations, pass the `stateful: true` parameter. The API will return an `id` field representing the conversation ID. Pass that `id` in all subsequent requests to continue the conversation.
+If you want to integrate multi-turn conversation functionality, you need to pass an additional parameter `stateful`, with its value set to `true`. Each subsequent request must carry this parameter. After passing the `stateful` parameter, the API will additionally return an `id` parameter, representing the current conversation ID. Subsequently, we only need to pass this ID as a parameter to easily achieve multi-turn conversations.
 
-**First request:**
+Now let's demonstrate the specific operation.
+
+In the first request, set the `stateful` parameter to `true`, and normally pass the `model` and `question` parameters, as shown in the figure:
+
+![](https://cdn.acedata.cloud/fn4bi9.png)
+
+The corresponding code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
@@ -97,13 +105,13 @@ curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-  "model": "gpt-4o",
-  "question": "What'\''s your name?",
+  "model": "gpt-3.5",
+  "question": "What's your name?",
   "stateful": true
 }'
 ```
 
-Response:
+You can get the following response:
 
 ```json
 {
@@ -112,7 +120,11 @@ Response:
 }
 ```
 
-**Second request** (pass the `id` from the previous response):
+In the second request, pass the `id` field returned from the first request as a parameter, while still setting the `stateful` parameter to `true`, asking "What I asked you just now?", as shown in the figure:
+
+![](https://cdn.acedata.cloud/46a6kd.png)
+
+The corresponding code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
@@ -120,30 +132,37 @@ curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-  "model": "gpt-4o",
+  "model": "gpt-3.5",
   "stateful": true,
   "id": "7cdb293b-2267-4979-a1ec-48d9ad149916",
-  "question": "What did I ask you just now?"
+  "question": "What I asked you just now?"
 }'
 ```
 
-Response:
+The result is as follows:
 
 ```json
 {
-  "answer": "You asked me what my name is. As an AI language model, I do not possess a personal identity, so I don't have a specific name. However, you can refer to me as OpenAI or ChatGPT. Is there anything else I can help you with?",
+  "answer": "You asked me what my name is. As an AI language model, I do not possess a personal identity, so I don't have a specific name. However, you can refer to me as OpenAI or ChatGPT, the names used for this AI model. Is there anything else I can help you with?",
   "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"
 }
 ```
 
-The API automatically maintains context across turns.
+As we can see, it can answer corresponding questions based on the context.
 
-## Streaming Responses
+## Streaming Response
 
-The API supports streaming responses, which is useful for web applications that want a word-by-word display effect. To enable streaming, set the `accept` header to `application/x-ndjson`.
+This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
 
-**Python example:**
+If you want to return responses in a streaming manner, you can change the `accept` parameter in the request header to `application/x-ndjson`.
 
+Modify as shown in the figure, but the calling code needs to have corresponding changes to support streaming responses.
+
+![](https://cdn.acedata.cloud/axt1aa.png)
+
+After changing `accept` to `application/x-ndjson`, the API will return the corresponding JSON data line by line. At the code level, we need to make corresponding modifications to obtain the results line by line.
+
+Python sample calling code:
 ```python
 import requests
 
@@ -156,7 +175,7 @@ headers = {
 }
 
 payload = {
-    "model": "gpt-4o",
+    "model": "gpt-3.5",
     "stateful": True,
     "id": "7cdb293b-2267-4979-a1ec-48d9ad149916",
     "question": "Hello"
@@ -167,20 +186,23 @@ for line in response.iter_lines():
     print(line.decode())
 ```
 
-Each streamed line is a JSON object:
+The output is as follows:
 
 ```json
 {"answer": "Hello", "delta_answer": "Hello", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
 {"answer": "Hello!", "delta_answer": "!", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
 {"answer": "Hello! How", "delta_answer": " How", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
 {"answer": "Hello! How can", "delta_answer": " can", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
+{"answer": "Hello! How can I", "delta_answer": " I", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
+{"answer": "Hello! How can I assist", "delta_answer": " assist", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
+{"answer": "Hello! How can I assist you", "delta_answer": " you", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
+{"answer": "Hello! How can I assist you today", "delta_answer": " today", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
 {"answer": "Hello! How can I assist you today?", "delta_answer": "?", "id": "7cdb293b-2267-4979-a1ec-48d9ad149916"}
 ```
 
-- `answer`: The full answer accumulated so far.
-- `delta_answer`: The newly added token(s) in this chunk.
+As can be seen, the `answer` in the response is the latest answer content, while `delta_answer` is the newly added answer content, which you can use to integrate into your system.
 
-**Node.js example:**
+JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
 ```javascript
 const axios = require("axios");
@@ -193,7 +215,7 @@ const headers = {
 };
 const body = {
   question: "Hello",
-  model: "gpt-4o",
+  model: "gpt-3.5",
   stateful: true,
 };
 
@@ -210,13 +232,13 @@ axios
   });
 ```
 
-**Java example:**
+Java sample code:
 
 ```java
 String url = "https://api.acedata.cloud/aichat/conversations";
 OkHttpClient client = new OkHttpClient();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\"question\": \"Hello\", \"stateful\": true, \"model\": \"gpt-4o\"}");
+RequestBody body = RequestBody.create(mediaType, "{\"question\": \"Hello\", \"stateful\": true, \"model\": \"gpt-3.5\"}");
 Request request = new Request.Builder()
         .url(url)
         .post(body)
@@ -245,9 +267,17 @@ client.newCall(request).enqueue(new Callback() {
 });
 ```
 
+Other languages can be rewritten separately, the principle is the same.
+
 ## Model Preset
 
-The `preset` field sets a system-level prompt for the model (equivalent to `system_prompt` in OpenAI's API). For example, to make the model act as a professional artist:
+We know that OpenAI related APIs have a corresponding concept of `system_prompt`, which is to set a preset for the entire model, such as what its name is, etc. This AI Q&A API also exposes this parameter, called `preset`, which allows us to add presets to the model. Let's experience it with an example:
+
+Here we additionally add the `preset` field, with the content being `You are a professional artist`, as shown in the figure:
+
+![](https://cdn.acedata.cloud/ird6i9.png)
+
+The corresponding code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
@@ -255,24 +285,34 @@ curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-  "model": "gpt-4o",
+  "model": "gpt-3.5",
   "stateful": true,
   "question": "What can you help me?",
   "preset": "You are a professional artist"
 }'
 ```
 
-Response:
+The running result is as follows:
 
-```json
+```python
 {
-  "answer": "As a professional artist, I can offer a range of services and assistance depending on your specific needs. Here are a few ways I can help you:\n\n1. Custom Artwork: If you have a specific vision or idea, I can create custom artwork for you.\n2. Commissioned Pieces: I can create commissioned art pieces tailored to your preferences.\n3. Art Consultation: I can provide professional advice on art selection and display."
+  "answer": "As a professional artist, I can offer a range of services and assistance depending on your specific needs. Here are a few ways I can help you:\n\n1. Custom Artwork: If you have a specific vision or idea, I can create custom artwork for you. This can include paintings, drawings, digital art, or any other medium you prefer.\n\n2. Commissioned Pieces: If you have a specific subject or concept in mind, I can create commissioned art pieces tailored to your preferences. This could be for personal enjoyment or as a unique gift for someone special.\n\n3. Art Consultation: If you need guidance on art selection, interior design, or how to showcase and display art in your space, I can provide professional advice to help enhance your aesthetic sense and create a cohesive look."
 }
 ```
 
+As we can see, we told GPT that it is a robot, and then asked it what it could do for us, and it could play the role of a robot to answer questions.
+
 ## Image Recognition
 
-Vision-capable models can analyze images passed via the `references` field. Provide image URLs in the array, and select a vision-capable model such as `gpt-4-vision-preview` or `gpt-4o`.
+This AI also supports adding attachments for image recognition, by passing the corresponding image link through `references`. For example, I have an image of an apple, as shown in the figure:
+
+![](https://cdn.acedata.cloud/ht05g0.png)
+
+The link to this image is [https://cdn.acedata.cloud/ht05g0.png](https://cdn.acedata.cloud/ht05g0.png), we can directly pass it as the `references` parameter. It is also important to note that the model must be selected to support visual recognition, and currently, the supported model is `gpt-4-vision`, so the input is as follows:
+
+![](https://cdn.acedata.cloud/cstrbq.png)
+
+The corresponding code is as follows:
 
 ```shell
 curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
@@ -280,13 +320,13 @@ curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
 -H 'authorization: Bearer {token}' \
 -H 'content-type: application/json' \
 -d '{
-  "model": "gpt-4o",
-  "question": "How many apples are in the picture?",
+  "model": "gpt-4-vision",
+  "question": "How many apples in the picture?",
   "references": ["https://cdn.acedata.cloud/ht05g0.png"]
 }'
 ```
 
-Response:
+The running result is as follows:
 
 ```json
 {
@@ -294,19 +334,34 @@ Response:
 }
 ```
 
-## Response Schema
+As we can see, we successfully obtained the corresponding answer for the image.
 
-### Success (200)
+## Online Q&A
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | string | The model's reply to the question |
-| `id` | string | Conversation ID (returned when `stateful` is `true`) |
+This API also supports online models, including GPT-3.5 and GPT-4, both of which can support a process of automatically searching the internet and summarizing. We can choose the model as `gpt-3.5-browsing` to experience it, as shown in the figure:
 
-### Error (400 / 401 / 429 / 500)
+![](https://cdn.acedata.cloud/x5i8np.png)
 
-| Field | Type | Description |
-| --- | --- | --- |
-| `error.code` | string | Error code (e.g. `token_mismatched`, `invalid_token`, `too_many_requests`, `api_error`) |
-| `error.message` | string | Human-readable error description |
-| `trace_id` | string | Trace ID for debugging |
+The code is as follows:
+```shell
+curl -X POST 'https://api.acedata.cloud/aichat/conversations' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "model": "gpt-3.5-browsing",
+  "question": "What's the weather of New York today?"
+}'
+```
+
+The result is as follows:
+
+```json
+{
+  "answer": "The weather in New York today is as follows:\n- Current Temperature: 16°C (60°F)\n- High: 16°C (60°F)\n- Low: 10°C (50°F)\n- Humidity: 47%\n- UV Index: 6 of 11\n- Sunrise: 5:42 am\n- Sunset: 8:02 pm\n\nIt's overcast with a chance of occasional showers overnight, and the chance of rain is 50%.\nFor more details, you can visit [The Weather Channel](https://weather.com/weather/tenday/l/96f2f84af9a5f5d452eb0574d4e4d8a840c71b05e22264ebdc0056433a642c84).\n\nIs there anything else you'd like to know?"
+}
+```
+
+It can be seen that it automatically searched the The Weather Channel website and obtained information from it, then further returned real-time results.
+
+> If you have higher requirements for the quality of the model's answers, you can change the model to `gpt-4-browsing`, and the answer quality will be better.
