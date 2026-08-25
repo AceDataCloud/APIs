@@ -1,6 +1,6 @@
-# Qwen Image 任务 API 集成指南
+# Qwen Image Task API Integration Guide
 
-使用 `POST https://api.acedata.cloud/qwen-image/tasks` 查询异步图片生成任务。该查询接口免费。
+Use `POST https://api.acedata.cloud/qwen-image/tasks` to query asynchronous image generation tasks. This query interface is free.
 
 ```bash
 curl -X POST 'https://api.acedata.cloud/qwen-image/tasks' \
@@ -9,4 +9,4 @@ curl -X POST 'https://api.acedata.cloud/qwen-image/tasks' \
   -d '{"action":"retrieve","id":"TASK_ID"}'
 ```
 
-批量查询使用 `action=retrieve_batch` 和 `ids` 数组。任务成功后，`response.data` 中包含生成图片的永久地址及实际 usage。
+For batch queries, use `action=retrieve_batch` and the `ids` array. After the task is successful, `response.data` contains the permanent addresses of the generated images and the actual usage.

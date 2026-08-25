@@ -1,24 +1,24 @@
-# Qwen Image 图片 API 集成指南
+# Qwen Image API Integration Guide
 
-`POST https://api.acedata.cloud/qwen-image/images` 支持 `qwen-image-3.0` 与 `qwen-image-3.0-pro` 的文生图和 1–3 张参考图编辑。
+`POST https://api.acedata.cloud/qwen-image/images` supports `qwen-image-3.0` and `qwen-image-3.0-pro` for text-to-image generation and editing of 1–3 reference images.
 
-## 文生图
+## Text-to-Image
 
 ```bash
 curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: application/json' \
-  -d '{"model":"qwen-image-3.0","prompt":"一张极简科技海报","size":"1024*1024","n":1}'
+  -d '{"model":"qwen-image-3.0","prompt":"A minimalist technology poster","size":"1024*1024","n":1}'
 ```
 
-## 图像编辑
+## Image Editing
 
-在相同请求中增加 `image_urls`，支持 1–3 张公网图片：
+Add `image_urls` in the same request, supporting 1–3 public images:
 
 ```json
 {
   "model": "qwen-image-3.0-pro",
-  "prompt": "保留主体，改成暖色电影海报风格",
+  "prompt": "Keep the subject, change to a warm **###** poster style",
   "image_urls": ["https://cdn.acedata.cloud/r9vsv9.png"],
   "size": "2048*2048",
   "prompt_extend": true,
@@ -29,10 +29,10 @@ curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
 }
 ```
 
-`prompt_extend_mode=agent` 仅支持文生图。`n` 范围为 1–6。输出尺寸总像素需在 512×512 至 2048×2048 之间，宽高比为 1:8 至 8:1。
+`prompt_extend_mode=agent` only supports text-to-image. The range of `n` is 1–6. The total pixel output size must be between 512×512 and 2048×2048, with an aspect ratio of 1:8 to 8:1.
 
-## 异步调用
+## Asynchronous Call
 
-设置 `async: true` 可立即获得 `task_id`；也可传入 `callback_url` 接收最终结果。完成后通过 `/qwen-image/tasks` 查询。
+Setting `async: true` allows you to immediately obtain `task_id`; you can also pass in `callback_url` to receive the final result. After completion, query through `/qwen-image/tasks`.
 
-成功响应包含 `data[].image_url`、`usage`、`task_id` 和 `trace_id`。图片链接会尽可能转存到 Ace Data Cloud CDN。真实响应样例将在生产 E2E 验证后补充。
+A successful response includes `data[].image_url`, `usage`, `task_id`, and `trace_id`. Image links will be stored in the Ace Data Cloud CDN whenever possible. Real response examples will be supplemented after production E2E verification.
