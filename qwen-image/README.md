@@ -15,10 +15,18 @@ Service page: [Qwen Image 3](https://platform.acedata.cloud/service/qwen-image)
 
 ```bash
 curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
-  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Authorization: ******' \
   -H 'Content-Type: application/json' \
-  -d '{"model":"qwen-image-3.0","prompt":"A clean bilingual product poster","size":"1024*1024","n":1}'
+  -d '{
+    "model": "qwen-image-3.0",
+    "prompt": "A simple red circle centered on a clean white background.",
+    "size": "1024*1024",
+    "n": 1,
+    "watermark": false
+  }'
 ```
+
+Responses include permanent CDN image URLs plus `usage`, `cost`, `task_id`, and `trace_id`. Set `async: true` to create a task and query it through `/qwen-image/tasks`.
 
 ## APIs
 
