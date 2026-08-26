@@ -38,10 +38,12 @@ curl --request POST "https://api.acedata.cloud/wan/videos" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "action": "text2video",
-    "model": "wan2.6-t2v",
-    "prompt": "Astronauts shuttle from space to volcano",
-    "duration": 5
+    "model": "wan3.0-video",
+    "prompt": "A paper boat drifting through a neon city at night",
+    "duration": 5,
+    "resolution": "720P",
+    "ratio": "16:9",
+    "async": true
   }'
 ```
 

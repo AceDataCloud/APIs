@@ -1,0 +1,124 @@
+# CAPTCHA Task Query API (Asynchronous Polling) Integration Instructions
+
+This document introduces the CAPTCHA asynchronous task query interface `POST /captcha/tasks`. When you call any CAPTCHA interface (token series or recognition series) and pass `async: true`, the interface will immediately return a `task_id`, which can then be used to poll this interface for the final result. It is suitable for scenarios such as multi-solver rotation: after submitting the task, you immediately get the `task_id`, schedule other solvers, and come back later to fetch the result.
+
+> 📘 Complete interactive documentation (including online debugging): [CAPTCHA Task Query API →](https://platform.acedata.cloud/documents/captcha-tasks)
+
+## Application Process
+
+To use this interface, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup. **One API Token can call all services on the platform, no need to apply separately for each service.**
+
+## Basic Usage
+
+### Step 1: Create a Task Asynchronously
+
+Pass `async: true` in the request body of any CAPTCHA interface, and the interface will immediately return a `task_id` (HTTP 201) without blocking:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/captcha/token/recaptcha2' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "website_key": "6Le-wvkSAAAAAPBMRTvw0Q4Muexq9bi0DJwx_mJ-",
+  "website_url": "https://www.google.com/recaptcha/api2/demo",
+  "async": true
+}'
+```
+
+```json
+{
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "trace_id": "2efa9340-b21b-4e26-9e14-4aac95f343ab"
+}
+```
+
+### Step 2: Poll Results Using task_id
+
+Use the `task_id` returned from the previous step to poll `POST /captcha/tasks` (recommended every 3-5 seconds):
+
+```shell
+curl -X POST 'https://api.acedata.cloud/captcha/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002"
+}'
+```
+
+During processing, it will return `status: processing`:
+
+```json
+{
+  "success": true,
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "status": "processing"
+}
+```
+
+When processing is complete, it will return `status: ready` along with the corresponding result field—the field structure is completely consistent with synchronous mode:
+
+- **Token Series** (hcaptcha, recaptcha2, recaptcha3) returns `token`:
+
+```json
+{
+  "success": true,
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "status": "ready",
+  "started_at": 1784885653.0,
+  "finished_at": 1784885665.4,
+  "elapsed": 12.4,
+  "token": "03AFcWeA5kjJyDQ9S1a9UYimR6nuxnpEnAs5x2Pixao0dXZhMB......"
+}
+```
+
+- **Recognition Classification** (recognition/recaptcha2, recognition/hcaptcha) returns `solution`; **recognition/image2text** returns `text`.
+
+`/captcha/tasks` is universal for all CAPTCHA interfaces (token and recognition series), and you can poll with the same `task_id`.
+
+If the task cannot be completed within the valid time, it will return HTTP 504. This status is a terminal state, and the client should stop polling; repeated queries for the same `task_id` will consistently return the same failure result:
+
+```json
+{
+  "detail": "The captcha task timed out.",
+  "code": "timeout",
+  "success": false,
+  "task_id": "61138bb6-19aa-11ec-a9c8-0242ac110002",
+  "status": "failed",
+  "started_at": 1784885653.0,
+  "finished_at": 1784885765.4,
+  "elapsed": 112.4
+}
+```
+
+Both `status: ready` and the HTTP 504 terminal state response will include timing fields.
+
+- `started_at`, the time the task started processing, Unix timestamp (seconds, float).
+- `finished_at`, the time the task produced results, Unix timestamp (seconds, float). This field will not be returned while still processing.
+- `elapsed`, the time taken to process the task, in seconds (float, rounded to 3 decimal places). This field will not be returned while still processing.
+
+## Billing Instructions
+
+In asynchronous mode, creating tasks and polling "processing" do not incur charges; **only when successfully obtaining results is there a charge (consistent with synchronous mode pricing).** HTTP 504 terminal failures also do not incur charges. Therefore, canceling unfinished tasks during rotation or tasks ultimately failing will not incur costs.
+
+## Error Handling
+
+When calling this interface, if an error occurs, it will return the corresponding error code and message. For example:
+
+- `400 invalid_request`: The request is missing the `task_id` parameter.
+- `401 invalid_token`: Unauthorized, the authorization token is invalid or missing.
+- `404 not_found`: The `task_id` does not exist or does not belong to the current account.
+- `504 timeout`: The task has been terminated and did not produce results; please stop polling this `task_id`. This failure will not incur charges.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "not_found",
+    "message": "task not found"
+  }
+}
+```
