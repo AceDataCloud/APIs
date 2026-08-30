@@ -1,4 +1,7 @@
-# Suno Style API Integration Instructions
+---
+title: "Suno Style API Integration Instructions"
+description: "Suno Music Generation integration guide - Ace Data Cloud"
+---
 
 SUNO allows us to input prompts to generate enhanced song styles. This document explains the integration method for the related API.
 

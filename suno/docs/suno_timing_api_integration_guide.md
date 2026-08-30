@@ -1,4 +1,7 @@
-# Suno Timing API Integration Guide
+---
+title: "Suno Timing API Integration Guide"
+description: "Suno Music Generation integration guide - Ace Data Cloud"
+---
 
 SUNO allows us to perform secondary creation on generated music, obtaining the lyrics and audio timeline. This document explains how to integrate with the related API.
 

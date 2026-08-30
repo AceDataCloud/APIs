@@ -1,4 +1,7 @@
-# Suno MIDI Generation API Integration Instructions
+---
+title: "Suno MIDI Generation API Integration Instructions"
+description: "Suno Music Generation integration guide - Ace Data Cloud"
+---
 
 Suno allows us to create secondary works from generated music and obtain the MIDI of the music. This document explains the integration methods for the related API.
 
