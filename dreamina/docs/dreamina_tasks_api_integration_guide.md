@@ -1,0 +1,156 @@
+# Dreamina Task Retrieve Integration Guide
+
+## Dreamina Tasks API Integration and Usage
+
+The Dreamina Tasks API is used to query the execution results of digital human video tasks created by the [Dreamina Video Generation API](https://platform.acedata.cloud/documents/dreamina-videos-integration). When you pass `callback_url` or `async: true` in the generation interface, the interface will immediately return a `task_id`, which you can use to poll the task status and final video address through this interface by `task_id` or `trace_id`. **This interface is free.**
+
+## Application Process
+
+To use the Dreamina series of APIs, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future use.
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+## Request Parameters
+
+**Request Headers**
+
+- `accept`: Specifies to receive the response result in JSON format, fill in `application/json`.
+- `authorization`: The key to call the API, formatted as `Bearer {token}`.
+- `content-type`: Fill in `application/json`.
+
+**Request Body**
+
+| Parameter   | Type      | Required | Description                                         |
+| ----------- | --------- | -------- | --------------------------------------------------- |
+| `action`    | string    | No       | Operation type, `retrieve` (default, query single) or `retrieve_batch` (batch query) |
+| `id`        | string    | No       | The task ID to query (the `task_id` returned when creating the video) |
+| `trace_id`  | string    | No       | The trace ID of the task to query, can be used instead of `id` |
+| `ids`       | string[]  | No       | List of task IDs for batch query, used with `retrieve_batch` |
+
+> When querying a single task, at least one of `id` or `trace_id` must be provided.
+
+## Query a Single Task
+
+### CURL
+
+```bash
+curl -X POST 'https://api.acedata.cloud/dreamina/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "retrieve",
+  "id": "362b4fed-67bd-11f1-ad11-00163e57d510"
+}'
+```
+
+### Python
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/dreamina/tasks"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "action": "retrieve",
+    "id": "362b4fed-67bd-11f1-ad11-00163e57d510"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+### Response Example
+
+Upon successful request, the API returns the details of the task. `request` is the request body when creating the task, and `response` is the response body after the task is completed, where `data.video_url` is the generated digital human video address:
+
+```json
+{
+  "id": "362b4fed-67bd-11f1-ad11-00163e57d510",
+  "started_at": 1769262721.823,
+  "finished_at": 1769262769.123,
+  "elapsed": 47.3,
+  "trace_id": "a9063166-26ed-4451-85b5-54e896817c69",
+  "request": {
+    "model": "omnihuman-1.5",
+    "image_url": "https://cdn.acedata.cloud/4hfydw.jpg",
+    "audio_url": "https://cdn.acedata.cloud/6f7d62b18b.wav"
+  },
+  "response": {
+    "success": true,
+    "data": {
+      "task_id": "362b4fed67bd11f1ad1100163e57d510",
+      "status": "done",
+      "video_url": "https://cdn.acedata.cloud/634d760216.mp4",
+      "image_url": "https://cdn.acedata.cloud/4hfydw.jpg",
+      "audio_url": "https://cdn.acedata.cloud/6f7d62b18b.wav"
+    }
+  }
+}
+```
+
+Field Descriptions:
+
+- `id`: The unique ID of this video generation task.
+- `trace_id`: The trace ID of this request, used for troubleshooting.
+- `request`: The request content submitted when creating the task.
+- `response`: The response content returned after the task is completed. When `response.data.status` is `done`, `response.data.video_url` is the final video address.
+- `created_at`: The task creation time, Unix timestamp (seconds, float).
+- `started_at`: The task execution start time, Unix timestamp (seconds, float).
+- `finished_at`: The task completion time, Unix timestamp (seconds, float). This field is not returned if the task is not completed.
+- `elapsed`: The time taken for task execution, in seconds (float, rounded to 3 decimal places). This field is not returned if the task is not completed.
+
+> If the task is not yet completed, the `status` may not be `done`; if the task does not exist or has not generated results, the interface will return an empty object `{}`, please try again later.
+
+## Batch Query Tasks
+
+Set `action` to `retrieve_batch` and pass in the `ids` array:
+
+```bash
+curl -X POST 'https://api.acedata.cloud/dreamina/tasks' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+  "action": "retrieve_batch",
+  "ids": [
+    "362b4fed-67bd-11f1-ad11-00163e57d510",
+    "0c0b4d3a-2f1e-4a6b-9c2d-2b3c4d5e6f70"
+  ]
+}'
+```
+
+In the returned result, `items` is the array of batch task details (each element has the same format as a single query result), and `count` is the number of tasks returned this time.
+
+## Error Handling
+
+When encountering errors while calling the API, the corresponding error code and message will be returned:
+
+- `400 bad_request`: Request error, may be missing necessary parameters such as `id` / `trace_id`.
+- `401 invalid_token`: Unauthorized, the authorization token is invalid or missing.
+- `429 too_many_requests`: Too many requests, exceeding the rate limit.
+- `500 api_error`: Internal server error.
+
+### Error Response Example
+
+```json
+{
+  "error": {
+    "code": "bad_request",
+    "message": "id or trace_id is required to retrieve a task"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to use the Dreamina Tasks API to query the results of single or batch digital human video tasks. Combined with the `callback_url` / `async` asynchronous mode of the generation interface, stable polling can be achieved. If you have any questions, please feel free to contact our technical support team.

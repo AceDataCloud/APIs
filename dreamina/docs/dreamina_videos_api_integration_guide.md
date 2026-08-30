@@ -1,0 +1,82 @@
+# Dreamina Video Generation Integration Guide
+
+## Dreamina Video Generation API
+
+`POST https://api.acedata.cloud/dreamina/videos`
+
+Audio-driven talking-photo digital human generation (OmniHuman 1.5). Provide a portrait image and a driving audio to generate a video where the person speaks with synchronized lips.
+
+### Headers
+
+| Header | Value |
+|---|---|
+| `Authorization` | `Bearer <your API key>` |
+| `Content-Type` | `application/json` |
+
+### Request parameters
+
+| Parameter | Type | Required | Description |
+|---|---|---|---|
+| `model` | string | no | Model, default `omnihuman-1.5` |
+| `image_url` | string | yes | Public URL of the portrait image; a clear frontal face works best |
+| `audio_url` | string | yes | Public URL of the driving audio (mp3/wav), keep under 60s |
+| `prompt` | string | no | Steers expression, emotion, stability and style |
+| `mask_url` | string[] | no | Subject mask URLs to drive a specific person in a multi-person image |
+| `callback_url` | string | no | If set, returns a `task_id` immediately and calls back when ready |
+| `async` | boolean | no | When `true`, returns a `task_id` immediately without `callback_url`; poll the result via `/dreamina/tasks` |
+
+### Input guidance
+
+- **Image**: a clear, well-lit, front-facing portrait works best. The face should be unobstructed and reasonably large in frame.
+- **Audio**: mp3/wav, publicly reachable. Keep it under 60s (≤30s recommended for 1080p, ≤60s for 720p).
+- Both `image_url` and `audio_url` must be reachable from the public internet.
+
+### Response example
+
+```json
+{
+  "success": true,
+  "task_id": "0c0b4d3a-2f1e-4a6b-9c2d-2b3c4d5e6f70",
+  "trace_id": "a9063166-26ed-4451-85b5-54e896817c69",
+  "data": {
+    "task_id": "362b4fed67bd11f1ad1100163e57d510",
+    "status": "done",
+    "video_url": "https://cdn.acedata.cloud/634d760216.mp4",
+    "image_url": "https://cdn.acedata.cloud/4hfydw.jpg",
+    "audio_url": "https://cdn.acedata.cloud/6f7d62b18b.wav"
+  }
+}
+```
+
+### Async & retrieval
+
+The endpoint runs synchronously by default and returns the finished video. For long jobs, use either async mode:
+
+- Pass `callback_url` — the endpoint returns a `task_id` immediately and POSTs the result to your URL when ready.
+- Pass `async: true` — the endpoint returns a `task_id` immediately; poll the result via `POST /dreamina/tasks` (free) by `task_id` or `trace_id`.
+
+See the [Dreamina Tasks API](https://platform.acedata.cloud/documents/dreamina-tasks-integration) for the polling contract.
+
+### Error handling
+
+| Status | Code | Meaning |
+|---|---|---|
+| 400 | `bad_request` | Missing or invalid parameters (e.g. `image_url` / `audio_url`) |
+| 401 | `authorization_missing` / `invalid_token` | Missing or invalid authorization token |
+| 403 | `forbidden` | Insufficient balance / quota, or upstream not authorized |
+| 429 | `too_many_requests` | Rate limit exceeded |
+| 500 | `api_error` | Internal server error |
+
+```json
+{
+  "error": {
+    "code": "bad_request",
+    "message": "image_url is required (a public URL of a portrait image)"
+  },
+  "trace_id": "2efa9340-b21b-4e26-9e14-4aac95f343ab"
+}
+```
+
+### Pricing
+
+Billed by generated video duration — about ¥1/second at the largest package (e.g. a 10s video ≈ ¥10).

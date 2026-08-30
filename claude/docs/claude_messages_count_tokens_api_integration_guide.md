@@ -6,17 +6,21 @@ This document mainly describes the usage process of the Claude Messages Count To
 
 ## Application Process
 
-To use the Claude Messages Count Tokens API, you can first go to the [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) page and click the "Acquire" button to obtain the credentials needed for the request.
+To use the Claude Messages Count Tokens API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for backup.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-This API is completely free to use and does not consume any quota.
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and will automatically return to the current page after completion.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Claude Messages Count Tokens API →](https://platform.acedata.cloud/documents/claude-messages-count-tokens)
 
 ## Basic Usage
 
-The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
+The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the Anthropic official API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`; older releases such as `claude-sonnet-4-5-20250929` remain available.
+- `model`: Select the Claude model to use, such as `claude-opus-4-8`, `claude-sonnet-4-6`, etc.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:
@@ -24,6 +28,10 @@ Common optional parameters:
 - `system`: System prompt, which will be included in the token count.
 - `tools`: Tool definitions, which will be included in the token count.
 - `thinking`: Extended thinking configuration.
+- `tool_choice`: Tool selection configuration.
+- `cache_control`: Top-level or content block-level cache control configuration.
+
+The usage of `messages`, `system`, tool call playback, URL images, and document/PDF content blocks follows the same stable request structure as the Messages API.
 
 ### cURL Example
 
@@ -33,7 +41,7 @@ curl -X POST 'https://api.acedata.cloud/v1/messages/count_tokens' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "claude-sonnet-4-5-20250929",
+    "model": "claude-opus-4-8",
     "messages": [
       {
         "role": "user",
@@ -55,7 +63,7 @@ headers = {
     "content-type": "application/json",
 }
 payload = {
-    "model": "claude-sonnet-4-5-20250929",
+    "model": "claude-opus-4-8",
     "messages": [
         {
             "role": "user",
@@ -77,7 +85,7 @@ Example of return result:
 
 ### Using Anthropic SDK
 
-The Claude Messages Count Tokens API is fully compatible with the official Anthropic SDK and can be called directly using the `anthropic` library.
+The Claude Messages Count Tokens API accepts the stable request structure of the Anthropic SDK and can be called using the `anthropic` library. The current return value is calculated by Ace Data Cloud's local estimator and is not the precise result of Anthropic's official tokenizer; the actual token numbers for multimodal, tools, and different Claude models may vary.
 
 ```python
 from anthropic import Anthropic
@@ -88,7 +96,7 @@ client = Anthropic(
 )
 
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     messages=[
         {
             "role": "user",
@@ -105,7 +113,7 @@ If your request includes tool definitions, these tools will also be included in 
 
 ```python
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     messages=[
         {
             "role": "user",
@@ -138,7 +146,7 @@ System prompts will also be included in the token count:
 
 ```python
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     system="You are a helpful assistant that speaks Chinese.",
     messages=[
         {
@@ -153,6 +161,6 @@ print(result.input_tokens)
 ## Notes
 
 - This API only calculates the input token count and does not produce any model output.
-- The token count result can be used to estimate the cost of calling the Claude Messages API.
-- The tokenization method may vary for different models, so please use the same model parameter as in the actual call.
+- The token count result can be used for a rough estimate of input size and should not be used as a basis for precise billing, context window access, or model tokenizer comparisons.
+- The current estimator does not accurately calculate visual/document tokens for images and PDFs, nor can it reflect the differences in official tokenizers of different Claude models.
 - This API is completely free and does not consume any quota.
