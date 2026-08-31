@@ -90,13 +90,20 @@ Streaming responses return content incrementally in SSE (Server-Sent Events) for
 ## Supported Models
 
 | Model Name | Description |
-|---------|------|
-| `gemini-2.5-flash` | Excellent cost-performance ratio, suitable for high-volume low-latency tasks |
-| `gemini-2.5-pro` | Most advanced model, deep reasoning for complex tasks |
-| `gemini-2.5-flash-lite` | Fastest and most economical multi-modal model |
-| `gemini-3-flash-preview` | Frontier-level performance with lower cost |
-| `gemini-3.1-pro` | Advanced intelligence with powerful agent and coding capabilities |
-| `gemini-2.0-flash` | Second-generation main model |
+| --- | --- |
+| `gemini-3.7-flash` | Latest Flash model, suitable for high-quality general-purpose tasks |
+| `gemini-3.6-flash` | Stable high-performance multimodal model |
+| `gemini-3.5-flash` | High-throughput multimodal model |
+| `gemini-3.5-flash-lite` | Low-latency, low-cost model |
+| `gemini-3.1-flash-lite` | Stable lightweight model |
+| `gemini-3.1-pro-preview` | Complex reasoning and coding model |
+| `gemini-3-flash-preview` | Gemini 3 Flash preview model |
+| `gemini-2.5-pro` | Gemini 2.5 Pro model |
+| `gemini-2.5-flash` | Gemini 2.5 Flash model |
+| `gemini-2.5-flash-lite` | Gemini 2.5 Flash-Lite model |
+| `gemini-3.1-flash-image` | Image-generation model |
+| `gemini-3-pro-image` | High-quality image-generation model |
+| `gemini-2.5-flash-image` | Gemini 2.5 image-generation model |
 
 ## Advanced Features
 

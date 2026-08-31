@@ -296,7 +296,7 @@ Request example:
 
 ```json
 {
-  "model": "gemini-3.0-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -323,7 +323,7 @@ Example result:
 ```json
 {
     "id": "chatcmpl-20251206001815715692730UVZe38kB",
-    "model": "gemini-3.0-pro",
+    "model": "gemini-3.1-pro-preview",
     "object": "chat.completion",
     "created": 1764951548,
     "choices": [
@@ -364,7 +364,7 @@ Of course, you can also submit a video link, with the specific input as follows:
 
 ```json
 {
-  "model": "gemini-3.0-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -390,7 +390,7 @@ Example result:
 ```json
 {
     "id": "chatcmpl-20251206002711949677736JC9yL8AE",
-    "model": "gemini-3.0-pro",
+    "model": "gemini-3.1-pro-preview",
     "object": "chat.completion",
     "created": 1764952060,
     "choices": [
@@ -431,13 +431,13 @@ It can be seen from the above that the Gemini 3.0 model supports multimodal unde
 
 ## Gemini-3.1 Multimodal Model
 
-Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
+`gemini-3.1-pro-preview` is the current official model ID for Gemini 3.1 Pro. It supports multimodal inputs such as text, images, and videos, and is suitable for complex reasoning, coding, and understanding tasks.
 
 Request example:
 
 ```json
 {
-  "model": "gemini-3.1-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -463,7 +463,7 @@ Gemini 3.1 Pro also supports video understanding:
 
 ```json
 {
-  "model": "gemini-3.1-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
