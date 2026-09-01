@@ -1,6 +1,6 @@
 # Gemini API
 
-Google Gemini generative services, including chat completions and native generate content API.
+Google Gemini generative services, including chat completions, native generate content, video generation, and task query APIs.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
@@ -49,3 +49,6 @@ Explore the supported endpoints and integration guides for Gemini.
 | ---- | ---- | ------------ |
 | [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) | `/gemini/chat/completions` | [Gemini Chat Completion API Integration Guide](docs/gemini_chat_completions_api_integration_guide.md) |
 | [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:generateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Stream Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) | `/v1beta/models/{model}:streamGenerateContent` | [Gemini Generate Content API Integration Guide](docs/gemini_generate_content_api_integration_guide.md) |
+| [Gemini Videos Generation API](https://platform.acedata.cloud/documents/gemini-videos) | `/gemini/videos` | [Gemini Videos Generation API Integration Guide](docs/gemini_videos_generation_api_integration_guide.md) |
+| [Gemini Tasks API](https://platform.acedata.cloud/documents/gemini-tasks) | `/gemini/tasks` | [Gemini Tasks API Integration Guide](docs/gemini_tasks_api_integration_guide.md) |
