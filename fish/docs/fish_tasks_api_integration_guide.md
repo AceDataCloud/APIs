@@ -20,7 +20,7 @@ The Fish Tasks API queries the result of a task created by the Fish TTS API. Cre
 
 - `id`: a single task ID returned by the Fish TTS API.
 - `ids`: optional array to query multiple tasks at once.
-- `action`: optional operation type.
+- `action`: optional operation type: `retrieve` (default) for one task or `retrieve_batch` for multiple tasks.
 
 ### Code Example
 
@@ -53,14 +53,24 @@ print(response.json())
 
 ```json
 {
-  "data": {
-    "task_id": "8a72ff98-4023-4006-a9f7-4cb2fa04f978",
-    "status": "succeeded",
-    "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "id": "8a72ff98-4023-4006-a9f7-4cb2fa04f978",
+  "type": "audios",
+  "created_at": 1758440856.34,
+  "started_at": 1758440856.4,
+  "finished_at": 1758440869.2,
+  "elapsed": 12.8,
+  "trace_id": "e2d308bc-4df8-4c69-9369-a60f3c54f2b3",
+  "request": {
+    "text": "The quick brown fox jumps over the lazy dog.",
+    "format": "mp3"
   },
-  "success": true
+  "response": {
+    "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  }
 }
 ```
+
+For a batch request, use `{"ids": ["task-id-1", "task-id-2"], "action": "retrieve_batch"}`. The response is `{"items": [/* task records */], "count": 2}`.
 
 ## Support
 
