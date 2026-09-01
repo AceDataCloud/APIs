@@ -28,9 +28,8 @@ Keep tokens outside source control and never expose them in client-side code or 
 | `file_urls` | string[] | no | - | Public image, video, or audio references |
 | `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
 | `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
-| `duration` | integer | no | `30` | Target length in seconds, from 5 through 300; the selected SKU sets the maximum |
-| `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |
-| `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama`; availability depends on SKU |
+| `duration` | integer | no | `30` | Target length in seconds, from 5 through 300 |
+| `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama` |
 | `style` | string | no | `auto` | Named preset or freeform visual-style hint |
 | `voice` | string | no | `auto` | Voice preset or a 32-hex-character Fish reference ID |
 | `callback_url` | string | no | - | Public webhook URL called when the task reaches a terminal state |
@@ -44,20 +43,17 @@ Keep tokens outside source control and never expose them in client-side code or 
 
 Every non-`generate` action requires `ref_task_id` and creates a new task ID.
 
-### Production SKUs
+### Production contract
 
-| SKU | Price | Duration | Output | Languages | Scenarios and actions |
-|---|---:|---:|---|---:|---|
-| `lite` | 0.20 Credits/second | 5–30s | 720p/24fps | 1 | auto/narrated/captions; generate/edit |
-| `standard` | 0.60 Credits/second | 5–120s | 1080p/30fps | 2 | adds avatar and remix |
-| `pro` | 1.20 Credits/second | 5–300s | 1080p/30fps | 4 | adds drama and extend |
+Every request uses the complete production capability: all actions and scenarios, 5–300 seconds, up to 4 languages, and 1080p/30fps output. The base price is 0.60 Credits per delivered second. Avatar uses a 1.15× multiplier, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks and polling are free.
+
 
 ### Scenarios
 
 - `auto`: let the director choose from the brief.
 - `narrated`: multi-scene explainer, documentary, brand, history, or product video.
 - `captions`: add kinetic captions to a source video supplied in `file_urls`.
-- `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`; Standard or Pro is required.
+- `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`.
 - `drama`: character and dialogue-driven short drama; Pro is required.
 
 ### Styles and Voices
@@ -87,7 +83,6 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
     "langs": ["en", "de"],
     "aspect": "16:9",
     "duration": 45,
-    "quality": "pro",
     "scenario": "narrated",
     "style": "editorial",
     "voice": "documentary-male"
@@ -113,8 +108,7 @@ response = requests.post(
         "langs": ["en", "de"],
         "aspect": "16:9",
         "duration": 45,
-        "quality": "pro",
-        "scenario": "narrated",
+            "scenario": "narrated",
         "style": "editorial",
     },
     timeout=30,
@@ -174,11 +168,11 @@ The response contains a new `task_id`. Retrieve that new task for the revised ou
 
 ## Billing
 
-Maestro settles a successful job from the delivered integer-second duration: `duration × SKU rate × scenario multiplier + language surcharge`. There is no 30-second minimum. Avatar uses 1.15×, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
+Maestro settles a successful job from the delivered integer-second duration: `duration × 0.60 × scenario multiplier + language surcharge`. There is no 30-second minimum. Avatar uses 1.15×, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
 
 ## Errors
 
-Field validation is performed by the Maestro service. A missing `prompt`, an invalid `action`, a `remix`/`edit`/`extend` without `ref_task_id`, a non-list `file_urls`, or an invalid `quality` or `voice` returns HTTP 400 with a plain `detail` message:
+Field validation is performed by the Maestro service. A missing `prompt`, an invalid `action`, a `remix`/`edit`/`extend` without `ref_task_id`, a non-list `file_urls`, or an invalid `voice` returns HTTP 400 with a plain `detail` message:
 
 ```json
 {

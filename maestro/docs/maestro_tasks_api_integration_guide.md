@@ -122,7 +122,7 @@ A succeeded task may retain the name of its last execution stage in `progress.st
 
 ## Polling
 
-Poll at a reasonable cadence and use exponential backoff with jitter. Continue through nonterminal statuses, then stop at `succeeded` or `failed`. Do not create a duplicate video merely because production is taking time.
+Poll at a reasonable cadence and use exponential backoff with jitter. Continue through nonterminal statuses, then stop at `succeeded` or `failed`. Do not create a duplicate video merely because production is taking time. Production may use the full three-hour execution window plus queue time.
 
 Example polling logic with application-supplied timing:
 

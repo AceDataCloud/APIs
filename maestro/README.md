@@ -30,7 +30,6 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
     "langs": ["en"],
     "aspect": "16:9",
     "duration": 30,
-    "quality": "standard",
     "scenario": "narrated"
   }'
 ```
