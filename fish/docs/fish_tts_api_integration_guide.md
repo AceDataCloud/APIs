@@ -15,21 +15,21 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
 
 - `text`: the text to synthesize into speech (required).
-- `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `reference_id`: the voice model ID (or IDs) to use for the timbre. Create one with the Fish Model Create API.
+- `references`: inline reference samples.
+- `format`: output audio format: `mp3`, `wav`, or `pcm`. Both `wav` and `pcm` return a WAV container.
 - `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
+- `mp3_bitrate`: MP3 bitrate: `64`, `128`, or `192`.
 - `latency`: latency mode (`normal` / `balanced`).
 - `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
 - `normalize`: whether to normalize text before synthesis.
 - `prosody`: prosody controls.
-- `references`: inline reference samples.
 - `callback_url`: an asynchronous callback URL.
-- `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
+- `async`: optional asynchronous mode.
 
 > The TTS engine is selected with the **`model` request header** — not a body field.
-> Supported values are `s1`, `s2-pro` (default) and `s2.1-pro`. `s2.1-pro` is the latest
+> Supported values are `s1`, `s2-pro` (default), and `s2.1-pro`. `s2.1-pro` is the latest
 > generation and `s2-pro` is the most expressive, while `s1` is steadier on long passages.
 > All three are priced the same.
 
@@ -50,11 +50,12 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 
 ```json
 {
-  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "audio_url": "https://platform2.cdn.acedata.cloud/fish/8a72ff98-4023-4006-a9f7-4cb2fa04f978.mp3"
 }
 ```
 
 Download the generated audio from the `audio_url` field.
+The response can also include `cost` with `amount`, `currency`, and `list_amount`.
 
 ## Workflows
 
@@ -73,6 +74,7 @@ First create a voice model with the Fish Model Create API (`POST /fish/model`) t
 
 - Pricing is based on the byte count of the generated audio.
 - Voice cloning requires a clear reference audio sample.
+- With `callback_url`, the immediate response contains `task_id` and `started_at`; the callback receives `task_id` and `audio_url`.
 
 ## Support
 

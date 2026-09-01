@@ -25,8 +25,8 @@ Keep tokens outside source control and never expose them in client-side code or 
 | `prompt` | string | yes | - | Natural-language brief covering the subject, audience, content, tone, and desired result |
 | `action` | string | no | `generate` | `generate`, `remix`, `edit`, or `extend` |
 | `ref_task_id` | string | conditional | - | Required when `action` is `remix`, `edit`, or `extend` |
-| `file_urls` | string[] | no | - | Public image, video, or audio references |
-| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
+| `file_urls` | string[] | no | - | Public image, video, or audio references (up to 20) |
+| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary (up to 4) |
 | `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
 | `duration` | integer | no | `30` | Target length in seconds, from 5 through 300; the selected SKU sets the maximum |
 | `quality` | string | no | `standard` | `lite`, `standard`, or `pro` |

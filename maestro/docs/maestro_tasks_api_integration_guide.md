@@ -23,6 +23,8 @@ Request body:
 | `id` | string | yes | `task_id` returned by `POST /maestro/videos` |
 | `action` | string | no | `retrieve`; this is the default when omitted |
 
+The OpenAPI schema specifies this single-task request. The service guide also supports the historical-list request described below (`retrieve_batch` without `id`).
+
 ```bash
 curl --request POST 'https://api.acedata.cloud/maestro/tasks' \
   --header 'Authorization: Bearer YOUR_API_TOKEN' \
@@ -63,6 +65,7 @@ The following is an illustrative shape. URLs and optional fields vary with the d
 ```json
 {
   "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
+  "type": "maestro",
   "trace_id": "70e1cb12-c619-4292-a416-90191205996b",
   "status": "succeeded",
   "progress": {
@@ -73,6 +76,8 @@ The following is an illustrative shape. URLs and optional fields vary with the d
     "render": null
   },
   "created_at": 1750000000,
+  "started_at": 1750000001,
+  "finished_at": 1750000312,
   "elapsed": 312,
   "request": {
     "prompt": "Create a beginner-friendly vector database video.",
@@ -110,6 +115,9 @@ The following is an illustrative shape. URLs and optional fields vary with the d
 Key fields:
 
 - `status`: authoritative lifecycle state. Terminal values are `succeeded` and `failed`.
+- `type`: task type.
+- `started_at`: Unix timestamp when production starts.
+- `finished_at`: Unix timestamp when production finishes; it is `null` until then.
 - `progress.percent`: normalized progress from 0 through 100.
 - `progress.stage`, `message`, `activity`, and `render`: latest available production telemetry. Optional values may be `null`.
 - `request`: normalized creation request stored with the task.
@@ -162,6 +170,7 @@ Choose these client-side timing values for your workload and current service beh
 ## List Recent Tasks
 
 Use `retrieve_batch` to list the authenticated user's tasks in reverse creation order.
+This historical-list request is documented by the service guide, although it is not represented by the OpenAPI request schema for this endpoint.
 
 | Field | Type | Required | Default | Description |
 |---|---|---:|---|---|
@@ -190,6 +199,8 @@ Illustrative response shape:
       "id": "f57e99c4-f60f-4373-a155-17742ce2357d",
       "status": "succeeded",
       "created_at": 1750000000,
+      "started_at": 1750000001,
+      "finished_at": 1750000312,
       "progress": {"percent": 100, "stage": "producing", "message": null},
       "request": {"prompt": "Create a product video.", "langs": ["en"]},
       "response": {"success": true, "data": {"variants": []}}
