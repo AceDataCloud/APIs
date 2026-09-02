@@ -38,6 +38,7 @@ The most basic usage is to input a `content` array containing a single text item
 - `generate_audio`: whether to generate audio. Supported by Seedance 1.5 Pro and 2.x; other models ignore it. Default `false`.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result to this URL when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id` (no `callback_url` required); poll the result with the Seedance Tasks API.
+- `omni_reference_task_type`: Seedance 2.5 only: `auto`, `reference`, `edit`, or `extend`.
 
 ### Request Example
 
@@ -110,7 +111,7 @@ Image roles:
 - `last_frame` — the image is used as the closing frame.
 - `reference_image` — the image is used as a style / subject / real-person reference.
 
-`first_frame` and `last_frame` may be combined in a single request, but `reference_image` is mutually exclusive with `first_frame` / `last_frame`.
+`first_frame` and `last_frame` may be combined in a single request. They cannot be combined with `reference_image`, `reference_video`, or `reference_audio`. To indicate a first or last frame in a multimodal reference, use `reference_image` and state it in the prompt; use `first_frame` / `last_frame` when the frames must be strictly locked.
 
 ### Real-Person / Character Reference (Seedance 2.0)
 
@@ -167,4 +168,4 @@ Each error response includes a `trace_id` to help with debugging and support.
 
 ## Seedance 2.5 controls
 
-Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1`. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.
+Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. Set `omni_reference_task_type` to `reference` when providing at least one `reference_image`, `reference_video`, or `reference_audio`. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1`. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.
