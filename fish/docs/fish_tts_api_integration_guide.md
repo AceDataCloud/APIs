@@ -16,9 +16,9 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 
 - `text`: the text to synthesize into speech (required).
 - `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `format`: output audio format, one of `mp3`, `wav`, or `pcm`.
 - `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
+- `mp3_bitrate`: MP3 encoding bitrate; one of `64`, `128`, or `192`.
 - `latency`: latency mode (`normal` / `balanced`).
 - `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.

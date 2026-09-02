@@ -1,0 +1,173 @@
+# Fish Model Get API Integration Instructions
+
+This interface is based on the [Fish Audio Official Model API](https://docs.fish.audio/resources/api-reference/model) and is used to **query the complete details of a single cloned voice by `_id`**. The address is `GET https://api.acedata.cloud/fish/model/{id}`.
+
+> For creating voices, please refer to the [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model); for paginated retrieval, please refer to the [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query).
+
+## Application Process
+
+To use the Fish Model API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and will return to the current page upon completion.
+
+**One API Token can call all services on the platform, no need to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Path Parameters
+
+| Parameter | Required | Description                                                                                                                                                                                                |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`      | Yes      | The voice's `_id` (32-character hexadecimal string). It can be obtained from the return when creating through [Fish Model Create](https://platform.acedata.cloud/documents/fish-model) or retrieved through [Fish Model Query](https://platform.acedata.cloud/documents/fish-model-query). |
+
+No request body, no query parameters.
+
+## Example: Retrieve complete details of a public Spanish voice
+
+```shell
+curl 'https://api.acedata.cloud/fish/model/8d2c17a9b26d4d83888ea67a1ee565b2' \
+  -H 'authorization: Bearer {token}'
+```
+
+Response (actual test, removed the signature query string from `samples[].audio` for readability):
+
+```json
+{
+  "_id": "8d2c17a9b26d4d83888ea67a1ee565b2",
+  "type": "tts",
+  "title": "Valentino Narración Biblica Fer",
+  "description": "A mature and authoritative male voice with a calm, spiritual tone. It is well-suited for religious narration, educational content, and professional storytelling in Spanish.",
+  "cover_image": "coverimage/8d2c17a9b26d4d83888ea67a1ee565b2",
+  "train_mode": "fast",
+  "state": "trained",
+  "tags": [
+    "male",
+    "old",
+    "narration",
+    "calm",
+    "serious",
+    "authoritative",
+    "professional",
+    "clear",
+    "Spanish"
+  ],
+  "samples": [
+    {
+      "title": "Default Sample",
+      "text": "Hermanos míos, recordemos las palabras del Señor en estos tiempos difíciles. Como dice la Escritura, la fe mueve montañas, y el amor de Dios nos guía en cada paso del camino. Mantengamos firme nuestra confianza en Su divina providencia.",
+      "task_id": "59ce7df6935c42249759327ddf70f37b",
+      "audio": "https://c97f3361a1c971323738e24f451a0225.r2.cloudflarestorage.com/fish-platform-data/task/59ce7df6935c42249759327ddf70f37b.mp3?X-Amz-...signed..."
+    }
+  ],
+  "created_at": "2025-03-13T08:11:10.326000Z",
+  "updated_at": "2026-05-03T09:01:41.437000Z",
+  "languages": [
+    "es"
+  ],
+  "visibility": "public",
+  "lock_visibility": false,
+  "dmca_taken_down": false,
+  "default_text": "Hermanos míos, recordemos las palabras del Señor...",
+  "quality": null,
+  "like_count": 4344,
+  "mark_count": 4409,
+  "shared_count": 590,
+  "task_count": 708461,
+  "unliked": false,
+  "liked": false,
+  "marked": false,
+  "author": {
+    "_id": "1b82fb6a329c4462b67aa9ee0a42046f",
+    "nickname": "Fernando Caicedo",
+    "avatar": "avatars/1b82fb6a329c4462b67aa9ee0a42046f.jpg"
+  }
+}
+```
+
+The obtained `_id` can be directly fed to the `reference_id` of [Fish TTS](https://platform.acedata.cloud/documents/fish-tts) to synthesize speech with the same voice:
+
+```shell
+curl -X POST 'https://api.acedata.cloud/fish/tts' \
+  -H 'authorization: Bearer {token}' \
+  -H 'content-type: application/json' \
+  -d '{
+    "text": "Hermanos míos, hoy es un buen día.",
+    "reference_id": "8d2c17a9b26d4d83888ea67a1ee565b2",
+    "format": "mp3"
+  }'
+```
+
+## Differences with List Interface
+
+| Field                                               | `GET /fish/model` (list) | `GET /fish/model/{id}` (details) |
+| -------------------------------------------------- | ------------------------- | --------------------------------- |
+| `samples[].audio`                                  | Short-term R2 cached URL  | Current signed R2 direct link (with query signature) |
+| `unliked` / `liked` / `marked` / `dmca_taken_down` | Also exists                | Also exists                       |
+| `default_text` / `lock_visibility`                 | Also exists                | Also exists                       |
+
+If you just want to listen, the `samples[].audio` in the list interface is sufficient; for a more stable download link, it is recommended to use this interface.
+
+## Response Fields (Excerpt)
+
+| Field            | Type     | Description                                          |
+| ---------------- | -------- | -------------------------------------------------- |
+| `_id`            | string   | Voice ID (used for `reference_id` in `/fish/tts`). |
+| `type`           | string   | Model type, usually `tts`.                         |
+| `title`          | string   | Voice name.                                       |
+| `description`    | string   | Long description.                                  |
+| `state`          | string   | Training status: `trained` means available, `training` means still training. |
+| `tags`           | string[] | Public library tags.                               |
+| `samples`        | object[] | Pre-set samples, containing `title`, `text`, `task_id`, `audio` direct link. |
+| `languages`      | string[] | Language codes the voice excels in.               |
+| `visibility`     | string   | `public` or `private`.                            |
+| `like_count`     | integer  | Number of likes in the public library.            |
+| `task_count`     | integer  | Historical synthesis count (can be used for popularity ranking reference). |
+| `author`         | object   | Upstream author information: `_id` / `nickname` / `avatar`. |
+| `created_at`     | string   | ISO 8601 creation time.                           |
+| `updated_at`     | string   | ISO 8601 last updated time.                       |
+
+## Billing Instructions
+
+This interface is free of charge—querying the details of a single voice by ID is a free operation. Creating voices ([Fish Model Create](https://platform.acedata.cloud/documents/fish-model)) is also free, and charges only occur when calling [Fish TTS](https://platform.acedata.cloud/documents/fish-tts) to synthesize speech based on usage.
+
+## Error Handling
+- `400 token_mismatched`: The `id` in the path is not in a valid format, or the upstream reports "Model not found".
+- `401 invalid_token`: The authentication token does not exist or is invalid.
+- `404 not_found`: The specified `_id` is not visible upstream on Fish (the tone has been deleted, is private, or belongs to another account).
+- `429 too_many_requests`: The account rate limit has been triggered.
+- `500 api_error`: Internal server error.
+
+When actually requesting a non-existent ID, the upstream will directly return `400 Model not found` (tested):
+
+```shell
+curl 'https://api.acedata.cloud/fish/model/test123' \
+  -H 'authorization: Bearer {token}'
+```
+
+Response:
+
+```json
+{
+  "status": 400,
+  "message": "Model not found"
+}
+```
+
+Example of an error response:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+When the tone `_id` is known, directly use this interface to obtain the complete ModelEntity. The most common usages are: (1) to preview `samples[].audio`, (2) to feed the `_id` to the `reference_id` of `/fish/tts` to complete synthesis. If only the title or tags are available, please first use [Fish Model Query](https://platform.acedata.cloud/documents/fish-model-query) to retrieve.

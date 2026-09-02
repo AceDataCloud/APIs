@@ -15,8 +15,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input a `content` array containing a single text item plus a `model`. The result is the generated video. The request body fields are described below:
 
 - `model`: the model used to generate the video. Available values:
-  - **Seedance 2.5**: `doubao-seedance-2-5-260628` (latest flagship, 4–30 seconds, edit/extend, pure-audio and multimodal reference).
-  - **Seedance 2.5**: `doubao-seedance-2-5-260628`, up to 1080p and 30 seconds, automatic duration, pure-audio reference, edit and extend.
+  - **Seedance 2.5**: `doubao-seedance-2-5-260628` (latest flagship, up to 1080p and 30 seconds, automatic duration, edit/extend, pure-audio and multimodal reference).
   - **Seedance 2.0 series**: `doubao-seedance-2-0-260128` (standard, up to 4k), `doubao-seedance-2-0-fast-260128` (fast), `doubao-seedance-2-0-mini-260615` (lightweight).
   - **Seedance 1.x**: `doubao-seedance-1-5-pro-251215`, `doubao-seedance-1-0-pro-250528`, `doubao-seedance-1-0-pro-fast-251015`, `doubao-seedance-1-0-lite-t2v-250428`, `doubao-seedance-1-0-lite-i2v-250428`.
 - `content`: the input array. Each item carries a `type` of `text`, `image_url`, `audio_url`, or `video_url`:
@@ -31,7 +30,7 @@ The most basic usage is to input a `content` array containing a single text item
   - Seedance 1.5 Pro: `4`–`12`, or `-1` for automatic duration.
   - Seedance 2.0 series: `4`–`15`, or `-1` for automatic duration.
   - Seedance 2.5: `4`–`30`, or `-1`; edit tasks require `-1`.
-- `frames`: frame count, `29`–`361` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
+- `frames`: frame count, `29`–`289` (must satisfy 25+4n). Use either `duration` or `frames`; if both are specified, `frames` takes precedence over `duration`.
 - `seed`: random seed, integer `-1`–`4294967295` (`-1` = random).
 - `camerafixed`: whether to fix the camera position, `true` / `false`.
 - `watermark`: whether to add a watermark, `true` / `false`.
@@ -167,4 +166,4 @@ Each error response includes a `trace_id` to help with debugging and support.
 
 ## Seedance 2.5 controls
 
-Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1`. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.
+Seedance 2.5 accepts up to 30 reference images, 10 videos, and 10 audios (50 media items total), including pure-audio reference. `omni_reference_task_type` accepts `auto`, `reference`, `edit`, or `extend`. First/last-frame, edit, and extend tasks require `ratio: "adaptive"`; edit also requires `duration: -1`. Use `output_format` (`mp4`/`mov`), `return_last_frame`, `priority` (0–9), a stable anonymous `safety_identifier`, and the optional web search tool `[{"type":"web_search"}]` as needed.

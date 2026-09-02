@@ -30,6 +30,8 @@ We will take a task ID returned by the Seedance Videos Generation API as an exam
 **Request Body** includes:
 
 - `id`: The task ID returned by the Seedance Videos Generation API.
+- `ids`: optional array to query multiple tasks at once.
+- `action`: optional operation type, `retrieve` (default) or `retrieve_batch`.
 
 ### Code Example
 

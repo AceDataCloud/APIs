@@ -1,0 +1,263 @@
+# Fish Model Query API Integration Instructions
+
+This interface is based on the [Fish Audio Official Model API](https://docs.fish.audio/resources/api-reference/model) and is used for **paged retrieval of the Fish public voice library or cloned voices under the current account**. The address is `GET https://api.acedata.cloud/fish/model`.
+
+> For creating voices, please refer to the [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model); for querying details of a single voice by `_id`, please refer to the [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get).
+
+## Application Process
+
+To use the Fish Model API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform, and there is no need to apply separately for each service.** The first application will grant a free quota for a free experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Fish Model API →](https://platform.acedata.cloud/services/fish)
+
+## Query Parameters
+
+| Parameter         | Type     | Default | Description                               |
+| ----------------- | -------- | ------- | ----------------------------------------- |
+| `page_size`       | integer  | 10      | Number of items per page.                |
+| `page_number`     | integer  | 1       | Page number starting from 1.             |
+| `title`           | string   | —       | Fuzzy search by title.                   |
+| `tag`             | string   | —       | Filter by a single tag.                  |
+| `self`            | boolean  | —       | When `true`, only return voices created by the current account, no additional conditions required. |
+| `author_id`       | string   | —       | Filter by upstream user `_id`.           |
+| `language`        | string   | —       | Filter by voice language, such as `en`, `zh`, `es`. |
+| `title_language`  | string   | —       | Filter by title language.                 |
+| `sort_by`         | string   | —       | Sorting field, consistent with upstream, such as `created_at`, `task_count`. |
+
+> Parameter naming is completely consistent with upstream `GET https://api.fish.audio/model`, see [Fish Official Documentation](https://docs.fish.audio/resources/api-reference/model).
+
+## Example 1: Default Pagination (by `page_size`)
+
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'authorization: Bearer {token}' \
+  --data-urlencode 'page_size=2'
+```
+
+Response (actual test, total in public library is about 1.82 million; some long fields are omitted for readability):
+
+```json
+{
+  "total": 1829200,
+  "items": [
+    {
+      "_id": "8d2c17a9b26d4d83888ea67a1ee565b2",
+      "type": "tts",
+      "title": "Valentino Narración Biblica Fer",
+      "description": "A mature and authoritative male voice with a calm, spiritual tone...",
+      "cover_image": "coverimage/8d2c17a9b26d4d83888ea67a1ee565b2",
+      "train_mode": "fast",
+      "state": "trained",
+      "tags": [
+        "male",
+        "old",
+        "narration",
+        "calm",
+        "Spanish"
+      ],
+      "samples": [
+        {
+          "title": "Default Sample",
+          "text": "Hermanos míos, recordemos las palabras del Señor...",
+          "task_id": "59ce7df6935c42249759327ddf70f37b",
+          "audio": "https://platform.r2.fish.audio/task/59ce7df6935c42249759327ddf70f37b.mp3"
+        }
+      ],
+      "languages": [
+        "es"
+      ],
+      "visibility": "public",
+      "like_count": 4344,
+      "task_count": 708461,
+      "author": {
+        "_id": "1b82fb6a329c4462b67aa9ee0a42046f",
+        "nickname": "Fernando Caicedo"
+      }
+    },
+    {
+      "_id": "90e65eaaf50e4470b8e6d43ee6afd7d5",
+      "type": "tts",
+      "title": "Super Smash Bros. 4/Ultimate Announcer",
+      "tags": [
+        "male",
+        "old",
+        "announcer",
+        "gaming",
+        "cinematic"
+      ],
+      "languages": [
+        "en"
+      ],
+      "visibility": "public"
+    }
+  ],
+  "has_more": null
+}
+```
+
+## Example 2: Fuzzy Search by Title (`title`)
+
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'authorization: Bearer {token}' \
+  --data-urlencode 'title=narration' \
+  --data-urlencode 'page_size=2'
+```
+
+Response (actual test):
+
+```json
+{
+  "total": 161,
+  "items": [
+    {
+      "_id": "fb8fe4a94658429d9be70efd4eec35a2",
+      "type": "tts",
+      "title": "Miles Morales ( Narration Paw )",
+      "tags": [
+        "male",
+        "middle-aged",
+        "entertainment",
+        "storytelling",
+        "Children's Content"
+      ],
+      "languages": [
+        "en"
+      ],
+      "visibility": "public",
+      "task_count": 770
+    },
+    {
+      "_id": "76b55591c758444cb95253708696dfad",
+      "type": "tts",
+      "title": "Joe NARRATION",
+      "tags": [
+        "male",
+        "middle-aged",
+        "narration",
+        "deep",
+        "raspy"
+      ],
+      "languages": [
+        "en"
+      ],
+      "visibility": "public"
+    }
+  ],
+  "has_more": null
+}
+```
+
+Note that `title` is a "global fuzzy match" and will hit all voices in the Fish public library (not just your own).
+
+## Example 3: List Only Voices Created by Yourself (`self=true`)
+
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'authorization: Bearer {token}' \
+  --data-urlencode 'self=true' \
+  --data-urlencode 'page_size=5'
+```
+
+Response (actual test, there is only 1 voice under the current account):
+
+```json
+{
+  "total": 1,
+  "items": [
+    {
+      "_id": "e5c6db52c3ed417f9cb2e5a33fb04667",
+      "type": "tts",
+      "title": "copilot-smoke-test",
+      "description": "smoke test from api.acedata.cloud",
+      "state": "trained",
+      "languages": [
+        "zh"
+      ],
+      "visibility": "public",
+      "samples": [
+        {
+          "title": "Default Sample",
+          "text": "师父，[语气坚定]我真的受够了这山上的清冷日子！...",
+          "task_id": "6a1bf398dfae49dca0e23159214342a0",
+          "audio": "https://platform.r2.fish.audio/task/6a1bf398dfae49dca0e23159214342a0.mp3"
+        }
+      ],
+      "created_at": "2026-05-10T03:52:55.601000Z",
+      "author": {
+        "_id": "780f2b2f862d41a08c0507bbbda77eb6",
+        "nickname": "Penny Conrad"
+      }
+    }
+  ],
+  "has_more": null
+}
+```
+
+`self=true` is equivalent to filtering with `author_id == current account upstream ID`, which is a common entry for "my own voice list".
+
+## Example 4: Filter by Language + Tag
+```shell
+curl -G 'https://api.acedata.cloud/fish/model' \
+  -H 'authorization: Bearer {token}' \
+  --data-urlencode 'language=en' \
+  --data-urlencode 'tag=narration' \
+  --data-urlencode 'page_size=5'
+```
+
+> The upstream will also return results for `tag` not in the label dictionary, but the matching is relatively loose; if the hit count is 0, it is recommended to use `title` for fuzzy matching.
+
+## Response Fields
+
+Each item in `items[]` is a complete ModelEntity object, commonly used fields:
+
+| Field          | Type     | Description                                          |
+| ------------- | -------- | -------------------------------------------------- |
+| `_id`         | string   | Voice ID, used as the value of `reference_id` in `/fish/tts`. |
+| `type`        | string   | Model type, usually `tts`.                         |
+| `title`       | string   | Voice name.                                        |
+| `description` | string   | Voice description.                                 |
+| `state`       | string   | Training status: `trained` means available.       |
+| `tags`        | string[] | Public library tags.                               |
+| `languages`   | string[] | Languages the voice is proficient in.             |
+| `visibility`  | string   | `public` or `private`.                            |
+| `samples`     | object[] | Pre-set samples (including `audio` direct link).  |
+| `like_count`  | integer  | Number of likes in the public library.            |
+| `task_count`  | integer  | Number of historical synthesis occurrences.        |
+| `author`      | object   | Upstream author information: `_id` / `nickname` / `avatar`. |
+| `total` (top level) | integer  | Total number of items that meet the criteria.     |
+| `has_more`    | boolean? | Upstream pagination indicator, may be `null`. It is recommended to calculate the total number of pages using `total / page_size`. |
+
+## Billing Explanation
+
+This interface does not incur charges—paging through the voice list is a free operation. Creating a voice ([Fish Model Create](https://platform.acedata.cloud/documents/fish-model)) is also free, and charges only occur when calling [Fish TTS](https://platform.acedata.cloud/documents/fish-tts) to synthesize speech based on usage.
+
+## Error Handling
+
+- `400 token_mismatched`: Missing or invalid request parameters.
+- `401 invalid_token`: Authentication token does not exist or is invalid.
+- `429 too_many_requests`: Account rate limit triggered.
+- `500 api_error`: Internal server error.
+
+Error response example:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+To select a voice from the Fish public library to feed to the `reference_id` of `/fish/tts`, first use this interface in conjunction with `title` / `tag` / `language` to search, locate the target `_id`, and then use [Fish Model Get](https://platform.acedata.cloud/documents/fish-model-get) to get samples for listening. To list voices you have created, simply pass `self=true`.

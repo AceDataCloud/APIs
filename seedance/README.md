@@ -54,8 +54,7 @@ curl --request POST "https://api.acedata.cloud/seedance/videos" \
 
 | Model | Generation | Notes |
 | ---- | ---- | ---- |
-| `doubao-seedance-2-5-260628` | 2.5 | Latest flagship, up to 30s, pure-audio/multimodal reference, edit/extend |
-| `doubao-seedance-2-5-260628` | 2.5 | Up to 1080p/30s, pure-audio reference, edit/extend |
+| `doubao-seedance-2-5-260628` | 2.5 | Latest flagship, up to 1080p/30s, pure-audio/multimodal reference, edit/extend |
 | `doubao-seedance-2-0-260128` | 2.0 | Highest resolution, multimodal reference, up to 4k |
 | `doubao-seedance-2-0-fast-260128` | 2.0 Fast | Faster 2.0, up to 720p |
 | `doubao-seedance-2-0-mini-260615` | 2.0 Mini | Lightweight / most cost-effective 2.0, up to 720p |
