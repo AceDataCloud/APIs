@@ -60,6 +60,7 @@ Additionally, we set the Request Body, including:
 - `continue_at`: the time in seconds to continue the existing audio. For example, 213.5 means continue to 3 minutes and 33.5 seconds.
 - `style_influence`: advanced parameter for `style_influence`.
 - `replace_section_end`: the final time for the replacement segment.
+- `replace_section_result_mode`: the replacement result mode. The default is `full_song`; use `candidates` to return the replacement section candidates without concatenating them into the original song.
 - `replace_section_start`: the starting time for the replacement segment.
 - `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
 - `weirdness`: advanced parameter for `weirdness`.
@@ -502,6 +503,8 @@ The generated result is similar to the above, completing the process of creating
 
 When a song is generated and you need to perform a separate operation to replace a section of the song, you can specify the following content for the replacement operation:
 
+By default, `replace_section` automatically concatenates the replacement output with the original song and returns complete-song results. Set `replace_section_result_mode` to `candidates` to return the two uncombined replacement section candidates instead; after choosing one, use [Get the Complete Song](#get-the-complete-song) to concatenate it with the original song.
+
 - action: The content is `replace_section`.
 - audio_id: The ID of the previously generated song.
 - model: The song generation model,
@@ -510,6 +513,7 @@ When a song is generated and you need to perform a separate operation to replace
 - style: The style of the song, optional.
 - replace_section_start: The start time of the lyrics corresponding to `lyric` on the timeline.
 - replace_section_end: The end time of the lyrics corresponding to `lyric` on the timeline.
+- replace_section_result_mode: The result mode. The default is `full_song`; `full_song` returns complete-song results, while `candidates` returns two replacement section candidates without concatenating them.
 
 For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0, then you can set the parameters as follows:
 
@@ -520,6 +524,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
   "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
   "replace_section_start": 28.94100580270793,
   "replace_section_end": 85.39410058027079,
+  "replace_section_result_mode": "full_song",
   "model": "chirp-v4",
   "audio_id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
   "custom": false,
@@ -527,7 +532,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
 }
 ```
 
-With other parameters unchanged, the returned result will be a song with the replaced section, which is the result of replacing a section of the originally generated song, as shown below:
+With `replace_section_result_mode` set to `full_song`, the returned data contains the complete-song result after automatic concatenation, as shown below:
 
 ```json
 {
