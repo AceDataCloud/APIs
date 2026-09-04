@@ -16,7 +16,7 @@ This API is completely free to use and does not consume any quota.
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5`; older releases such as `claude-sonnet-4-5-20250929` remain available.
+- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-sonnet-4-5-20250929` remain available.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:
@@ -33,7 +33,7 @@ curl -X POST 'https://api.acedata.cloud/v1/messages/count_tokens' \
   -H 'authorization: Bearer {token}' \
   -H 'content-type: application/json' \
   -d '{
-    "model": "claude-sonnet-4-5-20250929",
+    "model": "claude-fable-5-1",
     "messages": [
       {
         "role": "user",
@@ -55,7 +55,7 @@ headers = {
     "content-type": "application/json",
 }
 payload = {
-    "model": "claude-sonnet-4-5-20250929",
+    "model": "claude-fable-5-1",
     "messages": [
         {
             "role": "user",
