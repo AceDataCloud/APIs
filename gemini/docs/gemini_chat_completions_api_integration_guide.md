@@ -6,13 +6,15 @@ This document mainly describes the usage process of the Gemini Chat Completion A
 
 ## Application Process
 
-To use the Gemini Chat Completion API, you can first visit the [Gemini Chat Completion API](https://platform.acedata.cloud/documents/ae54bf9b-af41-4072-b969-3756b6d66834) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Gemini Chat Completion API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API token.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page and returned to the current page upon completion.
 
-During the first application, there will be a free quota provided, allowing you to use the API for free.
+**One API token can call all services on the platform without needing to apply separately for each service.** The first application grants a free trial quota; when it is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete Documentation: [Gemini Chat Completion API →](https://platform.acedata.cloud/documents/gemini-chat-completions)
 
 ## Basic Usage
 
@@ -20,13 +22,15 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/f6ksts.png" width="400" class="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of the questions we input. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the Gemini official model we choose to use. Here we mainly have 6 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/a3mdgy.png" width="400" class="m-auto" /></p>
 
 After the call, we find that the returned result is as follows:
+
+> **Tip**: The `gemini-3.x` Flash series uses reasoning tokens. Set `max_tokens` to at least 512 to avoid an empty response. The currently recommended Flash model is `gemini-3.6-flash`.
 
 ```json
 {
@@ -74,13 +78,34 @@ The returned result contains multiple fields, described as follows:
 - `id`, the ID generated for this conversation task, used to uniquely identify this conversation task.
 - `model`, the selected Gemini official model.
 - `choices`, the response information provided by Gemini for the question.
-- `usage`: statistics on the tokens for this Q&A.
+- `usage`: statistics on token usage for this Q&A.
 
 Among them, `choices` contains the response information from Gemini, and the `choices` inside it shows the specific information of Gemini's response, as can be seen in the figure.
 
 <p><img src="https://cdn.acedata.cloud/v4z6e0.png" width="400" class="m-auto" /></p>
 
 It can be seen that the `content` field in `choices` contains the specific content of Gemini's reply.
+
+## Image Understanding (Multimodal Input)
+
+To input an image, change a message's `content` from a string to an array containing `text` and `image_url` blocks:
+
+```json
+{
+  "model": "gemini-3.1-pro-preview",
+  "messages": [
+    {
+      "role": "user",
+      "content": [
+        {"type": "text", "text": "Describe this image in one sentence."},
+        {"type": "image_url", "image_url": {"url": "https://cdn.acedata.cloud/4hfydw.jpg"}}
+      ]
+    }
+  ]
+}
+```
+
+The `image_url.url` value can be a publicly accessible URL or a base64 `data:` URI. Supported image types are PNG, JPEG, WebP, HEIC, and HEIF. `image_url` accepts `url` and the optional `detail` field; do not pass a separate `media_type` field.
 
 ## Streaming Response
 
@@ -110,7 +135,8 @@ headers = {
 payload = {
     "model": "gemini-2.5-pro",
     "messages": [{"role":"user","content":"Hello,What model are you?"}],
-    "stream": True
+    "stream": True,
+    "stream_options": {"include_usage": True}
 }
 
 response = requests.post(url, json=payload, headers=headers, stream=True)
@@ -296,7 +322,7 @@ Request example:
 
 ```json
 {
-  "model": "gemini-3.0-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -323,7 +349,7 @@ Example result:
 ```json
 {
     "id": "chatcmpl-20251206001815715692730UVZe38kB",
-    "model": "gemini-3.0-pro",
+    "model": "gemini-3.1-pro-preview",
     "object": "chat.completion",
     "created": 1764951548,
     "choices": [
@@ -364,7 +390,7 @@ Of course, you can also submit a video link, with the specific input as follows:
 
 ```json
 {
-  "model": "gemini-3.0-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -390,7 +416,7 @@ Example result:
 ```json
 {
     "id": "chatcmpl-20251206002711949677736JC9yL8AE",
-    "model": "gemini-3.0-pro",
+    "model": "gemini-3.1-pro-preview",
     "object": "chat.completion",
     "created": 1764952060,
     "choices": [
@@ -431,13 +457,13 @@ It can be seen from the above that the Gemini 3.0 model supports multimodal unde
 
 ## Gemini-3.1 Multimodal Model
 
-Gemini 3.1 Pro is an upgraded version of Gemini 3.0 Pro, also supporting multimodal inputs such as text, images, and videos, with stronger reasoning and understanding capabilities. The usage is completely consistent with Gemini 3.0 Pro; just replace the `model` parameter with `gemini-3.1-pro`.
+`gemini-3.1-pro-preview` is the current Gemini 3.1 Pro model ID. It supports multimodal text, image, and video inputs and is suitable for complex reasoning, coding, and understanding tasks.
 
 Request example:
 
 ```json
 {
-  "model": "gemini-3.1-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
@@ -463,7 +489,7 @@ Gemini 3.1 Pro also supports video understanding:
 
 ```json
 {
-  "model": "gemini-3.1-pro",
+  "model": "gemini-3.1-pro-preview",
   "messages": [
     {
       "role": "user",
