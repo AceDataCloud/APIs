@@ -17,7 +17,7 @@ Keywords: fish-api, fish-audio, text-to-speech, tts, voice-clone, voice-model, s
 
 ## Overview
 
-The Fish TTS API converts text into natural speech, optionally using a cloned voice model. The Fish Model APIs create, query, and fetch custom voice models from reference audio, and the Fish Tasks API polls asynchronous jobs.
+The Fish TTS API converts text into natural speech using a saved voice model or a one-shot HTTPS reference audio sample. The Fish Model APIs create, query, and fetch custom voice models from reference audio, and the Fish Tasks API polls asynchronous jobs.
 
 ## Application Process
 
@@ -39,6 +39,25 @@ curl --request POST "https://api.acedata.cloud/fish/tts" \
     "text": "Hello, this is a demonstration of AI voice synthesis."
   }'
 ```
+
+### One-shot voice clone
+
+```bash
+curl --request POST "https://api.acedata.cloud/fish/tts" \
+  --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "Content-Type: application/json" \
+  --header "model: s2-pro" \
+  --data '{
+    "text": "New speech in the referenced voice.",
+    "format": "mp3",
+    "references": [{
+      "audio": "https://cdn.acedata.cloud/reference.mp3",
+      "text": "The exact reference transcript."
+    }]
+  }'
+```
+
+This conditions only the current request. Use `reference_id` for a saved/public voice; never combine it with `references`.
 
 ## APIs and Guides
 

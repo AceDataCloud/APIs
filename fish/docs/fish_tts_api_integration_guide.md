@@ -16,7 +16,7 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 
 - `text`: the text to synthesize into speech (required).
 - `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `format`: output audio format: `mp3`, `wav`, or `pcm`.
 - `sample_rate`: output sample rate.
 - `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
 - `latency`: latency mode (`normal` / `balanced`).
@@ -24,7 +24,7 @@ The most basic usage is to input `text`. The result is a synthesized audio file.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
 - `normalize`: whether to normalize text before synthesis.
 - `prosody`: prosody controls.
-- `references`: inline reference samples.
+- `references`: one one-shot clone sample containing `audio` (public HTTPS MP3/WAV URL) and `text` (exact transcript). Do not combine with `reference_id`.
 - `callback_url`: an asynchronous callback URL.
 - `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
 
@@ -50,7 +50,7 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 
 ```json
 {
-  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "audio_url": "https://platform2.cdn.acedata.cloud/fish/995dfe37-b187-474d-8323-b08d6678ed8f.mp3"
 }
 ```
 
@@ -69,9 +69,26 @@ First create a voice model with the Fish Model Create API (`POST /fish/model`) t
 }
 ```
 
+### One-shot Voice Clone
+
+Use a reference voice for one request without creating a persistent model:
+
+```json
+{
+  "text": "New speech in the referenced voice.",
+  "format": "mp3",
+  "references": [{
+    "audio": "https://cdn.acedata.cloud/reference.mp3",
+    "text": "The exact words spoken in the reference audio."
+  }]
+}
+```
+
+Use one public HTTPS MP3/WAV reference lasting 10–270 seconds. Raw bytes, Base64, data URIs, and MessagePack are not accepted by this endpoint. Use `reference_id` instead when reusing a saved/public voice.
+
 ## Gotchas
 
-- Pricing is based on the byte count of the generated audio.
+- Pricing is based on the UTF-8 byte count of the target input text, not the generated audio size.
 - Voice cloning requires a clear reference audio sample.
 
 ## Support
