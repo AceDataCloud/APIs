@@ -1,10 +1,10 @@
 # Suno Voices API Integration Instructions
 
-Suno allows you to create a custom voice persona from your own audio recording. The resulting `persona_id` can then be used with the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate songs in that voice.
+Suno allows you to create a custom voice persona from your own audio recording. The resulting `persona_id` can then be used with the [Suno Audios Generation API](https://platform.acedata.cloud/documents/suno-audios) to generate songs in that voice.
 
 This API accepts three parameters:
 
-- `audio_url`: A publicly accessible URL of the audio file (MP3 or WAV format, at least 10 seconds long, containing clear vocals from a single speaker without background noise or music).
+- `audio_url`: A publicly accessible URL of an MP3 or WAV file, 10–240 seconds long, containing a clear single voice. Clean 30–60 second speech or singing clips work best; avoid background noise, accompaniment, echo, reverb, and multiple speakers.
 - `name`: The name for the custom voice persona.
 - `description`: A description of the custom voice persona.
 
@@ -37,6 +37,25 @@ The result is as follows:
 As can be seen, the `persona_id` field in `data` is the ID of the created voice persona. Voice personas created from uploaded audio are always private (`is_public: false`).
 
 With the voice persona ID, you can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate songs in that voice. Pass `action` as `artist_consistency` (or `artist_consistency_vox` for Persona-v2-vox) and include the `persona_id` returned above.
+
+Voice personas created from uploaded audio are private and cannot be reused across accounts. Voice cloning can occasionally return `voices_sound_different` even for compliant audio; retrying the same material usually succeeds. Implement one or two automatic retries for failed results—failed requests are not charged.
+
+## Generate Music with a Voice Persona
+
+Use `action: "generate"` and the returned `persona_id` to generate music with the cloned voice. Voice cloning requires `chirp-v4-5` or later models.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/suno/audios' \
+  -H 'accept: application/json' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "action": "generate",
+    "model": "chirp-v5-5",
+    "prompt": "A warm synth-pop song about city nights",
+    "persona_id": "dde0be60-5280-4bd2-89a0-4020ddd3db52"
+  }'
+```
 
 The corresponding Python code:
 

@@ -34,10 +34,14 @@ The result is as follows:
   "trace_id": "ec232cf9-8b75-42df-a8a3-fe6d7d6fd02e",
   "data": [
     {
-      "file_url": "https://cdn1.suno.ai/ec13e502-d043-4eb2-92ee-e900c6da69d1.wav"
+      "file_url": "https://platform.cdn.acedata.cloud/suno/19787138-49e9-413a-8611-156c375aa99f.wav"
     }
   ]
 }
 ```
 
-As we can see, the `file_url` field in `data` is the wav format file of the music obtained, which is a publicly accessible CDN address and supports the mp3 suffix.
+As we can see, the `file_url` field in `data` is the WAV format music file obtained. It is a publicly accessible CDN address.
+
+> **WAV link retention**
+>
+> Upstream Suno WAV URLs are retained for only a few days and may later return 403. This API transfers the file to `https://platform.cdn.acedata.cloud/suno/{task_id}.wav` before returning it. The returned URL is retained for 30 days; download and store it promptly. If transfer fails, the API falls back to the original upstream URL.

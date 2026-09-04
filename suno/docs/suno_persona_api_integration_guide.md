@@ -33,3 +33,30 @@ The result is as follows:
 As can be seen, the `persona_id` field in `data` is the ID of the generated singer style.
 
 With the singer style ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, pass `action` as `artist_consistency`, while `audio_id` is the uploaded song ID, and also upload the parameter `persona_id`, which is the singer style ID returned above, to generate new songs based on the reference singer style.
+
+## List Personas
+
+List personas for a user with the required `user_id`; `limit` defaults to 50 and `offset` defaults to 0.
+
+```bash
+curl -G 'https://api.acedata.cloud/suno/persona' \
+  -H 'authorization: ******' \
+  --data-urlencode 'user_id=user-uuid' \
+  --data-urlencode 'limit=50' \
+  --data-urlencode 'offset=0'
+```
+
+The response contains `items` and `count`. Each item includes `persona_id`, `user_id`, `name`, `description`, `source_type`, and `created_at`.
+
+## Delete a Persona
+
+Delete a persona by its required `persona_id`. The optional `user_id` can be supplied when needed.
+
+```bash
+curl -X DELETE 'https://api.acedata.cloud/suno/persona?persona_id=dae4ae5d-2b51-4af1-b286-1a4473ef4dba' \
+  -H 'authorization: ******'
+```
+
+```json
+{ "success": true }
+```
