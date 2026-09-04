@@ -61,6 +61,7 @@ Additionally, we set the Request Body, including:
 - `style_influence`: advanced parameter for `style_influence`.
 - `replace_section_end`: the final time for the replacement segment.
 - `replace_section_start`: the starting time for the replacement segment.
+- `replace_section_result_mode`: the result mode for replacing a section. Defaults to `full_song`, which returns complete songs; set it to `candidates` to return unspliced replacement sections.
 - `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
 - `weirdness`: advanced parameter for `weirdness`.
 - `duration`: the target length of the generated track in seconds, given as an integer between 10 and 360. It is used for generation in custom mode (`custom` is `true`). It is a hint rather than a bound — the model takes it into account but does not commit to it, and the actual length of each returned track is reported by the `duration` field in the response, usually shorter than the value you asked for and not repeatable across identical requests.
@@ -510,6 +511,7 @@ When a song is generated and you need to perform a separate operation to replace
 - style: The style of the song, optional.
 - replace_section_start: The start time of the lyrics corresponding to `lyric` on the timeline.
 - replace_section_end: The end time of the lyrics corresponding to `lyric` on the timeline.
+- replace_section_result_mode: The result mode, defaulting to `full_song`. Use `candidates` to return unspliced replacement sections.
 
 For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0, then you can set the parameters as follows:
 
@@ -520,6 +522,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
   "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
   "replace_section_start": 28.94100580270793,
   "replace_section_end": 85.39410058027079,
+  "replace_section_result_mode": "full_song",
   "model": "chirp-v4",
   "audio_id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
   "custom": false,
@@ -527,7 +530,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
 }
 ```
 
-With other parameters unchanged, the returned result will be a song with the replaced section, which is the result of replacing a section of the originally generated song, as shown below:
+`replace_section_result_mode` defaults to `full_song`, which returns complete songs with the selected section replaced. Set it to `candidates` to return unspliced replacement-section candidates that can be manually concatenated. With other parameters unchanged, the returned result is a song with the replaced section, as shown below:
 
 ```json
 {
