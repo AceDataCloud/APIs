@@ -510,6 +510,7 @@ When a song is generated and you need to perform a separate operation to replace
 - style: The style of the song, optional.
 - replace_section_start: The start time of the lyrics corresponding to `lyric` on the timeline.
 - replace_section_end: The end time of the lyrics corresponding to `lyric` on the timeline.
+- replace_section_result_mode: Return mode, defaulting to `full_song`. `full_song` returns completed songs for each candidate; `candidates` returns unspliced replacement sections.
 
 For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0, then you can set the parameters as follows:
 
@@ -520,6 +521,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
   "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
   "replace_section_start": 28.94100580270793,
   "replace_section_end": 85.39410058027079,
+  "replace_section_result_mode": "full_song",
   "model": "chirp-v4",
   "audio_id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
   "custom": false,

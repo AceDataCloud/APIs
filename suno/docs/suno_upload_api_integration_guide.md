@@ -2,7 +2,7 @@
 
 SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
 
-This API has only one input parameter, which is `audio_url`, a publicly accessible CDN address that supports the mp3 suffix.
+A standard upload only requires `audio_url`, a publicly accessible audio CDN address. The `mode` defaults to `standard`, so existing calls do not need to be modified.
 
 Here, the `audio_url` we input is `https://cdn.acedata.cloud/suno_demo.mp3`, which is a publicly accessible CDN address.
 
@@ -38,3 +38,22 @@ The result is as follows:
 As can be seen, the `audio_id` field in `data` is the song ID after uploading.
 
 With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+
+## Enhanced Upload Mode
+
+When a standard upload cannot handle audio you own or are authorized to use, set `mode` to `enhanced`. This mode also requires a `name` from 1 to 100 characters and a publicly accessible HTTPS `audio_url`.
+
+Enhanced uploads are asynchronous and typically take 2 minutes or longer. Successful processing consumes **1.87 Credits** (approximately **¥1.20/each** based on the maximum package); failed processing is not charged.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/suno/upload' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "audio_url": "https://cdn.acedata.cloud/suno_demo.mp3",
+    "mode": "enhanced",
+    "name": "My Song"
+  }'
+```
+
+The API immediately returns `task_id` and `trace_id`. Query the task through the [Suno Tasks API](https://platform.acedata.cloud/documents/suno-tasks); after success, read the audio ID from `response.data.audio_id`. You can also provide an HTTPS `callback_url` to receive the final state.
