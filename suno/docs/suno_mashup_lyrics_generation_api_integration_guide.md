@@ -1,8 +1,19 @@
 # Suno Mashup Lyrics Generation API Integration Instructions
 
-If you want to use the lyrics of two songs to generate a mashup song, you can first use this API to generate the corresponding lyrics. The API is the [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2).
+If you want to use the lyrics of two songs to generate a mashup song, you can first use this API to generate the corresponding lyrics. The API is the [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/suno-mashup-lyrics).
 
 The main input parameters for this API are `lyrics_a` and `lyrics_b`, with an example as follows:
+
+```bash
+curl -X POST "https://api.acedata.cloud/suno/mashup-lyrics" \
+  -H "accept: application/json" \
+  -H "authorization: ******" \
+  -H "content-type: application/json" \
+  -d '{
+    "lyrics_a": "[Verse]\nHello world",
+    "lyrics_b": "[Verse]\nHello world"
+  }'
+```
 
 ![](https://cdn.acedata.cloud/g9n3t6.png)
 
@@ -23,4 +34,4 @@ Click to run, and the result is as follows:
 
 As you can see, the `text` field in `data` contains the lyrics information.
 
-With the lyrics in hand, we can then use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate a custom song.
+With the lyrics in hand, we can then use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/suno-audios) to generate a custom song.
