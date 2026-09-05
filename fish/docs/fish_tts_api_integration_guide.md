@@ -15,16 +15,16 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
 
 - `text`: the text to synthesize into speech (required).
-- `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
-- `format`: output audio format, e.g. `mp3`, `wav`, `opus`.
+- `reference_id`: saved/public voice model ID (`string` or `string[]`). Create/retrieve via Fish Model APIs. Do not use together with `references`.
+- `format`: output audio format: `mp3` (default), `wav`, or `pcm`.
 - `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
+- `mp3_bitrate`: MP3 encoding bitrate.
 - `latency`: latency mode (`normal` / `balanced`).
 - `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
 - `normalize`: whether to normalize text before synthesis.
 - `prosody`: prosody controls.
-- `references`: inline reference samples.
+- `references`: one-time inline cloning sample (single item). Each item must include `audio` (public HTTPS URL) and exact transcript `text`. Do not use together with `reference_id`.
 - `callback_url`: an asynchronous callback URL.
 - `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
 
@@ -50,7 +50,11 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 
 ```json
 {
-  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3"
+  "audio_url": "https://platform.r2.fish.audio/task/8a72ff9840234006a9f74cb2fa04f978.mp3",
+  "cost": {
+    "amount": 0.0076,
+    "currency": "credit"
+  }
 }
 ```
 
@@ -66,6 +70,22 @@ First create a voice model with the Fish Model Create API (`POST /fish/model`) t
 {
   "text": "Welcome to our platform.",
   "reference_id": "d7900c21663f485ab63ebdb7e5905036"
+}
+```
+
+### One-time Inline Voice Cloning
+
+Use `references` for one-time cloning without creating a persistent voice model:
+
+```json
+{
+  "text": "Welcome to our platform.",
+  "references": [
+    {
+      "audio": "https://example.com/reference.mp3",
+      "text": "This is the exact transcript of the reference audio."
+    }
+  ]
 }
 ```
 
