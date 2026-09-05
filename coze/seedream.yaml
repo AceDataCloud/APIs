@@ -1,29 +1,27 @@
 openapi: 3.0.1
 info:
   title: AceData Seedream — AI Image Generation
-  description: >-
-    Generate images from a text prompt using ByteDance Seedream (Doubao) models,
-    powered by AceData Cloud (https://platform.acedata.cloud). Import this schema
-    into Coze / 扣子 as a plugin.
-  version: "1.0.0"
+  description: Generate images from a text prompt using ByteDance Seedream (Doubao)
+    models, powered by AceData Cloud (https://platform.acedata.cloud). Import this
+    schema into Coze / 扣子 as a plugin.
+  version: 1.0.0
 servers:
-  - url: https://api.acedata.cloud
+- url: https://api.acedata.cloud
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /seedream/images:
     post:
       operationId: generateImage
-      summary: Generate an image from a text prompt
-      description: >-
-        Create an image from a text prompt using a Seedream model. When `async`
-        is not set, the response returns synchronously and already contains the
-        image URL.
+      summary: Generate, edit, or decompose Seedream images
+      description: Use Seedream 5.0 Pro for single images, transparent edits, or layer
+        decomposition; use 5.0 Lite for image sets, streaming, or web search. Unsupported
+        parameter combinations return 400.
       requestBody:
         required: true
         content:
@@ -31,40 +29,108 @@ paths:
             schema:
               type: object
               required:
-                - prompt
-                - model
+              - model
               properties:
                 prompt:
                   type: string
-                  description: Text description of the image to generate.
+                  description: Required except for automatic Seedream 5.0 Pro layer
+                    decomposition.
                   example: a white siamese cat
                 model:
                   type: string
                   enum:
-                    - doubao-seedream-5-0-pro-260628
-                    - doubao-seedream-5-0-260128
-                    - doubao-seedream-4-5-251128
-                    - doubao-seedream-4-0-250828
+                  - doubao-seedream-5-0-pro-260628
+                  - doubao-seedream-5-0-260128
+                  - doubao-seedream-5-0-lite-260128
+                  - doubao-seedream-4-5-251128
+                  - doubao-seedream-4-0-250828
                   default: doubao-seedream-5-0-260128
-                  description: Seedream model version. Newer versions generally look better.
+                  description: 'Pro: single image, transparent background, layers.
+                    Lite: groups, streaming, web search.'
                 size:
                   type: string
-                  enum:
-                    - 1K
-                    - 2K
-                    - 3K
-                    - 4K
-                    - adaptive
+                  pattern: ^(1K|1\.5K|2K|3K|4K|auto|[0-9]+x[0-9]+)$
                   default: 2K
-                  description: Output resolution tier.
+                  description: Model-specific preset or dimensions. auto is only for
+                    Pro decomposition.
                 output_format:
                   type: string
                   enum:
-                    - jpeg
-                    - png
+                  - jpeg
+                  - png
                   description: Output image file format.
+                image:
+                  oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                    maxItems: 14
+                  description: One URL/Base64 string or array. Pro decomposition requires
+                    exactly one image.
+                sequential_image_generation:
+                  type: string
+                  enum:
+                  - auto
+                  - disabled
+                  description: Lite/4.x only.
+                sequential_image_generation_options:
+                  type: object
+                  properties:
+                    max_images:
+                      type: integer
+                      minimum: 1
+                      maximum: 15
+                  description: Requires sequential mode auto; input plus output must
+                    be at most 15.
+                response_format:
+                  type: string
+                  enum:
+                  - url
+                  - b64_json
+                watermark:
+                  type: boolean
+                  default: true
+                optimize_prompt_options:
+                  type: object
+                  properties:
+                    mode:
+                      type: string
+                      enum:
+                      - standard
+                      - fast
+                  description: Pro supports standard/fast; Lite and 4.5 support standard.
+                tools:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - type
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - web_search
+                  description: Seedream 5.0 Lite only.
+                layer_decomposition:
+                  type: boolean
+                  description: Seedream 5.0 Pro only. Requires exactly one image;
+                    prompt is optional.
+                background:
+                  type: string
+                  enum:
+                  - transparent
+                  - opaque
+                  description: Pro edit only. transparent requires one transparent
+                    PNG and PNG output.
+                async:
+                  type: boolean
+                  description: Return task_id for polling. Do not combine with stream.
+                callback_url:
+                  type: string
+                  description: Real public webhook URL. Do not combine with stream.
       responses:
-        "200":
+        '200':
           description: The generated image.
           content:
             application/json:
@@ -87,3 +153,46 @@ paths:
                         prompt:
                           type: string
                           description: The prompt used to generate the image.
+                        b64_json:
+                          type: string
+                        size:
+                          type: string
+                        output_format:
+                          type: string
+                          enum:
+                          - jpeg
+                          - png
+                        error:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            message:
+                              type: string
+                        z_index:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        bounding_box:
+                          type: object
+                          properties:
+                            absolute:
+                              type: array
+                              items:
+                                type: integer
+                            normalized:
+                              type: array
+                              items:
+                                type: integer
+                  trace_id:
+                    type: string
+                  tools:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  usage:
+                    type: object
+                    additionalProperties: true
