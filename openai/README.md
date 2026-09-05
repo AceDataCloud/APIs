@@ -831,6 +831,13 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-mdl-grid">
 <div class="oa-mdl-card">
+<h3>🚀 GPT-6 Series</h3>
+<p class="mdl-desc">The flagship model for the most complex end-to-end reasoning and programming tasks.</p>
+<div class="oa-mdl-tags">
+<span class="oa-mdl-tag">gpt-6-astra</span>
+</div>
+</div>
+<div class="oa-mdl-card">
 <h3>🚀 GPT-5 Series</h3>
 <p class="mdl-desc">Foundational GPT-5 conversational models with strong reasoning and creative capabilities.</p>
 <div class="oa-mdl-tags">
