@@ -15,16 +15,16 @@ There is a free quota available for first-time applicants, allowing you to use t
 The most basic usage is to input `text`. The result is a synthesized audio file. The request body fields are described below:
 
 - `text`: the text to synthesize into speech (required).
-- `reference_id`: the voice model ID to use for the timbre. Create one with the Fish Model Create API.
+- `reference_id`: the voice model ID (or an array of IDs) to use for the timbre. Create IDs with the Fish Model Create API.
 - `format`: output audio format: `mp3`, `wav`, or `pcm`.
 - `sample_rate`: output sample rate.
-- `mp3_bitrate` / `opus_bitrate`: encoding bitrate.
+- `mp3_bitrate`: MP3 encoding bitrate.
 - `latency`: latency mode (`normal` / `balanced`).
 - `chunk_length` / `min_chunk_length`: chunk sizing for streaming.
 - `temperature`, `top_p`, `repetition_penalty`, `max_new_tokens`: generation controls.
 - `normalize`: whether to normalize text before synthesis.
 - `prosody`: prosody controls.
-- `references`: one one-shot clone sample containing `audio` (public HTTPS MP3/WAV URL) and `text` (exact transcript). Do not combine with `reference_id`.
+- `references`: one one-shot clone sample (exactly one item) containing `audio` (public HTTPS MP3/WAV URL) and `text` (exact transcript). Do not combine with `reference_id`.
 - `callback_url`: an asynchronous callback URL.
 - `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Fish Tasks API.
 
