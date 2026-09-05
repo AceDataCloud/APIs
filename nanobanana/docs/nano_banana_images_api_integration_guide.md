@@ -4,7 +4,9 @@ This document introduces the integration and usage of the Nano Banana Images API
 
 ## Application Process
 
-Before use, please enter the [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d) on the Ace Data Cloud platform and click Acquire to apply for activation. The first application usually has free quotas available. Once activated, you can obtain the Bearer Token used to call the API from the platform.
+Before use, obtain your API token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications). One API token can call all services on the platform without requiring a separate application for each service. First-time applicants receive a free quota; when it is used up, you can recharge your general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+Complete API documentation is available on the [Nano Banana Images API](https://platform.acedata.cloud/documents/nano-banana-images) page.
 
 ## Interface Overview
 
@@ -19,9 +21,12 @@ Before use, please enter the [Nano Banana Images API](https://platform.acedata.c
   - `edit`: Edit based on given images
 - **Model** (optional):
   - `nano-banana` (default): Based on Gemini 2.5 Flash Image, fast speed, low cost
+  - `nano-banana-2-lite`: Based on Gemini 3.1 Flash Lite Image, supports only 1K, fast generation speed
   - `nano-banana-2`: Based on Gemini 3.1 Flash Image Preview, Pro-level quality + Flash speed
   - `nano-banana-pro`: Based on Gemini 3 Pro Image Preview, highest quality
+  - `nano-banana:official`, `nano-banana-2-lite:official`, `nano-banana-2:official`, `nano-banana-pro:official`: Official channel versions of the corresponding models, with different billing and improved image quality and stability
 - **Asynchronous Callback**: Optional, receive task completion notifications and results via `callback_url`
+- **Number of Images**: Optional, specify 1–4 images via `count`, default 1. Each image uses an independent generation call; failures or provider safety refusals affect only that call, while successful images are returned and billed normally.
 
 ## Quick Start: Generate Image (`action=generate`)
 
@@ -37,6 +42,7 @@ curl -X POST 'https://api.acedata.cloud/nano-banana/images' \
   -H 'content-type: application/json' \
   -d '{
     "action": "generate",
+    "model": "nano-banana-pro",
     "prompt": "A photorealistic close-up portrait of an elderly Japanese ceramicist with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully inspecting a freshly glazed tea bowl. The setting is his rustic, sun-drenched workshop. The scene is illuminated by soft, golden hour light streaming through a window, highlighting the fine texture of the clay. Captured with an 85mm portrait lens, resulting in a soft, blurred background (bokeh). The overall mood is serene and masterful. Vertical portrait orientation.",
     "count": 1
   }'
@@ -55,6 +61,7 @@ headers = {
 }
 payload = {
     "action": "generate",
+    "model": "nano-banana-pro",
     "prompt": (
         "A photorealistic close-up portrait of an elderly Japanese ceramicist "
         "with deep, sun-etched wrinkles and a warm, knowing smile. He is carefully "
@@ -91,6 +98,7 @@ print(resp.json())
 - `success`: Whether the request was successful.
 - `task_id`: Task ID.
 - `trace_id`: Trace ID for troubleshooting.
+- `count` (request): The number of images requested for generation or editing, from 1–4 with a default of 1. `data` contains only successful images, which are billed by the number returned. If every generation call is rejected by the provider's safety policy, the API returns `403`.
 - `data[]`: Result list.
   - `prompt`: The prompt used for generation (echo).
   - `image_url`: Direct URL of the generated image.
@@ -200,6 +208,7 @@ When a call fails, a standard error format and trace ID will be returned. Common
 - **400 `token_mismatched`**: The request is invalid or parameters are incorrect.
 - **400 `api_not_implemented`**: The interface is not implemented (please contact support).
 - **401 `invalid_token`**: Authentication failed or token is missing.
+- **403 `forbidden`**: The provider's safety policy denied the request or generated result. The rejected call returns no image and is not billed; other successful calls in a multi-image request can still return and be billed.
 - **429 `too_many_requests`**: Request frequency limit exceeded.
 - **500 `api_error`**: Server exception.
 
@@ -222,7 +231,7 @@ When a call fails, a standard error format and trace ID will be returned. Common
 
 - **Required**: `action`, `prompt`
 - **Edit Only**: `image_urls` (array, at least 1 item)
-- **Optional**: `model` (default `nano-banana`, optional `nano-banana-2` or `nano-banana-pro`), `aspect_ratio` (width-to-height ratio, such as `1:1`, `16:9`), `resolution` (resolution, such as `1K`, `2K`, `4K`), `callback_url` (for asynchronous callback)
+- **Optional**: `model` (default `nano-banana`, optional `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`, or the corresponding `:official` variant), `count` (1–4, default 1), `aspect_ratio` (`1:1`, `3:2`, `2:3`, `16:9`, `9:16`, `4:3`, or `3:4`), `resolution` (`1K`, `2K`, or `4K`; `nano-banana-2-lite` supports only `1K`), `callback_url` (for asynchronous callback), `async` (boolean)
 - **Headers**: Must provide `authorization: Bearer {token}`; `accept` is recommended to be set to `application/json`
 - **Image Accessibility**: `image_urls` must be direct links accessible publicly (HTTP/HTTPS), HTTPS is recommended
 - **Idempotency and Tracking**: Retain `task_id` and `trace_id` for troubleshooting and result association

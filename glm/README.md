@@ -6,7 +6,7 @@ GLM (General Language Model) generative services by Zhipu AI, including chat com
 
 API home page: [Ace Data Cloud - GLM](https://platform.acedata.cloud/service/glm)
 
-Keywords: glm-api, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: glm-api, glm-5.3, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use GLM on Ace Data Cloud
 
@@ -17,13 +17,13 @@ Keywords: glm-api, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-a
 
 ## Overview
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The current flagship `glm-5.2`, along with `glm-5.1`, `glm-5`, `glm-4.7`, `glm-4.6` and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The current flagship `glm-5.3`, along with `glm-5.2`, `glm-5.1`, `glm-5`, `glm-4.7`, `glm-4.6` and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
 ## Application Process
 
-To use the GLM API, apply for the corresponding service on the [GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf) page. After entering the page, click the "Acquire" button.
+To use the GLM API, obtain an API token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications). One API token can call all services on the platform.
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+There is a free quota available for first-time applicants. When it is used up, you can recharge your general balance in the [console](https://platform.acedata.cloud/console/coin).
 
 ## Quick Start
 
@@ -47,4 +47,4 @@ Explore the supported endpoints and integration guides for GLM.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf) | `/glm/chat/completions` | [GLM Chat Completion API Integration Guide](docs/glm_chat_completions_api_integration_guide.md) |
+| [GLM Chat Completion API](https://platform.acedata.cloud/documents/glm-chat-completions) | `/glm/chat/completions` | [GLM Chat Completion API Integration Guide](docs/glm_chat_completions_api_integration_guide.md) |

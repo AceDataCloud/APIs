@@ -6,7 +6,7 @@ This document will provide detailed integration instructions for the Nano Banana
 
 ## Request Example
 
-The Nano Banana Tasks API can be used to query the results of the Nano Banana Images API. For information on how to use the Nano Banana Images API, please refer to the document [Nano Banana Images API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f).
+The Nano Banana Tasks API can be used to query the results of the Nano Banana Images API. For information on how to use the Nano Banana Images API, please refer to the document [Nano Banana Images API](https://platform.acedata.cloud/documents/nano-banana-images).
 
 We will demonstrate how to use this API with an example task ID returned by the Nano Banana Images API. Suppose we have a task ID: 4d320ead-4af4-4a55-8f3e-f2afebdf4fd0, we will show how to pass in a task ID.
 
@@ -84,6 +84,9 @@ Upon successful request, the API will return the details of the task here. For e
   "api_id": "9d8a117e-31ca-4322-a0fd-1771296ec610",
   "application_id": "8afd681a-2a4e-4265-aecb-43970094c019",
   "created_at": 1757183036.787,
+  "started_at": 1757183036.847,
+  "finished_at": 1757183048.147,
+  "elapsed": 11.3,
   "credential_id": "097b2987-62f4-4ac0-b0cc-aed41e372a07",
   "request": {
     "action": "generate",
@@ -111,6 +114,10 @@ The returned result contains multiple fields, where the request field is the req
 - `id`: The ID of the generated task, used to uniquely identify this generation task.
 - `request`: The request information in the task query.
 - `response`: The return information in the task query.
+- `created_at`: The task creation time as a Unix timestamp in seconds.
+- `started_at`: The task execution start time as a Unix timestamp in seconds.
+- `finished_at`: The task completion time as a Unix timestamp in seconds. It is omitted while the task is incomplete.
+- `elapsed`: Task execution time in seconds, rounded to three decimal places. It is omitted while the task is incomplete.
 
 ## Batch Query Operation
 
@@ -147,6 +154,9 @@ Upon successful request, the API will return the specific details of all batch t
       "api_id": "9d8a117e-31ca-4322-a0fd-1771296ec610",
       "application_id": "8afd681a-2a4e-4265-aecb-43970094c019",
       "created_at": 1757183036.787,
+      "started_at": 1757183036.847,
+      "finished_at": 1757183048.147,
+      "elapsed": 11.3,
       "credential_id": "097b2987-62f4-4ac0-b0cc-aed41e372a07",
       "request": {
         "action": "generate",
@@ -184,6 +194,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 - `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
 - `401 invalid_token`: Unauthorized, invalid or missing authorization token.
 - `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `403 forbidden`: The provider's safety policy denied the request or generated results. If every generation call is denied, the task is saved as failed without images and is not billed; successful calls in a multi-image request can still return and be billed.
 - `500 api_error`: Internal server error, something went wrong on the server.
 
 ### Error Response Example

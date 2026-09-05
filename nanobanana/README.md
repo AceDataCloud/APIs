@@ -8,7 +8,7 @@ Nano Banana AI image generation and editing service.
 
 API home page: [Ace Data Cloud - Nano Banana Image Generation](https://platform.acedata.cloud/service/nano-banana)
 
-Keywords: nanobanana-api, ai-image, image-editing, image-generation, rest-api, ai-api, aiimage, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: nanobanana-api, nano-banana-2-lite, ai-image, image-editing, image-generation, rest-api, ai-api, aiimage, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Nano Banana Image Generation on Ace Data Cloud
 
@@ -1082,7 +1082,10 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 curl --request POST "https://api.acedata.cloud/nano-banana/images" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
-  --data '{}'
+  --data '{
+    "action": "generate",
+    "prompt": "A watercolor painting of a mountain lake at sunrise"
+  }'
 ```
 
 ## APIs and Guides
@@ -1091,8 +1094,8 @@ Explore the supported endpoints and integration guides for Nano Banana Image Gen
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d) | `/nano-banana/images` | [Nano Banana Images API Integration Guide](https://platform.acedata.cloud/documents/2fb479f8-63ec-424c-a93e-b12cd4250f9e) |
-| [$t(document_title_nanobanana_tasks_api)](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](https://platform.acedata.cloud/documents/e01ef840-3158-4eec-a6e7-337dada8d155) |
+| [Nano Banana Images API](https://platform.acedata.cloud/documents/nano-banana-images) | `/nano-banana/images` | [Nano Banana Images API Integration Guide](docs/nano_banana_images_api_integration_guide.md) |
+| [Nano Banana Tasks API](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](docs/nano_banana_tasks_api_integration_guide.md) |
 
 ## Related Resources
 
