@@ -6,7 +6,7 @@ Anthropic Claude generative services, including chat completions and native mess
 
 API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/service/claude)
 
-Keywords: claude-api, anthropic, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: claude-api, anthropic, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-sonnet-4-6, claude-opus-4-6, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Why Use Claude on Ace Data Cloud
 
@@ -17,7 +17,7 @@ Keywords: claude-api, anthropic, claude-fable-5-1, claude-fable-5, claude-opus-5
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-opus-4-5-20251101`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
 
 ## Application Process
 

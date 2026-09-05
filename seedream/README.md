@@ -8,7 +8,7 @@ Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, do
 
 ## Overview
 
-The Seedream Images API generates and edits images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.
+The Seedream Images API generates and edits images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-lite-260128`, `doubao-seedream-5-0-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.
 
 ## Quick Start
 
@@ -24,7 +24,8 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 | Model | Notes |
 | ---- | ---- |
 | `doubao-seedream-5-0-pro-260628` | Flagship single image, highest quality (no image sets/streaming/web search) |
-| `doubao-seedream-5-0-260128` | Latest, highest quality (推荐) |
+| `doubao-seedream-5-0-260128` | SeeDream 5.0, supports sequential generation, streaming, and web search tools |
+| `doubao-seedream-5-0-lite-260128` | SeeDream 5.0 Lite |
 | `doubao-seedream-4-5-251128` | 4.5 |
 | `doubao-seedream-4-0-250828` | 4.0 |
 

@@ -18,7 +18,7 @@ Upon first application, there will be a free quota provided, allowing you to use
 
 The request path for the Claude Messages API is `/v1/messages`, consistent with the Anthropic official API. We need to provide at least three required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
+- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-opus-4-7`, `claude-opus-4-6`, and `claude-opus-4-5-20251101` remain available; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
@@ -32,6 +32,9 @@ Common optional parameters:
 - `top_k`: Sample only from the top K options with the highest probabilities.
 - `tools`: Tool definitions for allowing the model to invoke external functions.
 - `tool_choice`: Controls how the model uses the provided tools.
+- `thinking`: Extended thinking configuration (`enabled`, `disabled`, or `adaptive`) with optional `display`.
+- `output_config`: Controls output effort for adaptive thinking with `low`, `medium`, `high`, `xhigh`, or `max`.
+- `cache_control`: Enables top-level ephemeral prompt caching with `ttl` of `5m` or `1h`.
 
 ### cURL Example
 
@@ -90,7 +93,7 @@ After the call, the returned result is as follows:
       "text": "Hi! My name is Claude. How can I help you today?"
     }
   ],
-  "model": "claude-sonnet-4-20250514",
+  "model": "claude-fable-5-1",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -300,7 +303,7 @@ By passing the complete conversation history in `messages`, Claude can provide a
 
 ## Deep Thinking Model
 
-Claude supports the Extended Thinking feature, which allows the model to perform internal reasoning before responding, improving the accuracy of handling complex questions. When using this feature, the `thinking` parameter needs to be passed.
+Claude supports the Extended Thinking feature, which allows the model to perform internal reasoning before responding, improving the accuracy of handling complex questions. Current models can use adaptive thinking through `thinking.type: "adaptive"` and `output_config.effort`; older models can still use fixed `budget_tokens` with `thinking.type: "enabled"`.
 
 ### Python Example
 
@@ -316,11 +319,14 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-fable-5-1",
     "max_tokens": 16000,
     "thinking": {
-        "type": "enabled",
-        "budget_tokens": 10000
+        "type": "adaptive",
+        "display": "summarized"
+    },
+    "output_config": {
+        "effort": "high"
     },
     "messages": [
         {"role": "user", "content": "What is the sine of 30 degrees? Show your reasoning."}
@@ -348,7 +354,7 @@ The response is as follows:
       "text": "The sine of 30 degrees is **1/2** or **0.5**.\n\nThis is one of the fundamental trigonometric values. In a 30-60-90 triangle, the sides are in the ratio 1:√3:2, where the side opposite to the 30° angle has length 1 and the hypotenuse has length 2, giving us sin(30°) = 1/2."
     }
   ],
-  "model": "claude-sonnet-4-20250514",
+  "model": "claude-fable-5-1",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -360,13 +366,15 @@ The response is as follows:
 
 As you can see, the `content` array contains two content blocks:
 
-- `type: "thinking"`: The model's internal thought process, showing the reasoning steps.
+- `type: "thinking"`: A processed thinking summary. The API does not return the raw private thought chain.
 - `type: "text"`: The final answer result.
 
 Notes:
 
-- When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
-- The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+- For current models, prefer `thinking.type: "adaptive"` with `output_config.effort` to control reasoning effort.
+- `display: "summarized"` returns a processed thinking summary; `display: "omitted"` omits the visible summary while retaining the signature required for multi-turn continuity.
+- Fixed `budget_tokens` is for older models that support `thinking.type: "enabled"`; when using it, `max_tokens` must be greater than `budget_tokens`.
+- In multi-turn dialogues and tool calls, pass back any returned thinking block and signature unchanged; do not modify or generate the signature yourself.
 
 ## Visual Model
 

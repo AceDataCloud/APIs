@@ -10,10 +10,19 @@ Apply for the service on the [Seedream Images API](https://platform.acedata.clou
 
 Request body fields:
 
-- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`.
+- `model`: one of `doubao-seedream-5-0-pro-260628`, `doubao-seedream-5-0-260128`, `doubao-seedream-5-0-lite-260128`, `doubao-seedream-4-5-251128`, `doubao-seedream-4-0-250828`. Pass the complete model string; abbreviations return 400.
 - `prompt`: image description (required).
-- `size`: output resolution.
-- `image`: source image URL or Base64 value array for editing. All supported models accept image input.
+- `size`: output resolution, either a preset (`1K`, `1.5K`, `2K`, `3K`, `4K`, or `auto`) or an explicit pixel size such as `2048x2048`; supported presets vary by model.
+- `image`: source image URL/Base64 string or an array of image URLs/Base64 values for editing (up to 14 entries). All supported models accept image input.
+- `sequential_image_generation`: set to `auto` to generate related image sets; `disabled` by default. `sequential_image_generation_options.max_images` accepts 1-15.
+- `stream`: enables streaming output when supported.
+- `response_format`: `url` (default) or `b64_json`.
+- `watermark`: whether to add a watermark.
+- `output_format`: `jpeg` or `png` for supported models.
+- `tools`: currently supports `{ "type": "web_search" }` for online search on supported models.
+- `optimize_prompt_options.mode`: `standard` or `fast`.
+- `layer_decomposition`: request layer decomposition when supported.
+- `background`: `transparent` or `opaque` when supported.
 - `callback_url` / `async`: async modes; `async: true` returns a `task_id` polled via Seedream Tasks API.
 
 ### Request Example
