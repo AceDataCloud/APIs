@@ -2,7 +2,7 @@
 
 SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
 
-This API has only one input parameter, which is `audio_url`, a publicly accessible CDN address that supports the mp3 suffix.
+A standard upload only requires `audio_url`, which is a publicly accessible audio CDN address. The `mode` defaults to `standard`, so existing calls do not need to be modified. Successful standard uploads consume **0.06 Credits** (approximately **¥0.041/request** based on the maximum package), while failed uploads are not charged.
 
 Here, the `audio_url` we input is `https://cdn.acedata.cloud/suno_demo.mp3`, which is a publicly accessible CDN address.
 
@@ -37,4 +37,10 @@ The result is as follows:
 
 As can be seen, the `audio_id` field in `data` is the song ID after uploading.
 
-With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/suno-audios) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+
+## Enhanced Upload Mode
+
+When a standard upload cannot handle audio that you own or are authorized to use, set `mode` to `enhanced`. This mode also requires `name` (1 to 100 characters) and a publicly accessible HTTPS `audio_url`.
+
+Enhanced uploads are asynchronous and typically take 2 minutes or longer. Successful processing consumes **1.87 Credits** (approximately **¥1.26/request** based on the maximum package); failed processing is not charged.
