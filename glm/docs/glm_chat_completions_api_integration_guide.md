@@ -1,6 +1,6 @@
 # GLM Chat Completion API Integration Guide
 
-GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.2, along with GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
+GLM (General Language Model) is the next-generation large language model series by Zhipu AI (Z.ai), featuring powerful Chinese and English understanding and generation capabilities. The flagship GLM-5.3, along with GLM-5.2, GLM-5.1, GLM-5, GLM-4.7, GLM-4.6 and other new-generation models, has been extensively optimized for long-context, tool calling, and code tasks. They are widely applicable to intelligent Q&A, content creation, code assistance, customer service bots, and more.
 
 This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
 
@@ -22,7 +22,8 @@ When using this interface for the first time, you need to fill in at least three
 
 - `authorization`: Select the Bearer Token directly from the dropdown list.
 - `model`: The GLM model to call. Currently supported models include:
-  - `glm-5.2`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.3`: The latest flagship model with the strongest overall capabilities.
+  - `glm-5.2`: Flagship model for complex reasoning and long document analysis.
   - `glm-5.1`: High-capability model for reasoning, tool calling, and code tasks.
   - `glm-5`: General-purpose flagship-tier dialogue model.
   - `glm-5-turbo`: Faster, cost-efficient variant of the GLM-5 series.
@@ -39,6 +40,16 @@ Common optional parameters:
 - `n`: How many candidate replies to generate at once.
 - `stream`: Whether to enable streaming response, default `false`.
 - `stop`: Custom stop sequences.
+- `response_format`: Controls the response format when structured output is required.
+- `frequency_penalty` / `presence_penalty`: Adjust repetition and topic-presence penalties, from -2 to 2.
+- `seed`: Requests more deterministic output when supported.
+- `max_completion_tokens`: Limits generated completion tokens.
+- `logprobs` / `top_logprobs`: Requests token log probability details.
+- `stream_options`: Streaming options, such as including usage in the stream.
+- `parallel_tool_calls`, `tools`, `tool_choice`: Configure OpenAI-compatible tool calling.
+- `reasoning_effort`: Reasoning level, one of `minimal`, `low`, `medium`, or `high`; default `medium`.
+- `service_tier`: Processing tier, one of `auto`, `default`, `flex`, `scale`, or `priority`; default `auto`.
+- `store`, `metadata`, `logit_bias`, `modalities`, `audio`, `prediction`, `web_search_options`, `user`: Additional OpenAI-compatible request options.
 
 Below is a simple Python call example:
 
@@ -279,7 +290,8 @@ If the model decides to call a tool, the `finish_reason` in the return result wi
 
 | Model | Use Case |
 | --- | --- |
-| `glm-5.2` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.3` | Latest flagship with the strongest overall capabilities; recommended for complex reasoning and long document analysis |
+| `glm-5.2` | Flagship model for complex reasoning and long document analysis |
 | `glm-5.1` | High-capability model for reasoning, tool calling, and code tasks |
 | `glm-5` | General-purpose flagship-tier dialogue model |
 | `glm-4.7` | Tool calling, code generation, Agent orchestration tasks |
