@@ -1,6 +1,6 @@
 # Suno Custom Models API Integration Guide
 
-Create a reusable custom music model from 6–24 audio files that you own or are authorized to use. The Beta API uses one endpoint with action-based operations:
+Create a reusable custom music model from 6–24 audio files that you own or are authorized to use. Creation is asynchronous; for more stable results, use 24 tracks with a consistent style and clear audio quality. The Beta API uses one endpoint with action-based operations:
 
 ```text
 POST https://api.acedata.cloud/suno/custom-models
@@ -25,11 +25,12 @@ curl -X POST 'https://api.acedata.cloud/suno/custom-models' \
       "https://cdn.example.com/track-04.mp3",
       "https://cdn.example.com/track-05.mp3",
       "https://cdn.example.com/track-06.mp3"
-    ]
+    ],
+    "callback_url": "https://example.com/webhooks/suno"
   }'
 ```
 
-The request returns immediately with a platform model `id`, task ID, and `queued` status. Only a successful model creation is charged **10 Credits**, approximately **¥6.75 each** based on the maximum package; failed creations do not incur charges.
+The request returns immediately with a platform model `id`, task ID, and `queued` status. After creation completes, the callback or query result reports a `ready` status. Only a successful model creation is charged **10 Credits**, approximately **¥6.75 each** based on the maximum package; failed creations do not incur charges.
 
 ## Retrieve status
 
