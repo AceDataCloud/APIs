@@ -61,6 +61,7 @@ Additionally, we set the Request Body, including:
 - `style_influence`: advanced parameter for `style_influence`.
 - `replace_section_end`: the final time for the replacement segment.
 - `replace_section_start`: the starting time for the replacement segment.
+- `replace_section_result_mode`: return mode for `replace_section`; `full_song` (default) returns completed-song results, while `candidates` returns un-concatenated replacement candidates for manual `concat`.
 - `vocal_gender`: control of male and female voices, female voice `f`, male voice `m`, effective for models 4.5 and above.
 - `weirdness`: advanced parameter for `weirdness`.
 - `duration`: the target length of the generated track in seconds, given as an integer between 10 and 360. It is used for generation in custom mode (`custom` is `true`). It is a hint rather than a bound — the model takes it into account but does not commit to it, and the actual length of each returned track is reported by the `duration` field in the response, usually shorter than the value you asked for and not repeatable across identical requests.
@@ -310,8 +311,10 @@ Next, we must fill in the lyrics and style to customize the generated song, spec
 
 - lyric: lyric text
 - custom: set to `true`, representing custom generation. This parameter defaults to false, representing using `prompt` for generation.
-- style: the style of the song, optional.
+- style: the style of the song, optional, and applied only to content generated after `continue_at`.
 - continue_at: the time in seconds to continue the existing audio. For example, 213.5 means to continue to 3 minutes and 33.5 seconds.
+
+The `lyric` and optional `style` guide only the new content after `continue_at`; they do not replace lyrics before that boundary.
 
 The example for filling out is as follows:
 
@@ -390,7 +393,7 @@ It can be seen that the result content is consistent with the above, thus achiev
 
 ## Get the Complete Song
 
-After continuing to generate a song based on the original song, the returned song does not contain the original song content. To obtain the complete song content, the concatenation function needs to be used, and the following content can be specified:
+Current `extend` results commonly include both the source audio before `continue_at` and the newly generated continuation. Inspect the returned audio first. Use `concat` only when the result is a standalone continuation segment or when explicitly merging multi-step continuation history. When needed, specify:
 
 - action: content is `concat`.
 - audio_id: ID of the last segment.
@@ -510,6 +513,7 @@ When a song is generated and you need to perform a separate operation to replace
 - style: The style of the song, optional.
 - replace_section_start: The start time of the lyrics corresponding to `lyric` on the timeline.
 - replace_section_end: The end time of the lyrics corresponding to `lyric` on the timeline.
+- replace_section_result_mode: `full_song` (default) returns completed-song results; `candidates` returns un-concatenated replacement candidates for manual `concat`.
 
 For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0, then you can set the parameters as follows:
 
@@ -520,6 +524,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
   "prompt": "梅花绽放春意洋溢满地\n梅花绽放春意洋溢满地",
   "replace_section_start": 28.94100580270793,
   "replace_section_end": 85.39410058027079,
+  "replace_section_result_mode": "full_song",
   "model": "chirp-v4",
   "audio_id": "ade7241b-0357-4a5e-9b3d-4ec4f4b3a0c0",
   "custom": false,
@@ -527,7 +532,7 @@ For example, if the ID of the originally generated song is: ade7241b-0357-4a5e-9
 }
 ```
 
-With other parameters unchanged, the returned result will be a song with the replaced section, which is the result of replacing a section of the originally generated song, as shown below:
+With `replace_section_result_mode` set to `full_song`, the returned result is a song with the replaced section, as shown below. Use `candidates` when you need un-concatenated replacement candidates for manual `concat`.
 
 ```json
 {
