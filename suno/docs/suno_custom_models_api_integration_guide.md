@@ -1,88 +1,78 @@
-# Suno Custom Models API Integration Guide
+# Suno Exclusive Music Model Access Guide
 
-Create a reusable custom music model from 6–24 audio files that you own or are authorized to use. The Beta API uses one endpoint with action-based operations:
+The exclusive music model can learn consistent musical features from 6 to 24 authorized audio tracks and be used for subsequent song creation. Creation is an asynchronous operation; it is recommended to use 24 stylistically consistent and high-quality audio tracks for more stable results.
 
-```text
-POST https://api.acedata.cloud/suno/custom-models
+> Only submit audio that you have legal rights to use or have obtained authorization for model creation and subsequent generation. Please do not upload unauthorized music or sound materials.
+
+## Create Model
+
+Call `POST /suno/custom-models` and set `action=create`. It is recommended to also send a unique `Idempotency-Key` request header; reuse the same key during network retries to avoid duplicate creation:
+
+```json
+{
+  "action": "create",
+  "name": "My Indie Model",
+  "audio_urls": [
+    "https://cdn.example.com/song-01.mp3",
+    "https://cdn.example.com/song-02.mp3",
+    "https://cdn.example.com/song-03.mp3",
+    "https://cdn.example.com/song-04.mp3",
+    "https://cdn.example.com/song-05.mp3",
+    "https://cdn.example.com/song-06.mp3"
+  ],
+  "callback_url": "https://example.com/webhooks/suno"
+}
 ```
 
-## Create a model
+The interface will immediately return the platform model ID and task ID. After creation is complete, the `status` in the callback or query result will change to `ready`. Only successful model creation will be charged **10 Credits**; failed creation will not incur charges.
 
-Send a stable `Idempotency-Key` header and reuse it if the request must be retried.
+## Query Model
 
-```bash
-curl -X POST 'https://api.acedata.cloud/suno/custom-models' \
-  -H 'Authorization: Bearer YOUR_API_TOKEN' \
-  -H 'Content-Type: application/json' \
-  -H 'Idempotency-Key: album-sound-v1' \
-  -d '{
-    "action": "create",
-    "name": "My Album Sound",
-    "audio_urls": [
-      "https://cdn.example.com/track-01.mp3",
-      "https://cdn.example.com/track-02.mp3",
-      "https://cdn.example.com/track-03.mp3",
-      "https://cdn.example.com/track-04.mp3",
-      "https://cdn.example.com/track-05.mp3",
-      "https://cdn.example.com/track-06.mp3"
-    ]
-  }'
+Query a single model:
+
+```json
+{
+  "action": "retrieve",
+  "id": "fa518f27-3fac-45cc-9b95-ae7ae0865b5e"
+}
 ```
 
-The request returns immediately with a platform model `id`, task ID, and `queued` status. Only a successful model creation is charged.
-
-## Retrieve status
-
-```bash
-curl -X POST 'https://api.acedata.cloud/suno/custom-models' \
-  -H 'Authorization: Bearer YOUR_API_TOKEN' \
-  -H 'Content-Type: application/json' \
-  -d '{"action":"retrieve","id":"CUSTOM_MODEL_ID"}'
-```
-
-A model can be used only when its status is `ready`. Models are scoped to the Suno application that created them; rotating an API credential does not change ownership.
-
-List models with pagination:
+Paginated query of the current application's models:
 
 ```json
 {
   "action": "retrieve_batch",
-  "status": "ready",
   "limit": 20,
-  "offset": 0
+  "offset": 0,
+  "status": "ready"
 }
 ```
 
-## Generate music
+All models belong to the Suno application that created them. API credential rotation will not change model ownership, and other applications cannot query or use the model.
+
+## Use Model to Generate Songs
+
+After the model status is `ready`, continue to call `POST /suno/custom-models` and set `action=generate`:
 
 ```json
 {
   "action": "generate",
-  "id": "CUSTOM_MODEL_ID",
-  "lyric": "[Verse]\nOriginal lyrics here",
-  "style": "warm indie pop",
-  "title": "New Song",
-  "async": true
+  "id": "fa518f27-3fac-45cc-9b95-ae7ae0865b5e",
+  "title": "Neon Rain",
+  "lyric": "[Verse]\nCity lights are falling through the rain",
+  "style": "indie rock, warm analog synth"
 }
 ```
 
-Generation returns a task ID and follows the standard Suno async result flow. An accepted async task is not terminal success; poll it until `response.success` is true or `response.error` is present. Custom-model generation never silently falls back to another model.
+The `id` must be the exclusive music model under the current application with a status of `ready`. Requests will fail if the model is unavailable and will not automatically switch to another model. Successful song generation consumes **0.90 Credits**; failed generation does not incur charges. Querying and archiving models are free.
 
-## Archive a model
+## Archive Model
 
 ```json
 {
   "action": "delete",
-  "id": "CUSTOM_MODEL_ID"
+  "id": "fa518f27-3fac-45cc-9b95-ae7ae0865b5e"
 }
 ```
 
-The Beta `delete` action archives the platform resource and prevents further generation. A response with `capacity_released: false` does not promise that model capacity was released.
-
-## Important constraints
-
-- Submit 6–24 distinct, publicly accessible HTTPS audio URLs.
-- Use only audio for which you have the required model-training and generation rights.
-- A Suno application has at most three custom-model slots.
-- Do not treat `uploading` or `training` as success; wait for `ready`.
-- Keep the returned platform model ID private to your application.
+The current Beta version will archive the model and prohibit further use, with `capacity_released=false` in the response indicating that archiving does not guarantee the release of model capacity. The archiving operation can be called repeatedly without incurring additional charges.
