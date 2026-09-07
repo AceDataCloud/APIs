@@ -29,7 +29,7 @@ curl -X POST 'https://api.acedata.cloud/suno/custom-models' \
   }'
 ```
 
-The request returns immediately with a platform model `id`, task ID, and `queued` status. Only a successful model creation is charged.
+The request returns immediately with a platform model `id`, task ID, and `queued` status. Only a successful model creation is charged **10 Credits**, approximately **¥6.75 each** based on the maximum package; failed creations do not incur charges.
 
 ## Retrieve status
 
@@ -66,7 +66,7 @@ List models with pagination:
 }
 ```
 
-Generation returns a task ID and follows the standard Suno async result flow. An accepted async task is not terminal success; poll it until `response.success` is true or `response.error` is present. Custom-model generation never silently falls back to another model.
+Generation returns a task ID and follows the standard Suno async result flow. An accepted async task is not terminal success; poll it until `response.success` is true or `response.error` is present. Custom-model generation never silently falls back to another model. Successful song generation consumes **0.90 Credits**, approximately **¥0.61 per generation** based on the maximum package; failed generations do not incur charges. Querying and archiving models are free.
 
 ## Archive a model
 
