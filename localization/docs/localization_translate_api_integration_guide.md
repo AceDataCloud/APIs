@@ -1,0 +1,140 @@
+# Localization Translate API Integration and Usage
+
+The main function of the Localization Translate API is to obtain translated text by inputting the text that needs to be translated, while the target language for the translation can be customized, and the translation results can be output in two mainstream formats: `json` and `markdown`.
+
+This document will provide detailed instructions on integrating the Translate API, helping you easily integrate and fully utilize the powerful features of this API. With the Translate API, you can easily translate the input text into a specific language and support specific methods for outputting the translation results.
+
+## Application Process
+
+To use the Localization Translate API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
+
+![](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in, and after completion, you will be automatically returned to the current page.
+
+**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
+
+> 📘 Complete documentation: [Localization Translate API →](https://platform.acedata.cloud/documents/localization-translate)
+
+## Request Example
+
+We will take an English input as an example to demonstrate how to use this API. Suppose the English description is: `# Title 1\n\nThis is a paragraph.\n\n## Title 2\n\nThis is another paragraph.`, and we will demonstrate how to upload the English description and obtain the Chinese translation result, while displaying it in markdown format.
+
+### Setting Request Headers and Request Body
+
+**Request Headers** include:
+
+- `accept`: Specifies that the response result should be in JSON format, set to `application/json`.
+- `authorization`: The key to call the API, which can be selected directly after application.
+
+**Request Body** includes:
+
+- `input`: The content that needs to be translated. Pass a string when `extension=md`, and pass a JSON object when `extension=json`.
+- `locale`: The language for the custom translation. Supported values are `en`, `de`, `pt`, `es`, `fr`, `zh-CN`, `zh-TW`, `it`, `ko`, `ja`, `ru`, `pl`, `fi`, `sv`, `el`, `uk`, `ar`, and `sr`.
+- `extension`: The format of the input content, optional `md` or `json`.
+- `model`: The large model used for translation, optional `gpt-3.5` or `gpt-4`.
+
+| `extension` | `input` type | Example |
+| ----------- | ------------ | ------- |
+| `md` | string | `"# Title\n\nParagraph"` |
+| `json` | object | `{"title": "Hello", "button": "Submit"}` |
+
+`extension` must match the `input` type; strings cannot use `json`, and JSON objects cannot use `md`.
+
+Set as shown in the image below:
+
+<p><img src="https://cdn.acedata.cloud/d4uqst.png" width="500" class="m-auto"></p>
+
+### Code Example
+
+You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
+
+<p><img src="https://cdn.acedata.cloud/tn5nno.png" width="500" class="m-auto"></p>
+
+Some code examples are as follows:
+
+#### CURL
+
+```bash
+curl -X POST 'https://api.acedata.cloud/localization/translate' \
+-H 'accept: application/json' \
+-H 'authorization: ******' \
+-H 'content-type: application/json' \
+-d '{
+  "input": "# Title 1\n\nThis is a paragraph.\n\n## Title 2\n\nThis is another paragraph.",
+  "locale": "zh-CN",
+  "extension": "md"
+}'
+```
+
+#### Python
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/localization/translate"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "******",
+    "content-type": "application/json"
+}
+
+payload = {
+    "input": "# Title 1\n\nThis is a paragraph.\n\n## Title 2\n\nThis is another paragraph.",
+    "locale": "zh-CN",
+    "extension": "md"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+### Response Example
+
+Upon successful request, the API will return the result information of this translation task. For example:
+
+```json
+{
+  "data": "# 标题 1\n\n这是一个段落。\n\n## 标题 2\n\n这是另一个段落。",
+  "usage": {
+    "prompt_tokens": 172,
+    "completion_tokens": 25
+  },
+  "model": "gpt-3.5-turbo-16k",
+  "locale": "zh-CN"
+}
+```
+
+As you can see, the result contains a `data` field, which includes the translated Chinese text, and is returned in markdown format. Other information is as follows:
+
+- `data`, the result of this translation task.
+- `model`, the large language model used for this translation task.
+- `locale`, the type of translation language for this translation task.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to easily use the Localization Translate API to translate input text into a specific language and support specific methods for outputting translation results. We hope this document helps you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
