@@ -22,6 +22,7 @@ Monorepo for all AceDataCloud API documentation repositories.
 | `seedream/` | [SeedreamAPI](https://github.com/AceDataCloud/SeedreamAPI) | Seedream (ByteDance) image generation API docs |
 | `kling/` | [KlingAPI](https://github.com/AceDataCloud/KlingAPI) | Kling video generation API docs |
 | `hailuo/` | [HailuoAPI](https://github.com/AceDataCloud/HailuoAPI) | Hailuo video generation API docs |
+| `minimax/` | [MiniMaxAPI](https://github.com/AceDataCloud/MiniMaxAPI) | MiniMax multimodal video generation API docs |
 | `producer/` | [ProducerAPI](https://github.com/AceDataCloud/ProducerAPI) | Producer music generation API docs |
 | `claude/` | [ClaudeAPI](https://github.com/AceDataCloud/ClaudeAPI) | Claude chat completions API docs |
 | `gemini/` | [GeminiAPI](https://github.com/AceDataCloud/GeminiAPI) | Gemini chat completions API docs |
