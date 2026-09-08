@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -25,9 +25,13 @@ There is a free quota granted upon the first application, allowing free use of t
 
 The calling method is exactly the same as other models, just set the `model` field to `gpt-image-2`. The returned `url` in the result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be directly opened in a browser or embedded in a webpage.
 
+### Line Variants (`:official` / `:reverse`)
+
+`gpt-image-2` defaults to the standard line. You can explicitly select `gpt-image-2:official` for the official channel or `gpt-image-2:reverse`, which is equivalent to the default line. Default and reverse requests are billed per successful image. Official requests are billed from actual text-input and image-output token usage reported in the response.
+
 ### Supported `size` Values
 
-`gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
+`gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. Default `gpt-image-2` and `:reverse` charge uniformly per image; `:official` charges based on actual token usage, so size and quality can affect the final cost.
 
 Size limits for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels ≤ 8,294,400. Exceeding these limits returns 4xx.
 
@@ -39,7 +43,7 @@ Size limits for custom sizes: width and height must be multiples of 16, the long
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> You can also pass `size: "auto"` or **omit the `size` field**, in which case the model will choose the default size automatically.
+> Passing `size: "auto"` lets the platform plan the canvas from explicit pixels or ratios in the prompt, named standards, medium conventions, and composition. Omitting `size` instead uses the model's default aspect ratio. For strict pixel requirements, pass `WIDTHxHEIGHT`.
 >
 > For the 1K tier, the output does not guarantee strict pixel alignment — if you pass `1024x1024`, you might get `1254x1254`, but the aspect ratio is maintained. If you reuse this as `size`, the billing remains unchanged.
 >
@@ -47,7 +51,7 @@ Size limits for custom sizes: width and height must be multiples of 16, the long
 
 > **About the `n` parameter**
 >
-> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return and bill for the corresponding number of images. To ensure that multiple results have differences, it is recommended to pass different `prompt` or `seed` simultaneously. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successfully generated parts will be returned and billed.
+> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return the corresponding number of images. Default and reverse requests are billed per successful image; the `:official` response `usage` already summarizes the complete response and must not be multiplied by `n`. To ensure multiple results differ, pass different prompts or seeds. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, use the default URL return.
 
 Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
 
@@ -158,21 +162,22 @@ Generated landscape illustration:
 
 The `nano-banana` series are image generation models based on Gemini, integrated through the same `/openai/images/generations` interface without switching endpoints. Just change the `model` to any of the following:
 
-| Model | Billing (Credits / call) | Suitable Scenario |
+| Model | Billing (Credits / successful image) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image generation, fastest speed, lowest cost |
+| `nano-banana-2-lite` | 0.14 | Gemini 3.1 lightweight image model, supports only 1K, low latency |
 | `nano-banana-2` | 0.28 | Significant improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
 
 > **Important: Supported Parameters**
 >
-> Nano Banana is integrated via an adaptation layer to the OpenAI protocol and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`.
+> Nano Banana is integrated via an adaptation layer to the OpenAI protocol and supports only the following parameters compared to `gpt-image-*`: `model`, `prompt`, `size`, `n`.
 >
 > - `size` will be mapped to internal `aspect_ratio` as per the table below; unlisted sizes default to `1:1`:
 >   - `1024x1024` / `512x512` / `256x256` → `1:1`
 >   - `1792x1024` → `16:9`
 >   - `1024x1792` → `9:16`
-> - Does not support `n`, `quality`, `style`, `response_format`, `background`, `output_format`, etc.; these will be ignored if provided.
+> - `n` supports values from 1 to 10. `quality`, `style`, `response_format`, `background`, `output_format`, etc. are ignored if provided.
 > - Return structure follows OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
 
 ### Basic Call

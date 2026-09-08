@@ -24,6 +24,10 @@ Common optional parameters:
 - `system`: System prompt, which will be included in the token count.
 - `tools`: Tool definitions, which will be included in the token count.
 - `thinking`: Extended thinking configuration.
+- `tool_choice`: Tool selection configuration.
+- `cache_control`: Top-level or content block-level cache control configuration.
+
+The usage of `messages`, `system`, tool call playback, URL images, and document/PDF content blocks follows the same stable request structure as the Messages API.
 
 ### cURL Example
 
@@ -77,7 +81,7 @@ Example of return result:
 
 ### Using Anthropic SDK
 
-The Claude Messages Count Tokens API is fully compatible with the official Anthropic SDK and can be called directly using the `anthropic` library.
+The Claude Messages Count Tokens API accepts the stable request structure of the Anthropic SDK and can be called using the `anthropic` library. The current return value is calculated by Ace Data Cloud's local estimator and is not the precise result of the Anthropic official tokenizer; the actual token count for multimodal, tools, and different Claude models may vary.
 
 ```python
 from anthropic import Anthropic
@@ -88,7 +92,7 @@ client = Anthropic(
 )
 
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     messages=[
         {
             "role": "user",
@@ -105,7 +109,7 @@ If your request includes tool definitions, these tools will also be included in 
 
 ```python
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     messages=[
         {
             "role": "user",
@@ -138,7 +142,7 @@ System prompts will also be included in the token count:
 
 ```python
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-opus-4-8",
     system="You are a helpful assistant that speaks Chinese.",
     messages=[
         {
@@ -153,6 +157,6 @@ print(result.input_tokens)
 ## Notes
 
 - This API only calculates the input token count and does not produce any model output.
-- The token count result can be used to estimate the cost of calling the Claude Messages API.
-- The tokenization method may vary for different models, so please use the same model parameter as in the actual call.
+- The token count result can be used for a rough estimate of input size and should not be used as a basis for precise billing, context window access, or model tokenizer comparisons.
+- The current estimator does not accurately calculate visual/document tokens for images and PDFs, nor can it reflect the differences in the official tokenizers of different Claude models.
 - This API is completely free and does not consume any quota.
