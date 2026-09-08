@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/service/
 
 Keywords: claude-api, anthropic, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-claude)
+
 ## Why Use Claude on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

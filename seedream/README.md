@@ -6,6 +6,9 @@ API home page: [Ace Data Cloud - Seedream Image Generation](https://platform.ace
 
 Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, doubao, seededit, text-to-image, rest-api, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-seedream)
+
 ## Overview
 
 The Seedream Images API generates, edits, streams, and decomposes images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.

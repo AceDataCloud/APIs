@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/service/gr
 
 Keywords: grok-api, xai-grok, grok-4.5, grok-4, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-grok)
+
 ## Why Use Grok on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

@@ -2,6 +2,9 @@
 
 Monorepo for all AceDataCloud API documentation repositories.
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-catalog)
+
 ## APIs
 
 | Directory | Standalone Repo | Description |
