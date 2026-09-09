@@ -6,12 +6,59 @@ Suno AI music and lyrics generation service.
 
 ![Suno Music Generation](https://cdn.acedata.cloud/20240403-192358.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Suno Music Generation](https://platform.acedata.cloud/service/suno)
+API reference: [Suno Music Generation](https://platform.acedata.cloud/documents/suno-audios?utm_source=github&utm_medium=repo&utm_campaign=api-suno)
 
 Keywords: suno-api, ai-music, music-generation, lyrics-generation, rest-api, ai-api, aiaudio, AI API, REST API, Developer API, Ace Data Cloud
 
 <!-- canonical-acquisition -->
 [Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-suno)
+
+- **Owner:** Ace Data Cloud API Platform team
+- **Contract last reviewed:** 2026-09-10
+- **Support:** [Contact support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=repo&utm_campaign=api-suno)
+
+## Quick Start
+
+Onboarding has three separate checks. A public status page establishes service availability, the task query validates a bearer token without creating or billing media, and music generation is a paid operation.
+
+### 1. Check service availability (public)
+
+Open the [Ace Data Cloud status page](https://status.acedata.cloud). This is an availability check only: it does not authenticate your API key or prove that your account can make a paid request. There is no public Suno health endpoint in the checked-in REST contract.
+
+### 2. Verify your bearer token (no charge)
+
+`POST /suno/tasks` is the confirmed zero-consumption task-read operation. An empty batch neither creates media nor requires an existing task:
+
+```bash
+curl --request POST "https://api.acedata.cloud/suno/tasks" \
+  --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{"action":"retrieve_batch","ids":[]}'
+```
+
+Expected success for the empty batch:
+
+```json
+{"items":[],"count":0}
+```
+
+A `401` means the token is missing or invalid. This check confirms token recognition and access to the task-read route; it does not verify credit balance or prove that paid generation is enabled.
+
+### 3. Generate only when you intend to spend credits (paid)
+
+`POST /suno/audios` is a paid generation operation. Review the [current API reference and pricing](https://platform.acedata.cloud/documents/suno-audios?utm_source=github&utm_medium=repo&utm_campaign=api-suno) before deliberately running this request:
+
+```bash
+curl --request POST "https://api.acedata.cloud/suno/audios" \
+  --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "action": "generate",
+    "prompt": "A cheerful pop song about a summer road trip",
+    "model": "chirp-v6",
+    "custom": false
+  }'
+```
 
 ## Why Use Suno Music Generation on Ace Data Cloud
 
@@ -507,9 +554,7 @@ border: 1px solid #bfdbfe !important;
 display: flex; gap: 8px; flex-wrap: wrap;
 justify-content: center; margin-top: 16px;
 }
-.tag-item
-```css
-{
+.tag-item {
 padding: 4px 12px; background: var(--el-bg-color-page);
 border: 1px solid var(--el-border-color-light); border-radius: 9999px;
 font-size: 12px; font-weight: 600; color: var(--el-text-color-regular);
@@ -636,10 +681,9 @@ Generate <span>AI Music</span>
 </h1>
 <p class="hero-subtitle">
 Integrate Suno AI music generation capabilities into your application through a stable and comprehensive REST API. Create custom songs, pure music, remixes, covers, and more—all through a unified interface.
-```
 </p>
 <div class="hero-actions">
-<a href="https://platform.acedata.cloud/documents/suno-audios" class="s-btn-primary">📄 View Documentation</a>
+<a href="https://platform.acedata.cloud/documents/suno-audios?utm_source=github&amp;utm_medium=repo&amp;utm_campaign=api-suno" class="s-btn-primary">📄 View Documentation</a>
 </div>
 <div class="hero-highlights">
 <span class="h-item">⚡ 6 Model Versions</span>
@@ -730,6 +774,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 </section>
 <section class="s-section s-bg-white">
+<div class="s-container"><p><strong>Example URL note:</strong> Media hosts in historical response snapshots are normalized to <code>media.example.com</code> for publication; they show response structure and are not downloadable assets. Terminal audio and WAV results preferentially use Ace Data Cloud CDN URLs, while intermediate preview URLs are not persisted.</p></div>
 <div class="s-container">
 <div class="code-split">
 <div class="code-left">
@@ -744,9 +789,8 @@ Integrate Suno AI music generation capabilities into your application through a 
 -d '{
 "action": "generate",
 "prompt": "A cheerful pop song about a summer road trip",
-"model": "chirp-v4",
-"custom": false,
-"callback_url": "https://your-app.com/webhook"
+"model": "chirp-v6",
+"custom": false
 }'</pre>
 </div>
 <div style="margin-top: 16px;">
@@ -763,9 +807,9 @@ Integrate Suno AI music generation capabilities into your application through a 
 "title": "Summer Highway",
 "style": "cheerful pop, driving beat",
 "duration": 124.5,
-"audio_url": "https://cdn1.suno.ai/a8f2c9.mp3",
-"image_url": "https://cdn2.suno.ai/a8f2c9.jpeg",
-"video_url": "https://cdn1.suno.ai/a8f2c9.mp4",
+"audio_url": "https://media.example.com/suno/a8f2c9.mp3",
+"image_url": "https://media.example.com/suno/a8f2c9.jpeg",
+"video_url": "https://media.example.com/suno/a8f2c9.mp4",
 "state": "succeeded"
 }]
 }</pre>
@@ -773,21 +817,21 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 </div>
 <div class="code-right">
-<h2>Quick Start - Get Started in 5 Minutes</h2>
-<p>A simple REST API using Bearer Token authentication. One request to generate your first AI song.</p>
+<h2>Paid generation example</h2>
+<p><strong>Billing boundary:</strong> this <code>POST /suno/audios</code> request creates music and consumes credits. Run it only after the no-charge token check above succeeds and you have reviewed current pricing.</p>
 <div class="explain-steps">
 <div class="explain-step">
 <div class="step-num">1</div>
 <div class="step-text">
-<h4>Get API Key</h4>
-<p>Register on Ace Data Cloud and obtain your Bearer Token from the console</p>
+<h4>Review access and pricing</h4>
+<p>Obtain a Bearer Token, confirm your balance, and review the current API reference</p>
 </div>
 </div>
 <div class="explain-step">
 <div class="step-num">2</div>
 <div class="step-text">
-<h4>Send POST Request</h4>
-<p>Send a request to <code>/suno/audios</code> with your prompt and model preferences</p>
+<h4>Send the paid request</h4>
+<p>Deliberately call <code>POST /suno/audios</code> with your prompt and model preferences</p>
 </div>
 </div>
 <div class="explain-step">
@@ -934,7 +978,7 @@ Integrate Suno AI music generation capabilities into your application through a 
 </div>
 </div>
 <div class="steps-cta">
-<a href="https://platform.acedata.cloud/documents/suno-audios" class="s-btn-primary">View Documentation →</a>
+<a href="https://platform.acedata.cloud/documents/suno-audios?utm_source=github&amp;utm_medium=repo&amp;utm_campaign=api-suno" class="s-btn-primary">View Documentation →</a>
 </div>
 </div>
 </section>
@@ -1077,47 +1121,36 @@ Integrate Suno AI music generation capabilities into your application through a 
 <div class="s-container">
 <div class="s-header">
 <h2>Which model is right for you?</h2>
-<p>Choose from 6 Suno model versions based on your quality and speed needs</p>
-
-## Quick Start
-
-- Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Suno Music Generation on Ace Data Cloud](https://platform.acedata.cloud/service/suno)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
-
-```bash
-curl --request POST "https://api.acedata.cloud/suno/audios" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{}'
-```
+<p>Choose a supported Suno model based on your quality and speed needs.</p>
+</div>
+</div>
+</section>
+</div>
 
 ## APIs and Guides
 
-Explore the supported endpoints and integration guides for Suno Music Generation.
+The links below are versioned with this repository. Each row reflects the checked-in REST method and path for its guide.
 
-| API | Path | Integration Guidance |
-| ---- | ---- | ------------ |
-| [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) | `/suno/audios` | [Suno Audios Generation API Integration Guide](https://platform.acedata.cloud/documents/d016ee3f-421b-4b6e-989a-8beba8701701) |
-| [Suno Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583) | `/suno/persona` | [Suno Persona API Integration Guide](https://platform.acedata.cloud/documents/a1ae233c-c52a-4a62-97dd-0db0c089da5a) |
-| [Suno MP4 API](https://platform.acedata.cloud/documents/adf030f2-ac31-4342-bb65-afd9669272f9) | `/suno/mp4` | [Suno MP4 API Integration Guide](https://platform.acedata.cloud/documents/9dff19bb-3360-4578-8115-91c5efc130a3) |
-| [Suno Vox API](https://platform.acedata.cloud/documents/ae804856-897a-4f5b-9329-8514a86a1d43) | `/suno/vox` | [Suno Vox API Integration Guide](https://platform.acedata.cloud/documents/4d487ecc-0b64-4e8f-a40b-908b9d776c76) |
-| [$t(document_title_suno_timing_generation_api)](https://platform.acedata.cloud/documents/e8b5a84f-742f-4078-8b7d-a52a68aa253f) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/149a2dd6-8af9-43f1-8994-0f4466b16c6f) |
-| [Suno Wav API](https://platform.acedata.cloud/documents/c55b2b82-416b-46d7-9854-4c3bf28a3cc5) | `/suno/wav` | [Suno Wav API Integration Guide](https://platform.acedata.cloud/documents/e48efa85-ed94-4ea8-8613-c16d734a3138) |
-| [Suno MIDI API](https://platform.acedata.cloud/documents/dc315c81-ebfa-4c5a-b6e8-af593dd67d86) | `/suno/midi` | [Suno MIDI API Integration Guide](https://platform.acedata.cloud/documents/d0557c7c-b518-4c42-b482-cc84d62b208b) |
-| [Suno Style Generation API](https://platform.acedata.cloud/documents/864d5f20-2e97-4334-b0bf-f80a60f0810c) | `/suno/style` | [Suno Style API Integration Guide](https://platform.acedata.cloud/documents/2835d3d3-fcfa-4e31-a4be-33a93b84a450) |
-| [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/514d82dc-f7ab-4638-9f21-8b9275916b08) | `/suno/lyrics` | [Suno Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/f1c66741-a488-43ca-91fc-e53fbbda639a) |
-| [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2) | `/suno/mashup-lyrics` | [Suno Mashup Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/ec26e17f-7709-40f4-ad87-2f50c16f94b0) |
-| [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed) | `/suno/tasks` | [Suno Tasks API Integration Guide](https://platform.acedata.cloud/documents/d3868342-7f11-4670-bd31-61a63663cb10) |
-| [Suno Upload API](https://platform.acedata.cloud/documents/766db278-012c-43c4-9245-5f18d8dc4d82) | `/suno/upload` | [Suno Upload API Integration Guide](https://platform.acedata.cloud/documents/26092dda-23d9-4874-9916-e12db6fce3b5) |
+| API | Method and path | Checked-in guide |
+| --- | --- | --- |
+| Suno Audios Generation | `POST /suno/audios` | [Audios generation](docs/suno_audios_generation_api_integration_guide.md) |
+| Suno Custom Models | `POST /suno/custom-models` | [Custom models](docs/suno_custom_models_api_integration_guide.md) |
+| Suno Lyrics Generation | `POST /suno/lyrics` | [Lyrics generation](docs/suno_lyrics_generation_api_integration_guide.md) |
+| Suno Mashup Lyrics Generation | `POST /suno/mashup-lyrics` | [Mashup lyrics generation](docs/suno_mashup_lyrics_generation_api_integration_guide.md) |
+| Suno MIDI Generation | `POST /suno/midi` | [MIDI generation](docs/suno_midi_api_integration_guide.md) |
+| Suno MP4 Generation | `POST /suno/mp4` | [MP4 generation](docs/suno_mp4_api_integration_guide.md) |
+| Suno Persona | `POST /suno/persona` | [Persona](docs/suno_persona_api_integration_guide.md) |
+| Suno Style Generation | `POST /suno/style` | [Style generation](docs/suno_style_api_integration_guide.md) |
+| Suno Tasks | `POST /suno/tasks` | [Task queries](docs/suno_tasks_api_integration_guide.md) |
+| Suno Timing | `POST /suno/timing` | [Timing](docs/suno_timing_api_integration_guide.md) |
+| Suno Upload | `POST /suno/upload` | [Upload](docs/suno_upload_api_integration_guide.md) |
+| Suno Voices | `POST /suno/voices` | [Voices](docs/suno_voices_api_integration_guide.md) |
+| Suno Vox | `POST /suno/vox` | [Vox](docs/suno_vox_api_integration_guide.md) |
+| Suno WAV Generation | `POST /suno/wav` | [WAV generation](docs/suno_wav_api_integration_guide.md) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
+- [Current Suno API reference and pricing](https://platform.acedata.cloud/documents/suno-audios?utm_source=github&utm_medium=repo&utm_campaign=api-suno)
 - [Ace Data Cloud Docs](https://docs.acedata.cloud)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
-
-## Support
-
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
