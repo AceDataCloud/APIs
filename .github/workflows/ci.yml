@@ -1,10 +1,9 @@
-name: README Acquisition
+name: README Integrity
 
 on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
 
 permissions:
   contents: read
@@ -19,3 +18,5 @@ jobs:
           python-version: "3.12"
       - run: python3 scripts/test_check_readme_acquisition.py
       - run: python3 scripts/check_readme_acquisition.py
+      - run: python3 scripts/test_check_suno_onboarding.py
+      - run: python3 scripts/check_suno_onboarding.py
