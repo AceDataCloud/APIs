@@ -3,7 +3,8 @@ info:
   title: AceData Image — GPT Image, Nano Banana & DALL·E
   description: >-
     Generate images from a text prompt using OpenAI GPT Image
-    (gpt-image-1 / 1.5 / 2), Google Nano Banana (nano-banana / -2 / -pro) or
+    (gpt-image-1 / 1.5 / 2 / 2.5 Flare / 2.5 Sunburst), Google Nano
+    Banana (nano-banana / -2 / -pro) or
     DALL·E — one endpoint, just pick the model — powered by AceData Cloud
     (https://platform.acedata.cloud). Import this schema into Coze / 扣子 as a
     plugin to let your bots and workflows generate images on demand.
@@ -46,6 +47,8 @@ paths:
                   type: string
                   enum:
                     - gpt-image-2
+                    - gpt-image-2.5-flare
+                    - gpt-image-2.5-sunburst
                     - gpt-image-1.5
                     - gpt-image-1
                     - nano-banana-pro
