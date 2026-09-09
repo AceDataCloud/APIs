@@ -65,6 +65,11 @@ paths:
                   description: >-
                     Full lyrics to sing, used in custom mode. Use section tags
                     like [Verse], [Chorus], [Bridge] to structure the song.
+                lyric_prompt:
+                  type: string
+                  description: >-
+                    Ask the service to write lyrics from this instruction. Used
+                    in custom mode when `lyric` is empty.
                 style:
                   type: string
                   description: >-
@@ -79,9 +84,32 @@ paths:
                   description: When true, generate an instrumental track with no vocals.
                 vocal_gender:
                   type: string
+                  enum:
+                    - m
+                    - f
                   description: >-
-                    Preferred vocal gender, e.g. "male" or "female". Leave empty
-                    to let the model decide.
+                    Vocal gender preference: `m` for male or `f` for female.
+                    Supported by chirp-v4-5 and newer models.
+                negative_tags:
+                  type: string
+                  description: Styles or genres to avoid in custom mode.
+                duration:
+                  type: integer
+                  minimum: 10
+                  maximum: 360
+                  description: >-
+                    Target duration in seconds for custom generation. This is a
+                    preference; the delivered song length can differ.
+                weirdness:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: Creative variation strength from 0 to 1.
+                style_influence:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                  description: Strength of the requested style from 0 to 1.
       responses:
         "200":
           description: The generated songs, including playable audio URLs.
