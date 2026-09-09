@@ -1,0 +1,286 @@
+{
+  "id": "acedata-search-summary-v1",
+  "name": "Ace Data Cloud search to structured summary",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "928134eb-eece-4a83-bb9c-8cfb4dc1a8e1",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "12e2cdf5-572e-4e52-9017-b14871c2f198",
+              "name": "query",
+              "value": "How can teams use MCP for AI automation?",
+              "type": "string"
+            },
+            {
+              "id": "d560c38f-882c-4150-b452-c86a7dac910d",
+              "name": "number",
+              "value": 5,
+              "type": "number"
+            },
+            {
+              "id": "8f610df4-3094-4a89-9ac8-fdd0b469f6a9",
+              "name": "model",
+              "value": "claude-sonnet-5",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dc2a0bec-f5ba-4e6a-8f9c-f2a8d8c61ed8",
+      "name": "Set research input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/serp/google",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ query: $json.query, type: 'search', number: $json.number }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "c1d6d3f1-240a-416c-9971-70baef7453ab",
+      "name": "Search with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0f5d53c3-d894-4fb5-9f19-e634e62580ec",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "69ca96ae-ce34-42d3-9277-8e46621f9e7b",
+      "name": "Search succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [740, 0]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Search request failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"
+      },
+      "id": "c5ab3c40-e09c-4648-9ed3-041122c3df6f",
+      "name": "Stop on search error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [980, 180]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e8d12a70-6f32-4c8f-805c-2869c91642b5",
+              "name": "model",
+              "value": "={{ $('Set research input').item.json.model }}",
+              "type": "string"
+            },
+            {
+              "id": "5e6b78eb-d197-40d9-a184-84005844450b",
+              "name": "messages",
+              "value": "={{ [{ role: 'system', content: 'Summarize only the supplied search results. Return concise Markdown with Key findings, Evidence, and Open questions. Cite sources as [1], [2], and do not invent facts.' }, { role: 'user', content: 'Research query: ' + $('Set research input').item.json.query + '\n\nSearch results:\n' + JSON.stringify(($json.body.organic || []).slice(0, $('Set research input').item.json.number).map((item, index) => ({ index: index + 1, title: item.title, link: item.link, snippet: item.snippet }))) }] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0fb277cd-f740-47b4-b14c-d167ec49acf6",
+      "name": "Build grounded summary request",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [980, -80]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ model: $json.model, messages: $json.messages, temperature: 0.2 }) }}",
+        "options": {
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "3ee62b93-48a3-49e5-a3bd-11388f0ba99e",
+      "name": "Summarize with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1240, -80]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "47e8cc31-30fa-48df-8788-e82b0e561d4e",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "f27010a1-78f4-4df8-b95e-8df8796ae4f1",
+      "name": "Summary succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1480, -80]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Summary request failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"
+      },
+      "id": "d51622a5-e56d-4234-8ba5-4471976bd6db",
+      "name": "Stop on summary error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1720, 100]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cab60336-c643-4371-8196-ee9af711e0ac",
+              "name": "status",
+              "value": "success",
+              "type": "string"
+            },
+            {
+              "id": "d3f14877-f78b-4517-b497-5b97d4c8c6e6",
+              "name": "query",
+              "value": "={{ $('Set research input').item.json.query }}",
+              "type": "string"
+            },
+            {
+              "id": "38ee370a-d6b8-408c-b69d-d9140ba17d38",
+              "name": "model",
+              "value": "={{ $json.body.model || $('Set research input').item.json.model }}",
+              "type": "string"
+            },
+            {
+              "id": "ce436869-7347-458a-9149-b2828a10d94d",
+              "name": "summary",
+              "value": "={{ $json.body.choices[0].message.content }}",
+              "type": "string"
+            },
+            {
+              "id": "9cd8f14f-b6e6-4a98-8276-54d150dc1ad8",
+              "name": "sources",
+              "value": "={{ ($('Search with Ace Data Cloud').item.json.body.organic || []).slice(0, $('Set research input').item.json.number).map(item => ({ title: item.title, link: item.link, snippet: item.snippet })) }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7417f6cd-4cf4-48ea-9c73-cbbfe67b71e3",
+      "name": "Return structured report",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1720, -160]
+    }
+  ],
+  "connections": {
+    "Run manually": {
+      "main": [[{"node": "Set research input", "type": "main", "index": 0}]]
+    },
+    "Set research input": {
+      "main": [[{"node": "Search with Ace Data Cloud", "type": "main", "index": 0}]]
+    },
+    "Search with Ace Data Cloud": {
+      "main": [[{"node": "Search succeeded", "type": "main", "index": 0}]]
+    },
+    "Search succeeded": {
+      "main": [
+        [{"node": "Build grounded summary request", "type": "main", "index": 0}],
+        [{"node": "Stop on search error", "type": "main", "index": 0}]
+      ]
+    },
+    "Build grounded summary request": {
+      "main": [[{"node": "Summarize with Ace Data Cloud", "type": "main", "index": 0}]]
+    },
+    "Summarize with Ace Data Cloud": {
+      "main": [[{"node": "Summary succeeded", "type": "main", "index": 0}]]
+    },
+    "Summary succeeded": {
+      "main": [
+        [{"node": "Return structured report", "type": "main", "index": 0}],
+        [{"node": "Stop on summary error", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
