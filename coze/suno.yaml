@@ -42,6 +42,9 @@ paths:
                 model:
                   type: string
                   enum:
+                    - chirp-v6
+                    - chirp-v6-wild
+                    - chirp-v6-mini
                     - chirp-v5-5
                     - chirp-v5
                     - chirp-v4-5-plus
@@ -49,7 +52,7 @@ paths:
                     - chirp-v4
                     - chirp-v3-5
                     - chirp-v3-0
-                  default: chirp-v5-5
+                  default: chirp-v6
                   description: Suno model version. Newer versions generally sound better.
                 custom:
                   type: boolean
