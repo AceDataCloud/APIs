@@ -52,7 +52,7 @@ paths:
                     - chirp-v4
                     - chirp-v3-5
                     - chirp-v3-0
-                  default: chirp-v6
+                  default: chirp-v5-5
                   description: Suno model version. Newer versions generally sound better.
                 custom:
                   type: boolean
