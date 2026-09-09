@@ -1,6 +1,6 @@
 # Suno Song Generation API Integration Instructions
 
-> **Example URL note:** Media hosts in historical response snapshots are normalized to `media.example.com` for publication. These URLs show response structure and are not downloadable assets. Terminal audio and WAV results preferentially use an Ace Data Cloud CDN URL; if persistence fails, the original media URL may be retained, so download important results promptly. Intermediate preview URLs are not persisted.
+> **Example URL note:** Media hosts in historical response snapshots are normalized to `media.example.com` for publication. These URLs show response structure and are not downloadable assets. Terminal audio results preferentially use an Ace Data Cloud CDN URL; if persistence fails, the original media URL may be retained, so download important results promptly. When a completed song is converted through the Suno WAV API, Ace Data Cloud CDN-hosted WAV objects enter asynchronous deletion 30 days after creation; deletion may occur later and is not guaranteed at an exact timestamp. Download and persist important WAV files within the retention window. Intermediate preview URLs are not persisted.
 
 With the widespread application of AI, various AI programs have gradually become popular. AI has gradually penetrated all aspects of people's work and life. The industries involved in AI are also increasing, from the initial writing, to medical education, and now to music.
 
@@ -132,6 +132,8 @@ The field descriptions are as follows:
   - created_at: Creation time
   - model: The model used, generally the latest v3 model
   - style: Style
+
+> **WAV retention:** When a completed song is converted through the Suno WAV API, Ace Data Cloud CDN-hosted WAV objects enter asynchronous deletion 30 days after creation. Deletion may occur later and is not guaranteed at an exact timestamp, so download and persist important WAV files within the retention window.
 
 ## Custom Generation
 
