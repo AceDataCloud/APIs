@@ -792,7 +792,7 @@ print(image.data[0].url)</pre>
 <div class="oa-container">
 <div class="oa-header">
 <h2>API Endpoints</h2>
-<p>5 API endpoints cover the full capabilities of OpenAI</p>
+<p>10 API endpoints cover text, image, embedding, audio, model discovery, tasks, and realtime capabilities</p>
 </div>
 <div class="oa-api-grid">
 <div class="oa-api-card">
@@ -819,6 +819,31 @@ print(image.data[0].url)</pre>
 <h3>📐 Embeddings</h3>
 <p class="api-desc">Text vectorization for search, clustering, and RAG.</p>
 <span class="oa-api-path">/openai/embeddings</span>
+</div>
+<div class="oa-api-card">
+<h3>🔊 Text to Speech</h3>
+<p class="api-desc">Synchronous speech synthesis with OpenAI-compatible voices and formats.</p>
+<span class="oa-api-path">/v1/audio/speech</span>
+</div>
+<div class="oa-api-card">
+<h3>🎙️ Audio Transcriptions</h3>
+<p class="api-desc">Speech recognition, subtitles, timestamps, and incremental transcription.</p>
+<span class="oa-api-path">/v1/audio/transcriptions</span>
+</div>
+<div class="oa-api-card">
+<h3>📋 Models</h3>
+<p class="api-desc">Discover available models and their platform capabilities.</p>
+<span class="oa-api-path">/openai/models</span>
+</div>
+<div class="oa-api-card">
+<h3>⚡ Realtime</h3>
+<p class="api-desc">Low-latency speech-to-speech over the OpenAI Realtime WebSocket protocol.</p>
+<span class="oa-api-path">/v1/realtime</span>
+</div>
+<div class="oa-api-card">
+<h3>🧾 Tasks</h3>
+<p class="api-desc">Query asynchronous OpenAI image-generation tasks.</p>
+<span class="oa-api-path">/openai/tasks</span>
 </div>
 </div>
 </div>
@@ -897,6 +922,8 @@ print(image.data[0].url)</pre>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-image-1</span>
 <span class="oa-mdl-tag">gpt-image-2</span>
+<span class="oa-mdl-tag">gpt-image-2.5-flare</span>
+<span class="oa-mdl-tag">gpt-image-2.5-sunburst</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
 <span class="oa-mdl-tag">nano-banana</span>
@@ -1090,6 +1117,11 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
 | [$t(document_title_openai_embeddings_api)](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](https://platform.acedata.cloud/documents/) |
 | [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
+| OpenAI Text-to-Speech API | `/v1/audio/speech` | [OpenAI Text-to-Speech API Integration Guide](docs/openai_audio_speech_api_integration_guide.md) |
+| OpenAI Speech Recognition API | `/v1/audio/transcriptions` | [OpenAI Speech Recognition API Integration Guide](docs/openai_audio_transcriptions_api_integration_guide.md) |
+| OpenAI Models API | `/openai/models` | [OpenAI Models API Integration Guide](docs/openai_models_api_integration_guide.md) |
+| OpenAI Realtime API | `/v1/realtime` | [OpenAI Realtime API Integration Guide](docs/openai_realtime_api_integration_guide.md) |
+| OpenAI Tasks API | `/openai/tasks` | [OpenAI Tasks API Integration Guide](docs/openai_tasks_api_integration_guide.md) |
 
 ## Related Resources
 

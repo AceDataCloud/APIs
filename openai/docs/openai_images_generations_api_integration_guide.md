@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API supports `dall-e-2`, `dall-e-3`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2:reverse`, `gpt-image-2:official`, `nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, and `nano-banana-pro`.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -23,7 +23,7 @@ There is a free quota granted upon the first application, allowing free use of t
 - **Richer style expression**: Natively supports various styles such as cinematic portraits, vintage posters, children's illustrations, product photography, infographics, etc.
 - **Native multi-aspect ratio + high-resolution support**: Covers 5 aspect ratios (1:1, 4:3, 3:4, 16:9, 9:16) with 3 resolution tiers (1K / 2K / 4K).
 
-The calling method is exactly the same as other models, just set the `model` field to `gpt-image-2`. The returned `url` in the result is a permanently hosted image link on `platform.cdn.acedata.cloud`, which can be directly opened in a browser or embedded in a webpage.
+The calling method is exactly the same as other models: set the `model` field to `gpt-image-2` and read generated image addresses from `data[].url`.
 
 ### Supported `size` Values
 
@@ -161,6 +161,7 @@ The `nano-banana` series are image generation models based on Gemini, integrated
 | Model | Billing (Credits / call) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image generation, fastest speed, lowest cost |
+| `nano-banana-2-lite` | See current pricing | Lightweight Nano Banana 2 variant |
 | `nano-banana-2` | 0.28 | Significant improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best composition, detail, and text |
 

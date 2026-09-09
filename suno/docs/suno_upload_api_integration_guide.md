@@ -4,7 +4,7 @@
 
 SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
 
-The core input is `audio_url`, a publicly accessible audio address. This input URL is passed to processing and is not pre-stored by the terminal media persistence flow.
+Standard uploads require `audio_url`, a publicly accessible audio address. The optional `mode` defaults to `standard`, so existing calls do not need to change. A successful standard upload costs **0.06 Credits**; failures are not charged.
 
 Here, the `audio_url` we input is `https://cdn.acedata.cloud/suno_demo.mp3`, which is a publicly accessible CDN address.
 
@@ -40,3 +40,24 @@ The result is as follows:
 As can be seen, the `audio_id` field in `data` is the song ID after uploading.
 
 With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+
+## Enhanced Upload Mode
+
+The input `audio_url` is passed directly to the audio processing workflow and is not pre-stored by the final media persistence service. Keep it publicly accessible throughout processing.
+
+When standard upload cannot process audio that you own or are authorized to use, set `mode` to `enhanced`. Enhanced mode also requires an HTTPS `audio_url` and a `name` of 1–100 characters. Processing is asynchronous, typically takes at least two minutes, and costs **1.87 Credits** on success; failures are not charged.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/suno/upload' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "audio_url": "https://cdn.acedata.cloud/suno_demo.mp3",
+    "mode": "enhanced",
+    "name": "My Song"
+  }'
+```
+
+The API immediately returns `task_id` and `trace_id`. Query the [Suno Tasks API](https://platform.acedata.cloud/documents/suno-tasks) and read the uploaded audio ID from `response.data.audio_id`, or provide an HTTPS `callback_url`.
+
+Enhanced-upload audio IDs can be used for Cover, Samples, and Mashup. Accompaniment and MIDI extraction, full-track separation, and vocal/accompaniment separation may remain subject to account restrictions. Shorter input audio generally has a higher processing success rate.

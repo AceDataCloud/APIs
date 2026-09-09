@@ -6,13 +6,11 @@ This document mainly introduces the usage process of the Claude Messages API, al
 
 ## Application Process
 
-To use the Claude Messages API, you can first visit the [Claude Messages API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page and click the "Acquire" button to obtain the credentials needed for the request:
+Open the [Ace Data Cloud application list](https://platform.acedata.cloud/console/applications), access an application, and copy its API key:
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-Upon first application, there will be a free quota provided, allowing you to use the API for free.
+The same API key works across Ace Data Cloud services, and usage is deducted from the application's shared balance.
 
 ## Basic Usage
 
@@ -32,6 +30,7 @@ Common optional parameters:
 - `top_k`: Sample only from the top K options with the highest probabilities.
 - `tools`: Tool definitions for allowing the model to invoke external functions.
 - `tool_choice`: Controls how the model uses the provided tools.
+- `cache_control`: Configures prompt caching at the last cacheable block.
 
 ### cURL Example
 
@@ -90,7 +89,7 @@ After the call, the returned result is as follows:
       "text": "Hi! My name is Claude. How can I help you today?"
     }
   ],
-  "model": "claude-sonnet-4-20250514",
+  "model": "claude-opus-4-8",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -107,9 +106,10 @@ Returned result field descriptions:
 - `role`: Always `assistant`.
 - `content`: An array of reply content, with each element containing `type` (e.g., `text`) and corresponding content.
 - `model`: The name of the model processing the request.
-- `stop_reason`: The reason for stopping, possible values include `end_turn` (normal end), `max_tokens` (reached maximum length), `stop_sequence` (encountered stop sequence), `tool_use` (tool invocation).
+- `stop_reason`: The reason for stopping. Values include `end_turn`, `max_tokens`, `stop_sequence`, `tool_use`, `pause_turn`, `refusal`, and `model_context_window_exceeded`.
+- `stop_details`: Additional structured details about why generation stopped, when available.
 - `stop_sequence`: If stopped due to a custom stop sequence, displays the matching stop sequence text.
-- `usage`: Token usage statistics, including `input_tokens` (number of input tokens) and `output_tokens` (number of output tokens).
+- `usage`: Token and cost statistics, including `input_tokens`, `output_tokens`, `cache_creation_input_tokens`, `cache_read_input_tokens`, and `cost`.
 
 ## System Prompt
 
@@ -300,7 +300,7 @@ By passing the complete conversation history in `messages`, Claude can provide a
 
 ## Deep Thinking Model
 
-Claude supports the Extended Thinking feature, which allows the model to perform internal reasoning before responding, improving the accuracy of handling complex questions. When using this feature, the `thinking` parameter needs to be passed.
+Claude's thinking and thinking summary are different concepts: the model can reason internally, but the API does not return raw chain-of-thought. When reasoning is displayed, the API returns a processed summary. Current models recommend adaptive thinking controlled by `output_config.effort`.
 
 ### Python Example
 
@@ -316,12 +316,10 @@ headers = {
 }
 
 payload = {
-    "model": "claude-sonnet-4-20250514",
+    "model": "claude-opus-5",
     "max_tokens": 16000,
-    "thinking": {
-        "type": "enabled",
-        "budget_tokens": 10000
-    },
+    "thinking": {"type": "adaptive", "display": "summarized"},
+    "output_config": {"effort": "high"},
     "messages": [
         {"role": "user", "content": "What is the sine of 30 degrees? Show your reasoning."}
     ]
@@ -335,38 +333,19 @@ The response is as follows:
 
 ```json
 {
-  "id": "msg_018J4YaRoGHtbsTVb4Vvz7oH",
-  "type": "message",
-  "role": "assistant",
-  "content": [
-    {
-      "type": "thinking",
-      "thinking": "The user is asking for the sine of 30 degrees. This is a basic trigonometry question.\n\nIn a 30-60-90 triangle, the sides are in the ratio 1:√3:2.\n\nFor a 30° angle:\n- The opposite side is 1\n- The hypotenuse is 2\n- So sin(30°) = opposite/hypotenuse = 1/2 = 0.5"
-    },
-    {
-      "type": "text",
-      "text": "The sine of 30 degrees is **1/2** or **0.5**.\n\nThis is one of the fundamental trigonometric values. In a 30-60-90 triangle, the sides are in the ratio 1:√3:2, where the side opposite to the 30° angle has length 1 and the hypotenuse has length 2, giving us sin(30°) = 1/2."
-    }
-  ],
-  "model": "claude-sonnet-4-20250514",
-  "stop_reason": "end_turn",
-  "stop_sequence": null,
-  "usage": {
-    "input_tokens": 28,
-    "output_tokens": 239
-  }
+  "type": "thinking",
+  "thinking": "The problem asks for a standard trigonometric value...",
+  "signature": "opaque-signature"
 }
 ```
 
-As you can see, the `content` array contains two content blocks:
-
-- `type: "thinking"`: The model's internal thought process, showing the reasoning steps.
-- `type: "text"`: The final answer result.
-
 Notes:
 
-- When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
-- The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+- `display: "summarized"` returns a readable summary, not raw chain-of-thought; `display: "omitted"` returns an empty `thinking` value while retaining the opaque signature.
+- Display affects returned content and streaming latency, not whether reasoning occurs or how thinking tokens are billed.
+- New models should use `thinking.type=adaptive` and `output_config.effort`; `budget_tokens` is for older fixed-budget models. Fable 5.1 thinking cannot be disabled.
+- Replay complete thinking blocks and signatures unchanged in multi-turn conversations and tool calls. Never modify or generate a signature.
+- In streams, summarized thinking produces `thinking_delta`; omitted thinking retains only the block lifecycle and `signature_delta`.
 
 ## Visual Model
 
@@ -489,6 +468,55 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
 ```
 
 Supported image formats include: `image/jpeg`, `image/png`, `image/gif`, `image/webp`.
+
+## Documents and PDFs
+
+PDFs use a `document` content block and support Base64 or URL sources. Base64 sources must use `application/pdf`:
+
+```python
+import base64
+
+with open("report.pdf", "rb") as f:
+    pdf_data = base64.standard_b64encode(f.read()).decode("utf-8")
+
+payload = {
+    "model": "claude-fable-5-1",
+    "max_tokens": 1024,
+    "messages": [{
+        "role": "user",
+        "content": [
+            {
+                "type": "document",
+                "source": {
+                    "type": "base64",
+                    "media_type": "application/pdf",
+                    "data": pdf_data
+                },
+                "title": "Quarterly report"
+            },
+            {"type": "text", "text": "Summarize this PDF."}
+        ]
+    }]
+}
+```
+
+URL sources use `{"type":"url","url":"https://example.com/report.pdf"}`. Documents also support `text/plain` and `content` sources composed of text or image blocks, with optional `title`, `context`, and `citations`.
+
+## Cache Control
+
+Top-level `cache_control` places a cache breakpoint at the last cacheable block:
+
+```python
+payload = {
+    "model": "claude-fable-5-1",
+    "max_tokens": 1024,
+    "cache_control": {"type": "ephemeral", "ttl": "5m"},
+    "system": "You are an expert on this reference material.",
+    "messages": [{"role": "user", "content": "Summarize the key points."}]
+}
+```
+
+For precise placement, add `cache_control` to text, image, document, tool-use, tool-result blocks, or tool definitions. `ttl` supports `5m` (default) and `1h`. Check `usage.cache_creation_input_tokens` and `usage.cache_read_input_tokens` for cache writes and hits.
 
 Example of return result:
 
@@ -643,6 +671,8 @@ The model will generate the final natural language reply based on the result ret
 
 Ace Data Cloud provides two formats of the Claude API, with the main differences as follows:
 
+The Messages API's `usage.input_tokens` counts uncached input only. Cache reads and cache creation are reported and billed independently.
+
 | Feature       | Messages API (`/v1/messages`)    | Chat Completion API (`/v1/chat/completions`) |
 | -------- | -------------------------------- | -------------------------------------------- |
 | Format       | Anthropic native format                   | OpenAI compatible format                                  |
@@ -657,18 +687,19 @@ If your system is already integrated with the OpenAI format API, you can use the
 
 ## Error Handling
 
-When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+Errors use the Ace Data Cloud envelope: `error.code` is a stable code, `error.message` explains the failure, and `trace_id` supports troubleshooting. Common HTTP statuses include:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
+- `400`: Invalid request parameters or protocol content.
+- `401`: Invalid, missing, or expired authorization token.
+- `403`: Forbidden access, insufficient balance, or quota limits.
+- `404`: API or model does not exist.
+- `413`: Request body too large.
+- `429`: Too many requests.
+- `500` / `503` / `504`: Service error, temporary unavailability, or timeout.
 
 ### Error Response Example
 ```json
 {
-  "success": false,
   "error": {
     "code": "api_error",
     "message": "fetch failed"
@@ -677,6 +708,8 @@ When calling the API, if an error occurs, the API will return the corresponding 
 }
 ```
 
+This runtime contract is not the official Anthropic error envelope; handle errors according to HTTP status and `error.code`.
+
 ## Conclusion
 
-Through this document, you have learned how to use the Claude Messages API to call Claude's conversational features in Anthropic's native format. The Messages API supports a rich set of features including basic conversations, system prompts, streaming responses, multi-turn dialogues, deep thinking, visual understanding, and tool calls. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to use the Claude Messages API to call Claude's conversational features in Anthropic's native format. The Messages API supports basic conversations, system prompts, streaming responses, multi-turn dialogues, adaptive thinking, visual and PDF input, prompt caching, and tool calls.

@@ -21,9 +21,7 @@ Claude is Anthropic's AI assistant, offering powerful language understanding and
 
 ## Application Process
 
-To use the Claude API, apply for the corresponding service on the [Claude Chat Completion API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page. After entering the page, click the "Acquire" button.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+Create or open an application in the [Ace Data Cloud application console](https://platform.acedata.cloud/console/applications) and copy its API key. The same key works across Ace Data Cloud services, and usage is deducted from the application's shared balance.
 
 ## Quick Start
 

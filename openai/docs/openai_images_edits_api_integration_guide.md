@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+The OpenAI Images Edits API supports `dall-e-2`, `dall-e-3`, `gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2:reverse`, `gpt-image-2:official`, `nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, and `nano-banana-pro`.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -194,6 +194,7 @@ The `nano-banana` series is also integrated with `/openai/images/edits` for edit
 | Model | Cost (Credits / request) | Suitable Scenario |
 | --- | --- | --- |
 | `nano-banana` | 0.14 | General image editing, fastest and lowest cost |
+| `nano-banana-2-lite` | See current pricing | Lightweight Nano Banana 2 variant |
 | `nano-banana-2` | 0.28 | Noticeable improvement in quality and detail |
 | `nano-banana-pro` | 0.35 | Flagship of the series, best retention of structure, text, and style |
 

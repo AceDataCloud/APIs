@@ -44,7 +44,7 @@ Here we can see that we have set the Request Headers, including:
 
 Additionally, we set the Request Body, including:
 
-- `action`: the action of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`.
+- `action`: the action of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`, `inspo`.
 - `prompt`: the prompt for the inspiration mode from Suno.
 - `model`: the model for this music generation task, default is `chirp-v4`, mainly includes: `chirp-v3`, `chirp-v4`, `chirp-v3-5`, `chirp-v4-5`, `chirp-v4-5-plus`, `chirp-v5`, `chirp-v5-5`.
 - `lyric`: the lyrics content for the custom mode from Suno.
@@ -68,6 +68,7 @@ Additionally, we set the Request Body, including:
 - `duration`: the target length of the generated track in seconds, given as an integer between 10 and 360. It is used for generation in custom mode (`custom` is `true`). It is a hint rather than a bound — the model takes it into account but does not commit to it, and the actual length of each returned track is reported by the `duration` field in the response, usually shorter than the value you asked for and not repeatable across identical requests.
 - `lyric_prompt`: the prompt for generating lyrics, effective only when `custom` is `true` and `lyric` is not provided.
 - `callback_url`: the URL for callback results.
+- `async`: when `true`, returns a `task_id` immediately without requiring `callback_url`; query `/suno/tasks` for completion.
 
 The generated code is as follows:
 
@@ -1416,9 +1417,39 @@ print(response.text)
 
 This completes the operation of adding a sampled clip from an uploaded audio track into a new song.
 
+## Inspo Creative Function
+
+Set `action` to `inspo` to create music inspired by one to four publicly accessible reference-audio URLs:
+
+```python
+import requests
+
+payload = {
+    "action": "inspo",
+    "audio_urls": [
+        "https://cdn.acedata.cloud/examples/reference-audio.mp3"
+    ],
+    "tags": "dream pop, atmospheric",
+    "title": "Night Drive",
+    "audio_weight": 0.8
+}
+
+response = requests.post(
+    "https://api.acedata.cloud/suno/audios",
+    json=payload,
+    headers={
+        "authorization": "******",
+        "content-type": "application/json"
+    }
+)
+print(response.text)
+```
+
+`audio_urls` is required. `tags`, `title`, and `audio_weight` are optional controls.
+
 ## Asynchronous Callback
 
-Since the time for Suno to generate music is relatively long, approximately 1-2 minutes, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+Since Suno generation can take one to two minutes, use either `async: true` and poll `/suno/tasks`, or provide `callback_url` to receive the terminal result.
 
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the generated music result will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
