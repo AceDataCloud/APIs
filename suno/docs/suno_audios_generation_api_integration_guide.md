@@ -8,16 +8,19 @@ Suno is a professional high-quality AI song and music creation platform. Users o
 
 Here is the progress of model updates:
 
-| Version | model           | Launch Date   | prompt Limit | style Limit | Maximum Song Duration |
-| ------- | --------------- | -------------- | ------------ | ----------- | --------------------- |
-| v5.5    | chirp-v5-5      | 2026.03.27     | 5000         | 1000        | 8 minutes             |
-| v5      | chirp-v5        | 2025.09.23     | 5000         | 1000        | 8 minutes             |
-| v4.5+   | chirp-v4-5-plus | 2025.07.17     | 5000         | 1000        | 8 minutes             |
-| v4.5    | chirp-v4-5      | 2025.05.03     | 5000         | 1000        | 4 minutes             |
-| v4      | chirp-v4        | 2024.12.17     | 3000         | 200         | 150 seconds           |
-| v3.5    | chirp-v3-5      | ---            | 3000         | 200         | 120 seconds           |
+| Version | model           | Launch Date | prompt Limit | style Limit | Maximum Song Duration |
+| ------- | --------------- | ----------- | ------------ | ----------- | --------------------- |
+| v6      | chirp-v6        | 2026.09.09  | —            | —           | —                     |
+| v6 Wild | chirp-v6-wild   | 2026.09.09  | —            | —           | —                     |
+| v6 Mini | chirp-v6-mini   | 2026.09.09  | —            | —           | —                     |
+| v5.5    | chirp-v5-5      | 2026.03.27  | 5000         | 1000        | 8 minutes             |
+| v5      | chirp-v5        | 2025.09.23  | 5000         | 1000        | 8 minutes             |
+| v4.5+   | chirp-v4-5-plus | 2025.07.17  | 5000         | 1000        | 8 minutes             |
+| v4.5    | chirp-v4-5      | 2025.05.03  | 5000         | 1000        | 4 minutes             |
+| v4      | chirp-v4        | 2024.12.17  | 3000         | 200         | 150 seconds           |
+| v3.5    | chirp-v3-5      | ---         | 3000         | 200         | 120 seconds           |
 
-Suno now supports the latest `chirp-v5-5` model. To use the newest version, set the `model` parameter to `chirp-v5-5`; `chirp-v5` and earlier versions remain available.
+Suno now supports `chirp-v6`, `chirp-v6-wild`, and `chirp-v6-mini`. We recommend `chirp-v6`; legacy model names remain supported.
 
 However, Suno does not officially provide an API. AceDataCloud offers a set of Suno APIs that simulate the official Suno integration, making it easy and quick to generate the desired music.
 
@@ -46,7 +49,7 @@ Additionally, we set the Request Body, including:
 
 - `action`: the action of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`.
 - `prompt`: the prompt for the inspiration mode from Suno.
-- `model`: the model for this music generation task, default is `chirp-v4`, mainly includes: `chirp-v3`, `chirp-v4`, `chirp-v3-5`, `chirp-v4-5`, `chirp-v4-5-plus`, `chirp-v5`, `chirp-v5-5`.
+- `model`: the model for this music generation task. The v6 series includes `chirp-v6`, `chirp-v6-wild`, and `chirp-v6-mini`; legacy model names remain supported.
 - `lyric`: the lyrics content for the custom mode from Suno.
 - `custom`: whether to use the custom mode, default is: `false`.
 - `instrumental`: the pure music option for the inspiration mode from Suno.
