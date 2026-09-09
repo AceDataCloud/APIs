@@ -89,10 +89,13 @@ class StructureParser(HTMLParser):
 
 def raw_html_bounds(text: str) -> tuple[int, int] | None:
     start = text.find("<style>")
-    end = text.find("\n## APIs and Guides", start)
-    if start < 0 or end < 0:
+    heading = text.find("\n## APIs and Guides", start)
+    if start < 0 or heading < 0:
         return None
-    return start, end
+    closing = text.rfind("\n</div>", start, heading)
+    if closing < 0:
+        return None
+    return start, closing + len("\n</div>")
 
 
 def validate_html(text: str) -> list[str]:

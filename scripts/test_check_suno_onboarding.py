@@ -67,9 +67,11 @@ class SunoOnboardingValidatorTest(unittest.TestCase):
                 self.assertIn("code fence leaked into raw HTML", self.errors_for(changed))
 
     def test_markdown_html_like_text_after_raw_fragment_is_allowed(self) -> None:
-        changed = self.text + (
-            "\n<https://docs.acedata.cloud>\n\n"
-            "```text\n<task-id>\n```\n"
+        changed = self.text.replace(
+            "</div>\n\n## APIs and Guides",
+            "</div>\n\n<https://docs.acedata.cloud>\n\n"
+            "```text\n<task-id>\n```\n\n## APIs and Guides",
+            1,
         )
         self.assertEqual(validate_text(changed, self.docs_dir), [])
 
