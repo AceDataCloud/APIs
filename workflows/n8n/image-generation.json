@@ -1,0 +1,234 @@
+{
+  "id": "acedata-image-generation-v1",
+  "name": "Ace Data Cloud prompt to image",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1259658c-59f0-4aad-861c-28080a8fbd22",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b82dc33b-fdbd-43f2-a782-d7c138c85ae6",
+              "name": "prompt",
+              "value": "Editorial illustration of a solar-powered floating research station at sunrise",
+              "type": "string"
+            },
+            {
+              "id": "e486455a-cbb6-459d-b0ba-54e77cd630cd",
+              "name": "model",
+              "value": "flux-2-klein",
+              "type": "string"
+            },
+            {
+              "id": "1fcc6561-9ac8-4428-9f17-ad898f9af945",
+              "name": "size",
+              "value": "1024x1024",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7fa8969d-d8be-40f5-9a99-159d6c5e7cff",
+      "name": "Set image input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/flux/images",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ action: 'generate', prompt: $json.prompt, size: $json.size, model: $json.model, count: 1, async: false }) }}",
+        "options": {
+          "timeout": 180000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "ab596b81-7304-4120-954c-c8ad6c98cd81",
+      "name": "Generate image with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5976d56e-66da-4b9b-bdf7-e439389e70e5",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ac57df20-cf0c-4391-ad83-2fe188d58ffc",
+      "name": "Request succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [740, 0]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Image request failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"
+      },
+      "id": "7ef64871-d817-463c-8cd4-fe43b0295c6e",
+      "name": "Stop on API error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [980, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c8ce762b-4087-4a2c-8810-edde62268d87",
+              "leftValue": "={{ $json.body.success === true && typeof $json.body.data?.[0]?.image_url === 'string' && $json.body.data[0].image_url.length > 0 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0b9238f5-bab3-4ce4-93ec-56aa6c7a527c",
+      "name": "Image result exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [980, -80]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Image API returned HTTP 200 without a usable image result: ' + JSON.stringify($json.body) }}"
+      },
+      "id": "f155e76d-6a92-4558-a5ee-d5262ba228d0",
+      "name": "Stop on missing image",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1220, 100]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d47596d3-bf62-44fb-829b-fb41ba7796e7",
+              "name": "status",
+              "value": "success",
+              "type": "string"
+            },
+            {
+              "id": "3e0bb4be-50ae-444a-bd2e-27fc7dcdd90a",
+              "name": "model",
+              "value": "={{ $('Set image input').item.json.model }}",
+              "type": "string"
+            },
+            {
+              "id": "f48b3bc0-8e48-4dc4-8f7c-9a019513efbd",
+              "name": "prompt",
+              "value": "={{ $json.body.data[0].prompt || $('Set image input').item.json.prompt }}",
+              "type": "string"
+            },
+            {
+              "id": "c7b40ee7-ce5b-458c-a247-dd4c05dc0a4f",
+              "name": "size",
+              "value": "={{ $('Set image input').item.json.size }}",
+              "type": "string"
+            },
+            {
+              "id": "bb913777-a342-4ac7-8276-b221675c4108",
+              "name": "image_url",
+              "value": "={{ $json.body.data[0].image_url }}",
+              "type": "string"
+            },
+            {
+              "id": "87e89824-224c-466f-8ced-c5b7147636dd",
+              "name": "seed",
+              "value": "={{ $json.body.data[0].seed || null }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ead7fe22-4aad-436a-9987-fd56e07cac5b",
+      "name": "Return image result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1220, -160]
+    }
+  ],
+  "connections": {
+    "Run manually": {
+      "main": [[{"node": "Set image input", "type": "main", "index": 0}]]
+    },
+    "Set image input": {
+      "main": [[{"node": "Generate image with Ace Data Cloud", "type": "main", "index": 0}]]
+    },
+    "Generate image with Ace Data Cloud": {
+      "main": [[{"node": "Request succeeded", "type": "main", "index": 0}]]
+    },
+    "Request succeeded": {
+      "main": [
+        [{"node": "Image result exists", "type": "main", "index": 0}],
+        [{"node": "Stop on API error", "type": "main", "index": 0}]
+      ]
+    },
+    "Image result exists": {
+      "main": [
+        [{"node": "Return image result", "type": "main", "index": 0}],
+        [{"node": "Stop on missing image", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}
