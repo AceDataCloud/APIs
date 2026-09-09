@@ -42,6 +42,9 @@ paths:
                 model:
                   type: string
                   enum:
+                    - chirp-v6
+                    - chirp-v6-wild
+                    - chirp-v6-mini
                     - chirp-v5-5
                     - chirp-v5
                     - chirp-v4-5-plus
