@@ -1,0 +1,34 @@
+name: Coze submission packet
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "coze/submission-packet.json"
+      - "coze/SUBMISSION.md"
+      - "coze/test_submission_packet.py"
+      - "coze/suno.yaml"
+      - ".github/workflows/coze-submission-packet.yml"
+  pull_request:
+    paths:
+      - "coze/submission-packet.json"
+      - "coze/SUBMISSION.md"
+      - "coze/test_submission_packet.py"
+      - "coze/suno.yaml"
+      - ".github/workflows/coze-submission-packet.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install PyYAML
+      - run: python -m json.tool coze/submission-packet.json >/dev/null
+      - run: python -m unittest coze/test_submission_packet.py
+      - run: python -m py_compile coze/test_submission_packet.py

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "pending-owner",
+  "verified_at": "2026-09-10",
+  "pilot": {
+    "name": "Ace Data Cloud Suno",
+    "outcome": "Generate a complete song from a prompt in a Coze workflow",
+    "channel": "owner-selection-required",
+    "channel_options": ["coze.cn", "coze.com"],
+    "publisher_account": "pending-owner",
+    "operational_owner": "pending-owner",
+    "schema": {
+      "path": "coze/suno.yaml",
+      "source_revision": "7c3722ea8635a4e3ce5b521e26f13491ddcbc171",
+      "sha256": "d150046a78c62270e67fbc3cc914d020ce3b7d49a9f44bc1e4247b40f08efa49",
+      "openapi": "3.0.1",
+      "operation_id": "generateMusic",
+      "method": "POST",
+      "path_template": "/suno/audios",
+      "execution": "synchronous"
+    },
+    "auth": {
+      "type": "http-bearer",
+      "header": "Authorization",
+      "value_template": "Bearer {{api_token}}",
+      "secret_storage": "Coze service credential",
+      "test_account": "pending-owner-secure-delivery"
+    },
+    "review_test": {
+      "billable": true,
+      "input": {
+        "prompt": "a short upbeat instrumental for a product demo",
+        "model": "chirp-v5-5",
+        "custom": false,
+        "instrumental": true
+      },
+      "expected": {
+        "http_status": 200,
+        "success": true,
+        "data": "non-empty array",
+        "audio_url": "HTTPS URL in at least one data item",
+        "trace_id": "non-empty string"
+      },
+      "store_only": ["status", "sanitized response shape", "trace_id", "schema checksum", "timestamp"],
+      "never_store": ["API token", "credential ID", "raw reviewer credentials"]
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "openWorldHint": true,
+      "destructiveHint": false
+    },
+    "public_metadata": {
+      "homepage_url": "https://platform.acedata.cloud/?utm_source=coze&utm_medium=plugin&utm_campaign=coze-suno-pilot",
+      "credential_url": "https://platform.acedata.cloud/console/credentials?utm_source=coze&utm_medium=plugin&utm_campaign=coze-suno-auth",
+      "pricing_url": "https://platform.acedata.cloud/services/suno?tab=pricing&utm_source=coze&utm_medium=plugin&utm_campaign=coze-suno-pricing",
+      "privacy_url": "https://platform.acedata.cloud/privacy",
+      "terms_url": "https://platform.acedata.cloud/terms",
+      "support_url": "https://platform.acedata.cloud/support?utm_source=coze&utm_medium=plugin&utm_campaign=coze-suno-support"
+    },
+    "listing": {
+      "id": null,
+      "url": null,
+      "review_state": "not-submitted",
+      "publicly_installable": false
+    }
+  },
+  "evidence_slots": [
+    {"id": "owner-channel", "status": "pending-owner", "required": "Chosen Coze region, publisher account, operational owner, and rollback owner"},
+    {"id": "schema-import", "status": "pending-external", "required": "Sanitized import result tied to schema SHA-256 and target channel"},
+    {"id": "auth-validation", "status": "pending-external", "required": "Invalid-token failure and successful managed-credential check without exposed secrets"},
+    {"id": "first-workflow", "status": "pending-external", "required": "One funded synchronous workflow result matching the sanitized expected shape"},
+    {"id": "review", "status": "pending-external", "required": "Submission URL, review outcome, reviewed schema checksum, and reviewer date"},
+    {"id": "listing", "status": "pending-external", "required": "Canonical public listing ID and URL verified in a fresh account"},
+    {"id": "d7-repeat", "status": "pending-external", "required": "Seven-day repeat-use measurement with privacy-safe aggregation"},
+    {"id": "first-payment", "status": "pending-external", "required": "Attributed first-payment evidence under the coze-suno-pilot campaign"}
+  ],
+  "owner_gates": [
+    {"id": "publisher-selection", "status": "pending-owner", "evidence_required": "Account owner chooses coze.cn or coze.com and confirms publishing authority"},
+    {"id": "test-account-provisioning", "status": "pending-owner", "evidence_required": "Revocable least-privilege funded test token delivered only through an approved secure channel"},
+    {"id": "external-submission", "status": "pending-external", "evidence_required": "Separate authorization, submission receipt, and immutable schema checksum"},
+    {"id": "marketplace-publication", "status": "pending-external", "evidence_required": "Approved public listing URL and fresh-account install proof"}
+  ]
+}
