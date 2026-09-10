@@ -4,7 +4,7 @@
 
 SUNO allows us to upload reference audio for secondary creation. This document explains the integration method of the related API.
 
-The core input is `audio_url`, a publicly accessible audio address. This input URL is passed to processing and is not pre-stored by the terminal media persistence flow.
+Ordinary uploads require only `audio_url`, a publicly accessible audio address. The default `mode` is `standard`; successful ordinary uploads cost 0.06 Credits, while failed uploads are not charged. This input URL is passed to processing and is not pre-stored by the terminal media persistence flow.
 
 Here, the `audio_url` we input is `https://cdn.acedata.cloud/suno_demo.mp3`, which is a publicly accessible CDN address.
 
@@ -40,3 +40,20 @@ The result is as follows:
 As can be seen, the `audio_id` field in `data` is the song ID after uploading.
 
 With the song ID, we can use the [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9) to generate custom songs. For example, by passing `action` as `upload_extend` and `audio_id` as the returned song ID, we can generate a new song based on the reference audio.
+
+## Enhanced Upload Mode
+
+Set `mode` to `enhanced` when an ordinary upload cannot process audio you own or are authorized to use. Enhanced uploads require a publicly accessible HTTPS `audio_url` and a `name` of 1–100 characters, are asynchronous, and typically take two minutes or longer. Successful processing costs 1.87 Credits; failures are not charged.
+
+```bash
+curl -X POST 'https://api.acedata.cloud/suno/upload' \
+  -H 'authorization: ******' \
+  -H 'content-type: application/json' \
+  -d '{
+    "audio_url": "https://cdn.acedata.cloud/suno_demo.mp3",
+    "mode": "enhanced",
+    "name": "My Song"
+  }'
+```
+
+The response immediately returns `task_id` and `trace_id`. Query the [Suno Tasks API](https://platform.acedata.cloud/documents/suno-tasks) and read the uploaded audio ID from `response.data.audio_id` after success, or provide an HTTPS `callback_url` to receive the final state.

@@ -47,9 +47,12 @@ Here we can see that we have set the Request Headers, including:
 
 Additionally, we set the Request Body, including:
 
-- `action`: the action of this music generation task, default is `generate`, mainly includes: `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`.
+- `action`: the action of this music generation task, default is `generate`, mainly includes: `inspo`, `extend`, `upload_extend`, `cover`, `upload_cover`, `replace_section`, `concat`, `stems`, `all_stems`, `remaster`, `artist_consistency`, `artist_consistency_vox`, `underpainting`, `overpainting`, `mashup`, `samples`.
 - `prompt`: the prompt for the inspiration mode from Suno.
-- `model`: the model for this music generation task. The v6 family includes `chirp-v6`, `chirp-v6-wild`, and `chirp-v6-mini`; previous model names remain accepted for compatibility.
+- `model`: the model for this music generation task. The v6 family includes `chirp-v6`, `chirp-v6-wild`, and `chirp-v6-mini`; `chirp-v3-0` and previous model names remain accepted for compatibility.
+- `audio_urls`: optional source audio URLs for actions that accept multiple audio inputs.
+- `replace_section_result_mode`: controls the result returned by the `replace_section` action.
+- `async`: set to `true` to receive a task ID immediately and query the final result through the Tasks API.
 - `lyric`: the lyrics content for the custom mode from Suno.
 - `custom`: whether to use the custom mode, default is: `false`.
 - `instrumental`: the pure music option for the inspiration mode from Suno.

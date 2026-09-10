@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, **`gpt-image-2`**, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -27,7 +27,9 @@ Compared to `gpt-image-1`, `gpt-image-2` offers significant improvements in imag
 
 The `size` constraint for the editing interface is identical to the generation interface — `gpt-image-2` accepts `size` as `auto`, empty, or in the `WIDTHxHEIGHT` format; any other format will return a 400 error. **All sizes (1K / 2K / 4K / custom) are charged per single image uniformly, regardless of the original image resolution or the requested `size`.**
 
-The same size limits on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, and total pixels ≤ 8,294,400.
+The same size limits on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, total pixels must be between 655,360 and 8,294,400, and the aspect ratio must not exceed 3:1.
+
+The API also supports `async`, `input_fidelity`, `output_compression`, `output_format`, and `partial_images` where supported by the selected model.
 
 | Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
 | --- | --- | --- | --- |
@@ -267,7 +269,7 @@ You can now use code to call the API. Below is a CURL example:
 ```curl
 curl -s -D >(grep -i x-request-id >&2) \
   -o >(jq -r '.data[0].b64_json' | base64 --decode > gift-basket.png) \
-  -X POST "https://api.acedata.cloud/v1/images/edits" \
+  -X POST "https://api.acedata.cloud/openai/images/edits" \
   -H "Authorization: Bearer {token}" \
   -F "model=gpt-image-1" \
   -F "image[]=@test.png" \
@@ -337,7 +339,7 @@ Copy this URL to use as the webhook. The example URL here is `https://webhook.si
 Next, set the `callback_url` field to the above webhook URL and fill in the other parameters as in the following code:
 
 ```shell
-curl -X POST "https://api.acedata.cloud/v1/images/edits" \
+curl -X POST "https://api.acedata.cloud/openai/images/edits" \
   -H "Authorization: Bearer {token}" \
   -F "model=gpt-image-1" \
   -F "image[]=@test.png" \

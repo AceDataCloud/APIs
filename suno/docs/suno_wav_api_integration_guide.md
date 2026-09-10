@@ -36,7 +36,7 @@ The result is as follows:
   "trace_id": "ec232cf9-8b75-42df-a8a3-fe6d7d6fd02e",
   "data": [
     {
-      "file_url": "https://media.example.com/suno/ec13e502-d043-4eb2-92ee-e900c6da69d1.wav"
+      "file_url": "https://cdn.acedata.cloud/suno/41572926-1a7a-41bc-adb8-9431e494c144.wav"
     }
   ]
 }

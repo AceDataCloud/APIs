@@ -1,6 +1,6 @@
 # OpenAI Images Generations API Application and Usage
 
-The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, the latest generation **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
+The OpenAI Images Generations API currently supports various image generation models, including the classic `dall-e-3`, the text rendering enhanced `gpt-image-1`, **`gpt-image-2`**, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and the **`nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface. All of them can generate high-quality images based on textual descriptions.
 
 This document mainly introduces the usage process of the OpenAI Images Generations API, which allows easy access to the OpenAI series image generation capabilities.
 
@@ -29,7 +29,9 @@ The calling method is exactly the same as other models, just set the `model` fie
 
 `gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
 
-Size limits for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels ≤ 8,294,400. Exceeding these limits returns 4xx.
+Size limits for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels must be between 655,360 and 8,294,400, and the aspect ratio must not exceed 3:1. Exceeding these limits returns 4xx.
+
+`async` can return a task ID for asynchronous processing. The API also supports `moderation`, `output_compression`, and `partial_images` where supported by the selected model.
 
 | Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
 | --- | --- | --- | --- |
