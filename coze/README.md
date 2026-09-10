@@ -9,6 +9,9 @@ directly with no code. We ship **music (Suno)**, **image** (GPT Image / Nano Ban
 DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
 `<service>.yaml` per plugin, all synchronous.
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-coze)
+
 ## Plugins
 
 | File | Tool (`operationId`) | AceData API | What it does |

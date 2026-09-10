@@ -9,6 +9,9 @@ API home page: [Ace Data Cloud - Happy Horse Video](https://platform.acedata.clo
 Keywords: happy-horse-api, happyhorse-api, ai-video, video-generation, video-editing,
 text-to-video, image-to-video, reference-to-video, rest-api, ai-api, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-happyhorse)
+
 ## Why Use Happy Horse on Ace Data Cloud
 
 - One endpoint for text, first-frame image, reference-image, and video-edit workflows

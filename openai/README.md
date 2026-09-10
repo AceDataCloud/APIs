@@ -10,6 +10,9 @@ API home page: [Ace Data Cloud - OpenAI generation](https://platform.acedata.clo
 
 Keywords: openai-api, openai-compatible, chat-completions, rest-api, ai-api, developer-tools, aichat, aiimage, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-openai)
+
 ## Why Use OpenAI generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

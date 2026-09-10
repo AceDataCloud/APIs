@@ -6,6 +6,9 @@ Generate 4–15 second videos from text, first/last frames, and multimodal refer
 
 MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-minimax)
+
 ## Endpoints
 
 | Method | Path | Purpose |

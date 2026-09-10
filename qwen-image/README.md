@@ -4,6 +4,9 @@ Generate and edit images with Qwen Image 3 through Ace Data Cloud.
 
 Service page: [Qwen Image 3](https://platform.acedata.cloud/service/qwen-image)
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-qwen-image)
+
 ## Models
 
 | Model | Best for |

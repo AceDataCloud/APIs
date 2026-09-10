@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Hailuo Video Generation](https://platform.aceda
 
 Keywords: hailuo-api, minimax-api, ai-video, video-generation, text-to-video, image-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-hailuo)
+
 ## Why Use Hailuo Video Generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking
