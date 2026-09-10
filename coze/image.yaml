@@ -48,7 +48,9 @@ paths:
                   enum:
                     - gpt-image-2
                     - gpt-image-2.5-flare
+                    - gpt-image-2.5-flare:official
                     - gpt-image-2.5-sunburst
+                    - gpt-image-2.5-sunburst:official
                     - gpt-image-1.5
                     - gpt-image-1
                     - nano-banana-pro
@@ -57,7 +59,9 @@ paths:
                     - dall-e-3
                     - dall-e-2
                   default: gpt-image-2
-                  description: Which image model to use.
+                  description: >-
+                    Which image model to use. GPT Image 2.5 `:official`
+                    variants are billed from actual token usage.
                 size:
                   type: string
                   default: auto
