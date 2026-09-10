@@ -8,7 +8,7 @@ Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, do
 
 ## Overview
 
-The Seedream Images API generates, edits, streams, and decomposes images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.
+The Seedream Images API generates, edits, streams, and decomposes images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-lite-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.
 
 ## Quick Start
 
@@ -16,7 +16,7 @@ The Seedream Images API generates, edits, streams, and decomposes images with `d
 curl --request POST "https://api.acedata.cloud/seedream/images" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
-  --data '{"model": "doubao-seedream-5-0-260128", "prompt": "a serene mountain lake at sunrise, photorealistic", "size": "2K"}'
+  --data '{"model": "doubao-seedream-5-0-lite-260128", "prompt": "a serene mountain lake at sunrise, photorealistic", "size": "2K"}'
 ```
 
 ## Models
@@ -24,7 +24,7 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 | Model | Notes |
 | ---- | ---- |
 | `doubao-seedream-5-0-pro-260628` | Single image, precise editing, transparent background, layer decomposition; 1K/1.5K/2K |
-| `doubao-seedream-5-0-260128` / `doubao-seedream-5-0-lite-260128` | Sequential images, streaming, web search; 2K/3K/4K |
+| `doubao-seedream-5-0-lite-260128` | Sequential images, streaming, web search; 2K/3K/4K |
 | `doubao-seedream-4-5-251128` | 4.5 |
 | `doubao-seedream-4-0-250828` | 4.0 |
 
