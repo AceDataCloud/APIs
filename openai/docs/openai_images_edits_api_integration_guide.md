@@ -87,7 +87,7 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 
 | Field | Description |
 | --- | --- |
-| `model` | One of the exact model IDs above |
+| `model` | One of the exact model IDs above; DALL·E 2/3, GPT Image 1/1.5, and Nano Banana model IDs are also supported |
 | `image` | One URL, an array of up to 16 URLs, or repeated multipart file fields |
 | `prompt` | Editing instruction |
 | `size` | `auto` or `WIDTHxHEIGHT` |
@@ -95,10 +95,14 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 | `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
+| `output_compression` | JPEG/WebP compression from 0 to 100; defaults to 100 |
+| `input_fidelity` | `low` or `high` reference-image fidelity |
 | `callback_url` | Optional webhook for asynchronous completion |
 | `async` | Set to `true` to return a task ID immediately |
 
 `response_format=b64_json` supports `n=1`. Use URL output when requesting multiple edits.
+
+Multipart requests also support `mask` and `partial_images` (0–3).
 
 ## 6. Size Rules
 

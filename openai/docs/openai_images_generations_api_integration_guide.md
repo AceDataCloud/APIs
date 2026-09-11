@@ -45,16 +45,20 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 
 | Field | Description |
 | --- | --- |
-| `model` | One of the exact model IDs above |
+| `model` | One of the exact model IDs above; DALL·E 2/3, GPT Image 1/1.5, and Nano Banana model IDs are also supported |
 | `prompt` | Image description, up to 32,000 characters |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of images, from 1 to 10 |
 | `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
+| `output_compression` | JPEG/WebP compression from 0 to 100; defaults to 100 |
 | `background` | `auto`, `opaque`, or `transparent` where supported |
+| `moderation` | `auto` or `low` |
+| `partial_images` | Number of partial images to return, from 0 to 3 |
 | `callback_url` | Optional webhook for asynchronous completion |
 | `async` | Set to `true` to return a task ID immediately |
+| `style` | DALL·E 3 style: `vivid` or `natural` |
 
 `response_format=b64_json` supports `n=1`. Use URL output when requesting multiple images.
 

@@ -50,3 +50,4 @@ Explore the supported endpoints and integration guides for Claude.
 | [Claude Chat Completion API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) | `/v1/chat/completions` | [Claude Chat Completion API Integration Guide](docs/claude_chat_completions_api_integration_guide.md) |
 | [Claude Messages API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) | `/v1/messages` | [Claude Messages API Integration Guide](docs/claude_messages_api_integration_guide.md) |
 | [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) | `/v1/messages/count_tokens` | [Claude Messages Count Tokens API Integration Guide](docs/claude_messages_count_tokens_api_integration_guide.md) |
+| Claude Desktop third-party inference gateway | `/v1/models`, `/v1/messages` | [Claude Desktop Gateway Integration Guide](docs/claude_desktop_gateway_integration_guide.md) |
