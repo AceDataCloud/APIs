@@ -1,0 +1,326 @@
+{
+  "id": "acedata-lyrics-to-music-poll-v1",
+  "name": "Ace Data Cloud lyrics to music with bounded polling",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7ab805f2-5357-4594-8ed0-88d838849751",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "1485f7de-9aa7-4f73-80fc-7dbc637ee06a", "name": "theme", "value": "A hopeful song about rebuilding a city garden after a storm", "type": "string"},
+            {"id": "a3728aad-7e2e-4e51-a8ba-e4019650c885", "name": "style", "value": "warm indie folk, acoustic guitar, gentle percussion", "type": "string"},
+            {"id": "e7f60d69-38a9-4fe1-b3a5-d406be61fce7", "name": "lyrics_model", "value": "default", "type": "string"},
+            {"id": "0f6f70e0-8e74-4473-91ca-270498686eb1", "name": "music_model", "value": "chirp-v5-5", "type": "string"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "01661331-328d-4052-8279-b9090c158761",
+      "name": "Set song input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/suno/lyrics",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ prompt: $json.theme, model: $json.lyrics_model }) }}",
+        "options": {
+          "timeout": 120000,
+          "response": {"response": {"fullResponse": true, "neverError": true, "responseFormat": "json"}}
+        }
+      },
+      "id": "e8f739d4-f8e4-4587-8237-c6cb751acac0",
+      "name": "Generate lyrics with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "c4774e2e-58e2-47a7-a538-4b362edc8732", "leftValue": "={{ $json.statusCode }}", "rightValue": 200, "operator": {"type": "number", "operation": "equals"}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "eafc95a7-c1a4-456d-83d5-3d1e42815415",
+      "name": "Lyrics request succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [740, 0]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Lyrics request failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"},
+      "id": "8e94b9c2-cdec-42ef-897d-10a2852d4f5c",
+      "name": "Stop on lyrics API error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [980, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "c84355d1-8f1f-4935-909c-a29283d40091", "leftValue": "={{ $json.body.success === true && typeof $json.body.data?.[0]?.text === 'string' && $json.body.data[0].text.length > 0 && typeof $json.body.data[0].title === 'string' && $json.body.data[0].title.length > 0 }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "862c8940-735a-45a1-a821-4511d37bf2c5",
+      "name": "Lyrics result exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [980, -80]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Lyrics API returned HTTP 200 without a usable lyrics result: ' + JSON.stringify($json.body) }}"},
+      "id": "01a7fa71-72e5-43fe-a59e-99ea4e7b2440",
+      "name": "Stop on missing lyrics",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1220, 100]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/suno/audios",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ action: 'generate', model: $('Set song input').first().json.music_model, custom: true, lyric: $json.body.data[0].text, title: $json.body.data[0].title, style: $('Set song input').first().json.style, instrumental: false, async: true }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {"response": {"fullResponse": true, "neverError": true, "responseFormat": "json"}}
+        }
+      },
+      "id": "feee902d-0fcb-4f98-afb3-3d8d37f122c2",
+      "name": "Submit music with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1220, -160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "ab079328-a936-484d-aefa-923134297d02", "leftValue": "={{ $json.statusCode }}", "rightValue": 200, "operator": {"type": "number", "operation": "equals"}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c8edba31-f707-480a-953e-a344724980ae",
+      "name": "Music submit succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1460, -160]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Music submission failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"},
+      "id": "fc4cdca7-0dd8-4dfb-9936-1177fa6a5a0f",
+      "name": "Stop on music submit error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1700, 20]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "b62a285f-bbde-4f1d-9a75-fe7b33fcc5c1", "leftValue": "={{ typeof $json.body.task_id === 'string' && $json.body.task_id.length > 0 }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "19f13e58-8be7-4235-965a-0e1e230b53a1",
+      "name": "Music task ID exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1700, -240]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Music submission returned HTTP 200 without a task_id: ' + JSON.stringify($json.body) }}"},
+      "id": "4b204d5a-67c7-4aad-b925-a82ff29ea24e",
+      "name": "Stop on missing music task ID",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1940, -60]
+    },
+    {
+      "parameters": {"jsCode": "return Array.from({ length: 20 }, (_, index) => ({ json: { poll_attempt: index + 1 } }));"},
+      "id": "e89467a9-90e0-44f5-af82-b73a0e68ce08",
+      "name": "Create bounded poll attempts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1940, -320]
+    },
+    {
+      "parameters": {"batchSize": 1, "options": {}},
+      "id": "b1797e3e-5b47-43b7-926b-507c2beb18a3",
+      "name": "Loop over poll attempts",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [2180, -320]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Music task ' + $('Submit music with Ace Data Cloud').first().json.body.task_id + ' did not finish after 20 polls (approximately 5 minutes).' }}"},
+      "id": "067135eb-f02d-47f8-886f-c1c9745b0259",
+      "name": "Stop on polling timeout",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2420, -460]
+    },
+    {
+      "parameters": {"amount": 15, "unit": "seconds"},
+      "id": "486c281f-1044-4efb-a188-12f2a79a335f",
+      "name": "Wait before polling",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2420, -240]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/suno/tasks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ action: 'retrieve', id: $('Submit music with Ace Data Cloud').first().json.body.task_id }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {"response": {"fullResponse": true, "neverError": true, "responseFormat": "json"}}
+        }
+      },
+      "id": "d7e1e54d-7644-4b35-9e61-b978dbfc4e07",
+      "name": "Poll music task",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2660, -240]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "9990207d-c1b1-4287-ad6c-d1e8a9d3d488", "leftValue": "={{ $json.statusCode }}", "rightValue": 200, "operator": {"type": "number", "operation": "equals"}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c33c2918-4c78-4ad4-a2c7-c0179a94c8c0",
+      "name": "Music poll succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [2900, -240]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Music task polling failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"},
+      "id": "0fc2465b-b135-49d5-a546-4465061c2f91",
+      "name": "Stop on music poll error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [3140, -60]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "dd8c31fe-f14d-4064-83be-81b4bffdb29c", "leftValue": "={{ typeof $json.body.finished_at === 'number' }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "82ac58d1-b12e-4228-a302-fec2ad5d4685",
+      "name": "Music task finished",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [3140, -300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "f7a0bf52-d54f-4898-8011-2d2ae7c6dde9", "leftValue": "={{ $json.body.response?.success === true && Array.isArray($json.body.response?.data) && $json.body.response.data.length > 0 && typeof $json.body.response.data[0]?.audio_url === 'string' && $json.body.response.data[0].audio_url.length > 0 }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bb957ac3-4d75-4e3e-9ebc-49299368abf1",
+      "name": "Music result succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [3380, -380]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Music task reached a terminal failure: ' + JSON.stringify($json.body.response || $json.body) }}"},
+      "id": "2b0710e6-4198-4318-9e3f-9713549697f7",
+      "name": "Stop on terminal failure",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [3620, -200]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "a021f2f7-b378-4acd-ab01-0e2d5ad864c5", "name": "status", "value": "success", "type": "string"},
+            {"id": "57f31e0d-e0b1-4609-8a13-ad0879b4a6e5", "name": "lyrics_task_id", "value": "={{ $('Generate lyrics with Ace Data Cloud').first().json.body.task_id }}", "type": "string"},
+            {"id": "1198a89e-af09-4886-8cab-61803ba4e69c", "name": "music_task_id", "value": "={{ $json.body.id }}", "type": "string"},
+            {"id": "6cf6fca7-a4b7-4890-88eb-0d314d8ab335", "name": "model", "value": "={{ $('Set song input').first().json.music_model }}", "type": "string"},
+            {"id": "ce4734d6-d17b-427f-965c-2683bac18800", "name": "title", "value": "={{ $json.body.response.data[0].title || $('Generate lyrics with Ace Data Cloud').first().json.body.data[0].title }}", "type": "string"},
+            {"id": "70661ef8-cffe-456d-88a2-24c423fc24da", "name": "style", "value": "={{ $json.body.response.data[0].style || $('Set song input').first().json.style }}", "type": "string"},
+            {"id": "d829c8bf-6889-4a8d-be5d-83222dcd3e66", "name": "lyrics", "value": "={{ $json.body.response.data[0].lyric || $('Generate lyrics with Ace Data Cloud').first().json.body.data[0].text }}", "type": "string"},
+            {"id": "f209a097-909b-4c7e-ab25-470b35d1b65a", "name": "audio_id", "value": "={{ $json.body.response.data[0].id }}", "type": "string"},
+            {"id": "94d56dfb-777a-4cd2-a69d-58b7fd586099", "name": "audio_url", "value": "={{ $json.body.response.data[0].audio_url }}", "type": "string"},
+            {"id": "0678c264-78b8-4cb6-934f-73ce274f3adb", "name": "image_url", "value": "={{ $json.body.response.data[0].image_url || null }}", "type": "string"},
+            {"id": "08b11ea9-d7ff-4f48-8366-3f182c083e05", "name": "duration_seconds", "value": "={{ $json.body.response.data[0].duration || null }}", "type": "number"},
+            {"id": "54564b66-86a9-438e-97a7-688f2de6103f", "name": "elapsed_seconds", "value": "={{ $json.body.elapsed || null }}", "type": "number"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "c4065481-0de6-4688-87da-d8d0070773b7",
+      "name": "Return song result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [3620, -460]
+    }
+  ],
+  "connections": {
+    "Run manually": {"main": [[{"node": "Set song input", "type": "main", "index": 0}]]},
+    "Set song input": {"main": [[{"node": "Generate lyrics with Ace Data Cloud", "type": "main", "index": 0}]]},
+    "Generate lyrics with Ace Data Cloud": {"main": [[{"node": "Lyrics request succeeded", "type": "main", "index": 0}]]},
+    "Lyrics request succeeded": {"main": [[{"node": "Lyrics result exists", "type": "main", "index": 0}], [{"node": "Stop on lyrics API error", "type": "main", "index": 0}]]},
+    "Lyrics result exists": {"main": [[{"node": "Submit music with Ace Data Cloud", "type": "main", "index": 0}], [{"node": "Stop on missing lyrics", "type": "main", "index": 0}]]},
+    "Submit music with Ace Data Cloud": {"main": [[{"node": "Music submit succeeded", "type": "main", "index": 0}]]},
+    "Music submit succeeded": {"main": [[{"node": "Music task ID exists", "type": "main", "index": 0}], [{"node": "Stop on music submit error", "type": "main", "index": 0}]]},
+    "Music task ID exists": {"main": [[{"node": "Create bounded poll attempts", "type": "main", "index": 0}], [{"node": "Stop on missing music task ID", "type": "main", "index": 0}]]},
+    "Create bounded poll attempts": {"main": [[{"node": "Loop over poll attempts", "type": "main", "index": 0}]]},
+    "Loop over poll attempts": {"main": [[{"node": "Stop on polling timeout", "type": "main", "index": 0}], [{"node": "Wait before polling", "type": "main", "index": 0}]]},
+    "Wait before polling": {"main": [[{"node": "Poll music task", "type": "main", "index": 0}]]},
+    "Poll music task": {"main": [[{"node": "Music poll succeeded", "type": "main", "index": 0}]]},
+    "Music poll succeeded": {"main": [[{"node": "Music task finished", "type": "main", "index": 0}], [{"node": "Stop on music poll error", "type": "main", "index": 0}]]},
+    "Music task finished": {"main": [[{"node": "Music result succeeded", "type": "main", "index": 0}], [{"node": "Loop over poll attempts", "type": "main", "index": 0}]]},
+    "Music result succeeded": {"main": [[{"node": "Return song result", "type": "main", "index": 0}], [{"node": "Stop on terminal failure", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "pinData": {},
+  "tags": []
+}
