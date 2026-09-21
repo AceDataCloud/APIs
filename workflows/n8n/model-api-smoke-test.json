@@ -1,0 +1,221 @@
+{
+  "id": "acedata-model-api-smoke-test-v1",
+  "name": "Ace Data Cloud model and API smoke test",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "68a177cd-6568-484a-9c64-c866db8b2be4",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "3fcbdd3f-3383-444e-bf77-f7c4cd593af2", "name": "model", "value": "claude-sonnet-5", "type": "string"},
+            {"id": "ee5f87f4-c808-4fa4-8659-94d52ac090a3", "name": "prompt", "value": "Reply with exactly: smoke test passed", "type": "string"},
+            {"id": "a6cebf17-f574-442a-8907-794bf830cfd1", "name": "max_tokens", "value": 32, "type": "number"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "953676bc-3977-45da-ac18-af057b605715",
+      "name": "Set smoke test input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://api.acedata.cloud/v1/models",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "timeout": 30000,
+          "response": {"response": {"fullResponse": true, "neverError": true, "responseFormat": "json"}}
+        }
+      },
+      "id": "093ac6fb-f453-4b86-b21e-c5897e6b4c84",
+      "name": "List models with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "9c64ab08-2ba6-4ad9-918c-a712d0fb9bcb", "leftValue": "={{ $json.statusCode }}", "rightValue": 200, "operator": {"type": "number", "operation": "equals"}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "cdd48fa4-47d7-4bfa-99bf-cad1a79bc46b",
+      "name": "Model directory succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [740, 0]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Model directory failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"},
+      "id": "4e40b8cd-3df7-4b70-868c-8121437474eb",
+      "name": "Stop on directory error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [980, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "d84856ec-f047-4f29-be4e-e5b35950763a", "leftValue": "={{ $json.body.object === 'list' && Array.isArray($json.body.data) && $json.body.data.every(item => item && typeof item.id === 'string' && item.id.length > 0) }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "23ba5ce8-928a-47d5-a1cb-c1a0852d899a",
+      "name": "Model directory is valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [980, -80]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Model directory returned HTTP 200 without object=list and a data array of model IDs: ' + JSON.stringify($json.body) }}"},
+      "id": "f829f110-a1b7-45f1-bdf4-aa07e20dbe35",
+      "name": "Stop on invalid directory",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1220, 100]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "37f54c6a-f762-4e7f-a188-60fa111a5574", "leftValue": "={{ $json.body.data.some(item => item.id === $('Set smoke test input').first().json.model) }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "51357040-72d1-43b8-8e21-49f42ce0498a",
+      "name": "Target model is listed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1220, -160]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Target model ' + $('Set smoke test input').first().json.model + ' is absent from a valid model directory response.' }}"},
+      "id": "da8c8574-4437-42cd-9753-5f04c9a98753",
+      "name": "Stop on missing model",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1220, 100]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ model: $('Set smoke test input').first().json.model, messages: [{ role: 'user', content: $('Set smoke test input').first().json.prompt }], max_tokens: $('Set smoke test input').first().json.max_tokens, temperature: 0, stream: false }) }}",
+        "options": {
+          "timeout": 120000,
+          "response": {"response": {"fullResponse": true, "neverError": true, "responseFormat": "json"}}
+        }
+      },
+      "id": "fb4d5843-b19c-47f5-b967-201775624838",
+      "name": "Test completion with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1220, -160]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "e58f275d-dc8d-4c4c-8310-62e62f86c835", "leftValue": "={{ $json.statusCode }}", "rightValue": 200, "operator": {"type": "number", "operation": "equals"}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a68256a6-f9be-4056-860c-af02f818bf58",
+      "name": "Completion request succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1460, -160]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Completion smoke test failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"},
+      "id": "98340610-2ae0-489a-a785-77de0e8fe5ff",
+      "name": "Stop on completion error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1700, 20]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [{"id": "04509eee-c760-4c4d-8eb9-b5d30690ddaf", "leftValue": "={{ typeof $json.body.id === 'string' && $json.body.id.length > 0 && typeof $json.body.model === 'string' && $json.body.model.length > 0 && Array.isArray($json.body.choices) && typeof $json.body.choices[0]?.message?.content === 'string' && $json.body.choices[0].message.content.length > 0 && typeof $json.body.usage?.prompt_tokens === 'number' && typeof $json.body.usage?.completion_tokens === 'number' && typeof $json.body.usage?.total_tokens === 'number' }}", "rightValue": "", "operator": {"type": "boolean", "operation": "true", "singleValue": true}}],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "66b518df-5598-46cc-81f7-fb8046109925",
+      "name": "Completion result is valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [1700, -240]
+    },
+    {
+      "parameters": {"errorType": "errorMessage", "errorMessage": "={{ 'Completion returned HTTP 200 without the required id, model, content, and usage fields: ' + JSON.stringify($json.body) }}"},
+      "id": "b314477a-a14e-4b72-8961-4336a3d26a47",
+      "name": "Stop on invalid completion",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1940, -60]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "c6885164-e04d-44e3-bb69-e12729a18db9", "name": "status", "value": "healthy", "type": "string"},
+            {"id": "402749ea-bbd6-4f07-9081-190a25cdd9dc", "name": "checked_at", "value": "={{ $now.toISO() }}", "type": "string"},
+            {"id": "2481a0f3-141c-4f85-ac0a-b7865ef1e2a5", "name": "requested_model", "value": "={{ $('Set smoke test input').first().json.model }}", "type": "string"},
+            {"id": "ff5d7186-ac03-45d4-8671-c98b377a05a7", "name": "resolved_model", "value": "={{ $json.body.model }}", "type": "string"},
+            {"id": "69865611-a894-4c8e-a865-b9d84e4c9152", "name": "catalog_count", "value": "={{ $('List models with Ace Data Cloud').first().json.body.data.length }}", "type": "number"},
+            {"id": "7218af1b-fef4-4e13-aae9-a3fbe7b7bcf9", "name": "completion_id", "value": "={{ $json.body.id }}", "type": "string"},
+            {"id": "852ae194-aab9-4c4a-a14f-e3f18536a974", "name": "content", "value": "={{ $json.body.choices[0].message.content }}", "type": "string"},
+            {"id": "33a0869f-150b-4705-9f69-b6cfe0df800b", "name": "prompt_tokens", "value": "={{ $json.body.usage.prompt_tokens }}", "type": "number"},
+            {"id": "4809f465-dcf9-45a9-acb1-c03e760a02ee", "name": "completion_tokens", "value": "={{ $json.body.usage.completion_tokens }}", "type": "number"},
+            {"id": "cd321b6a-ea1b-4424-8ffc-8eb64f9f3f2e", "name": "total_tokens", "value": "={{ $json.body.usage.total_tokens }}", "type": "number"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "c14fcfd8-0b88-4201-b9d6-8295e9d713f2",
+      "name": "Return health report",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1940, -320]
+    }
+  ],
+  "connections": {
+    "Run manually": {"main": [[{"node": "Set smoke test input", "type": "main", "index": 0}]]},
+    "Set smoke test input": {"main": [[{"node": "List models with Ace Data Cloud", "type": "main", "index": 0}]]},
+    "List models with Ace Data Cloud": {"main": [[{"node": "Model directory succeeded", "type": "main", "index": 0}]]},
+    "Model directory succeeded": {"main": [[{"node": "Model directory is valid", "type": "main", "index": 0}], [{"node": "Stop on directory error", "type": "main", "index": 0}]]},
+    "Model directory is valid": {"main": [[{"node": "Target model is listed", "type": "main", "index": 0}], [{"node": "Stop on invalid directory", "type": "main", "index": 0}]]},
+    "Target model is listed": {"main": [[{"node": "Test completion with Ace Data Cloud", "type": "main", "index": 0}], [{"node": "Stop on missing model", "type": "main", "index": 0}]]},
+    "Test completion with Ace Data Cloud": {"main": [[{"node": "Completion request succeeded", "type": "main", "index": 0}]]},
+    "Completion request succeeded": {"main": [[{"node": "Completion result is valid", "type": "main", "index": 0}], [{"node": "Stop on completion error", "type": "main", "index": 0}]]},
+    "Completion result is valid": {"main": [[{"node": "Return health report", "type": "main", "index": 0}], [{"node": "Stop on invalid completion", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "pinData": {},
+  "tags": []
+}
