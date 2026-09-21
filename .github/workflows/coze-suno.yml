@@ -1,0 +1,29 @@
+name: Coze Suno contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "coze/suno.yaml"
+      - "coze/tests/test_suno_schema.py"
+      - ".github/workflows/coze-suno.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "coze/suno.yaml"
+      - "coze/tests/test_suno_schema.py"
+      - ".github/workflows/coze-suno.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install "PyYAML>=6,<7" "openapi-spec-validator>=0.7,<0.8"
+      - run: python -m unittest coze/tests/test_suno_schema.py
