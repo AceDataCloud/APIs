@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "status": "app-request-required",
+  "verified_at": "2026-09-10",
+  "app": {
+    "requested_slug": "ace_data_cloud",
+    "display_name": "Ace Data Cloud",
+    "base_url": "https://api.acedata.cloud",
+    "homepage_url": "https://platform.acedata.cloud/?utm_source=pipedream&utm_medium=integration&utm_campaign=pipedream-app-directory",
+    "credential_url": "https://platform.acedata.cloud/console/credentials?utm_source=pipedream&utm_medium=integration&utm_campaign=pipedream-auth-setup",
+    "privacy_url": "https://platform.acedata.cloud/privacy",
+    "terms_url": "https://platform.acedata.cloud/terms",
+    "support_url": "https://platform.acedata.cloud/support?utm_source=pipedream&utm_medium=integration&utm_campaign=pipedream-support",
+    "auth": {
+      "type": "api_key",
+      "secret_field": "api_token",
+      "header_name": "Authorization",
+      "header_template": "Bearer {{api_token}}",
+      "verification": {
+        "method": "GET",
+        "path": "/v1/models",
+        "expected_status": 200,
+        "expected_shape": {
+          "object": "list",
+          "data": "array"
+        }
+      }
+    }
+  },
+  "sources": [
+    {
+      "key": "ace_data_cloud-new-wan-video-task-completed",
+      "name": "New Wan Video Task Completed",
+      "type": "polling",
+      "stage": "Production",
+      "api_id": "25e349c9-a490-4ae5-9a96-e5952d2dbcf7",
+      "method": "POST",
+      "path": "/wan/tasks",
+      "request": {
+        "action": "retrieve_batch",
+        "ids_from_prop": "taskIds"
+      },
+      "required_props": ["timer", "taskIds"],
+      "max_task_ids": 50,
+      "default_interval_seconds": 900,
+      "initial_event_cap": 50,
+      "rate_limit_policy": "exponential-backoff-on-429",
+      "completion_test": "typeof task.finished_at === 'number'",
+      "dedupe": "unique",
+      "event_id": "wan:${task.id}:${task.finished_at}",
+      "event_allowlist": ["id", "type", "created_at", "started_at", "finished_at", "elapsed", "response"],
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false},
+      "campaign": "pipedream-wan-task-completed"
+    },
+    {
+      "key": "ace_data_cloud-new-suno-music-task-completed",
+      "name": "New Suno Music Task Completed",
+      "type": "polling",
+      "stage": "Production",
+      "api_id": "f1143f0b-8146-4fc0-b02c-ac8db969392d",
+      "method": "POST",
+      "path": "/suno/tasks",
+      "request": {
+        "action": "retrieve_batch",
+        "ids_from_prop": "taskIds"
+      },
+      "required_props": ["timer", "taskIds"],
+      "max_task_ids": 50,
+      "default_interval_seconds": 900,
+      "initial_event_cap": 50,
+      "rate_limit_policy": "exponential-backoff-on-429",
+      "completion_test": "typeof task.finished_at === 'number'",
+      "dedupe": "unique",
+      "event_id": "suno:${task.id}:${task.finished_at}",
+      "event_allowlist": ["id", "type", "created_at", "started_at", "finished_at", "elapsed", "response"],
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false},
+      "campaign": "pipedream-suno-task-completed"
+    },
+    {
+      "key": "ace_data_cloud-new-flux-image-task-completed",
+      "name": "New Flux Image Task Completed",
+      "type": "polling",
+      "stage": "Production",
+      "api_id": "4f36fc31-5a95-42ac-abfc-34670c40238c",
+      "method": "POST",
+      "path": "/flux/tasks",
+      "request": {
+        "action": "retrieve_batch",
+        "ids_from_prop": "taskIds"
+      },
+      "required_props": ["timer", "taskIds"],
+      "max_task_ids": 50,
+      "default_interval_seconds": 900,
+      "initial_event_cap": 50,
+      "rate_limit_policy": "exponential-backoff-on-429",
+      "completion_test": "typeof task.finished_at === 'number'",
+      "dedupe": "unique",
+      "event_id": "flux:${task.id}:${task.finished_at}",
+      "event_allowlist": ["id", "type", "created_at", "started_at", "finished_at", "elapsed", "response"],
+      "annotations": {"readOnlyHint": true, "openWorldHint": false, "destructiveHint": false},
+      "campaign": "pipedream-flux-task-completed"
+    }
+  ],
+  "actions": [
+    {
+      "key": "ace_data_cloud-search-google",
+      "name": "Search Google",
+      "stage": "Production",
+      "api_id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",
+      "method": "POST",
+      "path": "/serp/google",
+      "required_fields": ["query"],
+      "optional_fields": ["type", "page", "number", "language", "country", "range", "image_size"],
+      "annotations": {"readOnlyHint": true, "openWorldHint": true, "destructiveHint": false},
+      "campaign": "pipedream-search-google"
+    },
+    {
+      "key": "ace_data_cloud-create-chat-completion",
+      "name": "Create Chat Completion",
+      "stage": "Beta",
+      "api_id": "6b2b437b-b6d5-466c-8750-b16650072593",
+      "method": "POST",
+      "path": "/v1/chat/completions",
+      "required_fields": ["model", "messages"],
+      "optional_fields": ["max_tokens", "temperature", "stream"],
+      "fixed_fields": {"stream": false},
+      "annotations": {"readOnlyHint": false, "openWorldHint": true, "destructiveHint": false},
+      "campaign": "pipedream-create-chat-completion"
+    },
+    {
+      "key": "ace_data_cloud-generate-flux-image",
+      "name": "Generate Flux Image",
+      "stage": "Production",
+      "api_id": "deefc5d7-7f22-43e9-929e-f2b6afee60b7",
+      "method": "POST",
+      "path": "/flux/images",
+      "required_fields": ["action", "prompt", "size"],
+      "optional_fields": ["model", "image_url", "count"],
+      "fixed_fields": {"action": "generate", "async": false},
+      "annotations": {"readOnlyHint": false, "openWorldHint": true, "destructiveHint": false},
+      "campaign": "pipedream-generate-flux-image"
+    }
+  ],
+  "owner_gates": [
+    {"id": "registry-app-request", "status": "pending-external", "evidence_required": "Pipedream-created app directory and confirmed app slug"},
+    {"id": "auth-schema-review", "status": "pending-external", "evidence_required": "Pipedream approval of the secret API-token auth schema"},
+    {"id": "test-account-provisioning", "status": "pending-owner", "evidence_required": "Least-privilege funded test account shared only through Pipedream's approved secure channel"},
+    {"id": "component-implementation", "status": "pending-owner", "evidence_required": "Three source and three action components with READMEs and tests in the assigned registry directory"},
+    {"id": "component-pr", "status": "pending-external", "evidence_required": "Registry PR URL, review outcome, and green checks"},
+    {"id": "marketplace-publication", "status": "pending-external", "evidence_required": "Public Pipedream app URL and all six visible component URLs"}
+  ],
+  "official_references": [
+    "https://pipedream.com/docs/apps",
+    "https://pipedream.com/docs/components/contributing",
+    "https://pipedream.com/docs/components/contributing/sources-quickstart",
+    "https://pipedream.com/docs/components/contributing/actions-quickstart",
+    "https://pipedream.com/docs/components/contributing/guidelines"
+  ]
+}
