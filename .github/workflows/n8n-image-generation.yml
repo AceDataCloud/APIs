@@ -1,0 +1,62 @@
+name: n8n image generation workflow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workflows/n8n/image-generation.json"
+      - "workflows/n8n/image-generation.md"
+      - "workflows/n8n/test_image_generation_workflow.py"
+      - ".github/workflows/n8n-image-generation.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "workflows/n8n/image-generation.json"
+      - "workflows/n8n/image-generation.md"
+      - "workflows/n8n/test_image_generation_workflow.py"
+      - ".github/workflows/n8n-image-generation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+      - run: python -m json.tool workflows/n8n/image-generation.json >/dev/null
+      - run: python -m unittest workflows/n8n/test_image_generation_workflow.py
+      - run: python -m py_compile workflows/n8n/test_image_generation_workflow.py
+      - run: npm install --global n8n@2.38.2
+      - name: Import workflow with n8n
+        env:
+          DB_TYPE: sqlite
+          N8N_DIAGNOSTICS_ENABLED: "false"
+          N8N_ENCRYPTION_KEY: ci-only-image-generation-key
+          N8N_EXPRESSION_ENGINE: quickjs
+          N8N_USER_FOLDER: ${{ runner.temp }}/n8n-image-generation
+          N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+        run: |
+          n8n import:workflow --input=workflows/n8n/image-generation.json
+          n8n export:workflow --all --output="$RUNNER_TEMP/image-generation-export.json"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          workflows = json.loads(Path(os.environ["RUNNER_TEMP"], "image-generation-export.json").read_text())
+          assert len(workflows) == 1
+          assert workflows[0]["id"] == "acedata-image-generation-v1"
+          PY
+          if n8n export:credentials --all --output="$RUNNER_TEMP/image-generation-credentials.json" >"$RUNNER_TEMP/credentials.log" 2>&1; then
+            echo "Expected an empty credential export to return non-zero" >&2
+            exit 1
+          fi
+          grep -F "No credentials found with specified filters" "$RUNNER_TEMP/credentials.log"
+          test ! -e "$RUNNER_TEMP/image-generation-credentials.json"
