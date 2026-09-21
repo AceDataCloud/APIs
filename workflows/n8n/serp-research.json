@@ -1,0 +1,104 @@
+{
+  "id": "acedata-serp-research-v1",
+  "name": "Ace Data Cloud SERP research",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f8591661-214c-4e0b-a723-938a56bb8b69",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f86cbf48-ce5c-4f09-9770-2e9f9a677b65",
+              "name": "query",
+              "value": "Ace Data Cloud MCP",
+              "type": "string"
+            },
+            {
+              "id": "56d45ebf-bdfa-4dc8-aecf-f98e891e2550",
+              "name": "type",
+              "value": "search",
+              "type": "string"
+            },
+            {
+              "id": "5f9eff68-0ec8-40b0-899f-221349f8e40a",
+              "name": "number",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "24447131-7eb1-4ccd-84bc-97ddd5debc31",
+      "name": "Set search input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/serp/google",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ query: $json.query, type: $json.type, number: $json.number }) }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "f7480639-56f5-4992-a527-55f38fb7b302",
+      "name": "Search with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        500,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Run manually": {
+      "main": [
+        [
+          {
+            "node": "Set search input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set search input": {
+      "main": [
+        [
+          {
+            "node": "Search with Ace Data Cloud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

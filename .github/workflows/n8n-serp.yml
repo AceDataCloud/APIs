@@ -1,0 +1,26 @@
+name: n8n SERP workflow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "workflows/n8n/**"
+      - ".github/workflows/n8n-serp.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "workflows/n8n/**"
+      - ".github/workflows/n8n-serp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m unittest workflows/n8n/test_serp_workflow.py
