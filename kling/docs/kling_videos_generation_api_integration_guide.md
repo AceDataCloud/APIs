@@ -36,7 +36,7 @@ Click the "Try" button to test, as shown in the above figure, we obtained the fo
 {
   "success": true,
   "video_id": "900798310464749610",
-  "video_url": "https://platform2.cdn.acedata.cloud/kling/6c68c267-065b-4423-b66b-a0e4c59ee0d5.mp4",
+  "video_url": "https://cdn.acedata.cloud/assets/examples/kling/6c68c267-065b-4423-b66b-a0e4c59ee0d5-6a664a591a53.mp4",
   "duration": "5.041",
   "state": "succeed",
   "task_id": "6c68c267-065b-4423-b66b-a0e4c59ee0d5"
