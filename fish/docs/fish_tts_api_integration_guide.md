@@ -50,7 +50,7 @@ curl -X POST 'https://api.acedata.cloud/fish/tts' \
 
 ```json
 {
-  "audio_url": "https://platform2.cdn.acedata.cloud/fish/995dfe37-b187-474d-8323-b08d6678ed8f.mp3"
+  "audio_url": "https://cdn.acedata.cloud/assets/examples/fish/995dfe37-b187-474d-8323-b08d6678ed8f-6359be9f8873.mp3"
 }
 ```
 

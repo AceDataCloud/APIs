@@ -52,7 +52,7 @@
 ```json
 {
   "success": true,
-  "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4",
+  "video_url": "https://cdn.acedata.cloud/assets/examples/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee-3a89912507c7.mp4",
   "state": "completed",
   "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
 }
@@ -130,7 +130,7 @@ print(response.text)
 ```json
 {
   "success": true,
-  "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4",
+  "video_url": "https://cdn.acedata.cloud/assets/examples/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee-3a89912507c7.mp4",
   "state": "completed",
   "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
 }
@@ -173,7 +173,7 @@ print(response.text)
 ```json
 {
   "success": true,
-  "video_url": "https://platform2.cdn.acedata.cloud/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee.mp4",
+  "video_url": "https://cdn.acedata.cloud/assets/examples/gemini/04a043bd-6b23-4b4e-945c-ce48158c3eee-3a89912507c7.mp4",
   "state": "completed",
   "task_id": "a4bca552-d964-46a1-8ff7-fd922f916582"
 }
