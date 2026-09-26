@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Seedance Video Generation](https://platform.ace
 
 Keywords: seedance-api, ai-video, video-generation, bytedance, doubao, text-to-video, image-to-video, reference-audio, reference-video, real-person-reference, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-seedance)
+
 ## Why Use Seedance Video Generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

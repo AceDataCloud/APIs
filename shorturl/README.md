@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Short Link Generation](https://platform.acedata
 
 Keywords: shorturl-api, short-link, url-shortener, suro.id, link-generation, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-shorturl)
+
 ## Why Use Short Link Generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

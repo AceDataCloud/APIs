@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/service/
 
 Keywords: gemini-api, google-gemini, gemini-3.6-flash, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-gemini)
+
 ## Why Use Gemini on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

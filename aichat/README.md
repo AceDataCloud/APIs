@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - AI Chat](https://platform.acedata.cloud/documen
 
 Keywords: aichat-api, ai-dialogue, chat-api, multi-turn-conversation, gpt-4, grok, streaming, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-aichat)
+
 ## Why Use AI Chat on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

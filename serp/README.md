@@ -10,6 +10,9 @@ API home page: [Ace Data Cloud - Search Engine](https://platform.acedata.cloud/s
 
 Keywords: serp-api, web-search, google-search, search-api, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-serp)
+
 ## Why Use Search Engine on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

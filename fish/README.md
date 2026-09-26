@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Fish Voice Generation](https://platform.acedata
 
 Keywords: fish-api, fish-audio, text-to-speech, tts, voice-clone, voice-model, speech-synthesis, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-fish)
+
 ## Why Use Fish Voice Generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Maestro](https://platform.acedata.cloud/service
 
 Keywords: maestro-api, ai-video, video-production, prompt-to-video, article-to-video, multilingual-video, video-editing, rest-api, ai-api, developer-api, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-maestro)
+
 ## Why Use Maestro on Ace Data Cloud
 
 - Produce a complete video instead of a single model-generated shot

@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - GLM](https://platform.acedata.cloud/service/glm
 
 Keywords: glm-api, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-glm)
+
 ## Why Use GLM on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

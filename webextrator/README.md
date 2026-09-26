@@ -18,6 +18,9 @@ Ace Data Cloud
 
 ---
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-webextrator)
+
 ## Why WebExtrator on Ace Data Cloud
 
 - **Three-layer extraction pipeline** — deterministic schema.org JSON-LD

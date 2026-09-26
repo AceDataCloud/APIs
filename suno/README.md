@@ -10,6 +10,9 @@ API home page: [Ace Data Cloud - Suno Music Generation](https://platform.acedata
 
 Keywords: suno-api, ai-music, music-generation, lyrics-generation, rest-api, ai-api, aiaudio, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-suno)
+
 ## Why Use Suno Music Generation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking

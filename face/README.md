@@ -8,6 +8,9 @@ API home page: [Ace Data Cloud - Face Transformation](https://platform.acedata.c
 
 Keywords: face-api, face-swap, face-detection, beautify, face-cartoon, age-change, gender-change, liveness, image-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
+<!-- canonical-acquisition -->
+[Start building](https://platform.acedata.cloud/?utm_source=github&utm_medium=repo&utm_campaign=api-face)
+
 ## Why Use Face Transformation on Ace Data Cloud
 
 - Unified developer platform with one API key, billing system, and usage tracking
