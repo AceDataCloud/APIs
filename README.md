@@ -61,3 +61,11 @@ This is the source-of-truth monorepo. Changes pushed to `main` are automatically
 The mapping between subdirectories and standalone repos is defined in [`sync.yaml`](sync.yaml).
 
 **Do not edit standalone repos directly** — all changes should be made here.
+
+## Documentation updates
+
+Docs updates open one review issue per immutable Docs commit and assign Copilot
+when available. The issue covers the complete source snapshot; changed services
+are a hint. The workflow returns after assignment. It does not close existing
+issues or PRs, wait for an agent, or merge past failing checks. Hand-written
+examples and guides are reviewed through normal PRs before downstream publishing.

@@ -4,18 +4,24 @@ on:
   repository_dispatch:
     types: [docs-updated]
   workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Docs commit SHA (leave empty to resolve current main)
+        required: false
+        type: string
 
 permissions:
-  contents: write
+  contents: read
   issues: write
-  pull-requests: write
+
+concurrency:
+  group: docs-content-sync
+  cancel-in-progress: false
 
 jobs:
   create-task:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    outputs:
-      issue_number: ${{ steps.create-issue.outputs.issue_number }}
     steps:
       - name: Validate sync token
         env:
@@ -26,72 +32,85 @@ jobs:
             exit 1
           fi
 
+      - name: Resolve source request
+        id: source
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SHA: ${{ github.event.client_payload.commit_sha }}
+          MANUAL_SHA: ${{ inputs.source_sha }}
+        run: |
+          sha="$EVENT_SHA"
+          if [ "$EVENT_NAME" = workflow_dispatch ]; then sha="$MANUAL_SHA"; fi
+          if [ -z "$sha" ] && [ "$EVENT_NAME" = workflow_dispatch ]; then
+            sha=main
+          elif ! [[ "$sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::A full Docs source SHA is required."
+            exit 1
+          fi
+          echo "ref=$sha" >> "$GITHUB_OUTPUT"
+
       - name: Checkout Docs
         uses: actions/checkout@v4
         with:
           repository: AceDataCloud/Docs
+          ref: ${{ steps.source.outputs.ref }}
           path: _docs
           token: ${{ secrets.ADMIN_GITHUB_TOKEN || secrets.BOT_GITHUB_TOKEN }}
           fetch-depth: 5
 
       - name: Get Docs changes
         id: docs
+        env:
+          CHANGED_SERVICES: ${{ github.event.client_payload.changed_services }}
         run: |
           cd _docs
           commit_info=$(git log -1 --pretty=format:"%h %s" 2>/dev/null || echo "unknown")
           echo "commit_info=$commit_info" >> "$GITHUB_OUTPUT"
+          echo "source_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
           recent_changes=$(git log --oneline -5 2>/dev/null || echo "unknown")
           echo "recent_changes<<EOF" >> "$GITHUB_OUTPUT"
           echo "$recent_changes" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
-          changed_services="${{ github.event.client_payload.changed_services }}"
+          changed_services="$CHANGED_SERVICES"
           if [ -z "$changed_services" ]; then
             changed_services="all"
           fi
+          if ! [[ "$changed_services" =~ ^[a-z0-9_-]+(,[a-z0-9_-]+)*$ ]]; then
+            echo "::error::Expected comma-separated service aliases."
+            exit 1
+          fi
           echo "changed_services=$changed_services" >> "$GITHUB_OUTPUT"
-
-      - name: Close stale sync issues and orphaned Copilot PRs
-        env:
-          GH_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN || secrets.BOT_GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          set +e
-          # 1) Close prior auto-sync issues — a new dispatch supersedes them.
-          gh issue list --repo "$REPO" --label "auto-sync" --state open --json number --jq '.[].number' | while read -r num; do
-            [ -z "$num" ] && continue
-            gh issue close "$num" --repo "$REPO" --comment "Superseded by new sync trigger." 2>/dev/null || true
-          done
-
-          # 2) Close every leftover open copilot/* PR — they are stale by definition once a new
-          #    Docs commit lands. Each new dispatch triggers a fresh Copilot session that will
-          #    open its own PR; old drafts (including 0-commit zombies) just clutter the queue.
-          gh pr list --repo "$REPO" --state open --json number,headRefName \
-            --jq '.[] | select(.headRefName | startswith("copilot/")) | .number' | while read -r num; do
-            [ -z "$num" ] && continue
-            gh pr close "$num" --repo "$REPO" --delete-branch \
-              --comment "Superseded by new sync trigger; Copilot will open a fresh PR for the latest Docs state." 2>/dev/null || true
-          done
-          exit 0
 
       - name: Create issue for Copilot
         id: create-issue
         env:
           GH_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN || secrets.BOT_GITHUB_TOKEN }}
+          SOURCE_SHA: ${{ steps.docs.outputs.source_sha }}
           COMMIT_INFO: ${{ steps.docs.outputs.commit_info }}
           RECENT_CHANGES: ${{ steps.docs.outputs.recent_changes }}
           CHANGED_SERVICES: ${{ steps.docs.outputs.changed_services }}
           REPO: ${{ github.repository }}
         run: |
-          body=$(jq -n \
+          marker="<!-- docs-content-sync:$SOURCE_SHA -->"
+          existing=$(gh issue list --repo "$REPO" --state open --label auto-sync \
+            --search "$SOURCE_SHA in:body" --limit 1000 --json number,body \
+            --jq ".[] | select(.body | contains(\"$marker\")) | .number")
+          if [ -n "$existing" ]; then
+            echo "This Docs snapshot already has an open review issue."
+            exit 0
+          fi
+          body=$(jq -nr \
             --arg changes "$RECENT_CHANGES" \
             --arg services "$CHANGED_SERVICES" \
-            '"The upstream Docs have been updated. Ensure the affected API documentation in this monorepo is in sync.\n\n## Changed Services\n\n`" + $services + "`\n\n## Recent Docs Changes\n\n```\n" + $changes + "\n```\n\n## Instructions\n\nThis is a monorepo with API documentation in subdirectories (luma/, suno/, etc.).\n\nCheck the AceDataCloud/Docs repo for guides and OpenAPI specs.\n\nCompare against the corresponding subdirectory'\''s docs/ markdown files. Update any outdated information.\n\nOnly modify subdirectories matching the changed services. If everything is already in sync, close this issue."')
+            '"The upstream Docs have been updated. Ensure the affected API documentation in this monorepo is in sync.\n\n## Changed Services\n\n`" + $services + "`\n\n## Recent Docs Changes\n\n```\n" + $changes + "\n```\n\n## Instructions\n\nThis is a monorepo with API documentation in subdirectories (luma/, suno/, etc.).\n\nCheck the AceDataCloud/Docs repo for guides and OpenAPI specs.\n\nCompare against the corresponding subdirectory'\''s docs/ markdown files. Update any outdated information.\n\nUse the changed-services list as a hint; check the complete source snapshot for relevant content changes. If everything is already in sync, close this issue."')
+
+          body=$(printf '%s\n\nSource: https://github.com/AceDataCloud/Docs/tree/%s\n\n%s\n\nReview this complete snapshot, including any changed services not listed in the hint. Preserve hand-written examples and normal CI/review gates. Do not close existing PRs or bypass checks.\n' "$body" "$SOURCE_SHA" "$marker")
 
           ISSUE_JSON=$(jq -n \
             --arg title "sync: update from Docs ($COMMIT_INFO)" \
-            --argjson body "$body" \
+            --arg body "$body" \
             '{title: $title, body: $body, labels: ["auto-sync"]}' \
             | gh api \
               --method POST \
@@ -119,153 +138,3 @@ jobs:
           gh api graphql \
             -f query='mutation($a:ID!,$b:[ID!]!){ replaceActorsForAssignable(input:{assignableId:$a, actorIds:$b}){ assignable { ... on Issue { number assignees(first:5){ nodes { login } } } } } }' \
             -f a="$ISSUE_NODE" -f b="$COPILOT_ID"
-
-          echo "issue_number=$ISSUE_NUM" >> "$GITHUB_OUTPUT"
-
-  wait-and-merge:
-    needs: create-task
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - name: Wait for Copilot to finish
-        id: wait
-        env:
-          GH_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN || secrets.BOT_GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ needs.create-task.outputs.issue_number }}
-          REPO: ${{ github.repository }}
-        run: |
-          set +e
-          echo "Waiting for Copilot to process issue #$ISSUE_NUMBER..."
-
-          PR_NUMBER=""
-          PR_FOUND_AT=0
-          ZOMBIE_GRACE_SECONDS=1800   # close PR after 30 min if it still has 0 commits
-
-          # 110 polls × 30s = 55 min, fits inside the 60-min job timeout.
-          for i in $(seq 1 110); do
-            now=$(date +%s)
-            echo "Poll attempt $i/110 (elapsed=$((i * 30))s)..."
-
-            # Fast path: Copilot closed the issue itself (no changes needed)
-            ISSUE_STATE=$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json state --jq '.state' 2>/dev/null)
-            if [ "$ISSUE_STATE" = "CLOSED" ]; then
-              echo "Issue #$ISSUE_NUMBER closed by Copilot — no changes needed."
-              echo "result=no-op" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-
-            # Locate the PR linked to THIS issue. Copilot puts "#<issue>" or "Closes #<issue>"
-            # in the PR body when assigned to an issue.
-            CANDIDATE=$(gh pr list --repo "$REPO" --state open \
-              --json number,headRefName,body,isDraft,additions,deletions,createdAt \
-              --jq "[.[] | select(.headRefName | startswith(\"copilot/\")) | select(.body // \"\" | test(\"#${ISSUE_NUMBER}( |$|\\\\b)\"))] | .[0] // empty" \
-              2>/dev/null)
-
-            # Fallback: if no PR mentions this issue but exactly one copilot/* PR exists,
-            # take it. (Stale ones were already closed in create-task.)
-            if [ -z "$CANDIDATE" ]; then
-              CANDIDATE=$(gh pr list --repo "$REPO" --state open \
-                --json number,headRefName,body,isDraft,additions,deletions,createdAt \
-                --jq '[.[] | select(.headRefName | startswith("copilot/"))] | if length == 1 then .[0] else empty end' \
-                2>/dev/null)
-            fi
-
-            if [ -n "$CANDIDATE" ]; then
-              PR_NUMBER=$(echo "$CANDIDATE" | jq -r '.number')
-              IS_DRAFT=$(echo "$CANDIDATE" | jq -r '.isDraft')
-              ADDITIONS=$(echo "$CANDIDATE" | jq -r '.additions')
-              DELETIONS=$(echo "$CANDIDATE" | jq -r '.deletions')
-              CREATED_AT=$(echo "$CANDIDATE" | jq -r '.createdAt')
-
-              if [ "$PR_FOUND_AT" -eq 0 ]; then
-                PR_FOUND_AT=$now
-                echo "Tracking PR #$PR_NUMBER (draft=$IS_DRAFT, +$ADDITIONS/-$DELETIONS)"
-              fi
-
-              # Reliable completion signal: Copilot marks the PR ready-for-review
-              # itself when its agent finishes successfully.
-              if [ "$IS_DRAFT" = "false" ]; then
-                echo "PR #$PR_NUMBER is ready for review — Copilot finished."
-                echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-                echo "result=ready" >> "$GITHUB_OUTPUT"
-                exit 0
-              fi
-
-              # Zombie guard: if PR has been open >30 min with 0 commits, give up.
-              if [ "$ADDITIONS" = "0" ] && [ "$DELETIONS" = "0" ]; then
-                created_epoch=$(date -d "$CREATED_AT" +%s 2>/dev/null || python3 -c "import datetime,sys; print(int(datetime.datetime.fromisoformat(sys.argv[1].replace('Z','+00:00')).timestamp()))" "$CREATED_AT")
-                age=$((now - created_epoch))
-                if [ "$age" -gt "$ZOMBIE_GRACE_SECONDS" ]; then
-                  echo "::warning::PR #$PR_NUMBER has 0 commits after ${age}s — closing as zombie."
-                  gh pr close "$PR_NUMBER" --repo "$REPO" --delete-branch \
-                    --comment "Auto-closed: Copilot opened this PR but produced no commits within ${ZOMBIE_GRACE_SECONDS}s. Triggering workflow can be re-dispatched if a sync is still needed." 2>/dev/null || true
-                  echo "result=zombie-closed" >> "$GITHUB_OUTPUT"
-                  exit 1
-                fi
-              fi
-            fi
-
-            sleep 30
-          done
-
-          echo "::warning::Timed out waiting for Copilot to mark PR ready for review."
-          if [ -n "$PR_NUMBER" ]; then
-            echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-            echo "result=timeout-with-pr" >> "$GITHUB_OUTPUT"
-          else
-            echo "result=timeout-no-pr" >> "$GITHUB_OUTPUT"
-          fi
-          exit 1
-
-      - name: Merge PR
-        if: steps.wait.outputs.pr_number != ''
-        env:
-          GH_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN || secrets.BOT_GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.wait.outputs.pr_number }}
-          ISSUE_NUMBER: ${{ needs.create-task.outputs.issue_number }}
-          REPO: ${{ github.repository }}
-        run: |
-          set +e
-          echo "Preparing to merge PR #$PR_NUMBER..."
-
-          # Idempotent: makes draft → ready-for-review. Harmless if already ready.
-          gh pr ready "$PR_NUMBER" --repo "$REPO" 2>/dev/null || true
-
-          # Wait briefly for required checks (validate.yml) to settle. We use --admin
-          # at merge time so this is best-effort: we surface check failures but don't
-          # let a single transient flake block the sync.
-          for i in $(seq 1 24); do
-            CHECKS=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json statusCheckRollup \
-              --jq '[.statusCheckRollup[]? | {name, status, conclusion}]' 2>/dev/null)
-            FAILING=$(echo "$CHECKS" | jq '[.[] | select(.conclusion == "failure" or .conclusion == "cancelled" or .conclusion == "timed_out")] | length' 2>/dev/null || echo 0)
-            PENDING=$(echo "$CHECKS" | jq '[.[] | select(.status != "completed")] | length' 2>/dev/null || echo 0)
-            TOTAL=$(echo "$CHECKS" | jq 'length' 2>/dev/null || echo 0)
-            echo "Checks: total=$TOTAL pending=$PENDING failing=$FAILING"
-
-            if [ "${FAILING:-0}" -gt 0 ]; then
-              echo "::warning::PR #$PR_NUMBER has $FAILING failing check(s) — proceeding with --admin merge anyway. Investigate after merge."
-              break
-            fi
-            if [ "${TOTAL:-0}" -gt 0 ] && [ "${PENDING:-0}" -eq 0 ]; then
-              echo "All checks settled."
-              break
-            fi
-            sleep 15
-          done
-
-          # Try the merge up to 3 times — covers transient API hiccups.
-          for attempt in 1 2 3; do
-            echo "Merge attempt $attempt/3..."
-            if gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --admin --delete-branch \
-                --subject "sync: update from Docs [automated] (#$PR_NUMBER)" \
-                --body "Closes #$ISSUE_NUMBER"; then
-              echo "::notice::Merged PR #$PR_NUMBER"
-              exit 0
-            fi
-            echo "Merge attempt $attempt failed, retrying in 20s..."
-            sleep 20
-          done
-
-          echo "::error::Failed to merge PR #$PR_NUMBER after 3 attempts. Manual intervention required."
-          gh pr comment "$PR_NUMBER" --repo "$REPO" --body "Auto-merge failed after 3 attempts. Please review and merge manually." 2>/dev/null || true
-          exit 1

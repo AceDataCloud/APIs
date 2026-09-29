@@ -1,0 +1,20 @@
+name: Sync workflow tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install 'PyYAML>=6,<7'
+      - run: python -m unittest discover -s tests -v
