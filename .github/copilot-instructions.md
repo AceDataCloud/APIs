@@ -9,11 +9,11 @@ This is a monorepo with one API documentation package per subdirectory (e.g., `s
 The **AceDataCloud/Docs** repo is the source of truth:
 
 - `openapi/<service>.json` — OpenAPI specs for each service
-- `guides/<service>.md` — Usage guides
+- `en/guides/<service>/*.mdx` — Published English usage guides
 
 ## What to Sync
 
-When the Docs repo changes, compare the OpenAPI specs against the API docs and update:
+Use the exact Docs commit linked in the sync issue. When that snapshot changes, compare the OpenAPI specs against the API docs and update:
 
 1. **API endpoints** — ensure all paths from OpenAPI specs are documented
 2. **Request/response examples** — match OpenAPI request body and response schemas
