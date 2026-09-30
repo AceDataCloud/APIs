@@ -74,7 +74,7 @@ jobs:
 
       - name: Sync ${{ matrix.dir }} to ${{ matrix.repo }}
         env:
-          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.SYNC_TOKEN }}
         run: |
           set -e
 
