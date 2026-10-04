@@ -14,10 +14,6 @@ on:
         default: 'true'
         type: boolean
 
-concurrency:
-  group: api-subrepo-publication
-  cancel-in-progress: false
-
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
@@ -36,7 +32,7 @@ jobs:
           if [ "${{ github.event_name }}" = "schedule" ]; then SYNC_ALL="true"; fi
 
           # Read sync.yaml to get mapping keys
-          DIRS=$(grep -E '^  [a-z0-9-]+:$' sync.yaml | sed 's/://;s/^\s*//' | grep -v '^repo$\|^exclude$\|^mappings$')
+          DIRS=$(grep -E '^\s+\w+:$' sync.yaml | sed 's/://;s/^\s*//' | grep -v '^repo$\|^exclude$\|^mappings$')
 
           MATRIX="[]"
           HAS_CHANGES="false"
@@ -85,12 +81,6 @@ jobs:
           DIR="${{ matrix.dir }}"
           REPO="${{ matrix.repo }}"
 
-          # A newly mapped service may await standalone repository provisioning.
-          if ! gh api "repos/$REPO" --silent; then
-            echo "::error::Standalone repository $REPO is missing or inaccessible; provision it before publication."
-            exit 1
-          fi
-
           # Clone target repo
           git clone "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" /tmp/target
           cd /tmp/target
@@ -120,7 +110,7 @@ jobs:
               fi
             fi
             # Reset if we hit a new top-level dir mapping
-            if echo "$line" | grep -qE '^  [a-z0-9-]+:$' && [ "$IN_DIR" = true ]; then
+            if echo "$line" | grep -qE '^\s+\w+:$' && [ "$IN_DIR" = true ]; then
               break
             fi
           done < "$GITHUB_WORKSPACE/sync.yaml"

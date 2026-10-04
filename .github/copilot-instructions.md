@@ -1,5 +1,27 @@
-# Content and client synchronization
+# Copilot Sync Instructions for AceDataCloud APIs
 
-PlatformBackend is the source: customer guidance in `docs/`, API request and response contracts in `openapi/`, and public document membership in `cost/service_api_mapping.json`. Use the source commit recorded in each generated `source.json`. Docs is a presentation consumer.
+## Repository Structure
 
-Generated references are produced by PlatformBackend's `scripts/export_ecosystem_references.py`. Do not edit generated guide or schema copies. Update curated instructions, native commands/tools and tests when the public contract changes; generated reference freshness alone does not prove native wrapper parity. Keep withdrawn and undocumented endpoints out of public discovery. Preserve existing authentication, transport and task polling behavior.
+This is a monorepo with one API documentation package per subdirectory (e.g., `suno/`, `luma/`, `flux/`).
+
+## Source of Truth
+
+The **AceDataCloud/Docs** repo is the source of truth:
+
+- `openapi/<service>.json` — OpenAPI specs for each service
+- `en/guides/<service>/*.mdx` — Published English usage guides
+
+## What to Sync
+
+Use the exact Docs commit linked in the sync issue. When that snapshot changes, compare the OpenAPI specs against the API docs and update:
+
+1. **API endpoints** — ensure all paths from OpenAPI specs are documented
+2. **Request/response examples** — match OpenAPI request body and response schemas
+3. **Parameter descriptions** — update to match OpenAPI parameter descriptions
+4. **Authentication requirements** — reflect any auth changes
+
+## Rules
+
+- Do NOT modify CI/CD workflows or sync.yaml
+- Each subdirectory is independent — only update directories for changed services
+- Keep examples accurate and runnable
