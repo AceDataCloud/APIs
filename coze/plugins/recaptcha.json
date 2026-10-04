@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_reCAPTCHA_Tools",
     "version": "2.0.0",
-    "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8?from=coze"
   },
   "servers": [
     {
@@ -371,7 +371,7 @@
             }
           }
         ],
-        "operationId": "post__captcha_token_recaptcha3",
+        "operationId": "getRecaptchaV3Token",
         "requestBody": {
           "content": {
             "application/json": {
@@ -772,7 +772,7 @@
             }
           }
         ],
-        "operationId": "post__captcha_token_recaptcha2",
+        "operationId": "getRecaptchaV2Token",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1200,7 +1200,7 @@
             }
           }
         ],
-        "operationId": "post__captcha_recognition_recaptcha2",
+        "operationId": "recognizeRecaptchaV2",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1376,7 +1376,7 @@
             }
           }
         ],
-        "operationId": "post__captcha_tasks",
+        "operationId": "getChallengeResult",
         "requestBody": {
           "content": {
             "application/json": {

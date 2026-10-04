@@ -5,7 +5,7 @@ info:
   description: 'Write, analyze and revise content with Claude through chat or native Messages tools. Count
     tokens before sending a larger request. Bind your own Ace Data Cloud credential privately as Bearer
     YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared
-    examples. Start: https://platform.acedata.cloud/?from=coze'
+    examples. Start: https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -136,7 +136,7 @@ paths:
                   trace_id:
                     type: string
           description: Internal server error, an exception occurred on the server side.
-      operationId: post__v1_messages_count_tokens
+      operationId: countTokens
       requestBody:
         content:
           application/json:
@@ -1386,7 +1386,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__v1_chat_completions
+      operationId: chatCompletion
       requestBody:
         content:
           application/json:
@@ -2263,7 +2263,7 @@ paths:
                   trace_id:
                     type: string
           description: Internal service error.
-      operationId: post__v1_messages
+      operationId: createMessage
       requestBody:
         content:
           application/json:

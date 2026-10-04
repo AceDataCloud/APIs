@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_MiniMax_Video",
     "version": "2.0.0",
-    "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/2add8a2a-3577-4a0f-8fd4-e08aaabe8290?from=coze"
   },
   "servers": [
     {
@@ -777,7 +777,7 @@
             "description": "The service is temporarily unavailable."
           }
         },
-        "operationId": "post__minimax_videos",
+        "operationId": "generateVideo",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1680,7 +1680,7 @@
             "description": "The service is temporarily unavailable."
           }
         },
-        "operationId": "post__minimax_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1729,7 +1729,7 @@
           },
           "required": true
         },
-        "description": "Query MiniMax H3 video generation tasks. Both single tasks and task lists use the official H3 task fields. Full input requirements: https://platform.acedata.cloud/documents/minimax-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
+        "description": "Query MiniMax H3 video generation tasks. Both single tasks and task lists use the official H3 task fields. Full input requirements: https://platform.acedata.cloud/documents/minimax-tasks MiniMax completion is task.status=succeeded with a non-empty task.content.url. Its result does not use the generic response wrapper. A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "externalDocs": {
           "url": "https://platform.acedata.cloud/documents/minimax-tasks"
         },

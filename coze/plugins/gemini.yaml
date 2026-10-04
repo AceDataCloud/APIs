@@ -4,7 +4,7 @@ info:
   version: 2.0.0
   description: 'Use Gemini chat and native content requests, or create a video and retrieve its completed
     result. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
-    Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -306,7 +306,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__v1beta_models_model_generateContent
+      operationId: generateContent
       requestBody:
         content:
           application/json:
@@ -1020,7 +1020,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__gemini_chat_completions
+      operationId: chatCompletion
       requestBody:
         content:
           application/json:
@@ -1771,7 +1771,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__gemini_videos
+      operationId: generateVideo
       requestBody:
         content:
           application/json:
@@ -2255,7 +2255,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__gemini_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:

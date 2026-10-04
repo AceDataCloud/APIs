@@ -105,15 +105,53 @@ def sample(schema,name=''):
     return 'REPLACE_'+name.upper()
 
 
+def tool_name(path, method):
+    exact={
+        '/v1/messages/count_tokens':'countTokens','/v1/messages':'createMessage',
+        '/v1beta/models/{model}:generateContent':'generateContent',
+        '/aichat/conversations':'createConversation','/aichat2/conversations':'manageConversation',
+        '/serp/google':'searchGoogle','/shorturl':'createShortLink',
+        '/openai/images/generations':'generateImage','/openai/images/edits':'editImage',
+        '/openai/embeddings':'createEmbeddings','/openai/responses':'createResponse',
+        '/webextrator/render':'renderPage','/webextrator/extract':'extractPage',
+        '/localization/translate':'translateContent','/fish/tts':'textToSpeech',
+        '/fish/model/{id}':'getVoice','/suno/voices':'cloneVoice',
+        '/suno/custom-models':'manageMusicModel','/suno/projects':'manageMusicProject',
+        '/suno/mashup-lyrics':'blendLyrics','/suno/style':'refineMusicStyle',
+        '/suno/vox':'extractVocalStem','/suno/timing':'getLyricTiming',
+        '/suno/mp3':'exportMp3','/suno/mp4':'exportMusicVideo','/suno/midi':'exportMidi',
+        '/producer/videos':'createMusicVideo',
+        '/kling/talking-photo':'createTalkingPhoto','/kling/motion':'controlVideoMotion',
+        '/kling/lip-sync':'syncVideoLips','/kling/goods-studio':'createProductMedia',
+        '/kling/video-commerce':'createCommerceVideo',
+        '/captcha/tasks':'getChallengeResult','/captcha/recognition/image2text':'recognizeCaptchaText',
+        '/captcha/token/turnstile':'getTurnstileToken','/captcha/token/recaptcha2':'getRecaptchaV2Token',
+        '/captcha/token/recaptcha3':'getRecaptchaV3Token','/captcha/recognition/recaptcha2':'recognizeRecaptchaV2',
+        '/captcha/token/hcaptcha':'getHcaptchaToken','/captcha/recognition/hcaptcha':'recognizeHcaptcha',
+        '/identity/idcard/ocr':'recognizeIdCard'}
+    if path in exact:return exact[path]
+    if path=='/fish/model':return 'listVoices' if method=='get' else 'createVoice'
+    if path=='/suno/persona':return 'listPersonas' if method=='get' else 'createPersona'
+    for suffix,name in [('/chat/completions','chatCompletion'),('/tasks','getTaskResults'),('/videos','generateVideo'),('/images','generateImage'),('/audios','generateMusic'),('/lyrics','generateLyrics'),('/upload','uploadAudio'),('/wav','exportWav'),('/voices','createVoice')]:
+        if path.endswith(suffix):return name
+    match=re.fullmatch(r'/identity/(idcard|bankcard|phone)/check-([1-4])e',path)
+    if match:return 'verify'+{'idcard':'IdCard','bankcard':'BankCard','phone':'Phone'}[match[1]]+match[2]+'e'
+    raise ValueError('A user-facing tool name is required: '+method+' '+path)
+
+
 def build_operation(a,path,method,source):
     d=a['definition'];op=resolve(source,d)
     op.pop('security',None);op.pop('callbacks',None);op.pop('tags',None)
-    op['operationId']=re.sub(r'[^a-zA-Z0-9_]+','_',method+'_'+path).strip('_')[:80]
+    op['operationId']=tool_name(path,method)
     if method=='post' and path in {'/seedream/images','/flux/images','/serp/google','/shorturl'}:
         op['operationId']={'/seedream/images':'generateImage','/flux/images':'generateImage','/serp/google':'searchGoogle','/shorturl':'createShortLink'}[path]
     op['summary']=(op.get('summary') or a['path']).split('\n')[0][:160]
     detail=(op.get('description') or op['summary']).strip()
     op['description']=detail[:1000]+' Full input requirements: '+a['document_url']
+    if path=='/maestro/tasks':
+        op['description']+=' Maestro completion is status=succeeded with response.success=true and response.data.variants[].output_url.'
+    if path=='/minimax/tasks':
+        op['description']+=' MiniMax completion is task.status=succeeded with a non-empty task.content.url. Its result does not use the generic response wrapper.'
     if path.endswith('/tasks'):
         op['description']+=' A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.'
     op['externalDocs']={'url':a['document_url']}
@@ -129,6 +167,11 @@ def build_operation(a,path,method,source):
         for k,v in DEFAULTS.get(path,{}).items():
             if k in props:props[k]['default']=v
         if 'stream' in props:props['stream'].update(default=False,enum=[False],description='Use false for Coze JSON tool results.')
+        if path=='/seedream/images' and 'stream' in props:
+            props['stream'].pop('default',None)
+            props['stream']['description']='Omit this field for Seedream Pro. Streaming is unavailable in this JSON-only plugin.'
+        if path=='/flux/images':
+            props['size']['description']='Flux 2 uses an aspect ratio such as 1:1 or 16:9. Pixel-size strings such as 1024x1024 fail for Flux 2. Check model-specific requirements before changing the model.'
         if 'async' in props:
             props['async']['default']=True
             op['description']+=' Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.'
@@ -160,8 +203,10 @@ def main():
             row['blockers']=['Requires a user-owned deployment URL and scoped authentication before functional plugin creation.'] if s['type']=='Deployment' else (['A local developer client; provided through setup guidance rather than a hosted Coze tool.'] if s['type']=='Agent' else ['Catalog and acquisition guidance only; no public query API is declared.'])
             for o in s['operations']:row['operations'].append({**o,'disposition':'guide_only'})
             coverage.append(row);continue
-        p=profiles[key];row.update({k:p[k] for k in ['name','brief','group','description','scenarios']});row['delivery']='http_plugin'
-        spec={'openapi':'3.0.1','info':{'title':p['name'],'version':'2.0.0','description':p['description']+' '+AUTH+' Start: '+SETUP},'servers':[{'url':'https://api.acedata.cloud'}],'paths':{}}
+        p=profiles[key];start_url=row['source_url']+'?from=coze'
+        if key=='deepseek':start_url='https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze'
+        row.update({k:p[k] for k in ['name','brief','group','description','scenarios']});row['delivery']='http_plugin'
+        spec={'openapi':'3.0.1','info':{'title':p['name'],'version':'2.0.0','description':p['description']+' '+AUTH+' Start: '+start_url},'servers':[{'url':'https://api.acedata.cloud'}],'paths':{}}
         for meta in s['operations']:
             a=contracts.get(meta['api_id'])
             if not a:
@@ -225,7 +270,8 @@ def main():
                 (ROOT/'image.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
         listing={k:row[k] for k in ['name','brief','description','scenarios','icon']}
         listing['category']={'Chat':'Productivity','Video':'Video','Image':'Photography','Multimodal':'Productivity','Music':'Music','Audio':'Music','Search':'Web Search','Utility':'Tools','Avatar':'Video','Verification':'Tools'}[p['group']]
-        listing['about']=p['description']+'\n\n'+AUTH+'\nGet started: '+SETUP
+        listing['about']=p['description']+'\n\n'+AUTH+'\nGet started: '+start_url
+        if key=='deepseek':listing['about']+=' Use a Global credential or one authorized for the AI Dialogue API.'
         listing['privacy_review']={'data_sent':'User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.','recipient':'Ace Data Cloud API','retention':'Verify current published privacy terms; no retention promise is made in this draft.','sensitive_inputs':key in ['identity','digitalhuman','dreamina','fish','suno']}
         listings[key]=listing;coverage.append(row)
     covered={(c['service'],c['operation_id']) for c in cases}
@@ -237,6 +283,14 @@ def main():
             op=definition['paths'][item['path']][item['method'].lower()]
             body=op.get('requestBody',{}).get('content',{}).get('application/json',{}).get('schema',{})
             cases.append({'service':row['key'],'api_id':item['api_id'],'operation_id':item['operation_id'],'method':item['method'],'path':item['path'],'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':sample(body)},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits.'],'special_authorization':row['key'] in ['turnstile','image2text','recaptcha']})
+    guide=['Ace Data Cloud public service guide','Catalog date: '+src['retrieved_at'],'This is catalog guidance, not proof of Coze store publication.']
+    for row in coverage:
+        guide+=['','SERVICE: '+row['title'],'TYPE: '+row['service_type'],'DESCRIPTION: '+row['description'],'URL: '+row['source_url'],'COZE ENTRY: '+row['delivery']]
+        if row['service_type']=='Dataset':guide+=['NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.']
+        elif row['service_type']=='Deployment':guide+=['NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.']
+        elif row['service_type']=='Agent':guide+=['NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.']
+        else:guide+=['NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.']
+    (ROOT/'catalog/service-guide.txt').write_text('\n'.join(guide)+'\n')
     write_json(ROOT/'catalog/coverage.json',{'snapshot_date':src['retrieved_at'],'services':coverage})
     write_json(ROOT/'listings.json',listings)
     write_json(ROOT/'examples/catalog/validation-cases.json',cases)

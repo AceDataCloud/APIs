@@ -4018,6 +4018,180 @@
           "has_contract": true
         }
       ]
+    },
+    {
+      "id": "f36a2d7d-f07c-4830-848d-2b115de958ee",
+      "alias": "whatsapp-bot",
+      "type": "Deployment",
+      "title": "WhatsApp Account Proxy",
+      "description": "Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.",
+      "api_ids": [
+        "15d19b79-faba-55a4-8c08-51ec12b1b2f0",
+        "20a48ed5-5faa-56b9-980b-e4fa3f2c122b",
+        "233889ee-aa74-5947-ab63-6558febf7219",
+        "261bced8-13bd-51c6-9e71-bc521af400c6",
+        "2f03c849-f806-5f3b-861d-776d464b0e29",
+        "32501ef8-3ffa-5142-814e-a8a1f0df37cb",
+        "43d51494-b3a5-5402-b3b0-ee1fd6ad5d30",
+        "5ec15fe4-5a02-5bee-8048-209056a61f89",
+        "6eaccec3-1393-5022-9803-8a0ecc640f40",
+        "896a42d7-b1c0-5d08-98bc-f8862d5d6d9d",
+        "91ec97e9-f74e-5847-bd03-08c5112a9c34",
+        "a7baaf6b-9e50-563d-b127-2231e996586e",
+        "aee039e4-e36a-54d3-a254-8b6ff3cb4cf2",
+        "b40b3f98-e3af-5785-aeef-bc871198dfd8",
+        "c4449e49-1557-5916-8d84-9d1fca0927fa",
+        "c5d849de-8474-540a-bbb7-fef0744c93a2",
+        "fcf662ee-1b61-5b9e-901c-1c21ae381cae"
+      ],
+      "tags": [
+        "deployment",
+        "whatsapp",
+        "agent"
+      ],
+      "metadata": {
+        "deployment": {
+          "workload_provider": "helm"
+        }
+      },
+      "operations": [
+        {
+          "api_id": "15d19b79-faba-55a4-8c08-51ec12b1b2f0",
+          "path": "/api/auth/logout",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "20a48ed5-5faa-56b9-980b-e4fa3f2c122b",
+          "path": "/api/contacts",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "233889ee-aa74-5947-ab63-6558febf7219",
+          "path": "/api/auth/status",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "261bced8-13bd-51c6-9e71-bc521af400c6",
+          "path": "/api/events",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "2f03c849-f806-5f3b-861d-776d464b0e29",
+          "path": "/api/chats/{target}/read",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "32501ef8-3ffa-5142-814e-a8a1f0df37cb",
+          "path": "/api/messages",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "43d51494-b3a5-5402-b3b0-ee1fd6ad5d30",
+          "path": "/api/events/stream",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "5ec15fe4-5a02-5bee-8048-209056a61f89",
+          "path": "/api/auth/pairing-code",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "6eaccec3-1393-5022-9803-8a0ecc640f40",
+          "path": "/api/whoami",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "896a42d7-b1c0-5d08-98bc-f8862d5d6d9d",
+          "path": "/api/chats/{target}/messages/{id}/media",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "91ec97e9-f74e-5847-bd03-08c5112a9c34",
+          "path": "/api/groups/{target}",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "a7baaf6b-9e50-563d-b127-2231e996586e",
+          "path": "/api/groups/{target}",
+          "method": "PATCH",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "aee039e4-e36a-54d3-a254-8b6ff3cb4cf2",
+          "path": "/api/sends/{key}",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "b40b3f98-e3af-5785-aeef-bc871198dfd8",
+          "path": "/api/capabilities",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "c4449e49-1557-5916-8d84-9d1fca0927fa",
+          "path": "/api/chats",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "c5d849de-8474-540a-bbb7-fef0744c93a2",
+          "path": "/api/auth/qr",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        },
+        {
+          "api_id": "fcf662ee-1b61-5b9e-901c-1c21ae381cae",
+          "path": "/api/chats/{target}/messages",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true
+        }
+      ]
     }
   ],
   "contracts": {
@@ -58329,5 +58503,6 @@
       },
       "source_definition_sha256": "42ca9c97cc273bcc2809438b45aee9638f56b21b4f6cf5bca038d8a4210d03cd"
     }
-  }
+  },
+  "rechecked_at": "2026-10-05T03:21:22+08:00"
 }

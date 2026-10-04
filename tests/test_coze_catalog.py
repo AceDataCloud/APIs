@@ -41,6 +41,8 @@ class CozeCatalogTests(unittest.TestCase):
                     for method, operation in methods.items():
                         self.assertNotEqual('delete', method)
                         operation_ids.append(operation['operationId'])
+                        self.assertNotIn('__', operation['operationId'])
+                        self.assertLessEqual(len(operation['operationId']), 64)
                         auth = [x for x in operation['parameters'] if x['name'] == 'Authorization']
                         self.assertEqual(1, len(auth))
                         self.assertTrue(auth[0]['required'])
@@ -50,6 +52,23 @@ class CozeCatalogTests(unittest.TestCase):
                         if 'stream' in body.get('properties', {}):
                             self.assertEqual([False], body['properties']['stream']['enum'])
                 self.assertEqual(len(operation_ids), len(set(operation_ids)))
+
+    def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
+        import yaml
+        for key in ('claude', 'openai', 'kling', 'serp'):
+            doc = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
+            self.assertEqual(doc, yaml.safe_load((ROOT / 'imports' / f'{key}.yaml').read_text()))
+            validate_spec(doc)
+            self.assertEqual(set(self.plugins[key]['paths']), set(doc['paths']))
+            for path, methods in doc['paths'].items():
+                for method, op in methods.items():
+                    canonical = self.plugins[key]['paths'][path][method]
+                    self.assertEqual(canonical['operationId'], op['operationId'])
+                    self.assertEqual(canonical['parameters'], op['parameters'])
+                    body = op.get('requestBody', {}).get('content', {}).get('application/json', {}).get('schema', {})
+                    original = canonical.get('requestBody', {}).get('content', {}).get('application/json', {}).get('schema', {})
+                    self.assertTrue(set(original.get('required', [])) <= set(body.get('required', [])))
+                    self.assertTrue(set(body.get('required', [])) <= set(body.get('properties', {})))
 
     def test_union_adapter_keeps_base_fields_and_required_inputs(self):
         # A conditional oneOf must not overwrite the request's normal fields.

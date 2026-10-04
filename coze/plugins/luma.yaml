@@ -5,7 +5,7 @@ info:
   description: 'Generate a video from text or supported image references, extend a prior result, and retrieve
     the final video through the task tool. Bind your own Ace Data Cloud credential privately as Bearer
     YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared
-    examples. Start: https://platform.acedata.cloud/?from=coze'
+    examples. Start: https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -461,7 +461,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__luma_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:
@@ -721,7 +721,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__luma_videos
+      operationId: generateVideo
       requestBody:
         content:
           application/json:

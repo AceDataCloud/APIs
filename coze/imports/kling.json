@@ -1,0 +1,1904 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AceData_Kling_Video_Studio",
+    "version": "2.0.0",
+    "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?from=coze"
+  },
+  "servers": [
+    {
+      "url": "https://api.acedata.cloud"
+    }
+  ],
+  "paths": {
+    "/kling/talking-photo": {
+      "post": {
+        "summary": "Kling talking-photo API — make a still portrait speak from audio or text.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    },
+                    "source_video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Request error, it may be due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "description": "One-click \"Talking Photo\": Upload a photo of a person and a piece of driving audio. The service will automatically animate the photo (image2video) and then lip-sync with the audio, ultimately returning a talking video. No need to call in two steps yourself. Full input requirements: https://platform.acedata.cloud/documents/kling-talking-photo Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "operationId": "createTalkingPhoto",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "image_url",
+                  "audio_url"
+                ],
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "std",
+                      "pro"
+                    ],
+                    "type": "string",
+                    "default": "pro",
+                    "description": "The generation quality of photo animation stage."
+                  },
+                  "async": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Return task_id immediately when true; you can poll through /kling/tasks or receive callbacks to get the result."
+                  },
+                  "model": {
+                    "enum": [
+                      "kling-v1",
+                      "kling-v1-6",
+                      "kling-v2-master",
+                      "kling-v2-1-master",
+                      "kling-v2-5-turbo",
+                      "kling-v2-6"
+                    ],
+                    "type": "string",
+                    "default": "kling-v2-1-master",
+                    "description": "The Kling model used in the photo animation stage."
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "Optional: Action/expression prompts for the photo animation stage."
+                  },
+                  "duration": {
+                    "enum": [
+                      5,
+                      10
+                    ],
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Video duration (seconds), while also limiting the length of the audio reading."
+                  },
+                  "audio_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Public URL for audio (.mp3/.wav/.m4a/.aac, no more than 5MB), characters will lip-sync according to its content."
+                  },
+                  "image_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Public URL of the character photo, it is recommended to use a clear frontal photo."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "If provided (or async=true), it will immediately return task_id and push the result via callback when ready."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-talking-photo"
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/kling/videos": {
+      "post": {
+        "summary": "Kuaishou Kling AI video generation API. Supports text-to-video, image-to-video, and start/end frame control across kling-v1, kling-v1-6, kling-v2-master, kling-",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "string"
+                    },
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful (OK)."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "The format of the server response should be set to application/json."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "generateVideo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "std",
+                      "pro",
+                      "4k"
+                    ],
+                    "type": "string",
+                    "default": "std",
+                    "description": "Video generation mode, optional. Supported values: `std` (high performance mode), `pro` (high quality mode), `4k` (native 4K, only supported by `kling-v3` and `kling-v3-omni`, incompatible with \"motion control\"). The default value is `std`."
+                  },
+                  "async": {
+                    "type": "boolean",
+                    "description": "Whether to process in asynchronous mode. When set to `true`, the interface immediately returns `task_id`, without the need to provide `callback_url`, and then the result can be obtained by polling the corresponding task query interface; if `callback_url` is also provided, the result will be pushed to that callback address.",
+                    "default": true
+                  },
+                  "model": {
+                    "enum": [
+                      "kling-v3-turbo",
+                      "kling-v1",
+                      "kling-v1-6",
+                      "kling-v2-master",
+                      "kling-v2-1-master",
+                      "kling-v2-5-turbo",
+                      "kling-v2-6",
+                      "kling-v3",
+                      "kling-v3-omni",
+                      "kling-o1"
+                    ],
+                    "type": "string",
+                    "default": "kling-v2-6",
+                    "description": "The model used for generating videos, with a default value of kling-v1."
+                  },
+                  "action": {
+                    "enum": [
+                      "text2video",
+                      "image2video",
+                      "extend"
+                    ],
+                    "type": "string",
+                    "description": "Video generation action. If the value is `text2video`, then generate a video based on the prompt.",
+                    "default": "text2video"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "Prompts for generating videos. When using Omni All-Purpose Reference (model `kling-o1` or `kling-v3-omni`), you need to reference the corresponding numbers (starting from 1) in `image_list` / `video_list` in the form of `<<<image_1>>>`, `<<<video_1>>>` in the prompts for the model to apply these references; for example, \"Change `<<<video_1>>>` to anime style.\""
+                  },
+                  "duration": {
+                    "type": "number",
+                    "default": 5,
+                    "description": "Video generation duration, measured in seconds, is optional. For kling-v3/kling-v3-omni: supports flexible settings of 3–15 seconds (integer); kling-o1 only supports 5 seconds; other models: enumerated values are 5 or 10. Requests that include tail frames only support 5 seconds."
+                  },
+                  "video_id": {
+                    "type": "string",
+                    "description": "When the action is extend, you can specify the video_id to continue the extension of that video."
+                  },
+                  "cfg_scale": {
+                    "type": "number",
+                    "maximum": 1,
+                    "minimum": 0,
+                    "description": "The strength of relevance of the prompt words, used to control the degree of alignment between the generated video and the prompt words, is optional. The larger the value, the stronger the association between the video and the prompt words (the creative space is smaller); the smaller the value, the higher the degree of creative freedom. The range of values is: [0, 1]."
+                  },
+                  "shot_type": {
+                    "type": "string",
+                    "enum": [
+                      "customize",
+                      "intelligence"
+                    ],
+                    "description": "Storyboard method; required when multi_shot=true. intelligence uses prompt for automatic splitting; customize uses multi_prompt."
+                  },
+                  "image_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "image_url"
+                      ],
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "first_frame",
+                            "end_frame"
+                          ],
+                          "type": "string"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    },
+                    "maxItems": 7,
+                    "minItems": 1,
+                    "description": "Omni reference image list, only applicable to models `kling-o1` and `kling-v3-omni`. Array elements pass image links through `image_url`; optional `type` can be the first frame `first_frame` or the end frame `end_frame`. The current legacy-compatible interface accepts .jpg/.jpeg/.png, with a single image ≤10MB, both width and height ≥300px, and an aspect ratio of 1:2.5–2.5:1. A maximum of 7 images is allowed without a reference video, and a maximum of 4 images is allowed with a reference video; the end frame must be used together with the first frame. Assets must be referenced in the prompt using `<<<image_N>>>`. Omni requests do not support `negative_prompt`, `cfg_scale`, `camera_control`, or `mode=4k`."
+                  },
+                  "multi_shot": {
+                    "type": "boolean",
+                    "description": "Whether to generate a multi-shot video, only kling-v3 and kling-v3-omni are supported."
+                  },
+                  "video_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "video_url"
+                      ],
+                      "properties": {
+                        "video_url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "refer_type": {
+                          "enum": [
+                            "base",
+                            "feature"
+                          ],
+                          "type": "string"
+                        },
+                        "keep_original_sound": {
+                          "enum": [
+                            "yes",
+                            "no"
+                          ],
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "maxItems": 1,
+                    "minItems": 1,
+                    "description": "Omni reference video list, applicable only to models `kling-o1` and `kling-v3-omni`, with a maximum of 1 MP4/MOV video, ≤200MB, 24–60fps. Model limitations differ: the reference video for `kling-o1` is 3–10 seconds, with width and height each 700–2160px; for `kling-v3-omni`, it is 3–15.5 seconds, with width and height each 700–4553px, total pixels ≤8,294,400, and aspect ratio 0.4–2. `refer_type` can be `feature` or `base` (default); `keep_original_sound` can be `yes` or `no`. Materials must be referenced in the prompt using `<<<video_1>>>`. `base` cannot be used together with the first frame/last frame; when a reference video exists, `generate_audio` must be `false`."
+                  },
+                  "voice_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "voice_id"
+                      ],
+                      "properties": {
+                        "voice_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "maxItems": 2,
+                    "minItems": 1,
+                    "description": "Platform asset ID reference, verify ownership by user and application. Only V2.6 pro with generate_audio=true, the prompt must use <<<voice_1>>> or <<<voice_2>>>; specified voice is billed at 1.68 Credits/second."
+                  },
+                  "aspect_ratio": {
+                    "enum": [
+                      "16:9",
+                      "9:16",
+                      "1:1"
+                    ],
+                    "type": "string",
+                    "description": "Video aspect ratio, optional, enumeration values: 16:9, 9:16, 1:1. The default value is 16:9."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "description": "The callback URL that will be called after the video generation is complete."
+                  },
+                  "element_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "element_id"
+                      ],
+                      "properties": {
+                        "element_id": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "maxItems": 3,
+                    "minItems": 1,
+                    "description": "Platform asset ID references, ownership validated by user and application. V3, V3 Omni, and O1 only; the total number of subject and image references is limited by the model."
+                  },
+                  "multi_prompt": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "index",
+                        "prompt",
+                        "duration"
+                      ],
+                      "properties": {
+                        "index": {
+                          "type": "integer",
+                          "maximum": 6,
+                          "minimum": 1
+                        },
+                        "prompt": {
+                          "type": "string",
+                          "maxLength": 512,
+                          "minLength": 1
+                        },
+                        "duration": {
+                          "type": "integer",
+                          "maximum": 15,
+                          "minimum": 1
+                        }
+                      }
+                    },
+                    "maxItems": 6,
+                    "minItems": 1,
+                    "description": "1–6 shots, with the index increasing consecutively from 1; each prompt may contain up to 512 characters; the total duration of all shots must equal the total duration. Custom shots do not use the global prompt."
+                  },
+                  "end_image_url": {
+                    "type": "string",
+                    "description": "End frame reference image URL. Valid only when `action=image2video` and `start_image_url` is not empty. Model/mode restrictions (consistent with Kling official documentation): `kling-v1` requires `duration=5`; `kling-v1-6`/`kling-v2-5-turbo`/`kling-v2-6` require `mode=pro`; `kling-v3`/`kling-v3-omni`/`kling-o1` support end frames in all modes; `kling-v2-master`/`kling-v2-1-master` do not support end frames."
+                  },
+                  "generate_audio": {
+                    "type": "boolean",
+                    "description": "Whether to generate audio while generating the video, optional. `kling-v3`, `kling-v3-omni`, and `kling-v2-6` (pro mode only) default to false. `kling-v3-turbo` comes with native audio and does not provide a switch to turn it off; omit this field or set it to true. Other models will return an error if set to true."
+                  },
+                  "negative_prompt": {
+                    "type": "string",
+                    "description": "Optional parameters, supporting up to 200 characters, used to describe content that you do not wish to appear in the video."
+                  },
+                  "start_image_url": {
+                    "type": "string",
+                    "description": "You can specify the first frame reference image of the video, which is effective when the action is image2video."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Kuaishou Kling AI video generation API. Supports text-to-video, image-to-video, and start/end frame control across kling-v1, kling-v1-6, kling-v2-master, kling- Full input requirements: https://platform.acedata.cloud/documents/kling-videos Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply. Coze form limitations: some union inputs use one representation and optional opaque objects are omitted; see compatibility notes. Text-message content is supported where the form uses string.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-videos"
+        }
+      }
+    },
+    "/kling/motion": {
+      "post": {
+        "summary": "Kling motion-control video generation API. Generates controllable-motion video clips from a reference image and motion trajectory (motion brush, etc.), suitable",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "string"
+                    },
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful, returned 200 OK."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "The format of the response returned by the specified server should be set to `application/json`."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "controlVideoMotion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "image_url",
+                  "video_url",
+                  "character_orientation",
+                  "mode"
+                ],
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "std",
+                      "pro"
+                    ],
+                    "type": "string",
+                    "description": "Video generation mode, optional, enumeration values: `std` (standard mode, 720p, lower consumption) or `pro` (professional mode, 1080p, higher image quality). The default value is `std`."
+                  },
+                  "async": {
+                    "type": "boolean",
+                    "description": "Whether to process in asynchronous mode. When set to `true`, the interface immediately returns `task_id`, without the need to provide `callback_url`, and then the result can be obtained by polling the corresponding task query interface; if `callback_url` is also provided, the result will be pushed to that callback address.",
+                    "default": true
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "Text prompts can contain both positive and negative descriptions simultaneously."
+                  },
+                  "image_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Reference image URL: The characters, background, and other elements in the generated video are all based on this reference image."
+                  },
+                  "video_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Reference video URL: The character movements in the generated video will be consistent with this reference video."
+                  },
+                  "model_name": {
+                    "enum": [
+                      "kling-v2-6",
+                      "kling-v3"
+                    ],
+                    "type": "string",
+                    "description": "Model name, optional, enumeration values: `kling-v2-6` or `kling-v3`. If not provided, the server's default model will be used."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Callback URL, after the video generation is complete, the system will send a callback notification to this URL."
+                  },
+                  "watermark_info": {
+                    "type": "object",
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      }
+                    },
+                    "description": "Watermark configuration, optional. The object format is `{ \"enabled\": true }`. When `enabled` is set to `true`, results with watermarks are generated additionally, and custom watermarks are not supported at this time."
+                  },
+                  "keep_original_sound": {
+                    "enum": [
+                      "yes",
+                      "no"
+                    ],
+                    "type": "string",
+                    "description": "Whether to keep the original audio of the reference video, optional, enumeration values: `yes` (keep) or `no` (remove). The default value is `yes`."
+                  },
+                  "character_orientation": {
+                    "enum": [
+                      "image",
+                      "video"
+                    ],
+                    "type": "string",
+                    "description": "Generate the orientation of characters in the video, which can be chosen to be consistent with the reference image (`image`) or reference video (`video`)."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Kling motion-control video generation API. Generates controllable-motion video clips from a reference image and motion trajectory (motion brush, etc.), suitable Full input requirements: https://platform.acedata.cloud/documents/kling-motion Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-motion"
+        }
+      }
+    },
+    "/kling/lip-sync": {
+      "post": {
+        "summary": "Kling lip-sync API — sync a character's mouth in a video to audio or text.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "integer"
+                    },
+                    "video_id": {
+                      "type": "string"
+                    },
+                    "video_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Request error, it may be due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "success",
+                    "error",
+                    "trace_id"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "trace_id": {
+                      "type": "string"
+                    },
+                    "started_at": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "description": "The request was denied by policy or permission rules."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "success",
+                    "error",
+                    "trace_id"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "trace_id": {
+                      "type": "string"
+                    },
+                    "started_at": {
+                      "type": "number"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "description": "The request frequency or concurrency exceeds the limit."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "description": "Use audio or text to drive an existing Kling video (5 seconds or 10 seconds), allowing the characters within to sync their speech (lip-syncing). This can be combined with the image2video from /kling/videos to form a complete \"talking photo\" process. Full input requirements: https://platform.acedata.cloud/documents/kling-lip-sync Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "operationId": "syncVideoLips",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "mode"
+                ],
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "audio2video",
+                      "text2video"
+                    ],
+                    "type": "string",
+                    "description": "audio2video: Drive with audio clips; text2video: Drive with text + tone."
+                  },
+                  "text": {
+                    "type": "string",
+                    "maxLength": 120,
+                    "description": "Text to be read aloud (required when mode is text2video, up to 120 characters)."
+                  },
+                  "async": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Return task_id immediately when true; you can poll through /kling/tasks or receive callbacks to get the result."
+                  },
+                  "video_id": {
+                    "type": "string",
+                    "description": "The ID of the video generated by Kling (for example, from /kling/videos image2video) must be generated within the last 30 days. Choose one of video_url or this."
+                  },
+                  "voice_id": {
+                    "type": "string",
+                    "description": "The tone used (required when mode is text2video)."
+                  },
+                  "audio_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The public URL for the audio drive (required when mode is audio2video)."
+                  },
+                  "video_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "The public URL of the 5-second/10-second video that matches the lip sync. Choose one between video_id."
+                  },
+                  "audio_file": {
+                    "type": "string",
+                    "description": "Base64 of the audio file (required when audio_type is file). Supports .mp3/.wav/.m4a/.aac, not exceeding 5MB."
+                  },
+                  "audio_type": {
+                    "enum": [
+                      "url",
+                      "file"
+                    ],
+                    "type": "string",
+                    "default": "url",
+                    "description": "The method of providing audio (for audio2video)."
+                  },
+                  "voice_speed": {
+                    "type": "number",
+                    "default": 1.0,
+                    "maximum": 2.0,
+                    "minimum": 0.8,
+                    "description": "The speech rate of text2video (0.8–2.0, keep one decimal place)."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "If provided (or async=true), it will immediately return task_id and push the result via callback when ready."
+                  },
+                  "voice_language": {
+                    "enum": [
+                      "zh",
+                      "en"
+                    ],
+                    "type": "string",
+                    "default": "zh",
+                    "description": "The tone language of text2video."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-lip-sync"
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/kling/video-commerce": {
+      "post": {
+        "summary": "E-commerce voiceover",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "image",
+                              "video"
+                            ],
+                            "type": "string"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "video_url": {
+                            "type": "string"
+                          },
+                          "watermark_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "seconds": {
+                          "type": "number",
+                          "readOnly": true
+                        },
+                        "image_count": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "pricing_tier": {
+                          "type": "string",
+                          "readOnly": true
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "trace_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Platform task ID or the generated result after completion."
+          }
+        },
+        "operationId": "createCommerceVideo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contents"
+                ],
+                "properties": {
+                  "async": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Asynchronous mode will first return the platform task ID, and then obtain the result through task query or callback."
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "avatar_image",
+                            "avatar_id",
+                            "ref_image",
+                            "goods_title",
+                            "goods_price",
+                            "goods_target_audience",
+                            "goods_selling_point",
+                            "speech_script"
+                          ]
+                        },
+                        "text": {
+                          "type": "string",
+                          "maxLength": 128,
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "minItems": 2,
+                    "description": "Input material list; each item is described by type and text, url, or voice_id. For specific combinations and quantity limits, see the integration guide."
+                  },
+                  "settings": {
+                    "type": "object",
+                    "properties": {
+                      "voice_id": {
+                        "type": "string"
+                      },
+                      "resolution": {
+                        "enum": [
+                          "720p",
+                          "1080p"
+                        ],
+                        "type": "string",
+                        "default": "720p"
+                      },
+                      "bgm_enabled": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "speech_rate": {
+                        "enum": [
+                          0.8,
+                          1,
+                          1.2
+                        ],
+                        "type": "number"
+                      },
+                      "allow_polish": {
+                        "type": "boolean",
+                        "default": false
+                      },
+                      "aspect_ratio": {
+                        "enum": [
+                          "9:16",
+                          "16:9"
+                        ],
+                        "type": "string",
+                        "default": "9:16"
+                      },
+                      "action_prompt": {
+                        "type": "string",
+                        "maxLength": 2500
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "watermark": {
+                    "type": "boolean",
+                    "description": "Whether to return the generated result with a watermark at the same time."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Callback notification address after the task is completed."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "E-commerce voiceover Full input requirements: https://platform.acedata.cloud/documents/kling-video-commerce Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-video-commerce"
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/kling/tasks": {
+      "post": {
+        "summary": "Query the status and result of an asynchronous Kling task. Pass a task_id to retrieve generation progress, the final video URL, and any error details.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Task ID."
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Task type."
+                    },
+                    "api_id": {
+                      "type": "string",
+                      "description": "API Identifier."
+                    },
+                    "elapsed": {
+                      "type": "number",
+                      "format": "double",
+                      "minimum": 0,
+                      "nullable": true,
+                      "description": "Processing duration (seconds)."
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "description": "The account to which the task belongs."
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "Request tracking ID."
+                    },
+                    "created_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Task creation time, Unix timestamp (seconds)."
+                    },
+                    "started_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Process start time, Unix timestamp (seconds)."
+                    },
+                    "finished_at": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true,
+                      "description": "Processing completion time, Unix timestamp (seconds)."
+                    },
+                    "actor_user_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The account for executing the authorization request."
+                    },
+                    "credential_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Credentials used to start tasks."
+                    },
+                    "application_id": {
+                      "type": "string",
+                      "description": "Application for billing."
+                    },
+                    "authorization_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Authorization used when starting the task."
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "description": "Total number of matching tasks."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "type",
+                          "created_at",
+                          "trace_id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Task ID."
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Task type."
+                          },
+                          "api_id": {
+                            "type": "string",
+                            "description": "API Identifier."
+                          },
+                          "elapsed": {
+                            "type": "number",
+                            "format": "double",
+                            "minimum": 0,
+                            "nullable": true,
+                            "description": "Processing duration (seconds)."
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "description": "The account to which the task belongs."
+                          },
+                          "trace_id": {
+                            "type": "string",
+                            "description": "Request tracking ID."
+                          },
+                          "created_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Task creation time, Unix timestamp (seconds)."
+                          },
+                          "started_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Process start time, Unix timestamp (seconds)."
+                          },
+                          "finished_at": {
+                            "type": "number",
+                            "format": "double",
+                            "nullable": true,
+                            "description": "Processing completion time, Unix timestamp (seconds)."
+                          },
+                          "actor_user_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "The account for executing the authorization request."
+                          },
+                          "credential_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Credentials used to start tasks."
+                          },
+                          "application_id": {
+                            "type": "string",
+                            "description": "Application for billing."
+                          },
+                          "authorization_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Authorization used when starting the task."
+                          }
+                        }
+                      },
+                      "description": "Matching task list."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Operation executed successfully."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Response error message."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the response format returned by the server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "getTaskResults",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Kling task ID."
+                  },
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of IDs for Kling tasks."
+                  },
+                  "action": {
+                    "enum": [
+                      "retrieve",
+                      "retrieve_batch"
+                    ],
+                    "type": "string",
+                    "default": "retrieve",
+                    "description": "Operation type. Use `retrieve` to get a single task, and use `retrieve_batch` to batch retrieve multiple tasks."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Query the status and result of an asynchronous Kling task. Pass a task_id to retrieve generation progress, the final video URL, and any error details. Full input requirements: https://platform.acedata.cloud/documents/kling-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-tasks"
+        }
+      }
+    },
+    "/kling/goods-studio": {
+      "post": {
+        "summary": "Product Video",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "image",
+                              "video"
+                            ],
+                            "type": "string"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "video_url": {
+                            "type": "string"
+                          },
+                          "watermark_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "seconds": {
+                          "type": "number",
+                          "readOnly": true
+                        },
+                        "image_count": {
+                          "type": "integer",
+                          "readOnly": true
+                        },
+                        "pricing_tier": {
+                          "type": "string",
+                          "readOnly": true
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "trace_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Platform task ID or the generated result after completion."
+          }
+        },
+        "operationId": "createProductMedia",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contents",
+                  "settings"
+                ],
+                "properties": {
+                  "async": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "In asynchronous mode, the platform task ID is returned first, and the result is then obtained through task query or callback."
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "ref_image",
+                            "goods_title",
+                            "goods_description"
+                          ]
+                        },
+                        "text": {
+                          "type": "string",
+                          "maxLength": 200,
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    },
+                    "minItems": 2,
+                    "description": "Input material list; each item is described by type and text, url, or voice_id. For specific combinations and quantity limits, refer to the integration guide."
+                  },
+                  "settings": {
+                    "type": "object",
+                    "required": [
+                      "aspect_ratio",
+                      "duration"
+                    ],
+                    "properties": {
+                      "duration": {
+                        "enum": [
+                          15,
+                          30,
+                          60
+                        ],
+                        "type": "integer"
+                      },
+                      "resolution": {
+                        "enum": [
+                          "720p",
+                          "1080p"
+                        ],
+                        "type": "string",
+                        "default": "720p"
+                      },
+                      "aspect_ratio": {
+                        "enum": [
+                          "9:16",
+                          "1:1",
+                          "16:9"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "watermark": {
+                    "type": "boolean",
+                    "description": "Whether to return the generated result with a watermark at the same time."
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Callback notification address after the task is completed."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Product Video Full input requirements: https://platform.acedata.cloud/documents/kling-goods-studio Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/kling-goods-studio"
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

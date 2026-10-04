@@ -5,7 +5,7 @@ info:
   description: 'Start and retrieve conversations using Ace Data Cloud''s multi-model conversation APIs.
     Select a model explicitly and keep conversation IDs for follow-up turns. Bind your own Ace Data Cloud
     credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never
-    place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -180,7 +180,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__aichat_conversations
+      operationId: createConversation
       requestBody:
         content:
           application/json:
@@ -481,7 +481,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__aichat2_conversations
+      operationId: manageConversation
       requestBody:
         content:
           application/json:

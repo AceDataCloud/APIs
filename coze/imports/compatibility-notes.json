@@ -1,0 +1,328 @@
+{
+  "claude": [
+    {
+      "field": "POST /v1/messages/count_tokens/request/system",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/count_tokens/request/messages/items/content/items/source/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/count_tokens/request/messages/items/content/items/content/items/source/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/count_tokens/request/messages/items/content/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/count_tokens/request/messages/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/count_tokens/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/stop",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/chat/completions/request/messages/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/chat/completions/request/prediction/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/chat/completions/request/tool_choice",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "object"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/chat/completions/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/metadata",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/logit_bias",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/response_format",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/messages/request/system",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/request/messages/items/content/items/source/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/request/messages/items/content/items/content/items/source/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/request/messages/items/content/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/request/messages/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /v1/messages/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    }
+  ],
+  "kling": [
+    {
+      "field": "POST /kling/videos/request/camera_control",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    }
+  ],
+  "openai": [
+    {
+      "field": "POST /openai/embeddings/request/input",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/embeddings/response/200/data/items/embedding",
+      "kind": "representation",
+      "api_types": [
+        "array",
+        "string"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/chat/completions/request/stop",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/chat/completions/request/messages/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/chat/completions/request/prediction/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/chat/completions/request/tool_choice",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "object"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/chat/completions/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/metadata",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/logit_bias",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/response_format",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/responses/request/input/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/responses/request/input/items/output",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/responses/request/input/items/output",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/responses/request/input",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/responses/request/tool_choice",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "object"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /openai/responses/response/200/usage",
+      "kind": "conditional_constraints",
+      "validation": "The API remains authoritative; original constraints are retained in plugins/."
+    },
+    {
+      "field": "POST /openai/responses/response/200/response/usage",
+      "kind": "conditional_constraints",
+      "validation": "The API remains authoritative; original constraints are retained in plugins/."
+    },
+    {
+      "field": "POST /openai/responses/request/text",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/responses/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/responses/request/reasoning",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/responses/request/stream_options",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/images/edits/request/image",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "array"
+    }
+  ],
+  "serp": []
+}

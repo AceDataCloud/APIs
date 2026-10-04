@@ -16,8 +16,8 @@
     "Edit the background of my image.",
     "Help me choose an image model."
   ],
-  "icon": "icons/seedream.png",
-  "status": "review_blueprint_not_created",
+  "icon": "icons/app-image-studio.png",
+  "status": "configuration_prepared_runtime_unverified",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",

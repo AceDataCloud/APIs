@@ -5,7 +5,7 @@ info:
   description: 'Create a talking-avatar video from authorized visual and audio or text inputs. Manage
     supported voices and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as
     Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat
-    or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    or shared examples. Start: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -76,7 +76,7 @@ paths:
                 type: object
                 additionalProperties: true
           description: Server error
-      operationId: post__digital_human_videos
+      operationId: generateVideo
       requestBody:
         content:
           application/json:
@@ -208,7 +208,7 @@ paths:
                   in seconds (float); started_at / finished_at / elapsed are null until the task is claimed
                   / finished.'
           description: OK
-      operationId: post__digital_human_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:
@@ -285,7 +285,7 @@ paths:
                 type: object
                 additionalProperties: true
           description: Server error
-      operationId: post__digital_human_voices
+      operationId: createVoice
       requestBody:
         content:
           application/json:

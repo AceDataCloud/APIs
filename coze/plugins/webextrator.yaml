@@ -5,7 +5,7 @@ info:
   description: 'Render a public web page or extract its content with WebExtrator. Retrieve asynchronous
     tasks and inspect the actual output before using it. Bind your own Ace Data Cloud credential privately
     as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
-    chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    chat or shared examples. Start: https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -109,7 +109,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__webextrator_render
+      operationId: renderPage
       requestBody:
         content:
           application/json:
@@ -306,7 +306,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__webextrator_extract
+      operationId: extractPage
       requestBody:
         content:
           application/json:
@@ -713,7 +713,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__webextrator_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:

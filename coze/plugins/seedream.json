@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Seedream_Images",
     "version": "2.0.0",
-    "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?from=coze"
   },
   "servers": [
     {
@@ -751,8 +751,7 @@
                   },
                   "stream": {
                     "type": "boolean",
-                    "description": "Use false for Coze JSON tool results.",
-                    "default": false,
+                    "description": "Omit this field for Seedream Pro. Streaming is unavailable in this JSON-only plugin.",
                     "enum": [
                       false
                     ]
@@ -1449,7 +1448,7 @@
             }
           }
         ],
-        "operationId": "post__seedream_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {

@@ -5,7 +5,7 @@ info:
   description: 'Turn text into speech, browse supported saved voices, or create a voice from authorized
     reference audio. Retrieve asynchronous speech tasks. Bind your own Ace Data Cloud credential privately
     as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
-    chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    chat or shared examples. Start: https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -294,7 +294,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: get__fish_model
+      operationId: listVoices
       description: 'Fish Audio model listing API — paginate through the available voice models. Full input
         requirements: https://platform.acedata.cloud/documents/fish-model-query'
       externalDocs:
@@ -534,7 +534,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__fish_model
+      operationId: createVoice
       requestBody:
         content:
           application/json:
@@ -834,7 +834,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: get__fish_model_id
+      operationId: getVoice
       description: 'Fish Audio model detail API — fetch details of a single voice model by its ID. Full
         input requirements: https://platform.acedata.cloud/documents/fish-model-get'
       externalDocs:
@@ -1070,7 +1070,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__fish_tts
+      operationId: textToSpeech
       requestBody:
         content:
           application/json:
@@ -1660,7 +1660,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__fish_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:

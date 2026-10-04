@@ -5,7 +5,7 @@ info:
   description: 'Use identity, phone and bank-card verification tools in an explicitly authorized workflow.
     Inputs and results require private handling and an accurate privacy declaration. Bind your own Ace
     Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your
-    account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -247,7 +247,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_idcard_check_1e
+      operationId: verifyIdCard1e
       requestBody:
         content:
           application/json:
@@ -440,7 +440,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_phone_check_2e
+      operationId: verifyPhone2e
       requestBody:
         content:
           application/json:
@@ -663,7 +663,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_bankcard_check_3e
+      operationId: verifyBankCard3e
       requestBody:
         content:
           application/json:
@@ -925,7 +925,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_bankcard_check_1e
+      operationId: verifyBankCard1e
       requestBody:
         content:
           application/json:
@@ -1163,7 +1163,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_idcard_ocr
+      operationId: recognizeIdCard
       requestBody:
         content:
           application/json:
@@ -1389,7 +1389,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_bankcard_check_2e
+      operationId: verifyBankCard2e
       requestBody:
         content:
           application/json:
@@ -1614,7 +1614,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_idcard_check_2e
+      operationId: verifyIdCard2e
       requestBody:
         content:
           application/json:
@@ -1875,7 +1875,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_phone_check_1e
+      operationId: verifyPhone1e
       requestBody:
         content:
           application/json:
@@ -2093,7 +2093,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_bankcard_check_4e
+      operationId: verifyBankCard4e
       requestBody:
         content:
           application/json:
@@ -2337,7 +2337,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__identity_phone_check_3e
+      operationId: verifyPhone3e
       requestBody:
         content:
           application/json:

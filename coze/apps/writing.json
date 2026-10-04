@@ -19,8 +19,8 @@
     "Translate my application strings.",
     "Explain this technical question."
   ],
-  "icon": "icons/claude.png",
-  "status": "review_blueprint_not_created",
+  "icon": "icons/app-writing.png",
+  "status": "configuration_prepared_runtime_unverified",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",

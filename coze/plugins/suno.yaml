@@ -5,7 +5,7 @@ info:
   description: 'Create songs and lyrics, extend or transform tracks, manage supported personas and studio
     projects, and retrieve music or export formats with Suno. Bind your own Ace Data Cloud credential
     privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place
-    a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    a token in chat or shared examples. Start: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -389,7 +389,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_audios
+      operationId: generateMusic
       requestBody:
         content:
           application/json:
@@ -915,7 +915,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_voices
+      operationId: cloneVoice
       requestBody:
         content:
           application/json:
@@ -1154,7 +1154,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_mp4
+      operationId: exportMusicVideo
       requestBody:
         content:
           application/json:
@@ -1456,7 +1456,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_mp3
+      operationId: exportMp3
       requestBody:
         content:
           application/json:
@@ -2181,7 +2181,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_custom_models
+      operationId: manageMusicModel
       requestBody:
         content:
           application/json:
@@ -2816,7 +2816,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_upload
+      operationId: uploadAudio
       requestBody:
         content:
           application/json:
@@ -3104,7 +3104,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_vox
+      operationId: extractVocalStem
       requestBody:
         content:
           application/json:
@@ -3406,7 +3406,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_midi
+      operationId: exportMidi
       requestBody:
         content:
           application/json:
@@ -3498,7 +3498,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: get__suno_persona
+      operationId: listPersonas
       description: '/suno/persona Full input requirements: https://platform.acedata.cloud/documents/suno-persona'
       externalDocs:
         url: https://platform.acedata.cloud/documents/suno-persona
@@ -3735,7 +3735,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_persona
+      operationId: createPersona
       requestBody:
         content:
           application/json:
@@ -4025,7 +4025,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_lyrics
+      operationId: generateLyrics
       requestBody:
         content:
           application/json:
@@ -4269,7 +4269,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_wav
+      operationId: exportWav
       requestBody:
         content:
           application/json:
@@ -4509,7 +4509,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_timing
+      operationId: getLyricTiming
       requestBody:
         content:
           application/json:
@@ -4750,7 +4750,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_mashup_lyrics
+      operationId: blendLyrics
       requestBody:
         content:
           application/json:
@@ -4988,7 +4988,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_style
+      operationId: refineMusicStyle
       requestBody:
         content:
           application/json:
@@ -5240,7 +5240,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_projects
+      operationId: manageMusicProject
       requestBody:
         content:
           application/json:
@@ -6172,7 +6172,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__suno_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:

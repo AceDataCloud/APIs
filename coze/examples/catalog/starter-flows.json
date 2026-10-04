@@ -401,7 +401,7 @@
       "async": true
     },
     "status": "not_run",
-    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "acceptance": "Require task.status=succeeded and a playable task.content.url from the MiniMax task response.",
     "billing_limit_credits": null
   },
   "seedream": {

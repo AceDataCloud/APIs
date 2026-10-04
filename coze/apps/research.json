@@ -13,8 +13,8 @@
     "Extract this public article.",
     "Compare findings and cite source URLs."
   ],
-  "icon": "icons/serp.png",
-  "status": "review_blueprint_not_created",
+  "icon": "icons/app-research.png",
+  "status": "configuration_prepared_runtime_unverified",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",

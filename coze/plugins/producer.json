@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Producer_Music_Studio",
     "version": "2.0.0",
-    "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?from=coze"
   },
   "servers": [
     {
@@ -397,7 +397,7 @@
             }
           }
         ],
-        "operationId": "post__producer_audios",
+        "operationId": "generateMusic",
         "requestBody": {
           "content": {
             "application/json": {
@@ -879,7 +879,7 @@
             }
           }
         ],
-        "operationId": "post__producer_lyrics",
+        "operationId": "generateLyrics",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1223,7 +1223,7 @@
             }
           }
         ],
-        "operationId": "post__producer_videos",
+        "operationId": "createMusicVideo",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1607,7 +1607,7 @@
             }
           }
         ],
-        "operationId": "post__producer_upload",
+        "operationId": "uploadAudio",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2243,7 +2243,7 @@
             }
           }
         ],
-        "operationId": "post__producer_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2600,7 +2600,7 @@
             }
           }
         ],
-        "operationId": "post__producer_wav",
+        "operationId": "exportWav",
         "requestBody": {
           "content": {
             "application/json": {

@@ -10,7 +10,7 @@
     ],
     "icon": "icons/deepseek.png",
     "category": "Productivity",
-    "about": "Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze Use a Global credential or one authorized for the AI Dialogue API.",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -29,7 +29,7 @@
     ],
     "icon": "icons/claude.png",
     "category": "Productivity",
-    "about": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -48,7 +48,7 @@
     ],
     "icon": "icons/maestro.png",
     "category": "Video",
-    "about": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -66,7 +66,7 @@
     ],
     "icon": "icons/turnstile.png",
     "category": "Tools",
-    "about": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/0b86c601-dcc4-4494-8259-00a2b88763d7?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -84,7 +84,7 @@
     ],
     "icon": "icons/image2text.png",
     "category": "Tools",
-    "about": "Recognize letters and numbers in verification images for authorized testing workflows.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Recognize letters and numbers in verification images for authorized testing workflows.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/2aaa7faf-099e-410e-82f3-8d78170f25bb?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -103,7 +103,7 @@
     ],
     "icon": "icons/kimi.png",
     "category": "Productivity",
-    "about": "Use Kimi models to draft, reason about and summarize text in an agent or workflow.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Use Kimi models to draft, reason about and summarize text in an agent or workflow.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/7ef9ec1d-f0fb-453c-be72-36d5124e5aa1?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -122,7 +122,7 @@
     ],
     "icon": "icons/hailuo.png",
     "category": "Video",
-    "about": "Create Hailuo clips from text or an image and follow the task through to its final video URL.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create Hailuo clips from text or an image and follow the task through to its final video URL.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -141,7 +141,7 @@
     ],
     "icon": "icons/openai.png",
     "category": "Productivity",
-    "about": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -160,7 +160,7 @@
     ],
     "icon": "icons/gemini.png",
     "category": "Productivity",
-    "about": "Use Gemini chat and native content requests, or create a video and retrieve its completed result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Use Gemini chat and native content requests, or create a video and retrieve its completed result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -179,7 +179,7 @@
     ],
     "icon": "icons/grok.png",
     "category": "Productivity",
-    "about": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -198,7 +198,7 @@
     ],
     "icon": "icons/veo.png",
     "category": "Video",
-    "about": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -217,7 +217,7 @@
     ],
     "icon": "icons/aichat.png",
     "category": "Productivity",
-    "about": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -236,7 +236,7 @@
     ],
     "icon": "icons/serp.png",
     "category": "Web Search",
-    "about": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -255,7 +255,7 @@
     ],
     "icon": "icons/luma.png",
     "category": "Video",
-    "about": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -274,7 +274,7 @@
     ],
     "icon": "icons/identity.png",
     "category": "Tools",
-    "about": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -293,7 +293,7 @@
     ],
     "icon": "icons/seedance.png",
     "category": "Video",
-    "about": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -311,7 +311,7 @@
     ],
     "icon": "icons/recaptcha.png",
     "category": "Tools",
-    "about": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -329,7 +329,7 @@
     ],
     "icon": "icons/hcaptcha.png",
     "category": "Tools",
-    "about": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -348,7 +348,7 @@
     ],
     "icon": "icons/qwen-image.png",
     "category": "Photography",
-    "about": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -367,7 +367,7 @@
     ],
     "icon": "icons/shorturl.png",
     "category": "Tools",
-    "about": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -386,7 +386,7 @@
     ],
     "icon": "icons/webextrator.png",
     "category": "Web Search",
-    "about": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -405,7 +405,7 @@
     ],
     "icon": "icons/producer.png",
     "category": "Music",
-    "about": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -424,7 +424,7 @@
     ],
     "icon": "icons/nano-banana.png",
     "category": "Photography",
-    "about": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -443,7 +443,7 @@
     ],
     "icon": "icons/wan.png",
     "category": "Video",
-    "about": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -462,7 +462,7 @@
     ],
     "icon": "icons/dreamina.png",
     "category": "Video",
-    "about": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -481,7 +481,7 @@
     ],
     "icon": "icons/suno.png",
     "category": "Music",
-    "about": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -500,7 +500,7 @@
     ],
     "icon": "icons/digitalhuman.png",
     "category": "Video",
-    "about": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -519,7 +519,7 @@
     ],
     "icon": "icons/happyhorse.png",
     "category": "Video",
-    "about": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -538,7 +538,7 @@
     ],
     "icon": "icons/kling.png",
     "category": "Video",
-    "about": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -557,7 +557,7 @@
     ],
     "icon": "icons/localization.png",
     "category": "Tools",
-    "about": "Translate localization content into a target locale while specifying the source format. Review the returned translation before release.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Translate localization content into a target locale while specifying the source format. Review the returned translation before release.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -576,7 +576,7 @@
     ],
     "icon": "icons/fish.png",
     "category": "Music",
-    "about": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -595,7 +595,7 @@
     ],
     "icon": "icons/minimax.png",
     "category": "Video",
-    "about": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/2add8a2a-3577-4a0f-8fd4-e08aaabe8290?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -614,7 +614,7 @@
     ],
     "icon": "icons/glm.png",
     "category": "Productivity",
-    "about": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -633,7 +633,7 @@
     ],
     "icon": "icons/seedream.png",
     "category": "Photography",
-    "about": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -652,7 +652,7 @@
     ],
     "icon": "icons/flux.png",
     "category": "Productivity",
-    "about": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/?from=coze",
+    "about": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",

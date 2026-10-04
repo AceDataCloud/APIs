@@ -4,7 +4,7 @@ info:
   version: 2.0.0
   description: 'Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.
     Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage
-    is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -352,7 +352,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__grok_chat_completions
+      operationId: chatCompletion
       requestBody:
         content:
           application/json:
@@ -1120,7 +1120,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__grok_videos
+      operationId: generateVideo
       requestBody:
         content:
           application/json:
@@ -1620,7 +1620,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__grok_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:

@@ -11,7 +11,7 @@ NEXT STEP: Open the service page to review acquisition, access and licensing req
 
 SERVICE: DeepSeek AI
 TYPE: Api
-DESCRIPTION: Draft explanations, compare ideas and solve text reasoning tasks using the selected DeepSeek model.
+DESCRIPTION: Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.
 URL: https://platform.acedata.cloud/services/39324b7c-5e24-451d-a174-d47957c3380c
 COZE ENTRY: http_plugin
 NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
@@ -575,3 +575,10 @@ DESCRIPTION: Generate and edit images with Flux or create Flux 3 videos using th
 URL: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89
 COZE ENTRY: http_plugin
 NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: WhatsApp Account Proxy
+TYPE: Deployment
+DESCRIPTION: Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.
+URL: https://platform.acedata.cloud/services/f36a2d7d-f07c-4830-848d-2b115de958ee
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.

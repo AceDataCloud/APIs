@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_HappyHorse_Video",
     "version": "2.0.0",
-    "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?from=coze"
   },
   "servers": [
     {
@@ -568,7 +568,7 @@
             }
           }
         ],
-        "operationId": "post__happyhorse_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -964,7 +964,7 @@
             }
           }
         ],
-        "operationId": "post__happyhorse_videos",
+        "operationId": "generateVideo",
         "requestBody": {
           "content": {
             "application/json": {

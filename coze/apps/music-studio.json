@@ -13,8 +13,8 @@
     "Write lyrics for my song idea.",
     "Retrieve my music task and show playable links."
   ],
-  "icon": "icons/suno.png",
-  "status": "review_blueprint_not_created",
+  "icon": "icons/app-music-studio.png",
+  "status": "configuration_prepared_runtime_unverified",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",

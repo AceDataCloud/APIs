@@ -5,7 +5,7 @@ info:
   description: 'Translate localization content into a target locale while specifying the source format.
     Review the returned translation before release. Bind your own Ace Data Cloud credential privately
     as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
-    chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    chat or shared examples. Start: https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -213,7 +213,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__localization_translate
+      operationId: translateContent
       requestBody:
         content:
           application/json:

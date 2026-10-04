@@ -11,6 +11,6 @@
     "How do I set up a messaging bot?"
   ],
   "knowledge_file": "catalog/service-guide.txt",
-  "icon": "icons/catalog.png",
-  "status": "review_blueprint_not_created"
+  "icon": "icons/app-catalog.png",
+  "status": "configuration_prepared_runtime_unverified"
 }

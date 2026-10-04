@@ -1,5 +1,5 @@
 {
-  "status": "user_authorized_2026-10-05",
+  "status": "dated_review_run_finished_with_launch_blockers",
   "credit_cap": 200,
   "maximum_usd_at_0_175_per_credit": 35,
   "credential_lifetime_hours": 24,
@@ -389,9 +389,10 @@
       "billing_limit_credits": null
     }
   },
-  "authorization_note": "A dedicated credential must be restricted to these creation APIs and their retrieval APIs. Current price must be verified before credential creation. Expire it after tests.",
+  "authorization_note": "The human approval applied to this dated review run only; this file is not standing authorization for future paid calls.",
   "fixture_repairs": [
     "Gemini max_tokens raised from 160 to 2048 after an observed truncated response; same model.",
     "Web extraction fixture changed from a SPA homepage to a stable public text page after no_content."
-  ]
+  ],
+  "credential_state": "expired_early_and_verified"
 }

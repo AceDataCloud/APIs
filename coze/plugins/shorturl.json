@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Short_Links",
     "version": "2.0.0",
-    "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c?from=coze"
   },
   "servers": [
     {

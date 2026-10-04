@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Veo_Video",
     "version": "2.0.0",
-    "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?from=coze"
   },
   "servers": [
     {
@@ -1125,7 +1125,7 @@
             }
           }
         ],
-        "operationId": "post__veo_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1701,7 +1701,7 @@
             }
           }
         ],
-        "operationId": "post__veo_videos",
+        "operationId": "generateVideo",
         "requestBody": {
           "content": {
             "application/json": {

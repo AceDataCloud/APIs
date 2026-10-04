@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_OpenAI_Studio",
     "version": "2.0.0",
-    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze"
   },
   "servers": [
     {
@@ -391,7 +391,7 @@
             }
           }
         ],
-        "operationId": "post__openai_images_generations",
+        "operationId": "generateImage",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1202,7 +1202,7 @@
             }
           }
         ],
-        "operationId": "post__openai_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1622,7 +1622,7 @@
             }
           }
         ],
-        "operationId": "post__openai_embeddings",
+        "operationId": "createEmbeddings",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2182,7 +2182,7 @@
             }
           }
         ],
-        "operationId": "post__openai_chat_completions",
+        "operationId": "chatCompletion",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3790,7 +3790,7 @@
             }
           }
         ],
-        "operationId": "post__openai_responses",
+        "operationId": "createResponse",
         "requestBody": {
           "content": {
             "application/json": {
@@ -5006,7 +5006,7 @@
             }
           }
         ],
-        "operationId": "post__openai_images_edits",
+        "operationId": "editImage",
         "requestBody": {
           "content": {
             "application/json": {

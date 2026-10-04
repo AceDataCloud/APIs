@@ -5,7 +5,7 @@ info:
   description: 'Process supported hCaptcha token or recognition requests and retrieve task results in
     authorized testing workflows. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN
     in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.
-    Start: https://platform.acedata.cloud/?from=coze'
+    Start: https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -117,7 +117,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__captcha_tasks
+      operationId: getChallengeResult
       requestBody:
         content:
           application/json:
@@ -364,7 +364,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__captcha_recognition_hcaptcha
+      operationId: recognizeHcaptcha
       requestBody:
         content:
           application/json:
@@ -632,7 +632,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__captcha_token_hcaptcha
+      operationId: getHcaptchaToken
       requestBody:
         content:
           application/json:

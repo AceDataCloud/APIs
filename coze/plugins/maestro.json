@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Maestro_Video_Studio",
     "version": "2.0.0",
-    "description": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5?from=coze"
   },
   "servers": [
     {
@@ -423,8 +423,8 @@
             "description": "Unauthorized."
           }
         },
-        "description": "Retrieve the status and results of the job created by POST /maestro/videos. Polling is free. Full input requirements: https://platform.acedata.cloud/documents/maestro-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
-        "operationId": "post__maestro_tasks",
+        "description": "Retrieve the status and results of the job created by POST /maestro/videos. Polling is free. Full input requirements: https://platform.acedata.cloud/documents/maestro-tasks Maestro completion is status=succeeded with response.success=true and response.data.variants[].output_url. A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -783,7 +783,7 @@
           }
         },
         "description": "Maestro is an agent-native video producer: describe the video you want in `prompt` (optionally attaching reference images/videos/audio via `file_urls`) and a headless creative director plans, generates the assets (images, voiceover, music, clips), composes and renders a finished, captioned video. This is an async job — it returns a `task_id` immediately; poll `POST /maestro/tasks` for the result, or supply `callback_url`. Use `action: remix` / `edit` / `extend` with `ref_task_id` to iterate on a previous video. Full input requirements: https://platform.acedata.cloud/documents/maestro-videos",
-        "operationId": "post__maestro_videos",
+        "operationId": "generateVideo",
         "requestBody": {
           "content": {
             "application/json": {

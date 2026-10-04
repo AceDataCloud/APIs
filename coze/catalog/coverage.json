@@ -41,7 +41,7 @@
           "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
           "path": "/aichat/conversations",
           "method": "POST",
-          "operation_id": "post__aichat_conversations",
+          "operation_id": "createConversation",
           "disposition": "schema_prepared",
           "docs": "https://platform.acedata.cloud/documents/aichat-conversations",
           "reason": "Published AI Dialogue model subset; the hidden brand-specific API is excluded."
@@ -82,7 +82,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/claude-messages-count-tokens",
-          "operation_id": "post__v1_messages_count_tokens",
+          "operation_id": "countTokens",
           "disposition": "schema_prepared"
         },
         {
@@ -91,7 +91,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/claude-chat-completions",
-          "operation_id": "post__v1_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         },
         {
@@ -100,7 +100,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/claude-messages",
-          "operation_id": "post__v1_messages",
+          "operation_id": "createMessage",
           "disposition": "schema_prepared"
         }
       ],
@@ -138,7 +138,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/maestro-tasks",
-          "operation_id": "post__maestro_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -147,7 +147,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/maestro-videos",
-          "operation_id": "post__maestro_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -185,14 +185,14 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-token-turnstile",
-          "operation_id": "post__captcha_token_turnstile",
+          "operation_id": "getTurnstileToken",
           "disposition": "schema_prepared"
         },
         {
           "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
           "path": "/captcha/tasks",
           "method": "POST",
-          "operation_id": "post__captcha_tasks",
+          "operation_id": "getChallengeResult",
           "disposition": "schema_prepared",
           "reason": "Shared public CAPTCHA task retrieval."
         }
@@ -392,14 +392,14 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-recognition-image2text",
-          "operation_id": "post__captcha_recognition_image2text",
+          "operation_id": "recognizeCaptchaText",
           "disposition": "schema_prepared"
         },
         {
           "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
           "path": "/captcha/tasks",
           "method": "POST",
-          "operation_id": "post__captcha_tasks",
+          "operation_id": "getChallengeResult",
           "disposition": "schema_prepared",
           "reason": "Shared public CAPTCHA task retrieval."
         }
@@ -489,7 +489,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/kimi-chat-completions",
-          "operation_id": "post__kimi_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         }
       ],
@@ -527,7 +527,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/hailuo-tasks",
-          "operation_id": "post__hailuo_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -536,7 +536,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/hailuo-videos-integration",
-          "operation_id": "post__hailuo_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -745,7 +745,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/openai-images-generations",
-          "operation_id": "post__openai_images_generations",
+          "operation_id": "generateImage",
           "disposition": "schema_prepared"
         },
         {
@@ -754,7 +754,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/openai-tasks",
-          "operation_id": "post__openai_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -763,7 +763,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/openai-embeddings",
-          "operation_id": "post__openai_embeddings",
+          "operation_id": "createEmbeddings",
           "disposition": "schema_prepared"
         },
         {
@@ -782,7 +782,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/openai-chat-completions",
-          "operation_id": "post__openai_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         },
         {
@@ -801,7 +801,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/openai-responses",
-          "operation_id": "post__openai_responses",
+          "operation_id": "createResponse",
           "disposition": "schema_prepared"
         },
         {
@@ -810,7 +810,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/openai-images-edits",
-          "operation_id": "post__openai_images_edits",
+          "operation_id": "editImage",
           "disposition": "schema_prepared"
         }
       ],
@@ -956,7 +956,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
-          "operation_id": "post__v1beta_models_model_generateContent",
+          "operation_id": "generateContent",
           "disposition": "schema_prepared"
         },
         {
@@ -974,7 +974,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/gemini-chat-completions",
-          "operation_id": "post__gemini_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         },
         {
@@ -983,7 +983,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/gemini-videos",
-          "operation_id": "post__gemini_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -992,7 +992,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/gemini-tasks",
-          "operation_id": "post__gemini_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -1030,7 +1030,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/grok-chat-completions",
-          "operation_id": "post__grok_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         },
         {
@@ -1039,7 +1039,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/grok-videos",
-          "operation_id": "post__grok_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -1048,7 +1048,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/grok-tasks",
-          "operation_id": "post__grok_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -1086,7 +1086,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/veo-tasks",
-          "operation_id": "post__veo_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -1095,7 +1095,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/veo-videos",
-          "operation_id": "post__veo_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -1228,7 +1228,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/aichat-conversations",
-          "operation_id": "post__aichat_conversations",
+          "operation_id": "createConversation",
           "disposition": "schema_prepared"
         },
         {
@@ -1247,7 +1247,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/aichat2-conversations",
-          "operation_id": "post__aichat2_conversations",
+          "operation_id": "manageConversation",
           "disposition": "schema_prepared"
         },
         {
@@ -1446,7 +1446,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/luma-tasks",
-          "operation_id": "post__luma_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -1455,7 +1455,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/luma-videos",
-          "operation_id": "post__luma_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -1493,7 +1493,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-idcard-check-1e",
-          "operation_id": "post__identity_idcard_check_1e",
+          "operation_id": "verifyIdCard1e",
           "disposition": "schema_prepared"
         },
         {
@@ -1502,7 +1502,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-phone-check-2e",
-          "operation_id": "post__identity_phone_check_2e",
+          "operation_id": "verifyPhone2e",
           "disposition": "schema_prepared"
         },
         {
@@ -1511,7 +1511,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-3e",
-          "operation_id": "post__identity_bankcard_check_3e",
+          "operation_id": "verifyBankCard3e",
           "disposition": "schema_prepared"
         },
         {
@@ -1520,7 +1520,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-1e",
-          "operation_id": "post__identity_bankcard_check_1e",
+          "operation_id": "verifyBankCard1e",
           "disposition": "schema_prepared"
         },
         {
@@ -1529,7 +1529,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-idcard-ocr",
-          "operation_id": "post__identity_idcard_ocr",
+          "operation_id": "recognizeIdCard",
           "disposition": "schema_prepared"
         },
         {
@@ -1538,7 +1538,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-2e",
-          "operation_id": "post__identity_bankcard_check_2e",
+          "operation_id": "verifyBankCard2e",
           "disposition": "schema_prepared"
         },
         {
@@ -1547,7 +1547,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-idcard-check-2e",
-          "operation_id": "post__identity_idcard_check_2e",
+          "operation_id": "verifyIdCard2e",
           "disposition": "schema_prepared"
         },
         {
@@ -1556,7 +1556,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-phone-check-1e",
-          "operation_id": "post__identity_phone_check_1e",
+          "operation_id": "verifyPhone1e",
           "disposition": "schema_prepared"
         },
         {
@@ -1565,7 +1565,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-4e",
-          "operation_id": "post__identity_bankcard_check_4e",
+          "operation_id": "verifyBankCard4e",
           "disposition": "schema_prepared"
         },
         {
@@ -1574,7 +1574,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/identity-phone-check-3e",
-          "operation_id": "post__identity_phone_check_3e",
+          "operation_id": "verifyPhone3e",
           "disposition": "schema_prepared"
         }
       ],
@@ -1613,7 +1613,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/seedance-videos",
-          "operation_id": "post__seedance_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -1622,7 +1622,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/seedance-tasks",
-          "operation_id": "post__seedance_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -1660,7 +1660,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-token-recaptcha3",
-          "operation_id": "post__captcha_token_recaptcha3",
+          "operation_id": "getRecaptchaV3Token",
           "disposition": "schema_prepared"
         },
         {
@@ -1669,7 +1669,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-token-recaptcha2",
-          "operation_id": "post__captcha_token_recaptcha2",
+          "operation_id": "getRecaptchaV2Token",
           "disposition": "schema_prepared"
         },
         {
@@ -1678,14 +1678,14 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-recognition-recaptcha2",
-          "operation_id": "post__captcha_recognition_recaptcha2",
+          "operation_id": "recognizeRecaptchaV2",
           "disposition": "schema_prepared"
         },
         {
           "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
           "path": "/captcha/tasks",
           "method": "POST",
-          "operation_id": "post__captcha_tasks",
+          "operation_id": "getChallengeResult",
           "disposition": "schema_prepared",
           "reason": "Shared public CAPTCHA task retrieval."
         }
@@ -1724,7 +1724,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-tasks",
-          "operation_id": "post__captcha_tasks",
+          "operation_id": "getChallengeResult",
           "disposition": "schema_prepared"
         },
         {
@@ -1733,7 +1733,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/recognition-hcaptcha-integration",
-          "operation_id": "post__captcha_recognition_hcaptcha",
+          "operation_id": "recognizeHcaptcha",
           "disposition": "schema_prepared"
         },
         {
@@ -1742,7 +1742,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/captcha-token-hcaptcha",
-          "operation_id": "post__captcha_token_hcaptcha",
+          "operation_id": "getHcaptchaToken",
           "disposition": "schema_prepared"
         }
       ],
@@ -1797,7 +1797,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/qwen-image-tasks",
-          "operation_id": "post__qwen_image_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -1806,7 +1806,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/qwen-image-images",
-          "operation_id": "post__qwen_image_images",
+          "operation_id": "generateImage",
           "disposition": "schema_prepared"
         }
       ],
@@ -1899,7 +1899,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/webextrator-render",
-          "operation_id": "post__webextrator_render",
+          "operation_id": "renderPage",
           "disposition": "schema_prepared"
         },
         {
@@ -1908,7 +1908,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/webextrator-extract",
-          "operation_id": "post__webextrator_extract",
+          "operation_id": "extractPage",
           "disposition": "schema_prepared"
         },
         {
@@ -1917,7 +1917,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/webextrator-tasks",
-          "operation_id": "post__webextrator_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -2144,7 +2144,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-audios",
-          "operation_id": "post__producer_audios",
+          "operation_id": "generateMusic",
           "disposition": "schema_prepared"
         },
         {
@@ -2153,7 +2153,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-lyrics",
-          "operation_id": "post__producer_lyrics",
+          "operation_id": "generateLyrics",
           "disposition": "schema_prepared"
         },
         {
@@ -2162,7 +2162,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-videos",
-          "operation_id": "post__producer_videos",
+          "operation_id": "createMusicVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -2171,7 +2171,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-upload",
-          "operation_id": "post__producer_upload",
+          "operation_id": "uploadAudio",
           "disposition": "schema_prepared"
         },
         {
@@ -2180,7 +2180,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-tasks",
-          "operation_id": "post__producer_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2189,7 +2189,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/producer-wav",
-          "operation_id": "post__producer_wav",
+          "operation_id": "exportWav",
           "disposition": "schema_prepared"
         }
       ],
@@ -2312,7 +2312,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/nano-banana-tasks",
-          "operation_id": "post__nano_banana_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2321,7 +2321,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/nano-banana-images",
-          "operation_id": "post__nano_banana_images",
+          "operation_id": "generateImage",
           "disposition": "schema_prepared"
         }
       ],
@@ -2359,7 +2359,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/wan-tasks",
-          "operation_id": "post__wan_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2368,7 +2368,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/wan-videos",
-          "operation_id": "post__wan_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -2423,7 +2423,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/dreamina-tasks",
-          "operation_id": "post__dreamina_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2432,7 +2432,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/dreamina-videos",
-          "operation_id": "post__dreamina_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -2470,7 +2470,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-audios",
-          "operation_id": "post__suno_audios",
+          "operation_id": "generateMusic",
           "disposition": "schema_prepared"
         },
         {
@@ -2479,7 +2479,7 @@
           "method": "POST",
           "stage": "Alpha",
           "docs": "https://platform.acedata.cloud/documents/suno-voices",
-          "operation_id": "post__suno_voices",
+          "operation_id": "cloneVoice",
           "disposition": "schema_prepared"
         },
         {
@@ -2488,7 +2488,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-mp4",
-          "operation_id": "post__suno_mp4",
+          "operation_id": "exportMusicVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -2497,7 +2497,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-mp3",
-          "operation_id": "post__suno_mp3",
+          "operation_id": "exportMp3",
           "disposition": "schema_prepared"
         },
         {
@@ -2506,7 +2506,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/suno-custom-models",
-          "operation_id": "post__suno_custom_models",
+          "operation_id": "manageMusicModel",
           "disposition": "schema_prepared"
         },
         {
@@ -2515,7 +2515,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-upload",
-          "operation_id": "post__suno_upload",
+          "operation_id": "uploadAudio",
           "disposition": "schema_prepared"
         },
         {
@@ -2524,7 +2524,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-vox",
-          "operation_id": "post__suno_vox",
+          "operation_id": "extractVocalStem",
           "disposition": "schema_prepared"
         },
         {
@@ -2533,7 +2533,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/suno-midi",
-          "operation_id": "post__suno_midi",
+          "operation_id": "exportMidi",
           "disposition": "schema_prepared"
         },
         {
@@ -2542,7 +2542,7 @@
           "method": "GET",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-persona",
-          "operation_id": "get__suno_persona",
+          "operation_id": "listPersonas",
           "disposition": "schema_prepared"
         },
         {
@@ -2551,7 +2551,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-persona",
-          "operation_id": "post__suno_persona",
+          "operation_id": "createPersona",
           "disposition": "schema_prepared"
         },
         {
@@ -2569,7 +2569,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-lyrics",
-          "operation_id": "post__suno_lyrics",
+          "operation_id": "generateLyrics",
           "disposition": "schema_prepared"
         },
         {
@@ -2578,7 +2578,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-wav",
-          "operation_id": "post__suno_wav",
+          "operation_id": "exportWav",
           "disposition": "schema_prepared"
         },
         {
@@ -2587,7 +2587,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-timing",
-          "operation_id": "post__suno_timing",
+          "operation_id": "getLyricTiming",
           "disposition": "schema_prepared"
         },
         {
@@ -2596,7 +2596,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-mashup-lyrics",
-          "operation_id": "post__suno_mashup_lyrics",
+          "operation_id": "blendLyrics",
           "disposition": "schema_prepared"
         },
         {
@@ -2605,7 +2605,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-style",
-          "operation_id": "post__suno_style",
+          "operation_id": "refineMusicStyle",
           "disposition": "schema_prepared"
         },
         {
@@ -2614,7 +2614,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/suno-projects",
-          "operation_id": "post__suno_projects",
+          "operation_id": "manageMusicProject",
           "disposition": "schema_prepared"
         },
         {
@@ -2623,7 +2623,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-tasks",
-          "operation_id": "post__suno_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -2661,7 +2661,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/digitalhuman-videos",
-          "operation_id": "post__digital_human_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -2670,7 +2670,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/digitalhuman-tasks",
-          "operation_id": "post__digital_human_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2679,7 +2679,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/digitalhuman-voices",
-          "operation_id": "post__digital_human_voices",
+          "operation_id": "createVoice",
           "disposition": "schema_prepared"
         }
       ],
@@ -2717,7 +2717,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/happyhorse-tasks",
-          "operation_id": "post__happyhorse_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2726,7 +2726,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/happyhorse-videos",
-          "operation_id": "post__happyhorse_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         }
       ],
@@ -2849,7 +2849,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/kling-talking-photo",
-          "operation_id": "post__kling_talking_photo",
+          "operation_id": "createTalkingPhoto",
           "disposition": "schema_prepared"
         },
         {
@@ -2858,7 +2858,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/kling-videos",
-          "operation_id": "post__kling_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -2867,7 +2867,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/kling-motion",
-          "operation_id": "post__kling_motion",
+          "operation_id": "controlVideoMotion",
           "disposition": "schema_prepared"
         },
         {
@@ -2876,7 +2876,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/kling-lip-sync",
-          "operation_id": "post__kling_lip_sync",
+          "operation_id": "syncVideoLips",
           "disposition": "schema_prepared"
         },
         {
@@ -2885,7 +2885,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/kling-video-commerce",
-          "operation_id": "post__kling_video_commerce",
+          "operation_id": "createCommerceVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -2894,7 +2894,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/kling-tasks",
-          "operation_id": "post__kling_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -2903,7 +2903,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/kling-goods-studio",
-          "operation_id": "post__kling_goods_studio",
+          "operation_id": "createProductMedia",
           "disposition": "schema_prepared"
         }
       ],
@@ -2975,7 +2975,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/localization-translate",
-          "operation_id": "post__localization_translate",
+          "operation_id": "translateContent",
           "disposition": "schema_prepared"
         }
       ],
@@ -3285,7 +3285,7 @@
           "method": "GET",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/fish-model-query",
-          "operation_id": "get__fish_model",
+          "operation_id": "listVoices",
           "disposition": "schema_prepared"
         },
         {
@@ -3294,7 +3294,7 @@
           "method": "GET",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/fish-model-get",
-          "operation_id": "get__fish_model_id",
+          "operation_id": "getVoice",
           "disposition": "schema_prepared"
         },
         {
@@ -3303,7 +3303,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/fish-tts",
-          "operation_id": "post__fish_tts",
+          "operation_id": "textToSpeech",
           "disposition": "schema_prepared"
         },
         {
@@ -3312,7 +3312,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/fish-model",
-          "operation_id": "post__fish_model",
+          "operation_id": "createVoice",
           "disposition": "schema_prepared"
         },
         {
@@ -3321,7 +3321,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/fish-tasks",
-          "operation_id": "post__fish_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -3359,7 +3359,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/minimax-videos",
-          "operation_id": "post__minimax_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -3378,7 +3378,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/minimax-tasks",
-          "operation_id": "post__minimax_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -3426,7 +3426,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/glm-chat-completions",
-          "operation_id": "post__glm_chat_completions",
+          "operation_id": "chatCompletion",
           "disposition": "schema_prepared"
         }
       ],
@@ -3473,7 +3473,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/seedream-tasks",
-          "operation_id": "post__seedream_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         }
       ],
@@ -3511,7 +3511,7 @@
           "method": "POST",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/flux-tasks",
-          "operation_id": "post__flux_tasks",
+          "operation_id": "getTaskResults",
           "disposition": "schema_prepared"
         },
         {
@@ -3520,7 +3520,7 @@
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/flux-videos",
-          "operation_id": "post__flux_videos",
+          "operation_id": "generateVideo",
           "disposition": "schema_prepared"
         },
         {
@@ -3551,6 +3551,177 @@
       "coze_state": "workspace_v1_published_before_review_hold_store_not_submitted",
       "validation": "partial_real_trial",
       "schema": "plugins/flux.yaml"
+    },
+    {
+      "key": "whatsapp-bot",
+      "service_id": "f36a2d7d-f07c-4830-848d-2b115de958ee",
+      "service_type": "Deployment",
+      "title": "WhatsApp Account Proxy",
+      "description": "Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.",
+      "source_url": "https://platform.acedata.cloud/services/f36a2d7d-f07c-4830-848d-2b115de958ee",
+      "icon": "icons/whatsapp-bot.png",
+      "operations": [
+        {
+          "api_id": "15d19b79-faba-55a4-8c08-51ec12b1b2f0",
+          "path": "/api/auth/logout",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "20a48ed5-5faa-56b9-980b-e4fa3f2c122b",
+          "path": "/api/contacts",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "233889ee-aa74-5947-ab63-6558febf7219",
+          "path": "/api/auth/status",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "261bced8-13bd-51c6-9e71-bc521af400c6",
+          "path": "/api/events",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "2f03c849-f806-5f3b-861d-776d464b0e29",
+          "path": "/api/chats/{target}/read",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "32501ef8-3ffa-5142-814e-a8a1f0df37cb",
+          "path": "/api/messages",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "43d51494-b3a5-5402-b3b0-ee1fd6ad5d30",
+          "path": "/api/events/stream",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "5ec15fe4-5a02-5bee-8048-209056a61f89",
+          "path": "/api/auth/pairing-code",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "6eaccec3-1393-5022-9803-8a0ecc640f40",
+          "path": "/api/whoami",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "896a42d7-b1c0-5d08-98bc-f8862d5d6d9d",
+          "path": "/api/chats/{target}/messages/{id}/media",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "91ec97e9-f74e-5847-bd03-08c5112a9c34",
+          "path": "/api/groups/{target}",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "a7baaf6b-9e50-563d-b127-2231e996586e",
+          "path": "/api/groups/{target}",
+          "method": "PATCH",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "aee039e4-e36a-54d3-a254-8b6ff3cb4cf2",
+          "path": "/api/sends/{key}",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "b40b3f98-e3af-5785-aeef-bc871198dfd8",
+          "path": "/api/capabilities",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "c4449e49-1557-5916-8d84-9d1fca0927fa",
+          "path": "/api/chats",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "c5d849de-8474-540a-bbb7-fef0744c93a2",
+          "path": "/api/auth/qr",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "fcf662ee-1b61-5b9e-901c-1c21ae381cae",
+          "path": "/api/chats/{target}/messages",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        }
+      ],
+      "blockers": [
+        "Requires a user-owned deployment URL and scoped authentication before functional plugin creation."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "WhatsApp Account Proxy",
+      "brief": "Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.",
+      "readiness": "guide_prepared"
     }
   ]
 }

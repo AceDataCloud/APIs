@@ -15,8 +15,8 @@
     "Make an avatar video using my authorized media.",
     "Check the status of my speech task."
   ],
-  "icon": "icons/fish.png",
-  "status": "review_blueprint_not_created",
+  "icon": "icons/app-voice-studio.png",
+  "status": "configuration_prepared_runtime_unverified",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",

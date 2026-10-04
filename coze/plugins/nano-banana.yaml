@@ -5,7 +5,7 @@ info:
   description: 'Generate images from a prompt or edit image references with Nano Banana. Select a model,
     aspect ratio and resolution, then retrieve completed results. Bind your own Ace Data Cloud credential
     privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place
-    a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+    a token in chat or shared examples. Start: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?from=coze'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -462,7 +462,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__nano_banana_tasks
+      operationId: getTaskResults
       requestBody:
         content:
           application/json:
@@ -711,7 +711,7 @@ paths:
           Usage is billed to your account. Never place a token in chat or shared examples.
         schema:
           type: string
-      operationId: post__nano_banana_images
+      operationId: generateImage
       requestBody:
         content:
           application/json:

@@ -3,7 +3,7 @@
   "info": {
     "title": "AceData_Kling_Video_Studio",
     "version": "2.0.0",
-    "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze"
+    "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?from=coze"
   },
   "servers": [
     {
@@ -86,7 +86,7 @@
           }
         },
         "description": "One-click \"Talking Photo\": Upload a photo of a person and a piece of driving audio. The service will automatically animate the photo (image2video) and then lip-sync with the audio, ultimately returning a talking video. No need to call in two steps yourself. Full input requirements: https://platform.acedata.cloud/documents/kling-talking-photo Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.",
-        "operationId": "post__kling_talking_photo",
+        "operationId": "createTalkingPhoto",
         "requestBody": {
           "content": {
             "application/json": {
@@ -553,7 +553,7 @@
             }
           }
         ],
-        "operationId": "post__kling_videos",
+        "operationId": "generateVideo",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1207,7 +1207,7 @@
             }
           }
         ],
-        "operationId": "post__kling_motion",
+        "operationId": "controlVideoMotion",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1439,7 +1439,7 @@
           }
         },
         "description": "Use audio or text to drive an existing Kling video (5 seconds or 10 seconds), allowing the characters within to sync their speech (lip-syncing). This can be combined with the image2video from /kling/videos to form a complete \"talking photo\" process. Full input requirements: https://platform.acedata.cloud/documents/kling-lip-sync Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.",
-        "operationId": "post__kling_lip_sync",
+        "operationId": "syncVideoLips",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1611,7 +1611,7 @@
             "description": "Platform task ID or the generated result after completion."
           }
         },
-        "operationId": "post__kling_video_commerce",
+        "operationId": "createCommerceVideo",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2489,7 +2489,7 @@
             }
           }
         ],
-        "operationId": "post__kling_tasks",
+        "operationId": "getTaskResults",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2598,7 +2598,7 @@
             "description": "Platform task ID or the generated result after completion."
           }
         },
-        "operationId": "post__kling_goods_studio",
+        "operationId": "createProductMedia",
         "requestBody": {
           "content": {
             "application/json": {

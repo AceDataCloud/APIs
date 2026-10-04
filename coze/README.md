@@ -1,12 +1,12 @@
 # Ace Data Cloud plugins for Coze
 
 This collection prepares the complete public service catalog for Coze review. The
-2026-10-05 snapshot contains 82 services: 35 API services, 41 datasets, 3 developer
-agent products and 3 deployment products. It produces 35 import definitions with
+2026-10-05 snapshot contains 83 services: 35 API services, 41 datasets, 3 developer
+agent products and 4 deployment products. It produces 35 import definitions with
 113 tools, 35 API listing drafts, a consistent icon family, and 9 application
 configuration blueprints. These files do not mean a plugin or app is published.
 
-## Importable plugins
+## Canonical plugin definitions
 
 | Plugin | Tools | Definition |
 |---|---:|---|
@@ -46,8 +46,13 @@ configuration blueprints. These files do not mean a plugin or app is published.
 | AceData_Seedream_Images | 2 | [seedream.yaml](./plugins/seedream.yaml) |
 | AceData_Flux_Creative_Studio | 3 | [flux.yaml](./plugins/flux.yaml) |
 
-The active definitions are in [`plugins/`](./plugins/). Both JSON and YAML are
-provided. The historical root filenames remain synchronized for existing links;
+The complete canonical definitions are in [`plugins/`](./plugins/). Both JSON and YAML are
+provided. Coze-import-tested projections for Claude, OpenAI, Kling and Google Search are in
+[`imports/`](./imports/); their representation limits are recorded in
+`imports/compatibility-notes.json`. They preserve routes and caller-owned auth
+but do not provide complete multimodal/opaque-object input parity. Response
+shapes come from published examples or sanitized real response shapes, with
+example values omitted. Canonical constraints remain authoritative. The historical root filenames remain synchronized for existing links;
 `image.yaml` now contains the full OpenAI JSON-compatible tool set. The retired
 Sora definition is kept in [`legacy/`](./legacy/) for migration reference only.
 It is not in the public catalog or launch batch.
@@ -64,7 +69,7 @@ It is not in the public catalog or launch batch.
 - [`apps/`](./apps/): eight task-specific app blueprints and a service guide.
   These JSON files are configuration/review material, not a claimed native Coze
   app export. Bind the final published plugin IDs during app assembly.
-- [`catalog/service-guide.txt`](./catalog/service-guide.txt): all 82 service
+- [`catalog/service-guide.txt`](./catalog/service-guide.txt): all 83 service
   entries for a catalog knowledge source. Datasets link to acquisition guidance;
   developer clients link to setup; deployments require a user-owned instance.
 - [`examples/catalog/starter-flows.json`](./examples/catalog/starter-flows.json):
@@ -131,6 +136,7 @@ visibility changes, keeping private/internal contracts out of the import set.
 ```bash
 pip install 'PyYAML>=6,<7' 'openapi-spec-validator>=0.7,<0.8' 'Pillow>=11,<12'
 python coze/build_catalog.py
+python coze/build_imports.py
 python coze/build_icons.py
 python coze/build_review.py --output /absolute/path/review.html
 python -m unittest discover -s tests -v
@@ -143,3 +149,7 @@ private workspace drafts without publishing them in this repository.
 
 Official Coze guides: [plugin import](https://www.coze.com/open/docs/guides/plugin_import)
 and [OAuth plugins](https://www.coze.com/open/docs/guides/oauth_plugin).
+
+Use `--apps-evidence /absolute/path/coze-app-drafts.json` with the review builder
+to overlay saved Agent drafts. Review choices and notes are browser-local and
+can be exported as JSON; they never publish anything.
