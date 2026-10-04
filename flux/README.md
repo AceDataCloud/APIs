@@ -1,5 +1,11 @@
 # Flux Image Generation API
 
+## FLUX 3 video generation
+
+`POST /flux/videos` now supports `action="generate"` with `mode` set to `t2v`, `i2v`, `v2v`, or `draft_enhance`. Use `async=true`, retain the returned task ID, and poll `/flux/tasks`. Video editing and upscaling are not published.
+
+Normal generation accepts `model="flux-3"`, `prompt`, `duration`, `resolution`, `draft`, and `generate_audio`; preserve explicit `false`. I2V additionally needs `keyframes`, V2V needs `start_video`, and draft enhancement needs an owned `draft_task_id`. See the [current video guide](https://platform.acedata.cloud/documents/flux-videos-integration) for mode-specific limits and examples.
+
 Flux AI image generation service.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)

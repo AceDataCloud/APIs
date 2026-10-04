@@ -1,4 +1,12 @@
 # Kling Videos Generation API Integration Instructions
+
+## Turbo, storyboards and commerce
+
+- `kling-v3-turbo` supports `std`/`pro`, integer durations of 3–15 seconds and included native audio. Omit `generate_audio` or use `true`; `false`, tail frames and Omni references are unsupported.
+- V3/V3 Omni storyboards use `multi_shot`, `shot_type` and `multi_prompt`. Custom shots must sum to the requested duration. See the [current video guide](https://platform.acedata.cloud/documents/kling-videos-integration).
+- Product studio and creator commerce use `/kling/goods-studio` and `/kling/video-commerce` with structured `contents` and `settings`. Poll task IDs through `/kling/tasks`. See [product studio](https://platform.acedata.cloud/documents/kling-goods-studio-integration) and [video commerce](https://platform.acedata.cloud/documents/kling-video-commerce-integration).
+- Apparel, virtual try-on and standalone voice/element management are not currently published.
+
 This article will introduce the integration instructions for the Kling Videos Generation API, which can generate official Kling videos by inputting custom parameters.
 ## Application Process
 To use the Kling Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.

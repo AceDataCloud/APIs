@@ -1,5 +1,9 @@
 # Suno Music Generation API
 
+## MP3 export
+
+Use `POST /suno/mp3` with the completed song's `audio_id`. Set `async=true` to receive a task ID and poll `/suno/tasks`; use the final returned `audio_url`. See the [MP3 integration guide](https://platform.acedata.cloud/documents/suno-mp3-integration).
+
 Suno AI music and lyrics generation service.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
