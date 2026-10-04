@@ -32,6 +32,12 @@ The first batch includes 512×512 PNG icons with the existing Ace Data Cloud bra
 [Google web search](./icons/serp.png), and [Short links](./icons/shorturl.png).
 Upload the matching icon in the Coze plugin information form before store submission.
 
+The proposed store names, introductions, descriptions, scenarios and categories are
+versioned in [`listings.json`](./listings.json). Sanitized examples based on real
+Coze trials are in [`examples/`](./examples/); credentials are placeholders and the
+responses include selected fields from those trials. These assets do not indicate
+that a store listing has been submitted or approved.
+
 ## Import into Coze (扣子)
 
 1. **Get an API token.** Create one at
@@ -56,10 +62,17 @@ Upload the matching icon in the Coze plugin information form before store submis
    publish it for general use unless you intentionally fund those calls and have
    established limits. The four Header-input plugins instead use each caller's
    own credential and balance.
-4. **Test.** Run **Test Run** with the real API. Verify a successful response and
+4. **Enable and test.** Imported tools may start disabled: turn on **Enable** in
+   the tool list before using **Test Run**, otherwise Coze rejects the run before
+   dispatching an API request. Test with the real API. Verify a successful response and
    usable output (`data[].image_url`, `organic[].link`, or `data.url`, as applicable).
    HTTP 200, a task ID, or a mock response alone is not a successful generation.
    Do not save a debugging example containing credentials.
+   Coze's **Request** result tab keeps the request captured at run time: changing
+   the input afterward does not remove the original credential from that preview.
+   Review the actual saved example before public submission. Keep the example
+   unsaved if its credential cannot be removed safely; use the sanitized examples
+   in this repository for review and documentation.
 5. **Publish to the workspace.** Every enabled tool must pass its trial run.
    Complete the privacy collection statement accurately, then publish a version.
 6. **Submit to the store.** Use the separate **Publish plugin** entry in

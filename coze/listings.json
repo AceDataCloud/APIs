@@ -1,0 +1,34 @@
+{
+  "flux": {
+    "name": "AceData_Flux_Image_Studio",
+    "brief": "Flux AI image generation and editing",
+    "category": "Photography",
+    "about": "Generate and edit product photos, illustrations and social visuals with Flux. Describe a new image, or provide an image URL and describe the changes you want. The tool returns ready-to-use image links.\n\nSetup: create an Ace Data Cloud account and API token at https://platform.acedata.cloud/?from=coze\nBind Authorization privately as Bearer YOUR_API_TOKEN in your workflow. Never put a real token in chat or shared examples. Usage is charged to your own Ace Data Cloud account.\n\nDefault model: Flux 2 Pro. Default aspect ratio: 1:1. Both generation and image editing have been verified with real outputs.",
+    "scenarios": "E-commerce teams: create clean product visuals from a description, then change backgrounds while preserving the product.\nSocial media creators: turn a campaign idea into square promotional imagery for posts and thumbnails.\nDesigners and workflow builders: automate image generation and pass the returned image URL to the next step.",
+    "icon": "icons/flux.png"
+  },
+  "seedream": {
+    "name": "AceData_Seedream_Images",
+    "brief": "Seedream AI product images and illustrations",
+    "category": "Photography",
+    "about": "Create product visuals, social posts and illustrations from a text description with Seedream. Choose the subject, style and composition; receive a generated image link ready to use in your Coze workflow.\n\nSetup: create an Ace Data Cloud account and API token at https://platform.acedata.cloud/?from=coze\nBind Authorization privately as Bearer YOUR_API_TOKEN. Never put a real token in chat or shared examples. Usage is charged to your own Ace Data Cloud account.\n\nDefault model: Seedream 5.0 Lite. Default image resolution: 2K. Real 2048 x 2048 image generation has been verified.",
+    "scenarios": "E-commerce teams: create product concept visuals and clean catalog backgrounds from a short creative brief.\nContent creators: produce illustrations for posts, articles and campaign drafts.\nWorkflow builders: generate an image automatically and pass its URL to later content-production steps.",
+    "icon": "icons/seedream.png"
+  },
+  "serp": {
+    "name": "AceData_Google_Web_Search",
+    "brief": "Google web search with sources and filters",
+    "category": "Web Search",
+    "about": "Search the web with Google and receive ranked titles, source links and snippets. Filter results by country, language or recency and use pagination for focused research.\n\nSetup: create an Ace Data Cloud account and API token at https://platform.acedata.cloud/?from=coze\nBind Authorization privately as Bearer YOUR_API_TOKEN. Never put a real token in chat or shared examples. Usage is charged to your own Ace Data Cloud account.\n\nUse returned source links in answers. A search snippet is a starting point for verification, not the full page.",
+    "scenarios": "Researchers and analysts: gather current sources for a topic and verify claims against the returned pages.\nContent teams: find relevant references before writing an article or preparing a briefing.\nWorkflow builders: add localized, time-filtered web research to an agent or automated workflow.",
+    "icon": "icons/serp.png"
+  },
+  "shorturl": {
+    "name": "AceData_Short_Links",
+    "brief": "Create compact links for sharing and campaigns",
+    "category": "Tools",
+    "about": "Turn a long public URL into a compact shareable link. Use it in messages, campaigns and automated Coze workflows; the tool returns the actual short URL in data.url.\n\nSetup: create an Ace Data Cloud account and API token at https://platform.acedata.cloud/?from=coze\nBind Authorization privately as Bearer YOUR_API_TOKEN. Never put a real token in chat or shared examples. Usage is charged according to your Ace Data Cloud account.\n\nOnly submit URLs intended for sharing. Do not include passwords, tokens or private information in a URL.",
+    "scenarios": "Marketing teams: shorten a campaign landing-page URL before sharing it in a post or message.\nSupport and community teams: turn a long public documentation link into an easier-to-share URL.\nWorkflow builders: generate a short link automatically and insert it into the next publishing or messaging step.",
+    "icon": "icons/shorturl.png"
+  }
+}

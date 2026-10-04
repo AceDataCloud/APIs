@@ -51,8 +51,10 @@ paths:
                   description: Flux model version.
                 size:
                   type: string
-                  description: Image size as WIDTHxHEIGHT, e.g. 1024x1024.
-                  example: 1024x1024
+                  description: 'For flux-2-pro use an aspect ratio: 21:9, 16:9, 4:3, 3:2, 1:1,
+                    2:3, 3:4, 9:16 or 9:21. Other models have their own size requirements.'
+                  default: '1:1'
+                  example: '1:1'
                 count:
                   type: integer
                   description: How many images to generate.

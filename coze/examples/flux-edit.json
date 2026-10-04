@@ -1,0 +1,20 @@
+{
+  "description": "Sanitized example based on a real Coze trial on 2026-10-04. Replace the placeholder privately with your own API token. Outputs may change on a new run. Only selected response fields are shown.",
+  "request": {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "action": "edit",
+    "model": "flux-2-pro",
+    "size": "1:1",
+    "count": 1,
+    "image_url": "https://platform2.cdn.acedata.cloud/flux/93fedc41-f90b-4972-925e-94dd2bcbfd41.jpg",
+    "prompt": "Change the background to pale blue while preserving the amber glass bottle and the stone pedestal. Keep the same product shape, lighting and square composition. No text or logos."
+  },
+  "response": {
+    "success": true,
+    "data": [
+      {
+        "image_url": "https://platform2.cdn.acedata.cloud/flux/e78ac826-15b0-4398-a810-1a6d54f5093b.jpg"
+      }
+    ]
+  }
+}
