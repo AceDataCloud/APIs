@@ -1,0 +1,1997 @@
+openapi: 3.0.1
+info:
+  title: AceData_Fish_Voice_Studio
+  version: 2.0.0
+  description: 'Turn text into speech, browse supported saved voices, or create a voice from authorized
+    reference audio. Retrieve asynchronous speech tasks. Bind your own Ace Data Cloud credential privately
+    as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
+    chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /fish/model:
+    get:
+      summary: Fish Audio model listing API — paginate through the available voice models.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                    description: The list of timbre model entries returned by the current page.
+                  total:
+                    type: integer
+                    description: The total number of tone models that meet the query conditions.
+          description: Request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 10
+        required: false
+        description: The number of entries returned per page is 10 by default.
+      - in: query
+        name: page_number
+        schema:
+          type: integer
+          default: 1
+        required: false
+        description: Page numbers start from 1, defaulting to 1.
+      - in: query
+        name: title
+        schema:
+          type: string
+        required: false
+        description: Fuzzy filtering based on title keywords.
+      - in: query
+        name: tag
+        schema:
+          type: string
+        required: false
+        description: Filter by individual tags.
+      - in: query
+        name: self
+        schema:
+          type: boolean
+        required: false
+        description: When `true`, only return the models owned by the current calling account.
+      - in: query
+        name: author_id
+        schema:
+          type: string
+        required: false
+        description: Filter by author ID.
+      - in: query
+        name: language
+        schema:
+          type: string
+        required: false
+        description: Filter by language code (e.g., `en`, `zh`).
+      - in: query
+        name: title_language
+        schema:
+          type: string
+        required: false
+        description: Filter according to the language used in the title.
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        required: false
+        description: Sorting fields (for example, `created_at`, `task_count`).
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: get__fish_model
+      description: 'Fish Audio model listing API — paginate through the available voice models. Full input
+        requirements: https://platform.acedata.cloud/documents/fish-model-query'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-model-query
+    post:
+      summary: Fish Audio model creation API — upload reference audio to create a custom voice-clone model.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: Voice model identifier (used as `reference_id` in `/fish/tts`).
+                  type:
+                    type: string
+                    description: Model type (fixed as `tts`).
+                  state:
+                    type: string
+                    description: Training status (for example, `trained`).
+                  title:
+                    type: string
+                    description: Name of the voice model.
+                  visibility:
+                    type: string
+                    description: '`public` or `private`.'
+          description: Request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the format of the response returned by the server. If not specified, the
+          default format is `application/json`.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__fish_model
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - title
+              - voices
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags used for retrieval in public repositories (optional).
+                texts:
+                  type: array
+                  items:
+                    type: string
+                  description: Reference text corresponding to the audio sample (optional).
+                title:
+                  type: string
+                  description: Name of the voice model.
+                voices:
+                  type: string
+                  description: The HTTP(S) URL of the audio file for cloning must be a single URL string.
+                    This interface does not support multipart/binary file uploads.
+                cover_image:
+                  type: string
+                  description: HTTP(S) URL of the voice model cover image (optional).
+                description:
+                  type: string
+                  description: Description of the voice model (optional).
+                generate_sample:
+                  type: boolean
+                  description: If `true`, a sample voice will be generated after the training is completed.
+                enhance_audio_quality:
+                  type: boolean
+                  description: If `true`, the audio samples will undergo quality enhancement processing
+                    before training.
+        required: true
+      description: 'Fish Audio model creation API — upload reference audio to create a custom voice-clone
+        model. Full input requirements: https://platform.acedata.cloud/documents/fish-model'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-model
+  /fish/model/{id}:
+    get:
+      summary: Fish Audio model detail API — fetch details of a single voice model by its ID.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: The unique identifier of the sound model.
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                    description: A list of free format labels attached to the model.
+                  type:
+                    type: string
+                    description: Types of voice models (such as `tts`, `svc`).
+                  state:
+                    type: string
+                    description: The current state of the model (such as `trained`, `training`).
+                  title:
+                    type: string
+                    description: Display name of the voice model.
+                  author:
+                    type: object
+                    description: Public information about the model author.
+                    additionalProperties: true
+                  samples:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                    description: The list of preview audio samples for this sound model.
+                  languages:
+                    type: array
+                    items:
+                      type: string
+                    description: List of languages supported by this voice model.
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: The creation time of the model.
+                  train_mode:
+                    type: string
+                    description: The training mode used to build this model.
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: The last update time of the model.
+                  visibility:
+                    type: string
+                    description: 'The visibility of the model: `public` or `private`.'
+                  cover_image:
+                    type: string
+                    description: The URL address of the model cover image.
+                  description:
+                    type: string
+                    description: Detailed description information of the voice model.
+          description: Request successful, returning sound model details.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The unique identifier of the sound model to be obtained.
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: get__fish_model_id
+      description: 'Fish Audio model detail API — fetch details of a single voice model by its ID. Full
+        input requirements: https://platform.acedata.cloud/documents/fish-model-get'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-model-get
+  /fish/tts:
+    post:
+      summary: Fish Audio text-to-speech API — convert text into natural speech using a chosen voice model.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cost:
+                    type: object
+                    required:
+                    - amount
+                    - currency
+                    properties:
+                      amount:
+                        type: number
+                        description: The Credits actually deducted in this request have included the applicable
+                          account discounts.
+                      currency:
+                        type: string
+                        description: Billing unit; the ordinary quota call returns `credit`.
+                      list_amount:
+                        type: number
+                        description: Credits before discount; only returns when it differs from the actual
+                          deduction amount.
+                    description: The final successful synthesis of the actual billing amount information.
+                      The initial task confirmation of the asynchronous request does not include this
+                      field, while the final callback and task result include this field.
+                  audio_url:
+                    type: string
+                    description: The URL of the generated audio file.
+          description: Request successful (OK).
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the format of the response returned by the server. If not specified, the
+          default format is `application/json`.
+      - in: header
+        name: model
+        schema:
+          enum:
+          - s1
+          - s2-pro
+          - s2.1-pro
+          type: string
+        required: false
+        description: The TTS model used can be `s1` or `s2-pro`, with `s2-pro` as the default.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__fish_tts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - text
+              properties:
+                text:
+                  type: string
+                  description: Text content to be synthesized. Required, must be a non-empty string.
+                async:
+                  type: boolean
+                  description: Whether to process in asynchronous mode. When set to `true`, the interface
+                    immediately returns `task_id`, without the need to provide `callback_url`, and then
+                    the result can be obtained by polling the corresponding task query interface; if `callback_url`
+                    is also provided, the result will be pushed to that callback address.
+                  default: true
+                top_p:
+                  type: number
+                  description: Top-p nucleus sampling parameter, controls output diversity.
+                format:
+                  enum:
+                  - mp3
+                  - wav
+                  - pcm
+                  type: string
+                  description: Output audio format, default is `mp3`. Optional `mp3`, `wav`, `pcm`, where
+                    both `wav` and `pcm` return a WAV container.
+                latency:
+                  enum:
+                  - normal
+                  - balanced
+                  type: string
+                  description: Delay mode. Does not accept null values; defaults to `normal` when omitted.
+                prosody:
+                  type: object
+                  description: Rhythm coverage parameters (such as speech rate, volume, etc.).
+                  additionalProperties: true
+                normalize:
+                  type: boolean
+                  description: Is text normalization processing performed on the input text?
+                references:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - audio
+                    - text
+                    properties:
+                      text:
+                        type: string
+                        maxLength: 10000
+                        minLength: 1
+                        description: The accurate verbatim transcript of what was actually said in the
+                          reference audio.
+                      audio:
+                        type: string
+                        format: uri
+                        maxLength: 2048
+                        description: Public HTTPS URL of the reference audio. Supports MP3 or WAV, recommended
+                          10–270 seconds; Base64, data URI, or credentialed URLs are not accepted.
+                    additionalProperties: false
+                  maxItems: 1
+                  minItems: 1
+                  description: Inline reference audio samples for zero-shot voice cloning.
+                mp3_bitrate:
+                  enum:
+                  - 64
+                  - 128
+                  - 192
+                  type: integer
+                  description: MP3 bitrate when `format=mp3`.
+                sample_rate:
+                  type: integer
+                  description: Output the audio sampling rate (e.g., 16000, 22050, 44100).
+                temperature:
+                  type: number
+                  description: Sampling temperature (0.0–1.0). The higher the value, the more diverse
+                    the output; the lower the value, the more stable and consistent it is.
+                callback_url:
+                  type: string
+                  description: 'Optional callback URL. When specified, the interface immediately returns
+                    `{"task_id": "5872ab00-3cf4-4040-a798-8510aaa16756", "started_at": "2025-05-09T12:34:56.789Z"}`,
+                    and after the synthesis is complete, the final `{audio_url, ...}` result will be pushed
+                    to this URL via POST.'
+                chunk_length:
+                  type: integer
+                  description: The block length of speech synthesis.
+                reference_id:
+                  oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                    minItems: 1
+                  description: Voice model ID (single speaker). A string array can also be passed in multi-speaker
+                    scenarios.
+                max_new_tokens:
+                  type: integer
+                  description: Maximum number of new tokens generated.
+                min_chunk_length:
+                  type: integer
+                  description: Minimum block length.
+                repetition_penalty:
+                  type: number
+                  description: The repetition penalty coefficient applied during the generation process.
+        required: true
+      description: 'Fish Audio text-to-speech API — convert text into natural speech using a chosen voice
+        model. Full input requirements: https://platform.acedata.cloud/documents/fish-tts Submit once
+        with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed
+        result. Do not resubmit while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-tts
+  /fish/tasks:
+    post:
+      summary: Can be used to query the current Fish task status.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  required:
+                  - id
+                  - type
+                  - created_at
+                  - trace_id
+                  - request
+                  properties:
+                    id:
+                      type: string
+                      description: Task ID.
+                    type:
+                      type: string
+                      description: Task type.
+                    api_id:
+                      type: string
+                      description: API Identifier.
+                    elapsed:
+                      type: number
+                      format: double
+                      minimum: 0
+                      nullable: true
+                      description: Processing duration (seconds).
+                    request:
+                      type: object
+                      description: Create the request body recorded for the API operation of this task;
+                        the fields depend on the specific operation and action.
+                      additionalProperties: true
+                    user_id:
+                      type: string
+                      description: The account to which the task belongs.
+                    response:
+                      type: object
+                      description: Create the final response recorded for the API operation of this task;
+                        the fields follow the structure of successful or error responses in the operation
+                        documentation.
+                      additionalProperties: true
+                    trace_id:
+                      type: string
+                      description: Request tracking ID.
+                    created_at:
+                      type: number
+                      format: double
+                      description: Task creation time, Unix timestamp (seconds).
+                    started_at:
+                      type: number
+                      format: double
+                      description: Process start time, Unix timestamp (seconds).
+                    finished_at:
+                      type: number
+                      format: double
+                      nullable: true
+                      description: Processing completion time, Unix timestamp (seconds).
+                    actor_user_id:
+                      type: string
+                      nullable: true
+                      description: Account for executing the authorization request.
+                    credential_id:
+                      type: string
+                      nullable: true
+                      description: Credentials used to start tasks.
+                    application_id:
+                      type: string
+                      description: Application for billing.
+                    authorization_id:
+                      type: string
+                      nullable: true
+                      description: Authorization used when starting the task.
+                - type: object
+                  required:
+                  - items
+                  - count
+                  properties:
+                    count:
+                      type: integer
+                      minimum: 0
+                      description: Total number of matching tasks.
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - id
+                        - type
+                        - created_at
+                        - trace_id
+                        - request
+                        properties:
+                          id:
+                            type: string
+                            description: Task ID.
+                          type:
+                            type: string
+                            description: Task type.
+                          api_id:
+                            type: string
+                            description: API Identifier.
+                          elapsed:
+                            type: number
+                            format: double
+                            minimum: 0
+                            nullable: true
+                            description: Processing duration (seconds).
+                          request:
+                            type: object
+                            description: Create the request body recorded for the API operation of this
+                              task; the fields depend on the specific operation and action.
+                            additionalProperties: true
+                          user_id:
+                            type: string
+                            description: The account to which the task belongs.
+                          response:
+                            type: object
+                            description: Create the final response recorded for the API operation of this
+                              task; the fields follow the structure of successful or error responses in
+                              the operation documentation.
+                            additionalProperties: true
+                          trace_id:
+                            type: string
+                            description: Request tracking ID.
+                          created_at:
+                            type: number
+                            format: double
+                            description: Task creation time, Unix timestamp (seconds).
+                          started_at:
+                            type: number
+                            format: double
+                            description: Process start time, Unix timestamp (seconds).
+                          finished_at:
+                            type: number
+                            format: double
+                            nullable: true
+                            description: Processing completion time, Unix timestamp (seconds).
+                          actor_user_id:
+                            type: string
+                            nullable: true
+                            description: Account for executing the authorization request.
+                          credential_id:
+                            type: string
+                            nullable: true
+                            description: Credentials used to start tasks.
+                          application_id:
+                            type: string
+                            description: Application for billing.
+                          authorization_id:
+                            type: string
+                            nullable: true
+                            description: Authorization used when starting the task.
+                      description: Matching task list.
+                - type: object
+                  description: Return when the requested task does not exist.
+                  additionalProperties: false
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Task ID.
+                  type:
+                    type: string
+                    description: Task type.
+                  api_id:
+                    type: string
+                    description: API Identifier.
+                  elapsed:
+                    type: number
+                    format: double
+                    minimum: 0
+                    nullable: true
+                    description: Processing duration (seconds).
+                  request:
+                    type: object
+                    description: Create the request body recorded for the API operation of this task;
+                      the fields depend on the specific operation and action.
+                    additionalProperties: true
+                  user_id:
+                    type: string
+                    description: The account to which the task belongs.
+                  response:
+                    type: object
+                    description: Create the final response recorded for the API operation of this task;
+                      the fields follow the structure of successful or error responses in the operation
+                      documentation.
+                    additionalProperties: true
+                  trace_id:
+                    type: string
+                    description: Request tracking ID.
+                  created_at:
+                    type: number
+                    format: double
+                    description: Task creation time, Unix timestamp (seconds).
+                  started_at:
+                    type: number
+                    format: double
+                    description: Process start time, Unix timestamp (seconds).
+                  finished_at:
+                    type: number
+                    format: double
+                    nullable: true
+                    description: Processing completion time, Unix timestamp (seconds).
+                  actor_user_id:
+                    type: string
+                    nullable: true
+                    description: Account for executing the authorization request.
+                  credential_id:
+                    type: string
+                    nullable: true
+                    description: Credentials used to start tasks.
+                  application_id:
+                    type: string
+                    description: Application for billing.
+                  authorization_id:
+                    type: string
+                    nullable: true
+                    description: Authorization used when starting the task.
+                  count:
+                    type: integer
+                    minimum: 0
+                    description: Total number of matching tasks.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - type
+                      - created_at
+                      - trace_id
+                      - request
+                      properties:
+                        id:
+                          type: string
+                          description: Task ID.
+                        type:
+                          type: string
+                          description: Task type.
+                        api_id:
+                          type: string
+                          description: API Identifier.
+                        elapsed:
+                          type: number
+                          format: double
+                          minimum: 0
+                          nullable: true
+                          description: Processing duration (seconds).
+                        request:
+                          type: object
+                          description: Create the request body recorded for the API operation of this
+                            task; the fields depend on the specific operation and action.
+                          additionalProperties: true
+                        user_id:
+                          type: string
+                          description: The account to which the task belongs.
+                        response:
+                          type: object
+                          description: Create the final response recorded for the API operation of this
+                            task; the fields follow the structure of successful or error responses in
+                            the operation documentation.
+                          additionalProperties: true
+                        trace_id:
+                          type: string
+                          description: Request tracking ID.
+                        created_at:
+                          type: number
+                          format: double
+                          description: Task creation time, Unix timestamp (seconds).
+                        started_at:
+                          type: number
+                          format: double
+                          description: Process start time, Unix timestamp (seconds).
+                        finished_at:
+                          type: number
+                          format: double
+                          nullable: true
+                          description: Processing completion time, Unix timestamp (seconds).
+                        actor_user_id:
+                          type: string
+                          nullable: true
+                          description: Account for executing the authorization request.
+                        credential_id:
+                          type: string
+                          nullable: true
+                          description: Credentials used to start tasks.
+                        application_id:
+                          type: string
+                          description: Application for billing.
+                        authorization_id:
+                          type: string
+                          nullable: true
+                          description: Authorization used when starting the task.
+                    description: Matching task list.
+          description: Operation successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, the authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__fish_tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Fish task ID.
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of task IDs for Fish.
+                action:
+                  enum:
+                  - retrieve
+                  - retrieve_batch
+                  type: string
+                  default: retrieve
+                  description: Operation type. Use `retrieve` to get a single task, and use `retrieve_batch`
+                    to batch retrieve multiple tasks.
+        required: true
+      description: 'Can be used to query the current Fish task status. Full input requirements: https://platform.acedata.cloud/documents/fish-tasks'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-tasks

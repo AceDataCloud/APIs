@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""Build review/import assets from a dated, anonymous public catalog snapshot.
+
+No network requests, credentials, paid runs or Coze publishing are performed.
+"""
+from __future__ import annotations
+import ast
+import copy
+import hashlib
+import json
+import re
+from pathlib import Path
+import yaml
+
+ROOT = Path(__file__).resolve().parent
+HTTP = {'get', 'post', 'put', 'patch', 'delete'}
+SLUGS = {'b1fbcc32-e218-4253-9dc3-4fe600a1bfb9':'aichat', 'a0a76008-85ff-4c46-8db7-76481721b9fb':'identity', '349bfa75-d270-44e9-8188-9894e3b9512c':'shorturl','bd4eaf26-4efe-4904-a045-8b83ed56f885':'localization'}
+AUTH = 'Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.'
+SETUP = 'https://platform.acedata.cloud/?from=coze'
+IDS = {'seedream','flux','serp','shorturl'}
+OMIT_PATHS = {'/v1/live/sessions':'Requires a live session transport; not a conventional JSON tool.', '/v1/audio/speech':'Binary audio response needs a media URL adapter for Coze.', '/v1/audio/transcriptions':'Multipart file upload needs a tested Coze file adapter.'}
+DEFAULTS = {'/seedream/images':{'model':'doubao-seedream-5-0-lite-260128','size':'2K'}, '/flux/images':{'model':'flux-2-pro','size':'1:1','action':'generate','count':1}, '/serp/google':{'type':'search','number':3}, '/nano-banana/images':{'model':'nano-banana-2','action':'generate'}, '/veo/videos':{'model':'veo31-fast','action':'text2video'}, '/kling/videos':{'model':'kling-v2-6','action':'text2video'}, '/producer/audios':{'model':'FUZZ-2.0','action':'generate'}, '/wan/videos':{'model':'wan2.6-t2v'}, '/suno/lyrics':{'model':'default'}, '/openai/images/generations':{'model':'gpt-image-1'}, '/openai/images/edits':{'model':'gpt-image-1'}, '/openai/embeddings':{'model':'text-embedding-3-small'}}
+
+
+def slug(s):
+    return SLUGS.get(s['id'],(s['alias'] or '').lower())
+
+
+def pointer(doc, ref):
+    if not ref.startswith('#/'):
+        raise ValueError('External reference cannot be imported: '+ref)
+    cur=doc
+    for part in ref[2:].split('/'):
+        cur=cur[part.replace('~1','/').replace('~0','~')]
+    return cur
+
+
+def resolve(value, doc, stack=()):
+    if isinstance(value,list): return [resolve(v,doc,stack) for v in value]
+    if not isinstance(value,dict): return value
+    if '$ref' in value:
+        ref=value['$ref']
+        if ref in stack: raise ValueError('Recursive schema requires an adapter: '+ref)
+        base=copy.deepcopy(pointer(doc,ref));base.update({k:v for k,v in value.items() if k!='$ref'})
+        return resolve(base,doc,stack+(ref,))
+    result={k:resolve(v,doc,stack) for k,v in value.items() if k not in ['$schema','examples','example','prefixItems'] and not (k == 'rank' and isinstance(v,(int,float)))}
+    if isinstance(result.get('description'),str) and result['description'].startswith("{'zh-cn':"):
+        try:result['description']=ast.literal_eval(result['description']).get('en',result['description'])
+        except (ValueError,SyntaxError):pass
+    if 'const' in result: result['enum']=[result.pop('const')]
+    if isinstance(result.get('type'),list):
+        kinds=result['type'];result['nullable']='null' in kinds;result['type']=next(k for k in kinds if k!='null')
+    # OAS 3.1 exclusive bounds are numbers; 3.0 uses the bound + a boolean.
+    for bound in ['Minimum','Maximum']:
+        key='exclusive'+bound
+        if type(result.get(key)) in (int,float):
+            result[bound.lower()]=result[key];result[key]=True
+    return result
+
+
+def import_body(schema):
+    """Expose union fields to the importer while preserving branch constraints."""
+    s=copy.deepcopy(schema)
+    variants=s.get('oneOf',s.get('anyOf',[]))
+    if variants and all(v.get('type')=='object' or 'properties' in v for v in variants):
+        props=copy.deepcopy(s.get('properties',{}));req=None
+        for v in variants:
+            vr=set(v.get('required',[]));req=vr if req is None else req&vr
+            for k,p in v.get('properties',{}).items():
+                if k not in props:props[k]=copy.deepcopy(p)
+                elif props[k]!=p:
+                    if props[k].get('type')==p.get('type') and props[k].get('enum') and p.get('enum'):
+                        props[k]['enum']=list(dict.fromkeys(props[k]['enum']+p['enum']))
+                    else:
+                        props[k]={'anyOf':[props[k],copy.deepcopy(p)]}
+        s['type']='object';s['properties']=props
+        req=set(s.get('required',[])) | (req or set())
+        if req:s['required']=sorted(req)
+    return s
+
+
+def sample(schema,name=''):
+    if 'default' in schema:return schema['default']
+    if 'enum' in schema:return schema['enum'][0]
+    if 'example' in schema and name not in ['name','phone','mobile','id_card','bank_card','image','image_url','audio_url','video_url','website_url','website_key','references','voices']:return schema['example']
+    if 'oneOf' in schema or 'anyOf' in schema:
+        return sample((schema.get('oneOf') or schema.get('anyOf'))[0],name)
+    kind=schema.get('type')
+    if kind=='object':return {k:sample(schema.get('properties',{}).get(k,{}),k) for k in schema.get('required',[])}
+    if kind=='array':return [sample(schema.get('items',{}),name)]
+    if kind=='boolean':return False
+    if kind in ['integer','number']:return schema.get('minimum',1)
+    if name in ['id','task_id','audio_id','video_id','persona_id','version_id']:return 'REPLACE_WITH_OWNED_'+name.upper()
+    if name in ['prompt','question','text','input']:return 'A calm sunrise over a mountain lake.'
+    if name=='messages':return [{'role':'user','content':'Explain why the sky appears blue in two sentences.'}]
+    if name in ['name','phone','mobile','id_card','bank_card','website_key']:return 'AUTHORIZED_TEST_FIXTURE_REQUIRED'
+    if name.endswith('_url') or name in ['url','image']:return 'https://example.com/authorized-test-input'
+    if name=='model':return 'SELECT_A_DOCUMENTED_MODEL'
+    return 'REPLACE_'+name.upper()
+
+
+def build_operation(a,path,method,source):
+    d=a['definition'];op=resolve(source,d)
+    op.pop('security',None);op.pop('callbacks',None);op.pop('tags',None)
+    op['operationId']=re.sub(r'[^a-zA-Z0-9_]+','_',method+'_'+path).strip('_')[:80]
+    if method=='post' and path in {'/seedream/images','/flux/images','/serp/google','/shorturl'}:
+        op['operationId']={'/seedream/images':'generateImage','/flux/images':'generateImage','/serp/google':'searchGoogle','/shorturl':'createShortLink'}[path]
+    op['summary']=(op.get('summary') or a['path']).split('\n')[0][:160]
+    detail=(op.get('description') or op['summary']).strip()
+    op['description']=detail[:1000]+' Full input requirements: '+a['document_url']
+    op['externalDocs']={'url':a['document_url']}
+    pars=op.setdefault('parameters',[])
+    pars[:]=[x for x in pars if x.get('name','').lower() not in ['authorization','x-api-key']]
+    pars.append({'name':'Authorization','in':'header','required':True,'description':AUTH,'schema':{'type':'string'}})
+    rb=op.get('requestBody',{});content=rb.get('content',{})
+    if 'application/json' in content:
+        content={'application/json':content['application/json']};rb['content']=content
+        body=content['application/json'];body.pop('example',None);body.pop('required',None)
+        s=import_body(body.get('schema',{}));body['schema']=s
+        props=s.get('properties',{})
+        for k,v in DEFAULTS.get(path,{}).items():
+            if k in props:props[k]['default']=v
+        if 'stream' in props:props['stream'].update(default=False,enum=[False],description='Use false for Coze JSON tool results.')
+        if 'async' in props:
+            props['async']['default']=True
+            op['description']+=' Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.'
+        # Callback delivery is optional; polling has no public receiver to configure.
+        if 'callback_url' in props:props['callback_url'].pop('default',None)
+        if path.endswith('/tasks') and 'action' in props and props['action'].get('enum'):
+            props['action']['enum']=[v for v in props['action']['enum'] if v!='delete']
+        if path=='/aichat2/conversations' and 'action' in props:
+            props['action']['default']='chat'
+        # OAS examples remain reference fixtures, never claimed to be real Coze runs.
+    op['responses']={k:v for k,v in op.get('responses',{}).items() if k in ['200','201','202','400','401','403','429','500','default']}
+    for resp in op['responses'].values():
+        for c in resp.get('content',{}).values():
+            c.pop('example',None);c.pop('properties',None);c.pop('required',None)
+            if 'schema' in c:c['schema']=import_body(c['schema'])
+    return op
+
+
+def write_json(path,data):
+    path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+
+
+def main():
+    src=json.loads((ROOT/'catalog/public-snapshot.json').read_text());profiles=json.loads((ROOT/'catalog/profiles.json').read_text());contracts=src['contracts'];coverage=[];listings={};cases=[]
+    for s in src['services']:
+        key=slug(s);row={'key':key,'service_id':s['id'],'service_type':s['type'],'title':s['title'],'description':s['description'],'source_url':f"https://platform.acedata.cloud/services/{s['id']}",'icon':f'icons/{key}.png','operations':[],'blockers':[]}
+        if s['type']!='Api':
+            row['delivery']='catalog_assistant';row['name']=s['title'];row['brief']=s['description'];row['readiness']='guide_prepared'
+            row['blockers']=['Requires a user-owned deployment URL and scoped authentication before functional plugin creation.'] if s['type']=='Deployment' else (['A local developer client; provided through setup guidance rather than a hosted Coze tool.'] if s['type']=='Agent' else ['Catalog and acquisition guidance only; no public query API is declared.'])
+            for o in s['operations']:row['operations'].append({**o,'disposition':'guide_only'})
+            coverage.append(row);continue
+        p=profiles[key];row.update({k:p[k] for k in ['name','brief','group','description','scenarios']});row['delivery']='http_plugin'
+        spec={'openapi':'3.0.1','info':{'title':p['name'],'version':'2.0.0','description':p['description']+' '+AUTH+' Start: '+SETUP},'servers':[{'url':'https://api.acedata.cloud'}],'paths':{}}
+        for meta in s['operations']:
+            a=contracts.get(meta['api_id'])
+            if not a:
+                row['operations'].append({**meta,'disposition':'excluded','reason':'No current public API document and import contract.'});continue
+            for path,value in a['definition'].get('paths',{}).items():
+                for method,source in value.items():
+                    if method not in HTTP:continue
+                    item={'api_id':a['id'],'path':path,'method':method.upper(),'stage':a['stage'],'docs':a['document_url']}
+                    reason=OMIT_PATHS.get(path)
+                    if 'streamGenerateContent' in path:reason='Streaming transport; use generateContent with a JSON response.'
+                    if method=='delete':reason='Destructive management operation; use the account console.'
+                    if reason:row['operations'].append({**item,'disposition':'adapter_or_console','reason':reason});continue
+                    try:op=build_operation(a,path,method,source)
+                    except (ValueError,KeyError) as e:
+                        row['operations'].append({**item,'disposition':'adapter_required','reason':str(e)});continue
+                    spec['paths'].setdefault(path,{})[method]=op
+                    row['operations'].append({**item,'operation_id':op['operationId'],'disposition':'schema_prepared'})
+                    schema=op.get('requestBody',{}).get('content',{}).get('application/json',{}).get('schema',{})
+                    ex=sample(schema)
+                    if isinstance(ex,dict):
+                        for k in ['model','action','async','stream']:
+                            pr=schema.get('properties',{}).get(k)
+                            if pr and ('default' in pr or k=='model'):ex[k]=sample(pr,k)
+                        if path.endswith('/chat/completions'):ex['messages']=[{'role':'user','content':'Explain why the sky appears blue in two sentences.'}]
+                        if path=='/shorturl':ex={'content':'https://platform.acedata.cloud/?from=coze'}
+                        if path=='/serp/google':ex={'query':'Ace Data Cloud API documentation','type':'search','number':3}
+                    case={'service':key,'api_id':a['id'],'operation_id':op['operationId'],'method':method.upper(),'path':path,'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':ex if method!='get' else None},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate the request against the current model/action requirements.','Confirm a successful real response and expected result fields.','For async creation, poll the matching retrieval tool to a terminal result.','Inspect the returned media or content and reconcile billed Credits.'],'special_authorization':key in ['identity','turnstile','recaptcha','hcaptcha','image2text'] or any(w in path for w in ['voices','custom-models'])}
+                    cases.append(case)
+        # DeepSeek models are explicitly published on the shared AI Dialogue API.
+        # Keep the hidden brand-specific contract excluded; expose only this
+        # documented model subset, with the route visible in coverage and copy.
+        if key=='deepseek':
+            a=contracts['1d58971c-e3cd-4713-a3ce-854a731adb14'];path='/aichat/conversations'
+            op=build_operation(a,path,'post',a['definition']['paths'][path]['post'])
+            model=op['requestBody']['content']['application/json']['schema']['properties']['model']
+            model['enum']=[v for v in model['enum'] if v.startswith('deepseek-')]
+            model['default']='deepseek-v4-flash'
+            op['summary']='Ask a DeepSeek model through AI Dialogue'
+            op['description']='Use the public AI Dialogue conversation API with an explicitly selected DeepSeek model. '+a['document_url']
+            spec['paths'][path]={'post':op}
+            row['operations'].append({'api_id':a['id'],'path':path,'method':'POST','operation_id':op['operationId'],'disposition':'schema_prepared','docs':a['document_url'],'reason':'Published AI Dialogue model subset; the hidden brand-specific API is excluded.'})
+            row['blockers'].append('Uses the published AI Dialogue conversation API; verify this exact model and route before launch.')
+        # All captcha services share the public task retrieval API.
+        if key in ['turnstile','image2text','recaptcha']:
+            a=contracts['0c6538fd-de94-4e7c-b876-b45ded6487bb'];path='/captcha/tasks';op=build_operation(a,path,'post',a['definition']['paths'][path]['post']);spec['paths'][path]={'post':op};row['operations'].append({'api_id':a['id'],'path':path,'method':'POST','operation_id':op['operationId'],'disposition':'schema_prepared','reason':'Shared public CAPTCHA task retrieval.'})
+        row['tool_count']=sum(len(v) for v in spec['paths'].values());row['readiness']='draft_assets_prepared' if row['tool_count'] else 'blocked_public_contract'
+        row['plugin_url']=None
+        row['coze_state']='existing_draft_needs_full_update' if key in IDS else 'not_created'
+        if key=='flux':row['coze_state']='workspace_v1_published_before_review_hold_store_not_submitted'
+        row['validation']='partial_real_trial' if key in IDS else 'not_run'
+        row['blockers']+=['Expanded tool set requires Coze import verification and authorized real trials.']
+        if key in ['identity','turnstile','recaptcha','hcaptcha','image2text']:row['blockers'].append('Controlled authorized fixtures and a service-specific privacy review are required for real tests.')
+
+        row['schema']=f'plugins/{key}.yaml' if spec['paths'] else None
+        if spec['paths']:
+            (ROOT/'plugins'/f'{key}.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
+            write_json(ROOT/'plugins'/f'{key}.json',spec)
+            if key in {'suno','seedream','flux','serp','shorturl','kling','veo','seedance'}:
+                (ROOT/f'{key}.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
+            if key=='openai':
+                (ROOT/'image.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
+        listing={k:row[k] for k in ['name','brief','description','scenarios','icon']}
+        listing['category']={'Chat':'Productivity','Video':'Video','Image':'Photography','Multimodal':'Productivity','Music':'Music','Audio':'Music','Search':'Web Search','Utility':'Tools','Avatar':'Video','Verification':'Tools'}[p['group']]
+        listing['about']=p['description']+'\n\n'+AUTH+'\nGet started: '+SETUP
+        listing['privacy_review']={'data_sent':'User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.','recipient':'Ace Data Cloud API','retention':'Verify current published privacy terms; no retention promise is made in this draft.','sensitive_inputs':key in ['identity','digitalhuman','dreamina','fish','suno']}
+        listings[key]=listing;coverage.append(row)
+    covered={(c['service'],c['operation_id']) for c in cases}
+    for row in coverage:
+        if not row.get('schema'):continue
+        definition=json.loads((ROOT/'plugins'/f"{row['key']}.json").read_text())
+        for item in row['operations']:
+            if item['disposition']!='schema_prepared' or (row['key'],item['operation_id']) in covered:continue
+            op=definition['paths'][item['path']][item['method'].lower()]
+            body=op.get('requestBody',{}).get('content',{}).get('application/json',{}).get('schema',{})
+            cases.append({'service':row['key'],'api_id':item['api_id'],'operation_id':item['operation_id'],'method':item['method'],'path':item['path'],'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':sample(body)},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits.'],'special_authorization':row['key'] in ['turnstile','image2text','recaptcha']})
+    write_json(ROOT/'catalog/coverage.json',{'snapshot_date':src['retrieved_at'],'services':coverage})
+    write_json(ROOT/'listings.json',listings)
+    write_json(ROOT/'examples/catalog/validation-cases.json',cases)
+    print(f'{len(coverage)} services, {len(listings)} API listings, {sum(1 for x in coverage if x.get("schema"))} schemas, {sum(x.get("tool_count",0) for x in coverage)} tools, {len(cases)} draft test cases')
+
+if __name__=='__main__':main()

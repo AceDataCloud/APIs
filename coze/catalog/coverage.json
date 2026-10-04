@@ -1,0 +1,3556 @@
+{
+  "snapshot_date": "2026-10-05",
+  "services": [
+    {
+      "key": "reddit",
+      "service_id": "4150b899-a74a-4318-81dc-275fa1316bf9",
+      "service_type": "Dataset",
+      "title": "Reddit Posts & Comments",
+      "description": "Forum posts, comments and threaded replies, with subreddit and parent relationships for topic and content filtering.",
+      "source_url": "https://platform.acedata.cloud/services/4150b899-a74a-4318-81dc-275fa1316bf9",
+      "icon": "icons/reddit.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Reddit Posts & Comments",
+      "brief": "Forum posts, comments and threaded replies, with subreddit and parent relationships for topic and content filtering.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "deepseek",
+      "service_id": "39324b7c-5e24-451d-a174-d47957c3380c",
+      "service_type": "Api",
+      "title": "DeepSeek AI",
+      "description": "Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.",
+      "source_url": "https://platform.acedata.cloud/services/39324b7c-5e24-451d-a174-d47957c3380c",
+      "icon": "icons/deepseek.png",
+      "operations": [
+        {
+          "api_id": "f416edc1-a771-4a31-90e7-b14ca3a3d674",
+          "path": "/deepseek/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
+          "path": "/aichat/conversations",
+          "method": "POST",
+          "operation_id": "post__aichat_conversations",
+          "disposition": "schema_prepared",
+          "docs": "https://platform.acedata.cloud/documents/aichat-conversations",
+          "reason": "Published AI Dialogue model subset; the hidden brand-specific API is excluded."
+        }
+      ],
+      "blockers": [
+        "Uses the published AI Dialogue conversation API; verify this exact model and route before launch.",
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_DeepSeek_Chat",
+      "brief": "Reasoning and writing with DeepSeek",
+      "group": "Chat",
+      "scenarios": [
+        "Explain a technical concept",
+        "outline a report",
+        "compare two approaches."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/deepseek.yaml"
+    },
+    {
+      "key": "claude",
+      "service_id": "fa3cba27-b01c-4657-942f-63589f727b00",
+      "service_type": "Api",
+      "title": "Claude AI",
+      "description": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.",
+      "source_url": "https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00",
+      "icon": "icons/claude.png",
+      "operations": [
+        {
+          "api_id": "01011450-70f7-430f-a8a3-97b0903b0a24",
+          "path": "/v1/messages/count_tokens",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/claude-messages-count-tokens",
+          "operation_id": "post__v1_messages_count_tokens",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "6b2b437b-b6d5-466c-8750-b16650072593",
+          "path": "/v1/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/claude-chat-completions",
+          "operation_id": "post__v1_chat_completions",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
+          "path": "/v1/messages",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/claude-messages",
+          "operation_id": "post__v1_messages",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Claude_Assistant",
+      "brief": "Claude writing, reasoning and token counting",
+      "group": "Chat",
+      "scenarios": [
+        "Revise a proposal",
+        "analyze a document",
+        "estimate prompt tokens."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/claude.yaml"
+    },
+    {
+      "key": "maestro",
+      "service_id": "0d7031bf-610a-419e-a5a0-db8f240286d5",
+      "service_type": "Api",
+      "title": "Maestro AI Video Studio",
+      "description": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.",
+      "source_url": "https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5",
+      "icon": "icons/maestro.png",
+      "operations": [
+        {
+          "api_id": "553a0038-eef7-4e79-87c7-9d4e7321ca9b",
+          "path": "/maestro/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/maestro-tasks",
+          "operation_id": "post__maestro_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "ab512c42-324c-42e6-8d79-49a5042f3548",
+          "path": "/maestro/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/maestro-videos",
+          "operation_id": "post__maestro_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Maestro_Video_Studio",
+      "brief": "Turn a brief into a narrated video",
+      "group": "Video",
+      "scenarios": [
+        "Create a product explainer",
+        "turn a campaign brief into a narrated video",
+        "revise a previous project."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/maestro.yaml"
+    },
+    {
+      "key": "turnstile",
+      "service_id": "0b86c601-dcc4-4494-8259-00a2b88763d7",
+      "service_type": "Api",
+      "title": "Cloudflare Turnstile Captcha Service",
+      "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.",
+      "source_url": "https://platform.acedata.cloud/services/0b86c601-dcc4-4494-8259-00a2b88763d7",
+      "icon": "icons/turnstile.png",
+      "operations": [
+        {
+          "api_id": "b329b4e1-b9d4-4aa2-8b84-f55fb5292f23",
+          "path": "/captcha/token/turnstile",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-token-turnstile",
+          "operation_id": "post__captcha_token_turnstile",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+          "path": "/captcha/tasks",
+          "method": "POST",
+          "operation_id": "post__captcha_tasks",
+          "disposition": "schema_prepared",
+          "reason": "Shared public CAPTCHA task retrieval."
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials.",
+        "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
+      ],
+      "name": "AceData_Turnstile_Tools",
+      "brief": "Turnstile integration tools",
+      "group": "Verification",
+      "scenarios": [
+        "Test your own integration",
+        "inspect task completion in a controlled environment."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/turnstile.yaml"
+    },
+    {
+      "key": "discord-bot",
+      "service_id": "40f2bcbf-2efb-40c5-b67a-02194821847b",
+      "service_type": "Deployment",
+      "title": "Discord Agent Proxy",
+      "description": "Deploy your own Discord account proxy: let an AI act as you over MCP / REST — send/read messages, manage channels.",
+      "source_url": "https://platform.acedata.cloud/services/40f2bcbf-2efb-40c5-b67a-02194821847b",
+      "icon": "icons/discord-bot.png",
+      "operations": [
+        {
+          "api_id": "038fe850-e066-53f3-86cd-0285254ff93c",
+          "path": "/api/channels/{channel_id}/messages/{message_id}",
+          "method": "PATCH",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "05680635-95a0-58b8-a239-31b1252675b3",
+          "path": "/api/guilds/{guild_id}/channels",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "0b4e5d2b-c9e5-564c-bf3f-c68dbf553182",
+          "path": "/api/messages",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "1f884686-0064-5f78-89ff-a9f9e958a0f5",
+          "path": "/api/dms/send",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "3d6f5885-41ca-563c-9f6f-0f3cc870b561",
+          "path": "/api/guilds/{guild_id}/channels",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "47dcd751-e004-5bf1-88d0-5f154314f209",
+          "path": "/api/guilds/{guild_id}/members",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "63bde45c-610f-52ab-b77d-e03501cc1e77",
+          "path": "/api/channels/{channel_id}/messages/{message_id}/reactions",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "9b6f045d-9071-55fd-9f6e-d49488e2d784",
+          "path": "/api/channels/{channel_id}/messages",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "b5de83a9-faa1-5857-abb3-4f3b1c5b653b",
+          "path": "/api/guilds",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "ba724c99-d91f-50c2-8da9-04af93c4741b",
+          "path": "/api/channels/{channel_id}/messages/{message_id}",
+          "method": "DELETE",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "cda5c7c5-7b70-5bed-b732-629222b1ea2f",
+          "path": "/api/dms",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "d11cb5e4-7a5e-5bbb-883e-050bdd540b8c",
+          "path": "/api/channels/{channel_id}/messages/search",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "df27c350-d962-52c9-af7d-a7aed0615c24",
+          "path": "/api/channels/{channel_id}/messages/{message_id}/pin",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "e7189397-bd27-592a-b8ee-3ce8aff8bfd6",
+          "path": "/api/whoami",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        }
+      ],
+      "blockers": [
+        "Requires a user-owned deployment URL and scoped authentication before functional plugin creation."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Discord Agent Proxy",
+      "brief": "Deploy your own Discord account proxy: let an AI act as you over MCP / REST — send/read messages, manage channels.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "claude-code",
+      "service_id": "158c5af4-87b5-4951-96e2-8e94984c9a59",
+      "service_type": "Agent",
+      "title": "Claude Code",
+      "description": "One of the world's strongest programming agents",
+      "source_url": "https://platform.acedata.cloud/services/158c5af4-87b5-4951-96e2-8e94984c9a59",
+      "icon": "icons/claude-code.png",
+      "operations": [],
+      "blockers": [
+        "A local developer client; provided through setup guidance rather than a hosted Coze tool."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Claude Code",
+      "brief": "One of the world's strongest programming agents",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "image2text",
+      "service_id": "2aaa7faf-099e-410e-82f3-8d78170f25bb",
+      "service_type": "Api",
+      "title": "Recognition of English numerical verification codes",
+      "description": "Recognize letters and numbers in verification images for authorized testing workflows.",
+      "source_url": "https://platform.acedata.cloud/services/2aaa7faf-099e-410e-82f3-8d78170f25bb",
+      "icon": "icons/image2text.png",
+      "operations": [
+        {
+          "api_id": "66a6d478-f47c-4850-ab83-26e0ffea2b71",
+          "path": "/captcha/recognition/image2text",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-recognition-image2text",
+          "operation_id": "post__captcha_recognition_image2text",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+          "path": "/captcha/tasks",
+          "method": "POST",
+          "operation_id": "post__captcha_tasks",
+          "disposition": "schema_prepared",
+          "reason": "Shared public CAPTCHA task retrieval."
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials.",
+        "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
+      ],
+      "name": "AceData_Captcha_OCR",
+      "brief": "Read text from verification images",
+      "group": "Verification",
+      "scenarios": [
+        "Check OCR on a self-created test image",
+        "validate an owned integration."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/image2text.yaml"
+    },
+    {
+      "key": "youtube-video",
+      "service_id": "30d64398-9368-46f2-8377-1416c9fc0cbc",
+      "service_type": "Dataset",
+      "title": "YouTube Themed Audio & Video",
+      "description": "Audio/video and metadata organized around selected videos, channels or dataset lists, configurable by quality, duration and topic.",
+      "source_url": "https://platform.acedata.cloud/services/30d64398-9368-46f2-8377-1416c9fc0cbc",
+      "icon": "icons/youtube-video.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "YouTube Themed Audio & Video",
+      "brief": "Audio/video and metadata organized around selected videos, channels or dataset lists, configurable by quality, duration and topic.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "spotify-podcasts",
+      "service_id": "5b7e2520-5fb3-4c1e-bcf3-940234d94b0e",
+      "service_type": "Dataset",
+      "title": "Spotify English Podcast Audio",
+      "description": "English podcast recordings with title, description, language and duration metadata for long-form speech understanding and retrieval.",
+      "source_url": "https://platform.acedata.cloud/services/5b7e2520-5fb3-4c1e-bcf3-940234d94b0e",
+      "icon": "icons/spotify-podcasts.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Spotify English Podcast Audio",
+      "brief": "English podcast recordings with title, description, language and duration metadata for long-form speech understanding and retrieval.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "audible-audiobooks",
+      "service_id": "f3bd0f1f-4bc8-4726-aaa3-8c8694826bff",
+      "service_type": "Dataset",
+      "title": "Audible English Audiobooks",
+      "description": "Human-narrated English audiobooks with work, author, narrator and genre metadata for long-form speech and narrative evaluation.",
+      "source_url": "https://platform.acedata.cloud/services/f3bd0f1f-4bc8-4726-aaa3-8c8694826bff",
+      "icon": "icons/audible-audiobooks.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Audible English Audiobooks",
+      "brief": "Human-narrated English audiobooks with work, author, narrator and genre metadata for long-form speech and narrative evaluation.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "kimi",
+      "service_id": "7ef9ec1d-f0fb-453c-be72-36d5124e5aa1",
+      "service_type": "Api",
+      "title": "Kimi",
+      "description": "Use Kimi models to draft, reason about and summarize text in an agent or workflow.",
+      "source_url": "https://platform.acedata.cloud/services/7ef9ec1d-f0fb-453c-be72-36d5124e5aa1",
+      "icon": "icons/kimi.png",
+      "operations": [
+        {
+          "api_id": "5c4649ee-22c6-44ea-84d6-6ecc3674f998",
+          "path": "/kimi/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/kimi-chat-completions",
+          "operation_id": "post__kimi_chat_completions",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Kimi_Assistant",
+      "brief": "Kimi writing and reasoning",
+      "group": "Chat",
+      "scenarios": [
+        "Summarize a report",
+        "plan a research outline",
+        "explain code."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/kimi.yaml"
+    },
+    {
+      "key": "hailuo",
+      "service_id": "5eaa73b7-b9a7-4a17-afb3-f658fd5495b0",
+      "service_type": "Api",
+      "title": "Hailuo Video Generation",
+      "description": "Create Hailuo clips from text or an image and follow the task through to its final video URL.",
+      "source_url": "https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0",
+      "icon": "icons/hailuo.png",
+      "operations": [
+        {
+          "api_id": "51dca1fb-cc12-4a4a-b31a-01b62043abcd",
+          "path": "/hailuo/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/hailuo-tasks",
+          "operation_id": "post__hailuo_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "d5af91f6-a7ec-4015-b0a5-d25051158470",
+          "path": "/hailuo/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/hailuo-videos-integration",
+          "operation_id": "post__hailuo_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Hailuo_Video",
+      "brief": "Hailuo text and image to video",
+      "group": "Video",
+      "scenarios": [
+        "Animate a product image",
+        "draft a short cinematic scene",
+        "explore director-style camera movement."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/hailuo.yaml"
+    },
+    {
+      "key": "telegram-bot",
+      "service_id": "6ff3eb91-7cb8-4f56-9c69-2c7083c01448",
+      "service_type": "Deployment",
+      "title": "Telegram Account Proxy",
+      "description": "Deploy a private personal Telegram account proxy, authorize it by QR code, and let AI read or send messages over MCP / REST.",
+      "source_url": "https://platform.acedata.cloud/services/6ff3eb91-7cb8-4f56-9c69-2c7083c01448",
+      "icon": "icons/telegram-bot.png",
+      "operations": [
+        {
+          "api_id": "1d31112a-d5d9-5a91-90d8-02630c44e2b3",
+          "path": "/api/contacts",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "33ad3054-e72c-5e93-a334-06a09493861d",
+          "path": "/api/auth/qr",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "3b93b08c-2dc1-580e-98d4-5e9017487b31",
+          "path": "/api/messages",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "4f4573ee-020f-51c2-8acf-319b6add1be5",
+          "path": "/api/auth/status",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "4fc7d83b-428f-5b25-bcdd-df0e749fbddc",
+          "path": "/api/chats/{target}/messages/{message_id}/reactions",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "70775772-fd5c-566d-9edd-90232ad3175f",
+          "path": "/api/auth/logout",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "76d6002b-8dff-5bc9-868a-24008eccfbc9",
+          "path": "/api/chats",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "866b7809-0463-5a8d-8394-537fa5312926",
+          "path": "/api/auth/password",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "890e8eee-e3f7-5524-b08d-12d4a9695456",
+          "path": "/api/chats/{target}/messages/{message_id}",
+          "method": "DELETE",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "8dbb3957-b8de-545e-a157-f62dcda43d85",
+          "path": "/api/whoami",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "a9e0916e-2d99-526a-bcba-cce486eee86a",
+          "path": "/api/chats/{target}/messages/{message_id}",
+          "method": "PATCH",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "d4604751-afcc-5bbc-bd04-857d3ff70e7d",
+          "path": "/api/chats/{target}/messages",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "d96fa046-0cea-51cb-8f7a-5c31298d8ea1",
+          "path": "/api/chats/{target}/read",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "f47bf49f-dc93-5a0f-8735-4450273a3571",
+          "path": "/api/messages/search",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        }
+      ],
+      "blockers": [
+        "Requires a user-owned deployment URL and scoped authentication before functional plugin creation."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Telegram Account Proxy",
+      "brief": "Deploy a private personal Telegram account proxy, authorize it by QR code, and let AI read or send messages over MCP / REST.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "openai",
+      "service_id": "06f2acb7-e4d4-43de-9909-76e27b4e2355",
+      "service_type": "Api",
+      "title": "OpenAI generation",
+      "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.",
+      "source_url": "https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355",
+      "icon": "icons/openai.png",
+      "operations": [
+        {
+          "api_id": "078d0146-f820-4617-b98e-47ba15a93d60",
+          "path": "/v1/audio/speech",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-audio-speech",
+          "disposition": "adapter_or_console",
+          "reason": "Binary audio response needs a media URL adapter for Coze."
+        },
+        {
+          "api_id": "60f037ff-7d2f-4ea4-ae42-feba542c8cb2",
+          "path": "/v1/audio/transcriptions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-audio-transcriptions",
+          "disposition": "adapter_or_console",
+          "reason": "Multipart file upload needs a tested Coze file adapter."
+        },
+        {
+          "api_id": "8d33b2db-90bf-49b1-b074-137cfb7ea8ad",
+          "path": "/v1/live/sessions",
+          "method": "GET",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-live",
+          "disposition": "adapter_or_console",
+          "reason": "Requires a live session transport; not a conventional JSON tool."
+        },
+        {
+          "api_id": "8f01fe72-8a3e-4872-8d8d-330cde179b3a",
+          "path": "/openai/images/generations",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/openai-images-generations",
+          "operation_id": "post__openai_images_generations",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "8ff29e12-b814-4484-ab50-d39773a7a563",
+          "path": "/openai/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-tasks",
+          "operation_id": "post__openai_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a0840c8a-2b9a-4407-8aaf-0057f0e1f65c",
+          "path": "/openai/embeddings",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/openai-embeddings",
+          "operation_id": "post__openai_embeddings",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a5292a2e-d6a7-4215-a56c-e470ee2028db",
+          "path": "/v1/realtime",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "c9969b66-effb-4753-b504-a82c4d16f83f",
+          "path": "/openai/chat/completions",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/openai-chat-completions",
+          "operation_id": "post__openai_chat_completions",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "df57157e-2a4f-43f6-870b-fd3c530827e6",
+          "path": "/openai/models",
+          "method": "GET",
+          "stage": "Production",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "ed972a38-ecef-4fcb-af33-750de42d25dc",
+          "path": "/openai/responses",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/openai-responses",
+          "operation_id": "post__openai_responses",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
+          "path": "/openai/images/edits",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-images-edits",
+          "operation_id": "post__openai_images_edits",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_OpenAI_Studio",
+      "brief": "Chat, images, responses and embeddings",
+      "group": "Multimodal",
+      "scenarios": [
+        "Draft campaign copy",
+        "create a product image",
+        "build a document search workflow."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 6,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/openai.yaml"
+    },
+    {
+      "key": "coding",
+      "service_id": "c0d1a9a0-0000-4000-8000-000000000001",
+      "service_type": "Agent",
+      "title": "Coding Plan",
+      "description": "One plan unlocks the complete Claude, GPT/Codex, GLM, Kimi, and DeepSeek coding fleet",
+      "source_url": "https://platform.acedata.cloud/services/c0d1a9a0-0000-4000-8000-000000000001",
+      "icon": "icons/coding.png",
+      "operations": [
+        {
+          "api_id": "01011450-70f7-430f-a8a3-97b0903b0a24",
+          "path": "/v1/messages/count_tokens",
+          "method": "POST",
+          "stage": "Production",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "5c4649ee-22c6-44ea-84d6-6ecc3674f998",
+          "path": "/kimi/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "6b2b437b-b6d5-466c-8750-b16650072593",
+          "path": "/v1/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
+          "path": "/gemini/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
+          "path": "/v1/messages",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "aff80c74-b190-445b-9124-6422ed763c50",
+          "path": "/grok/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "c9969b66-effb-4753-b504-a82c4d16f83f",
+          "path": "/openai/chat/completions",
+          "method": "POST",
+          "stage": "Production",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "ed972a38-ecef-4fcb-af33-750de42d25dc",
+          "path": "/openai/responses",
+          "method": "POST",
+          "stage": "Production",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "f0392e69-ad58-40b9-b28b-e1feee258603",
+          "path": "/glm/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": true,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "f416edc1-a771-4a31-90e7-b14ca3a3d674",
+          "path": "/deepseek/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        }
+      ],
+      "blockers": [
+        "A local developer client; provided through setup guidance rather than a hosted Coze tool."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Coding Plan",
+      "brief": "One plan unlocks the complete Claude, GPT/Codex, GLM, Kimi, and DeepSeek coding fleet",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "gemini",
+      "service_id": "dda998fe-e11f-41b8-afa9-0a9b8420d60d",
+      "service_type": "Api",
+      "title": "Gemini AI",
+      "description": "Use Gemini chat and native content requests, or create a video and retrieve its completed result.",
+      "source_url": "https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d",
+      "icon": "icons/gemini.png",
+      "operations": [
+        {
+          "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
+          "path": "/v1beta/models/{model}:generateContent",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
+          "operation_id": "post__v1beta_models_model_generateContent",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
+          "path": "/v1beta/models/{model}:streamGenerateContent",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
+          "disposition": "adapter_or_console",
+          "reason": "Streaming transport; use generateContent with a JSON response."
+        },
+        {
+          "api_id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
+          "path": "/gemini/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/gemini-chat-completions",
+          "operation_id": "post__gemini_chat_completions",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",
+          "path": "/gemini/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/gemini-videos",
+          "operation_id": "post__gemini_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e6bd925d-0c49-47be-a5c5-d087604a8e75",
+          "path": "/gemini/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/gemini-tasks",
+          "operation_id": "post__gemini_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Gemini_Studio",
+      "brief": "Gemini chat, content and video tools",
+      "group": "Multimodal",
+      "scenarios": [
+        "Analyze a visual brief",
+        "summarize content",
+        "create a short video concept."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 4,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/gemini.yaml"
+    },
+    {
+      "key": "grok",
+      "service_id": "cbfe0ade-0b4e-4c42-83f4-3e2d5b429545",
+      "service_type": "Api",
+      "title": "Grok",
+      "description": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.",
+      "source_url": "https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545",
+      "icon": "icons/grok.png",
+      "operations": [
+        {
+          "api_id": "aff80c74-b190-445b-9124-6422ed763c50",
+          "path": "/grok/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/grok-chat-completions",
+          "operation_id": "post__grok_chat_completions",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c1c460c7-adc7-42c2-b7b0-d4bdfaa66222",
+          "path": "/grok/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/grok-videos",
+          "operation_id": "post__grok_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e517b391-fdc6-4a30-a05f-eb88cb4b0a63",
+          "path": "/grok/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/grok-tasks",
+          "operation_id": "post__grok_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Grok_Studio",
+      "brief": "Grok chat and video creation",
+      "group": "Multimodal",
+      "scenarios": [
+        "Compare ideas",
+        "draft content",
+        "generate a promotional clip."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/grok.yaml"
+    },
+    {
+      "key": "veo",
+      "service_id": "73cd74ba-a1bd-4a12-8df6-11d64c38df14",
+      "service_type": "Api",
+      "title": "Veo Video Generation",
+      "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.",
+      "source_url": "https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14",
+      "icon": "icons/veo.png",
+      "operations": [
+        {
+          "api_id": "437a7558-7c5b-4341-9088-4a54443a78a4",
+          "path": "/veo/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/veo-tasks",
+          "operation_id": "post__veo_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "52a0fa83-3c78-4793-b45a-c1a5c869ae46",
+          "path": "/veo/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/veo-videos",
+          "operation_id": "post__veo_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Veo_Video",
+      "brief": "Veo video creation and result retrieval",
+      "group": "Video",
+      "scenarios": [
+        "Create a cinematic scene",
+        "animate a hero image",
+        "generate a clip from visual ingredients."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/veo.yaml"
+    },
+    {
+      "key": "humaneval",
+      "service_id": "a6e4cf85-2d3f-4351-9ea7-a519223f09b4",
+      "service_type": "Dataset",
+      "title": "HumanEval Dataset",
+      "description": "OpenAI HumanEval code generation benchmark dataset, containing 164 hand-written Python programming problems with function signatures, docstrings, and unit tests, the standard benchmark for evaluating code generation pass@k metrics.",
+      "source_url": "https://platform.acedata.cloud/services/a6e4cf85-2d3f-4351-9ea7-a519223f09b4",
+      "icon": "icons/humaneval.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "HumanEval Dataset",
+      "brief": "OpenAI HumanEval code generation benchmark dataset, containing 164 hand-written Python programming problems with function signatures, docstrings, and unit tests, the standard benchmark for evaluating code generation pass@k metrics.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "arc",
+      "service_id": "32d0775a-999b-41a4-9eee-89a9a414e4bd",
+      "service_type": "Dataset",
+      "title": "ARC Dataset",
+      "description": "AI2 Reasoning Challenge (ARC) dataset, containing 7,787 real grade-school science multiple-choice questions split into Easy and Challenge sets, a core benchmark for evaluating scientific reasoning in language models.",
+      "source_url": "https://platform.acedata.cloud/services/32d0775a-999b-41a4-9eee-89a9a414e4bd",
+      "icon": "icons/arc.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "ARC Dataset",
+      "brief": "AI2 Reasoning Challenge (ARC) dataset, containing 7,787 real grade-school science multiple-choice questions split into Easy and Challenge sets, a core benchmark for evaluating scientific reasoning in language models.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "winogrande",
+      "service_id": "81dd461b-7825-4bf6-8731-3aac4ba9b6d6",
+      "service_type": "Dataset",
+      "title": "WinoGrande Dataset",
+      "description": "WinoGrande large-scale commonsense coreference resolution dataset, containing 44,000 Winograd Schema-style fill-in-the-blank problems with adversarial filtering for quality, a key benchmark for commonsense reasoning.",
+      "source_url": "https://platform.acedata.cloud/services/81dd461b-7825-4bf6-8731-3aac4ba9b6d6",
+      "icon": "icons/winogrande.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "WinoGrande Dataset",
+      "brief": "WinoGrande large-scale commonsense coreference resolution dataset, containing 44,000 Winograd Schema-style fill-in-the-blank problems with adversarial filtering for quality, a key benchmark for commonsense reasoning.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "piqa",
+      "service_id": "c22fe2e4-f651-46d1-93d5-9d5f778844bf",
+      "service_type": "Dataset",
+      "title": "PIQA Dataset",
+      "description": "PIQA (Physical Intuition QA) dataset, containing approximately 21,000 binary-choice questions about everyday physical world interactions, testing language model understanding of physical commonsense.",
+      "source_url": "https://platform.acedata.cloud/services/c22fe2e4-f651-46d1-93d5-9d5f778844bf",
+      "icon": "icons/piqa.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "PIQA Dataset",
+      "brief": "PIQA (Physical Intuition QA) dataset, containing approximately 21,000 binary-choice questions about everyday physical world interactions, testing language model understanding of physical commonsense.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "copa",
+      "service_id": "84ef1997-df43-4259-99ce-3768a533b2bb",
+      "service_type": "Dataset",
+      "title": "COPA Dataset",
+      "description": "COPA (Choice of Plausible Alternatives) causal reasoning dataset, containing 1,000 binary-choice causal reasoning questions requiring selection of the most plausible cause or effect for a given premise.",
+      "source_url": "https://platform.acedata.cloud/services/84ef1997-df43-4259-99ce-3768a533b2bb",
+      "icon": "icons/copa.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "COPA Dataset",
+      "brief": "COPA (Choice of Plausible Alternatives) causal reasoning dataset, containing 1,000 binary-choice causal reasoning questions requiring selection of the most plausible cause or effect for a given premise.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "aichat",
+      "service_id": "b1fbcc32-e218-4253-9dc3-4fe600a1bfb9",
+      "service_type": "Api",
+      "title": "AI Dialogue",
+      "description": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.",
+      "source_url": "https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9",
+      "icon": "icons/aichat.png",
+      "operations": [
+        {
+          "api_id": "0df4b359-4170-482b-b9ff-e216d3cdf5bb",
+          "path": "/aichat2/skills",
+          "method": null,
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
+          "path": "/aichat/conversations",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/aichat-conversations",
+          "operation_id": "post__aichat_conversations",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "2c487855-791e-40a6-abf2-ba6e09933155",
+          "path": "/aichat2/ws/agent",
+          "method": "GET",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "3769e83e-88f8-4e2c-8f38-6bf20391b094",
+          "path": "/aichat2/conversations",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/aichat2-conversations",
+          "operation_id": "post__aichat2_conversations",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "4ca74b04-2e02-40ff-99b4-1092cf41a882",
+          "path": "/internal/scheduled-task",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "6e4d6f8e-3a60-488c-87bd-2e65aa1972c5",
+          "path": "/aichat2/artifacts",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "8d33b2db-90bf-49b1-b074-137cfb7ea8ad",
+          "path": "/v1/live/sessions",
+          "method": "GET",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-live",
+          "disposition": "adapter_or_console",
+          "reason": "Requires a live session transport; not a conventional JSON tool."
+        },
+        {
+          "api_id": "91ccb414-aa1f-4a05-bfbc-045ee29ebff7",
+          "path": "/aichat2/scheduled-tasks",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "927d623f-cc1c-4a36-a7d3-562a8edf7c72",
+          "path": "/aichat2/realtime",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "9bfe099e-6ef5-4f4d-99bc-e7098a659968",
+          "path": "/aichat2/memories",
+          "method": null,
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "c8eed50b-e51a-403d-b530-995649ef41ba",
+          "path": "/aichat2/agent",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "ca4bce86-209e-40c6-97d7-44f5d45e9c14",
+          "path": "/aichat2/mcp-servers",
+          "method": "POST",
+          "stage": "Production",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "dab47344-443e-4949-a131-207c1010349e",
+          "path": "/aichat2/connectors",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": false,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_AI_Dialogue",
+      "brief": "Multi-model conversations and history",
+      "group": "Chat",
+      "scenarios": [
+        "Build a writing assistant",
+        "run a structured conversation",
+        "retrieve a previous answer."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/aichat.yaml"
+    },
+    {
+      "key": "serp",
+      "service_id": "a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3",
+      "service_type": "Api",
+      "title": "Search Engine",
+      "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.",
+      "source_url": "https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3",
+      "icon": "icons/serp.png",
+      "operations": [
+        {
+          "api_id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",
+          "path": "/serp/google",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/serp-google",
+          "operation_id": "searchGoogle",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Google_Web_Search",
+      "brief": "Google search with sources and filters",
+      "group": "Search",
+      "scenarios": [
+        "Research current sources",
+        "find image references",
+        "collect localized search results."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "existing_draft_needs_full_update",
+      "validation": "partial_real_trial",
+      "schema": "plugins/serp.yaml"
+    },
+    {
+      "key": "iris",
+      "service_id": "8d7c69e6-b913-439c-b207-f1682c8e1655",
+      "service_type": "Dataset",
+      "title": "Iris Dataset",
+      "description": "Classic flower classification dataset with 150 samples across 3 species.",
+      "source_url": "https://platform.acedata.cloud/services/8d7c69e6-b913-439c-b207-f1682c8e1655",
+      "icon": "icons/iris.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Iris Dataset",
+      "brief": "Classic flower classification dataset with 150 samples across 3 species.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "fashion-mnist",
+      "service_id": "48060d4b-de8a-430e-8ae8-43a1379eb779",
+      "service_type": "Dataset",
+      "title": "Fashion-MNIST Dataset",
+      "description": "Zalando fashion article images - 70,000 28x28 grayscale images across 10 clothing categories, a modern MNIST replacement",
+      "source_url": "https://platform.acedata.cloud/services/48060d4b-de8a-430e-8ae8-43a1379eb779",
+      "icon": "icons/fashion-mnist.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Fashion-MNIST Dataset",
+      "brief": "Zalando fashion article images - 70,000 28x28 grayscale images across 10 clothing categories, a modern MNIST replacement",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "luma",
+      "service_id": "dff45a0d-2858-4936-8e2b-3d49c52aff11",
+      "service_type": "Api",
+      "title": "Luma Video Generation",
+      "description": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.",
+      "source_url": "https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11",
+      "icon": "icons/luma.png",
+      "operations": [
+        {
+          "api_id": "909282be-6f03-44ac-8d26-2e28080c0dfc",
+          "path": "/luma/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/luma-tasks",
+          "operation_id": "post__luma_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "94fc9028-5a9f-4875-aae4-38463bd30ac5",
+          "path": "/luma/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/luma-videos",
+          "operation_id": "post__luma_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Luma_Video",
+      "brief": "Luma video creation and extension",
+      "group": "Video",
+      "scenarios": [
+        "Animate a scene",
+        "extend an existing clip",
+        "make a looping visual."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/luma.yaml"
+    },
+    {
+      "key": "identity",
+      "service_id": "a0a76008-85ff-4c46-8db7-76481721b9fb",
+      "service_type": "Api",
+      "title": "Identity Authentication",
+      "description": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.",
+      "source_url": "https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb",
+      "icon": "icons/identity.png",
+      "operations": [
+        {
+          "api_id": "10455fc1-2399-40b4-b486-4a93812b4143",
+          "path": "/identity/idcard/check-1e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-idcard-check-1e",
+          "operation_id": "post__identity_idcard_check_1e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "34c42afe-f2ce-423f-8e19-dcf1ba650346",
+          "path": "/identity/phone/check-2e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-phone-check-2e",
+          "operation_id": "post__identity_phone_check_2e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "3a0d976c-69e9-4995-a249-91738d103c11",
+          "path": "/identity/bankcard/check-3e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-3e",
+          "operation_id": "post__identity_bankcard_check_3e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "5c98d0d5-729e-47e1-9719-d22b6b4efaf4",
+          "path": "/identity/bankcard/check-1e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-1e",
+          "operation_id": "post__identity_bankcard_check_1e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "5eb27329-8f0b-4e02-b8cc-54c7ba96633d",
+          "path": "/identity/idcard/ocr",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-idcard-ocr",
+          "operation_id": "post__identity_idcard_ocr",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "6e3c7e69-632f-4e59-b0bc-c0363ffe1c1f",
+          "path": "/identity/bankcard/check-2e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-2e",
+          "operation_id": "post__identity_bankcard_check_2e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "78e1cf92-2bde-4599-ac4c-75485130e548",
+          "path": "/identity/idcard/check-2e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-idcard-check-2e",
+          "operation_id": "post__identity_idcard_check_2e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e90adc40-95f0-418a-8fd5-6dec725a9f4f",
+          "path": "/identity/phone/check-1e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-phone-check-1e",
+          "operation_id": "post__identity_phone_check_1e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "efd09245-9092-426a-b721-9145a3c06e87",
+          "path": "/identity/bankcard/check-4e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-bankcard-check-4e",
+          "operation_id": "post__identity_bankcard_check_4e",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "f34e4918-4aaf-4a21-b007-25636b37cf2f",
+          "path": "/identity/phone/check-3e",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/identity-phone-check-3e",
+          "operation_id": "post__identity_phone_check_3e",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials.",
+        "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
+      ],
+      "name": "AceData_Identity_Checks",
+      "brief": "Identity, phone and bank-card verification",
+      "group": "Verification",
+      "scenarios": [
+        "Validate an approved test fixture",
+        "confirm input format",
+        "inspect an authorized verification result."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 10,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/identity.yaml"
+    },
+    {
+      "key": "seedance",
+      "service_id": "762c5fd0-a81e-4c59-b9fe-16bcffad7d4a",
+      "service_type": "Api",
+      "title": "ByteDance Seedance Video Generation",
+      "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.",
+      "source_url": "https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a",
+      "icon": "icons/seedance.png",
+      "operations": [
+        {
+          "api_id": "0083b874-4da6-40df-87e3-835b1300c1e8",
+          "path": "/seedance/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/seedance-videos",
+          "operation_id": "post__seedance_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c09d6a1b-3cca-4f7c-add3-8c14be60da3c",
+          "path": "/seedance/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/seedance-tasks",
+          "operation_id": "post__seedance_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Seedance_Video",
+      "brief": "Seedance multimodal video creation",
+      "group": "Video",
+      "scenarios": [
+        "Create a short storyboard",
+        "animate reference images",
+        "combine authorized multimodal references."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/seedance.yaml"
+    },
+    {
+      "key": "recaptcha",
+      "service_id": "485cc5ca-7f1e-48e5-944e-1fe82b4637e8",
+      "service_type": "Api",
+      "title": "Recaptcha verification code recognition service",
+      "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.",
+      "source_url": "https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8",
+      "icon": "icons/recaptcha.png",
+      "operations": [
+        {
+          "api_id": "59b4b2ac-5264-4c8b-a5f1-102f893e7275",
+          "path": "/captcha/token/recaptcha3",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-token-recaptcha3",
+          "operation_id": "post__captcha_token_recaptcha3",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "b9a02028-d438-48b7-99b2-5b2eaf368bad",
+          "path": "/captcha/token/recaptcha2",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-token-recaptcha2",
+          "operation_id": "post__captcha_token_recaptcha2",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "cadfc74b-e737-462a-8a04-5cbb1e18cbf6",
+          "path": "/captcha/recognition/recaptcha2",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-recognition-recaptcha2",
+          "operation_id": "post__captcha_recognition_recaptcha2",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+          "path": "/captcha/tasks",
+          "method": "POST",
+          "operation_id": "post__captcha_tasks",
+          "disposition": "schema_prepared",
+          "reason": "Shared public CAPTCHA task retrieval."
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials.",
+        "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
+      ],
+      "name": "AceData_reCAPTCHA_Tools",
+      "brief": "reCAPTCHA integration and recognition tools",
+      "group": "Verification",
+      "scenarios": [
+        "Test an owned site integration",
+        "inspect a controlled challenge result."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 4,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/recaptcha.yaml"
+    },
+    {
+      "key": "hcaptcha",
+      "service_id": "018c653e-4f1b-433f-82f9-732ef2767040",
+      "service_type": "Api",
+      "title": "hCaptcha verification code recognition service",
+      "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
+      "source_url": "https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040",
+      "icon": "icons/hcaptcha.png",
+      "operations": [
+        {
+          "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+          "path": "/captcha/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-tasks",
+          "operation_id": "post__captcha_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "149493b2-7e69-4b45-8423-0fb2c6c840dd",
+          "path": "/captcha/recognition/hcaptcha",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/recognition-hcaptcha-integration",
+          "operation_id": "post__captcha_recognition_hcaptcha",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a7b39afc-870f-4d33-b28e-ae853690b391",
+          "path": "/captcha/token/hcaptcha",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/captcha-token-hcaptcha",
+          "operation_id": "post__captcha_token_hcaptcha",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials.",
+        "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
+      ],
+      "name": "AceData_hCaptcha_Tools",
+      "brief": "hCaptcha integration and task retrieval",
+      "group": "Verification",
+      "scenarios": [
+        "Validate an owned integration",
+        "retrieve a submitted test task."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/hcaptcha.yaml"
+    },
+    {
+      "key": "wine-quality",
+      "service_id": "8cae881d-035c-427b-8085-84db5e11326a",
+      "service_type": "Dataset",
+      "title": "Wine Quality Dataset",
+      "description": "Portuguese Vinho Verde wine quality data with physicochemical properties and quality scores for red and white wines.",
+      "source_url": "https://platform.acedata.cloud/services/8cae881d-035c-427b-8085-84db5e11326a",
+      "icon": "icons/wine-quality.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Wine Quality Dataset",
+      "brief": "Portuguese Vinho Verde wine quality data with physicochemical properties and quality scores for red and white wines.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "qwen-image",
+      "service_id": "9a33d10b-9f5d-438f-9701-c34906a2d891",
+      "service_type": "Api",
+      "title": "Qwen Image",
+      "description": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.",
+      "source_url": "https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891",
+      "icon": "icons/qwen-image.png",
+      "operations": [
+        {
+          "api_id": "8fa89510-24bf-4e22-83ec-a27a016c10c5",
+          "path": "/qwen-image/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/qwen-image-tasks",
+          "operation_id": "post__qwen_image_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "d0b8a0b6-9471-4c53-aad2-290e68b2ebdb",
+          "path": "/qwen-image/images",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/qwen-image-images",
+          "operation_id": "post__qwen_image_images",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Qwen_Image_Studio",
+      "brief": "Qwen image generation and editing",
+      "group": "Image",
+      "scenarios": [
+        "Design a poster concept",
+        "edit product visuals",
+        "make consistent reference-based images."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/qwen-image.yaml"
+    },
+    {
+      "key": "shorturl",
+      "service_id": "349bfa75-d270-44e9-8188-9894e3b9512c",
+      "service_type": "Api",
+      "title": "Short link generation",
+      "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.",
+      "source_url": "https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c",
+      "icon": "icons/shorturl.png",
+      "operations": [
+        {
+          "api_id": "d57df7ea-e1ba-4873-905c-d4c072e40450",
+          "path": "/shorturl",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/shorturl",
+          "operation_id": "createShortLink",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Short_Links",
+      "brief": "Compact links for campaigns and sharing",
+      "group": "Utility",
+      "scenarios": [
+        "Shorten a campaign URL",
+        "share documentation",
+        "create a compact link in a workflow."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "existing_draft_needs_full_update",
+      "validation": "partial_real_trial",
+      "schema": "plugins/shorturl.yaml"
+    },
+    {
+      "key": "snli",
+      "service_id": "06ad1eb0-a547-4325-bb58-eb7b68d7d118",
+      "service_type": "Dataset",
+      "title": "SNLI Stanford Natural Language Inference Dataset",
+      "description": "SNLI is the first large-scale NLI dataset with 570K human-written English sentence pairs labeled as entailment, contradiction, or neutral, serving as a foundational benchmark in natural language inference.",
+      "source_url": "https://platform.acedata.cloud/services/06ad1eb0-a547-4325-bb58-eb7b68d7d118",
+      "icon": "icons/snli.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "SNLI Stanford Natural Language Inference Dataset",
+      "brief": "SNLI is the first large-scale NLI dataset with 570K human-written English sentence pairs labeled as entailment, contradiction, or neutral, serving as a foundational benchmark in natural language inference.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "webextrator",
+      "service_id": "38bebded-b12d-4c1c-9a91-cdaccdd71745",
+      "service_type": "Api",
+      "title": "WebExtrator Web Render & Extract",
+      "description": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.",
+      "source_url": "https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745",
+      "icon": "icons/webextrator.png",
+      "operations": [
+        {
+          "api_id": "4ab24fda-2140-476c-a190-91bde5f0baf4",
+          "path": "/webextrator/render",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/webextrator-render",
+          "operation_id": "post__webextrator_render",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c32c05d0-5f47-4b89-8458-9776aad4a8c4",
+          "path": "/webextrator/extract",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/webextrator-extract",
+          "operation_id": "post__webextrator_extract",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c9e67e77-d448-4a78-bdd1-91567e0a318a",
+          "path": "/webextrator/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/webextrator-tasks",
+          "operation_id": "post__webextrator_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Web_Extractor",
+      "brief": "Render pages and extract structured content",
+      "group": "Search",
+      "scenarios": [
+        "Read a public documentation page",
+        "extract an article",
+        "collect structured research material."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/webextrator.yaml"
+    },
+    {
+      "key": "wechat-bot",
+      "service_id": "bdbd9144-6deb-4ac6-a44b-dd3d748ac985",
+      "service_type": "Deployment",
+      "title": "WeChat Automation Bot Service",
+      "description": "A dedicated Windows WeChat instance, ready to deploy after purchasing a plan.",
+      "source_url": "https://platform.acedata.cloud/services/bdbd9144-6deb-4ac6-a44b-dd3d748ac985",
+      "icon": "icons/wechat-bot.png",
+      "operations": [
+        {
+          "api_id": "107cfbf3-0a51-577e-8718-50cccec3b09d",
+          "path": "/api/groups/remove",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "2131de0c-9681-574c-9516-5a289558ba5f",
+          "path": "/api/moments",
+          "method": "DELETE",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "2e9cd05d-6cd0-5875-897a-bdf18d471b96",
+          "path": "/api/conversations",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "301fe1ce-4f2f-58aa-8f44-435bffcb7539",
+          "path": "/api/contacts",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "3dfa2d6b-3be2-51e1-8340-490cdcb2edbf",
+          "path": "/ws",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "3f548a16-a66c-5446-843d-2c0de207b567",
+          "path": "/api/groups/invite",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "482bc8ae-4ba6-5aa3-b957-64e2ce9824c7",
+          "path": "/api/messages/poll",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "59b49803-e079-5ae3-9fb1-fe75215414c9",
+          "path": "/api/moments",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "6773fd59-7b37-58ae-94a4-8f2fa44999a5",
+          "path": "/api/groups",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "73bfd6c7-495e-5fb6-8495-aeb64865a52c",
+          "path": "/api/search",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "7f7b7673-03d7-52c8-bfb5-7ccd45c4b3fe",
+          "path": "/api/messages",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "8c1c65a5-cd08-52d5-a4ed-33295459fa31",
+          "path": "/api/auth/qr",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "96e9c0db-f935-5927-871c-e1dc87775f96",
+          "path": "/api/tasks/{task_id}",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "a16376ee-aa6e-57c3-b9b4-9954ce55cdbb",
+          "path": "/api/status",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "ac63d821-cc76-517e-8cd4-bb54f11abec8",
+          "path": "/api/account",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "c9591866-c70b-5e47-9ec9-6a8d5348b921",
+          "path": "/api/tasks",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "e1441f80-6059-5661-86b3-cef9ad014473",
+          "path": "/api/moments",
+          "method": "GET",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "ed1a3a0d-c1f9-5cb5-8c56-6951f4b7746f",
+          "path": "/api/groups/rename",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        },
+        {
+          "api_id": "fcddb76b-5dc4-534e-a073-dbad88410b74",
+          "path": "/api/messages/send",
+          "method": "POST",
+          "stage": "Alpha",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "guide_only"
+        }
+      ],
+      "blockers": [
+        "Requires a user-owned deployment URL and scoped authentication before functional plugin creation."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "WeChat Automation Bot Service",
+      "brief": "A dedicated Windows WeChat instance, ready to deploy after purchasing a plan.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "producer",
+      "service_id": "864a7efd-c7a3-4ad8-b372-ba8d64cdeda8",
+      "service_type": "Api",
+      "title": "Producer Music Generation",
+      "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.",
+      "source_url": "https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8",
+      "icon": "icons/producer.png",
+      "operations": [
+        {
+          "api_id": "01d96900-9f8c-41d7-814c-95c7a885ba61",
+          "path": "/producer/audios",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-audios",
+          "operation_id": "post__producer_audios",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "2f636fdb-faa4-4308-8cef-9258dd14fd90",
+          "path": "/producer/lyrics",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-lyrics",
+          "operation_id": "post__producer_lyrics",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "5e06cbdd-ba7d-456d-a211-e3f242adec82",
+          "path": "/producer/videos",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-videos",
+          "operation_id": "post__producer_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "91fcbb81-8bc9-4ed4-bdfa-0f296b2fec9d",
+          "path": "/producer/upload",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-upload",
+          "operation_id": "post__producer_upload",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e706d672-d7c9-4232-8652-0cf53219e7bf",
+          "path": "/producer/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-tasks",
+          "operation_id": "post__producer_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e7cad274-9c48-494c-b7e3-fc1556eea827",
+          "path": "/producer/wav",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/producer-wav",
+          "operation_id": "post__producer_wav",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Producer_Music_Studio",
+      "brief": "Songs, lyrics, stems and audio exports",
+      "group": "Music",
+      "scenarios": [
+        "Create background music",
+        "write lyrics",
+        "produce a variation of an authorized track."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 6,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/producer.yaml"
+    },
+    {
+      "key": "palmer-penguins",
+      "service_id": "5a21c2b0-6b57-42c2-ba52-cba9625f2084",
+      "service_type": "Dataset",
+      "title": "Palmer Penguins Dataset",
+      "description": "Palmer Penguins dataset, a modern alternative to Iris for data exploration and visualization teaching",
+      "source_url": "https://platform.acedata.cloud/services/5a21c2b0-6b57-42c2-ba52-cba9625f2084",
+      "icon": "icons/palmer-penguins.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Palmer Penguins Dataset",
+      "brief": "Palmer Penguins dataset, a modern alternative to Iris for data exploration and visualization teaching",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "gsm8k",
+      "service_id": "9eb023c8-c20d-4b57-bfa9-8bd234849866",
+      "service_type": "Dataset",
+      "title": "GSM8K Math Reasoning Dataset",
+      "description": "Grade school math reasoning benchmark by OpenAI with 17.6K problems and step-by-step solutions, a core benchmark for evaluating LLM math reasoning.",
+      "source_url": "https://platform.acedata.cloud/services/9eb023c8-c20d-4b57-bfa9-8bd234849866",
+      "icon": "icons/gsm8k.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "GSM8K Math Reasoning Dataset",
+      "brief": "Grade school math reasoning benchmark by OpenAI with 17.6K problems and step-by-step solutions, a core benchmark for evaluating LLM math reasoning.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "abalone",
+      "service_id": "cf0cf313-5bcf-45b0-a4d8-832f12dd383a",
+      "service_type": "Dataset",
+      "title": "Abalone Dataset",
+      "description": "Abalone dataset from UCI ML Repository for predicting abalone age from physical measurements",
+      "source_url": "https://platform.acedata.cloud/services/cf0cf313-5bcf-45b0-a4d8-832f12dd383a",
+      "icon": "icons/abalone.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Abalone Dataset",
+      "brief": "Abalone dataset from UCI ML Repository for predicting abalone age from physical measurements",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "bike-sharing",
+      "service_id": "381ffe36-77c3-48ce-8026-0ca6ed4a9dac",
+      "service_type": "Dataset",
+      "title": "Bike Sharing Dataset",
+      "description": "Bike sharing dataset from UCI ML Repository with hourly and daily rental counts plus weather features",
+      "source_url": "https://platform.acedata.cloud/services/381ffe36-77c3-48ce-8026-0ca6ed4a9dac",
+      "icon": "icons/bike-sharing.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Bike Sharing Dataset",
+      "brief": "Bike sharing dataset from UCI ML Repository with hourly and daily rental counts plus weather features",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "car-evaluation",
+      "service_id": "3f29f609-b0ee-4158-ad4b-806c58cd3c91",
+      "service_type": "Dataset",
+      "title": "Car Evaluation Dataset",
+      "description": "Car evaluation dataset from UCI ML Repository for multi-class classification of car acceptability",
+      "source_url": "https://platform.acedata.cloud/services/3f29f609-b0ee-4158-ad4b-806c58cd3c91",
+      "icon": "icons/car-evaluation.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Car Evaluation Dataset",
+      "brief": "Car evaluation dataset from UCI ML Repository for multi-class classification of car acceptability",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "nano-banana",
+      "service_id": "44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1",
+      "service_type": "Api",
+      "title": "Nano Banana Image Generation",
+      "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
+      "source_url": "https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1",
+      "icon": "icons/nano-banana.png",
+      "operations": [
+        {
+          "api_id": "72e9188b-99df-4e3a-85e4-8e3dbf389790",
+          "path": "/nano-banana/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/nano-banana-tasks",
+          "operation_id": "post__nano_banana_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "9d8a117e-31ca-4322-a0fd-1771296ec610",
+          "path": "/nano-banana/images",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/nano-banana-images",
+          "operation_id": "post__nano_banana_images",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Nano_Banana_Images",
+      "brief": "Nano Banana image creation and editing",
+      "group": "Image",
+      "scenarios": [
+        "Create product imagery",
+        "edit a scene",
+        "adapt a visual for social media."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/nano-banana.yaml"
+    },
+    {
+      "key": "wan",
+      "service_id": "f35a16da-726b-425f-96ba-bec7436cfc23",
+      "service_type": "Api",
+      "title": "Wan",
+      "description": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.",
+      "source_url": "https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23",
+      "icon": "icons/wan.png",
+      "operations": [
+        {
+          "api_id": "25e349c9-a490-4ae5-9a96-e5952d2dbcf7",
+          "path": "/wan/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/wan-tasks",
+          "operation_id": "post__wan_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "6a4ecdbf-b219-4505-8277-5ec4b1ac14f8",
+          "path": "/wan/videos",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/wan-videos",
+          "operation_id": "post__wan_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Wan_Video",
+      "brief": "Wan text, image and reference video",
+      "group": "Video",
+      "scenarios": [
+        "Make an advertising concept",
+        "animate an image",
+        "create a scene from authorized references."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/wan.yaml"
+    },
+    {
+      "key": "codex",
+      "service_id": "0177c7f4-06f2-4516-b1d7-8cc44bf57e57",
+      "service_type": "Agent",
+      "title": "Codex",
+      "description": "OpenAI's powerful coding agent",
+      "source_url": "https://platform.acedata.cloud/services/0177c7f4-06f2-4516-b1d7-8cc44bf57e57",
+      "icon": "icons/codex.png",
+      "operations": [],
+      "blockers": [
+        "A local developer client; provided through setup guidance rather than a hosted Coze tool."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Codex",
+      "brief": "OpenAI's powerful coding agent",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "dreamina",
+      "service_id": "dedd00ce-9697-44cf-8dfa-5302e001fea9",
+      "service_type": "Api",
+      "title": "Dreamina",
+      "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.",
+      "source_url": "https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9",
+      "icon": "icons/dreamina.png",
+      "operations": [
+        {
+          "api_id": "b35fd461-8da1-4aec-9e40-5e361ed26223",
+          "path": "/dreamina/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/dreamina-tasks",
+          "operation_id": "post__dreamina_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "b3880780-678f-4495-bda7-3a1ecf42781c",
+          "path": "/dreamina/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/dreamina-videos",
+          "operation_id": "post__dreamina_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Dreamina_Avatar",
+      "brief": "Animate a portrait with an audio track",
+      "group": "Avatar",
+      "scenarios": [
+        "Animate your own presenter portrait",
+        "make a narrated explainer",
+        "localize an authorized avatar clip."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/dreamina.yaml"
+    },
+    {
+      "key": "suno",
+      "service_id": "f2b646d8-3cfd-46ef-969a-1ea9eebde329",
+      "service_type": "Api",
+      "title": "Suno Music Generation",
+      "description": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.",
+      "source_url": "https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329",
+      "icon": "icons/suno.png",
+      "operations": [
+        {
+          "api_id": "09a26295-5972-4392-9318-dcd9b218f90d",
+          "path": "/suno/audios",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-audios",
+          "operation_id": "post__suno_audios",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84",
+          "path": "/suno/voices",
+          "method": "POST",
+          "stage": "Alpha",
+          "docs": "https://platform.acedata.cloud/documents/suno-voices",
+          "operation_id": "post__suno_voices",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "2e4c9e30-a793-4f43-9322-d682120ffff2",
+          "path": "/suno/mp4",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-mp4",
+          "operation_id": "post__suno_mp4",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "32141b95-043f-5845-b832-77c32ddd6fa6",
+          "path": "/suno/mp3",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-mp3",
+          "operation_id": "post__suno_mp3",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "3620cff3-7d18-4e16-aeac-72abafdf8a81",
+          "path": "/suno/custom-models",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/suno-custom-models",
+          "operation_id": "post__suno_custom_models",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "8823cd83-54f6-4ea8-979a-7fa448577186",
+          "path": "/suno/upload",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-upload",
+          "operation_id": "post__suno_upload",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a8d46e2d-a042-4321-ab97-a5ab1d7fed5e",
+          "path": "/suno/vox",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-vox",
+          "operation_id": "post__suno_vox",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "be1de4f0-b5f5-43dc-bc7a-d2f90b2efe9c",
+          "path": "/suno/midi",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/suno-midi",
+          "operation_id": "post__suno_midi",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+          "path": "/suno/persona",
+          "method": "GET",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-persona",
+          "operation_id": "get__suno_persona",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+          "path": "/suno/persona",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-persona",
+          "operation_id": "post__suno_persona",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+          "path": "/suno/persona",
+          "method": "DELETE",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-persona",
+          "disposition": "adapter_or_console",
+          "reason": "Destructive management operation; use the account console."
+        },
+        {
+          "api_id": "c98fe4e5-73c0-462d-ad24-5080ee1fa01a",
+          "path": "/suno/lyrics",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-lyrics",
+          "operation_id": "post__suno_lyrics",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "d4004774-4d0b-4aac-a8ea-be99627880e6",
+          "path": "/suno/wav",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-wav",
+          "operation_id": "post__suno_wav",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "da474a4e-f32a-41dc-b2fe-59cc5cea5c32",
+          "path": "/suno/timing",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-timing",
+          "operation_id": "post__suno_timing",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e0ffe8d7-c6dd-4b46-93d9-5fa6c744310c",
+          "path": "/suno/mashup-lyrics",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-mashup-lyrics",
+          "operation_id": "post__suno_mashup_lyrics",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "e5ff24c0-ae4e-46bb-93db-2d678610a8d3",
+          "path": "/suno/style",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-style",
+          "operation_id": "post__suno_style",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "ea455d55-7129-44ae-80a3-bf71aae074d8",
+          "path": "/suno/projects",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/suno-projects",
+          "operation_id": "post__suno_projects",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "f1143f0b-8146-4fc0-b02c-ac8db969392d",
+          "path": "/suno/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/suno-tasks",
+          "operation_id": "post__suno_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Suno_Music_Studio",
+      "brief": "Suno songs, lyrics and music production",
+      "group": "Music",
+      "scenarios": [
+        "Make background music",
+        "develop a song from lyrics",
+        "assemble and export a multi-track project."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 17,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/suno.yaml"
+    },
+    {
+      "key": "digitalhuman",
+      "service_id": "5b132265-40e8-4a79-9582-589f8eea4733",
+      "service_type": "Api",
+      "title": "Digital Human",
+      "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.",
+      "source_url": "https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733",
+      "icon": "icons/digitalhuman.png",
+      "operations": [
+        {
+          "api_id": "5ced04db-8d92-4a6b-b988-91423dcc1f02",
+          "path": "/digital-human/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/digitalhuman-videos",
+          "operation_id": "post__digital_human_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "74bb973d-939a-4a6e-89f4-1667deb8ea3b",
+          "path": "/digital-human/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/digitalhuman-tasks",
+          "operation_id": "post__digital_human_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "c334172a-a0b1-451f-8137-d9c9830a15b9",
+          "path": "/digital-human/voices",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/digitalhuman-voices",
+          "operation_id": "post__digital_human_voices",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Digital_Human_Studio",
+      "brief": "Talking avatars, voice and video tools",
+      "group": "Avatar",
+      "scenarios": [
+        "Make a presenter explainer",
+        "animate your own portrait",
+        "generate an authorized voice-led video."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/digitalhuman.yaml"
+    },
+    {
+      "key": "happyhorse",
+      "service_id": "9cd79226-f638-4979-9573-212328a65a31",
+      "service_type": "Api",
+      "title": "HappyHorse Video",
+      "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.",
+      "source_url": "https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31",
+      "icon": "icons/happyhorse.png",
+      "operations": [
+        {
+          "api_id": "4fedc9b2-45d7-4e8f-8ce4-8f00ae31c78a",
+          "path": "/happyhorse/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/happyhorse-tasks",
+          "operation_id": "post__happyhorse_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "d656e357-50cb-4390-b8c9-67464bc2a2f2",
+          "path": "/happyhorse/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/happyhorse-videos",
+          "operation_id": "post__happyhorse_videos",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_HappyHorse_Video",
+      "brief": "HappyHorse video generation and editing",
+      "group": "Video",
+      "scenarios": [
+        "Draft an ad scene",
+        "animate a product visual",
+        "edit an authorized clip."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/happyhorse.yaml"
+    },
+    {
+      "key": "hacker-news",
+      "service_id": "b673f806-cf79-544f-8ab9-544445d11252",
+      "service_type": "Dataset",
+      "title": "Hacker News Posts & Comments",
+      "description": "Technology, startup and AI discussions with post-to-comment relationships for retrieval and conversation research.",
+      "source_url": "https://platform.acedata.cloud/services/b673f806-cf79-544f-8ab9-544445d11252",
+      "icon": "icons/hacker-news.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Hacker News Posts & Comments",
+      "brief": "Technology, startup and AI discussions with post-to-comment relationships for retrieval and conversation research.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "nature-papers",
+      "service_id": "b6c8e385-e573-5dca-9299-934532b63d38",
+      "service_type": "Dataset",
+      "title": "Nature Journal Literature",
+      "description": "Nature literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "source_url": "https://platform.acedata.cloud/services/b6c8e385-e573-5dca-9299-934532b63d38",
+      "icon": "icons/nature-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Nature Journal Literature",
+      "brief": "Nature literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "science-papers",
+      "service_id": "fa93c117-fab1-59cf-b958-80cd08a554cd",
+      "service_type": "Dataset",
+      "title": "Science Journal Literature",
+      "description": "Science literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "source_url": "https://platform.acedata.cloud/services/fa93c117-fab1-59cf-b958-80cd08a554cd",
+      "icon": "icons/science-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Science Journal Literature",
+      "brief": "Science literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "cell-press-papers",
+      "service_id": "335614ee-b2ef-54dc-bffb-00266023e896",
+      "service_type": "Dataset",
+      "title": "Cell Press Journal Literature",
+      "description": "Cell Press literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "source_url": "https://platform.acedata.cloud/services/335614ee-b2ef-54dc-bffb-00266023e896",
+      "icon": "icons/cell-press-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Cell Press Journal Literature",
+      "brief": "Cell Press literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "stackoverflow",
+      "service_id": "18bf2be7-3f2a-512d-8c70-ca6db8c3d85b",
+      "service_type": "Dataset",
+      "title": "Stack Overflow Technical Q&A",
+      "description": "Programming questions, code snippets and discussions, scoped by technology, tags and question type.",
+      "source_url": "https://platform.acedata.cloud/services/18bf2be7-3f2a-512d-8c70-ca6db8c3d85b",
+      "icon": "icons/stackoverflow.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Stack Overflow Technical Q&A",
+      "brief": "Programming questions, code snippets and discussions, scoped by technology, tags and question type.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "kling",
+      "service_id": "3369e077-2500-4263-86c7-cae0f0e7e843",
+      "service_type": "Api",
+      "title": "Kling video generation",
+      "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.",
+      "source_url": "https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843",
+      "icon": "icons/kling.png",
+      "operations": [
+        {
+          "api_id": "1daf8204-7306-4c54-8014-a00c5996cbfe",
+          "path": "/kling/talking-photo",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/kling-talking-photo",
+          "operation_id": "post__kling_talking_photo",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "29187cb2-1acb-43b8-baf5-3f3f709292eb",
+          "path": "/kling/videos",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/kling-videos",
+          "operation_id": "post__kling_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "2c26cb33-46ac-4bd7-82f9-0ec63e688172",
+          "path": "/kling/motion",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/kling-motion",
+          "operation_id": "post__kling_motion",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a8b06673-3565-4989-b6be-bd638f72eadb",
+          "path": "/kling/lip-sync",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/kling-lip-sync",
+          "operation_id": "post__kling_lip_sync",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "ad648b8c-ae07-5852-a9c5-c0fcda578908",
+          "path": "/kling/video-commerce",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/kling-video-commerce",
+          "operation_id": "post__kling_video_commerce",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "f11ce529-5303-4913-8b9a-7146aa5d7016",
+          "path": "/kling/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/kling-tasks",
+          "operation_id": "post__kling_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "f60184f9-3174-5d54-8b97-5b2e6d3753a5",
+          "path": "/kling/goods-studio",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/kling-goods-studio",
+          "operation_id": "post__kling_goods_studio",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Kling_Video_Studio",
+      "brief": "Kling video, motion and commerce tools",
+      "group": "Video",
+      "scenarios": [
+        "Create a product spot",
+        "animate a talking portrait",
+        "control movement from an authorized reference."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 7,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/kling.yaml"
+    },
+    {
+      "key": "asmr",
+      "service_id": "9316b90f-07ae-5c3e-917b-7b63fddf1bfd",
+      "service_type": "Dataset",
+      "title": "ASMR Scene Audio",
+      "description": "ASMR audio and descriptive metadata for studies of timbre, acoustic effects and environmental sound.",
+      "source_url": "https://platform.acedata.cloud/services/9316b90f-07ae-5c3e-917b-7b63fddf1bfd",
+      "icon": "icons/asmr.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "ASMR Scene Audio",
+      "brief": "ASMR audio and descriptive metadata for studies of timbre, acoustic effects and environmental sound.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "mushroom",
+      "service_id": "9811ae34-dd50-4d66-8146-006baf7e1a7d",
+      "service_type": "Dataset",
+      "title": "Mushroom Dataset",
+      "description": "Mushroom classification dataset from UCI ML Repository for distinguishing edible vs poisonous mushrooms",
+      "source_url": "https://platform.acedata.cloud/services/9811ae34-dd50-4d66-8146-006baf7e1a7d",
+      "icon": "icons/mushroom.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Mushroom Dataset",
+      "brief": "Mushroom classification dataset from UCI ML Repository for distinguishing edible vs poisonous mushrooms",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "localization",
+      "service_id": "bd4eaf26-4efe-4904-a045-8b83ed56f885",
+      "service_type": "Api",
+      "title": "Localization translation",
+      "description": "Translate localization content into a target locale while specifying the source format. Review the returned translation before release.",
+      "source_url": "https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885",
+      "icon": "icons/localization.png",
+      "operations": [
+        {
+          "api_id": "f7322d41-51dc-48b2-8584-dabc632b5031",
+          "path": "/localization/translate",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/localization-translate",
+          "operation_id": "post__localization_translate",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Localization_Tools",
+      "brief": "Translate structured localization files",
+      "group": "Utility",
+      "scenarios": [
+        "Translate application strings",
+        "localize structured copy",
+        "prepare a second-language resource file."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/localization.yaml"
+    },
+    {
+      "key": "chegg",
+      "service_id": "410bcbb7-9019-5cfc-9bd6-7ade4cbb85b4",
+      "service_type": "Dataset",
+      "title": "Chegg English Questions & Solutions",
+      "description": "English STEM and general-subject questions, answers and explanations with formulas, images and multiple answer structures for educational Q&A evaluation.",
+      "source_url": "https://platform.acedata.cloud/services/410bcbb7-9019-5cfc-9bd6-7ade4cbb85b4",
+      "icon": "icons/chegg.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Chegg English Questions & Solutions",
+      "brief": "English STEM and general-subject questions, answers and explanations with formulas, images and multiple answer structures for educational Q&A evaluation.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "brainly",
+      "service_id": "24bd1cab-b6fe-5d7b-9058-46c2ccc55b79",
+      "service_type": "Dataset",
+      "title": "Brainly Subject Q&A",
+      "description": "Questions with grade, subject, answer lists, best answers and image information, selectable by educational stage and subject.",
+      "source_url": "https://platform.acedata.cloud/services/24bd1cab-b6fe-5d7b-9058-46c2ccc55b79",
+      "icon": "icons/brainly.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Brainly Subject Q&A",
+      "brief": "Questions with grade, subject, answer lists, best answers and image information, selectable by educational stage and subject.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "quizlet",
+      "service_id": "eab68df9-08b0-5fbc-bb34-5a74ac63f5df",
+      "service_type": "Dataset",
+      "title": "Quizlet English Study Cards",
+      "description": "Study cards containing questions, definitions, options and answers with subject labels, for bidirectional Q&A and card retrieval tasks.",
+      "source_url": "https://platform.acedata.cloud/services/eab68df9-08b0-5fbc-bb34-5a74ac63f5df",
+      "icon": "icons/quizlet.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Quizlet English Study Cards",
+      "brief": "Study cards containing questions, definitions, options and answers with subject labels, for bidirectional Q&A and card retrieval tasks.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "sketchfab-3d",
+      "service_id": "a5ece472-cf63-540d-a6e4-091b2ae43c0e",
+      "service_type": "Dataset",
+      "title": "Sketchfab 3D Models",
+      "description": "GLB models with descriptive metadata across characters, animals, architecture and vehicles, selectable by category and geometry complexity.",
+      "source_url": "https://platform.acedata.cloud/services/a5ece472-cf63-540d-a6e4-091b2ae43c0e",
+      "icon": "icons/sketchfab-3d.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Sketchfab 3D Models",
+      "brief": "GLB models with descriptive metadata across characters, animals, architecture and vehicles, selectable by category and geometry complexity.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "flickr",
+      "service_id": "33cbd26b-3297-5b2b-979e-d709c5fa7169",
+      "service_type": "Dataset",
+      "title": "Flickr Images & Text Descriptions",
+      "description": "Images, short descriptions, tags, resolution and EXIF metadata across landscapes, people and everyday scenes.",
+      "source_url": "https://platform.acedata.cloud/services/33cbd26b-3297-5b2b-979e-d709c5fa7169",
+      "icon": "icons/flickr.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Flickr Images & Text Descriptions",
+      "brief": "Images, short descriptions, tags, resolution and EXIF metadata across landscapes, people and everyday scenes.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "chinese-k12",
+      "service_id": "08632091-db27-56d8-b32a-fbf6e5a320b1",
+      "service_type": "Dataset",
+      "title": "Chinese K12 Questions & Answers",
+      "description": "Chinese text-only primary, middle and high-school questions, options and answers across subjects; some records include explanations.",
+      "source_url": "https://platform.acedata.cloud/services/08632091-db27-56d8-b32a-fbf6e5a320b1",
+      "icon": "icons/chinese-k12.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Chinese K12 Questions & Answers",
+      "brief": "Chinese text-only primary, middle and high-school questions, options and answers across subjects; some records include explanations.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "english-step-solutions",
+      "service_id": "720e7d76-b15c-58ac-b0f1-0743fbf55c4d",
+      "service_type": "Dataset",
+      "title": "English Step-by-Step Solutions",
+      "description": "English questions, multiple solution steps and final answers. Supplied question and step screenshots support evaluation of solution processes.",
+      "source_url": "https://platform.acedata.cloud/services/720e7d76-b15c-58ac-b0f1-0743fbf55c4d",
+      "icon": "icons/english-step-solutions.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "English Step-by-Step Solutions",
+      "brief": "English questions, multiple solution steps and final answers. Supplied question and step screenshots support evaluation of solution processes.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "youtube-podcasts",
+      "service_id": "04e5ccff-2bbd-5bc6-89f3-da7a02c29327",
+      "service_type": "Dataset",
+      "title": "YouTube Video Podcasts",
+      "description": "Podcast programs and playlists in video or audio form, selectable by channel, keywords and language.",
+      "source_url": "https://platform.acedata.cloud/services/04e5ccff-2bbd-5bc6-89f3-da7a02c29327",
+      "icon": "icons/youtube-podcasts.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "YouTube Video Podcasts",
+      "brief": "Podcast programs and playlists in video or audio form, selectable by channel, keywords and language.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "international-papers",
+      "service_id": "4f8c9558-1892-5769-8eb5-daefba0771cf",
+      "service_type": "Dataset",
+      "title": "International Academic Literature",
+      "description": "Multidisciplinary international journal literature with DOI, author, journal and year metadata for bibliographic and document tasks.",
+      "source_url": "https://platform.acedata.cloud/services/4f8c9558-1892-5769-8eb5-daefba0771cf",
+      "icon": "icons/international-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "International Academic Literature",
+      "brief": "Multidisciplinary international journal literature with DOI, author, journal and year metadata for bibliographic and document tasks.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "sciencedirect-papers",
+      "service_id": "ad339c38-422c-5b55-a2b5-797b748c6254",
+      "service_type": "Dataset",
+      "title": "ScienceDirect Academic Literature",
+      "description": "Science, technology and medicine journal literature, book chapters and bibliographic metadata, scoped by subject, journal, year and DOI.",
+      "source_url": "https://platform.acedata.cloud/services/ad339c38-422c-5b55-a2b5-797b748c6254",
+      "icon": "icons/sciencedirect-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "ScienceDirect Academic Literature",
+      "brief": "Science, technology and medicine journal literature, book chapters and bibliographic metadata, scoped by subject, journal, year and DOI.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "ncbi-papers",
+      "service_id": "11c0d392-291b-5908-bc0c-2db3a735d0c9",
+      "service_type": "Dataset",
+      "title": "NCBI Biomedical Literature",
+      "description": "Biomedical and interdisciplinary literature with bibliographic metadata, selectable by DOI, journal and publication year.",
+      "source_url": "https://platform.acedata.cloud/services/11c0d392-291b-5908-bc0c-2db3a735d0c9",
+      "icon": "icons/ncbi-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "NCBI Biomedical Literature",
+      "brief": "Biomedical and interdisciplinary literature with bibliographic metadata, selectable by DOI, journal and publication year.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "overseas-theses",
+      "service_id": "4f7c173e-4f42-5d5e-842f-5abbef67bd4b",
+      "service_type": "Dataset",
+      "title": "Overseas University Theses",
+      "description": "Overseas university thesis PDFs with university, degree, language and year metadata for long-document retrieval and academic research.",
+      "source_url": "https://platform.acedata.cloud/services/4f7c173e-4f42-5d5e-842f-5abbef67bd4b",
+      "icon": "icons/overseas-theses.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Overseas University Theses",
+      "brief": "Overseas university thesis PDFs with university, degree, language and year metadata for long-document retrieval and academic research.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "chinese-medical-papers",
+      "service_id": "f8510c50-9db2-5bb3-b397-9563adfa33dc",
+      "service_type": "Dataset",
+      "title": "Chinese Medical Journal Literature",
+      "description": "Chinese medical journal literature with title, author, DOI, journal, year and MD5 metadata for retrieval and knowledge organization.",
+      "source_url": "https://platform.acedata.cloud/services/f8510c50-9db2-5bb3-b397-9563adfa33dc",
+      "icon": "icons/chinese-medical-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "Chinese Medical Journal Literature",
+      "brief": "Chinese medical journal literature with title, author, DOI, journal, year and MD5 metadata for retrieval and knowledge organization.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "omol25",
+      "service_id": "4bfbe7dd-3cd6-5e6b-9f32-79e5aa58fdab",
+      "service_type": "Dataset",
+      "title": "OMol25 Molecular Quantum Chemistry",
+      "description": "Open Molecules 2025 quantum-chemistry data covering organic/inorganic molecules, transition-metal complexes and electrolytes, labeled with total energies and atomic forces.",
+      "source_url": "https://platform.acedata.cloud/services/4bfbe7dd-3cd6-5e6b-9f32-79e5aa58fdab",
+      "icon": "icons/omol25.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "OMol25 Molecular Quantum Chemistry",
+      "brief": "Open Molecules 2025 quantum-chemistry data covering organic/inorganic molecules, transition-metal complexes and electrolytes, labeled with total energies and atomic forces.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "arxiv-papers",
+      "service_id": "19b39ea6-f1a5-5849-8135-8f70c7e99bf6",
+      "service_type": "Dataset",
+      "title": "arXiv Preprint Literature",
+      "description": "arXiv literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "source_url": "https://platform.acedata.cloud/services/19b39ea6-f1a5-5849-8135-8f70c7e99bf6",
+      "icon": "icons/arxiv-papers.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "arXiv Preprint Literature",
+      "brief": "arXiv literature and bibliography organization, scoped by research field, publication year and document identifiers.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "mimic-research",
+      "service_id": "8d126aec-45ab-5fdf-b9a8-05d0096cf290",
+      "service_type": "Dataset",
+      "title": "MIMIC Research Access Consultation",
+      "description": "Consultation on MIMIC research access and usage. Each applicant must independently meet PhysioNet training, identity and agreement requirements.",
+      "source_url": "https://platform.acedata.cloud/services/8d126aec-45ab-5fdf-b9a8-05d0096cf290",
+      "icon": "icons/mimic-research.png",
+      "operations": [],
+      "blockers": [
+        "Catalog and acquisition guidance only; no public query API is declared."
+      ],
+      "delivery": "catalog_assistant",
+      "name": "MIMIC Research Access Consultation",
+      "brief": "Consultation on MIMIC research access and usage. Each applicant must independently meet PhysioNet training, identity and agreement requirements.",
+      "readiness": "guide_prepared"
+    },
+    {
+      "key": "fish",
+      "service_id": "caf99abc-ddcf-4714-b2a5-862d9b469509",
+      "service_type": "Api",
+      "title": "Fish voice generation",
+      "description": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.",
+      "source_url": "https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509",
+      "icon": "icons/fish.png",
+      "operations": [
+        {
+          "api_id": "0a2c983b-e20f-5926-a45f-07b61373617d",
+          "path": "/fish/model",
+          "method": "GET",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/fish-model-query",
+          "operation_id": "get__fish_model",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "70f84537-7c48-57d3-9a21-b2a4f55e8f31",
+          "path": "/fish/model/{id}",
+          "method": "GET",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/fish-model-get",
+          "operation_id": "get__fish_model_id",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "77adcb84-d59f-5ef9-b8a0-8b35eb42a71d",
+          "path": "/fish/tts",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/fish-tts",
+          "operation_id": "post__fish_tts",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "82dcabe9-b1a3-541f-80f1-decb183b920c",
+          "path": "/fish/model",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/fish-model",
+          "operation_id": "post__fish_model",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "fc541fac-a941-47fd-b6f7-48d6cb9da523",
+          "path": "/fish/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/fish-tasks",
+          "operation_id": "post__fish_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Fish_Voice_Studio",
+      "brief": "Text to speech and authorized voice tools",
+      "group": "Audio",
+      "scenarios": [
+        "Narrate an article",
+        "create a product voiceover",
+        "use your own licensed voice reference."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 5,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/fish.yaml"
+    },
+    {
+      "key": "minimax",
+      "service_id": "2add8a2a-3577-4a0f-8fd4-e08aaabe8290",
+      "service_type": "Api",
+      "title": "Minimax",
+      "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.",
+      "source_url": "https://platform.acedata.cloud/services/2add8a2a-3577-4a0f-8fd4-e08aaabe8290",
+      "icon": "icons/minimax.png",
+      "operations": [
+        {
+          "api_id": "64f22fd9-0efd-445e-b0b1-135682fd66d7",
+          "path": "/minimax/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/minimax-videos",
+          "operation_id": "post__minimax_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "8b5f8ebb-4137-5b1b-b58c-832414a8d0be",
+          "path": "/minimax/prompt-enhancement",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        },
+        {
+          "api_id": "d6cf922e-378b-4f83-8841-e911b597134a",
+          "path": "/minimax/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/minimax-tasks",
+          "operation_id": "post__minimax_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "dcccdf41-b57e-55fe-801e-de416167d729",
+          "path": "/minimax/regenerate",
+          "method": "POST",
+          "stage": "Beta",
+          "public_document": false,
+          "has_contract": true,
+          "disposition": "excluded",
+          "reason": "No current public API document and import contract."
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_MiniMax_Video",
+      "brief": "MiniMax video creation and task retrieval",
+      "group": "Video",
+      "scenarios": [
+        "Create a cinematic concept",
+        "animate reference content",
+        "produce a short commercial clip."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/minimax.yaml"
+    },
+    {
+      "key": "glm",
+      "service_id": "0c5b6cb3-79a7-473f-844f-7821553f2ca7",
+      "service_type": "Api",
+      "title": "GLM",
+      "description": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.",
+      "source_url": "https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7",
+      "icon": "icons/glm.png",
+      "operations": [
+        {
+          "api_id": "f0392e69-ad58-40b9-b28b-e1feee258603",
+          "path": "/glm/chat/completions",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/glm-chat-completions",
+          "operation_id": "post__glm_chat_completions",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_GLM_Assistant",
+      "brief": "GLM writing and reasoning",
+      "group": "Chat",
+      "scenarios": [
+        "Draft a report",
+        "summarize material",
+        "explain a technical problem."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 1,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/glm.yaml"
+    },
+    {
+      "key": "seedream",
+      "service_id": "a0a296f0-22de-422b-943d-1c623a73b8dd",
+      "service_type": "Api",
+      "title": "ByteDance Seedream Image Generation",
+      "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.",
+      "source_url": "https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd",
+      "icon": "icons/seedream.png",
+      "operations": [
+        {
+          "api_id": "86ad30f3-0bc8-4b9b-b019-b9fa5b05672e",
+          "path": "/seedream/images",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/seedream-images",
+          "operation_id": "generateImage",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "a89ab5c9-f956-42b5-a867-abb3d00d2f75",
+          "path": "/seedream/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/seedream-tasks",
+          "operation_id": "post__seedream_tasks",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Seedream_Images",
+      "brief": "Seedream product images and illustrations",
+      "group": "Image",
+      "scenarios": [
+        "Create catalog visuals",
+        "illustrate an article",
+        "prepare editable image layers."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 2,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "existing_draft_needs_full_update",
+      "validation": "partial_real_trial",
+      "schema": "plugins/seedream.yaml"
+    },
+    {
+      "key": "flux",
+      "service_id": "e8ebe055-429a-48e9-9d34-5089eae5fd89",
+      "service_type": "Api",
+      "title": "Flux",
+      "description": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.",
+      "source_url": "https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89",
+      "icon": "icons/flux.png",
+      "operations": [
+        {
+          "api_id": "4f36fc31-5a95-42ac-abfc-34670c40238c",
+          "path": "/flux/tasks",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/flux-tasks",
+          "operation_id": "post__flux_tasks",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "79bc5b19-5ae8-5931-8b9e-643165c02c64",
+          "path": "/flux/videos",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/flux-videos",
+          "operation_id": "post__flux_videos",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "deefc5d7-7f22-43e9-929e-f2b6afee60b7",
+          "path": "/flux/images",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/flux-images",
+          "operation_id": "generateImage",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "AceData_Flux_Creative_Studio",
+      "brief": "Flux image editing and video creation",
+      "group": "Multimodal",
+      "scenarios": [
+        "Create a product image",
+        "change its background",
+        "turn a scene into a video."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "workspace_v1_published_before_review_hold_store_not_submitted",
+      "validation": "partial_real_trial",
+      "schema": "plugins/flux.yaml"
+    }
+  ]
+}

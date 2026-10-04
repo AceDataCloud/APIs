@@ -1,0 +1,577 @@
+Ace Data Cloud public service guide
+Catalog date: 2026-10-05
+This is catalog guidance, not proof of Coze store publication.
+
+SERVICE: Reddit Posts & Comments
+TYPE: Dataset
+DESCRIPTION: Forum posts, comments and threaded replies, with subreddit and parent relationships for topic and content filtering.
+URL: https://platform.acedata.cloud/services/4150b899-a74a-4318-81dc-275fa1316bf9
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: DeepSeek AI
+TYPE: Api
+DESCRIPTION: Draft explanations, compare ideas and solve text reasoning tasks using the selected DeepSeek model.
+URL: https://platform.acedata.cloud/services/39324b7c-5e24-451d-a174-d47957c3380c
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Claude AI
+TYPE: Api
+DESCRIPTION: Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.
+URL: https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Maestro AI Video Studio
+TYPE: Api
+DESCRIPTION: Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.
+URL: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Cloudflare Turnstile Captcha Service
+TYPE: Api
+DESCRIPTION: Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.
+URL: https://platform.acedata.cloud/services/0b86c601-dcc4-4494-8259-00a2b88763d7
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Discord Agent Proxy
+TYPE: Deployment
+DESCRIPTION: Deploy your own Discord account proxy: let an AI act as you over MCP / REST — send/read messages, manage channels.
+URL: https://platform.acedata.cloud/services/40f2bcbf-2efb-40c5-b67a-02194821847b
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: Claude Code
+TYPE: Agent
+DESCRIPTION: One of the world's strongest programming agents
+URL: https://platform.acedata.cloud/services/158c5af4-87b5-4951-96e2-8e94984c9a59
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Recognition of English numerical verification codes
+TYPE: Api
+DESCRIPTION: Recognize letters and numbers in verification images for authorized testing workflows.
+URL: https://platform.acedata.cloud/services/2aaa7faf-099e-410e-82f3-8d78170f25bb
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: YouTube Themed Audio & Video
+TYPE: Dataset
+DESCRIPTION: Audio/video and metadata organized around selected videos, channels or dataset lists, configurable by quality, duration and topic.
+URL: https://platform.acedata.cloud/services/30d64398-9368-46f2-8377-1416c9fc0cbc
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Spotify English Podcast Audio
+TYPE: Dataset
+DESCRIPTION: English podcast recordings with title, description, language and duration metadata for long-form speech understanding and retrieval.
+URL: https://platform.acedata.cloud/services/5b7e2520-5fb3-4c1e-bcf3-940234d94b0e
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Audible English Audiobooks
+TYPE: Dataset
+DESCRIPTION: Human-narrated English audiobooks with work, author, narrator and genre metadata for long-form speech and narrative evaluation.
+URL: https://platform.acedata.cloud/services/f3bd0f1f-4bc8-4726-aaa3-8c8694826bff
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Kimi
+TYPE: Api
+DESCRIPTION: Use Kimi models to draft, reason about and summarize text in an agent or workflow.
+URL: https://platform.acedata.cloud/services/7ef9ec1d-f0fb-453c-be72-36d5124e5aa1
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Hailuo Video Generation
+TYPE: Api
+DESCRIPTION: Create Hailuo clips from text or an image and follow the task through to its final video URL.
+URL: https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Telegram Account Proxy
+TYPE: Deployment
+DESCRIPTION: Deploy a private personal Telegram account proxy, authorize it by QR code, and let AI read or send messages over MCP / REST.
+URL: https://platform.acedata.cloud/services/6ff3eb91-7cb8-4f56-9c69-2c7083c01448
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: OpenAI generation
+TYPE: Api
+DESCRIPTION: Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.
+URL: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Coding Plan
+TYPE: Agent
+DESCRIPTION: One plan unlocks the complete Claude, GPT/Codex, GLM, Kimi, and DeepSeek coding fleet
+URL: https://platform.acedata.cloud/services/c0d1a9a0-0000-4000-8000-000000000001
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Gemini AI
+TYPE: Api
+DESCRIPTION: Use Gemini chat and native content requests, or create a video and retrieve its completed result.
+URL: https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Grok
+TYPE: Api
+DESCRIPTION: Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.
+URL: https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Veo Video Generation
+TYPE: Api
+DESCRIPTION: Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.
+URL: https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: HumanEval Dataset
+TYPE: Dataset
+DESCRIPTION: OpenAI HumanEval code generation benchmark dataset, containing 164 hand-written Python programming problems with function signatures, docstrings, and unit tests, the standard benchmark for evaluating code generation pass@k metrics.
+URL: https://platform.acedata.cloud/services/a6e4cf85-2d3f-4351-9ea7-a519223f09b4
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: ARC Dataset
+TYPE: Dataset
+DESCRIPTION: AI2 Reasoning Challenge (ARC) dataset, containing 7,787 real grade-school science multiple-choice questions split into Easy and Challenge sets, a core benchmark for evaluating scientific reasoning in language models.
+URL: https://platform.acedata.cloud/services/32d0775a-999b-41a4-9eee-89a9a414e4bd
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: WinoGrande Dataset
+TYPE: Dataset
+DESCRIPTION: WinoGrande large-scale commonsense coreference resolution dataset, containing 44,000 Winograd Schema-style fill-in-the-blank problems with adversarial filtering for quality, a key benchmark for commonsense reasoning.
+URL: https://platform.acedata.cloud/services/81dd461b-7825-4bf6-8731-3aac4ba9b6d6
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: PIQA Dataset
+TYPE: Dataset
+DESCRIPTION: PIQA (Physical Intuition QA) dataset, containing approximately 21,000 binary-choice questions about everyday physical world interactions, testing language model understanding of physical commonsense.
+URL: https://platform.acedata.cloud/services/c22fe2e4-f651-46d1-93d5-9d5f778844bf
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: COPA Dataset
+TYPE: Dataset
+DESCRIPTION: COPA (Choice of Plausible Alternatives) causal reasoning dataset, containing 1,000 binary-choice causal reasoning questions requiring selection of the most plausible cause or effect for a given premise.
+URL: https://platform.acedata.cloud/services/84ef1997-df43-4259-99ce-3768a533b2bb
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: AI Dialogue
+TYPE: Api
+DESCRIPTION: Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.
+URL: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Search Engine
+TYPE: Api
+DESCRIPTION: Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.
+URL: https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Iris Dataset
+TYPE: Dataset
+DESCRIPTION: Classic flower classification dataset with 150 samples across 3 species.
+URL: https://platform.acedata.cloud/services/8d7c69e6-b913-439c-b207-f1682c8e1655
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Fashion-MNIST Dataset
+TYPE: Dataset
+DESCRIPTION: Zalando fashion article images - 70,000 28x28 grayscale images across 10 clothing categories, a modern MNIST replacement
+URL: https://platform.acedata.cloud/services/48060d4b-de8a-430e-8ae8-43a1379eb779
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Luma Video Generation
+TYPE: Api
+DESCRIPTION: Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.
+URL: https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Identity Authentication
+TYPE: Api
+DESCRIPTION: Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.
+URL: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: ByteDance Seedance Video Generation
+TYPE: Api
+DESCRIPTION: Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.
+URL: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Recaptcha verification code recognition service
+TYPE: Api
+DESCRIPTION: Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.
+URL: https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: hCaptcha verification code recognition service
+TYPE: Api
+DESCRIPTION: Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.
+URL: https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Wine Quality Dataset
+TYPE: Dataset
+DESCRIPTION: Portuguese Vinho Verde wine quality data with physicochemical properties and quality scores for red and white wines.
+URL: https://platform.acedata.cloud/services/8cae881d-035c-427b-8085-84db5e11326a
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Qwen Image
+TYPE: Api
+DESCRIPTION: Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.
+URL: https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Short link generation
+TYPE: Api
+DESCRIPTION: Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.
+URL: https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: SNLI Stanford Natural Language Inference Dataset
+TYPE: Dataset
+DESCRIPTION: SNLI is the first large-scale NLI dataset with 570K human-written English sentence pairs labeled as entailment, contradiction, or neutral, serving as a foundational benchmark in natural language inference.
+URL: https://platform.acedata.cloud/services/06ad1eb0-a547-4325-bb58-eb7b68d7d118
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: WebExtrator Web Render & Extract
+TYPE: Api
+DESCRIPTION: Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.
+URL: https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: WeChat Automation Bot Service
+TYPE: Deployment
+DESCRIPTION: A dedicated Windows WeChat instance, ready to deploy after purchasing a plan.
+URL: https://platform.acedata.cloud/services/bdbd9144-6deb-4ac6-a44b-dd3d748ac985
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: Producer Music Generation
+TYPE: Api
+DESCRIPTION: Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.
+URL: https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Palmer Penguins Dataset
+TYPE: Dataset
+DESCRIPTION: Palmer Penguins dataset, a modern alternative to Iris for data exploration and visualization teaching
+URL: https://platform.acedata.cloud/services/5a21c2b0-6b57-42c2-ba52-cba9625f2084
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: GSM8K Math Reasoning Dataset
+TYPE: Dataset
+DESCRIPTION: Grade school math reasoning benchmark by OpenAI with 17.6K problems and step-by-step solutions, a core benchmark for evaluating LLM math reasoning.
+URL: https://platform.acedata.cloud/services/9eb023c8-c20d-4b57-bfa9-8bd234849866
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Abalone Dataset
+TYPE: Dataset
+DESCRIPTION: Abalone dataset from UCI ML Repository for predicting abalone age from physical measurements
+URL: https://platform.acedata.cloud/services/cf0cf313-5bcf-45b0-a4d8-832f12dd383a
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Bike Sharing Dataset
+TYPE: Dataset
+DESCRIPTION: Bike sharing dataset from UCI ML Repository with hourly and daily rental counts plus weather features
+URL: https://platform.acedata.cloud/services/381ffe36-77c3-48ce-8026-0ca6ed4a9dac
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Car Evaluation Dataset
+TYPE: Dataset
+DESCRIPTION: Car evaluation dataset from UCI ML Repository for multi-class classification of car acceptability
+URL: https://platform.acedata.cloud/services/3f29f609-b0ee-4158-ad4b-806c58cd3c91
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Nano Banana Image Generation
+TYPE: Api
+DESCRIPTION: Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.
+URL: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Wan
+TYPE: Api
+DESCRIPTION: Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.
+URL: https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Codex
+TYPE: Agent
+DESCRIPTION: OpenAI's powerful coding agent
+URL: https://platform.acedata.cloud/services/0177c7f4-06f2-4516-b1d7-8cc44bf57e57
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Dreamina
+TYPE: Api
+DESCRIPTION: Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.
+URL: https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Suno Music Generation
+TYPE: Api
+DESCRIPTION: Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.
+URL: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Digital Human
+TYPE: Api
+DESCRIPTION: Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.
+URL: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: HappyHorse Video
+TYPE: Api
+DESCRIPTION: Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.
+URL: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Hacker News Posts & Comments
+TYPE: Dataset
+DESCRIPTION: Technology, startup and AI discussions with post-to-comment relationships for retrieval and conversation research.
+URL: https://platform.acedata.cloud/services/b673f806-cf79-544f-8ab9-544445d11252
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Nature Journal Literature
+TYPE: Dataset
+DESCRIPTION: Nature literature and bibliography organization, scoped by research field, publication year and document identifiers.
+URL: https://platform.acedata.cloud/services/b6c8e385-e573-5dca-9299-934532b63d38
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Science Journal Literature
+TYPE: Dataset
+DESCRIPTION: Science literature and bibliography organization, scoped by research field, publication year and document identifiers.
+URL: https://platform.acedata.cloud/services/fa93c117-fab1-59cf-b958-80cd08a554cd
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Cell Press Journal Literature
+TYPE: Dataset
+DESCRIPTION: Cell Press literature and bibliography organization, scoped by research field, publication year and document identifiers.
+URL: https://platform.acedata.cloud/services/335614ee-b2ef-54dc-bffb-00266023e896
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Stack Overflow Technical Q&A
+TYPE: Dataset
+DESCRIPTION: Programming questions, code snippets and discussions, scoped by technology, tags and question type.
+URL: https://platform.acedata.cloud/services/18bf2be7-3f2a-512d-8c70-ca6db8c3d85b
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Kling video generation
+TYPE: Api
+DESCRIPTION: Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.
+URL: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: ASMR Scene Audio
+TYPE: Dataset
+DESCRIPTION: ASMR audio and descriptive metadata for studies of timbre, acoustic effects and environmental sound.
+URL: https://platform.acedata.cloud/services/9316b90f-07ae-5c3e-917b-7b63fddf1bfd
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Mushroom Dataset
+TYPE: Dataset
+DESCRIPTION: Mushroom classification dataset from UCI ML Repository for distinguishing edible vs poisonous mushrooms
+URL: https://platform.acedata.cloud/services/9811ae34-dd50-4d66-8146-006baf7e1a7d
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Localization translation
+TYPE: Api
+DESCRIPTION: Translate localization content into a target locale while specifying the source format. Review the returned translation before release.
+URL: https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Chegg English Questions & Solutions
+TYPE: Dataset
+DESCRIPTION: English STEM and general-subject questions, answers and explanations with formulas, images and multiple answer structures for educational Q&A evaluation.
+URL: https://platform.acedata.cloud/services/410bcbb7-9019-5cfc-9bd6-7ade4cbb85b4
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Brainly Subject Q&A
+TYPE: Dataset
+DESCRIPTION: Questions with grade, subject, answer lists, best answers and image information, selectable by educational stage and subject.
+URL: https://platform.acedata.cloud/services/24bd1cab-b6fe-5d7b-9058-46c2ccc55b79
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Quizlet English Study Cards
+TYPE: Dataset
+DESCRIPTION: Study cards containing questions, definitions, options and answers with subject labels, for bidirectional Q&A and card retrieval tasks.
+URL: https://platform.acedata.cloud/services/eab68df9-08b0-5fbc-bb34-5a74ac63f5df
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Sketchfab 3D Models
+TYPE: Dataset
+DESCRIPTION: GLB models with descriptive metadata across characters, animals, architecture and vehicles, selectable by category and geometry complexity.
+URL: https://platform.acedata.cloud/services/a5ece472-cf63-540d-a6e4-091b2ae43c0e
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Flickr Images & Text Descriptions
+TYPE: Dataset
+DESCRIPTION: Images, short descriptions, tags, resolution and EXIF metadata across landscapes, people and everyday scenes.
+URL: https://platform.acedata.cloud/services/33cbd26b-3297-5b2b-979e-d709c5fa7169
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Chinese K12 Questions & Answers
+TYPE: Dataset
+DESCRIPTION: Chinese text-only primary, middle and high-school questions, options and answers across subjects; some records include explanations.
+URL: https://platform.acedata.cloud/services/08632091-db27-56d8-b32a-fbf6e5a320b1
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: English Step-by-Step Solutions
+TYPE: Dataset
+DESCRIPTION: English questions, multiple solution steps and final answers. Supplied question and step screenshots support evaluation of solution processes.
+URL: https://platform.acedata.cloud/services/720e7d76-b15c-58ac-b0f1-0743fbf55c4d
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: YouTube Video Podcasts
+TYPE: Dataset
+DESCRIPTION: Podcast programs and playlists in video or audio form, selectable by channel, keywords and language.
+URL: https://platform.acedata.cloud/services/04e5ccff-2bbd-5bc6-89f3-da7a02c29327
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: International Academic Literature
+TYPE: Dataset
+DESCRIPTION: Multidisciplinary international journal literature with DOI, author, journal and year metadata for bibliographic and document tasks.
+URL: https://platform.acedata.cloud/services/4f8c9558-1892-5769-8eb5-daefba0771cf
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: ScienceDirect Academic Literature
+TYPE: Dataset
+DESCRIPTION: Science, technology and medicine journal literature, book chapters and bibliographic metadata, scoped by subject, journal, year and DOI.
+URL: https://platform.acedata.cloud/services/ad339c38-422c-5b55-a2b5-797b748c6254
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: NCBI Biomedical Literature
+TYPE: Dataset
+DESCRIPTION: Biomedical and interdisciplinary literature with bibliographic metadata, selectable by DOI, journal and publication year.
+URL: https://platform.acedata.cloud/services/11c0d392-291b-5908-bc0c-2db3a735d0c9
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Overseas University Theses
+TYPE: Dataset
+DESCRIPTION: Overseas university thesis PDFs with university, degree, language and year metadata for long-document retrieval and academic research.
+URL: https://platform.acedata.cloud/services/4f7c173e-4f42-5d5e-842f-5abbef67bd4b
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Chinese Medical Journal Literature
+TYPE: Dataset
+DESCRIPTION: Chinese medical journal literature with title, author, DOI, journal, year and MD5 metadata for retrieval and knowledge organization.
+URL: https://platform.acedata.cloud/services/f8510c50-9db2-5bb3-b397-9563adfa33dc
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: OMol25 Molecular Quantum Chemistry
+TYPE: Dataset
+DESCRIPTION: Open Molecules 2025 quantum-chemistry data covering organic/inorganic molecules, transition-metal complexes and electrolytes, labeled with total energies and atomic forces.
+URL: https://platform.acedata.cloud/services/4bfbe7dd-3cd6-5e6b-9f32-79e5aa58fdab
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: arXiv Preprint Literature
+TYPE: Dataset
+DESCRIPTION: arXiv literature and bibliography organization, scoped by research field, publication year and document identifiers.
+URL: https://platform.acedata.cloud/services/19b39ea6-f1a5-5849-8135-8f70c7e99bf6
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: MIMIC Research Access Consultation
+TYPE: Dataset
+DESCRIPTION: Consultation on MIMIC research access and usage. Each applicant must independently meet PhysioNet training, identity and agreement requirements.
+URL: https://platform.acedata.cloud/services/8d126aec-45ab-5fdf-b9a8-05d0096cf290
+COZE ENTRY: catalog_assistant
+NEXT STEP: Open the service page to review acquisition, access and licensing requirements. No public query API is declared.
+
+SERVICE: Fish voice generation
+TYPE: Api
+DESCRIPTION: Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.
+URL: https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Minimax
+TYPE: Api
+DESCRIPTION: Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.
+URL: https://platform.acedata.cloud/services/2add8a2a-3577-4a0f-8fd4-e08aaabe8290
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: GLM
+TYPE: Api
+DESCRIPTION: Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.
+URL: https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: ByteDance Seedream Image Generation
+TYPE: Api
+DESCRIPTION: Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.
+URL: https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Flux
+TYPE: Api
+DESCRIPTION: Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.
+URL: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.

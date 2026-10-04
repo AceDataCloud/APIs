@@ -1,0 +1,1198 @@
+openapi: 3.0.1
+info:
+  title: AceData_reCAPTCHA_Tools
+  version: 2.0.0
+  description: 'Process supported reCAPTCHA token or image-recognition requests in authorized integration
+    tests. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+    Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /captcha/token/recaptcha3:
+    post:
+      summary: Google Recaptcha3 verification code recognition api, using this api users do not need to
+        identify and click the recaptcha verification code picture, only by sub
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Verification result (reCAPTCHA token returned after identification).
+                  elapsed:
+                    type: number
+                    description: Total processing time (seconds).
+                  started_at:
+                    type: number
+                    description: The time when this request starts processing, Unix timestamp (seconds,
+                      floating point).
+                  finished_at:
+                    type: number
+                    description: The time for the output of this request is the Unix timestamp (seconds,
+                      floating point).
+          description: Request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - anyOf:
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error code.
+                          message:
+                            type: string
+                            description: Error message of the response.
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error code.
+                          message:
+                            type: string
+                            description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__captcha_token_recaptcha3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - website_key
+              - website_url
+              - page_action
+              properties:
+                async:
+                  type: boolean
+                  default: true
+                  description: When true, return immediately with a task_id instead of blocking until
+                    the captcha is solved. Poll POST /captcha/tasks with that task_id to retrieve the
+                    result. Billing occurs once, only on a solved result.
+                page_action:
+                  type: string
+                  description: The action name of the reCAPTCHA v3 configured on the target website must
+                    match exactly with the value used on the target page; otherwise, the recognition result
+                    will be invalid.
+                website_key:
+                  type: string
+                  description: The site key identifier configured in reCAPTCHA for the target website.
+                website_url:
+                  type: string
+                  description: Need to identify the target website URL of reCAPTCHA.
+        required: true
+      description: 'Google Recaptcha3 verification code recognition api, using this api users do not need
+        to identify and click the recaptcha verification code picture, only by sub Full input requirements:
+        https://platform.acedata.cloud/documents/captcha-token-recaptcha3 Submit once with async=true.
+        Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit
+        while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/captcha-token-recaptcha3
+  /captcha/token/recaptcha2:
+    post:
+      summary: Google Recaptcha2 verification code recognition api, using this api users do not need to
+        identify and click the recaptcha verification code picture, only by sub
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Verification result, that is, the reCAPTCHA token string returned after
+                      successful identification.
+                  elapsed:
+                    type: number
+                    description: Total processing time (seconds).
+                  started_at:
+                    type: number
+                    description: The time when this request starts processing, Unix timestamp (seconds,
+                      floating point).
+                  finished_at:
+                    type: number
+                    description: The time for the output of this request is the Unix timestamp (seconds,
+                      floating point).
+          description: Request successful, returned 200 OK.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - anyOf:
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error code.
+                          message:
+                            type: string
+                            description: Response error message.
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error code.
+                          message:
+                            type: string
+                            description: Error message of the response.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__captcha_token_recaptcha2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - website_key
+              - website_url
+              properties:
+                async:
+                  type: boolean
+                  default: true
+                  description: When true, return immediately with a task_id instead of blocking until
+                    the captcha is solved. Poll POST /captcha/tasks with that task_id to retrieve the
+                    result. Billing occurs once, only on a solved result.
+                proxy:
+                  type: string
+                  description: Optional, Bring Your Own Proxy. After setting, the verification code will
+                    be solved through the proxy IP you provide, used to control the quality of the exit
+                    IP (for example, to avoid returning 410 Gone due to public proxy IP being blocked
+                    by the target site). The format is scheme://[user:pass@]host:port, where the scheme
+                    supports http/https/socks4/socks5, for example http://user:pass@1.2.3.4:8080. If not
+                    filled, the platform's default proxy will be used.
+                website_key:
+                  type: string
+                  description: The site key identifier registered in reCAPTCHA for the target website.
+                website_url:
+                  type: string
+                  description: The target webpage URL containing the reCAPTCHA control.
+        required: true
+      description: 'Google Recaptcha2 verification code recognition api, using this api users do not need
+        to identify and click the recaptcha verification code picture, only by sub Full input requirements:
+        https://platform.acedata.cloud/documents/captcha-token-recaptcha2 Submit once with async=true.
+        Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit
+        while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/captcha-token-recaptcha2
+  /captcha/recognition/recaptcha2:
+    post:
+      summary: Google Recaptcha2 image recognition API, input the content to be recognized and the Recapcha2
+        image, and return the coordinates of the small image that needs to
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  elapsed:
+                    type: number
+                    description: Total processing time (seconds).
+                  solution:
+                    type: object
+                    properties:
+                      size:
+                        type: number
+                        description: The size of the verification code image (pixels).
+                      type:
+                        type: string
+                        description: Types of captcha challenges, such as `multi` (multiple choice).
+                      label:
+                        type: string
+                        description: The target category name to be recognized in the verification code
+                          (Google Knowledge Graph entity ID, for example, `/m/0k4j`).
+                      objects:
+                        type: array
+                        items:
+                          type: number
+                        description: Identify the list of grid block indexes containing the target object
+                          (counting starts from 1).
+                      confidences:
+                        type: array
+                        items:
+                          type: number
+                        description: The confidence list of target objects corresponding to each grid
+                          block after captcha recognition (floating-point numbers between 0 and 1).
+                    description: Classification results of captcha recognition.
+                  started_at:
+                    type: number
+                    description: The time when this request starts processing, Unix timestamp (seconds,
+                      floating point).
+                  finished_at:
+                    type: number
+                    description: The time for the output of this request is the Unix timestamp (seconds,
+                      floating point).
+          description: Request successful, returning recognition results.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, it may be due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__captcha_recognition_recaptcha2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - image
+              - question
+              properties:
+                async:
+                  type: boolean
+                  default: true
+                  description: When true, return immediately with a task_id instead of blocking until
+                    the captcha is solved. Poll POST /captcha/tasks with that task_id to retrieve the
+                    result. Billing occurs once, only on a solved result.
+                image:
+                  type: string
+                  description: Base64 encoded verification code image.
+                question:
+                  type: string
+                  description: The problem ID for the target category starts with `/m/`, please refer
+                    to the corresponding entity reference table for specific values.
+        required: true
+      description: 'Google Recaptcha2 image recognition API, input the content to be recognized and the
+        Recapcha2 image, and return the coordinates of the small image that needs to Full input requirements:
+        https://platform.acedata.cloud/documents/captcha-recognition-recaptcha2 Submit once with async=true.
+        Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit
+        while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/captcha-recognition-recaptcha2
+  /captcha/tasks:
+    post:
+      summary: Read the persisted status of a server-managed asynchronous captcha task. The server starts
+        monitoring after HTTP 201 and continues even if the client disconnect
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - task_id
+                - status
+                properties:
+                  text:
+                    type: string
+                    description: The recognized text for recognition/image2text. Present only when status
+                      is 'ready'.
+                  type:
+                    type: string
+                    description: 任务类型。
+                  token:
+                    type: string
+                    description: The solved verification token (token APIs). Present only when status
+                      is 'ready'.
+                  api_id:
+                    type: string
+                    description: 该任务所属接口的 ID。
+                  status:
+                    enum:
+                    - processing
+                    - ready
+                    type: string
+                    description: Persisted task state. 'processing' means the server is still working;
+                      'ready' means the result is stored. Reading processing state has no lifecycle or
+                      billing side effects.
+                  elapsed:
+                    type: number
+                    description: Processing time in seconds (float, 3 decimals). Absent while the task
+                      is still processing.
+                  success:
+                    type: boolean
+                    description: Whether the query succeeded.
+                  task_id:
+                    type: string
+                    description: The task id being polled.
+                  user_id:
+                    type: string
+                    description: 发起该任务的账号 ID。
+                  solution:
+                    type: object
+                    description: The recognition result for recognition/recaptcha2 and recognition/hcaptcha.
+                      Present only when status is 'ready'.
+                    additionalProperties: true
+                  trace_id:
+                    type: string
+                    description: 本次请求的追踪 ID，排查问题时提供给技术支持。
+                  started_at:
+                    type: number
+                    description: When the task began processing, as a Unix timestamp in seconds (float).
+                  finished_at:
+                    type: number
+                    description: When the task produced its result, as a Unix timestamp in seconds (float).
+                      Absent while the task is still processing.
+                  actor_user_id:
+                    type: string
+                    description: 实际执行者的账号 ID。通过授权代发时与 `user_id` 不同。
+                  credential_id:
+                    type: string
+                    description: 发起该任务所用凭证的 ID。
+                  application_id:
+                    type: string
+                    description: 该任务计费所用应用的 ID。
+                  authorization_id:
+                    type: string
+                    description: 该任务使用的授权 ID。未通过授权发起时为 null。
+          description: OK, the request is successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+          description: Bad request, possibly due to a missing task_id.
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+          description: Unauthorized, invalid or missing authorization token.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specifies the format of the response from the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: post__captcha_tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - task_id
+              properties:
+                task_id:
+                  type: string
+                  description: The task id returned when a token API was called with async=true.
+        required: true
+      description: 'Read the persisted status of a server-managed asynchronous captcha task. The server
+        starts monitoring after HTTP 201 and continues even if the client disconnect Full input requirements:
+        https://platform.acedata.cloud/documents/captcha-tasks'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/captcha-tasks
