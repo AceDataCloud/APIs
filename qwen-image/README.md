@@ -1,34 +1,20 @@
-# Qwen Image 3 API
+# Qwen Image API
 
-Generate and edit images with Qwen Image 3 through Ace Data Cloud.
+Public API documentation for Qwen Image on [Ace Data Cloud](https://platform.acedata.cloud).
 
-Service page: [Qwen Image 3](https://platform.acedata.cloud/service/qwen-image)
+Customer guide sources and API schemas are maintained in PlatformBackend. Published English translations are included only when the published Chinese source matches the current source file.
 
-## Models
+Get an API token from the [console](https://platform.acedata.cloud/console/applications) and send `Authorization: Bearer $ACEDATACLOUD_API_TOKEN` to `https://api.acedata.cloud`.
 
-| Model | Best for |
-|---|---|
-| `qwen-image-3.0` | Value, throughput, batch production |
-| `qwen-image-3.0-pro` | Complex layouts and high-detail output |
+| Method | Endpoint | Current guide |
+| --- | --- | --- |
+| POST | `/qwen-image/images` | [English](docs/qwen_image_images.md) · [中文](docs/zh-CN/qwen_image_images.md) |
+| POST | `/qwen-image/tasks` | [English](docs/qwen_image_tasks.md) · [中文](docs/zh-CN/qwen_image_tasks.md) |
 
-## Quick start
+Full [API reference](docs/platform/README.md) includes request fields, schemas and source commit provenance.
 
-```bash
-curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
-  -H 'Authorization: Bearer YOUR_API_KEY' \
-  -H 'Content-Type: application/json' \
-  -d '{"model":"qwen-image-3.0","prompt":"A clean bilingual product poster","size":"1024*1024","n":1}'
-```
+Task submission is not completion. Follow each endpoint’s guide to poll the returned task ID and inspect the terminal result.
 
-## APIs
-
-| API | Path | Guide |
-|---|---|---|
-| Qwen Image API | `/qwen-image/images` | [Integration guide](docs/qwen_image_images_api_integration_guide.md) |
-| Qwen Image Tasks API | `/qwen-image/tasks` | [Task guide](docs/qwen_image_tasks_api_integration_guide.md) |
-
-## Related resources
-
-- MCP: `mcp-qwen-image`
-- Hosted MCP: `https://qwen-image.mcp.acedata.cloud/mcp`
-- CLI: `qwen-image-cli`
+<!-- platform-reference:start -->
+Read the [current API reference](docs/platform/README.md) for endpoints, request fields and the backend integration guides before using optional or recently added capabilities.
+<!-- platform-reference:end -->

@@ -1,0 +1,59 @@
+name: Sync from PlatformBackend
+
+on:
+  repository_dispatch:
+    types: [platform-contracts-updated]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: platform-contract-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout canonical source
+        uses: actions/checkout@v4
+        with:
+          repository: AceDataCloud/PlatformBackend
+          ref: main
+          path: _platformbackend
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Export current public references
+        run: |
+          python _platformbackend/scripts/export_ecosystem_references.py --backend-dir _platformbackend --target . --kind api
+          python scripts/sync_api_guides.py --backend-dir _platformbackend
+      - name: Check generated changes
+        run: git diff --check
+      - name: Open or refresh one review PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+          branch: codex/sync-platform-current
+          author: Ace Data Cloud Dev <dev@acedata.cloud>
+          committer: Ace Data Cloud Dev <dev@acedata.cloud>
+          title: 'sync: current public PlatformBackend content'
+          commit-message: 'sync: refresh public PlatformBackend content'
+          draft: true
+          add-paths: |
+            */README.md
+            */docs/**
+            skills/**
+          body: |
+            Refresh public API schemas and customer guide sources from PlatformBackend.
+            Each generated reference records its source commit and content hash.
+
+            Review native client/tool/command parity and curated examples alongside the generated changes. This PR updates reference content; it does not claim runtime parity or publish packages before normal review and CI. Unchanged content retains its existing source pin.

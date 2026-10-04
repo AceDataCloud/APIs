@@ -1,0 +1,14 @@
+{
+  "repository": "AceDataCloud/PlatformBackend",
+  "sha": "bdae773e02f3f51d2896eef497b569748577b753",
+  "sha256": "87a040215b047c3bdfaa655aa5e40e228e4f50ba534f4f11377385a00aa69f91",
+  "services": [
+    "gemini"
+  ],
+  "guides": [
+    "development_gemini_chat_completions.md",
+    "development_gemini_generate_content.md",
+    "development_gemini_tasks.md",
+    "development_gemini_videos.md"
+  ]
+}
