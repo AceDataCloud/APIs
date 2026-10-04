@@ -1,0 +1,111 @@
+openapi: 3.0.1
+info:
+  title: AceData Google Web Search
+  version: 1.0.0
+  description: 'Find current web information with Google search results, source links and snippets. Filter
+    by country, language or recency for research and fact checking. Configure your own Ace Data Cloud
+    token as Bearer TOKEN in Authorization. Start: https://platform.acedata.cloud/?from=coze. Usage is
+    billed to your account. Keep credentials in a private workflow variable, never in chat.'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /serp/google:
+    post:
+      operationId: searchGoogle
+      summary: Search the web with Google
+      description: Find relevant web pages and return titles, source URLs and snippets. Cite the returned
+        sources and distinguish snippets from verified facts.
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Your Ace Data Cloud API credential, formatted as Bearer TOKEN. Configure privately;
+          do not ask users to paste credentials into chat.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - query
+              properties:
+                query:
+                  type: string
+                  description: Search query or research question.
+                type:
+                  type: string
+                  enum:
+                  - search
+                  default: search
+                  description: Search standard web results.
+                country:
+                  type: string
+                  description: Country code, such as us or gb.
+                language:
+                  type: string
+                  description: Language code, such as en or zh-cn.
+                range:
+                  type: string
+                  enum:
+                  - h
+                  - d
+                  - w
+                  - m
+                  - y
+                  description: 'Optional recency filter: hour, day, week, month or year.'
+                number:
+                  type: integer
+                  default: 10
+                  minimum: 1
+                  maximum: 100
+                  description: Number of results requested.
+                page:
+                  type: integer
+                  default: 1
+                  minimum: 1
+                  maximum: 100
+                  description: Page number, starting at 1.
+      responses:
+        '200':
+          description: API result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  organic:
+                    type: array
+                    description: Ranked web search results.
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                          description: Page title.
+                        link:
+                          type: string
+                          description: Source URL.
+                        snippet:
+                          type: string
+                          description: Search result excerpt.
+                        position:
+                          type: integer
+                          description: Result rank.
+                        date:
+                          type: string
+                          description: Date label when available.
+                  people_also_ask:
+                    type: array
+                    description: Related questions.
+                    items:
+                      type: object
+                      properties:
+                        question:
+                          type: string
+                        snippet:
+                          type: string
+                        link:
+                          type: string

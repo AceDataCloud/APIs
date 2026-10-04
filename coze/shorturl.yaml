@@ -1,0 +1,54 @@
+openapi: 3.0.1
+info:
+  title: AceData Short Links
+  version: 1.0.0
+  description: 'Turn long URLs into compact shareable links for campaigns, messages and AI workflows.
+    Configure your own Ace Data Cloud API token as Bearer TOKEN in Authorization. Start: https://platform.acedata.cloud/?from=coze.
+    Usage is billed to your account. Keep credentials in a private workflow variable, never in chat.'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /shorturl:
+    post:
+      operationId: createShortLink
+      summary: Create a short shareable URL
+      description: Shorten one public URL. Return the actual short link in data.url. Do not use URLs containing
+        passwords, tokens or private information.
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Your Ace Data Cloud API credential, formatted as Bearer TOKEN. Configure privately;
+          do not ask users to paste credentials into chat.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - content
+              properties:
+                content:
+                  type: string
+                  description: The complete http or https URL to shorten.
+      responses:
+        '200':
+          description: API result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Whether the request succeeded.
+                  data:
+                    type: object
+                    description: Created link.
+                    properties:
+                      url:
+                        type: string
+                        description: The short URL ready to share.

@@ -1,29 +1,20 @@
 openapi: 3.0.1
 info:
-  title: AceData Flux — AI Image Generation
-  description: >-
-    Generate or edit images from a text prompt using Black Forest Labs Flux
-    models, powered by AceData Cloud (https://platform.acedata.cloud). Import this
-    schema into Coze / 扣子 as a plugin.
-  version: "1.0.0"
+  title: AceData Flux Image Studio
+  description: 'Generate product photos, illustrations and social visuals, or edit an image with Flux.
+    Use your own Ace Data Cloud API token as Bearer TOKEN in the Authorization input. Start: https://platform.acedata.cloud/?from=coze.
+    Usage is billed to your account. Keep credentials in a private workflow variable, never in chat.'
+  version: 1.0.0
 servers:
-  - url: https://api.acedata.cloud
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-security:
-  - bearerAuth: []
+- url: https://api.acedata.cloud
 paths:
   /flux/images:
     post:
       operationId: generateImage
       summary: Generate or edit an image from a text prompt
-      description: >-
-        Create an image from a text prompt (`action` = generate), or edit an
-        existing image (`action` = edit, with `image_url`). When `async` is not
-        set, the response returns synchronously and already contains the image URL.
+      description: Create an image from a text prompt (`action` = generate), or edit an existing image
+        (`action` = edit, with `image_url`). When `async` is not set, the response returns synchronously
+        and already contains the image URL.
       requestBody:
         required: true
         content:
@@ -31,8 +22,8 @@ paths:
             schema:
               type: object
               required:
-                - prompt
-                - action
+              - prompt
+              - action
               properties:
                 prompt:
                   type: string
@@ -41,21 +32,21 @@ paths:
                 action:
                   type: string
                   enum:
-                    - generate
-                    - edit
+                  - generate
+                  - edit
                   default: generate
                   description: generate a new image, or edit an existing one (needs image_url).
                 model:
                   type: string
                   enum:
-                    - flux-2-pro
-                    - flux-2-max
-                    - flux-2-flex
-                    - flux-2-klein
-                    - flux-pro
-                    - flux-dev
-                    - flux-kontext-pro
-                    - flux-kontext-max
+                  - flux-2-pro
+                  - flux-2-max
+                  - flux-2-flex
+                  - flux-2-klein
+                  - flux-pro
+                  - flux-dev
+                  - flux-kontext-pro
+                  - flux-kontext-max
                   default: flux-2-pro
                   description: Flux model version.
                 size:
@@ -69,7 +60,7 @@ paths:
                   type: string
                   description: Source image URL to edit (for action = edit).
       responses:
-        "200":
+        '200':
           description: The generated image.
           content:
             application/json:
@@ -89,3 +80,11 @@ paths:
                         image_url:
                           type: string
                           description: URL of the generated image.
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Your Ace Data Cloud API credential, formatted as Bearer TOKEN. Configure privately;
+          do not ask users to paste credentials into chat.
+        schema:
+          type: string
