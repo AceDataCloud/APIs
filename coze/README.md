@@ -25,6 +25,13 @@ not evidence that a plugin is published or approved in either regional store.
 | [`veo.yaml`](./veo.yaml) | `generateVideo` | `POST /veo/videos` | Generate videos with Google Veo |
 | [`seedance.yaml`](./seedance.yaml) | `generateVideo` | `POST /seedance/videos` | Generate videos with ByteDance Seedance |
 
+## Listing icons
+
+The first batch includes 512×512 PNG icons with the existing Ace Data Cloud brand mark:
+[Seedream](./icons/seedream.png), [Flux](./icons/flux.png),
+[Google web search](./icons/serp.png), and [Short links](./icons/shorturl.png).
+Upload the matching icon in the Coze plugin information form before store submission.
+
 ## Import into Coze (扣子)
 
 1. **Get an API token.** Create one at
