@@ -65,7 +65,7 @@
         }
       ],
       "stream": false,
-      "max_tokens": 160
+      "max_tokens": 2048
     },
     "status": "not_run",
     "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
@@ -235,7 +235,7 @@
     "path": "/webextrator/extract",
     "method": "POST",
     "body": {
-      "url": "https://platform.acedata.cloud/",
+      "url": "https://example.com/",
       "async": true
     },
     "status": "not_run",

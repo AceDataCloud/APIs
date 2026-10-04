@@ -451,7 +451,9 @@ paths:
                   description: Operation type. Use `retrieve` to get a single task, and use `retrieve_batch`
                     to batch retrieve multiple tasks.
         required: true
-      description: '/happyhorse/tasks Full input requirements: https://platform.acedata.cloud/documents/happyhorse-tasks'
+      description: '/happyhorse/tasks Full input requirements: https://platform.acedata.cloud/documents/happyhorse-tasks
+        A non-null response can be a progress snapshot. Require terminal success and a non-empty primary
+        media URL or content, not just a cover image or an empty data array.'
       externalDocs:
         url: https://platform.acedata.cloud/documents/happyhorse-tasks
   /happyhorse/videos:

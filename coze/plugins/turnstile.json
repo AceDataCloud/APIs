@@ -69,94 +69,6 @@
                           "description": "The tracking ID for this request."
                         }
                       }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
                     }
                   ],
                   "type": "object",
@@ -189,50 +101,6 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
                     {
                       "type": "object",
                       "properties": {
@@ -668,7 +536,7 @@
           },
           "required": true
         },
-        "description": "Read the persisted status of a server-managed asynchronous captcha task. The server starts monitoring after HTTP 201 and continues even if the client disconnect Full input requirements: https://platform.acedata.cloud/documents/captcha-tasks",
+        "description": "Read the persisted status of a server-managed asynchronous captcha task. The server starts monitoring after HTTP 201 and continues even if the client disconnect Full input requirements: https://platform.acedata.cloud/documents/captcha-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "externalDocs": {
           "url": "https://platform.acedata.cloud/documents/captcha-tasks"
         }

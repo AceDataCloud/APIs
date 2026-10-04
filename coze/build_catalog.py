@@ -47,6 +47,12 @@ def resolve(value, doc, stack=()):
     if isinstance(result.get('description'),str) and result['description'].startswith("{'zh-cn':"):
         try:result['description']=ast.literal_eval(result['description']).get('en',result['description'])
         except (ValueError,SyntaxError):pass
+    # Many public error variants differ only by examples. After examples are
+    # removed, keep a single equivalent branch so oneOf still accepts errors.
+    for kind in ['oneOf','anyOf']:
+        if kind in result:
+            unique={json.dumps(v,sort_keys=True,ensure_ascii=False):v for v in result[kind]}
+            result[kind]=list(unique.values())
     if 'const' in result: result['enum']=[result.pop('const')]
     if isinstance(result.get('type'),list):
         kinds=result['type'];result['nullable']='null' in kinds;result['type']=next(k for k in kinds if k!='null')
@@ -108,6 +114,8 @@ def build_operation(a,path,method,source):
     op['summary']=(op.get('summary') or a['path']).split('\n')[0][:160]
     detail=(op.get('description') or op['summary']).strip()
     op['description']=detail[:1000]+' Full input requirements: '+a['document_url']
+    if path.endswith('/tasks'):
+        op['description']+=' A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.'
     op['externalDocs']={'url':a['document_url']}
     pars=op.setdefault('parameters',[])
     pars[:]=[x for x in pars if x.get('name','').lower() not in ['authorization','x-api-key']]

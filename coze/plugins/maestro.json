@@ -423,7 +423,7 @@
             "description": "Unauthorized."
           }
         },
-        "description": "Retrieve the status and results of the job created by POST /maestro/videos. Polling is free. Full input requirements: https://platform.acedata.cloud/documents/maestro-tasks",
+        "description": "Retrieve the status and results of the job created by POST /maestro/videos. Polling is free. Full input requirements: https://platform.acedata.cloud/documents/maestro-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "operationId": "post__maestro_tasks",
         "requestBody": {
           "content": {

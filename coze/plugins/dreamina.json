@@ -430,7 +430,7 @@
             "description": "Internal server error, an exception occurred on the server side."
           }
         },
-        "description": "Query the results of the Dreamina digital human video generation task. Use the task_id or trace_id returned when creating the task for the query; this interface is free. Full input requirements: https://platform.acedata.cloud/documents/dreamina-tasks",
+        "description": "Query the results of the Dreamina digital human video generation task. Use the task_id or trace_id returned when creating the task for the query; this interface is free. Full input requirements: https://platform.acedata.cloud/documents/dreamina-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "operationId": "post__dreamina_tasks",
         "requestBody": {
           "content": {

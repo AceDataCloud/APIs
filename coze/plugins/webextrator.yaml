@@ -754,6 +754,8 @@ paths:
                   description: Track the UUID list for use in the `retrieve_batch` operation.
         required: true
       description: 'Web extractor task query API — check the status and result of a render/extract task.
-        Full input requirements: https://platform.acedata.cloud/documents/webextrator-tasks'
+        Full input requirements: https://platform.acedata.cloud/documents/webextrator-tasks A non-null
+        response can be a progress snapshot. Require terminal success and a non-empty primary media URL
+        or content, not just a cover image or an empty data array.'
       externalDocs:
         url: https://platform.acedata.cloud/documents/webextrator-tasks

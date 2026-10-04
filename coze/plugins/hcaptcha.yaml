@@ -132,7 +132,9 @@ paths:
         required: true
       description: 'Read the persisted status of a server-managed asynchronous captcha task. The server
         starts monitoring after HTTP 201 and continues even if the client disconnect Full input requirements:
-        https://platform.acedata.cloud/documents/captcha-tasks'
+        https://platform.acedata.cloud/documents/captcha-tasks A non-null response can be a progress snapshot.
+        Require terminal success and a non-empty primary media URL or content, not just a cover image
+        or an empty data array.'
       externalDocs:
         url: https://platform.acedata.cloud/documents/captcha-tasks
   /captcha/recognition/hcaptcha:
@@ -195,62 +197,6 @@ paths:
                     trace_id:
                       type: string
                       description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 type: object
                 properties:
                   error:
@@ -271,34 +217,6 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 - type: object
                   properties:
                     error:
@@ -534,48 +452,6 @@ paths:
                           description: Response error code.
                         message:
                           type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Response error message.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
                           description: Response error message.
                     trace_id:
                       type: string
@@ -584,23 +460,14 @@ paths:
                 properties:
                   error:
                     anyOf:
-                    - anyOf:
-                      - type: object
-                        properties:
-                          code:
-                            type: string
-                            description: Response error code.
-                          message:
-                            type: string
-                            description: Error message of the response.
-                      - type: object
-                        properties:
-                          code:
-                            type: string
-                            description: Response error code.
-                          message:
-                            type: string
-                            description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
                     - type: object
                       properties:
                         code:
@@ -618,34 +485,6 @@ paths:
             application/json:
               schema:
                 oneOf:
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 - type: object
                   properties:
                     error:

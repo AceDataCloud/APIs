@@ -96,7 +96,7 @@
           }
         ],
         "stream": false,
-        "max_tokens": 160
+        "max_tokens": 2048
       },
       "status": "not_run",
       "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
@@ -244,7 +244,7 @@
       "path": "/webextrator/extract",
       "method": "POST",
       "body": {
-        "url": "https://platform.acedata.cloud/",
+        "url": "https://example.com/",
         "async": true
       },
       "status": "not_run",
@@ -389,5 +389,9 @@
       "billing_limit_credits": null
     }
   },
-  "authorization_note": "A dedicated credential must be restricted to these creation APIs and their retrieval APIs. Current price must be verified before credential creation. Expire it after tests."
+  "authorization_note": "A dedicated credential must be restricted to these creation APIs and their retrieval APIs. Current price must be verified before credential creation. Expire it after tests.",
+  "fixture_repairs": [
+    "Gemini max_tokens raised from 160 to 2048 after an observed truncated response; same model.",
+    "Web extraction fixture changed from a SPA homepage to a stable public text page after no_content."
+  ]
 }

@@ -71,6 +71,11 @@ class CozeCatalogTests(unittest.TestCase):
                 self.assertTrue(set(schema.get('properties', {})) <= set(body.get('properties', {})), item['path'])
                 self.assertTrue(set(schema.get('required', [])) <= set(body.get('required', [])), item['path'])
 
+    def test_error_union_accepts_a_real_error_shape(self):
+        operation=self.plugins['shorturl']['paths']['/shorturl']['post']
+        schema=operation['responses']['401']['content']['application/json']['schema']
+        Draft4Validator(schema).validate({'error':{'code':'invalid_token','message':'Invalid credential.'},'trace_id':'test-trace'})
+
     def test_only_public_documented_operations_are_imported(self):
         for row in self.coverage:
             for operation in row['operations']:

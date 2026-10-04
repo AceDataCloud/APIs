@@ -128,28 +128,6 @@
                           "description": "The tracking ID for this request."
                         }
                       }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
                     }
                   ],
                   "type": "object",
@@ -1014,28 +992,6 @@
                           "description": "The tracking ID for this request."
                         }
                       }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
                     }
                   ],
                   "type": "object",
@@ -1334,7 +1290,7 @@
           },
           "required": true
         },
-        "description": "Query tasks created by /v1/images/generations or /v1/images/edits with callback_url. Full input requirements: https://platform.acedata.cloud/documents/openai-tasks",
+        "description": "Query tasks created by /v1/images/generations or /v1/images/edits with callback_url. Full input requirements: https://platform.acedata.cloud/documents/openai-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "externalDocs": {
           "url": "https://platform.acedata.cloud/documents/openai-tasks"
         }
@@ -1435,28 +1391,6 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
                     {
                       "type": "object",
                       "properties": {
@@ -2017,28 +1951,6 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
                     {
                       "type": "object",
                       "properties": {
@@ -3667,28 +3579,6 @@
                           "description": "The tracking ID for this request."
                         }
                       }
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
                     }
                   ],
                   "type": "object",
@@ -4819,28 +4709,6 @@
               "application/json": {
                 "schema": {
                   "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "error": {
-                          "type": "object",
-                          "properties": {
-                            "code": {
-                              "type": "string",
-                              "description": "Response error code."
-                            },
-                            "message": {
-                              "type": "string",
-                              "description": "Error message of the response."
-                            }
-                          }
-                        },
-                        "trace_id": {
-                          "type": "string",
-                          "description": "The tracking ID for this request."
-                        }
-                      }
-                    },
                     {
                       "type": "object",
                       "properties": {

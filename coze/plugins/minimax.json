@@ -1729,7 +1729,7 @@
           },
           "required": true
         },
-        "description": "Query MiniMax H3 video generation tasks. Both single tasks and task lists use the official H3 task fields. Full input requirements: https://platform.acedata.cloud/documents/minimax-tasks",
+        "description": "Query MiniMax H3 video generation tasks. Both single tasks and task lists use the official H3 task fields. Full input requirements: https://platform.acedata.cloud/documents/minimax-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
         "externalDocs": {
           "url": "https://platform.acedata.cloud/documents/minimax-tasks"
         },
