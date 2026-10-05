@@ -64,8 +64,22 @@ The mapping between subdirectories and standalone repos is defined in [`sync.yam
 
 ## Documentation updates
 
-Docs updates open one review issue per immutable Docs commit and assign Copilot
-when available. The issue covers the complete source snapshot; changed services
-are a hint. The workflow returns after assignment. It does not close existing
-issues or PRs, wait for an agent, or merge past failing checks. Hand-written
-examples and guides are reviewed through normal PRs before downstream publishing.
+PlatformBackend's daily ecosystem CronJob prepares incremental capability PRs
+using a pinned Backend source. Existing CI and human review gate each update.
+The previous dispatch/Copilot sync workflows are retired.
+
+Standalone API repositories are mirrors of this monorepo. Backend's old
+`repo.py` writer is retired; all documentation changes originate here.
+
+## Daily capability updates
+
+PlatformBackend `ecosystem.py` is the only scheduled coordinator.
+One daily Kubernetes Job reviews Backend docs and API changes with Claude Code,
+updates existing files, and creates or updates one reviewable PR per repository.
+It never merges PRs or duplicates the Backend guide tree. Normal CI and review
+remain required; publication and sub-repository mirroring run after merge.
+
+Entries marked `metadata: true` in `sync.yaml` also let Backend ecosystem.py
+maintain GitHub description, homepage and topics from the public service catalog.
+This opt-in preserves the old repo.py coverage without changing repository files;
+private/retired services are skipped.
