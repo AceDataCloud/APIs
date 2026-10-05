@@ -23,7 +23,9 @@ Common optional parameters:
 
 - `system`: System prompt, which will be included in the token count.
 - `tools`: Tool definitions, which will be included in the token count.
-- `thinking`: Extended thinking configuration.
+- `thinking`: Thinking configuration, passed through unchanged, including `type`, `budget_tokens`, `display`, and new extension fields. Common types include `adaptive`, `enabled`, and `disabled`; supported values and combinations are determined by the selected model, not a fixed platform enum.
+
+Common display values are `summarized` and `omitted`. The beta value `updates` requires the request header `anthropic-beta: thinking-display-updates-2026-08-18`; the platform forwards the display value and beta header unchanged. Use the same model, thinking configuration, and applicable beta headers as the Messages request you are estimating. This endpoint still only counts input tokens and does not generate thinking content or progress updates.
 
 ### cURL Example
 
