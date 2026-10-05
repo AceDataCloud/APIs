@@ -1,0 +1,212 @@
+{
+  "aichat": {
+    "sha256": "b525d3451af82c229d95402f91a20e74bd8b738c75b77c12a2592cb1d02b344f",
+    "source_url": "https://cdn.acedata.cloud/7dljuv.png",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "claude": {
+    "sha256": "0def79a4174914dee87799c82cdcf93a7bafc6d2028ca94de53e4b4980678306",
+    "source_url": "https://cdn.acedata.cloud/8fnw4v.jpg",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "claude-code": {
+    "sha256": "f9b8a3b95fa7ef7cfd3c91e170260ccd3215e575bf45f347fec0f0a94ba11161",
+    "source_url": "https://cdn.acedata.cloud/uploads/dfb8d916-f603-4952-85b3-26222dc14484",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "codex": {
+    "sha256": "55434694cc5ce6a8bc09f64ced71dcffb0b462b8dcefc3a5949188808aaa6687",
+    "source_url": "https://cdn.acedata.cloud/uploads/50039b39-ebe9-487d-9513-4d578c5680d3",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "coding": {
+    "sha256": "d7b8b0c77a470db9ff66d8514cf7936044f2fa01ce25bd54df8af283dd945bd3",
+    "source_url": "https://cdn.acedata.cloud/uploads/7797e57d-6491-443a-b5cc-197f56f18b97",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "deepseek": {
+    "sha256": "3608f19b8b7ad04d621d323b0466764d2354b808e3efe86c83d598fe4f8e26cb",
+    "source_url": "https://cdn.acedata.cloud/zv0360.jpg",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "digitalhuman": {
+    "sha256": "9a6c4032ca85bcd110824cfdadf08cc7c1d2766975425a5982696d3563865569",
+    "source_url": "https://cdn.acedata.cloud/uploads/b47b3899-d41a-4295-93b9-20686ac98598",
+    "source": "Nexior/src/constants/digitalhuman.ts"
+  },
+  "discord-bot": {
+    "sha256": "3abed011a1cb4fb5662e199ac8ecd95b1e6b1c2983b38db71141ca542bbebea1",
+    "source_url": "https://cdn.acedata.cloud/assets/services/discord-bot/icon-3abed011a1cb.png",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "dreamina": {
+    "sha256": "29fd831e0b5417760a7f5db00ea83ad1b2eddf2fd042f5be3f0607c0d4073a5f",
+    "source_url": "https://cdn.acedata.cloud/cbe3ae254e.png",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "fish": {
+    "sha256": "aa20f99ea4423d4fd10976b62a6927bb96c9b9a5ab97a6ad5ba9d33993f28a10",
+    "source_url": "https://cdn.acedata.cloud/e40fccc727.png",
+    "source": "Nexior/src/constants/fish.ts"
+  },
+  "flux": {
+    "sha256": "e1c93722db66db1f3721d4b1e02f1e63f130a6a41151476856e51fca914e7c94",
+    "source_url": "https://cdn.acedata.cloud/ogm2oa.png",
+    "source": "Nexior/src/constants/flux.ts"
+  },
+  "gemini": {
+    "sha256": "6254b1dcac4d0f9ed39a165163cb65c6ec504e6f095364ff25e2fc9510cc0c75",
+    "source_url": "https://cdn.acedata.cloud/psfx0g.jpg",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "glm": {
+    "sha256": "284e5c744c8bd8484c88af38e9f823d360d72764ec6571243bc2a75a05d5286a",
+    "source_url": "https://cdn.acedata.cloud/jqi3nv.png",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "grok": {
+    "sha256": "8051b3d467ab852418f25c8057349313d4453b00b488b910ccdb5e233e44d7ab",
+    "source_url": "https://cdn.acedata.cloud/p1ge98.png",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "hailuo": {
+    "sha256": "4171d571fbf7ff44e65e1b51829e9a9a101a49fff4b65994344226eb615a96b9",
+    "source_url": "https://cdn.acedata.cloud/0qg4gp.png",
+    "source": "Nexior/src/constants/hailuo.ts"
+  },
+  "happyhorse": {
+    "sha256": "58c5821d63219093ca86d5780231612218c472d66f8a66a59131a873fc736d0f",
+    "source_url": "https://cdn.acedata.cloud/e58fce2811.jpg",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "hcaptcha": {
+    "sha256": "d7779fd6b95b9c5eb83b27efa25cda28b3b6b65712cb4cd28911c9066b243220",
+    "source_url": "https://cdn.acedata.cloud/53f2f5a568.png",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "identity": {
+    "sha256": "b24bef892457efcb44ae6ed0bde0054c7b445691b810f8fa9d9638f042a84eb1",
+    "source_url": "https://cdn.acedata.cloud/99c35a09e1.svg",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "image2text": {
+    "sha256": "e47b22a16c634d4a0ab80a241157e41867fbf7a1076ba388060bc2275b3de539",
+    "source_url": "https://cdn.acedata.cloud/uploads/ad333990-ea8e-4889-83c5-67385fc8d7b0",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "kimi": {
+    "sha256": "294046b1ff12b59ea677d0dea4da6b01ab3c014f62e6ef7c548479e270890bcc",
+    "source_url": "https://cdn.acedata.cloud/57ebgy.png",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "kling": {
+    "sha256": "f9c278baf15b5abb00d28c30cbf03d5ff4474798e49778b6ce2ee31bce92fe0f",
+    "source_url": "https://cdn.acedata.cloud/qpbbbb.jpg",
+    "source": "Nexior/src/constants/kling.ts"
+  },
+  "localization": {
+    "sha256": "c7c1fbfa73b1cfd8bc07391bcb304cdf9168e4dbb348c7912b2270a2b747f469",
+    "source_url": "https://cdn.acedata.cloud/ce61d3228b.svg",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "luma": {
+    "sha256": "8c0ac59afcf707e8838bc71c070eebf42fc3256d28426d7140dd85c5266cd4d7",
+    "source_url": "https://cdn.acedata.cloud/ahjfwi.png",
+    "source": "Nexior/src/constants/luma.ts"
+  },
+  "maestro": {
+    "sha256": "9bcb6ba84e062cc64804700eae4036ff9a6f1764f48549f5d15fe72c330e2ccc",
+    "source_url": "https://cdn.acedata.cloud/df0e7b7eea.svg",
+    "source": "Nexior/src/constants/maestro.ts"
+  },
+  "minimax": {
+    "sha256": "154514d088b3a8d98d1279f6ede93fd5b593a21038f4530ea1bb551a8045ed02",
+    "source_url": "https://cdn.acedata.cloud/2440b75bb8.png",
+    "source": "Nexior/src/constants/minimax.ts"
+  },
+  "nano-banana": {
+    "sha256": "047c3d1a8252a18ccfb65ac09f3f1e2a87ea70525db01fd54f5d70bc312d9814",
+    "source_url": "https://cdn.acedata.cloud/859plc.jpg",
+    "source": "Nexior/src/constants/nanobanana.ts"
+  },
+  "openai": {
+    "sha256": "b525d3451af82c229d95402f91a20e74bd8b738c75b77c12a2592cb1d02b344f",
+    "source_url": "https://cdn.acedata.cloud/7dljuv.png",
+    "source": "Nexior/src/constants/chat.ts"
+  },
+  "producer": {
+    "sha256": "12f6d7e4d33adb6abb4c7805206599ebd1dd9bd74ed74c01f3d4478b189d433e",
+    "source_url": "https://cdn.acedata.cloud/id0mz5.jpg",
+    "source": "Nexior/src/constants/producer.ts"
+  },
+  "qwen-image": {
+    "sha256": "75759f1b8ea00704cf425489363db1d8ff1c9174e28857008e9e75298e91d5f4",
+    "source_url": "https://cdn.acedata.cloud/eff9c34a52.png",
+    "source": "Nexior/src/constants/qwenimage.ts"
+  },
+  "recaptcha": {
+    "sha256": "c20c77d3ef7ea7e03accc5aefcaa58924f9119d3c16a7fcd79ead2d42d36a226",
+    "source_url": "https://cdn.acedata.cloud/7hxu2l.png",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "seedance": {
+    "sha256": "6a5b07c1d33d2910eb9fe1c8549874a004d13a0e75d9b30a7cfdc255c586a83d",
+    "source_url": "https://cdn.acedata.cloud/9q90dl.png",
+    "source": "Nexior/src/constants/seedance.ts"
+  },
+  "seedream": {
+    "sha256": "1ac6be85f2dfe64cb280c010a9894d5df7d9d34304f0fbd41b7b7170caa699d4",
+    "source_url": "https://cdn.acedata.cloud/9egrbn.png",
+    "source": "Nexior/src/constants/seedream.ts"
+  },
+  "serp": {
+    "sha256": "cf8b5ead614e5ef7aed0f0a3de1b490563a3812c00f5328ec66d8efc16a2bfc1",
+    "source_url": "https://cdn.acedata.cloud/27e11e555d.png",
+    "source": "Nexior/src/constants/serp.ts"
+  },
+  "shorturl": {
+    "sha256": "ff861638a8d87b42497802c15a9470b554a632d66dd5c74edb4c63e520127d54",
+    "source_url": "https://cdn.acedata.cloud/4f9642f3b6.svg",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "suno": {
+    "sha256": "d2ccb1c0039519a68913ad447114f8f9ecca161ffc2105cd61c414e06f8747d9",
+    "source_url": "https://cdn.acedata.cloud/l3ffw7.jpg",
+    "source": "Nexior/src/constants/suno.ts"
+  },
+  "telegram-bot": {
+    "sha256": "85059d5e5bf7bda91ebab30664993c49867a26be6b947834aca16c846581766a",
+    "source_url": "https://cdn.acedata.cloud/f993402a7a.svg",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "turnstile": {
+    "sha256": "32876bda81542203316d67b9623818ac60986897cac79f70e03e8f31f7b7f160",
+    "source_url": "https://cdn.acedata.cloud/uploads/dc28743e-cf54-4d60-8e02-8be019b0a235",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "veo": {
+    "sha256": "26bf44b131bf91b6e7b4ce1df82925346b7e850583d8f5fa8f449d4350fd5af8",
+    "source_url": "https://cdn.acedata.cloud/8nxyy9.jpg",
+    "source": "Nexior/src/constants/veo.ts"
+  },
+  "wan": {
+    "sha256": "32d9897f4315f7f57456a47943e9f4567abe55dba10dd2e443617c89062a4aa4",
+    "source_url": "https://cdn.acedata.cloud/a033884259.png",
+    "source": "Nexior/src/constants/wan.ts"
+  },
+  "webextrator": {
+    "sha256": "0705b204ce48abb818c7b9b7365613de6d442405376a1fe51fb5b17246750735",
+    "source_url": "https://cdn.acedata.cloud/782648959c.png",
+    "source": "Nexior/src/constants/webextrator.ts"
+  },
+  "wechat-bot": {
+    "sha256": "4879adba8169115da4e655b5dee84cdefe83312f853e1cfc57cc39ef9721087d",
+    "source_url": "https://cdn.acedata.cloud/uploads/fe609bf7-6d3a-4e53-80fa-c57088ee8653",
+    "source": "Anonymous public Service.icon_url"
+  },
+  "whatsapp-bot": {
+    "sha256": "78e9b3318c6b9c73788d4e8f85d3380a140eb0dfc90e465e00fb1301148af288",
+    "source_url": "https://cdn.acedata.cloud/uploads/df6af118-38f2-4d5b-a312-b011fea4d871",
+    "source": "Anonymous public Service.icon_url"
+  }
+}

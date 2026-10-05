@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_reCAPTCHA_Tools",
+    "title": "reCAPTCHA",
     "version": "2.0.0",
     "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8?from=coze"
   },

@@ -20,10 +20,12 @@ class CozeCatalogTests(unittest.TestCase):
         cls.plugins = {p.stem: json.loads(p.read_text()) for p in (ROOT / 'plugins').glob('*.json')}
 
     def test_every_public_service_is_accounted_for(self):
-        self.assertEqual({x['id'] for x in self.source['services']}, {x['service_id'] for x in self.coverage})
+        self.assertEqual({x['id'] for x in self.source['services'] if x['type'] != 'Dataset'}, {x['service_id'] for x in self.coverage})
         self.assertEqual(len(self.coverage), len({x['service_id'] for x in self.coverage}))
         for row in self.coverage:
             self.assertTrue(row['name'])
+            self.assertNotIn('AceData',row['name'])
+            self.assertNotEqual('Dataset',row['service_type'])
             self.assertTrue((ROOT / row['icon']).is_file())
             if row['service_type'] == 'Api':
                 self.assertTrue(row['schema'] or row['blockers'])
@@ -39,7 +41,6 @@ class CozeCatalogTests(unittest.TestCase):
                 for path, methods in definition['paths'].items():
                     self.assertNotIn('/internal/', path)
                     for method, operation in methods.items():
-                        self.assertNotEqual('delete', method)
                         operation_ids.append(operation['operationId'])
                         self.assertNotIn('__', operation['operationId'])
                         self.assertLessEqual(len(operation['operationId']), 64)
@@ -126,6 +127,10 @@ class CozeCatalogTests(unittest.TestCase):
             body = self.plugins[key]['paths'][case['path']]['post']['requestBody']['content']['application/json']['schema']
             Draft4Validator(body).validate(case['body'])
         planned = json.loads((ROOT / 'examples/catalog/validation-cases.json').read_text())
+        for case in planned:
+            if case['method'] == 'DELETE':
+                self.assertTrue(case['special_authorization'])
+                self.assertEqual('not_run', case['status'])
         expected = {(row['key'], op['operation_id']) for row in self.coverage for op in row['operations'] if op['disposition'] == 'schema_prepared'}
         self.assertEqual(expected, {(case['service'], case['operation_id']) for case in planned})
         listings = json.loads((ROOT / 'listings.json').read_text())

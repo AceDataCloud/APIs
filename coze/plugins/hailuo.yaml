@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Hailuo_Video
+  title: Hailuo
   version: 2.0.0
   description: 'Create Hailuo clips from text or an image and follow the task through to its final video
     URL. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.

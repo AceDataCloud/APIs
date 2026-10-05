@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Flux_Creative_Studio
+  title: FLUX
   version: 2.0.0
   description: 'Generate and edit images with Flux or create Flux 3 videos using the supported request
     modes. Retrieve tasks to collect finished media. Bind your own Ace Data Cloud credential privately

@@ -1,6 +1,6 @@
 {
   "id": "voice-studio",
-  "name": "AceData Voice Studio",
+  "name": "Voice Studio",
   "description": "Generate speech and authorized talking avatars.",
   "plugins": [
     "fish",
@@ -15,8 +15,7 @@
     "Make an avatar video using my authorized media.",
     "Check the status of my speech task."
   ],
-  "icon": "icons/app-voice-studio.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -32,5 +31,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

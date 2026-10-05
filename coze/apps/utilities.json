@@ -1,6 +1,6 @@
 {
   "id": "utilities",
-  "name": "AceData Workflow Tools",
+  "name": "Workflow Tools",
   "description": "Short links and structured localization helpers.",
   "plugins": [
     "shorturl",
@@ -13,8 +13,7 @@
     "Translate this JSON into Chinese.",
     "Show me how to bind a private API token."
   ],
-  "icon": "icons/app-utilities.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -30,5 +29,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

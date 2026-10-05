@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Maestro_Video_Studio
+  title: Maestro
   version: 2.0.0
   description: 'Produce an end-to-end video from a creative brief with visual style, narration and language
     controls. Retrieve the task to get the finished video. Bind your own Ace Data Cloud credential privately

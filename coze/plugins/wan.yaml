@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Wan_Video
+  title: Wan
   version: 2.0.0
   description: 'Create videos with Wan from text, images or supported reference video. Use the task tool
     to retrieve the finished result. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN

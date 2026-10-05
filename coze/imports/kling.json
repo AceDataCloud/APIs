@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Kling_Video_Studio",
+    "title": "Kling",
     "version": "2.0.0",
     "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?from=coze"
   },

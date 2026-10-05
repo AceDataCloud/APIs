@@ -1,6 +1,6 @@
 {
   "id": "research",
-  "name": "AceData Research",
+  "name": "Research",
   "description": "Find sources and extract useful web content.",
   "plugins": [
     "serp",
@@ -13,8 +13,7 @@
     "Extract this public article.",
     "Compare findings and cite source URLs."
   ],
-  "icon": "icons/app-research.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -30,5 +29,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

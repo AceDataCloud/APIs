@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_OpenAI_Studio
+  title: OpenAI
   version: 2.0.0
   description: 'Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool
     exposes its current model and input options. Bind your own Ace Data Cloud credential privately as

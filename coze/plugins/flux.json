@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Flux_Creative_Studio",
+    "title": "FLUX",
     "version": "2.0.0",
     "description": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?from=coze"
   },

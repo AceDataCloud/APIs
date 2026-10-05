@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Hailuo_Video",
+    "title": "Hailuo",
     "version": "2.0.0",
     "description": "Create Hailuo clips from text or an image and follow the task through to its final video URL. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?from=coze"
   },

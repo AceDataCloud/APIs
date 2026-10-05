@@ -1,0 +1,34 @@
+{
+  "name": "Google_Search",
+  "brief": "Google search with sources and filters",
+  "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.",
+  "icon": "icons/serp.png",
+  "plugin_type": "MCP",
+  "server_url": "https://serp.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "serp_list_search_types",
+    "serp_list_countries",
+    "serp_list_languages",
+    "serp_list_time_ranges",
+    "serp_get_usage_guide",
+    "serp_google_search",
+    "serp_google_images",
+    "serp_google_news",
+    "serp_google_videos",
+    "serp_google_places",
+    "serp_google_maps"
+  ],
+  "expected_tool_count": 11,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

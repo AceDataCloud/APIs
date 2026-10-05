@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Seedream_Images
+  title: Seedream
   version: 2.0.0
   description: 'Generate images, edit references and use supported layer or transparency options with
     Seedream. Choose model-specific settings and retrieve completed tasks. Bind your own Ace Data Cloud

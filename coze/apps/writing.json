@@ -1,6 +1,6 @@
 {
   "id": "writing",
-  "name": "AceData Writing",
+  "name": "Writing",
   "description": "Draft and revise with a selected language model.",
   "plugins": [
     "claude",
@@ -19,8 +19,7 @@
     "Translate my application strings.",
     "Explain this technical question."
   ],
-  "icon": "icons/app-writing.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -36,5 +35,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

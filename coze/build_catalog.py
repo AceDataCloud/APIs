@@ -130,8 +130,8 @@ def tool_name(path, method):
         '/captcha/token/hcaptcha':'getHcaptchaToken','/captcha/recognition/hcaptcha':'recognizeHcaptcha',
         '/identity/idcard/ocr':'recognizeIdCard'}
     if path in exact:return exact[path]
-    if path=='/fish/model':return 'listVoices' if method=='get' else 'createVoice'
-    if path=='/suno/persona':return 'listPersonas' if method=='get' else 'createPersona'
+    if path=='/fish/model':return {'get':'listVoices','post':'createVoice','delete':'deleteVoice'}[method]
+    if path=='/suno/persona':return {'get':'listPersonas','post':'createPersona','delete':'deletePersona'}[method]
     for suffix,name in [('/chat/completions','chatCompletion'),('/tasks','getTaskResults'),('/videos','generateVideo'),('/images','generateImage'),('/audios','generateMusic'),('/lyrics','generateLyrics'),('/upload','uploadAudio'),('/wav','exportWav'),('/voices','createVoice')]:
         if path.endswith(suffix):return name
     match=re.fullmatch(r'/identity/(idcard|bankcard|phone)/check-([1-4])e',path)
@@ -197,6 +197,7 @@ def write_json(path,data):
 def main():
     src=json.loads((ROOT/'catalog/public-snapshot.json').read_text());profiles=json.loads((ROOT/'catalog/profiles.json').read_text());contracts=src['contracts'];coverage=[];listings={};cases=[]
     for s in src['services']:
+        if s['type']=='Dataset':continue
         key=slug(s);row={'key':key,'service_id':s['id'],'service_type':s['type'],'title':s['title'],'description':s['description'],'source_url':f"https://platform.acedata.cloud/services/{s['id']}",'icon':f'icons/{key}.png','operations':[],'blockers':[]}
         if s['type']!='Api':
             row['delivery']='catalog_assistant';row['name']=s['title'];row['brief']=s['description'];row['readiness']='guide_prepared'
@@ -217,7 +218,7 @@ def main():
                     item={'api_id':a['id'],'path':path,'method':method.upper(),'stage':a['stage'],'docs':a['document_url']}
                     reason=OMIT_PATHS.get(path)
                     if 'streamGenerateContent' in path:reason='Streaming transport; use generateContent with a JSON response.'
-                    if method=='delete':reason='Destructive management operation; use the account console.'
+                    # Management definitions are included; deletion is never exercised by the draft builder.
                     if reason:row['operations'].append({**item,'disposition':'adapter_or_console','reason':reason});continue
                     try:op=build_operation(a,path,method,source)
                     except (ValueError,KeyError) as e:
@@ -233,7 +234,7 @@ def main():
                         if path.endswith('/chat/completions'):ex['messages']=[{'role':'user','content':'Explain why the sky appears blue in two sentences.'}]
                         if path=='/shorturl':ex={'content':'https://platform.acedata.cloud/?from=coze'}
                         if path=='/serp/google':ex={'query':'Ace Data Cloud API documentation','type':'search','number':3}
-                    case={'service':key,'api_id':a['id'],'operation_id':op['operationId'],'method':method.upper(),'path':path,'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':ex if method!='get' else None},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate the request against the current model/action requirements.','Confirm a successful real response and expected result fields.','For async creation, poll the matching retrieval tool to a terminal result.','Inspect the returned media or content and reconcile billed Credits.'],'special_authorization':key in ['identity','turnstile','recaptcha','hcaptcha','image2text'] or any(w in path for w in ['voices','custom-models'])}
+                    case={'service':key,'api_id':a['id'],'operation_id':op['operationId'],'method':method.upper(),'path':path,'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':ex if method!='get' else None},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate the request against the current model/action requirements.','Confirm a successful real response and expected result fields.','For async creation, poll the matching retrieval tool to a terminal result.','Inspect the returned media or content and reconcile billed Credits.'],'special_authorization':method=='delete' or key in ['identity','turnstile','recaptcha','hcaptcha','image2text'] or any(w in path for w in ['voices','custom-models'])}
                     cases.append(case)
         # DeepSeek models are explicitly published on the shared AI Dialogue API.
         # Keep the hidden brand-specific contract excluded; expose only this

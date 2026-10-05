@@ -1,6 +1,6 @@
 {
   "id": "video-studio",
-  "name": "AceData Video Studio",
+  "name": "Video Studio",
   "description": "Turn text and reference media into finished video.",
   "plugins": [
     "kling",
@@ -22,8 +22,7 @@
     "Animate an image I provide.",
     "Retrieve the video for my task ID."
   ],
-  "icon": "icons/app-video-studio.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -39,5 +38,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

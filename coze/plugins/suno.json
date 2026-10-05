@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Suno_Music_Studio",
+    "title": "Suno",
     "version": "2.0.0",
     "description": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze"
   },
@@ -5278,6 +5278,61 @@
           "required": true
         },
         "description": "Suno singer style API, set song style based on a generated song ID. Full input requirements: https://platform.acedata.cloud/documents/suno-persona",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/suno-persona"
+        }
+      },
+      "delete": {
+        "summary": "/suno/persona",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indicate whether the delete operation was successful."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful, singer style has been deleted."
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "persona_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The singer style ID to be deleted."
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "User ID (used for ownership verification)."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "deletePersona",
+        "description": "/suno/persona Full input requirements: https://platform.acedata.cloud/documents/suno-persona",
         "externalDocs": {
           "url": "https://platform.acedata.cloud/documents/suno-persona"
         }

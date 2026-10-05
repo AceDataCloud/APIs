@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_MiniMax_Video
+  title: MiniMax
   version: 2.0.0
   description: 'Create MiniMax videos from supported content inputs, duration and resolution settings.
     Retrieve tasks to obtain the completed video. Bind your own Ace Data Cloud credential privately as

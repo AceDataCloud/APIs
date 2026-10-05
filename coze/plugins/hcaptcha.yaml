@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_hCaptcha_Tools
+  title: hCaptcha
   version: 2.0.0
   description: 'Process supported hCaptcha token or recognition requests and retrieve task results in
     authorized testing workflows. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN

@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Luma_Video
+  title: Luma
   version: 2.0.0
   description: 'Generate a video from text or supported image references, extend a prior result, and retrieve
     the final video through the task tool. Bind your own Ace Data Cloud credential privately as Bearer

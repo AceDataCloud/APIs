@@ -1,6 +1,6 @@
 {
   "id": "music-studio",
-  "name": "AceData Music Studio",
+  "name": "Music Studio",
   "description": "Create songs, lyrics and production-ready music.",
   "plugins": [
     "suno",
@@ -13,8 +13,7 @@
     "Write lyrics for my song idea.",
     "Retrieve my music task and show playable links."
   ],
-  "icon": "icons/app-music-studio.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -30,5 +29,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

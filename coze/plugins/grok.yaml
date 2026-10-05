@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Grok_Studio
+  title: Grok
   version: 2.0.0
   description: 'Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.
     Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage

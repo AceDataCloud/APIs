@@ -1,7 +1,7 @@
 {
   "deepseek": {
-    "name": "AceData_DeepSeek_Chat",
-    "display_name": "DeepSeek Chat",
+    "name": "DeepSeek",
+    "display_name": "DeepSeek",
     "group": "Chat",
     "brief": "Reasoning and writing with DeepSeek",
     "description": "Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.",
@@ -12,8 +12,8 @@
     ]
   },
   "claude": {
-    "name": "AceData_Claude_Assistant",
-    "display_name": "Claude Assistant",
+    "name": "Claude",
+    "display_name": "Claude",
     "group": "Chat",
     "brief": "Claude writing, reasoning and token counting",
     "description": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.",
@@ -24,8 +24,8 @@
     ]
   },
   "maestro": {
-    "name": "AceData_Maestro_Video_Studio",
-    "display_name": "Maestro Video Studio",
+    "name": "Maestro",
+    "display_name": "Maestro",
     "group": "Video",
     "brief": "Turn a brief into a narrated video",
     "description": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.",
@@ -36,8 +36,8 @@
     ]
   },
   "turnstile": {
-    "name": "AceData_Turnstile_Tools",
-    "display_name": "Turnstile Tools",
+    "name": "Turnstile",
+    "display_name": "Turnstile",
     "group": "Verification",
     "brief": "Turnstile integration tools",
     "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.",
@@ -47,7 +47,7 @@
     ]
   },
   "image2text": {
-    "name": "AceData_Captcha_OCR",
+    "name": "Captcha_OCR",
     "display_name": "Captcha OCR",
     "group": "Verification",
     "brief": "Read text from verification images",
@@ -58,8 +58,8 @@
     ]
   },
   "kimi": {
-    "name": "AceData_Kimi_Assistant",
-    "display_name": "Kimi Assistant",
+    "name": "Kimi",
+    "display_name": "Kimi",
     "group": "Chat",
     "brief": "Kimi writing and reasoning",
     "description": "Use Kimi models to draft, reason about and summarize text in an agent or workflow.",
@@ -70,8 +70,8 @@
     ]
   },
   "hailuo": {
-    "name": "AceData_Hailuo_Video",
-    "display_name": "Hailuo Video",
+    "name": "Hailuo",
+    "display_name": "Hailuo",
     "group": "Video",
     "brief": "Hailuo text and image to video",
     "description": "Create Hailuo clips from text or an image and follow the task through to its final video URL.",
@@ -82,8 +82,8 @@
     ]
   },
   "openai": {
-    "name": "AceData_OpenAI_Studio",
-    "display_name": "OpenAI Studio",
+    "name": "OpenAI",
+    "display_name": "OpenAI",
     "group": "Multimodal",
     "brief": "Chat, images, responses and embeddings",
     "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.",
@@ -94,8 +94,8 @@
     ]
   },
   "gemini": {
-    "name": "AceData_Gemini_Studio",
-    "display_name": "Gemini Studio",
+    "name": "Gemini",
+    "display_name": "Gemini",
     "group": "Multimodal",
     "brief": "Gemini chat, content and video tools",
     "description": "Use Gemini chat and native content requests, or create a video and retrieve its completed result.",
@@ -106,8 +106,8 @@
     ]
   },
   "grok": {
-    "name": "AceData_Grok_Studio",
-    "display_name": "Grok Studio",
+    "name": "Grok",
+    "display_name": "Grok",
     "group": "Multimodal",
     "brief": "Grok chat and video creation",
     "description": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.",
@@ -118,8 +118,8 @@
     ]
   },
   "veo": {
-    "name": "AceData_Veo_Video",
-    "display_name": "Veo Video",
+    "name": "Veo",
+    "display_name": "Veo",
     "group": "Video",
     "brief": "Veo video creation and result retrieval",
     "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.",
@@ -130,8 +130,8 @@
     ]
   },
   "aichat": {
-    "name": "AceData_AI_Dialogue",
-    "display_name": "AI Dialogue",
+    "name": "AI_Chat",
+    "display_name": "AI Chat",
     "group": "Chat",
     "brief": "Multi-model conversations and history",
     "description": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.",
@@ -142,7 +142,7 @@
     ]
   },
   "serp": {
-    "name": "AceData_Google_Web_Search",
+    "name": "Google_Search",
     "display_name": "Google Search",
     "group": "Search",
     "brief": "Google search with sources and filters",
@@ -154,8 +154,8 @@
     ]
   },
   "luma": {
-    "name": "AceData_Luma_Video",
-    "display_name": "Luma Video",
+    "name": "Luma",
+    "display_name": "Luma",
     "group": "Video",
     "brief": "Luma video creation and extension",
     "description": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.",
@@ -166,8 +166,8 @@
     ]
   },
   "identity": {
-    "name": "AceData_Identity_Checks",
-    "display_name": "Identity Checks",
+    "name": "Identity_Verification",
+    "display_name": "Identity Verification",
     "group": "Verification",
     "brief": "Identity, phone and bank-card verification",
     "description": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.",
@@ -178,8 +178,8 @@
     ]
   },
   "seedance": {
-    "name": "AceData_Seedance_Video",
-    "display_name": "Seedance Video",
+    "name": "Seedance",
+    "display_name": "Seedance",
     "group": "Video",
     "brief": "Seedance multimodal video creation",
     "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.",
@@ -190,8 +190,8 @@
     ]
   },
   "recaptcha": {
-    "name": "AceData_reCAPTCHA_Tools",
-    "display_name": "reCAPTCHA Tools",
+    "name": "reCAPTCHA",
+    "display_name": "reCAPTCHA",
     "group": "Verification",
     "brief": "reCAPTCHA integration and recognition tools",
     "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.",
@@ -201,8 +201,8 @@
     ]
   },
   "hcaptcha": {
-    "name": "AceData_hCaptcha_Tools",
-    "display_name": "hCaptcha Tools",
+    "name": "hCaptcha",
+    "display_name": "hCaptcha",
     "group": "Verification",
     "brief": "hCaptcha integration and task retrieval",
     "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
@@ -212,8 +212,8 @@
     ]
   },
   "qwen-image": {
-    "name": "AceData_Qwen_Image_Studio",
-    "display_name": "Qwen Image Studio",
+    "name": "Qwen_Image",
+    "display_name": "Qwen Image",
     "group": "Image",
     "brief": "Qwen image generation and editing",
     "description": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.",
@@ -224,8 +224,8 @@
     ]
   },
   "shorturl": {
-    "name": "AceData_Short_Links",
-    "display_name": "Short Links",
+    "name": "Short_URL",
+    "display_name": "Short URL",
     "group": "Utility",
     "brief": "Compact links for campaigns and sharing",
     "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.",
@@ -236,7 +236,7 @@
     ]
   },
   "webextrator": {
-    "name": "AceData_Web_Extractor",
+    "name": "Web_Extractor",
     "display_name": "Web Extractor",
     "group": "Search",
     "brief": "Render pages and extract structured content",
@@ -248,8 +248,8 @@
     ]
   },
   "producer": {
-    "name": "AceData_Producer_Music_Studio",
-    "display_name": "Producer Music Studio",
+    "name": "Producer",
+    "display_name": "Producer",
     "group": "Music",
     "brief": "Songs, lyrics, stems and audio exports",
     "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.",
@@ -260,8 +260,8 @@
     ]
   },
   "nano-banana": {
-    "name": "AceData_Nano_Banana_Images",
-    "display_name": "Nano Banana Images",
+    "name": "Nano_Banana",
+    "display_name": "Nano Banana",
     "group": "Image",
     "brief": "Nano Banana image creation and editing",
     "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
@@ -272,8 +272,8 @@
     ]
   },
   "wan": {
-    "name": "AceData_Wan_Video",
-    "display_name": "Wan Video",
+    "name": "Wan",
+    "display_name": "Wan",
     "group": "Video",
     "brief": "Wan text, image and reference video",
     "description": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.",
@@ -284,8 +284,8 @@
     ]
   },
   "dreamina": {
-    "name": "AceData_Dreamina_Avatar",
-    "display_name": "Dreamina Avatar",
+    "name": "Dreamina",
+    "display_name": "Dreamina",
     "group": "Avatar",
     "brief": "Animate a portrait with an audio track",
     "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.",
@@ -296,8 +296,8 @@
     ]
   },
   "suno": {
-    "name": "AceData_Suno_Music_Studio",
-    "display_name": "Suno Music Studio",
+    "name": "Suno",
+    "display_name": "Suno",
     "group": "Music",
     "brief": "Suno songs, lyrics and music production",
     "description": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.",
@@ -308,8 +308,8 @@
     ]
   },
   "digitalhuman": {
-    "name": "AceData_Digital_Human_Studio",
-    "display_name": "Digital Human Studio",
+    "name": "Digital_Human",
+    "display_name": "Digital Human",
     "group": "Avatar",
     "brief": "Talking avatars, voice and video tools",
     "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.",
@@ -320,8 +320,8 @@
     ]
   },
   "happyhorse": {
-    "name": "AceData_HappyHorse_Video",
-    "display_name": "HappyHorse Video",
+    "name": "HappyHorse",
+    "display_name": "HappyHorse",
     "group": "Video",
     "brief": "HappyHorse video generation and editing",
     "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.",
@@ -332,8 +332,8 @@
     ]
   },
   "kling": {
-    "name": "AceData_Kling_Video_Studio",
-    "display_name": "Kling Video Studio",
+    "name": "Kling",
+    "display_name": "Kling",
     "group": "Video",
     "brief": "Kling video, motion and commerce tools",
     "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.",
@@ -344,8 +344,8 @@
     ]
   },
   "localization": {
-    "name": "AceData_Localization_Tools",
-    "display_name": "Localization Tools",
+    "name": "Localization",
+    "display_name": "Localization",
     "group": "Utility",
     "brief": "Translate structured localization files",
     "description": "Translate localization content into a target locale while specifying the source format. Review the returned translation before release.",
@@ -356,8 +356,8 @@
     ]
   },
   "fish": {
-    "name": "AceData_Fish_Voice_Studio",
-    "display_name": "Fish Voice Studio",
+    "name": "Fish_Audio",
+    "display_name": "Fish Audio",
     "group": "Audio",
     "brief": "Text to speech and authorized voice tools",
     "description": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.",
@@ -368,8 +368,8 @@
     ]
   },
   "minimax": {
-    "name": "AceData_MiniMax_Video",
-    "display_name": "MiniMax Video",
+    "name": "MiniMax",
+    "display_name": "MiniMax",
     "group": "Video",
     "brief": "MiniMax video creation and task retrieval",
     "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.",
@@ -380,8 +380,8 @@
     ]
   },
   "glm": {
-    "name": "AceData_GLM_Assistant",
-    "display_name": "GLM Assistant",
+    "name": "GLM",
+    "display_name": "GLM",
     "group": "Chat",
     "brief": "GLM writing and reasoning",
     "description": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.",
@@ -392,8 +392,8 @@
     ]
   },
   "seedream": {
-    "name": "AceData_Seedream_Images",
-    "display_name": "Seedream Images",
+    "name": "Seedream",
+    "display_name": "Seedream",
     "group": "Image",
     "brief": "Seedream product images and illustrations",
     "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.",
@@ -404,8 +404,8 @@
     ]
   },
   "flux": {
-    "name": "AceData_Flux_Creative_Studio",
-    "display_name": "Flux Creative Studio",
+    "name": "FLUX",
+    "display_name": "FLUX",
     "group": "Multimodal",
     "brief": "Flux image editing and video creation",
     "description": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.",

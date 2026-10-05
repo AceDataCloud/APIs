@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Claude_Assistant",
+    "title": "Claude",
     "version": "2.0.0",
     "description": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?from=coze"
   },

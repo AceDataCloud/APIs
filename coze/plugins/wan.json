@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Wan_Video",
+    "title": "Wan",
     "version": "2.0.0",
     "description": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?from=coze"
   },

@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_DeepSeek_Chat
+  title: DeepSeek
   version: 2.0.0
   description: 'Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation
     API. Choose the model explicitly and receive a conversation result. Bind your own Ace Data Cloud credential

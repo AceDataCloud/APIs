@@ -1,0 +1,29 @@
+{
+  "name": "Hailuo",
+  "brief": "Hailuo text and image to video",
+  "description": "Create Hailuo clips from text or an image and follow the task through to its final video URL.",
+  "icon": "icons/hailuo.png",
+  "plugin_type": "MCP",
+  "server_url": "https://hailuo.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "hailuo_list_models",
+    "hailuo_list_actions",
+    "hailuo_get_task",
+    "hailuo_get_tasks_batch",
+    "hailuo_generate_video",
+    "hailuo_generate_video_from_image"
+  ],
+  "expected_tool_count": 6,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

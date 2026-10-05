@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Kling_Video_Studio
+  title: Kling
   version: 2.0.0
   description: 'Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce
     tools for supported product workflows and retrieve final tasks. Bind your own Ace Data Cloud credential

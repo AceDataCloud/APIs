@@ -1,0 +1,28 @@
+{
+  "name": "Web_Extractor",
+  "brief": "Render pages and extract structured content",
+  "description": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.",
+  "icon": "icons/webextrator.png",
+  "plugin_type": "MCP",
+  "server_url": "https://webextrator.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "webextrator_extract",
+    "webextrator_render",
+    "webextrator_get_usage_guide",
+    "webextrator_get_task",
+    "webextrator_get_tasks_batch"
+  ],
+  "expected_tool_count": 5,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

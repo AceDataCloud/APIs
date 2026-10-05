@@ -2,23 +2,6 @@
   "snapshot_date": "2026-10-05",
   "services": [
     {
-      "key": "reddit",
-      "service_id": "4150b899-a74a-4318-81dc-275fa1316bf9",
-      "service_type": "Dataset",
-      "title": "Reddit Posts & Comments",
-      "description": "Forum posts, comments and threaded replies, with subreddit and parent relationships for topic and content filtering.",
-      "source_url": "https://platform.acedata.cloud/services/4150b899-a74a-4318-81dc-275fa1316bf9",
-      "icon": "icons/reddit.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Reddit Posts & Comments",
-      "brief": "Forum posts, comments and threaded replies, with subreddit and parent relationships for topic and content filtering.",
-      "readiness": "guide_prepared"
-    },
-    {
       "key": "deepseek",
       "service_id": "39324b7c-5e24-451d-a174-d47957c3380c",
       "service_type": "Api",
@@ -51,7 +34,7 @@
         "Uses the published AI Dialogue conversation API; verify this exact model and route before launch.",
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_DeepSeek_Chat",
+      "name": "DeepSeek",
       "brief": "Reasoning and writing with DeepSeek",
       "group": "Chat",
       "scenarios": [
@@ -107,7 +90,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Claude_Assistant",
+      "name": "Claude",
       "brief": "Claude writing, reasoning and token counting",
       "group": "Chat",
       "scenarios": [
@@ -154,7 +137,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Maestro_Video_Studio",
+      "name": "Maestro",
       "brief": "Turn a brief into a narrated video",
       "group": "Video",
       "scenarios": [
@@ -201,7 +184,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "AceData_Turnstile_Tools",
+      "name": "Turnstile",
       "brief": "Turnstile integration tools",
       "group": "Verification",
       "scenarios": [
@@ -408,7 +391,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "AceData_Captcha_OCR",
+      "name": "Captcha_OCR",
       "brief": "Read text from verification images",
       "group": "Verification",
       "scenarios": [
@@ -422,57 +405,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/image2text.yaml"
-    },
-    {
-      "key": "youtube-video",
-      "service_id": "30d64398-9368-46f2-8377-1416c9fc0cbc",
-      "service_type": "Dataset",
-      "title": "YouTube Themed Audio & Video",
-      "description": "Audio/video and metadata organized around selected videos, channels or dataset lists, configurable by quality, duration and topic.",
-      "source_url": "https://platform.acedata.cloud/services/30d64398-9368-46f2-8377-1416c9fc0cbc",
-      "icon": "icons/youtube-video.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "YouTube Themed Audio & Video",
-      "brief": "Audio/video and metadata organized around selected videos, channels or dataset lists, configurable by quality, duration and topic.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "spotify-podcasts",
-      "service_id": "5b7e2520-5fb3-4c1e-bcf3-940234d94b0e",
-      "service_type": "Dataset",
-      "title": "Spotify English Podcast Audio",
-      "description": "English podcast recordings with title, description, language and duration metadata for long-form speech understanding and retrieval.",
-      "source_url": "https://platform.acedata.cloud/services/5b7e2520-5fb3-4c1e-bcf3-940234d94b0e",
-      "icon": "icons/spotify-podcasts.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Spotify English Podcast Audio",
-      "brief": "English podcast recordings with title, description, language and duration metadata for long-form speech understanding and retrieval.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "audible-audiobooks",
-      "service_id": "f3bd0f1f-4bc8-4726-aaa3-8c8694826bff",
-      "service_type": "Dataset",
-      "title": "Audible English Audiobooks",
-      "description": "Human-narrated English audiobooks with work, author, narrator and genre metadata for long-form speech and narrative evaluation.",
-      "source_url": "https://platform.acedata.cloud/services/f3bd0f1f-4bc8-4726-aaa3-8c8694826bff",
-      "icon": "icons/audible-audiobooks.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Audible English Audiobooks",
-      "brief": "Human-narrated English audiobooks with work, author, narrator and genre metadata for long-form speech and narrative evaluation.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "kimi",
@@ -496,7 +428,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Kimi_Assistant",
+      "name": "Kimi",
       "brief": "Kimi writing and reasoning",
       "group": "Chat",
       "scenarios": [
@@ -543,7 +475,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Hailuo_Video",
+      "name": "Hailuo",
       "brief": "Hailuo text and image to video",
       "group": "Video",
       "scenarios": [
@@ -817,7 +749,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_OpenAI_Studio",
+      "name": "OpenAI",
       "brief": "Chat, images, responses and embeddings",
       "group": "Multimodal",
       "scenarios": [
@@ -999,7 +931,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Gemini_Studio",
+      "name": "Gemini",
       "brief": "Gemini chat, content and video tools",
       "group": "Multimodal",
       "scenarios": [
@@ -1055,7 +987,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Grok_Studio",
+      "name": "Grok",
       "brief": "Grok chat and video creation",
       "group": "Multimodal",
       "scenarios": [
@@ -1102,7 +1034,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Veo_Video",
+      "name": "Veo",
       "brief": "Veo video creation and result retrieval",
       "group": "Video",
       "scenarios": [
@@ -1117,91 +1049,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/veo.yaml"
-    },
-    {
-      "key": "humaneval",
-      "service_id": "a6e4cf85-2d3f-4351-9ea7-a519223f09b4",
-      "service_type": "Dataset",
-      "title": "HumanEval Dataset",
-      "description": "OpenAI HumanEval code generation benchmark dataset, containing 164 hand-written Python programming problems with function signatures, docstrings, and unit tests, the standard benchmark for evaluating code generation pass@k metrics.",
-      "source_url": "https://platform.acedata.cloud/services/a6e4cf85-2d3f-4351-9ea7-a519223f09b4",
-      "icon": "icons/humaneval.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "HumanEval Dataset",
-      "brief": "OpenAI HumanEval code generation benchmark dataset, containing 164 hand-written Python programming problems with function signatures, docstrings, and unit tests, the standard benchmark for evaluating code generation pass@k metrics.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "arc",
-      "service_id": "32d0775a-999b-41a4-9eee-89a9a414e4bd",
-      "service_type": "Dataset",
-      "title": "ARC Dataset",
-      "description": "AI2 Reasoning Challenge (ARC) dataset, containing 7,787 real grade-school science multiple-choice questions split into Easy and Challenge sets, a core benchmark for evaluating scientific reasoning in language models.",
-      "source_url": "https://platform.acedata.cloud/services/32d0775a-999b-41a4-9eee-89a9a414e4bd",
-      "icon": "icons/arc.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "ARC Dataset",
-      "brief": "AI2 Reasoning Challenge (ARC) dataset, containing 7,787 real grade-school science multiple-choice questions split into Easy and Challenge sets, a core benchmark for evaluating scientific reasoning in language models.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "winogrande",
-      "service_id": "81dd461b-7825-4bf6-8731-3aac4ba9b6d6",
-      "service_type": "Dataset",
-      "title": "WinoGrande Dataset",
-      "description": "WinoGrande large-scale commonsense coreference resolution dataset, containing 44,000 Winograd Schema-style fill-in-the-blank problems with adversarial filtering for quality, a key benchmark for commonsense reasoning.",
-      "source_url": "https://platform.acedata.cloud/services/81dd461b-7825-4bf6-8731-3aac4ba9b6d6",
-      "icon": "icons/winogrande.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "WinoGrande Dataset",
-      "brief": "WinoGrande large-scale commonsense coreference resolution dataset, containing 44,000 Winograd Schema-style fill-in-the-blank problems with adversarial filtering for quality, a key benchmark for commonsense reasoning.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "piqa",
-      "service_id": "c22fe2e4-f651-46d1-93d5-9d5f778844bf",
-      "service_type": "Dataset",
-      "title": "PIQA Dataset",
-      "description": "PIQA (Physical Intuition QA) dataset, containing approximately 21,000 binary-choice questions about everyday physical world interactions, testing language model understanding of physical commonsense.",
-      "source_url": "https://platform.acedata.cloud/services/c22fe2e4-f651-46d1-93d5-9d5f778844bf",
-      "icon": "icons/piqa.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "PIQA Dataset",
-      "brief": "PIQA (Physical Intuition QA) dataset, containing approximately 21,000 binary-choice questions about everyday physical world interactions, testing language model understanding of physical commonsense.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "copa",
-      "service_id": "84ef1997-df43-4259-99ce-3768a533b2bb",
-      "service_type": "Dataset",
-      "title": "COPA Dataset",
-      "description": "COPA (Choice of Plausible Alternatives) causal reasoning dataset, containing 1,000 binary-choice causal reasoning questions requiring selection of the most plausible cause or effect for a given premise.",
-      "source_url": "https://platform.acedata.cloud/services/84ef1997-df43-4259-99ce-3768a533b2bb",
-      "icon": "icons/copa.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "COPA Dataset",
-      "brief": "COPA (Choice of Plausible Alternatives) causal reasoning dataset, containing 1,000 binary-choice causal reasoning questions requiring selection of the most plausible cause or effect for a given premise.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "aichat",
@@ -1343,7 +1190,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_AI_Dialogue",
+      "name": "AI_Chat",
       "brief": "Multi-model conversations and history",
       "group": "Chat",
       "scenarios": [
@@ -1381,7 +1228,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Google_Web_Search",
+      "name": "Google_Search",
       "brief": "Google search with sources and filters",
       "group": "Search",
       "scenarios": [
@@ -1396,40 +1243,6 @@
       "coze_state": "existing_draft_needs_full_update",
       "validation": "partial_real_trial",
       "schema": "plugins/serp.yaml"
-    },
-    {
-      "key": "iris",
-      "service_id": "8d7c69e6-b913-439c-b207-f1682c8e1655",
-      "service_type": "Dataset",
-      "title": "Iris Dataset",
-      "description": "Classic flower classification dataset with 150 samples across 3 species.",
-      "source_url": "https://platform.acedata.cloud/services/8d7c69e6-b913-439c-b207-f1682c8e1655",
-      "icon": "icons/iris.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Iris Dataset",
-      "brief": "Classic flower classification dataset with 150 samples across 3 species.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "fashion-mnist",
-      "service_id": "48060d4b-de8a-430e-8ae8-43a1379eb779",
-      "service_type": "Dataset",
-      "title": "Fashion-MNIST Dataset",
-      "description": "Zalando fashion article images - 70,000 28x28 grayscale images across 10 clothing categories, a modern MNIST replacement",
-      "source_url": "https://platform.acedata.cloud/services/48060d4b-de8a-430e-8ae8-43a1379eb779",
-      "icon": "icons/fashion-mnist.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Fashion-MNIST Dataset",
-      "brief": "Zalando fashion article images - 70,000 28x28 grayscale images across 10 clothing categories, a modern MNIST replacement",
-      "readiness": "guide_prepared"
     },
     {
       "key": "luma",
@@ -1462,7 +1275,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Luma_Video",
+      "name": "Luma",
       "brief": "Luma video creation and extension",
       "group": "Video",
       "scenarios": [
@@ -1582,7 +1395,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "AceData_Identity_Checks",
+      "name": "Identity_Verification",
       "brief": "Identity, phone and bank-card verification",
       "group": "Verification",
       "scenarios": [
@@ -1629,7 +1442,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Seedance_Video",
+      "name": "Seedance",
       "brief": "Seedance multimodal video creation",
       "group": "Video",
       "scenarios": [
@@ -1694,7 +1507,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "AceData_reCAPTCHA_Tools",
+      "name": "reCAPTCHA",
       "brief": "reCAPTCHA integration and recognition tools",
       "group": "Verification",
       "scenarios": [
@@ -1750,7 +1563,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "AceData_hCaptcha_Tools",
+      "name": "hCaptcha",
       "brief": "hCaptcha integration and task retrieval",
       "group": "Verification",
       "scenarios": [
@@ -1764,23 +1577,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/hcaptcha.yaml"
-    },
-    {
-      "key": "wine-quality",
-      "service_id": "8cae881d-035c-427b-8085-84db5e11326a",
-      "service_type": "Dataset",
-      "title": "Wine Quality Dataset",
-      "description": "Portuguese Vinho Verde wine quality data with physicochemical properties and quality scores for red and white wines.",
-      "source_url": "https://platform.acedata.cloud/services/8cae881d-035c-427b-8085-84db5e11326a",
-      "icon": "icons/wine-quality.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Wine Quality Dataset",
-      "brief": "Portuguese Vinho Verde wine quality data with physicochemical properties and quality scores for red and white wines.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "qwen-image",
@@ -1813,7 +1609,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Qwen_Image_Studio",
+      "name": "Qwen_Image",
       "brief": "Qwen image generation and editing",
       "group": "Image",
       "scenarios": [
@@ -1851,7 +1647,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Short_Links",
+      "name": "Short_URL",
       "brief": "Compact links for campaigns and sharing",
       "group": "Utility",
       "scenarios": [
@@ -1866,23 +1662,6 @@
       "coze_state": "existing_draft_needs_full_update",
       "validation": "partial_real_trial",
       "schema": "plugins/shorturl.yaml"
-    },
-    {
-      "key": "snli",
-      "service_id": "06ad1eb0-a547-4325-bb58-eb7b68d7d118",
-      "service_type": "Dataset",
-      "title": "SNLI Stanford Natural Language Inference Dataset",
-      "description": "SNLI is the first large-scale NLI dataset with 570K human-written English sentence pairs labeled as entailment, contradiction, or neutral, serving as a foundational benchmark in natural language inference.",
-      "source_url": "https://platform.acedata.cloud/services/06ad1eb0-a547-4325-bb58-eb7b68d7d118",
-      "icon": "icons/snli.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "SNLI Stanford Natural Language Inference Dataset",
-      "brief": "SNLI is the first large-scale NLI dataset with 570K human-written English sentence pairs labeled as entailment, contradiction, or neutral, serving as a foundational benchmark in natural language inference.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "webextrator",
@@ -1924,7 +1703,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Web_Extractor",
+      "name": "Web_Extractor",
       "brief": "Render pages and extract structured content",
       "group": "Search",
       "scenarios": [
@@ -2196,7 +1975,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Producer_Music_Studio",
+      "name": "Producer",
       "brief": "Songs, lyrics, stems and audio exports",
       "group": "Music",
       "scenarios": [
@@ -2211,91 +1990,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/producer.yaml"
-    },
-    {
-      "key": "palmer-penguins",
-      "service_id": "5a21c2b0-6b57-42c2-ba52-cba9625f2084",
-      "service_type": "Dataset",
-      "title": "Palmer Penguins Dataset",
-      "description": "Palmer Penguins dataset, a modern alternative to Iris for data exploration and visualization teaching",
-      "source_url": "https://platform.acedata.cloud/services/5a21c2b0-6b57-42c2-ba52-cba9625f2084",
-      "icon": "icons/palmer-penguins.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Palmer Penguins Dataset",
-      "brief": "Palmer Penguins dataset, a modern alternative to Iris for data exploration and visualization teaching",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "gsm8k",
-      "service_id": "9eb023c8-c20d-4b57-bfa9-8bd234849866",
-      "service_type": "Dataset",
-      "title": "GSM8K Math Reasoning Dataset",
-      "description": "Grade school math reasoning benchmark by OpenAI with 17.6K problems and step-by-step solutions, a core benchmark for evaluating LLM math reasoning.",
-      "source_url": "https://platform.acedata.cloud/services/9eb023c8-c20d-4b57-bfa9-8bd234849866",
-      "icon": "icons/gsm8k.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "GSM8K Math Reasoning Dataset",
-      "brief": "Grade school math reasoning benchmark by OpenAI with 17.6K problems and step-by-step solutions, a core benchmark for evaluating LLM math reasoning.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "abalone",
-      "service_id": "cf0cf313-5bcf-45b0-a4d8-832f12dd383a",
-      "service_type": "Dataset",
-      "title": "Abalone Dataset",
-      "description": "Abalone dataset from UCI ML Repository for predicting abalone age from physical measurements",
-      "source_url": "https://platform.acedata.cloud/services/cf0cf313-5bcf-45b0-a4d8-832f12dd383a",
-      "icon": "icons/abalone.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Abalone Dataset",
-      "brief": "Abalone dataset from UCI ML Repository for predicting abalone age from physical measurements",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "bike-sharing",
-      "service_id": "381ffe36-77c3-48ce-8026-0ca6ed4a9dac",
-      "service_type": "Dataset",
-      "title": "Bike Sharing Dataset",
-      "description": "Bike sharing dataset from UCI ML Repository with hourly and daily rental counts plus weather features",
-      "source_url": "https://platform.acedata.cloud/services/381ffe36-77c3-48ce-8026-0ca6ed4a9dac",
-      "icon": "icons/bike-sharing.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Bike Sharing Dataset",
-      "brief": "Bike sharing dataset from UCI ML Repository with hourly and daily rental counts plus weather features",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "car-evaluation",
-      "service_id": "3f29f609-b0ee-4158-ad4b-806c58cd3c91",
-      "service_type": "Dataset",
-      "title": "Car Evaluation Dataset",
-      "description": "Car evaluation dataset from UCI ML Repository for multi-class classification of car acceptability",
-      "source_url": "https://platform.acedata.cloud/services/3f29f609-b0ee-4158-ad4b-806c58cd3c91",
-      "icon": "icons/car-evaluation.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Car Evaluation Dataset",
-      "brief": "Car evaluation dataset from UCI ML Repository for multi-class classification of car acceptability",
-      "readiness": "guide_prepared"
     },
     {
       "key": "nano-banana",
@@ -2328,7 +2022,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Nano_Banana_Images",
+      "name": "Nano_Banana",
       "brief": "Nano Banana image creation and editing",
       "group": "Image",
       "scenarios": [
@@ -2375,7 +2069,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Wan_Video",
+      "name": "Wan",
       "brief": "Wan text, image and reference video",
       "group": "Video",
       "scenarios": [
@@ -2439,7 +2133,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Dreamina_Avatar",
+      "name": "Dreamina",
       "brief": "Animate a portrait with an audio track",
       "group": "Avatar",
       "scenarios": [
@@ -2560,8 +2254,8 @@
           "method": "DELETE",
           "stage": "Production",
           "docs": "https://platform.acedata.cloud/documents/suno-persona",
-          "disposition": "adapter_or_console",
-          "reason": "Destructive management operation; use the account console."
+          "operation_id": "deletePersona",
+          "disposition": "schema_prepared"
         },
         {
           "api_id": "c98fe4e5-73c0-462d-ad24-5080ee1fa01a",
@@ -2630,7 +2324,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Suno_Music_Studio",
+      "name": "Suno",
       "brief": "Suno songs, lyrics and music production",
       "group": "Music",
       "scenarios": [
@@ -2639,7 +2333,7 @@
         "assemble and export a multi-track project."
       ],
       "delivery": "http_plugin",
-      "tool_count": 17,
+      "tool_count": 18,
       "readiness": "draft_assets_prepared",
       "plugin_url": null,
       "coze_state": "not_created",
@@ -2686,7 +2380,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Digital_Human_Studio",
+      "name": "Digital_Human",
       "brief": "Talking avatars, voice and video tools",
       "group": "Avatar",
       "scenarios": [
@@ -2733,7 +2427,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_HappyHorse_Video",
+      "name": "HappyHorse",
       "brief": "HappyHorse video generation and editing",
       "group": "Video",
       "scenarios": [
@@ -2748,91 +2442,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/happyhorse.yaml"
-    },
-    {
-      "key": "hacker-news",
-      "service_id": "b673f806-cf79-544f-8ab9-544445d11252",
-      "service_type": "Dataset",
-      "title": "Hacker News Posts & Comments",
-      "description": "Technology, startup and AI discussions with post-to-comment relationships for retrieval and conversation research.",
-      "source_url": "https://platform.acedata.cloud/services/b673f806-cf79-544f-8ab9-544445d11252",
-      "icon": "icons/hacker-news.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Hacker News Posts & Comments",
-      "brief": "Technology, startup and AI discussions with post-to-comment relationships for retrieval and conversation research.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "nature-papers",
-      "service_id": "b6c8e385-e573-5dca-9299-934532b63d38",
-      "service_type": "Dataset",
-      "title": "Nature Journal Literature",
-      "description": "Nature literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "source_url": "https://platform.acedata.cloud/services/b6c8e385-e573-5dca-9299-934532b63d38",
-      "icon": "icons/nature-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Nature Journal Literature",
-      "brief": "Nature literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "science-papers",
-      "service_id": "fa93c117-fab1-59cf-b958-80cd08a554cd",
-      "service_type": "Dataset",
-      "title": "Science Journal Literature",
-      "description": "Science literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "source_url": "https://platform.acedata.cloud/services/fa93c117-fab1-59cf-b958-80cd08a554cd",
-      "icon": "icons/science-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Science Journal Literature",
-      "brief": "Science literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "cell-press-papers",
-      "service_id": "335614ee-b2ef-54dc-bffb-00266023e896",
-      "service_type": "Dataset",
-      "title": "Cell Press Journal Literature",
-      "description": "Cell Press literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "source_url": "https://platform.acedata.cloud/services/335614ee-b2ef-54dc-bffb-00266023e896",
-      "icon": "icons/cell-press-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Cell Press Journal Literature",
-      "brief": "Cell Press literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "stackoverflow",
-      "service_id": "18bf2be7-3f2a-512d-8c70-ca6db8c3d85b",
-      "service_type": "Dataset",
-      "title": "Stack Overflow Technical Q&A",
-      "description": "Programming questions, code snippets and discussions, scoped by technology, tags and question type.",
-      "source_url": "https://platform.acedata.cloud/services/18bf2be7-3f2a-512d-8c70-ca6db8c3d85b",
-      "icon": "icons/stackoverflow.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Stack Overflow Technical Q&A",
-      "brief": "Programming questions, code snippets and discussions, scoped by technology, tags and question type.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "kling",
@@ -2910,7 +2519,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Kling_Video_Studio",
+      "name": "Kling",
       "brief": "Kling video, motion and commerce tools",
       "group": "Video",
       "scenarios": [
@@ -2925,40 +2534,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/kling.yaml"
-    },
-    {
-      "key": "asmr",
-      "service_id": "9316b90f-07ae-5c3e-917b-7b63fddf1bfd",
-      "service_type": "Dataset",
-      "title": "ASMR Scene Audio",
-      "description": "ASMR audio and descriptive metadata for studies of timbre, acoustic effects and environmental sound.",
-      "source_url": "https://platform.acedata.cloud/services/9316b90f-07ae-5c3e-917b-7b63fddf1bfd",
-      "icon": "icons/asmr.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "ASMR Scene Audio",
-      "brief": "ASMR audio and descriptive metadata for studies of timbre, acoustic effects and environmental sound.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "mushroom",
-      "service_id": "9811ae34-dd50-4d66-8146-006baf7e1a7d",
-      "service_type": "Dataset",
-      "title": "Mushroom Dataset",
-      "description": "Mushroom classification dataset from UCI ML Repository for distinguishing edible vs poisonous mushrooms",
-      "source_url": "https://platform.acedata.cloud/services/9811ae34-dd50-4d66-8146-006baf7e1a7d",
-      "icon": "icons/mushroom.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Mushroom Dataset",
-      "brief": "Mushroom classification dataset from UCI ML Repository for distinguishing edible vs poisonous mushrooms",
-      "readiness": "guide_prepared"
     },
     {
       "key": "localization",
@@ -2982,7 +2557,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Localization_Tools",
+      "name": "Localization",
       "brief": "Translate structured localization files",
       "group": "Utility",
       "scenarios": [
@@ -2997,278 +2572,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/localization.yaml"
-    },
-    {
-      "key": "chegg",
-      "service_id": "410bcbb7-9019-5cfc-9bd6-7ade4cbb85b4",
-      "service_type": "Dataset",
-      "title": "Chegg English Questions & Solutions",
-      "description": "English STEM and general-subject questions, answers and explanations with formulas, images and multiple answer structures for educational Q&A evaluation.",
-      "source_url": "https://platform.acedata.cloud/services/410bcbb7-9019-5cfc-9bd6-7ade4cbb85b4",
-      "icon": "icons/chegg.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Chegg English Questions & Solutions",
-      "brief": "English STEM and general-subject questions, answers and explanations with formulas, images and multiple answer structures for educational Q&A evaluation.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "brainly",
-      "service_id": "24bd1cab-b6fe-5d7b-9058-46c2ccc55b79",
-      "service_type": "Dataset",
-      "title": "Brainly Subject Q&A",
-      "description": "Questions with grade, subject, answer lists, best answers and image information, selectable by educational stage and subject.",
-      "source_url": "https://platform.acedata.cloud/services/24bd1cab-b6fe-5d7b-9058-46c2ccc55b79",
-      "icon": "icons/brainly.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Brainly Subject Q&A",
-      "brief": "Questions with grade, subject, answer lists, best answers and image information, selectable by educational stage and subject.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "quizlet",
-      "service_id": "eab68df9-08b0-5fbc-bb34-5a74ac63f5df",
-      "service_type": "Dataset",
-      "title": "Quizlet English Study Cards",
-      "description": "Study cards containing questions, definitions, options and answers with subject labels, for bidirectional Q&A and card retrieval tasks.",
-      "source_url": "https://platform.acedata.cloud/services/eab68df9-08b0-5fbc-bb34-5a74ac63f5df",
-      "icon": "icons/quizlet.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Quizlet English Study Cards",
-      "brief": "Study cards containing questions, definitions, options and answers with subject labels, for bidirectional Q&A and card retrieval tasks.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "sketchfab-3d",
-      "service_id": "a5ece472-cf63-540d-a6e4-091b2ae43c0e",
-      "service_type": "Dataset",
-      "title": "Sketchfab 3D Models",
-      "description": "GLB models with descriptive metadata across characters, animals, architecture and vehicles, selectable by category and geometry complexity.",
-      "source_url": "https://platform.acedata.cloud/services/a5ece472-cf63-540d-a6e4-091b2ae43c0e",
-      "icon": "icons/sketchfab-3d.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Sketchfab 3D Models",
-      "brief": "GLB models with descriptive metadata across characters, animals, architecture and vehicles, selectable by category and geometry complexity.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "flickr",
-      "service_id": "33cbd26b-3297-5b2b-979e-d709c5fa7169",
-      "service_type": "Dataset",
-      "title": "Flickr Images & Text Descriptions",
-      "description": "Images, short descriptions, tags, resolution and EXIF metadata across landscapes, people and everyday scenes.",
-      "source_url": "https://platform.acedata.cloud/services/33cbd26b-3297-5b2b-979e-d709c5fa7169",
-      "icon": "icons/flickr.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Flickr Images & Text Descriptions",
-      "brief": "Images, short descriptions, tags, resolution and EXIF metadata across landscapes, people and everyday scenes.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "chinese-k12",
-      "service_id": "08632091-db27-56d8-b32a-fbf6e5a320b1",
-      "service_type": "Dataset",
-      "title": "Chinese K12 Questions & Answers",
-      "description": "Chinese text-only primary, middle and high-school questions, options and answers across subjects; some records include explanations.",
-      "source_url": "https://platform.acedata.cloud/services/08632091-db27-56d8-b32a-fbf6e5a320b1",
-      "icon": "icons/chinese-k12.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Chinese K12 Questions & Answers",
-      "brief": "Chinese text-only primary, middle and high-school questions, options and answers across subjects; some records include explanations.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "english-step-solutions",
-      "service_id": "720e7d76-b15c-58ac-b0f1-0743fbf55c4d",
-      "service_type": "Dataset",
-      "title": "English Step-by-Step Solutions",
-      "description": "English questions, multiple solution steps and final answers. Supplied question and step screenshots support evaluation of solution processes.",
-      "source_url": "https://platform.acedata.cloud/services/720e7d76-b15c-58ac-b0f1-0743fbf55c4d",
-      "icon": "icons/english-step-solutions.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "English Step-by-Step Solutions",
-      "brief": "English questions, multiple solution steps and final answers. Supplied question and step screenshots support evaluation of solution processes.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "youtube-podcasts",
-      "service_id": "04e5ccff-2bbd-5bc6-89f3-da7a02c29327",
-      "service_type": "Dataset",
-      "title": "YouTube Video Podcasts",
-      "description": "Podcast programs and playlists in video or audio form, selectable by channel, keywords and language.",
-      "source_url": "https://platform.acedata.cloud/services/04e5ccff-2bbd-5bc6-89f3-da7a02c29327",
-      "icon": "icons/youtube-podcasts.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "YouTube Video Podcasts",
-      "brief": "Podcast programs and playlists in video or audio form, selectable by channel, keywords and language.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "international-papers",
-      "service_id": "4f8c9558-1892-5769-8eb5-daefba0771cf",
-      "service_type": "Dataset",
-      "title": "International Academic Literature",
-      "description": "Multidisciplinary international journal literature with DOI, author, journal and year metadata for bibliographic and document tasks.",
-      "source_url": "https://platform.acedata.cloud/services/4f8c9558-1892-5769-8eb5-daefba0771cf",
-      "icon": "icons/international-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "International Academic Literature",
-      "brief": "Multidisciplinary international journal literature with DOI, author, journal and year metadata for bibliographic and document tasks.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "sciencedirect-papers",
-      "service_id": "ad339c38-422c-5b55-a2b5-797b748c6254",
-      "service_type": "Dataset",
-      "title": "ScienceDirect Academic Literature",
-      "description": "Science, technology and medicine journal literature, book chapters and bibliographic metadata, scoped by subject, journal, year and DOI.",
-      "source_url": "https://platform.acedata.cloud/services/ad339c38-422c-5b55-a2b5-797b748c6254",
-      "icon": "icons/sciencedirect-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "ScienceDirect Academic Literature",
-      "brief": "Science, technology and medicine journal literature, book chapters and bibliographic metadata, scoped by subject, journal, year and DOI.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "ncbi-papers",
-      "service_id": "11c0d392-291b-5908-bc0c-2db3a735d0c9",
-      "service_type": "Dataset",
-      "title": "NCBI Biomedical Literature",
-      "description": "Biomedical and interdisciplinary literature with bibliographic metadata, selectable by DOI, journal and publication year.",
-      "source_url": "https://platform.acedata.cloud/services/11c0d392-291b-5908-bc0c-2db3a735d0c9",
-      "icon": "icons/ncbi-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "NCBI Biomedical Literature",
-      "brief": "Biomedical and interdisciplinary literature with bibliographic metadata, selectable by DOI, journal and publication year.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "overseas-theses",
-      "service_id": "4f7c173e-4f42-5d5e-842f-5abbef67bd4b",
-      "service_type": "Dataset",
-      "title": "Overseas University Theses",
-      "description": "Overseas university thesis PDFs with university, degree, language and year metadata for long-document retrieval and academic research.",
-      "source_url": "https://platform.acedata.cloud/services/4f7c173e-4f42-5d5e-842f-5abbef67bd4b",
-      "icon": "icons/overseas-theses.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Overseas University Theses",
-      "brief": "Overseas university thesis PDFs with university, degree, language and year metadata for long-document retrieval and academic research.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "chinese-medical-papers",
-      "service_id": "f8510c50-9db2-5bb3-b397-9563adfa33dc",
-      "service_type": "Dataset",
-      "title": "Chinese Medical Journal Literature",
-      "description": "Chinese medical journal literature with title, author, DOI, journal, year and MD5 metadata for retrieval and knowledge organization.",
-      "source_url": "https://platform.acedata.cloud/services/f8510c50-9db2-5bb3-b397-9563adfa33dc",
-      "icon": "icons/chinese-medical-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "Chinese Medical Journal Literature",
-      "brief": "Chinese medical journal literature with title, author, DOI, journal, year and MD5 metadata for retrieval and knowledge organization.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "omol25",
-      "service_id": "4bfbe7dd-3cd6-5e6b-9f32-79e5aa58fdab",
-      "service_type": "Dataset",
-      "title": "OMol25 Molecular Quantum Chemistry",
-      "description": "Open Molecules 2025 quantum-chemistry data covering organic/inorganic molecules, transition-metal complexes and electrolytes, labeled with total energies and atomic forces.",
-      "source_url": "https://platform.acedata.cloud/services/4bfbe7dd-3cd6-5e6b-9f32-79e5aa58fdab",
-      "icon": "icons/omol25.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "OMol25 Molecular Quantum Chemistry",
-      "brief": "Open Molecules 2025 quantum-chemistry data covering organic/inorganic molecules, transition-metal complexes and electrolytes, labeled with total energies and atomic forces.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "arxiv-papers",
-      "service_id": "19b39ea6-f1a5-5849-8135-8f70c7e99bf6",
-      "service_type": "Dataset",
-      "title": "arXiv Preprint Literature",
-      "description": "arXiv literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "source_url": "https://platform.acedata.cloud/services/19b39ea6-f1a5-5849-8135-8f70c7e99bf6",
-      "icon": "icons/arxiv-papers.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "arXiv Preprint Literature",
-      "brief": "arXiv literature and bibliography organization, scoped by research field, publication year and document identifiers.",
-      "readiness": "guide_prepared"
-    },
-    {
-      "key": "mimic-research",
-      "service_id": "8d126aec-45ab-5fdf-b9a8-05d0096cf290",
-      "service_type": "Dataset",
-      "title": "MIMIC Research Access Consultation",
-      "description": "Consultation on MIMIC research access and usage. Each applicant must independently meet PhysioNet training, identity and agreement requirements.",
-      "source_url": "https://platform.acedata.cloud/services/8d126aec-45ab-5fdf-b9a8-05d0096cf290",
-      "icon": "icons/mimic-research.png",
-      "operations": [],
-      "blockers": [
-        "Catalog and acquisition guidance only; no public query API is declared."
-      ],
-      "delivery": "catalog_assistant",
-      "name": "MIMIC Research Access Consultation",
-      "brief": "Consultation on MIMIC research access and usage. Each applicant must independently meet PhysioNet training, identity and agreement requirements.",
-      "readiness": "guide_prepared"
     },
     {
       "key": "fish",
@@ -3328,7 +2631,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Fish_Voice_Studio",
+      "name": "Fish_Audio",
       "brief": "Text to speech and authorized voice tools",
       "group": "Audio",
       "scenarios": [
@@ -3395,7 +2698,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_MiniMax_Video",
+      "name": "MiniMax",
       "brief": "MiniMax video creation and task retrieval",
       "group": "Video",
       "scenarios": [
@@ -3433,7 +2736,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_GLM_Assistant",
+      "name": "GLM",
       "brief": "GLM writing and reasoning",
       "group": "Chat",
       "scenarios": [
@@ -3480,7 +2783,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Seedream_Images",
+      "name": "Seedream",
       "brief": "Seedream product images and illustrations",
       "group": "Image",
       "scenarios": [
@@ -3536,7 +2839,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "AceData_Flux_Creative_Studio",
+      "name": "FLUX",
       "brief": "Flux image editing and video creation",
       "group": "Multimodal",
       "scenarios": [

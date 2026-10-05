@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Dreamina_Avatar",
+    "title": "Dreamina",
     "version": "2.0.0",
     "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9?from=coze"
   },

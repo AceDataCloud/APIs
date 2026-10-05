@@ -1,6 +1,6 @@
 {
   "id": "image-studio",
-  "name": "AceData Image Studio",
+  "name": "Image Studio",
   "description": "Create and edit product images and illustrations.",
   "plugins": [
     "seedream",
@@ -16,8 +16,7 @@
     "Edit the background of my image.",
     "Help me choose an image model."
   ],
-  "icon": "icons/app-image-studio.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -33,5 +32,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

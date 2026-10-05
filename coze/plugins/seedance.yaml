@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Seedance_Video
+  title: Seedance
   version: 2.0.0
   description: 'Create videos with Seedance from text and supported image, audio or video references.
     Select model-specific duration and output options, then retrieve the task. Bind your own Ace Data

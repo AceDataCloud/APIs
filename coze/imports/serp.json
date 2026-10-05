@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Google_Web_Search",
+    "title": "Google_Search",
     "version": "2.0.0",
     "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?from=coze"
   },

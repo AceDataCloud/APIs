@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Producer_Music_Studio
+  title: Producer
   version: 2.0.0
   description: 'Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or
     export formats with Producer. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN

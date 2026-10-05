@@ -1,0 +1,31 @@
+{
+  "name": "Wan",
+  "brief": "Wan text, image and reference video",
+  "description": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.",
+  "icon": "icons/wan.png",
+  "plugin_type": "MCP",
+  "server_url": "https://wan.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "wan_list_models",
+    "wan_list_resolutions",
+    "wan_list_actions",
+    "wan_get_task",
+    "wan_get_tasks_batch",
+    "wan_generate_video",
+    "wan_generate_video_from_image",
+    "wan_generate_video_all_in_one"
+  ],
+  "expected_tool_count": 8,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

@@ -1,0 +1,26 @@
+{
+  "name": "GLM",
+  "brief": "GLM writing and reasoning",
+  "description": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.",
+  "icon": "icons/glm.png",
+  "plugin_type": "MCP",
+  "server_url": "https://glm.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "glm_chat_completions",
+    "glm_list_models",
+    "glm_get_usage_guide"
+  ],
+  "expected_tool_count": 3,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

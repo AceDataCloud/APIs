@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Digital_Human_Studio
+  title: Digital_Human
   version: 2.0.0
   description: 'Create a talking-avatar video from authorized visual and audio or text inputs. Manage
     supported voices and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as

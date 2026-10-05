@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Localization_Tools
+  title: Localization
   version: 2.0.0
   description: 'Translate localization content into a target locale while specifying the source format.
     Review the returned translation before release. Bind your own Ace Data Cloud credential privately

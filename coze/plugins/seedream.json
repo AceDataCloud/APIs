@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Seedream_Images",
+    "title": "Seedream",
     "version": "2.0.0",
     "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?from=coze"
   },

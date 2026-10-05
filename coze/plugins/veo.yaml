@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Veo_Video
+  title: Veo
   version: 2.0.0
   description: 'Create videos from text or supported image references with Veo. Retrieve the submitted
     task and use the finished media URL in the next step. Bind your own Ace Data Cloud credential privately

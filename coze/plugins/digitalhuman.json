@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Digital_Human_Studio",
+    "title": "Digital_Human",
     "version": "2.0.0",
     "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733?from=coze"
   },

@@ -1955,6 +1955,28 @@
   },
   {
     "service": "suno",
+    "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+    "operation_id": "deletePersona",
+    "method": "DELETE",
+    "path": "/suno/persona",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "suno",
     "api_id": "c98fe4e5-73c0-462d-ad24-5080ee1fa01a",
     "operation_id": "generateLyrics",
     "method": "POST",

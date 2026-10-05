@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Turnstile_Tools
+  title: Turnstile
   version: 2.0.0
   description: 'Integrate Turnstile challenge processing into an authorized site-testing workflow using
     a site URL and site key. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN

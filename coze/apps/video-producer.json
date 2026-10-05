@@ -1,6 +1,6 @@
 {
   "id": "video-producer",
-  "name": "AceData Video Producer",
+  "name": "Video Producer",
   "description": "Turn a brief into a narrated finished video.",
   "plugins": [
     "maestro"
@@ -12,8 +12,7 @@
     "Create a narrated video from this brief.",
     "Retrieve my finished video project."
   ],
-  "icon": "icons/app-video-producer.png",
-  "status": "configuration_prepared_runtime_unverified",
+  "status": "out_of_current_launch_scope",
   "workflow": {
     "steps": [
       "Collect required inputs and explicit model choice.",
@@ -29,5 +28,6 @@
       "submitted_at"
     ],
     "poll_policy": "Use a bounded loop with backoff; preserve pending tasks across turns. Avoid unbounded waits and duplicate creation."
-  }
+  },
+  "launch_scope": false
 }

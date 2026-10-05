@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_Seedance_Video",
+    "title": "Seedance",
     "version": "2.0.0",
     "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?from=coze"
   },

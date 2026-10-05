@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_AI_Dialogue
+  title: AI_Chat
   version: 2.0.0
   description: 'Start and retrieve conversations using Ace Data Cloud''s multi-model conversation APIs.
     Select a model explicitly and keep conversation IDs for follow-up turns. Bind your own Ace Data Cloud

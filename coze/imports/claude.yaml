@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Claude_Assistant
+  title: Claude
   version: 2.0.0
   description: 'Write, analyze and revise content with Claude through chat or native Messages tools. Count
     tokens before sending a larger request. Bind your own Ace Data Cloud credential privately as Bearer

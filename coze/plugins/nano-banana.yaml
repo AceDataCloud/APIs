@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: AceData_Nano_Banana_Images
+  title: Nano_Banana
   version: 2.0.0
   description: 'Generate images from a prompt or edit image references with Nano Banana. Select a model,
     aspect ratio and resolution, then retrieve completed results. Bind your own Ace Data Cloud credential

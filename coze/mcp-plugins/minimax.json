@@ -1,0 +1,33 @@
+{
+  "name": "MiniMax",
+  "brief": "MiniMax video creation and task retrieval",
+  "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.",
+  "icon": "icons/minimax.png",
+  "plugin_type": "MCP",
+  "server_url": "https://minimax.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "minimax_list_models",
+    "minimax_list_actions",
+    "minimax_list_tasks",
+    "minimax_get_task",
+    "minimax_get_tasks_batch",
+    "minimax_delete_task",
+    "minimax_generate_video_from_text",
+    "minimax_generate_video_from_images",
+    "minimax_generate_video_from_audio",
+    "minimax_generate_video"
+  ],
+  "expected_tool_count": 10,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

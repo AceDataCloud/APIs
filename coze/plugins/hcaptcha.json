@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AceData_hCaptcha_Tools",
+    "title": "hCaptcha",
     "version": "2.0.0",
     "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040?from=coze"
   },
