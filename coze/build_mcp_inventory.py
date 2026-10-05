@@ -70,9 +70,9 @@ def main():
                 if not evidence:continue
                 service=services[key];service['live_public_card']=evidence['public_card'];service['live_tools']=evidence['live_tools']
                 if evidence['live_tools'].get('tools'):
-                    service['source_mcp_tool_count']=service['mcp_tool_count'];service['source_tools']=service['tools']
+                    service['source_mcp_tool_count']=service['mcp_tool_count'];service['source_tool_names']=[t['name'] for t in service['tools']]
                     service['tools']=[{'name':t['name'],'description':t.get('description',''),'input_schema':t.get('inputSchema',{}),'annotations':t.get('annotations',{})} for t in evidence['live_tools']['tools']]
-                    service['mcp_tool_count']=len(service['tools']);service['benchmark_source']='live tools/list'
+                    service['mcp_tool_count']=len(service['tools']);service['benchmark_source']='live tools/list';service['live_tools'].pop('tools',None)
     output={'source_repository':'AceDataCloud/MCPs','source_revision':revision,'snapshot_date':'2026-10-05','benchmark':'One service plugin should match its MCP business capabilities, including generation, editing, retrieval, management and information tools. Names/counts alone are not parity.','exclusions':['Datasets are excluded by user instruction.','Retired Sora and MCP-only services without a current public catalog entry are not promoted.'],'services':services}
     (ROOT/'catalog/mcp-parity.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
     print(f"Inventoried {sum(bool(s['mcp']) for s in services.values())} matching MCPs for {len(services)} API services.")
