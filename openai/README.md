@@ -675,7 +675,7 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 <div class="oa-feat-card">
 <div class="oa-feat-icon">📐</div>
 <h3>Embeddings</h3>
-<p>Three embedding models: text-embedding-3-small/large and ada-002, for semantic search, clustering, and RAG applications.</p>
+<p>Two embedding models: text-embedding-3-small and text-embedding-3-large, for semantic search, clustering, and RAG applications.</p>
 </div>
 </div>
 </div>
@@ -1053,7 +1053,7 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>Which model is good for Embeddings?</span><span class="oa-faq-chev">›</span></div>
-<div class="oa-faq-a"><p>It is recommended to use <code>text-embedding-3-small</code>, which has the best cost-performance ratio ($0.0027 / million Tokens). For higher precision, use <code>text-embedding-3-large</code> ($0.017 / million Tokens). <code>ada-002</code> is an older model, compatible but not as cost-effective as v3.</p></div>
+<div class="oa-faq-a"><p>It is recommended to use <code>text-embedding-3-small</code>, which has the best cost-performance ratio ($0.0027 / million Tokens). For higher precision, use <code>text-embedding-3-large</code> ($0.017 / million Tokens). The older <code>ada-002</code> is no longer available; existing vector indexes must be rebuilt before switching models.</p></div>
 </div>
 </div>
 </div>
