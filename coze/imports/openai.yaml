@@ -1049,39 +1049,6 @@ paths:
                   type: string
                   description: A unique identifier representing your end users, which helps the platform
                     monitor and detect abusive behavior.
-                audio:
-                  type: object
-                  nullable: true
-                  required:
-                  - voice
-                  - format
-                  properties:
-                    voice:
-                      enum:
-                      - alloy
-                      - ash
-                      - ballad
-                      - coral
-                      - echo
-                      - fable
-                      - nova
-                      - onyx
-                      - sage
-                      - shimmer
-                      type: string
-                      description: The tone used by the model in its responses.
-                    format:
-                      enum:
-                      - wav
-                      - aac
-                      - mp3
-                      - flac
-                      - opus
-                      - pcm16
-                      type: string
-                      description: Specify the output audio format.
-                  description: 'Audio output parameters. Required when requesting audio output via `modalities:
-                    ["audio"]`.'
                 model:
                   enum:
                   - gpt-6.1-sol
@@ -1244,24 +1211,6 @@ paths:
                     to `["text"]`. The `gpt-4o-audio-preview` model can also be used to generate audio.
                     If you want the model to generate both text and audio responses, you can use `["text",
                     "audio"]`.
-                prediction:
-                  type: object
-                  nullable: true
-                  required:
-                  - type
-                  - content
-                  properties:
-                    type:
-                      enum:
-                      - content
-                      type: string
-                      description: Predict the type of content, fixed as `content`.
-                    content:
-                      description: Content for prediction.
-                      type: string
-                  description: Static prediction output content, such as the content of a text file that
-                    is being regenerated. It can be used to shorten response time when most of the response
-                    content is already known in advance.
                 temperature:
                   type: number
                   default: 1
@@ -1302,17 +1251,6 @@ paths:
                   description: The integer value between 0 and 20 specifies the number of most likely
                     tokens to return at each token position, each accompanied by the corresponding log
                     probability. When using this parameter, `logprobs` must be set to `true`.
-                stream_options:
-                  type: object
-                  nullable: true
-                  properties:
-                    include_usage:
-                      type: boolean
-                      description: 'If set, an additional chunk will be streamed back before the `data:
-                        [DONE]` message. The `usage` field of this chunk displays the total token usage
-                        statistics for the entire request, while the `choices` field will always be an
-                        empty array.'
-                  description: 'Options for streaming responses. Use only when setting `stream: true`.'
                 presence_penalty:
                   type: number
                   default: 0
@@ -1346,40 +1284,6 @@ paths:
                   description: The value ranges from -2.0 to 2.0. Positive values will penalize based
                     on the frequency of the token appearing in the generated text, thereby reducing the
                     likelihood of the model repeating the same line word for word.
-                web_search_options:
-                  type: object
-                  properties:
-                    user_location:
-                      type: object
-                      nullable: true
-                      properties:
-                        type:
-                          enum:
-                          - approximate
-                          type: string
-                        approximate:
-                          type: object
-                          properties:
-                            city:
-                              type: string
-                            region:
-                              type: string
-                            country:
-                              type: string
-                            timezone:
-                              type: string
-                      description: Approximate location parameters for search.
-                    search_context_size:
-                      enum:
-                      - low
-                      - medium
-                      - high
-                      type: string
-                      default: medium
-                      description: High-level guidelines on the size of the context window space occupied
-                        by the search.
-                  description: Options for web search tools, for use with the GPT-4o model that has built-in
-                    search (`gpt-4o-search-preview`, `gpt-4o-mini-search-preview`).
                 parallel_tool_calls:
                   type: boolean
                   default: true

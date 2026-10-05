@@ -77,6 +77,30 @@ actual service call. It is not a credential and grants no service access. Remove
 it and configure caller-owned authorization before release. No paid tools/call
 was executed for metadata discovery.
 
+## Current release gate (2026-10-05)
+
+The local `e2e-v4/launch-gate.json` evidence file is the
+per-service evidence index; the generated review accepts it with
+`--e2e-evidence`. Only Suno (native MCP generation, task retrieval, two reachable
+MP3 results) and DeepSeek (HTTP draft text response) have a verified real Coze
+tool call in this round. The 21 hosted MCP inventories and 19 free information
+calls were direct MCP checks, separate from Coze execution. The earlier 23-service
+API batch was direct API testing, separate from both.
+
+OpenAI and Kimi exposed a Coze editor problem: it validates required children of
+optional nested inputs even when those inputs are unused. The OpenAI/Claude
+import projections now omit four such optional fields for text chat while the
+canonical public contracts retain them. These projections must be reimported and
+rerun before claiming their Coze tools work. Kimi has not been fixed.
+
+The documented Coze standard OAuth flow omits a PKCE challenge and sends JSON to
+the token endpoint; the hosted MCP OAuth endpoint currently requires PKCE and
+form fields. User connection therefore remains blocked. The existing temporary
+Suno header was restored to a public invalid metadata marker after the test,
+and all short-lived test credentials were expired and read back. No workspace
+publication or store submission was made; post-publication Agent install and
+execution remain unverified.
+
 ## Contracts, trials and publication
 
 `plugins/` contains full public HTTP contracts. `imports/` records Coze-compatible

@@ -72,6 +72,19 @@ class CozeCatalogTests(unittest.TestCase):
                     self.assertTrue(set(original.get('required', [])) <= set(body.get('required', [])))
                     self.assertTrue(set(body.get('required', [])) <= set(body.get('properties', {})))
 
+    def test_coze_chat_projection_omits_inactive_required_children(self):
+        # Coze validates children of optional objects even when the object is unused.
+        # Keep these conditional inputs in the canonical API contract only.
+        for key, path in [('openai', '/openai/chat/completions'),
+                          ('claude', '/v1/chat/completions')]:
+            projected = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
+            body = projected['paths'][path]['post']['requestBody']['content']['application/json']['schema']
+            canonical = self.plugins[key]['paths'][path]['post']['requestBody']['content']['application/json']['schema']
+            inactive = {'audio', 'prediction', 'stream_options', 'web_search_options'}
+            self.assertTrue(inactive <= set(canonical['properties']))
+            self.assertFalse(inactive & set(body['properties']))
+            self.assertTrue({'model', 'messages'} <= set(body['properties']))
+
     def test_union_adapter_keeps_base_fields_and_required_inputs(self):
         # A conditional oneOf must not overwrite the request's normal fields.
         schema = {'type':'object','required':['query'],'properties':{'query':{'type':'string'},'count':{'type':'integer'}},'oneOf':[{'properties':{'mode':{'type':'string','enum':['a']}}},{'properties':{'mode':{'type':'string','enum':['b']}}}]}

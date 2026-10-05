@@ -87,6 +87,11 @@
       "coze_type": "string"
     },
     {
+      "field": "POST /v1/chat/completions/request/audio",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
       "field": "POST /v1/chat/completions/request/tools",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
@@ -102,7 +107,22 @@
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
     },
     {
+      "field": "POST /v1/chat/completions/request/prediction",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/stream_options",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
       "field": "POST /v1/chat/completions/request/response_format",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/chat/completions/request/web_search_options",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
     },
@@ -220,6 +240,11 @@
       "coze_type": "string"
     },
     {
+      "field": "POST /openai/chat/completions/request/audio",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
       "field": "POST /openai/chat/completions/request/tools",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
@@ -235,7 +260,22 @@
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
     },
     {
+      "field": "POST /openai/chat/completions/request/prediction",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/stream_options",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
       "field": "POST /openai/chat/completions/request/response_format",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/web_search_options",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
     },
