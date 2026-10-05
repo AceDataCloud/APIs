@@ -32,6 +32,10 @@ Common optional parameters:
 - `top_k`: Sample only from the top K options with the highest probabilities.
 - `tools`: Tool definitions for allowing the model to invoke external functions.
 - `tool_choice`: Controls how the model uses the provided tools.
+- `thinking`: Thinking configuration, including model-supported `type`, `budget_tokens`, `display`, and extension fields.
+- `output_config`: Output configuration, including `effort` and model-supported extension fields.
+
+`thinking`, `output_config`, effort values, sampling parameters, and new extension fields are passed through unchanged. The platform does not enforce a fixed per-model enum or combination table or automatically rewrite thinking modes. The selected model determines which parameters it accepts, and parameter errors are returned to the client; pass-through does not guarantee support across models or protocol conversions.
 
 ### cURL Example
 
@@ -300,7 +304,7 @@ By passing the complete conversation history in `messages`, Claude can provide a
 
 ## Deep Thinking Model
 
-Claude supports the Extended Thinking feature, which allows the model to perform internal reasoning before responding, improving the accuracy of handling complex questions. When using this feature, the `thinking` parameter needs to be passed.
+Claude supports Extended Thinking for reasoning before responding. Thinking and its display mode are separate controls: the model can reason without returning thinking text, and readable thinking content is a summary, not the raw chain of thought. Configure `thinking` explicitly when needed; defaults and supported controls depend on the selected model.
 
 ### Python Example
 
@@ -360,13 +364,32 @@ The response is as follows:
 
 As you can see, the `content` array contains two content blocks:
 
-- `type: "thinking"`: The model's internal thought process, showing the reasoning steps.
+- `type: "thinking"`: A readable thinking summary when the selected display mode returns one.
 - `type: "text"`: The final answer result.
 
-Notes:
+### Thinking display and effort
 
-- When using `thinking`, `max_tokens` needs to be greater than `budget_tokens`, as `budget_tokens` is the token budget allocated for the thinking process.
-- The larger the `budget_tokens`, the more space the model has for deeper reasoning, suitable for handling complex questions.
+For models that support adaptive thinking, use `thinking.type="adaptive"` and `output_config.effort` rather than a fixed budget. For example, a Messages request can contain:
+
+```json
+{
+  "model": "claude-opus-5",
+  "max_tokens": 16000,
+  "thinking": {"type": "adaptive", "display": "summarized"},
+  "output_config": {"effort": "high"},
+  "messages": [{"role": "user", "content": "What is the sine of 30 degrees?"}]
+}
+```
+
+- `display="summarized"` returns a readable summary, not raw chain of thought.
+- `display="omitted"` returns empty thinking text while retaining the opaque `signature` for subsequent turns.
+- `display="updates"` is a beta mode intended to hide reasoning text and show short progress updates between tool calls. Add `anthropic-beta: thinking-display-updates-2026-08-18` to the request headers when selecting this mode. The display value and beta header are forwarded unchanged, not forced to `summarized`; actual support and output depend on the selected model.
+- Common effort values include `low`, `medium`, `high`, `xhigh`, and `max`, but these are not a fixed platform enum. New values, `thinking.type` modes such as `between_tools`, and their combinations are evaluated by the selected model.
+- Use `thinking={"type":"disabled"}` only when the selected model supports disabling thinking. Fixed `budget_tokens` support is also model-dependent; for models using a fixed budget, leave enough `max_tokens` for both thinking and the final text.
+- Display controls do not disable reasoning or reduce billed thinking tokens. Thinking and the final text share the `max_tokens` budget; an insufficient budget can leave the final text empty or truncated.
+- In multi-turn conversations and tool calls, pass back the complete assistant thinking blocks and signatures unchanged. Do not alter or generate signatures. Protocol conversion may limit support for content such as `redacted_thinking` and can return errors.
+
+For streaming, `summarized` produces `thinking_delta`; `omitted` retains the thinking block lifecycle and `signature_delta` without `thinking_delta`.
 
 ## Visual Model
 
