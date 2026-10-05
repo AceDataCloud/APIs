@@ -20,11 +20,12 @@ class CozeCatalogTests(unittest.TestCase):
         cls.plugins = {p.stem: json.loads(p.read_text()) for p in (ROOT / 'plugins').glob('*.json')}
 
     def test_every_public_service_is_accounted_for(self):
-        self.assertEqual({x['id'] for x in self.source['services'] if x['type'] != 'Dataset'}, {x['service_id'] for x in self.coverage})
+        self.assertEqual({x['id'] for x in self.source['services'] if x['type'] != 'Dataset' and builder.slug(x) not in {'aichat','digitalhuman','dreamina'}}, {x['service_id'] for x in self.coverage})
         self.assertEqual(len(self.coverage), len({x['service_id'] for x in self.coverage}))
         for row in self.coverage:
             self.assertTrue(row['name'])
             self.assertNotIn('AceData',row['name'])
+            self.assertNotIn('_',row['name'])
             self.assertNotEqual('Dataset',row['service_type'])
             self.assertTrue((ROOT / row['icon']).is_file())
             if row['service_type'] == 'Api':

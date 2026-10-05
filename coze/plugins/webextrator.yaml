@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Web_Extractor
+  title: Web Extractor
   version: 2.0.0
   description: 'Render a public web page or extract its content with WebExtrator. Retrieve asynchronous
     tasks and inspect the actual output before using it. Bind your own Ace Data Cloud credential privately

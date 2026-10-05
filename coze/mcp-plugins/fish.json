@@ -1,5 +1,5 @@
 {
-  "name": "Fish_Audio",
+  "name": "Fish",
   "brief": "Text to speech and authorized voice tools",
   "description": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.",
   "icon": "icons/fish.png",

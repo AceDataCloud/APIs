@@ -675,57 +675,6 @@
     "special_authorization": false
   },
   {
-    "service": "aichat",
-    "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
-    "operation_id": "createConversation",
-    "method": "POST",
-    "path": "/aichat/conversations",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "question": "A calm sunrise over a mountain lake.",
-        "model": "gpt-6.1-sol"
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
-    "service": "aichat",
-    "api_id": "3769e83e-88f8-4e2c-8f38-6bf20391b094",
-    "operation_id": "manageConversation",
-    "method": "POST",
-    "path": "/aichat2/conversations",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "model": "gpt-6.1-sol",
-        "action": "chat",
-        "async": true
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
     "service": "serp",
     "api_id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",
     "operation_id": "searchGoogle",
@@ -1652,57 +1601,6 @@
     "special_authorization": false
   },
   {
-    "service": "dreamina",
-    "api_id": "b35fd461-8da1-4aec-9e40-5e361ed26223",
-    "operation_id": "getTaskResults",
-    "method": "POST",
-    "path": "/dreamina/tasks",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "action": "retrieve"
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
-    "service": "dreamina",
-    "api_id": "b3880780-678f-4495-bda7-3a1ecf42781c",
-    "operation_id": "generateVideo",
-    "method": "POST",
-    "path": "/dreamina/videos",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "image_url": "https://example.com/authorized-test-input",
-        "audio_url": "https://example.com/authorized-test-input",
-        "model": "omnihuman-1.5",
-        "async": true
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
     "service": "suno",
     "api_id": "09a26295-5972-4392-9318-dcd9b218f90d",
     "operation_id": "generateMusic",
@@ -2148,79 +2046,6 @@
       "Inspect the returned media or content and reconcile billed Credits."
     ],
     "special_authorization": false
-  },
-  {
-    "service": "digitalhuman",
-    "api_id": "5ced04db-8d92-4a6b-b988-91423dcc1f02",
-    "operation_id": "generateVideo",
-    "method": "POST",
-    "path": "/digital-human/videos",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "async": true
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
-    "service": "digitalhuman",
-    "api_id": "74bb973d-939a-4a6e-89f4-1667deb8ea3b",
-    "operation_id": "getTaskResults",
-    "method": "POST",
-    "path": "/digital-human/tasks",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "task_id": "REPLACE_WITH_OWNED_TASK_ID"
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": false
-  },
-  {
-    "service": "digitalhuman",
-    "api_id": "c334172a-a0b1-451f-8137-d9c9830a15b9",
-    "operation_id": "createVoice",
-    "method": "POST",
-    "path": "/digital-human/voices",
-    "request": {
-      "headers": {
-        "Authorization": "Bearer YOUR_API_TOKEN"
-      },
-      "body": {
-        "audio_url": "https://example.com/authorized-test-input",
-        "async": true
-      }
-    },
-    "status": "not_run",
-    "fixture_kind": "draft_request_not_execution_evidence",
-    "acceptance": [
-      "Validate the request against the current model/action requirements.",
-      "Confirm a successful real response and expected result fields.",
-      "For async creation, poll the matching retrieval tool to a terminal result.",
-      "Inspect the returned media or content and reconcile billed Credits."
-    ],
-    "special_authorization": true
   },
   {
     "service": "happyhorse",

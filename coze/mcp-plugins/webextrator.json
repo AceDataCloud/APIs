@@ -1,5 +1,5 @@
 {
-  "name": "Web_Extractor",
+  "name": "Web Extractor",
   "brief": "Render pages and extract structured content",
   "description": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.",
   "icon": "icons/webextrator.png",

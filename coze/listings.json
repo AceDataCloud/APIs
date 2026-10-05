@@ -57,7 +57,7 @@
     }
   },
   "turnstile": {
-    "name": "Turnstile",
+    "name": "Turnstile Resolver",
     "brief": "Turnstile integration tools",
     "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.",
     "scenarios": [
@@ -75,7 +75,7 @@
     }
   },
   "image2text": {
-    "name": "Captcha_OCR",
+    "name": "CAPTCHA OCR Resolver",
     "brief": "Read text from verification images",
     "description": "Recognize letters and numbers in verification images for authorized testing workflows.",
     "scenarios": [
@@ -206,27 +206,8 @@
       "sensitive_inputs": false
     }
   },
-  "aichat": {
-    "name": "AI_Chat",
-    "brief": "Multi-model conversations and history",
-    "description": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.",
-    "scenarios": [
-      "Build a writing assistant",
-      "run a structured conversation",
-      "retrieve a previous answer."
-    ],
-    "icon": "icons/aichat.png",
-    "category": "Productivity",
-    "about": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze",
-    "privacy_review": {
-      "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
-      "recipient": "Ace Data Cloud API",
-      "retention": "Verify current published privacy terms; no retention promise is made in this draft.",
-      "sensitive_inputs": false
-    }
-  },
   "serp": {
-    "name": "Google_Search",
+    "name": "Google Search",
     "brief": "Google search with sources and filters",
     "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.",
     "scenarios": [
@@ -264,7 +245,7 @@
     }
   },
   "identity": {
-    "name": "Identity_Verification",
+    "name": "Identity Verification",
     "brief": "Identity, phone and bank-card verification",
     "description": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.",
     "scenarios": [
@@ -302,7 +283,7 @@
     }
   },
   "recaptcha": {
-    "name": "reCAPTCHA",
+    "name": "reCAPTCHA Resolver",
     "brief": "reCAPTCHA integration and recognition tools",
     "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.",
     "scenarios": [
@@ -320,7 +301,7 @@
     }
   },
   "hcaptcha": {
-    "name": "hCaptcha",
+    "name": "hCaptcha Resolver",
     "brief": "hCaptcha integration and task retrieval",
     "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
     "scenarios": [
@@ -338,7 +319,7 @@
     }
   },
   "qwen-image": {
-    "name": "Qwen_Image",
+    "name": "Qwen Image",
     "brief": "Qwen image generation and editing",
     "description": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.",
     "scenarios": [
@@ -357,7 +338,7 @@
     }
   },
   "shorturl": {
-    "name": "Short_URL",
+    "name": "Short URL",
     "brief": "Compact links for campaigns and sharing",
     "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.",
     "scenarios": [
@@ -376,7 +357,7 @@
     }
   },
   "webextrator": {
-    "name": "Web_Extractor",
+    "name": "Web Extractor",
     "brief": "Render pages and extract structured content",
     "description": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.",
     "scenarios": [
@@ -414,7 +395,7 @@
     }
   },
   "nano-banana": {
-    "name": "Nano_Banana",
+    "name": "Nano Banana",
     "brief": "Nano Banana image creation and editing",
     "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
     "scenarios": [
@@ -451,25 +432,6 @@
       "sensitive_inputs": false
     }
   },
-  "dreamina": {
-    "name": "Dreamina",
-    "brief": "Animate a portrait with an audio track",
-    "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.",
-    "scenarios": [
-      "Animate your own presenter portrait",
-      "make a narrated explainer",
-      "localize an authorized avatar clip."
-    ],
-    "icon": "icons/dreamina.png",
-    "category": "Video",
-    "about": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9?from=coze",
-    "privacy_review": {
-      "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
-      "recipient": "Ace Data Cloud API",
-      "retention": "Verify current published privacy terms; no retention promise is made in this draft.",
-      "sensitive_inputs": true
-    }
-  },
   "suno": {
     "name": "Suno",
     "brief": "Suno songs, lyrics and music production",
@@ -482,25 +444,6 @@
     "icon": "icons/suno.png",
     "category": "Music",
     "about": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze",
-    "privacy_review": {
-      "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
-      "recipient": "Ace Data Cloud API",
-      "retention": "Verify current published privacy terms; no retention promise is made in this draft.",
-      "sensitive_inputs": true
-    }
-  },
-  "digitalhuman": {
-    "name": "Digital_Human",
-    "brief": "Talking avatars, voice and video tools",
-    "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.",
-    "scenarios": [
-      "Make a presenter explainer",
-      "animate your own portrait",
-      "generate an authorized voice-led video."
-    ],
-    "icon": "icons/digitalhuman.png",
-    "category": "Video",
-    "about": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.\n\nBind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.\nGet started: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733?from=coze",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -566,7 +509,7 @@
     }
   },
   "fish": {
-    "name": "Fish_Audio",
+    "name": "Fish",
     "brief": "Text to speech and authorized voice tools",
     "description": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.",
     "scenarios": [

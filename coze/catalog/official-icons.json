@@ -75,7 +75,7 @@
     "url": "https://cdn.acedata.cloud/psfx0g.jpg",
     "source": "Nexior/src/constants/chat.ts",
     "service_id": "dda998fe-e11f-41b8-afa9-0a9b8420d60d",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+    "transformation": "Optical crop of excess white border; full brand mark preserved, then scaled to 512px."
   },
   "grok": {
     "url": "https://cdn.acedata.cloud/p1ge98.png",
@@ -87,13 +87,7 @@
     "url": "https://cdn.acedata.cloud/8nxyy9.jpg",
     "source": "Nexior/src/constants/veo.ts",
     "service_id": "73cd74ba-a1bd-4a12-8df6-11d64c38df14",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
-  },
-  "aichat": {
-    "url": "https://cdn.acedata.cloud/7dljuv.png",
-    "source": "Anonymous public Service.icon_url",
-    "service_id": "b1fbcc32-e218-4253-9dc3-4fe600a1bfb9",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+    "transformation": "Optical crop of excess white border; full brand mark preserved, then scaled to 512px."
   },
   "serp": {
     "url": "https://cdn.acedata.cloud/27e11e555d.png",
@@ -179,22 +173,10 @@
     "service_id": "0177c7f4-06f2-4516-b1d7-8cc44bf57e57",
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   },
-  "dreamina": {
-    "url": "https://cdn.acedata.cloud/cbe3ae254e.png",
-    "source": "Anonymous public Service.icon_url",
-    "service_id": "dedd00ce-9697-44cf-8dfa-5302e001fea9",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
-  },
   "suno": {
     "url": "https://cdn.acedata.cloud/l3ffw7.jpg",
     "source": "Nexior/src/constants/suno.ts",
     "service_id": "f2b646d8-3cfd-46ef-969a-1ea9eebde329",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
-  },
-  "digitalhuman": {
-    "url": "https://cdn.acedata.cloud/uploads/b47b3899-d41a-4295-93b9-20686ac98598",
-    "source": "Nexior/src/constants/digitalhuman.ts",
-    "service_id": "5b132265-40e8-4a79-9582-589f8eea4733",
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   },
   "happyhorse": {

@@ -150,18 +150,6 @@
     "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
     "billing_limit_credits": null
   },
-  "aichat": {
-    "path": "/aichat/conversations",
-    "method": "POST",
-    "body": {
-      "model": "gpt-4o-mini",
-      "question": "Explain why the sky appears blue in two sentences.",
-      "stateful": false
-    },
-    "status": "not_run",
-    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
-    "billing_limit_credits": null
-  },
   "serp": {
     "path": "/serp/google",
     "method": "POST",
@@ -287,19 +275,6 @@
     "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
     "billing_limit_credits": null
   },
-  "dreamina": {
-    "path": "/dreamina/videos",
-    "method": "POST",
-    "body": {
-      "model": "omnihuman-1.5",
-      "image_url": "AUTHORIZED_PORTRAIT_URL_REQUIRED",
-      "audio_url": "AUTHORIZED_SPEECH_URL_REQUIRED",
-      "async": true
-    },
-    "status": "not_run",
-    "acceptance": "Requires an explicitly authorized portrait and speech fixture; do not send a real person’s image without approval.",
-    "billing_limit_credits": null
-  },
   "suno": {
     "path": "/suno/audios",
     "method": "POST",
@@ -312,18 +287,6 @@
     },
     "status": "not_run",
     "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
-    "billing_limit_credits": null
-  },
-  "digitalhuman": {
-    "path": "/digital-human/videos",
-    "method": "POST",
-    "body": {
-      "image_url": "AUTHORIZED_PORTRAIT_URL_REQUIRED",
-      "audio_url": "AUTHORIZED_SPEECH_URL_REQUIRED",
-      "async": true
-    },
-    "status": "not_run",
-    "acceptance": "Requires an explicitly authorized portrait and speech fixture.",
     "billing_limit_credits": null
   },
   "happyhorse": {

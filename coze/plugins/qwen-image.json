@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Qwen_Image",
+    "title": "Qwen Image",
     "version": "2.0.0",
     "description": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891?from=coze"
   },

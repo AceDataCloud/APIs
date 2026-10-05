@@ -184,7 +184,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "Turnstile",
+      "name": "Turnstile Resolver",
       "brief": "Turnstile integration tools",
       "group": "Verification",
       "scenarios": [
@@ -391,7 +391,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "Captcha_OCR",
+      "name": "CAPTCHA OCR Resolver",
       "brief": "Read text from verification images",
       "group": "Verification",
       "scenarios": [
@@ -1051,162 +1051,6 @@
       "schema": "plugins/veo.yaml"
     },
     {
-      "key": "aichat",
-      "service_id": "b1fbcc32-e218-4253-9dc3-4fe600a1bfb9",
-      "service_type": "Api",
-      "title": "AI Dialogue",
-      "description": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.",
-      "source_url": "https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9",
-      "icon": "icons/aichat.png",
-      "operations": [
-        {
-          "api_id": "0df4b359-4170-482b-b9ff-e216d3cdf5bb",
-          "path": "/aichat2/skills",
-          "method": null,
-          "stage": "Beta",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
-          "path": "/aichat/conversations",
-          "method": "POST",
-          "stage": "Production",
-          "docs": "https://platform.acedata.cloud/documents/aichat-conversations",
-          "operation_id": "createConversation",
-          "disposition": "schema_prepared"
-        },
-        {
-          "api_id": "2c487855-791e-40a6-abf2-ba6e09933155",
-          "path": "/aichat2/ws/agent",
-          "method": "GET",
-          "stage": "Beta",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "3769e83e-88f8-4e2c-8f38-6bf20391b094",
-          "path": "/aichat2/conversations",
-          "method": "POST",
-          "stage": "Alpha",
-          "docs": "https://platform.acedata.cloud/documents/aichat2-conversations",
-          "operation_id": "manageConversation",
-          "disposition": "schema_prepared"
-        },
-        {
-          "api_id": "4ca74b04-2e02-40ff-99b4-1092cf41a882",
-          "path": "/internal/scheduled-task",
-          "method": null,
-          "stage": "Alpha",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "6e4d6f8e-3a60-488c-87bd-2e65aa1972c5",
-          "path": "/aichat2/artifacts",
-          "method": null,
-          "stage": "Alpha",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "8d33b2db-90bf-49b1-b074-137cfb7ea8ad",
-          "path": "/v1/live/sessions",
-          "method": "GET",
-          "stage": "Beta",
-          "docs": "https://platform.acedata.cloud/documents/openai-live",
-          "disposition": "adapter_or_console",
-          "reason": "Requires a live session transport; not a conventional JSON tool."
-        },
-        {
-          "api_id": "91ccb414-aa1f-4a05-bfbc-045ee29ebff7",
-          "path": "/aichat2/scheduled-tasks",
-          "method": null,
-          "stage": "Alpha",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "927d623f-cc1c-4a36-a7d3-562a8edf7c72",
-          "path": "/aichat2/realtime",
-          "method": null,
-          "stage": "Alpha",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "9bfe099e-6ef5-4f4d-99bc-e7098a659968",
-          "path": "/aichat2/memories",
-          "method": null,
-          "stage": "Alpha",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "c8eed50b-e51a-403d-b530-995649ef41ba",
-          "path": "/aichat2/agent",
-          "method": "POST",
-          "stage": "Beta",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "ca4bce86-209e-40c6-97d7-44f5d45e9c14",
-          "path": "/aichat2/mcp-servers",
-          "method": "POST",
-          "stage": "Production",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        },
-        {
-          "api_id": "dab47344-443e-4949-a131-207c1010349e",
-          "path": "/aichat2/connectors",
-          "method": "POST",
-          "stage": "Beta",
-          "public_document": false,
-          "has_contract": false,
-          "disposition": "excluded",
-          "reason": "No current public API document and import contract."
-        }
-      ],
-      "blockers": [
-        "Expanded tool set requires Coze import verification and authorized real trials."
-      ],
-      "name": "AI_Chat",
-      "brief": "Multi-model conversations and history",
-      "group": "Chat",
-      "scenarios": [
-        "Build a writing assistant",
-        "run a structured conversation",
-        "retrieve a previous answer."
-      ],
-      "delivery": "http_plugin",
-      "tool_count": 2,
-      "readiness": "draft_assets_prepared",
-      "plugin_url": null,
-      "coze_state": "not_created",
-      "validation": "not_run",
-      "schema": "plugins/aichat.yaml"
-    },
-    {
       "key": "serp",
       "service_id": "a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3",
       "service_type": "Api",
@@ -1228,7 +1072,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Google_Search",
+      "name": "Google Search",
       "brief": "Google search with sources and filters",
       "group": "Search",
       "scenarios": [
@@ -1395,7 +1239,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "Identity_Verification",
+      "name": "Identity Verification",
       "brief": "Identity, phone and bank-card verification",
       "group": "Verification",
       "scenarios": [
@@ -1507,7 +1351,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "reCAPTCHA",
+      "name": "reCAPTCHA Resolver",
       "brief": "reCAPTCHA integration and recognition tools",
       "group": "Verification",
       "scenarios": [
@@ -1563,7 +1407,7 @@
         "Expanded tool set requires Coze import verification and authorized real trials.",
         "Controlled authorized fixtures and a service-specific privacy review are required for real tests."
       ],
-      "name": "hCaptcha",
+      "name": "hCaptcha Resolver",
       "brief": "hCaptcha integration and task retrieval",
       "group": "Verification",
       "scenarios": [
@@ -1609,7 +1453,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Qwen_Image",
+      "name": "Qwen Image",
       "brief": "Qwen image generation and editing",
       "group": "Image",
       "scenarios": [
@@ -1647,7 +1491,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Short_URL",
+      "name": "Short URL",
       "brief": "Compact links for campaigns and sharing",
       "group": "Utility",
       "scenarios": [
@@ -1703,7 +1547,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Web_Extractor",
+      "name": "Web Extractor",
       "brief": "Render pages and extract structured content",
       "group": "Search",
       "scenarios": [
@@ -2022,7 +1866,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Nano_Banana",
+      "name": "Nano Banana",
       "brief": "Nano Banana image creation and editing",
       "group": "Image",
       "scenarios": [
@@ -2101,53 +1945,6 @@
       "name": "Codex",
       "brief": "OpenAI's powerful coding agent",
       "readiness": "guide_prepared"
-    },
-    {
-      "key": "dreamina",
-      "service_id": "dedd00ce-9697-44cf-8dfa-5302e001fea9",
-      "service_type": "Api",
-      "title": "Dreamina",
-      "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.",
-      "source_url": "https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9",
-      "icon": "icons/dreamina.png",
-      "operations": [
-        {
-          "api_id": "b35fd461-8da1-4aec-9e40-5e361ed26223",
-          "path": "/dreamina/tasks",
-          "method": "POST",
-          "stage": "Beta",
-          "docs": "https://platform.acedata.cloud/documents/dreamina-tasks",
-          "operation_id": "getTaskResults",
-          "disposition": "schema_prepared"
-        },
-        {
-          "api_id": "b3880780-678f-4495-bda7-3a1ecf42781c",
-          "path": "/dreamina/videos",
-          "method": "POST",
-          "stage": "Beta",
-          "docs": "https://platform.acedata.cloud/documents/dreamina-videos",
-          "operation_id": "generateVideo",
-          "disposition": "schema_prepared"
-        }
-      ],
-      "blockers": [
-        "Expanded tool set requires Coze import verification and authorized real trials."
-      ],
-      "name": "Dreamina",
-      "brief": "Animate a portrait with an audio track",
-      "group": "Avatar",
-      "scenarios": [
-        "Animate your own presenter portrait",
-        "make a narrated explainer",
-        "localize an authorized avatar clip."
-      ],
-      "delivery": "http_plugin",
-      "tool_count": 2,
-      "readiness": "draft_assets_prepared",
-      "plugin_url": null,
-      "coze_state": "not_created",
-      "validation": "not_run",
-      "schema": "plugins/dreamina.yaml"
     },
     {
       "key": "suno",
@@ -2339,62 +2136,6 @@
       "coze_state": "not_created",
       "validation": "not_run",
       "schema": "plugins/suno.yaml"
-    },
-    {
-      "key": "digitalhuman",
-      "service_id": "5b132265-40e8-4a79-9582-589f8eea4733",
-      "service_type": "Api",
-      "title": "Digital Human",
-      "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.",
-      "source_url": "https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733",
-      "icon": "icons/digitalhuman.png",
-      "operations": [
-        {
-          "api_id": "5ced04db-8d92-4a6b-b988-91423dcc1f02",
-          "path": "/digital-human/videos",
-          "method": "POST",
-          "stage": "Beta",
-          "docs": "https://platform.acedata.cloud/documents/digitalhuman-videos",
-          "operation_id": "generateVideo",
-          "disposition": "schema_prepared"
-        },
-        {
-          "api_id": "74bb973d-939a-4a6e-89f4-1667deb8ea3b",
-          "path": "/digital-human/tasks",
-          "method": "POST",
-          "stage": "Production",
-          "docs": "https://platform.acedata.cloud/documents/digitalhuman-tasks",
-          "operation_id": "getTaskResults",
-          "disposition": "schema_prepared"
-        },
-        {
-          "api_id": "c334172a-a0b1-451f-8137-d9c9830a15b9",
-          "path": "/digital-human/voices",
-          "method": "POST",
-          "stage": "Beta",
-          "docs": "https://platform.acedata.cloud/documents/digitalhuman-voices",
-          "operation_id": "createVoice",
-          "disposition": "schema_prepared"
-        }
-      ],
-      "blockers": [
-        "Expanded tool set requires Coze import verification and authorized real trials."
-      ],
-      "name": "Digital_Human",
-      "brief": "Talking avatars, voice and video tools",
-      "group": "Avatar",
-      "scenarios": [
-        "Make a presenter explainer",
-        "animate your own portrait",
-        "generate an authorized voice-led video."
-      ],
-      "delivery": "http_plugin",
-      "tool_count": 3,
-      "readiness": "draft_assets_prepared",
-      "plugin_url": null,
-      "coze_state": "not_created",
-      "validation": "not_run",
-      "schema": "plugins/digitalhuman.yaml"
     },
     {
       "key": "happyhorse",
@@ -2631,7 +2372,7 @@
       "blockers": [
         "Expanded tool set requires Coze import verification and authorized real trials."
       ],
-      "name": "Fish_Audio",
+      "name": "Fish",
       "brief": "Text to speech and authorized voice tools",
       "group": "Audio",
       "scenarios": [

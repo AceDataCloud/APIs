@@ -1,5 +1,5 @@
 {
-  "name": "Turnstile",
+  "name": "Turnstile Resolver",
   "brief": "Turnstile integration tools",
   "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.",
   "icon": "icons/turnstile.png",

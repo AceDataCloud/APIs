@@ -196,8 +196,9 @@ def write_json(path,data):
 
 def main():
     src=json.loads((ROOT/'catalog/public-snapshot.json').read_text());profiles=json.loads((ROOT/'catalog/profiles.json').read_text());contracts=src['contracts'];coverage=[];listings={};cases=[]
+    scope=json.loads((ROOT/'catalog/launch-scope.json').read_text())
     for s in src['services']:
-        if s['type']=='Dataset':continue
+        if s['type'] in scope['excluded_types'] or slug(s) in scope['excluded_service_keys']:continue
         key=slug(s);row={'key':key,'service_id':s['id'],'service_type':s['type'],'title':s['title'],'description':s['description'],'source_url':f"https://platform.acedata.cloud/services/{s['id']}",'icon':f'icons/{key}.png','operations':[],'blockers':[]}
         if s['type']!='Api':
             row['delivery']='catalog_assistant';row['name']=s['title'];row['brief']=s['description'];row['readiness']='guide_prepared'

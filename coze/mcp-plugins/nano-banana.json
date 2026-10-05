@@ -1,5 +1,5 @@
 {
-  "name": "Nano_Banana",
+  "name": "Nano Banana",
   "brief": "Nano Banana image creation and editing",
   "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
   "icon": "icons/nano-banana.png",

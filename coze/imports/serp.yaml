@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Google_Search
+  title: Google Search
   version: 2.0.0
   description: 'Find web pages, images, news, maps and other supported search results with country, language,
     recency and pagination controls. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN

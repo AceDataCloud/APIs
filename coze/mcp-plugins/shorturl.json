@@ -1,5 +1,5 @@
 {
-  "name": "Short_URL",
+  "name": "Short URL",
   "brief": "Compact links for campaigns and sharing",
   "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.",
   "icon": "icons/shorturl.png",

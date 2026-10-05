@@ -1,5 +1,5 @@
 {
-  "name": "Captcha_OCR",
+  "name": "CAPTCHA OCR Resolver",
   "brief": "Read text from verification images",
   "description": "Recognize letters and numbers in verification images for authorized testing workflows.",
   "icon": "icons/image2text.png",

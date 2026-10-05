@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Turnstile",
+    "title": "Turnstile Resolver",
     "version": "2.0.0",
     "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/0b86c601-dcc4-4494-8259-00a2b88763d7?from=coze"
   },

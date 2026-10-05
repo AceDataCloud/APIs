@@ -1,5 +1,5 @@
 {
-  "name": "hCaptcha",
+  "name": "hCaptcha Resolver",
   "brief": "hCaptcha integration and task retrieval",
   "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
   "icon": "icons/hcaptcha.png",

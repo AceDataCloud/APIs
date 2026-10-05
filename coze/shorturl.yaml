@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Short_URL
+  title: Short URL
   version: 2.0.0
   description: 'Turn a long public URL into a compact shareable link. Use the returned data.url in the
     next workflow step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in

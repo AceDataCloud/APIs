@@ -1,5 +1,5 @@
 {
-  "name": "reCAPTCHA",
+  "name": "reCAPTCHA Resolver",
   "brief": "reCAPTCHA integration and recognition tools",
   "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.",
   "icon": "icons/recaptcha.png",

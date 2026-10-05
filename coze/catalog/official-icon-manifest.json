@@ -1,9 +1,4 @@
 {
-  "aichat": {
-    "sha256": "b525d3451af82c229d95402f91a20e74bd8b738c75b77c12a2592cb1d02b344f",
-    "source_url": "https://cdn.acedata.cloud/7dljuv.png",
-    "source": "Anonymous public Service.icon_url"
-  },
   "claude": {
     "sha256": "0def79a4174914dee87799c82cdcf93a7bafc6d2028ca94de53e4b4980678306",
     "source_url": "https://cdn.acedata.cloud/8fnw4v.jpg",
@@ -29,19 +24,9 @@
     "source_url": "https://cdn.acedata.cloud/zv0360.jpg",
     "source": "Nexior/src/constants/chat.ts"
   },
-  "digitalhuman": {
-    "sha256": "9a6c4032ca85bcd110824cfdadf08cc7c1d2766975425a5982696d3563865569",
-    "source_url": "https://cdn.acedata.cloud/uploads/b47b3899-d41a-4295-93b9-20686ac98598",
-    "source": "Nexior/src/constants/digitalhuman.ts"
-  },
   "discord-bot": {
     "sha256": "3abed011a1cb4fb5662e199ac8ecd95b1e6b1c2983b38db71141ca542bbebea1",
     "source_url": "https://cdn.acedata.cloud/assets/services/discord-bot/icon-3abed011a1cb.png",
-    "source": "Anonymous public Service.icon_url"
-  },
-  "dreamina": {
-    "sha256": "29fd831e0b5417760a7f5db00ea83ad1b2eddf2fd042f5be3f0607c0d4073a5f",
-    "source_url": "https://cdn.acedata.cloud/cbe3ae254e.png",
     "source": "Anonymous public Service.icon_url"
   },
   "fish": {
@@ -85,9 +70,9 @@
     "source": "Anonymous public Service.icon_url"
   },
   "identity": {
-    "sha256": "b24bef892457efcb44ae6ed0bde0054c7b445691b810f8fa9d9638f042a84eb1",
-    "source_url": "https://cdn.acedata.cloud/99c35a09e1.svg",
-    "source": "Anonymous public Service.icon_url"
+    "sha256": "29191e778cba436248741bffceea131b8184c2a3052aa6a50221c71dc08192b3",
+    "source_url": null,
+    "source": "Custom utility icon generated with GPT Image 2"
   },
   "image2text": {
     "sha256": "e47b22a16c634d4a0ab80a241157e41867fbf7a1076ba388060bc2275b3de539",
@@ -105,9 +90,9 @@
     "source": "Nexior/src/constants/kling.ts"
   },
   "localization": {
-    "sha256": "c7c1fbfa73b1cfd8bc07391bcb304cdf9168e4dbb348c7912b2270a2b747f469",
-    "source_url": "https://cdn.acedata.cloud/ce61d3228b.svg",
-    "source": "Anonymous public Service.icon_url"
+    "sha256": "cc6cd5803df1e90f1bd060f9e39adc9ce762adb336222e650c9caeb171c62f41",
+    "source_url": null,
+    "source": "Custom utility icon generated with GPT Image 2"
   },
   "luma": {
     "sha256": "8c0ac59afcf707e8838bc71c070eebf42fc3256d28426d7140dd85c5266cd4d7",
@@ -195,9 +180,9 @@
     "source": "Nexior/src/constants/wan.ts"
   },
   "webextrator": {
-    "sha256": "0705b204ce48abb818c7b9b7365613de6d442405376a1fe51fb5b17246750735",
-    "source_url": "https://cdn.acedata.cloud/782648959c.png",
-    "source": "Nexior/src/constants/webextrator.ts"
+    "sha256": "3098635e35a0a2e02cc32153d1396360182de799259f51404e0508d9a986e58c",
+    "source_url": null,
+    "source": "Custom utility icon generated with GPT Image 2"
   },
   "wechat-bot": {
     "sha256": "4879adba8169115da4e655b5dee84cdefe83312f853e1cfc57cc39ef9721087d",

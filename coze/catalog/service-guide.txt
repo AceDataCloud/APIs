@@ -107,13 +107,6 @@ URL: https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df1
 COZE ENTRY: http_plugin
 NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
 
-SERVICE: AI Dialogue
-TYPE: Api
-DESCRIPTION: Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.
-URL: https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9
-COZE ENTRY: http_plugin
-NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
-
 SERVICE: Search Engine
 TYPE: Api
 DESCRIPTION: Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.
@@ -212,24 +205,10 @@ URL: https://platform.acedata.cloud/services/0177c7f4-06f2-4516-b1d7-8cc44bf57e5
 COZE ENTRY: catalog_assistant
 NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
 
-SERVICE: Dreamina
-TYPE: Api
-DESCRIPTION: Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.
-URL: https://platform.acedata.cloud/services/dedd00ce-9697-44cf-8dfa-5302e001fea9
-COZE ENTRY: http_plugin
-NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
-
 SERVICE: Suno Music Generation
 TYPE: Api
 DESCRIPTION: Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.
 URL: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329
-COZE ENTRY: http_plugin
-NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
-
-SERVICE: Digital Human
-TYPE: Api
-DESCRIPTION: Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.
-URL: https://platform.acedata.cloud/services/5b132265-40e8-4a79-9582-589f8eea4733
 COZE ENTRY: http_plugin
 NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
 

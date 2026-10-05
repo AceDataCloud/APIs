@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: Fish_Audio
+  title: Fish
   version: 2.0.0
   description: 'Turn text into speech, browse supported saved voices, or create a voice from authorized
     reference audio. Retrieve asynchronous speech tasks. Bind your own Ace Data Cloud credential privately

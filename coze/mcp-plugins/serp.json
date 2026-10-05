@@ -1,5 +1,5 @@
 {
-  "name": "Google_Search",
+  "name": "Google Search",
   "brief": "Google search with sources and filters",
   "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.",
   "icon": "icons/serp.png",
