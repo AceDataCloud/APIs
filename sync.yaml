@@ -1,6 +1,7 @@
 mappings:
   luma:
     repo: AceDataCloud/LumaAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
@@ -11,36 +12,43 @@ mappings:
       - .gitbooks
   suno:
     repo: AceDataCloud/SunoAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   sora:
     repo: AceDataCloud/SoraAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   veo:
     repo: AceDataCloud/VeoAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   flux:
     repo: AceDataCloud/FluxAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   serp:
     repo: AceDataCloud/SerpAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   nanobanana:
     repo: AceDataCloud/NanoBananaAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   openai:
     repo: AceDataCloud/OpenAIAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
