@@ -34,7 +34,6 @@ Common optional parameters:
 - `tool_choice`: Controls how the model uses the provided tools.
 - `thinking`: Thinking configuration, including model-supported `type`, `budget_tokens`, `display`, and extension fields.
 - `output_config`: Output configuration, including `effort` and model-supported extension fields.
-- `metadata`: Optional request metadata object. `metadata.user_id` is a string for a caller-defined user identifier, such as `{"user_id":"example-user-001"}`. Prefer a stable identifier without personal information. It does not replace `Authorization` authentication and does not need to be included in the `messages` conversation content.
 
 `thinking`, `output_config`, effort values, sampling parameters, and new extension fields are passed through unchanged. The platform does not enforce a fixed per-model enum or combination table or automatically rewrite thinking modes. The selected model determines which parameters it accepts, and parameter errors are returned to the client; pass-through does not guarantee support across models or protocol conversions.
 
@@ -48,7 +47,6 @@ curl -X POST 'https://api.acedata.cloud/v1/messages' \
   -d '{
     "model": "claude-fable-5-1",
     "max_tokens": 1024,
-    "metadata": {"user_id": "example-user-001"},
     "messages": [
       {
         "role": "user",
@@ -74,7 +72,6 @@ headers = {
 payload = {
     "model": "claude-fable-5-1",
     "max_tokens": 1024,
-    "metadata": {"user_id": "example-user-001"},
     "messages": [
         {"role": "user", "content": "Hello, Claude"}
     ]
