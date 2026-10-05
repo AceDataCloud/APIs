@@ -187,6 +187,26 @@ def build_operation(a,path,method,source):
         for c in resp.get('content',{}).values():
             c.pop('example',None);c.pop('properties',None);c.pop('required',None)
             if 'schema' in c:c['schema']=import_body(c['schema'])
+            if path=='/webextrator/tasks' and 'schema' in c:
+                schema=c['schema']
+                # import_body has already merged the response union into
+                # properties. Keeping oneOf makes Coze display duplicate
+                # output rows, so use that merged shape for this tool.
+                schema.pop('oneOf',None)
+                content_fields={
+                    'kind':{'type':'string'},'url':{'type':'string'},
+                    'finalUrl':{'type':'string'},'title':{'type':'string'},
+                    'markdown':{'type':'string'},'text':{'type':'string'},
+                    'success':{'type':'boolean'},
+                    'error':{'type':'object','properties':{'code':{'type':'string'},'message':{'type':'string'}}},
+                }
+                # The public response is dynamic. Coze drops its content
+                # unless fields are declared for both retrieve and batch.
+                for container in (schema.get('properties',{}),
+                                  schema.get('properties',{}).get('items',{}).get('items',{}).get('properties',{})):
+                    response=container.get('response')
+                    if response and response.get('type')=='object':
+                        response['properties']=content_fields
     return op
 
 

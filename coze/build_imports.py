@@ -98,6 +98,11 @@ def main():
                         assert name not in body.get('required',[]), 'Never remove a required API input'
                         del props[name]
                         notes.append({'field':loc+'/request/'+name,'kind':'omitted_optional_input','reason':'Opaque object unsupported by Coze editor; canonical contract retains it.'})
+                if path.stem in {'openai','claude','kimi'} and uri.endswith('/chat/completions'):
+                    message=props['messages']['items']
+                    assert 'tool_calls' not in message.get('required',[])
+                    message['properties'].pop('tool_calls',None)
+                    notes.append({'field':loc+'/request/messages/items/tool_calls','kind':'omitted_optional_input','reason':'Coze requires nested tool-call fields even for a plain user message; canonical contract retains them.'})
                 op['responses']=copy.deepcopy(override['responses'])
                 if path.stem in {'claude','serp'}:
                     op['responses']={'200':op['responses']['200']}

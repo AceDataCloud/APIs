@@ -57,7 +57,7 @@ class CozeCatalogTests(unittest.TestCase):
 
     def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
         import yaml
-        for key in ('claude', 'openai', 'kling', 'serp'):
+        for key in ('claude', 'openai', 'kling', 'serp', 'kimi'):
             doc = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
             self.assertEqual(doc, yaml.safe_load((ROOT / 'imports' / f'{key}.yaml').read_text()))
             validate_spec(doc)
@@ -76,7 +76,8 @@ class CozeCatalogTests(unittest.TestCase):
         # Coze validates children of optional objects even when the object is unused.
         # Keep these conditional inputs in the canonical API contract only.
         for key, path in [('openai', '/openai/chat/completions'),
-                          ('claude', '/v1/chat/completions')]:
+                          ('claude', '/v1/chat/completions'),
+                          ('kimi', '/kimi/chat/completions')]:
             projected = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
             body = projected['paths'][path]['post']['requestBody']['content']['application/json']['schema']
             canonical = self.plugins[key]['paths'][path]['post']['requestBody']['content']['application/json']['schema']
@@ -84,6 +85,11 @@ class CozeCatalogTests(unittest.TestCase):
             self.assertTrue(inactive <= set(canonical['properties']))
             self.assertFalse(inactive & set(body['properties']))
             self.assertTrue({'model', 'messages'} <= set(body['properties']))
+            canonical_message = canonical['properties']['messages']['items']
+            projected_message = body['properties']['messages']['items']
+            self.assertIn('tool_calls', canonical_message['properties'])
+            self.assertNotIn('tool_calls', projected_message['properties'])
+            self.assertTrue({'role', 'content'} <= set(projected_message['properties']))
 
     def test_union_adapter_keeps_base_fields_and_required_inputs(self):
         # A conditional oneOf must not overwrite the request's normal fields.
@@ -104,6 +110,15 @@ class CozeCatalogTests(unittest.TestCase):
                 body = built.get('requestBody', {}).get('content', {}).get('application/json', {}).get('schema', {})
                 self.assertTrue(set(schema.get('properties', {})) <= set(body.get('properties', {})), item['path'])
                 self.assertTrue(set(schema.get('required', [])) <= set(body.get('required', [])), item['path'])
+
+    def test_web_extractor_task_result_retains_content_fields(self):
+        operation = self.plugins['webextrator']['paths']['/webextrator/tasks']['post']
+        schema = operation['responses']['200']['content']['application/json']['schema']
+        fields = schema['properties']['response']['properties']
+        self.assertTrue({'markdown', 'text', 'title', 'kind'} <= set(fields))
+        batch_fields = schema['properties']['items']['items']['properties']['response']['properties']
+        self.assertTrue({'markdown', 'text', 'title', 'kind'} <= set(batch_fields))
+        self.assertNotIn('oneOf', schema)
 
     def test_error_union_accepts_a_real_error_shape(self):
         operation=self.plugins['shorturl']['paths']['/shorturl']['post']

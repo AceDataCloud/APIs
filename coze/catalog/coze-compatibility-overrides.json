@@ -4096,5 +4096,293 @@
         }
       }
     }
+  },
+  "kimi": {
+    "/kimi/chat/completions": {
+      "request_fields": [
+        "n",
+        "seed",
+        "stop",
+        "user",
+        "model",
+        "store",
+        "top_p",
+        "stream",
+        "logprobs",
+        "messages",
+        "max_tokens",
+        "modalities",
+        "temperature",
+        "tool_choice",
+        "service_tier",
+        "top_logprobs",
+        "presence_penalty",
+        "reasoning_effort",
+        "frequency_penalty",
+        "parallel_tool_calls",
+        "max_completion_tokens"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "integer"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "type": "integer"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "finish_reason": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "prompt_tokens": {
+                        "type": "integer"
+                      },
+                      "completion_tokens": {
+                        "type": "integer"
+                      },
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "prompt_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cached_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_creation_tokens": {
+                            "type": "integer"
+                          },
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "completion_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "reasoning_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "input_tokens": {
+                        "type": "integer"
+                      },
+                      "output_tokens": {
+                        "type": "integer"
+                      },
+                      "input_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "claude_cache_creation_5_m_tokens": {
+                        "type": "integer"
+                      },
+                      "claude_cache_creation_1_h_tokens": {
+                        "type": "integer"
+                      },
+                      "cost": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "list_amount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "service_tier": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "OK, request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    }
   }
 }

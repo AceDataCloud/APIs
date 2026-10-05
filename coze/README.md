@@ -81,30 +81,40 @@ was executed for metadata discovery.
 
 The local `e2e-v4/launch-gate.json` evidence file is the
 per-service evidence index; the generated review accepts it with
-`--e2e-evidence`. Only Suno (native MCP generation, task retrieval, two reachable
-MP3 results) and DeepSeek (HTTP draft text response) have a verified real Coze
-tool call in this round. The 21 hosted MCP inventories and 19 free information
-calls were direct MCP checks, separate from Coze execution. The earlier 23-service
-API batch was direct API testing, separate from both.
+`--e2e-evidence`. Eight services have verified real Coze tool calls:
+Suno (native MCP generation, task retrieval, two reachable MP3 results),
+DeepSeek, Short URL, Google Search, Web Extractor, Kimi, OpenAI and Claude.
+The 21 hosted MCP inventories and 19 free information calls were direct MCP
+checks, separate from Coze execution. The earlier 23-service API batch was
+direct API testing, separate from both.
 
-OpenAI and Kimi exposed a Coze editor problem: it validates required children of
-optional nested inputs even when those inputs are unused. The OpenAI/Claude
-import projections now omit four such optional fields for text chat while the
-canonical public contracts retain them. These projections must be reimported and
-rerun before claiming their Coze tools work. Kimi has not been fixed.
+Short URL and Google Search also returned usable results from real Coze draft calls.
+Web Extractor originally submitted and completed an owned task, but Coze stripped
+its dynamic response object. Its output contract now declares explicit content
+fields for single and batch retrieval. The Coze draft was updated and the same
+task returned a title, text and Markdown through Coze.
+
+OpenAI, Claude and Kimi exposed a Coze editor problem: it validates required
+children of optional nested inputs even when unused. Their text-chat import
+projections omit inactive optional objects and message tool-call children while
+the canonical public contracts retain them. The three projections were reimported,
+their chat tools enabled and real assistant text returned through Coze. This
+verifies text chat only; it does not establish their full multimodal/tool parity.
 
 The documented Coze standard OAuth flow omits a PKCE challenge and sends JSON to
 the token endpoint; the hosted MCP OAuth endpoint currently requires PKCE and
 form fields. User connection therefore remains blocked. The existing temporary
 Suno header was restored to a public invalid metadata marker after the test,
-and all short-lived test credentials were expired and read back. No workspace
+and all short-lived test credentials were expired and read back. The corrected
+test ledger is 28.477755138 Credits of the approved 200-Credit cap; the earlier
+total omitted 0.846 Credits from the initial four-plugin credential. No workspace
 publication or store submission was made; post-publication Agent install and
 execution remain unverified.
 
 ## Contracts, trials and publication
 
 `plugins/` contains full public HTTP contracts. `imports/` records Coze-compatible
-projections for Claude, OpenAI, Kling and Google Search, with explicit limitations.
+projections for Claude, OpenAI, Kimi, Kling and Google Search, with explicit limitations.
 They are supplementary preparation and do not establish complete MCP parity.
 Suno persona deletion is included in the definition, but all destructive and
 sensitive fixtures require their own explicit execution scope.

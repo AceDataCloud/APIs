@@ -127,6 +127,11 @@
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
     },
     {
+      "field": "POST /v1/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for a plain user message; canonical contract retains them."
+    },
+    {
       "field": "POST /v1/messages/request/system",
       "kind": "representation",
       "api_types": [
@@ -175,6 +180,94 @@
       "field": "POST /v1/messages/request/tools",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    }
+  ],
+  "kimi": [
+    {
+      "field": "POST /kimi/chat/completions/request/stop",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/messages/items/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/prediction/content",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "array"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/tool_choice",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "object"
+      ],
+      "coze_type": "string"
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/audio",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/tools",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/metadata",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/thinking",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/logit_bias",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/prediction",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/stream_options",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/response_format",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/web_search_options",
+      "kind": "omitted_optional_input",
+      "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /kimi/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for a plain user message; canonical contract retains them."
     }
   ],
   "kling": [
@@ -278,6 +371,11 @@
       "field": "POST /openai/chat/completions/request/web_search_options",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /openai/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for a plain user message; canonical contract retains them."
     },
     {
       "field": "POST /openai/responses/request/input/items/content",
