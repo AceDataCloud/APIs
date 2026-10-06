@@ -889,7 +889,7 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 <div class="uc-card">
 <div class="uc-icon">🤖</div>
 <h3>AI Agent Integration</h3>
-<p>Integrate with Claude, ChatGPT through MCP Server or Dify plugin to achieve natural language image generation</p>
+<p>Integrate with MCP-compatible AI assistants through MCP Server to generate images using natural language</p>
 </div>
 </div>
 </div>
@@ -1003,11 +1003,6 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 </tr>
 <tr>
 <td>MCP Server</td>
-<td class="cmp-us"><span class="ck">✓</span></td>
-<td><span class="cx">✗</span></td>
-</tr>
-<tr>
-<td>Dify Plugin</td>
 <td class="cmp-us"><span class="ck">✓</span></td>
 <td><span class="cx">✗</span></td>
 </tr>
