@@ -120,12 +120,20 @@ API failure remain open.
 The documented Coze standard OAuth flow omits a PKCE challenge and sends JSON to
 the token endpoint; the hosted MCP OAuth endpoint currently requires PKCE and
 form fields. User connection therefore remains blocked. The existing temporary
-Suno header was restored to a public invalid metadata marker after the test,
-and all short-lived test credentials were expired and read back. The corrected
-test ledger is 29.372048470 Credits of the approved 200-Credit cap; the earlier
-total omitted 0.846 Credits from the initial four-plugin credential. No workspace
-publication or store submission was made; post-publication Agent install and
-execution remain unverified.
+Suno header was restored to a public invalid metadata marker after the test.
+The Suno native MCP draft remains unpublished so it does not expose a connection
+that cannot make authenticated calls.
+
+After the user's first-batch publish authorization, 14 HTTP plugins were published
+as Coze workspace version v0.0.1: DeepSeek, Short URL, Google Search, Web
+Extractor, Claude, OpenAI, Kimi, Gemini, Grok, GLM, Nano Banana, Qwen Image,
+Fish and Localization. The latter exposes only the verified Markdown form. This
+workspace publication is separate from Plugin Store submission: the store flow
+asks for a running example for each tool, and no listing has been submitted or
+observed in public search. Post-publication Agent install and execution remain
+unverified. All short-lived test credentials were expired and read back. The
+corrected ledger is 29.372048470 Credits of the approved 200-Credit cap; the
+earlier total omitted 0.846 Credits from the initial four-plugin credential.
 
 ## Contracts, trials and publication
 
@@ -142,7 +150,9 @@ Request previews can retain a token; never save real-token runs as examples.
 Imported `Failed` labels before testing are not provider-failure evidence.
 Previous API tests do not prove revised native MCP or Coze runtime success.
 
-Workspace publication and store submission remain on hold pending user review.
+The user authorized publication of the reviewed first batch on 2026-10-06.
+The other 17 plugins are outside that batch. Store submission and Agent E2E
+remain open gates for the first batch, as recorded in the local launch gate.
 Removed services are excluded from the launch materials; historical private Coze
 drafts are not automatically or permanently deleted by these builders.
 
