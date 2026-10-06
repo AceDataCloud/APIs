@@ -91,6 +91,42 @@ class CozeCatalogTests(unittest.TestCase):
             self.assertNotIn('tool_calls', projected_message['properties'])
             self.assertTrue({'role', 'content'} <= set(projected_message['properties']))
 
+    def test_partial_chat_imports_leave_other_plugin_routes_untouched(self):
+        import yaml
+        for key in ('gemini', 'grok', 'glm'):
+            path = f'/{key}/chat/completions'
+            projected = json.loads((ROOT / 'imports' / f'{key}-chat.json').read_text())
+            self.assertEqual(projected, yaml.safe_load((ROOT / 'imports' / f'{key}-chat.yaml').read_text()))
+            validate_spec(projected)
+            self.assertEqual({path}, set(projected['paths']))
+            self.assertEqual(self.plugins[key]['paths'][path]['post']['parameters'],
+                             projected['paths'][path]['post']['parameters'])
+            body = projected['paths'][path]['post']['requestBody']['content']['application/json']['schema']
+            self.assertTrue({'model', 'messages'} <= set(body['properties']))
+            self.assertNotIn('tool_calls', body['properties']['messages']['items']['properties'])
+
+    def test_fish_tts_import_supports_plain_speech_without_reference_audio(self):
+        projected = json.loads((ROOT / 'imports/fish-tts.json').read_text())
+        validate_spec(projected)
+        self.assertEqual({'/fish/tts'}, set(projected['paths']))
+        body = projected['paths']['/fish/tts']['post']['requestBody']['content']['application/json']['schema']
+        canonical = self.plugins['fish']['paths']['/fish/tts']['post']['requestBody']['content']['application/json']['schema']
+        self.assertIn('references', canonical['properties'])
+        self.assertNotIn('references', body['properties'])
+        self.assertIn('text', body['required'])
+        output = projected['paths']['/fish/tts']['post']['responses']['200']['content']['application/json']['schema']
+        self.assertTrue({'task_id', 'started_at', 'audio_url'} <= set(output['properties']))
+
+    def test_localization_markdown_import_has_a_concrete_input_type(self):
+        projected = json.loads((ROOT / 'imports/localization-md.json').read_text())
+        validate_spec(projected)
+        body = projected['paths']['/localization/translate']['post']['requestBody']['content']['application/json']['schema']
+        self.assertEqual('string', body['properties']['input']['type'])
+        self.assertEqual(['md'], body['properties']['extension']['enum'])
+        self.assertTrue({'input', 'locale', 'extension'} <= set(body['required']))
+        output = projected['paths']['/localization/translate']['post']['responses']['200']['content']['application/json']['schema']
+        self.assertEqual('string', output['properties']['data']['type'])
+
     def test_union_adapter_keeps_base_fields_and_required_inputs(self):
         # A conditional oneOf must not overwrite the request's normal fields.
         schema = {'type':'object','required':['query'],'properties':{'query':{'type':'string'},'count':{'type':'integer'}},'oneOf':[{'properties':{'mode':{'type':'string','enum':['a']}}},{'properties':{'mode':{'type':'string','enum':['b']}}}]}
@@ -119,6 +155,17 @@ class CozeCatalogTests(unittest.TestCase):
         batch_fields = schema['properties']['items']['items']['properties']['response']['properties']
         self.assertTrue({'markdown', 'text', 'title', 'kind'} <= set(batch_fields))
         self.assertNotIn('oneOf', schema)
+
+    def test_image_task_result_retains_generated_image_url(self):
+        for key in ('nano-banana', 'qwen-image'):
+            schema = self.plugins[key]['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
+            for props in (schema['properties'], schema['properties']['items']['items']['properties']):
+                image = props['response']['properties']['data']['items']['properties']['image_url']
+                self.assertEqual('string', image['type'])
+            self.assertNotIn('oneOf', schema)
+            projected = json.loads((ROOT / 'imports' / f'{key}-task.json').read_text())
+            self.assertEqual({f'/{key}/tasks'}, set(projected['paths']))
+            validate_spec(projected)
 
     def test_error_union_accepts_a_real_error_shape(self):
         operation=self.plugins['shorturl']['paths']['/shorturl']['post']

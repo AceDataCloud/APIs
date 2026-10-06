@@ -462,5 +462,58 @@
       "coze_type": "array"
     }
   ],
-  "serp": []
+  "serp": [],
+  "gemini-chat": [
+    {
+      "field": "POST /gemini/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for plain user messages."
+    }
+  ],
+  "grok-chat": [
+    {
+      "field": "POST /grok/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for plain user messages."
+    }
+  ],
+  "glm-chat": [
+    {
+      "field": "POST /glm/chat/completions/request/messages/items/tool_calls",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested tool-call fields even for plain user messages."
+    }
+  ],
+  "nano-banana-task": [
+    {
+      "field": "POST /nano-banana/tasks/response/data/items/image_url",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared image URLs from dynamic task results."
+    }
+  ],
+  "qwen-image-task": [
+    {
+      "field": "POST /qwen-image/tasks/response/data/items/image_url",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared image URLs from dynamic task results."
+    }
+  ],
+  "fish-tts": [
+    {
+      "field": "POST /fish/tts/request/references",
+      "kind": "omitted_optional_input",
+      "reason": "Coze requires nested audio and transcript for ordinary TTS."
+    }
+  ],
+  "localization-md": [
+    {
+      "field": "POST /localization/translate/request/input",
+      "kind": "representation",
+      "api_types": [
+        "object",
+        "string"
+      ],
+      "coze_type": "string"
+    }
+  ]
 }

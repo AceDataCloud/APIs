@@ -38,7 +38,7 @@ def main():
             data = cairosvg.svg2png(bytestring=data, output_width=512, output_height=512)
         with Image.open(io.BytesIO(data)) as image:
             image = ImageOps.exif_transpose(image).convert('RGBA')
-            if key in {'gemini','veo'}:
+            if key in {'gemini','veo','glm'}:
                 flat=Image.new('RGBA',image.size,'white');flat.alpha_composite(image)
                 mask=ImageChops.difference(flat.convert('RGB'),Image.new('RGB',image.size,'white')).convert('L').point(lambda value:255 if value>16 else 0)
                 box=mask.getbbox()

@@ -117,6 +117,59 @@ def main():
         report[path.stem]=copy.deepcopy(notes)
         (target/path.name).write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         (target/(path.stem+'.yaml')).write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    # These plugins also contain non-chat tools. Reimport only the chat route
+    # so a Coze text-form fix does not replace their unrelated draft tools.
+    chat_fields=set(overrides['openai']['/openai/chat/completions']['request_fields'])
+    chat_response=overrides['openai']['/openai/chat/completions']['responses']
+    for key in ('gemini','grok','glm'):
+        uri=f'/{key}/chat/completions'
+        doc=json.loads((ROOT/'plugins'/f'{key}.json').read_text())
+        doc['paths']={uri:doc['paths'][uri]}
+        op=doc['paths'][uri]['post']
+        body=op['requestBody']['content']['application/json']['schema']
+        body=project(body,'POST '+uri+'/request')
+        body['properties']={k:v for k,v in body['properties'].items() if k in chat_fields}
+        assert set(body.get('required',[])) <= set(body['properties'])
+        message=body['properties']['messages']['items']
+        assert 'tool_calls' not in message.get('required',[])
+        message['properties'].pop('tool_calls',None)
+        op['requestBody']['content']['application/json']['schema']=body
+        op['responses']=copy.deepcopy(chat_response)
+        op['description']+=' This Coze text-chat form omits inactive optional objects and message tool-call children. The canonical API contract retains them.'
+        report[key+'-chat']=[{'field':'POST '+uri+'/request/messages/items/tool_calls','kind':'omitted_optional_input','reason':'Coze requires nested tool-call fields even for plain user messages.'}]
+        (target/f'{key}-chat.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+        (target/f'{key}-chat.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    for key in ('nano-banana','qwen-image'):
+        uri=f'/{key}/tasks'
+        doc=json.loads((ROOT/'plugins'/f'{key}.json').read_text())
+        doc['paths']={uri:doc['paths'][uri]}
+        report[key+'-task']=[{'field':'POST '+uri+'/response/data/items/image_url','kind':'declared_output','reason':'Coze drops undeclared image URLs from dynamic task results.'}]
+        (target/f'{key}-task.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+        (target/f'{key}-task.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    doc=json.loads((ROOT/'plugins/fish.json').read_text())
+    uri='/fish/tts'
+    doc['paths']={uri:doc['paths'][uri]}
+    body=doc['paths'][uri]['post']['requestBody']['content']['application/json']['schema']
+    assert 'references' not in body.get('required',[])
+    body['properties'].pop('references',None)
+    doc['paths'][uri]['post']['description']+=' Inline reference audio is omitted from this Coze form because it requires child fields even for ordinary TTS. The canonical contract retains authorized voice cloning.'
+    report['fish-tts']=[{'field':'POST /fish/tts/request/references','kind':'omitted_optional_input','reason':'Coze requires nested audio and transcript for ordinary TTS.'}]
+    (target/'fish-tts.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'fish-tts.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    doc=json.loads((ROOT/'plugins/localization.json').read_text())
+    uri='/localization/translate'
+    op=doc['paths'][uri]['post']
+    body=op['requestBody']['content']['application/json']['schema']
+    body.pop('oneOf',None)
+    body['properties']['input']={'type':'string','description':'Markdown or plain text to translate.'}
+    body['properties']['extension']['enum']=['md']
+    body['properties']['extension']['default']='md'
+    output=op['responses']['200']['content']['application/json']['schema']
+    output['properties']['data']={'type':'string','description':'Translated Markdown or plain text.'}
+    op['description']+=' This Coze form translates Markdown/plain text only; JSON-object translation is retained in the canonical API contract.'
+    report['localization-md']=[{'field':'POST /localization/translate/request/input','kind':'representation','api_types':['object','string'],'coze_type':'string'}]
+    (target/'localization-md.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'localization-md.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
     (target/'compatibility-notes.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('Built',len(report),'Coze import projections; review representation differences before use.')
 

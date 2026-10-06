@@ -1305,6 +1305,15 @@
                     "audio_url": {
                       "type": "string",
                       "description": "The URL of the generated audio file."
+                    },
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "started_at": {
+                      "type": "number"
+                    },
+                    "trace_id": {
+                      "type": "string"
                     }
                   }
                 }

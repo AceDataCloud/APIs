@@ -126,10 +126,10 @@
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   },
   "qwen-image": {
-    "url": "https://cdn.acedata.cloud/eff9c34a52.png",
-    "source": "Nexior/src/constants/qwenimage.ts",
+    "url": "https://assets.alicdn.com/g/qwenweb/qwen-chat-fe/0.3.12/favicon.png",
+    "source": "qwenlm.ai official favicon asset",
     "service_id": "9a33d10b-9f5d-438f-9701-c34906a2d891",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+    "transformation": "Official Qwen mark contained on a plain 512px canvas; no badge or caption."
   },
   "shorturl": {
     "url": "https://cdn.acedata.cloud/4f9642f3b6.svg",
@@ -198,8 +198,8 @@
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   },
   "fish": {
-    "url": "https://cdn.acedata.cloud/e40fccc727.png",
-    "source": "Nexior/src/constants/fish.ts",
+    "url": "https://raw.githubusercontent.com/AceDataCloud/MCPs/main/fish/vscode/icon.png",
+    "source": "AceDataCloud MCPs/fish/vscode/icon.png (higher-resolution Fish mark)",
     "service_id": "caf99abc-ddcf-4714-b2a5-862d9b469509",
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   },
@@ -213,7 +213,7 @@
     "url": "https://cdn.acedata.cloud/jqi3nv.png",
     "source": "Nexior/src/constants/chat.ts",
     "service_id": "0c5b6cb3-79a7-473f-844f-7821553f2ca7",
-    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+    "transformation": "Optical crop of the original 16:9 white letterbox to a square around the full GLM mark, then scaled to 512px."
   },
   "seedream": {
     "url": "https://cdn.acedata.cloud/9egrbn.png",

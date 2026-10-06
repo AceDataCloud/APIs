@@ -10,9 +10,12 @@ are not the active launch list.
 ## Icons
 
 Official brand assets are recorded in `catalog/official-icons.json` and retained
-in `icons/official/`. The builder scales small originals up to the full 512px
-canvas; the review UI adds no inner padding. Gemini and Veo receive an optical
-crop of excess white margins without cutting the brand mark.
+in `icons/official/`. The builder scales originals to a 512px canvas; the review
+UI adds no inner padding. Fish uses the clearer matching mark from our Fish MCP,
+and Qwen Image uses the official Qwen favicon rather than the generic Alibaba
+logo. Gemini, Veo and GLM receive an optical crop of excess white margins
+without cutting the brand mark. These three revised draft icons were also
+uploaded and checked in Coze on 2026-10-06.
 
 `catalog/icon-overrides.json` selects custom GPT Image 2 utility icons for Identity
 Verification, Web Extractor and Localization. Originals are in `icons/custom/`;
@@ -77,13 +80,17 @@ actual service call. It is not a credential and grants no service access. Remove
 it and configure caller-owned authorization before release. No paid tools/call
 was executed for metadata discovery.
 
-## Current release gate (2026-10-05)
+## Current release gate (2026-10-06)
 
 The local `e2e-v4/launch-gate.json` evidence file is the
 per-service evidence index; the generated review accepts it with
-`--e2e-evidence`. Eight services have verified real Coze tool calls:
+`--e2e-evidence`. Fifteen services have verified real Coze tool calls:
 Suno (native MCP generation, task retrieval, two reachable MP3 results),
-DeepSeek, Short URL, Google Search, Web Extractor, Kimi, OpenAI and Claude.
+DeepSeek, Short URL, Google Search, Web Extractor, Kimi, OpenAI, Claude,
+Gemini, Grok, GLM, Nano Banana, Qwen Image, Fish and Localization.
+Localization is limited to Markdown text translation; JSON-object translation
+remains unverified. `build_batch_review.py` creates a separate first-batch
+review page with names, icons, copy, draft links and proof for these 15.
 The 21 hosted MCP inventories and 19 free information calls were direct MCP
 checks, separate from Coze execution. The earlier 23-service API batch was
 direct API testing, separate from both.
@@ -100,13 +107,22 @@ projections omit inactive optional objects and message tool-call children while
 the canonical public contracts retain them. The three projections were reimported,
 their chat tools enabled and real assistant text returned through Coze. This
 verifies text chat only; it does not establish their full multimodal/tool parity.
+Gemini, Grok and GLM use chat-only reimports that leave other tools in their
+existing drafts. Nano Banana and Qwen Image task results now return image URLs
+after Coze output parsing. Fish returns an async task ID, then an audio URL;
+both image and audio assets returned HTTP 200.
+
+Localization's union input imported into Coze as an untyped field, so the editor
+omitted the required input. A Markdown-only import projection was tested through
+Coze and returned Chinese text; JSON-object translation and the earlier direct
+API failure remain open.
 
 The documented Coze standard OAuth flow omits a PKCE challenge and sends JSON to
 the token endpoint; the hosted MCP OAuth endpoint currently requires PKCE and
 form fields. User connection therefore remains blocked. The existing temporary
 Suno header was restored to a public invalid metadata marker after the test,
 and all short-lived test credentials were expired and read back. The corrected
-test ledger is 28.477755138 Credits of the approved 200-Credit cap; the earlier
+test ledger is 29.372048470 Credits of the approved 200-Credit cap; the earlier
 total omitted 0.846 Credits from the initial four-plugin credential. No workspace
 publication or store submission was made; post-publication Agent install and
 execution remain unverified.
@@ -114,7 +130,9 @@ execution remain unverified.
 ## Contracts, trials and publication
 
 `plugins/` contains full public HTTP contracts. `imports/` records Coze-compatible
-projections for Claude, OpenAI, Kimi, Kling and Google Search, with explicit limitations.
+projections for Claude, OpenAI, Kimi, Gemini chat, Grok chat, GLM chat,
+Fish TTS, Localization Markdown, Nano Banana/Qwen Image tasks, Kling and
+Google Search, with explicit limitations.
 They are supplementary preparation and do not establish complete MCP parity.
 Suno persona deletion is included in the definition, but all destructive and
 sensitive fixtures require their own explicit execution scope.
@@ -137,6 +155,7 @@ python coze/build_imports.py
 python coze/build_icons.py
 python coze/build_mcp_inventory.py --mcp-root /absolute/path/MCPs --check-live
 python coze/build_review.py --output /absolute/path/review.html
+python coze/build_batch_review.py --evidence-root /absolute/path/evidence --output /absolute/path/evidence/review-batch-1.html
 python -m unittest discover -s tests -v
 ```
 

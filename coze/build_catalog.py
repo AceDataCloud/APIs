@@ -20,6 +20,17 @@ SETUP = 'https://platform.acedata.cloud/?from=coze'
 IDS = {'seedream','flux','serp','shorturl'}
 OMIT_PATHS = {'/v1/live/sessions':'Requires a live session transport; not a conventional JSON tool.', '/v1/audio/speech':'Binary audio response needs a media URL adapter for Coze.', '/v1/audio/transcriptions':'Multipart file upload needs a tested Coze file adapter.'}
 DEFAULTS = {'/seedream/images':{'model':'doubao-seedream-5-0-lite-260128','size':'2K'}, '/flux/images':{'model':'flux-2-pro','size':'1:1','action':'generate','count':1}, '/serp/google':{'type':'search','number':3}, '/nano-banana/images':{'model':'nano-banana-2','action':'generate'}, '/veo/videos':{'model':'veo31-fast','action':'text2video'}, '/kling/videos':{'model':'kling-v2-6','action':'text2video'}, '/producer/audios':{'model':'FUZZ-2.0','action':'generate'}, '/wan/videos':{'model':'wan2.6-t2v'}, '/suno/lyrics':{'model':'default'}, '/openai/images/generations':{'model':'gpt-image-1'}, '/openai/images/edits':{'model':'gpt-image-1'}, '/openai/embeddings':{'model':'text-embedding-3-small'}}
+IMAGE_TASK_FIELDS = {
+    'success':{'type':'boolean'},
+    'task_id':{'type':'string'},
+    'trace_id':{'type':'string'},
+    'data':{'type':'array','items':{'type':'object','properties':{
+        'image_url':{'type':'string'},'prompt':{'type':'string'},
+    }}},
+    'cost':{'type':'object','properties':{
+        'amount':{'type':'number'},'list_amount':{'type':'number'},'currency':{'type':'string'},
+    }},
+}
 
 
 def slug(s):
@@ -183,10 +194,17 @@ def build_operation(a,path,method,source):
             props['action']['default']='chat'
         # OAS examples remain reference fixtures, never claimed to be real Coze runs.
     op['responses']={k:v for k,v in op.get('responses',{}).items() if k in ['200','201','202','400','401','403','429','500','default']}
-    for resp in op['responses'].values():
+    for status,resp in op['responses'].items():
         for c in resp.get('content',{}).values():
             c.pop('example',None);c.pop('properties',None);c.pop('required',None)
             if 'schema' in c:c['schema']=import_body(c['schema'])
+            if path=='/fish/tts' and 'schema' in c and status=='200':
+                # The async acknowledgement has task_id/started_at rather
+                # than the audio_url in the completed synchronous response.
+                c['schema'].setdefault('properties',{}).update({
+                    'task_id':{'type':'string'},'started_at':{'type':'number'},
+                    'trace_id':{'type':'string'},
+                })
             if path=='/webextrator/tasks' and 'schema' in c:
                 schema=c['schema']
                 # import_body has already merged the response union into
@@ -207,6 +225,14 @@ def build_operation(a,path,method,source):
                     response=container.get('response')
                     if response and response.get('type')=='object':
                         response['properties']=content_fields
+            if path in {'/nano-banana/tasks','/qwen-image/tasks'} and 'schema' in c:
+                schema=c['schema']
+                schema.pop('oneOf',None)
+                for container in (schema.get('properties',{}),
+                                  schema.get('properties',{}).get('items',{}).get('items',{}).get('properties',{})):
+                    response=container.get('response')
+                    if response and response.get('type')=='object':
+                        response['properties']=copy.deepcopy(IMAGE_TASK_FIELDS)
     return op
 
 

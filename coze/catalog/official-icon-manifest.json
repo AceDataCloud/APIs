@@ -30,9 +30,9 @@
     "source": "Anonymous public Service.icon_url"
   },
   "fish": {
-    "sha256": "aa20f99ea4423d4fd10976b62a6927bb96c9b9a5ab97a6ad5ba9d33993f28a10",
-    "source_url": "https://cdn.acedata.cloud/e40fccc727.png",
-    "source": "Nexior/src/constants/fish.ts"
+    "sha256": "8e2ae445eb6189f4064f582955e6a7c92086f08ff8526aeeeee1684b90d4181a",
+    "source_url": "https://raw.githubusercontent.com/AceDataCloud/MCPs/main/fish/vscode/icon.png",
+    "source": "AceDataCloud MCPs/fish/vscode/icon.png (higher-resolution Fish mark)"
   },
   "flux": {
     "sha256": "e1c93722db66db1f3721d4b1e02f1e63f130a6a41151476856e51fca914e7c94",
@@ -125,9 +125,9 @@
     "source": "Nexior/src/constants/producer.ts"
   },
   "qwen-image": {
-    "sha256": "75759f1b8ea00704cf425489363db1d8ff1c9174e28857008e9e75298e91d5f4",
-    "source_url": "https://cdn.acedata.cloud/eff9c34a52.png",
-    "source": "Nexior/src/constants/qwenimage.ts"
+    "sha256": "cd9390bc4209c319121d111f3a1f535b3c7dd909b8f860d41acc9744138d58df",
+    "source_url": "https://assets.alicdn.com/g/qwenweb/qwen-chat-fe/0.3.12/favicon.png",
+    "source": "qwenlm.ai official favicon asset"
   },
   "recaptcha": {
     "sha256": "c20c77d3ef7ea7e03accc5aefcaa58924f9119d3c16a7fcd79ead2d42d36a226",
