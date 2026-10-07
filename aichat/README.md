@@ -49,6 +49,19 @@ Explore the supported endpoints and integration guides for AI Chat.
 | ---- | ---- | ------------ |
 | [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
+## AI Chat v2 Execution Limits
+
+[AI Chat v2](https://platform.acedata.cloud/documents/aichat2-conversations) supports agent tool calls. The following limits apply to v2, not the `/aichat/conversations` endpoint documented above.
+
+| Endpoint | Optional field | Range | Default when omitted |
+| --- | --- | --- | --- |
+| `POST /aichat2/conversations` | `max_turns` | 1–500 | 500 |
+| `POST /aichat2/scheduled-tasks` | `template.max_turns` | 1–500 | 500 |
+
+Setting `max_turns` to `1` requests a single answer without tool calls. For scheduled tasks, `template.max_turns` limits agent turns per run, not scheduling frequency. Each model call is still billed for actual usage; 500 is an upper bound, and a run may end earlier due to timeout, authorization, or other execution conditions.
+
+Repeated AI execution failures do not automatically pause a scheduled task: it will try again at the next scheduled time. Automatic pausing occurs after five consecutive failures to hand the task to the execution service. Insufficient balance marks a run as failed and triggers a recharge notification. An enabled task does not mean its latest run succeeded; check run history with `action: "retrieve_runs"` on `POST /aichat2/scheduled-tasks` for execution results.
+
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
