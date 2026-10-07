@@ -1210,159 +1210,6 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - type: object
-                  required:
-                  - id
-                  - type
-                  - created_at
-                  - trace_id
-                  - request
-                  properties:
-                    id:
-                      type: string
-                      description: Task ID.
-                    type:
-                      type: string
-                      description: Task type.
-                    api_id:
-                      type: string
-                      description: API identifier.
-                    elapsed:
-                      type: number
-                      format: double
-                      minimum: 0
-                      nullable: true
-                      description: Processing duration (seconds).
-                    request:
-                      type: object
-                      description: Create the request body recorded for the API operation of this task;
-                        the fields depend on the specific operation and action.
-                      additionalProperties: true
-                    user_id:
-                      type: string
-                      description: The account to which the task belongs.
-                    response:
-                      type: object
-                      description: Create the final response recorded for the API operation of this task;
-                        the fields follow the structure of the success or error response in the operation
-                        documentation.
-                      additionalProperties: true
-                    trace_id:
-                      type: string
-                      description: Request tracking ID.
-                    created_at:
-                      type: number
-                      format: double
-                      description: Task creation time, Unix timestamp (seconds).
-                    started_at:
-                      type: number
-                      format: double
-                      description: Process start time, Unix timestamp (seconds).
-                    finished_at:
-                      type: number
-                      format: double
-                      nullable: true
-                      description: Processing completion time, Unix timestamp (seconds).
-                    actor_user_id:
-                      type: string
-                      nullable: true
-                      description: The account for executing the authorization request.
-                    credential_id:
-                      type: string
-                      nullable: true
-                      description: Credentials used to start tasks.
-                    application_id:
-                      type: string
-                      description: Application for billing.
-                    authorization_id:
-                      type: string
-                      nullable: true
-                      description: Authorization used when starting the task.
-                - type: object
-                  required:
-                  - items
-                  - count
-                  properties:
-                    count:
-                      type: integer
-                      minimum: 0
-                      description: Total number of matching tasks.
-                    items:
-                      type: array
-                      items:
-                        type: object
-                        required:
-                        - id
-                        - type
-                        - created_at
-                        - trace_id
-                        - request
-                        properties:
-                          id:
-                            type: string
-                            description: Task ID.
-                          type:
-                            type: string
-                            description: Task type.
-                          api_id:
-                            type: string
-                            description: API identifier.
-                          elapsed:
-                            type: number
-                            format: double
-                            minimum: 0
-                            nullable: true
-                            description: Processing duration (seconds).
-                          request:
-                            type: object
-                            description: Create the request body recorded for the API operation of this
-                              task; the fields depend on the specific operation and action.
-                            additionalProperties: true
-                          user_id:
-                            type: string
-                            description: The account to which the task belongs.
-                          response:
-                            type: object
-                            description: Create the final response recorded for the API operation of this
-                              task; the fields follow the structure of the success or error response in
-                              the operation documentation.
-                            additionalProperties: true
-                          trace_id:
-                            type: string
-                            description: Request tracking ID.
-                          created_at:
-                            type: number
-                            format: double
-                            description: Task creation time, Unix timestamp (seconds).
-                          started_at:
-                            type: number
-                            format: double
-                            description: Process start time, Unix timestamp (seconds).
-                          finished_at:
-                            type: number
-                            format: double
-                            nullable: true
-                            description: Processing completion time, Unix timestamp (seconds).
-                          actor_user_id:
-                            type: string
-                            nullable: true
-                            description: The account for executing the authorization request.
-                          credential_id:
-                            type: string
-                            nullable: true
-                            description: Credentials used to start tasks.
-                          application_id:
-                            type: string
-                            description: Application for billing.
-                          authorization_id:
-                            type: string
-                            nullable: true
-                            description: Authorization used when starting the task.
-                      description: Matching task list.
-                - type: object
-                  description: Return when the requested task does not exist.
-                  additionalProperties: false
                 type: object
                 properties:
                   id:
@@ -1394,6 +1241,46 @@ paths:
                       the fields follow the structure of the success or error response in the operation
                       documentation.
                     additionalProperties: true
+                    properties:
+                      success:
+                        type: boolean
+                      task_id:
+                        type: string
+                      trace_id:
+                        type: string
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            video_url:
+                              type: string
+                            state:
+                              type: string
+                            duration:
+                              type: number
+                            aspect_ratio:
+                              type: string
+                            prompt:
+                              type: string
+                      cost:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                          list_amount:
+                            type: number
+                          currency:
+                            type: string
+                      error:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          message:
+                            type: string
                   trace_id:
                     type: string
                     description: Request tracking ID.
@@ -1469,6 +1356,46 @@ paths:
                             task; the fields follow the structure of the success or error response in
                             the operation documentation.
                           additionalProperties: true
+                          properties:
+                            success:
+                              type: boolean
+                            task_id:
+                              type: string
+                            trace_id:
+                              type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  video_url:
+                                    type: string
+                                  state:
+                                    type: string
+                                  duration:
+                                    type: number
+                                  aspect_ratio:
+                                    type: string
+                                  prompt:
+                                    type: string
+                            cost:
+                              type: object
+                              properties:
+                                amount:
+                                  type: number
+                                list_amount:
+                                  type: number
+                                currency:
+                                  type: string
+                            error:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                message:
+                                  type: string
                         trace_id:
                           type: string
                           description: Request tracking ID.
@@ -1506,21 +1433,6 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 type: object
                 properties:
                   error:
@@ -1540,21 +1452,6 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 type: object
                 properties:
                   error:
@@ -1574,21 +1471,6 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                - type: object
-                  properties:
-                    error:
-                      type: object
-                      properties:
-                        code:
-                          type: string
-                          description: Response error code.
-                        message:
-                          type: string
-                          description: Error message of the response.
-                    trace_id:
-                      type: string
-                      description: The tracking ID for this request.
                 type: object
                 properties:
                   error:

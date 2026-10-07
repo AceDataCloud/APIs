@@ -1,0 +1,334 @@
+openapi: 3.0.1
+info:
+  title: Fish
+  version: 2.0.0
+  description: 'Turn text into speech, browse supported saved voices, or create a voice from authorized
+    reference audio. Retrieve asynchronous speech tasks. Bind your own Ace Data Cloud credential privately
+    as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
+    chat or shared examples. Start: https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /fish/model:
+    get:
+      summary: Fish Audio model listing API — paginate through the available voice models.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                      properties:
+                        _id:
+                          type: string
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        state:
+                          type: string
+                        type:
+                          type: string
+                        visibility:
+                          type: string
+                        licensed:
+                          type: boolean
+                        languages:
+                          type: array
+                          items:
+                            type: string
+                        tags:
+                          type: array
+                          items:
+                            type: string
+                    description: The list of timbre model entries returned by the current page.
+                  total:
+                    type: integer
+                    description: The total number of tone models that meet the query conditions.
+                  max_offset:
+                    type: number
+                  accessible_upper_bound:
+                    type: number
+                  window_limited:
+                    type: boolean
+                  total_is_exact:
+                    type: boolean
+                  has_more:
+                    type: boolean
+          description: Request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+          default: 10
+        required: false
+        description: The number of entries returned per page is 10 by default.
+      - in: query
+        name: page_number
+        schema:
+          type: integer
+          default: 1
+        required: false
+        description: Page numbers start from 1, defaulting to 1.
+      - in: query
+        name: title
+        schema:
+          type: string
+        required: false
+        description: Fuzzy filtering based on title keywords.
+      - in: query
+        name: tag
+        schema:
+          type: string
+        required: false
+        description: Filter by individual tags.
+      - in: query
+        name: self
+        schema:
+          type: boolean
+        required: false
+        description: When `true`, only return the models owned by the current calling account.
+      - in: query
+        name: author_id
+        schema:
+          type: string
+        required: false
+        description: Filter by author ID.
+      - in: query
+        name: language
+        schema:
+          type: string
+        required: false
+        description: Filter by language code (e.g., `en`, `zh`).
+      - in: query
+        name: title_language
+        schema:
+          type: string
+        required: false
+        description: Filter according to the language used in the title.
+      - in: query
+        name: sort_by
+        schema:
+          type: string
+        required: false
+        description: Sorting fields (for example, `created_at`, `task_count`).
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: listVoices
+      description: 'Fish Audio model listing API — paginate through the available voice models. Full input
+        requirements: https://platform.acedata.cloud/documents/fish-model-query'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/fish-model-query

@@ -80,7 +80,38 @@ actual service call. It is not a credential and grants no service access. Remove
 it and configure caller-owned authorization before release. No paid tools/call
 was executed for metadata discovery.
 
-## Current release gate (2026-10-06)
+## Current release gate (2026-10-07)
+
+Fourteen HTTP plugins have confirmed **Under Review** store submission receipts
+following fresh Coze calls and saved credential-redacted examples:
+
+- Wave 1: DeepSeek, Short URL, Google Search, Kimi, GLM and Localization (6 tools).
+- Wave 2: Web Extractor, Claude, Grok, Nano Banana and Qwen Image (13 tools).
+- Wave 3: OpenAI, Gemini and Fish (13 enabled tools).
+
+Workspace v0.0.2 publication and store submission remain separate from approval,
+public discoverability, installation and Agent execution. Those later gates
+have not been verified. Store pages and submission receipts are retained in the
+local operational evidence, with no production credentials committed here.
+
+Gemini's four tools passed fresh calls. OpenAI's five enabled tools returned text
+and completed image results; embeddings returned HTTP 500 and is disabled for
+this version. Fish's four enabled tools returned an MP3, voice-list entries and
+voice details; custom voice creation returned a reference-audio download error
+and is disabled. Both reduced scopes were published as workspace v0.0.2 and
+submitted with explicit store-copy limitations. No failed tool was given a
+fabricated successful example. Localization remains Markdown/plain-text only;
+its store copy explicitly excludes JSON-object translation.
+
+Grok, Gemini and OpenAI task outputs now explicitly retain media URLs, completion
+details, costs and errors for single and batch retrieval. The OpenAI import
+preserves pagination metadata. Fish voice-list output declares IDs, titles,
+license metadata and pagination bounds, so Coze does not return empty entries.
+The same completed tasks were read again through Coze after output fixes,
+without repeating generation. These changes do not alter provider routing,
+authentication or billing rules.
+
+### Earlier validation and scope
 
 The local `e2e-v4/launch-gate.json` evidence file is the
 per-service evidence index; the generated review accepts it with
@@ -129,24 +160,28 @@ as Coze workspace version v0.0.1: DeepSeek, Short URL, Google Search, Web
 Extractor, Claude, OpenAI, Kimi, Gemini, Grok, GLM, Nano Banana, Qwen Image,
 Fish and Localization. The latter exposes only the verified Markdown form. This
 workspace publication is separate from Plugin Store submission: the store flow
-asks for a running example for each tool, and no listing has been submitted or
-observed in public search. Post-publication Agent install and execution remain
-unverified. All short-lived test credentials were expired and read back. The
-corrected ledger is 29.372048470 Credits of the approved 200-Credit cap; the
-earlier total omitted 0.846 Credits from the initial four-plugin credential.
+asks for a running example for each tool. The subsequent confirmed submissions
+are listed above. Post-publication Agent install and execution remain unverified.
+The pre-handoff test credentials were expired and read back. The pre-handoff
+ledger was 29.372048470 Credits of the approved 200-Credit cap; continuation
+usage is tracked separately in the local credential readbacks.
 
 ## Contracts, trials and publication
 
 `plugins/` contains full public HTTP contracts. `imports/` records Coze-compatible
 projections for Claude, OpenAI, Kimi, Gemini chat, Grok chat, GLM chat,
-Fish TTS, Localization Markdown, Nano Banana/Qwen Image tasks, Kling and
+Fish TTS and voice listing, Localization Markdown, Nano Banana/Qwen Image tasks,
+Grok/Gemini video tasks, OpenAI image tasks, Kling and
 Google Search, with explicit limitations.
 They are supplementary preparation and do not establish complete MCP parity.
 Suno persona deletion is included in the definition, but all destructive and
 sensitive fixtures require their own explicit execution scope.
 
 Keep credentials out of prompts, examples, exports and version control. Coze
-Request previews can retain a token; never save real-token runs as examples.
+Request previews can retain a token even after an input field is edited. Build
+the saved request with a redacted Authorization value, retain the real response,
+then read the persisted example back before publication. Never publish a
+real-token example or treat a request template as a successful runtime result.
 Imported `Failed` labels before testing are not provider-failure evidence.
 Previous API tests do not prove revised native MCP or Coze runtime success.
 

@@ -488,14 +488,42 @@
     {
       "field": "POST /nano-banana/tasks/response/data/items/image_url",
       "kind": "declared_output",
-      "reason": "Coze drops undeclared image URLs from dynamic task results."
+      "reason": "Coze drops undeclared media URLs from dynamic task results."
     }
   ],
   "qwen-image-task": [
     {
       "field": "POST /qwen-image/tasks/response/data/items/image_url",
       "kind": "declared_output",
-      "reason": "Coze drops undeclared image URLs from dynamic task results."
+      "reason": "Coze drops undeclared media URLs from dynamic task results."
+    }
+  ],
+  "grok-task": [
+    {
+      "field": "POST /grok/tasks/response/data/items/video_url",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared media URLs from dynamic task results."
+    }
+  ],
+  "gemini-task": [
+    {
+      "field": "POST /gemini/tasks/response/data/items/video_url",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared media URLs from dynamic task results."
+    }
+  ],
+  "openai-task": [
+    {
+      "field": "POST /openai/tasks/response/data/items/url",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared media URLs from dynamic task results."
+    }
+  ],
+  "fish-voices": [
+    {
+      "field": "GET /fish/model/response/items",
+      "kind": "declared_output",
+      "reason": "Coze drops undeclared voice IDs and metadata; pagination includes lower-bound totals."
     }
   ],
   "fish-tts": [

@@ -31,6 +31,47 @@ IMAGE_TASK_FIELDS = {
         'amount':{'type':'number'},'list_amount':{'type':'number'},'currency':{'type':'string'},
     }},
 }
+VIDEO_TASK_FIELDS = {
+    'success':{'type':'boolean'},
+    'task_id':{'type':'string'},
+    'trace_id':{'type':'string'},
+    'data':{'type':'array','items':{'type':'object','properties':{
+        'id':{'type':'string'},'video_url':{'type':'string'},
+        'state':{'type':'string'},'duration':{'type':'number'},
+        'aspect_ratio':{'type':'string'},'prompt':{'type':'string'},
+    }}},
+    'cost':{'type':'object','properties':{
+        'amount':{'type':'number'},'list_amount':{'type':'number'},'currency':{'type':'string'},
+    }},
+    'error':{'type':'object','properties':{
+        'code':{'type':'string'},'message':{'type':'string'},
+    }},
+}
+OPENAI_IMAGE_TASK_FIELDS = {
+    **copy.deepcopy(IMAGE_TASK_FIELDS),
+    'model':{'type':'string'},
+    'created':{'type':'number'},
+    'data':{'type':'array','items':{'type':'object','properties':{
+        'url':{'type':'string'},'b64_json':{'type':'string'},
+        'revised_prompt':{'type':'string'},
+    }}},
+    'error':copy.deepcopy(VIDEO_TASK_FIELDS['error']),
+}
+FISH_VOICE_FIELDS = {
+    '_id':{'type':'string'},'title':{'type':'string'},
+    'description':{'type':'string'},'state':{'type':'string'},
+    'type':{'type':'string'},'visibility':{'type':'string'},
+    'licensed':{'type':'boolean'},
+    'languages':{'type':'array','items':{'type':'string'}},
+    'tags':{'type':'array','items':{'type':'string'}},
+}
+TASK_RESPONSE_FIELDS = {
+    '/nano-banana/tasks':IMAGE_TASK_FIELDS,
+    '/qwen-image/tasks':IMAGE_TASK_FIELDS,
+    '/grok/tasks':VIDEO_TASK_FIELDS,
+    '/gemini/tasks':VIDEO_TASK_FIELDS,
+    '/openai/tasks':OPENAI_IMAGE_TASK_FIELDS,
+}
 
 
 def slug(s):
@@ -225,14 +266,24 @@ def build_operation(a,path,method,source):
                     response=container.get('response')
                     if response and response.get('type')=='object':
                         response['properties']=content_fields
-            if path in {'/nano-banana/tasks','/qwen-image/tasks'} and 'schema' in c:
+            if path=='/fish/model' and method.lower()=='get' and status=='200' and 'schema' in c:
+                props=c['schema'].setdefault('properties',{})
+                props['items']['items']['properties']=copy.deepcopy(FISH_VOICE_FIELDS)
+                props.update({
+                    'max_offset':{'type':'number'},
+                    'accessible_upper_bound':{'type':'number'},
+                    'window_limited':{'type':'boolean'},
+                    'total_is_exact':{'type':'boolean'},
+                    'has_more':{'type':'boolean'},
+                })
+            if path in TASK_RESPONSE_FIELDS and 'schema' in c:
                 schema=c['schema']
                 schema.pop('oneOf',None)
                 for container in (schema.get('properties',{}),
                                   schema.get('properties',{}).get('items',{}).get('items',{}).get('properties',{})):
                     response=container.get('response')
                     if response and response.get('type')=='object':
-                        response['properties']=copy.deepcopy(IMAGE_TASK_FIELDS)
+                        response['properties']=copy.deepcopy(TASK_RESPONSE_FIELDS[path])
     return op
 
 

@@ -172,6 +172,56 @@ class CozeCatalogTests(unittest.TestCase):
         schema=operation['responses']['401']['content']['application/json']['schema']
         Draft4Validator(schema).validate({'error':{'code':'invalid_token','message':'Invalid credential.'},'trace_id':'test-trace'})
 
+    def test_grok_task_result_retains_video_and_error_fields(self):
+        projected = json.loads((ROOT / 'imports/grok-task.json').read_text())
+        self.assertEqual({'/grok/tasks'}, set(projected['paths']))
+        validate_spec(projected)
+        schema = projected['paths']['/grok/tasks']['post']['responses']['200']['content']['application/json']['schema']
+        self.assertNotIn('oneOf', schema)
+        for props in (schema['properties'], schema['properties']['items']['items']['properties']):
+            result = props['response']['properties']
+            video = result['data']['items']['properties']
+            self.assertEqual('string', video['video_url']['type'])
+            self.assertEqual('string', video['state']['type'])
+            self.assertEqual('number', video['duration']['type'])
+            self.assertTrue({'code', 'message'} <= set(result['error']['properties']))
+
+    def test_openai_task_import_retains_generated_and_edited_images(self):
+        for filename in ('openai', 'openai-task'):
+            projected = json.loads((ROOT / 'imports' / f'{filename}.json').read_text())
+            validate_spec(projected)
+            schema = projected['paths']['/openai/tasks']['post']['responses']['200']['content']['application/json']['schema']
+            self.assertTrue({'count_relation', 'has_more', 'count_is_exact'} <= set(schema['properties']))
+            for props in (schema['properties'], schema['properties']['items']['items']['properties']):
+                result = props['response']['properties']
+                image = result['data']['items']['properties']
+                self.assertTrue({'url', 'b64_json', 'revised_prompt'} <= set(image))
+                self.assertTrue({'success', 'model', 'cost', 'error'} <= set(result))
+
+    def test_gemini_video_task_import_retains_completed_video(self):
+        projected = json.loads((ROOT / 'imports/gemini-task.json').read_text())
+        validate_spec(projected)
+        schema = projected['paths']['/gemini/tasks']['post']['responses']['200']['content']['application/json']['schema']
+        for props in (schema['properties'], schema['properties']['items']['items']['properties']):
+            video = props['response']['properties']['data']['items']['properties']
+            self.assertTrue({'video_url', 'state', 'aspect_ratio', 'prompt'} <= set(video))
+
+    def test_fish_voice_listing_retains_identity_and_pagination(self):
+        projected = json.loads((ROOT / 'imports/fish-voices.json').read_text())
+        self.assertEqual({'/fish/model'}, set(projected['paths']))
+        self.assertEqual({'get'}, set(projected['paths']['/fish/model']))
+        validate_spec(projected)
+        schema = projected['paths']['/fish/model']['get']['responses']['200']['content']['application/json']['schema']
+        fields = schema['properties']['items']['items']['properties']
+        self.assertTrue({'_id', 'title', 'state', 'licensed', 'visibility'} <= set(fields))
+        self.assertTrue({'has_more', 'total_is_exact', 'window_limited', 'max_offset'} <= set(schema['properties']))
+        # A partial result window must not lose the signal that total is a bound.
+        Draft4Validator(schema).validate({
+            'items':[{'_id':'sample-voice','title':'Demo','licensed':False,'state':'trained'}],
+            'total':1000,'total_is_exact':False,'has_more':True,
+            'window_limited':True,'max_offset':1000,'accessible_upper_bound':1000,
+        })
+
     def test_only_public_documented_operations_are_imported(self):
         for row in self.coverage:
             for operation in row['operations']:

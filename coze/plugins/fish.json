@@ -25,13 +25,63 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "additionalProperties": true
+                        "additionalProperties": true,
+                        "properties": {
+                          "_id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "visibility": {
+                            "type": "string"
+                          },
+                          "licensed": {
+                            "type": "boolean"
+                          },
+                          "languages": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "tags": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
                       },
                       "description": "The list of timbre model entries returned by the current page."
                     },
                     "total": {
                       "type": "integer",
                       "description": "The total number of tone models that meet the query conditions."
+                    },
+                    "max_offset": {
+                      "type": "number"
+                    },
+                    "accessible_upper_bound": {
+                      "type": "number"
+                    },
+                    "window_limited": {
+                      "type": "boolean"
+                    },
+                    "total_is_exact": {
+                      "type": "boolean"
+                    },
+                    "has_more": {
+                      "type": "boolean"
                     }
                   }
                 }

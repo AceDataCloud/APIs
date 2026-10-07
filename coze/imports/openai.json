@@ -518,6 +518,70 @@
                             "type": "string",
                             "nullable": true,
                             "description": "Authorization used when starting the task."
+                          },
+                          "response": {
+                            "type": "object",
+                            "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of the success or error response in the operation documentation.",
+                            "additionalProperties": true,
+                            "properties": {
+                              "success": {
+                                "type": "boolean"
+                              },
+                              "task_id": {
+                                "type": "string"
+                              },
+                              "trace_id": {
+                                "type": "string"
+                              },
+                              "data": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "b64_json": {
+                                      "type": "string"
+                                    },
+                                    "revised_prompt": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "cost": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "list_amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "model": {
+                                "type": "string"
+                              },
+                              "created": {
+                                "type": "number"
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
                           }
                         }
                       },
@@ -538,6 +602,70 @@
                       ],
                       "type": "string",
                       "description": "The relationship between `count` and the actual total: `eq` indicates equality, and `gte` indicates that the actual total is greater than or equal to that value."
+                    },
+                    "response": {
+                      "type": "object",
+                      "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of the success or error response in the operation documentation.",
+                      "additionalProperties": true,
+                      "properties": {
+                        "success": {
+                          "type": "boolean"
+                        },
+                        "task_id": {
+                          "type": "string"
+                        },
+                        "trace_id": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "b64_json": {
+                                "type": "string"
+                              },
+                              "revised_prompt": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "cost": {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "type": "number"
+                            },
+                            "list_amount": {
+                              "type": "number"
+                            },
+                            "currency": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "model": {
+                          "type": "string"
+                        },
+                        "created": {
+                          "type": "number"
+                        },
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }

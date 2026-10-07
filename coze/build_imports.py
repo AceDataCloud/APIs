@@ -104,6 +104,14 @@ def main():
                     message['properties'].pop('tool_calls',None)
                     notes.append({'field':loc+'/request/messages/items/tool_calls','kind':'omitted_optional_input','reason':'Coze requires nested tool-call fields even for a plain user message; canonical contract retains them.'})
                 op['responses']=copy.deepcopy(override['responses'])
+                if path.stem=='openai' and uri=='/openai/tasks':
+                    # Older import overrides omit the dynamic task response.
+                    # Restore it without replacing the override's pagination fields.
+                    canonical=json.loads(path.read_text())['paths'][uri][method]
+                    source=canonical['responses']['200']['content']['application/json']['schema']['properties']
+                    output=op['responses']['200']['content']['application/json']['schema']['properties']
+                    output['response']=copy.deepcopy(source['response'])
+                    output['items']['items']['properties']['response']=copy.deepcopy(source['items']['items']['properties']['response'])
                 if path.stem in {'claude','serp'}:
                     op['responses']={'200':op['responses']['200']}
                     def clean(value):
@@ -139,14 +147,20 @@ def main():
         report[key+'-chat']=[{'field':'POST '+uri+'/request/messages/items/tool_calls','kind':'omitted_optional_input','reason':'Coze requires nested tool-call fields even for plain user messages.'}]
         (target/f'{key}-chat.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         (target/f'{key}-chat.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
-    for key in ('nano-banana','qwen-image'):
+    for key in ('nano-banana','qwen-image','grok','gemini','openai'):
         uri=f'/{key}/tasks'
-        doc=json.loads((ROOT/'plugins'/f'{key}.json').read_text())
+        doc=json.loads(((target if key=='openai' else ROOT/'plugins')/f'{key}.json').read_text())
         doc['paths']={uri:doc['paths'][uri]}
-        report[key+'-task']=[{'field':'POST '+uri+'/response/data/items/image_url','kind':'declared_output','reason':'Coze drops undeclared image URLs from dynamic task results.'}]
+        media_field='video_url' if key in {'grok','gemini'} else 'url' if key=='openai' else 'image_url'
+        report[key+'-task']=[{'field':'POST '+uri+'/response/data/items/'+media_field,'kind':'declared_output','reason':'Coze drops undeclared media URLs from dynamic task results.'}]
         (target/f'{key}-task.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         (target/f'{key}-task.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
     doc=json.loads((ROOT/'plugins/fish.json').read_text())
+    voice_doc=copy.deepcopy(doc)
+    voice_doc['paths']={'/fish/model':{'get':voice_doc['paths']['/fish/model']['get']}}
+    report['fish-voices']=[{'field':'GET /fish/model/response/items','kind':'declared_output','reason':'Coze drops undeclared voice IDs and metadata; pagination includes lower-bound totals.'}]
+    (target/'fish-voices.json').write_text(json.dumps(voice_doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'fish-voices.yaml').write_text(yaml.safe_dump(voice_doc,allow_unicode=True,sort_keys=False,width=100))
     uri='/fish/tts'
     doc['paths']={uri:doc['paths'][uri]}
     body=doc['paths'][uri]['post']['requestBody']['content']['application/json']['schema']
