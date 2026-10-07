@@ -24,6 +24,8 @@ When using this interface for the first time, we need to fill in at least three 
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
+The shared `/v1/chat/completions` endpoint also accepts the public model alias `gpt-5.6-sol-fast` using the same Chat Completions request format.
+
 Common optional parameters:
 
 - `max_tokens`: Limits the maximum number of tokens for a single response.

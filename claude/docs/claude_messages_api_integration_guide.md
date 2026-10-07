@@ -22,6 +22,8 @@ The request path for the Claude Messages API is `/v1/messages`, consistent with 
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
+The shared `/v1/messages` endpoint also accepts the public model alias `gpt-5.6-sol-fast` using the same Messages request format. Model-specific Claude features are not guaranteed for this model.
+
 Common optional parameters:
 
 - `system`: System prompt used to set the model's behavior and role.
