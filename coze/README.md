@@ -186,7 +186,7 @@ Imported `Failed` labels before testing are not provider-failure evidence.
 Previous API tests do not prove revised native MCP or Coze runtime success.
 
 The user authorized publication of the reviewed first batch on 2026-10-06.
-The other 17 plugins are outside that batch. Store submission and Agent E2E
+The other 17 plugins are outside that batch. Store review approval, user installation and Agent E2E
 remain open gates for the first batch, as recorded in the local launch gate.
 Removed services are excluded from the launch materials; historical private Coze
 drafts are not automatically or permanently deleted by these builders.
