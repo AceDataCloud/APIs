@@ -20,6 +20,7 @@ Before use, please enter the [Nano Banana Images API](https://platform.acedata.c
 - **Model** (optional):
   - `nano-banana` (default): Based on Gemini 2.5 Flash Image, fast speed, low cost
   - `nano-banana-2`: Based on Gemini 3.1 Flash Image Preview, Pro-level quality + Flash speed
+  - `nano-banana-2.1`: Latest efficient image model; supports 1K, 2K, and 4K generation and editing
   - `nano-banana-pro`: Based on Gemini 3 Pro Image Preview, highest quality
 - **Asynchronous Callback**: Optional, receive task completion notifications and results via `callback_url`
 
@@ -222,7 +223,7 @@ When a call fails, a standard error format and trace ID will be returned. Common
 
 - **Required**: `action`, `prompt`
 - **Edit Only**: `image_urls` (array, at least 1 item)
-- **Optional**: `model` (default `nano-banana`, optional `nano-banana-2` or `nano-banana-pro`), `aspect_ratio` (width-to-height ratio, such as `1:1`, `16:9`), `resolution` (resolution, such as `1K`, `2K`, `4K`), `callback_url` (for asynchronous callback)
+- **Optional**: `model` (default `nano-banana`; choose `nano-banana-2`, `nano-banana-2.1`, or `nano-banana-pro`), `aspect_ratio` (width-to-height ratio, such as `1:1`, `16:9`), `resolution` (resolution, such as `1K`, `2K`, `4K`), `callback_url` (for asynchronous callback)
 - **Headers**: Must provide `authorization: Bearer {token}`; `accept` is recommended to be set to `application/json`
 - **Image Accessibility**: `image_urls` must be direct links accessible publicly (HTTP/HTTPS), HTTPS is recommended
 - **Idempotency and Tracking**: Retain `task_id` and `trace_id` for troubleshooting and result association

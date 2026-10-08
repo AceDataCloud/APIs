@@ -1042,8 +1042,7 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 <li>✓ Suitable for high-frequency scenarios</li>
 </ul>
 </div>
-<div class="mdl-card mdl-rec">
-<div class="mdl-rec-badge">New</div>
+<div class="mdl-card">
 <div class="mdl-head">
 <h3>nano-banana-2</h3>
 <span class="mdl-tag-green mdl-tag">Balanced</span>
@@ -1054,6 +1053,19 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 <li>✓ Flash-level response speed</li>
 <li>✓ As low as $0.0267 / call</li>
 <li>✓ Suitable for most scenarios</li>
+</ul>
+</div>
+<div class="mdl-card mdl-rec">
+<div class="mdl-rec-badge">New</div>
+<div class="mdl-head">
+<h3>nano-banana-2.1</h3>
+<span class="mdl-tag-green mdl-tag">Efficient</span>
+</div>
+<p class="mdl-desc">Latest efficient image model, supporting 1K, 2K, and 4K generation and editing.</p>
+<ul class="mdl-feats">
+<li>✓ 1K/2K/4K output</li>
+<li>✓ Generate and edit images</li>
+<li>✓ As low as $0.0190 / call</li>
 </ul>
 </div>
 <div class="mdl-card">
