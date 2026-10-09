@@ -25,6 +25,49 @@ Keywords: suno-api, ai-music, music-generation, lyrics-generation, rest-api, ai-
 
 Create a reusable music model from 6–24 authorized audio files, query its status, and generate new tracks through `POST /suno/custom-models`. See the [custom models integration guide](docs/suno_custom_models_api_integration_guide.md).
 
+## Studio Projects (Beta)
+
+Use `POST /suno/projects` to manage versioned multitrack projects. The [public API reference](https://platform.acedata.cloud/documents/suno-projects) and [integration guide](https://platform.acedata.cloud/documents/suno-projects-integration) contain the complete schema and recorded examples.
+
+Send `Authorization: Bearer YOUR_API_KEY`, `Content-Type: application/json`, and an `Idempotency-Key` of 1–128 characters for every action except `retrieve`. Use a new key for each new operation. The same key and request replay the original success or failure without regenerating; changing the request under the same key returns 409. If submission times out, query the original task or replay with the same key before considering a new paid operation.
+
+### Project workflow
+
+| Action | Required inputs beyond `action` | Result and next step |
+| --- | --- | --- |
+| `create` | `title` (1–200 characters) | Synchronous; retain `data.id` as the project ID. |
+| `retrieve` | `id` | Synchronous; read the latest `data.version_id` and complete `data.state`. |
+| `save` | `id`, complete `state`, latest `version_id` | Synchronous even if a `task_id` is returned; use the new version. Only the first save of an empty project may omit `version_id`. |
+| `upload` | `id`, `version_id`, public HTTPS `audio_url` | Async; read `response.data.candidate.audio_id` from the completed task. |
+| `add_track` | `id`, `version_id`, completed `audio_id` | Async; add the source audio and retain the new version. |
+| `render` | `id`, `version_id`, `title` | Async; read `response.data.audio_id` and `audio_url` for the mix. |
+| `generate_track` | `id`, `version_id`, `source_audio_id`, `render_audio_id`, `model`, `start_seconds`, `end_seconds`, `stem_control_tags` | Async; produces candidates without changing the project. Save an empty target track before generating. |
+| `replace_section` | `id`, `version_id`, `source_audio_id`, `model`, `start_seconds`, `end_seconds` | Async; produces replacement candidates without changing the project; no render reference required. |
+| `commit_candidate` | `id`, `version_id`, `operation_id`, `candidate_id`, `track_id` | Async; submit a selected candidate and retain the new version. |
+| `remove_track` | `id`, `version_id`, `track_id` | Synchronous; retain the new version. |
+
+For async actions, `async=false` does not make them synchronous. Poll `POST /suno/tasks` with `{"action":"retrieve","id":"TASK_ID"}`, or set `callback_url`. A task ID means accepted, not successful: wait for `finished_at` and check `response.success`; failures are in `response.error`. See the [task result guide](docs/suno_tasks_api_integration_guide.md#project-task-results).
+
+`save` replaces the entire state, not a partial patch. Retrieve it first, edit only the intended fields, and preserve unknown fields. Save a uniquely identified audio track with `type:"audio"` and `clips:[]` before generating a new-track candidate, because candidates are tied to that saved version. Do not create the target track after generation. Read `operation_id` and `candidates[].id` from the completed generation task, and `track_id` from the project's `state.tracks[].id`; none of these is the project ID or the new submission's task ID.
+
+### Timing and optional controls
+
+- `start_seconds` / `end_seconds` select a range in the source audio, with `0 ≤ start_seconds < end_seconds`. Replacement must not extend past the source duration. The selected range does not guarantee candidate output length.
+- `start_beats` / `end_beats` are project timeline beats. `state.timing.bps` is positive beats per second, default 2. Clip fields `startBeats`, `endBeats`, and `readStartBeats` also use project beats. Adding 41 seconds at beat 0 gives a default end of beat 82 at 2 bps.
+- `add_track` accepts `name`, `color` (default `#7251F7`), `title`, `start_beats` (default 0), `end_beats`, and nonnegative `gain` (default 1). The default end is start plus audio duration times bps.
+- Generation and replacement accept `title`, `tags`, and `negative_tags`. `generate_track` additionally accepts `prompt`, `batch_size` (1–4, default 2), `instrumental` (default `true`), and `vocal_gender` (`f`, `m`, or `unspecified`, default `unspecified`). `stem_control_tags` is a description such as `add Piano`, not an enum.
+- For replacement, `prompt` supplies source lyrics or context, while `replacement_lyrics` supplies the new lyrics. `fixed` defaults to `false`; `fixed=true` requires a range shorter than 26 seconds and remains unverified in the recorded workflow.
+- For new-track commits, optional `name`, nonnegative `gain` (default 1), and non-overlapping `start_beats` / `end_beats` control placement. Defaults use the source clip's start and the candidate's actual duration. Replacement commits target the original track containing the unique source clip and must omit `start_beats` and `end_beats`.
+- Rendering accepts `lyrics` (default `[Instrumental]`), `tags`, and an optional beat range. Without a range it uses the earliest and latest audible clips; muted clips are excluded and solo tracks take precedence. An empty or inaudible project cannot be rendered.
+
+The generation model enums are `chirp-v3-5`, `chirp-v4`, `chirp-v4-5`, `chirp-v4-5-plus`, `chirp-v5`, `chirp-v5-5`, `chirp-v6`, `chirp-v6-wild`, and `chirp-v6-mini`. Passing validation does not guarantee that the model supports the selected operation; check the terminal task result. There is no automatic model substitution.
+
+### Beta limitations and recovery
+
+The recorded October 9, 2026 workflow generated and committed a new-track candidate, but rendering the project containing it failed with `studio_audio_unavailable`. Removing that candidate track and rendering the latest version succeeded. The same workflow produced 36-second replacement candidates for an 8-second selection in a 41-second source; committing one failed with `bad_request`, leaving the original track unchanged. Candidate generation, a playable URL, or a successful commit is not proof that the whole project can be rendered.
+
+On `project_version_conflict` or `project_candidate_stale` (409), retrieve the latest project and replan; do not replay stale candidates. If a candidate duration cannot safely match the source or selected section, retain the original track and inspect the candidate rather than forcing guessed beat positions. For audio-access failures, preserve the project and check the source and `trace_id`. Do not automatically repeat paid generation to resolve these failures. Projects and candidates are bound to their application and execution environment; do not assume cross-application reuse or automatic failover. Use only audio you have rights to process and retain final exported audio URLs.
+
 ## Overview
 
 <style>
@@ -1112,6 +1155,7 @@ Explore the supported endpoints and integration guides for Suno Music Generation
 | [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2) | `/suno/mashup-lyrics` | [Suno Mashup Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/ec26e17f-7709-40f4-ad87-2f50c16f94b0) |
 | [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed) | `/suno/tasks` | [Suno Tasks API Integration Guide](https://platform.acedata.cloud/documents/d3868342-7f11-4670-bd31-61a63663cb10) |
 | [Suno Upload API](https://platform.acedata.cloud/documents/766db278-012c-43c4-9245-5f18d8dc4d82) | `/suno/upload` | [Suno Upload API Integration Guide](https://platform.acedata.cloud/documents/26092dda-23d9-4874-9916-e12db6fce3b5) |
+| [Suno Studio Projects API (Beta)](https://platform.acedata.cloud/documents/suno-projects) | `/suno/projects` | [Project workflow](#studio-projects-beta) |
 
 ## Related Resources
 

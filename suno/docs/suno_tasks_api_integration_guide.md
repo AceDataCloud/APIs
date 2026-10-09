@@ -20,6 +20,14 @@ If you are not logged in or registered, you will be automatically redirected to 
 
 There is a free quota available for first-time applicants, allowing you to use the API for free.
 
+## Project Task Results
+
+The same `POST /suno/tasks` request with `action=retrieve` also polls the `task_id` returned by `POST /suno/projects`. A project task is complete only when the task record has `finished_at`; check `response.success` before using `response.data`, and inspect `response.error` on failure. An accepted task ID is not proof that generation, candidate submission, or rendering succeeded.
+
+Read uploaded audio IDs from `response.data.candidate.audio_id`, generated candidates from `response.data.candidates[]` and their `response.data.operation_id`, and rendered audio from `response.data.audio_id` and `response.data.audio_url`. After `add_track` or `commit_candidate`, use the new `response.data.version_id` for later project operations. Project task results are objects, not the song arrays in the historical examples below.
+
+If a submission times out, query the original task or replay the same project request with its original `Idempotency-Key`; do not submit a new paid generation while its result is uncertain. See the [project workflow and limitations](../README.md#studio-projects-beta).
+
 ## Request Example
 
 The Suno Tasks API can be used to query the results of both the Suno Audios Generation API and the Suno Lyrics Generation API. For information on how to use the Suno Audios Generation API, please refer to the document [Suno Audios Generation API](https://platform.acedata.cloud/documents/d016ee3f-421b-4b6e-989a-8beba8701701). For information on how to use the Suno Lyrics Generation API, please refer to [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/f1c66741-a488-43ca-91fc-e53fbbda639a).
