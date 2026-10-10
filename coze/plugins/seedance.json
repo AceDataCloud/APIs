@@ -1,0 +1,1367 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Seedance",
+    "version": "2.0.0",
+    "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?from=coze"
+  },
+  "servers": [
+    {
+      "url": "https://api.acedata.cloud"
+    }
+  ],
+  "paths": {
+    "/seedance/videos": {
+      "post": {
+        "summary": "ByteDance Seedance video generation API. Supports doubao-seedance-1-0-pro-250528, doubao-seedance-1-0-pro-fast-251015, doubao-seedance-1-5-pro-251215, doubao-se",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "description": "Generate or edit a list of video entries based on the prompts.",
+                      "additionalProperties": true
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "Flag indicating whether this request was successful."
+                    },
+                    "task_id": {
+                      "type": "string",
+                      "description": "The task ID for this request"
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful (OK)."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Response error message."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Response error message."
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the format of the server response. If not specified, the default format is `application/json`."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "generateVideo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "model",
+                  "content"
+                ],
+                "properties": {
+                  "seed": {
+                    "type": "integer",
+                    "maximum": 4294967295,
+                    "minimum": -1,
+                    "description": "The random seed used for reproducible generation has a value range from -1 to 4294967295; -1 indicates randomness."
+                  },
+                  "async": {
+                    "type": "boolean",
+                    "description": "Whether to process in asynchronous mode. When set to `true`, the interface immediately returns `task_id`, without the need to provide `callback_url`, and then the result can be obtained by polling the corresponding task query interface; if `callback_url` is also provided, the result will be pushed to that callback address.",
+                    "default": true
+                  },
+                  "model": {
+                    "enum": [
+                      "doubao-seedance-1-0-pro-250528",
+                      "doubao-seedance-1-0-pro-fast-251015",
+                      "doubao-seedance-1-5-pro-251215",
+                      "doubao-seedance-1-0-lite-t2v-250428",
+                      "doubao-seedance-1-0-lite-i2v-250428",
+                      "doubao-seedance-2-0-260128",
+                      "doubao-seedance-2-0-fast-260128",
+                      "doubao-seedance-2-0-mini-260615",
+                      "doubao-seedance-2-5-260628"
+                    ],
+                    "type": "string",
+                    "description": "Model ID for video generation"
+                  },
+                  "ratio": {
+                    "enum": [
+                      "16:9",
+                      "4:3",
+                      "1:1",
+                      "3:4",
+                      "9:16",
+                      "21:9",
+                      "adaptive"
+                    ],
+                    "type": "string",
+                    "default": "16:9",
+                    "description": "Aspect ratio of the generated video"
+                  },
+                  "tools": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "type"
+                      ],
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "web_search"
+                          ],
+                          "type": "string",
+                          "description": "Tool type, currently fixed as web_search."
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "default": 10,
+                          "maximum": 50,
+                          "minimum": 1,
+                          "description": "The maximum number of results returned per round of search is 1–50."
+                        },
+                        "sources": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "toutiao",
+                              "douyin",
+                              "moji",
+                              "search_engine"
+                            ],
+                            "type": "string"
+                          },
+                          "description": "Optional search source restrictions."
+                        },
+                        "max_keyword": {
+                          "type": "integer",
+                          "maximum": 50,
+                          "minimum": 1,
+                          "description": "The maximum number of keywords for parallel search, with a value range of 1–50."
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "maxItems": 1,
+                    "description": "Seedance 2.5 optional tool configuration array. Only pass in tool objects explicitly supported by the documentation."
+                  },
+                  "frames": {
+                    "type": "integer",
+                    "maximum": 289,
+                    "minimum": 29,
+                    "description": "The frame rate for generating videos ranges from [29, 289] and must satisfy 25+4n (such as 29, 33, 37...289). Only the Seedance 1.0 series supports this; for Seedance 1.5 Pro and 2.0 series, please use duration instead. You can choose either duration or frames; if both are specified, the priority is given to frames over duration."
+                  },
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "text"
+                          ],
+                          "properties": {
+                            "text": {
+                              "type": "string",
+                              "maxLength": 1000,
+                              "description": "Describe the text content expected to generate the video. You can use the old `--param value` syntax at the end of the prompt to add inline parameters (weak validation, invalid values will silently use default values). Supported inline parameters: `--rs` (resolution: 480p/720p/1080p), `--rt` (aspect ratio: 16:9/4:3/1:1/3:4/9:16/21:9/adaptive), `--dur` (duration, in seconds: Seedance 1.0 Pro/Pro Fast is 2-12; Seedance 1.5 Pro is 4-12 or -1; Seedance 2.0 series is 4-15 or -1, -1 means automatic), `--frames` (number of frames: an integer satisfying 25+4n, range [29,361]), `--fps` (frame rate: only supports 24), `--seed` (random seed: -1 to 4294967295), `--cf` (fixed shot: true/false), `--wm` (watermark: true/false). For strong validation, please use the top-level parameters in the request body."
+                            },
+                            "type": {
+                              "enum": [
+                                "text"
+                              ],
+                              "type": "string",
+                              "description": "Content type discrimination field."
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "image_url"
+                          ],
+                          "properties": {
+                            "role": {
+                              "enum": [
+                                "first_frame",
+                                "last_frame",
+                                "reference_image"
+                              ],
+                              "type": "string",
+                              "description": "Optional. The position or use of the image. The three scenarios of first frame (first_frame), combination of first and last frame (last_frame), and reference image (reference_image) are mutually exclusive and cannot be used together."
+                            },
+                            "type": {
+                              "enum": [
+                                "image_url"
+                              ],
+                              "type": "string",
+                              "description": "Content type discrimination field."
+                            },
+                            "image_url": {
+                              "type": "object",
+                              "required": [
+                                "url"
+                              ],
+                              "properties": {
+                                "url": {
+                                  "type": "string",
+                                  "description": "Image URL or Base64 encoded image (format: data:image/<format>;base64,<data>). The image size must be at least 300×300 pixels."
+                                }
+                              },
+                              "description": "Image object. It must be an object that contains a `url` property, and the value of `url` should be an image URL or Base64 data.",
+                              "additionalProperties": false
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "audio_url",
+                            "role"
+                          ],
+                          "properties": {
+                            "role": {
+                              "enum": [
+                                "reference_audio"
+                              ],
+                              "type": "string",
+                              "description": "Optional. Audio usage, currently supports reference_audio."
+                            },
+                            "type": {
+                              "enum": [
+                                "audio_url"
+                              ],
+                              "type": "string",
+                              "description": "Content type discrimination field."
+                            },
+                            "audio_url": {
+                              "type": "object",
+                              "required": [
+                                "url"
+                              ],
+                              "properties": {
+                                "url": {
+                                  "type": "string",
+                                  "description": "Audio URL. The Seedance 2.0 series supports reference audio for generating voiced videos or referencing human voice tones, background music, and other audio information. Material requirements: format must be wav or mp3; single duration 2 to 15 seconds, up to 3 pieces, and the total duration of all audio must not exceed 15 seconds; single file must not exceed 15 MB. Exceeding the duration limit will result in failure during the material processing stage."
+                                }
+                              },
+                              "description": "Audio object. It must be an object that contains a `url` property, and the value of `url` must be a publicly accessible audio URL.",
+                              "additionalProperties": false
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "video_url",
+                            "role"
+                          ],
+                          "properties": {
+                            "role": {
+                              "enum": [
+                                "reference_video"
+                              ],
+                              "type": "string",
+                              "description": "Optional. Video usage, currently supports reference_video."
+                            },
+                            "type": {
+                              "enum": [
+                                "video_url"
+                              ],
+                              "type": "string",
+                              "description": "Content type discrimination field."
+                            },
+                            "video_url": {
+                              "type": "object",
+                              "required": [
+                                "url"
+                              ],
+                              "properties": {
+                                "url": {
+                                  "type": "string",
+                                  "description": "Video URL. The Seedance 2.0 series supports reference videos for referencing main content, camera movement, action performance, or overall style. Material requirements: format in mp4 or mov; single duration of 2 to 15 seconds, up to 3 clips, and the total duration of all videos should not exceed 15 seconds."
+                                }
+                              },
+                              "description": "Video object. It must be an object that contains a `url` property, and the value of `url` must be a publicly accessible video URL.",
+                              "additionalProperties": false
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      ],
+                      "discriminator": {
+                        "propertyName": "type"
+                      }
+                    },
+                    "description": "Input content for video generation. Each entry must include one of `text`, `image_url`, `audio_url`, or `video_url` corresponding to the `type`. The meaning of other fields and whether they are required depends on the value of `type`."
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "maximum": 30,
+                    "minimum": -1,
+                    "description": "The duration of the generated video, in seconds. Either duration or frames can be specified; if both are specified, frames take priority over duration. The duration range varies for each model: Seedance 2.0 series is 4 to 15 seconds or -1, Seedance 1.5 Pro is 4 to 12 seconds or -1, and Seedance 1.0 series is 2 to 12 seconds. -1 indicates automatic duration."
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "default": 0,
+                    "maximum": 9,
+                    "minimum": 0,
+                    "description": "Task execution priority, with values ranging from 0 to 9, where a higher number indicates a higher queuing priority."
+                  },
+                  "watermark": {
+                    "type": "boolean",
+                    "description": "Whether to add a watermark to the generated video."
+                  },
+                  "resolution": {
+                    "enum": [
+                      "480p",
+                      "720p",
+                      "1080p",
+                      "4k"
+                    ],
+                    "type": "string",
+                    "description": "Video resolution. The default value depends on the model used: most models default to 720p, while the lite model defaults to 480p. Note that the supported resolutions vary by model: `4k` is only supported by doubao-seedance-2-0 (standard version); doubao-seedance-2-0-fast and doubao-seedance-2-0-mini do not support 1080p and 4k."
+                  },
+                  "camerafixed": {
+                    "type": "boolean",
+                    "description": "Is the camera position fixed during the generation process?"
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Callback URL for receiving the final result notification of the task. Once provided, the API will immediately return `task_id` and push the results to that URL when the task is completed."
+                  },
+                  "output_format": {
+                    "enum": [
+                      "mp4",
+                      "mov"
+                    ],
+                    "type": "string",
+                    "description": "Seedance 2.5 output format, optional mp4 or mov. Other models use only their default format."
+                  },
+                  "generate_audio": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to generate audio from video. The `doubao-seedance-1-5-pro-251215` and `doubao-seedance-2-0` series models support this parameter, while other models will ignore this parameter."
+                  },
+                  "return_last_frame": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to return the last frame of the generated video."
+                  },
+                  "safety_identifier": {
+                    "type": "string",
+                    "maxLength": 64,
+                    "description": "Stable anonymous identifier for end users, up to 64 English characters long. Please use a hash or internal anonymous ID, do not pass in personal information such as name, email, phone number, etc."
+                  },
+                  "execution_expires_after": {
+                    "type": "integer",
+                    "default": 172800,
+                    "maximum": 259200,
+                    "minimum": 3600,
+                    "description": "Task timeout threshold, unit in seconds"
+                  },
+                  "omni_reference_task_type": {
+                    "enum": [
+                      "auto",
+                      "reference",
+                      "edit",
+                      "extend"
+                    ],
+                    "type": "string",
+                    "description": "Seedance 2.5 All-modal task types: auto automatic judgment, edit edit reference video, extend extend reference video. edit/extend requires reference_video and adaptive ratio; the duration of edit must be -1. Other models do not support this field."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "ByteDance Seedance video generation API. Supports doubao-seedance-1-0-pro-250528, doubao-seedance-1-0-pro-fast-251015, doubao-seedance-1-5-pro-251215, doubao-se Full input requirements: https://platform.acedata.cloud/documents/seedance-videos Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/seedance-videos"
+        }
+      }
+    },
+    "/seedance/tasks": {
+      "post": {
+        "summary": "Query the status and result of an asynchronous Seedance video task. Pass a task_id to retrieve progress, the video URL, and any error details.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "type",
+                        "created_at",
+                        "trace_id",
+                        "request"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Task ID."
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Task type."
+                        },
+                        "api_id": {
+                          "type": "string",
+                          "description": "API Identifier."
+                        },
+                        "elapsed": {
+                          "type": "number",
+                          "format": "double",
+                          "minimum": 0,
+                          "nullable": true,
+                          "description": "Processing duration (seconds)."
+                        },
+                        "request": {
+                          "type": "object",
+                          "description": "Create the request body recorded for the API operation of this task; the fields depend on the specific operation and action.",
+                          "additionalProperties": true
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "description": "The account to which the task belongs."
+                        },
+                        "response": {
+                          "type": "object",
+                          "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of successful or error responses in the operation documentation.",
+                          "additionalProperties": true
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "Request tracking ID."
+                        },
+                        "created_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Task creation time, Unix timestamp (seconds)."
+                        },
+                        "started_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Process start time, Unix timestamp (seconds)."
+                        },
+                        "finished_at": {
+                          "type": "number",
+                          "format": "double",
+                          "nullable": true,
+                          "description": "Processing completion time, Unix timestamp (seconds)."
+                        },
+                        "actor_user_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Account for executing the authorization request."
+                        },
+                        "credential_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Credentials used to start tasks."
+                        },
+                        "application_id": {
+                          "type": "string",
+                          "description": "Application for billing."
+                        },
+                        "authorization_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Authorization used when starting the task."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "items",
+                        "count"
+                      ],
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "description": "Total number of matching tasks."
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "type",
+                              "created_at",
+                              "trace_id",
+                              "request"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "description": "Task ID."
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "Task type."
+                              },
+                              "api_id": {
+                                "type": "string",
+                                "description": "API Identifier."
+                              },
+                              "elapsed": {
+                                "type": "number",
+                                "format": "double",
+                                "minimum": 0,
+                                "nullable": true,
+                                "description": "Processing duration (seconds)."
+                              },
+                              "request": {
+                                "type": "object",
+                                "description": "Create the request body recorded for the API operation of this task; the fields depend on the specific operation and action.",
+                                "additionalProperties": true
+                              },
+                              "user_id": {
+                                "type": "string",
+                                "description": "The account to which the task belongs."
+                              },
+                              "response": {
+                                "type": "object",
+                                "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of successful or error responses in the operation documentation.",
+                                "additionalProperties": true
+                              },
+                              "trace_id": {
+                                "type": "string",
+                                "description": "Request tracking ID."
+                              },
+                              "created_at": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Task creation time, Unix timestamp (seconds)."
+                              },
+                              "started_at": {
+                                "type": "number",
+                                "format": "double",
+                                "description": "Process start time, Unix timestamp (seconds)."
+                              },
+                              "finished_at": {
+                                "type": "number",
+                                "format": "double",
+                                "nullable": true,
+                                "description": "Processing completion time, Unix timestamp (seconds)."
+                              },
+                              "actor_user_id": {
+                                "type": "string",
+                                "nullable": true,
+                                "description": "Account for executing the authorization request."
+                              },
+                              "credential_id": {
+                                "type": "string",
+                                "nullable": true,
+                                "description": "Credentials used to start tasks."
+                              },
+                              "application_id": {
+                                "type": "string",
+                                "description": "Application for billing."
+                              },
+                              "authorization_id": {
+                                "type": "string",
+                                "nullable": true,
+                                "description": "Authorization used when starting the task."
+                              }
+                            }
+                          },
+                          "description": "Matching task list."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "description": "Return when the requested task does not exist.",
+                      "additionalProperties": false
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Task ID."
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Task type."
+                    },
+                    "api_id": {
+                      "type": "string",
+                      "description": "API Identifier."
+                    },
+                    "elapsed": {
+                      "type": "number",
+                      "format": "double",
+                      "minimum": 0,
+                      "nullable": true,
+                      "description": "Processing duration (seconds)."
+                    },
+                    "request": {
+                      "type": "object",
+                      "description": "Create the request body recorded for the API operation of this task; the fields depend on the specific operation and action.",
+                      "additionalProperties": true
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "description": "The account to which the task belongs."
+                    },
+                    "response": {
+                      "type": "object",
+                      "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of successful or error responses in the operation documentation.",
+                      "additionalProperties": true
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "Request tracking ID."
+                    },
+                    "created_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Task creation time, Unix timestamp (seconds)."
+                    },
+                    "started_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Process start time, Unix timestamp (seconds)."
+                    },
+                    "finished_at": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true,
+                      "description": "Processing completion time, Unix timestamp (seconds)."
+                    },
+                    "actor_user_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Account for executing the authorization request."
+                    },
+                    "credential_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Credentials used to start tasks."
+                    },
+                    "application_id": {
+                      "type": "string",
+                      "description": "Application for billing."
+                    },
+                    "authorization_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Authorization used when starting the task."
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "description": "Total number of matching tasks."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "type",
+                          "created_at",
+                          "trace_id",
+                          "request"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Task ID."
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Task type."
+                          },
+                          "api_id": {
+                            "type": "string",
+                            "description": "API Identifier."
+                          },
+                          "elapsed": {
+                            "type": "number",
+                            "format": "double",
+                            "minimum": 0,
+                            "nullable": true,
+                            "description": "Processing duration (seconds)."
+                          },
+                          "request": {
+                            "type": "object",
+                            "description": "Create the request body recorded for the API operation of this task; the fields depend on the specific operation and action.",
+                            "additionalProperties": true
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "description": "The account to which the task belongs."
+                          },
+                          "response": {
+                            "type": "object",
+                            "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of successful or error responses in the operation documentation.",
+                            "additionalProperties": true
+                          },
+                          "trace_id": {
+                            "type": "string",
+                            "description": "Request tracking ID."
+                          },
+                          "created_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Task creation time, Unix timestamp (seconds)."
+                          },
+                          "started_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Process start time, Unix timestamp (seconds)."
+                          },
+                          "finished_at": {
+                            "type": "number",
+                            "format": "double",
+                            "nullable": true,
+                            "description": "Processing completion time, Unix timestamp (seconds)."
+                          },
+                          "actor_user_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Account for executing the authorization request."
+                          },
+                          "credential_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Credentials used to start tasks."
+                          },
+                          "application_id": {
+                            "type": "string",
+                            "description": "Application for billing."
+                          },
+                          "authorization_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Authorization used when starting the task."
+                          }
+                        }
+                      },
+                      "description": "Matching task list."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Operation executed successfully."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, it may be due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Response error message."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Response error message."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the response format returned by the server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "getTaskResults",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Seedance task ID."
+                  },
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of task IDs for Seedance."
+                  },
+                  "action": {
+                    "enum": [
+                      "retrieve",
+                      "retrieve_batch"
+                    ],
+                    "type": "string",
+                    "default": "retrieve",
+                    "description": "Operation type. Use `retrieve` to get a single task, and use `retrieve_batch` to batch retrieve multiple tasks."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Query the status and result of an asynchronous Seedance video task. Pass a task_id to retrieve progress, the video URL, and any error details. Full input requirements: https://platform.acedata.cloud/documents/seedance-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/seedance-tasks"
+        }
+      }
+    }
+  }
+}

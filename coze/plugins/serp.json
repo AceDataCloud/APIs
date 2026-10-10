@@ -1,0 +1,738 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Google Search",
+    "version": "2.0.0",
+    "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?from=coze"
+  },
+  "servers": [
+    {
+      "url": "https://api.acedata.cloud"
+    }
+  ],
+  "paths": {
+    "/serp/google": {
+      "post": {
+        "summary": "Get Google search results",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cost": {
+                      "type": "object",
+                      "required": [
+                        "amount",
+                        "currency"
+                      ],
+                      "properties": {
+                        "amount": {
+                          "type": "number"
+                        },
+                        "currency": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "maps": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "news": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "places": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "videos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "organic": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "answer_box": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "knowledge_graph": {
+                      "type": "object",
+                      "additionalProperties": true
+                    },
+                    "people_also_ask": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "link": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "snippet": {
+                            "type": "string"
+                          },
+                          "position": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    },
+                    "related_searches": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "query": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": true
+                      }
+                    }
+                  },
+                  "description": "Structured search results. The available set of results depends on the type of search requested.",
+                  "additionalProperties": true
+                }
+              }
+            },
+            "description": "Request successful, returning search result data."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Response error message."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Response error message."
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the response format returned by the server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Search the web and return structured results, including web pages, images, news, maps, locations, or video queries. Full input requirements: https://platform.acedata.cloud/documents/serp-google",
+        "operationId": "searchGoogle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "images"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "not": {
+                      "required": [
+                        "image_size"
+                      ]
+                    },
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "search",
+                          "news",
+                          "maps",
+                          "places",
+                          "videos"
+                        ],
+                        "type": "string"
+                      }
+                    }
+                  }
+                ],
+                "required": [
+                  "query"
+                ],
+                "properties": {
+                  "page": {
+                    "type": "integer",
+                    "default": 1,
+                    "maximum": 100,
+                    "minimum": 1,
+                    "description": "The page number of the search results is set to page 1 by default."
+                  },
+                  "type": {
+                    "enum": [
+                      "search",
+                      "images",
+                      "news",
+                      "maps",
+                      "places",
+                      "videos"
+                    ],
+                    "type": "string",
+                    "default": "search",
+                    "description": "Search resource type parameters currently support six types: `search` (web search), `images` (images), `news` (news), `maps` (maps), `places` (places), `videos` (videos). The default value is `search`."
+                  },
+                  "query": {
+                    "type": "string",
+                    "pattern": ".*\\S.*",
+                    "maxLength": 2048,
+                    "minLength": 1,
+                    "description": "Search query keywords."
+                  },
+                  "range": {
+                    "enum": [
+                      "h",
+                      "d",
+                      "w",
+                      "m",
+                      "y",
+                      "qdr:h",
+                      "qdr:d",
+                      "qdr:w",
+                      "qdr:m",
+                      "qdr:y"
+                    ],
+                    "type": "string",
+                    "description": "Time range filter for search results, no time limit by default."
+                  },
+                  "number": {
+                    "type": "integer",
+                    "default": 3,
+                    "maximum": 100,
+                    "minimum": 1,
+                    "description": "The number of search results returned is 10 by default."
+                  },
+                  "country": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 1,
+                    "description": "The country/region code used by the search engine is `US` (United States) by default."
+                  },
+                  "language": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 1,
+                    "description": "The language code used by the search engine is `en` (English) by default."
+                  },
+                  "image_size": {
+                    "enum": [
+                      "large",
+                      "medium",
+                      "icon",
+                      "2mp",
+                      "4mp",
+                      "6mp",
+                      "8mp",
+                      "10mp",
+                      "12mp",
+                      "15mp",
+                      "20mp",
+                      "40mp",
+                      "70mp"
+                    ],
+                    "type": "string",
+                    "description": "Image size filtering conditions are only valid when `type` is `images`."
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": true
+        },
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/serp-google"
+        }
+      }
+    }
+  }
+}

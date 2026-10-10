@@ -1,0 +1,361 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Short URL",
+    "version": "2.0.0",
+    "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c?from=coze"
+  },
+  "servers": [
+    {
+      "url": "https://api.acedata.cloud"
+    }
+  ],
+  "paths": {
+    "/shorturl": {
+      "post": {
+        "summary": "Create a shorten URL from the long URL",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "description": "Generated short link address"
+                        }
+                      },
+                      "description": "Response output data."
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "description": "A flag indicating whether this request was successful."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string",
+                              "description": "Response error code."
+                            },
+                            "message": {
+                              "type": "string",
+                              "description": "Error message of the response."
+                            }
+                          }
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "The tracking ID for this request."
+                        }
+                      }
+                    }
+                  ],
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the response format returned by the server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "createShortLink",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "content"
+                ],
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Content of the long link that needs to be shortened."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Create a shorten URL from the long URL Full input requirements: https://platform.acedata.cloud/documents/shorturl",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/shorturl"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "deepseek": {
+    "url": "https://cdn.acedata.cloud/zv0360.jpg",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "39324b7c-5e24-451d-a174-d47957c3380c",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "claude": {
+    "url": "https://cdn.acedata.cloud/8fnw4v.jpg",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "fa3cba27-b01c-4657-942f-63589f727b00",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "maestro": {
+    "url": "https://cdn.acedata.cloud/df0e7b7eea.svg",
+    "source": "Nexior/src/constants/maestro.ts",
+    "service_id": "0d7031bf-610a-419e-a5a0-db8f240286d5",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "turnstile": {
+    "url": "https://cdn.acedata.cloud/uploads/dc28743e-cf54-4d60-8e02-8be019b0a235",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "0b86c601-dcc4-4494-8259-00a2b88763d7",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "discord-bot": {
+    "url": "https://cdn.acedata.cloud/assets/services/discord-bot/icon-3abed011a1cb.png",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "40f2bcbf-2efb-40c5-b67a-02194821847b",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "claude-code": {
+    "url": "https://cdn.acedata.cloud/uploads/dfb8d916-f603-4952-85b3-26222dc14484",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "158c5af4-87b5-4951-96e2-8e94984c9a59",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "image2text": {
+    "url": "https://cdn.acedata.cloud/uploads/ad333990-ea8e-4889-83c5-67385fc8d7b0",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "2aaa7faf-099e-410e-82f3-8d78170f25bb",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "kimi": {
+    "url": "https://cdn.acedata.cloud/57ebgy.png",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "7ef9ec1d-f0fb-453c-be72-36d5124e5aa1",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "hailuo": {
+    "url": "https://cdn.acedata.cloud/0qg4gp.png",
+    "source": "Nexior/src/constants/hailuo.ts",
+    "service_id": "5eaa73b7-b9a7-4a17-afb3-f658fd5495b0",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "telegram-bot": {
+    "url": "https://cdn.acedata.cloud/f993402a7a.svg",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "6ff3eb91-7cb8-4f56-9c69-2c7083c01448",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "openai": {
+    "url": "https://cdn.acedata.cloud/7dljuv.png",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "06f2acb7-e4d4-43de-9909-76e27b4e2355",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "coding": {
+    "url": "https://cdn.acedata.cloud/uploads/7797e57d-6491-443a-b5cc-197f56f18b97",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "c0d1a9a0-0000-4000-8000-000000000001",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "gemini": {
+    "url": "https://cdn.acedata.cloud/psfx0g.jpg",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "dda998fe-e11f-41b8-afa9-0a9b8420d60d",
+    "transformation": "Optical crop of excess white border; full brand mark preserved, then scaled to 512px."
+  },
+  "grok": {
+    "url": "https://cdn.acedata.cloud/p1ge98.png",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "cbfe0ade-0b4e-4c42-83f4-3e2d5b429545",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "veo": {
+    "url": "https://cdn.acedata.cloud/8nxyy9.jpg",
+    "source": "Nexior/src/constants/veo.ts",
+    "service_id": "73cd74ba-a1bd-4a12-8df6-11d64c38df14",
+    "transformation": "Optical crop of excess white border; full brand mark preserved, then scaled to 512px."
+  },
+  "serp": {
+    "url": "https://cdn.acedata.cloud/27e11e555d.png",
+    "source": "Nexior/src/constants/serp.ts",
+    "service_id": "a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "luma": {
+    "url": "https://cdn.acedata.cloud/ahjfwi.png",
+    "source": "Nexior/src/constants/luma.ts",
+    "service_id": "dff45a0d-2858-4936-8e2b-3d49c52aff11",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "identity": {
+    "url": "https://cdn.acedata.cloud/99c35a09e1.svg",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "a0a76008-85ff-4c46-8db7-76481721b9fb",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "seedance": {
+    "url": "https://cdn.acedata.cloud/9q90dl.png",
+    "source": "Nexior/src/constants/seedance.ts",
+    "service_id": "762c5fd0-a81e-4c59-b9fe-16bcffad7d4a",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "recaptcha": {
+    "url": "https://cdn.acedata.cloud/7hxu2l.png",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "485cc5ca-7f1e-48e5-944e-1fe82b4637e8",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "hcaptcha": {
+    "url": "https://cdn.acedata.cloud/53f2f5a568.png",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "018c653e-4f1b-433f-82f9-732ef2767040",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "qwen-image": {
+    "url": "https://assets.alicdn.com/g/qwenweb/qwen-chat-fe/0.3.12/favicon.png",
+    "source": "qwenlm.ai official favicon asset",
+    "service_id": "9a33d10b-9f5d-438f-9701-c34906a2d891",
+    "transformation": "Official Qwen mark contained on a plain 512px canvas; no badge or caption."
+  },
+  "shorturl": {
+    "url": "https://cdn.acedata.cloud/4f9642f3b6.svg",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "349bfa75-d270-44e9-8188-9894e3b9512c",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "webextrator": {
+    "url": "https://cdn.acedata.cloud/782648959c.png",
+    "source": "Nexior/src/constants/webextrator.ts",
+    "service_id": "38bebded-b12d-4c1c-9a91-cdaccdd71745",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "wechat-bot": {
+    "url": "https://cdn.acedata.cloud/uploads/fe609bf7-6d3a-4e53-80fa-c57088ee8653",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "bdbd9144-6deb-4ac6-a44b-dd3d748ac985",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "producer": {
+    "url": "https://cdn.acedata.cloud/id0mz5.jpg",
+    "source": "Nexior/src/constants/producer.ts",
+    "service_id": "864a7efd-c7a3-4ad8-b372-ba8d64cdeda8",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "nano-banana": {
+    "url": "https://cdn.acedata.cloud/859plc.jpg",
+    "source": "Nexior/src/constants/nanobanana.ts",
+    "service_id": "44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "wan": {
+    "url": "https://cdn.acedata.cloud/a033884259.png",
+    "source": "Nexior/src/constants/wan.ts",
+    "service_id": "f35a16da-726b-425f-96ba-bec7436cfc23",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "codex": {
+    "url": "https://cdn.acedata.cloud/uploads/50039b39-ebe9-487d-9513-4d578c5680d3",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "0177c7f4-06f2-4516-b1d7-8cc44bf57e57",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "suno": {
+    "url": "https://cdn.acedata.cloud/l3ffw7.jpg",
+    "source": "Nexior/src/constants/suno.ts",
+    "service_id": "f2b646d8-3cfd-46ef-969a-1ea9eebde329",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "happyhorse": {
+    "url": "https://cdn.acedata.cloud/e58fce2811.jpg",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "9cd79226-f638-4979-9573-212328a65a31",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "kling": {
+    "url": "https://cdn.acedata.cloud/qpbbbb.jpg",
+    "source": "Nexior/src/constants/kling.ts",
+    "service_id": "3369e077-2500-4263-86c7-cae0f0e7e843",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "localization": {
+    "url": "https://cdn.acedata.cloud/ce61d3228b.svg",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "bd4eaf26-4efe-4904-a045-8b83ed56f885",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "fish": {
+    "url": "https://raw.githubusercontent.com/AceDataCloud/MCPs/main/fish/vscode/icon.png",
+    "source": "AceDataCloud MCPs/fish/vscode/icon.png (higher-resolution Fish mark)",
+    "service_id": "caf99abc-ddcf-4714-b2a5-862d9b469509",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "minimax": {
+    "url": "https://cdn.acedata.cloud/2440b75bb8.png",
+    "source": "Nexior/src/constants/minimax.ts",
+    "service_id": "2add8a2a-3577-4a0f-8fd4-e08aaabe8290",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "glm": {
+    "url": "https://cdn.acedata.cloud/jqi3nv.png",
+    "source": "Nexior/src/constants/chat.ts",
+    "service_id": "0c5b6cb3-79a7-473f-844f-7821553f2ca7",
+    "transformation": "Optical crop of the original 16:9 white letterbox to a square around the full GLM mark, then scaled to 512px."
+  },
+  "seedream": {
+    "url": "https://cdn.acedata.cloud/9egrbn.png",
+    "source": "Nexior/src/constants/seedream.ts",
+    "service_id": "a0a296f0-22de-422b-943d-1c623a73b8dd",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "flux": {
+    "url": "https://cdn.acedata.cloud/ogm2oa.png",
+    "source": "Nexior/src/constants/flux.ts",
+    "service_id": "e8ebe055-429a-48e9-9d34-5089eae5fd89",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "whatsapp-bot": {
+    "url": "https://cdn.acedata.cloud/uploads/df6af118-38f2-4d5b-a312-b011fea4d871",
+    "source": "Anonymous public Service.icon_url",
+    "service_id": "f36a2d7d-f07c-4830-848d-2b115de958ee",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  }
+}

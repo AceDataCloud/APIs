@@ -1,0 +1,407 @@
+openapi: 3.0.1
+info:
+  title: Grok
+  version: 2.0.0
+  description: 'Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.
+    Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage
+    is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /grok/chat/completions:
+    post:
+      summary: Grok Chat Completion API, compatible with the official API format.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                  created:
+                    type: integer
+                  model:
+                    type: string
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        message:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                            content:
+                              type: string
+                        finish_reason:
+                          type: string
+                  usage:
+                    type: object
+                    properties:
+                      prompt_tokens:
+                        type: integer
+                      completion_tokens:
+                        type: integer
+                      total_tokens:
+                        type: integer
+                      prompt_tokens_details:
+                        type: object
+                        properties:
+                          cached_tokens:
+                            type: integer
+                          cached_creation_tokens:
+                            type: integer
+                          cache_write_tokens:
+                            type: integer
+                          text_tokens:
+                            type: integer
+                          image_tokens:
+                            type: integer
+                          audio_tokens:
+                            type: integer
+                      completion_tokens_details:
+                        type: object
+                        properties:
+                          reasoning_tokens:
+                            type: integer
+                          text_tokens:
+                            type: integer
+                          image_tokens:
+                            type: integer
+                          audio_tokens:
+                            type: integer
+                      input_tokens:
+                        type: integer
+                      output_tokens:
+                        type: integer
+                      input_tokens_details:
+                        type: object
+                        properties:
+                          cache_write_tokens:
+                            type: integer
+                          cached_tokens:
+                            type: integer
+                      claude_cache_creation_5_m_tokens:
+                        type: integer
+                      claude_cache_creation_1_h_tokens:
+                        type: integer
+                      cost:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                          currency:
+                            type: string
+                          list_amount:
+                            type: number
+                  service_tier:
+                    type: string
+          description: OK, request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: chatCompletion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - messages
+              properties:
+                n:
+                  type: number
+                  default: 1
+                  maximum: 128
+                  minimum: 1
+                  nullable: true
+                  description: Generate how many dialogue completion options for each input message.
+                seed:
+                  type: integer
+                  nullable: true
+                  description: If specified, the system will strive to perform deterministic sampling,
+                    so that repeated requests using the same `seed` and parameters return the same results.
+                    Determinism cannot be guaranteed; please refer to the `system_fingerprint` in the
+                    response to monitor backend changes.
+                stop:
+                  nullable: true
+                  description: A maximum of 4 sequences, the API will stop generating when it reaches
+                    these sequences. The returned text does not include the stopping sequences.
+                  type: string
+                user:
+                  type: string
+                  description: A unique identifier representing your end users, which can help the platform
+                    monitor and detect abusive behavior.
+                model:
+                  enum:
+                  - grok-4.7
+                  - grok-4.5
+                  - grok-4
+                  - grok-3
+                  type: string
+                  description: Model ID to be used.
+                store:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Whether to store the output of this conversation completion request for
+                    model distillation or product evaluation.
+                top_p:
+                  type: number
+                  default: 1
+                  maximum: 1
+                  minimum: 0
+                  nullable: true
+                  description: An alternative method for temperature sampling, called nucleus sampling,
+                    considers only the portion of tokens whose cumulative probability mass reaches top_p.
+                    For example, 0.1 means only considering the tokens that account for the top 10% of
+                    cumulative probability mass. It is generally recommended to adjust only one of these
+                    parameters or `temperature`, rather than adjusting both simultaneously.
+                stream:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Use false for Coze JSON tool results.
+                  enum:
+                  - false
+                logprobs:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Whether to return the logarithmic probability of the output tokens. If
+                    true, it will return the logarithmic probability of each output token in the `content`
+                    of `message`.
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - role
+                    properties:
+                      name:
+                        type: string
+                        description: Optional names for participants. Used to provide information to the
+                          model to distinguish different participants under the same role.
+                      role:
+                        enum:
+                        - user
+                        - assistant
+                        - system
+                        - developer
+                        - tool
+                        type: string
+                        description: The role of the message.
+                      content:
+                        description: The content of the message. Plain text messages can use strings,
+                          while multimodal messages (text and images) can use an array of content parts.
+                        type: string
+                      refusal:
+                        type: string
+                        nullable: true
+                        description: The assistant's refusal to answer messages. Use when `role` is `assistant`.
+                      tool_call_id:
+                        type: string
+                        description: The tool call that responds to this message. It is required when
+                          the role is `tool`.
+                  minItems: 1
+                  description: List of messages that make up the current conversation.
+                max_tokens:
+                  type: number
+                  nullable: true
+                  description: The maximum number of tokens that can be generated in dialogue completion.
+                modalities:
+                  type: array
+                  items:
+                    enum:
+                    - text
+                    - audio
+                    type: string
+                  nullable: true
+                  description: You hope for the output type generated by the model. Most models default
+                    to `["text"]`. The `gpt-4o-audio-preview` model can also be used to generate audio.
+                    If you want the model to generate both text and audio responses, you can use `["text",
+                    "audio"]`.
+                temperature:
+                  type: number
+                  default: 1
+                  maximum: 2
+                  minimum: 0
+                  nullable: true
+                  description: The sampling temperature used ranges from 0 to 2. Higher values (such as
+                    0.8) will make the output more random, while lower values (such as 0.2) will make
+                    the output more focused and certain.
+                tool_choice:
+                  description: Control which tool the model calls (if any). `none` means the model will
+                    not call any tools; `auto` means the model can choose between generating a message
+                    or calling one/multiple tools; `required` means the model must call one or more tools.
+                  type: string
+                  enum:
+                  - none
+                  - auto
+                  - required
+                service_tier:
+                  enum:
+                  - auto
+                  - default
+                  - flex
+                  - scale
+                  - priority
+                  type: string
+                  default: auto
+                  nullable: true
+                  description: Specify the processing type used for the designated service request. Set
+                    to `auto` to let the platform choose automatically, `default` for standard pricing/performance,
+                    `flex` for a slower but cheaper Flex processing layer, and `priority` for the fastest
+                    processing layer on supported models.
+                top_logprobs:
+                  type: integer
+                  maximum: 20
+                  minimum: 0
+                  nullable: true
+                  description: The integer value between 0 and 20 specifies the number of most likely
+                    tokens to return at each token position, each accompanied by the corresponding log
+                    probability. When using this parameter, `logprobs` must be set to `true`.
+                presence_penalty:
+                  type: number
+                  default: 0
+                  maximum: 2
+                  minimum: -2
+                  nullable: true
+                  description: The value ranges from -2.0 to 2.0. Positive values will penalize based
+                    on whether the token has already appeared in the generated text, thereby increasing
+                    the model's likelihood of discussing new topics.
+                reasoning_effort:
+                  enum:
+                  - minimal
+                  - low
+                  - medium
+                  - high
+                  type: string
+                  default: medium
+                  nullable: true
+                  description: The inference input level of the constraint reasoning model (o1/o3/o4/gpt-5
+                    series). Currently supports `minimal`, `low`, `medium`, and `high`. Reducing the inference
+                    input can lead to faster responses and decrease the number of tokens used for inference
+                    in the response.
+                frequency_penalty:
+                  type: number
+                  default: 0
+                  maximum: 2
+                  minimum: -2
+                  nullable: true
+                  description: The value ranges from -2.0 to 2.0. Positive values will penalize based
+                    on the frequency of the token appearing in the generated text, thereby reducing the
+                    likelihood of the model repeating the same line word for word.
+                parallel_tool_calls:
+                  type: boolean
+                  default: true
+                  description: Whether to enable parallel function calls during tool invocation.
+                max_completion_tokens:
+                  type: integer
+                  nullable: true
+                  description: The maximum number of tokens that can be generated for a single completion,
+                    including visible output tokens and inference tokens. For newer models (o1/o3/o4/gpt-5
+                    series and other inference models), this parameter replaces `max_tokens`.
+        required: true
+      description: 'Grok Chat Completion API, compatible with the official API format. Full input requirements:
+        https://platform.acedata.cloud/documents/grok-chat-completions This Coze text-chat form omits
+        inactive optional objects and message tool-call children. The canonical API contract retains them.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/grok-chat-completions

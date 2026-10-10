@@ -1,0 +1,27 @@
+{
+  "name": "CAPTCHA OCR Resolver",
+  "brief": "Read text from verification images",
+  "description": "Recognize letters and numbers in verification images for authorized testing workflows.",
+  "icon": "icons/image2text.png",
+  "plugin_type": "MCP",
+  "server_url": null,
+  "expected_tool_names": [
+    "image2text_recognize",
+    "image2text_get_usage_guide",
+    "image2text_get_api_info",
+    "image2text_get_task"
+  ],
+  "expected_tool_count": 4,
+  "benchmark_source": "source registration",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

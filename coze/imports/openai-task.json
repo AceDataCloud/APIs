@@ -1,0 +1,555 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAI",
+    "version": "2.0.0",
+    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze"
+  },
+  "servers": [
+    {
+      "url": "https://api.acedata.cloud"
+    }
+  ],
+  "paths": {
+    "/openai/tasks": {
+      "post": {
+        "summary": "Query tasks created by /v1/images/generations or /v1/images/edits with callback_url.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Task ID."
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "Task type."
+                    },
+                    "api_id": {
+                      "type": "string",
+                      "description": "API Identifier."
+                    },
+                    "elapsed": {
+                      "type": "number",
+                      "format": "double",
+                      "minimum": 0,
+                      "nullable": true,
+                      "description": "Processing duration (seconds)."
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "The account to which the task belongs."
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "Request tracking ID."
+                    },
+                    "created_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Task creation time, Unix timestamp (seconds)."
+                    },
+                    "started_at": {
+                      "type": "number",
+                      "format": "double",
+                      "description": "Process start time, Unix timestamp (seconds)."
+                    },
+                    "finished_at": {
+                      "type": "number",
+                      "format": "double",
+                      "nullable": true,
+                      "description": "Processing completion time, Unix timestamp (seconds)."
+                    },
+                    "actor_user_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Account for executing the authorization request."
+                    },
+                    "credential_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Credentials used to start tasks."
+                    },
+                    "application_id": {
+                      "type": "string",
+                      "description": "Application for billing."
+                    },
+                    "authorization_id": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Authorization used when starting the task."
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "description": "Total number of matching tasks."
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "type",
+                          "created_at",
+                          "trace_id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Task ID."
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Task type."
+                          },
+                          "api_id": {
+                            "type": "string",
+                            "description": "API Identifier."
+                          },
+                          "elapsed": {
+                            "type": "number",
+                            "format": "double",
+                            "minimum": 0,
+                            "nullable": true,
+                            "description": "Processing duration (seconds)."
+                          },
+                          "user_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "The account to which the task belongs."
+                          },
+                          "trace_id": {
+                            "type": "string",
+                            "description": "Request tracking ID."
+                          },
+                          "created_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Task creation time, Unix timestamp (seconds)."
+                          },
+                          "started_at": {
+                            "type": "number",
+                            "format": "double",
+                            "description": "Process start time, Unix timestamp (seconds)."
+                          },
+                          "finished_at": {
+                            "type": "number",
+                            "format": "double",
+                            "nullable": true,
+                            "description": "Processing completion time, Unix timestamp (seconds)."
+                          },
+                          "actor_user_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Account for executing the authorization request."
+                          },
+                          "credential_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Credentials used to start tasks."
+                          },
+                          "application_id": {
+                            "type": "string",
+                            "description": "Application for billing."
+                          },
+                          "authorization_id": {
+                            "type": "string",
+                            "nullable": true,
+                            "description": "Authorization used when starting the task."
+                          },
+                          "response": {
+                            "type": "object",
+                            "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of the success or error response in the operation documentation.",
+                            "additionalProperties": true,
+                            "properties": {
+                              "success": {
+                                "type": "boolean"
+                              },
+                              "task_id": {
+                                "type": "string"
+                              },
+                              "trace_id": {
+                                "type": "string"
+                              },
+                              "data": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "b64_json": {
+                                      "type": "string"
+                                    },
+                                    "revised_prompt": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "cost": {
+                                "type": "object",
+                                "properties": {
+                                  "amount": {
+                                    "type": "number"
+                                  },
+                                  "list_amount": {
+                                    "type": "number"
+                                  },
+                                  "currency": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "model": {
+                                "type": "string"
+                              },
+                              "created": {
+                                "type": "number"
+                              },
+                              "error": {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "description": "Matching task list."
+                    },
+                    "has_more": {
+                      "type": "boolean",
+                      "description": "Is there another page of tasks?"
+                    },
+                    "count_is_exact": {
+                      "type": "boolean",
+                      "description": "Whether `count` is the exact total."
+                    },
+                    "count_relation": {
+                      "enum": [
+                        "eq",
+                        "gte"
+                      ],
+                      "type": "string",
+                      "description": "The relationship between `count` and the actual total: `eq` indicates equality, and `gte` indicates that the actual total is greater than or equal to that value."
+                    },
+                    "response": {
+                      "type": "object",
+                      "description": "Create the final response recorded for the API operation of this task; the fields follow the structure of the success or error response in the operation documentation.",
+                      "additionalProperties": true,
+                      "properties": {
+                        "success": {
+                          "type": "boolean"
+                        },
+                        "task_id": {
+                          "type": "string"
+                        },
+                        "trace_id": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "b64_json": {
+                                "type": "string"
+                              },
+                              "revised_prompt": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "cost": {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "type": "number"
+                            },
+                            "list_amount": {
+                              "type": "number"
+                            },
+                            "currency": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "model": {
+                          "type": "string"
+                        },
+                        "created": {
+                          "type": "number"
+                        },
+                        "error": {
+                          "type": "object",
+                          "properties": {
+                            "code": {
+                              "type": "string"
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Operation executed successfully."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request error, possibly due to missing or invalid parameters."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Unauthorized, the authorization token is invalid or missing."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Too many requests, rate limit exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Response error code."
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Error message of the response."
+                        }
+                      }
+                    },
+                    "trace_id": {
+                      "type": "string",
+                      "description": "The tracking ID for this request."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Internal server error, an exception occurred on the server side."
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "accept",
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            },
+            "required": false,
+            "description": "Specify the response format returned by the server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "operationId": "getTaskResults",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Task ID (returned in the original response). Used by `retrieve`."
+                  },
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Task ID list. Used by `retrieve_batch`."
+                  },
+                  "type": {
+                    "enum": [
+                      "images",
+                      "images_generations",
+                      "images_edits"
+                    ],
+                    "type": "string",
+                    "description": "Filter by task type. The same model may produce different task types depending on the actual processing path taken for this request, so it is not recommended to rely on the correspondence between type and model; omitting this field will return all types. Used by `retrieve_batch`."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "default": 12,
+                    "description": "Page size. Used by `retrieve_batch`."
+                  },
+                  "action": {
+                    "enum": [
+                      "retrieve",
+                      "retrieve_batch"
+                    ],
+                    "type": "string",
+                    "default": "retrieve",
+                    "description": "Operation type. Use `retrieve` to query a single task, and use `retrieve_batch` to list tasks in bulk."
+                  },
+                  "offset": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Pagination offset. Used by `retrieve_batch`."
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "description": "Filter tasks by `user_id`. Used by `retrieve_batch`."
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID of the original request. Used by `retrieve`."
+                  },
+                  "trace_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Tracking ID list. Used by `retrieve_batch`."
+                  },
+                  "count_mode": {
+                    "enum": [
+                      "none",
+                      "exact"
+                    ],
+                    "type": "string",
+                    "default": "none",
+                    "description": "Counting mode. By default, `none` does not perform a full count and returns a provable quantity through pagination metadata; `exact` attempts to count the exact total within 2 seconds, and automatically degrades to a lower bound after timeout. Used by `retrieve_batch`."
+                  },
+                  "application_id": {
+                    "type": "string",
+                    "description": "Filter tasks by `application_id`. Used by `retrieve_batch`."
+                  },
+                  "created_at_max": {
+                    "type": "number",
+                    "description": "Filter tasks created before this Unix timestamp (seconds). Used by `retrieve_batch`."
+                  },
+                  "created_at_min": {
+                    "type": "number",
+                    "description": "Filter tasks created after this Unix timestamp (seconds). Used by `retrieve_batch`."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Query tasks created by /v1/images/generations or /v1/images/edits with callback_url. Full input requirements: https://platform.acedata.cloud/documents/openai-tasks A non-null response can be a progress snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover image or an empty data array. This Coze form uses explicit parameter types. Model/action requirements in the linked API guide still apply.",
+        "externalDocs": {
+          "url": "https://platform.acedata.cloud/documents/openai-tasks"
+        }
+      }
+    }
+  }
+}

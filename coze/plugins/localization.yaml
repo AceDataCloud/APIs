@@ -1,0 +1,292 @@
+openapi: 3.0.1
+info:
+  title: Localization
+  version: 2.0.0
+  description: 'Translate localization content into a target locale while specifying the source format.
+    Review the returned translation before release. Bind your own Ace Data Cloud credential privately
+    as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
+    chat or shared examples. Start: https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /localization/translate:
+    post:
+      summary: Translate a JSON input into any localized file
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message.clickButton:
+                        type: object
+                        properties:
+                          message:
+                            type: string
+                          description:
+                            type: string
+                        additionalProperties: false
+                    description: Translate the output JSON object.
+                  model:
+                    type: string
+                    description: The large language model used for this translation.
+                  locale:
+                    type: string
+                    description: The target language area for this translation.
+          description: Request successful, the input content has been translated into the target language.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: translateContent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              oneOf:
+              - properties:
+                  input:
+                    type: object
+                    additionalProperties: true
+                  extension:
+                    enum:
+                    - json
+                    type: string
+              - properties:
+                  input:
+                    type: string
+                  extension:
+                    enum:
+                    - md
+                    type: string
+              required:
+              - extension
+              - input
+              - locale
+              properties:
+                input:
+                  anyOf:
+                  - anyOf:
+                    - oneOf:
+                      - type: string
+                      - type: object
+                        additionalProperties: true
+                      description: Please provide the content that needs to be translated.
+                    - type: object
+                      additionalProperties: true
+                  - type: string
+                model:
+                  enum:
+                  - gpt-3.5
+                  - gpt-4
+                  type: string
+                  description: The large language model used for translation is `gpt-3.5` by default.
+                locale:
+                  enum:
+                  - en
+                  - de
+                  - pt
+                  - es
+                  - fr
+                  - zh-CN
+                  - zh-TW
+                  - it
+                  - ko
+                  - ja
+                  - ru
+                  - pl
+                  - fi
+                  - sv
+                  - el
+                  - uk
+                  - ar
+                  - sr
+                  type: string
+                  description: The target language area to be translated to.
+                extension:
+                  enum:
+                  - md
+                  - json
+                  type: string
+                  default: md
+                  description: The file type of the input text (such as `json` or `md`).
+        required: true
+      description: 'Translate a JSON input into any localized file Full input requirements: https://platform.acedata.cloud/documents/localization-translate'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/localization-translate

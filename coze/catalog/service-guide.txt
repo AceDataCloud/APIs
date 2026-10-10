@@ -1,0 +1,276 @@
+Ace Data Cloud public service guide
+Catalog date: 2026-10-05
+This is catalog guidance, not proof of Coze store publication.
+
+SERVICE: DeepSeek AI
+TYPE: Api
+DESCRIPTION: Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.
+URL: https://platform.acedata.cloud/services/39324b7c-5e24-451d-a174-d47957c3380c
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Claude AI
+TYPE: Api
+DESCRIPTION: Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.
+URL: https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Maestro AI Video Studio
+TYPE: Api
+DESCRIPTION: Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.
+URL: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Cloudflare Turnstile Captcha Service
+TYPE: Api
+DESCRIPTION: Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.
+URL: https://platform.acedata.cloud/services/0b86c601-dcc4-4494-8259-00a2b88763d7
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Discord Agent Proxy
+TYPE: Deployment
+DESCRIPTION: Deploy your own Discord account proxy: let an AI act as you over MCP / REST — send/read messages, manage channels.
+URL: https://platform.acedata.cloud/services/40f2bcbf-2efb-40c5-b67a-02194821847b
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: Claude Code
+TYPE: Agent
+DESCRIPTION: One of the world's strongest programming agents
+URL: https://platform.acedata.cloud/services/158c5af4-87b5-4951-96e2-8e94984c9a59
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Recognition of English numerical verification codes
+TYPE: Api
+DESCRIPTION: Recognize letters and numbers in verification images for authorized testing workflows.
+URL: https://platform.acedata.cloud/services/2aaa7faf-099e-410e-82f3-8d78170f25bb
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Kimi
+TYPE: Api
+DESCRIPTION: Use Kimi models to draft, reason about and summarize text in an agent or workflow.
+URL: https://platform.acedata.cloud/services/7ef9ec1d-f0fb-453c-be72-36d5124e5aa1
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Hailuo Video Generation
+TYPE: Api
+DESCRIPTION: Create Hailuo clips from text or an image and follow the task through to its final video URL.
+URL: https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Telegram Account Proxy
+TYPE: Deployment
+DESCRIPTION: Deploy a private personal Telegram account proxy, authorize it by QR code, and let AI read or send messages over MCP / REST.
+URL: https://platform.acedata.cloud/services/6ff3eb91-7cb8-4f56-9c69-2c7083c01448
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: OpenAI generation
+TYPE: Api
+DESCRIPTION: Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.
+URL: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Coding Plan
+TYPE: Agent
+DESCRIPTION: One plan unlocks the complete Claude, GPT/Codex, GLM, Kimi, and DeepSeek coding fleet
+URL: https://platform.acedata.cloud/services/c0d1a9a0-0000-4000-8000-000000000001
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Gemini AI
+TYPE: Api
+DESCRIPTION: Use Gemini chat and native content requests, or create a video and retrieve its completed result.
+URL: https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Grok
+TYPE: Api
+DESCRIPTION: Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.
+URL: https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Veo Video Generation
+TYPE: Api
+DESCRIPTION: Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.
+URL: https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Search Engine
+TYPE: Api
+DESCRIPTION: Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.
+URL: https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Luma Video Generation
+TYPE: Api
+DESCRIPTION: Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.
+URL: https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Identity Authentication
+TYPE: Api
+DESCRIPTION: Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.
+URL: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: ByteDance Seedance Video Generation
+TYPE: Api
+DESCRIPTION: Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.
+URL: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Recaptcha verification code recognition service
+TYPE: Api
+DESCRIPTION: Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.
+URL: https://platform.acedata.cloud/services/485cc5ca-7f1e-48e5-944e-1fe82b4637e8
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: hCaptcha verification code recognition service
+TYPE: Api
+DESCRIPTION: Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.
+URL: https://platform.acedata.cloud/services/018c653e-4f1b-433f-82f9-732ef2767040
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Qwen Image
+TYPE: Api
+DESCRIPTION: Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.
+URL: https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Short link generation
+TYPE: Api
+DESCRIPTION: Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.
+URL: https://platform.acedata.cloud/services/349bfa75-d270-44e9-8188-9894e3b9512c
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: WebExtrator Web Render & Extract
+TYPE: Api
+DESCRIPTION: Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.
+URL: https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: WeChat Automation Bot Service
+TYPE: Deployment
+DESCRIPTION: A dedicated Windows WeChat instance, ready to deploy after purchasing a plan.
+URL: https://platform.acedata.cloud/services/bdbd9144-6deb-4ac6-a44b-dd3d748ac985
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: Producer Music Generation
+TYPE: Api
+DESCRIPTION: Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.
+URL: https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Nano Banana Image Generation
+TYPE: Api
+DESCRIPTION: Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.
+URL: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Wan
+TYPE: Api
+DESCRIPTION: Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.
+URL: https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Codex
+TYPE: Agent
+DESCRIPTION: OpenAI's powerful coding agent
+URL: https://platform.acedata.cloud/services/0177c7f4-06f2-4516-b1d7-8cc44bf57e57
+COZE ENTRY: catalog_assistant
+NEXT STEP: Follow the corresponding developer client setup guide; the client runs in the user environment.
+
+SERVICE: Suno Music Generation
+TYPE: Api
+DESCRIPTION: Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.
+URL: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: HappyHorse Video
+TYPE: Api
+DESCRIPTION: Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.
+URL: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Kling video generation
+TYPE: Api
+DESCRIPTION: Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.
+URL: https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Localization translation
+TYPE: Api
+DESCRIPTION: Translate localization content into a target locale while specifying the source format. Review the returned translation before release.
+URL: https://platform.acedata.cloud/services/bd4eaf26-4efe-4904-a045-8b83ed56f885
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Fish voice generation
+TYPE: Api
+DESCRIPTION: Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.
+URL: https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Minimax
+TYPE: Api
+DESCRIPTION: Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.
+URL: https://platform.acedata.cloud/services/2add8a2a-3577-4a0f-8fd4-e08aaabe8290
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: GLM
+TYPE: Api
+DESCRIPTION: Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.
+URL: https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: ByteDance Seedream Image Generation
+TYPE: Api
+DESCRIPTION: Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.
+URL: https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: Flux
+TYPE: Api
+DESCRIPTION: Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.
+URL: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
+SERVICE: WhatsApp Account Proxy
+TYPE: Deployment
+DESCRIPTION: Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.
+URL: https://platform.acedata.cloud/services/f36a2d7d-f07c-4830-848d-2b115de958ee
+COZE ENTRY: catalog_assistant
+NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.

@@ -1,0 +1,2730 @@
+[
+  {
+    "service": "claude",
+    "api_id": "01011450-70f7-430f-a8a3-97b0903b0a24",
+    "operation_id": "countTokens",
+    "method": "POST",
+    "path": "/v1/messages/count_tokens",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "claude-opus-5-5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "REPLACE_CONTENT"
+          }
+        ]
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "claude",
+    "api_id": "6b2b437b-b6d5-466c-8750-b16650072593",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/v1/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "claude-fable-5-1",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "claude",
+    "api_id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
+    "operation_id": "createMessage",
+    "method": "POST",
+    "path": "/v1/messages",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "claude-opus-5-5",
+        "messages": [
+          {
+            "role": "user",
+            "content": "REPLACE_CONTENT"
+          }
+        ],
+        "max_tokens": 1,
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "maestro",
+    "api_id": "553a0038-eef7-4e79-87c7-9d4e7321ca9b",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/maestro/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "id": "REPLACE_WITH_OWNED_ID",
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "maestro",
+    "api_id": "ab512c42-324c-42e6-8d79-49a5042f3548",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/maestro/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake.",
+        "action": "generate"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "turnstile",
+    "api_id": "b329b4e1-b9d4-4aa2-8b84-f55fb5292f23",
+    "operation_id": "getTurnstileToken",
+    "method": "POST",
+    "path": "/captcha/token/turnstile",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "website_key": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "website_url": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "image2text",
+    "api_id": "66a6d478-f47c-4850-ab83-26e0ffea2b71",
+    "operation_id": "recognizeCaptchaText",
+    "method": "POST",
+    "path": "/captcha/recognition/image2text",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "kimi",
+    "api_id": "5c4649ee-22c6-44ea-84d6-6ecc3674f998",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/kimi/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "kimi-k3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "hailuo",
+    "api_id": "51dca1fb-cc12-4a4a-b31a-01b62043abcd",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/hailuo/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "hailuo",
+    "api_id": "d5af91f6-a7ec-4015-b0a5-d25051158470",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/hailuo/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "generate",
+        "model": "minimax-i2v",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "8f01fe72-8a3e-4872-8d8d-330cde179b3a",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/openai/images/generations",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A cute baby sea otter",
+        "model": "gpt-image-1",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "8ff29e12-b814-4484-ab50-d39773a7a563",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/openai/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "a0840c8a-2b9a-4407-8aaf-0057f0e1f65c",
+    "operation_id": "createEmbeddings",
+    "method": "POST",
+    "path": "/openai/embeddings",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "text-embedding-3-small",
+        "input": "A calm sunrise over a mountain lake."
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "c9969b66-effb-4753-b504-a82c4d16f83f",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/openai/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "gpt-6.1-sol",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "ed972a38-ecef-4fcb-af33-750de42d25dc",
+    "operation_id": "createResponse",
+    "method": "POST",
+    "path": "/openai/responses",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "gpt-6.1-sol",
+        "input": "A calm sunrise over a mountain lake.",
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "openai",
+    "api_id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
+    "operation_id": "editImage",
+    "method": "POST",
+    "path": "/openai/images/edits",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image": "https://example.com/authorized-test-input",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "gpt-image-1",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gemini",
+    "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
+    "operation_id": "generateContent",
+    "method": "POST",
+    "path": "/v1beta/models/{model}:generateContent",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "contents": [
+          {
+            "parts": [
+              {}
+            ]
+          }
+        ]
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gemini",
+    "api_id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/gemini/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "gemini-3.8-flash",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gemini",
+    "api_id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/gemini/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "omni-flash",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gemini",
+    "api_id": "e6bd925d-0c49-47be-a5c5-d087604a8e75",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/gemini/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "grok",
+    "api_id": "aff80c74-b190-445b-9124-6422ed763c50",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/grok/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "grok-4.7",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "grok",
+    "api_id": "c1c460c7-adc7-42c2-b7b0-d4bdfaa66222",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/grok/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "grok-imagine-video-1.5-fast:reverse",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "grok",
+    "api_id": "e517b391-fdc6-4a30-a05f-eb88cb4b0a63",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/grok/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "veo",
+    "api_id": "437a7558-7c5b-4341-9088-4a54443a78a4",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/veo/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "veo",
+    "api_id": "52a0fa83-3c78-4793-b45a-c1a5c869ae46",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/veo/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "text2video",
+        "model": "veo31-fast",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "serp",
+    "api_id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",
+    "operation_id": "searchGoogle",
+    "method": "POST",
+    "path": "/serp/google",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "luma",
+    "api_id": "909282be-6f03-44ac-8d26-2e28080c0dfc",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/luma/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "luma",
+    "api_id": "94fc9028-5a9f-4875-aae4-38463bd30ac5",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/luma/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "generate",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "identity",
+    "api_id": "10455fc1-2399-40b4-b486-4a93812b4143",
+    "operation_id": "verifyIdCard1e",
+    "method": "POST",
+    "path": "/identity/idcard/check-1e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image_url": "https://example.com/authorized-test-input"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "34c42afe-f2ce-423f-8e19-dcf1ba650346",
+    "operation_id": "verifyPhone2e",
+    "method": "POST",
+    "path": "/identity/phone/check-2e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "mobile": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "3a0d976c-69e9-4995-a249-91738d103c11",
+    "operation_id": "verifyBankCard3e",
+    "method": "POST",
+    "path": "/identity/bankcard/check-3e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "id_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "bank_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "5c98d0d5-729e-47e1-9719-d22b6b4efaf4",
+    "operation_id": "verifyBankCard1e",
+    "method": "POST",
+    "path": "/identity/bankcard/check-1e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "bank_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "5eb27329-8f0b-4e02-b8cc-54c7ba96633d",
+    "operation_id": "recognizeIdCard",
+    "method": "POST",
+    "path": "/identity/idcard/ocr",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {}
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "6e3c7e69-632f-4e59-b0bc-c0363ffe1c1f",
+    "operation_id": "verifyBankCard2e",
+    "method": "POST",
+    "path": "/identity/bankcard/check-2e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "bank_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "78e1cf92-2bde-4599-ac4c-75485130e548",
+    "operation_id": "verifyIdCard2e",
+    "method": "POST",
+    "path": "/identity/idcard/check-2e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "id_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "validity_begin": "REPLACE_VALIDITY_BEGIN",
+        "validity_end": "REPLACE_VALIDITY_END"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "e90adc40-95f0-418a-8fd5-6dec725a9f4f",
+    "operation_id": "verifyPhone1e",
+    "method": "POST",
+    "path": "/identity/phone/check-1e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "mobile": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "efd09245-9092-426a-b721-9145a3c06e87",
+    "operation_id": "verifyBankCard4e",
+    "method": "POST",
+    "path": "/identity/bankcard/check-4e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "bank_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "phone": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "id_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "identity",
+    "api_id": "f34e4918-4aaf-4a21-b007-25636b37cf2f",
+    "operation_id": "verifyPhone3e",
+    "method": "POST",
+    "path": "/identity/phone/check-3e",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "id_card": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "phone": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "seedance",
+    "api_id": "0083b874-4da6-40df-87e3-835b1300c1e8",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/seedance/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "doubao-seedance-1-0-pro-250528",
+        "content": [
+          {
+            "type": "text",
+            "text": "A calm sunrise over a mountain lake."
+          }
+        ],
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "seedance",
+    "api_id": "c09d6a1b-3cca-4f7c-add3-8c14be60da3c",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/seedance/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "recaptcha",
+    "api_id": "59b4b2ac-5264-4c8b-a5f1-102f893e7275",
+    "operation_id": "getRecaptchaV3Token",
+    "method": "POST",
+    "path": "/captcha/token/recaptcha3",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "website_key": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "website_url": "https://example.com/authorized-test-input",
+        "page_action": "REPLACE_PAGE_ACTION",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "recaptcha",
+    "api_id": "b9a02028-d438-48b7-99b2-5b2eaf368bad",
+    "operation_id": "getRecaptchaV2Token",
+    "method": "POST",
+    "path": "/captcha/token/recaptcha2",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "website_key": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "website_url": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "recaptcha",
+    "api_id": "cadfc74b-e737-462a-8a04-5cbb1e18cbf6",
+    "operation_id": "recognizeRecaptchaV2",
+    "method": "POST",
+    "path": "/captcha/recognition/recaptcha2",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image": "https://example.com/authorized-test-input",
+        "question": "A calm sunrise over a mountain lake.",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "hcaptcha",
+    "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+    "operation_id": "getChallengeResult",
+    "method": "POST",
+    "path": "/captcha/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "task_id": "REPLACE_WITH_OWNED_TASK_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "hcaptcha",
+    "api_id": "149493b2-7e69-4b45-8423-0fb2c6c840dd",
+    "operation_id": "recognizeHcaptcha",
+    "method": "POST",
+    "path": "/captcha/recognition/hcaptcha",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "hcaptcha",
+    "api_id": "a7b39afc-870f-4d33-b28e-ae853690b391",
+    "operation_id": "getHcaptchaToken",
+    "method": "POST",
+    "path": "/captcha/token/hcaptcha",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "website_key": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "website_url": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "qwen-image",
+    "api_id": "8fa89510-24bf-4e22-83ec-a27a016c10c5",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/qwen-image/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "qwen-image",
+    "api_id": "d0b8a0b6-9471-4c53-aad2-290e68b2ebdb",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/qwen-image/images",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "qwen-image-3.0",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "shorturl",
+    "api_id": "d57df7ea-e1ba-4873-905c-d4c072e40450",
+    "operation_id": "createShortLink",
+    "method": "POST",
+    "path": "/shorturl",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "content": "https://platform.acedata.cloud/?from=coze"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "webextrator",
+    "api_id": "4ab24fda-2140-476c-a190-91bde5f0baf4",
+    "operation_id": "renderPage",
+    "method": "POST",
+    "path": "/webextrator/render",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "url": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "webextrator",
+    "api_id": "c32c05d0-5f47-4b89-8458-9776aad4a8c4",
+    "operation_id": "extractPage",
+    "method": "POST",
+    "path": "/webextrator/extract",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "url": "https://example.com/authorized-test-input",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "webextrator",
+    "api_id": "c9e67e77-d448-4a78-bdd1-91567e0a318a",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/webextrator/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "01d96900-9f8c-41d7-814c-95c7a885ba61",
+    "operation_id": "generateMusic",
+    "method": "POST",
+    "path": "/producer/audios",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "generate",
+        "lyric": "REPLACE_LYRIC",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "FUZZ-2.0",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "2f636fdb-faa4-4308-8cef-9258dd14fd90",
+    "operation_id": "generateLyrics",
+    "method": "POST",
+    "path": "/producer/lyrics",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake."
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "5e06cbdd-ba7d-456d-a211-e3f242adec82",
+    "operation_id": "createMusicVideo",
+    "method": "POST",
+    "path": "/producer/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "91fcbb81-8bc9-4ed4-bdfa-0f296b2fec9d",
+    "operation_id": "uploadAudio",
+    "method": "POST",
+    "path": "/producer/upload",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_url": "https://example.com/authorized-test-input"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "e706d672-d7c9-4232-8652-0cf53219e7bf",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/producer/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "producer",
+    "api_id": "e7cad274-9c48-494c-b7e3-fc1556eea827",
+    "operation_id": "exportWav",
+    "method": "POST",
+    "path": "/producer/wav",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "nano-banana",
+    "api_id": "72e9188b-99df-4e3a-85e4-8e3dbf389790",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/nano-banana/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "nano-banana",
+    "api_id": "9d8a117e-31ca-4322-a0fd-1771296ec610",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/nano-banana/images",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "generate",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "nano-banana-2",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "wan",
+    "api_id": "25e349c9-a490-4ae5-9a96-e5952d2dbcf7",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/wan/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "wan",
+    "api_id": "6a4ecdbf-b219-4505-8277-5ec4b1ac14f8",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/wan/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "wan2.6-t2v",
+        "action": "text2video",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "09a26295-5972-4392-9318-dcd9b218f90d",
+    "operation_id": "generateMusic",
+    "method": "POST",
+    "path": "/suno/audios",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "chirp-v6",
+        "action": "generate",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84",
+    "operation_id": "cloneVoice",
+    "method": "POST",
+    "path": "/suno/voices",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_url": "https://example.com/authorized-test-input"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "suno",
+    "api_id": "2e4c9e30-a793-4f43-9322-d682120ffff2",
+    "operation_id": "exportMusicVideo",
+    "method": "POST",
+    "path": "/suno/mp4",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "32141b95-043f-5845-b832-77c32ddd6fa6",
+    "operation_id": "exportMp3",
+    "method": "POST",
+    "path": "/suno/mp3",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "3620cff3-7d18-4e16-aeac-72abafdf8a81",
+    "operation_id": "manageMusicModel",
+    "method": "POST",
+    "path": "/suno/custom-models",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "create",
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED",
+        "audio_urls": [
+          "REPLACE_AUDIO_URLS"
+        ],
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "suno",
+    "api_id": "8823cd83-54f6-4ea8-979a-7fa448577186",
+    "operation_id": "uploadAudio",
+    "method": "POST",
+    "path": "/suno/upload",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_url": "https://example.com/authorized-test-input"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "a8d46e2d-a042-4321-ab97-a5ab1d7fed5e",
+    "operation_id": "extractVocalStem",
+    "method": "POST",
+    "path": "/suno/vox",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID",
+        "vocal_start": 0,
+        "vocal_end": 0,
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "be1de4f0-b5f5-43dc-bc7a-d2f90b2efe9c",
+    "operation_id": "exportMidi",
+    "method": "POST",
+    "path": "/suno/midi",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+    "operation_id": "listPersonas",
+    "method": "GET",
+    "path": "/suno/persona",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": null
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+    "operation_id": "createPersona",
+    "method": "POST",
+    "path": "/suno/persona",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID",
+        "name": "AUTHORIZED_TEST_FIXTURE_REQUIRED"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "c578b8de-f9fe-4220-8d5f-5da7384705fd",
+    "operation_id": "deletePersona",
+    "method": "DELETE",
+    "path": "/suno/persona",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "suno",
+    "api_id": "c98fe4e5-73c0-462d-ad24-5080ee1fa01a",
+    "operation_id": "generateLyrics",
+    "method": "POST",
+    "path": "/suno/lyrics",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "default"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "d4004774-4d0b-4aac-a8ea-be99627880e6",
+    "operation_id": "exportWav",
+    "method": "POST",
+    "path": "/suno/wav",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "da474a4e-f32a-41dc-b2fe-59cc5cea5c32",
+    "operation_id": "getLyricTiming",
+    "method": "POST",
+    "path": "/suno/timing",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "audio_id": "REPLACE_WITH_OWNED_AUDIO_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "e0ffe8d7-c6dd-4b46-93d9-5fa6c744310c",
+    "operation_id": "blendLyrics",
+    "method": "POST",
+    "path": "/suno/mashup-lyrics",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "lyrics_a": "REPLACE_LYRICS_A",
+        "lyrics_b": "REPLACE_LYRICS_B"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "e5ff24c0-ae4e-46bb-93db-2d678610a8d3",
+    "operation_id": "refineMusicStyle",
+    "method": "POST",
+    "path": "/suno/style",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake."
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "ea455d55-7129-44ae-80a3-bf71aae074d8",
+    "operation_id": "manageMusicProject",
+    "method": "POST",
+    "path": "/suno/projects",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "create",
+        "title": "REPLACE_TITLE",
+        "model": "chirp-v3-5",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "suno",
+    "api_id": "f1143f0b-8146-4fc0-b02c-ac8db969392d",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/suno/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "happyhorse",
+    "api_id": "4fedc9b2-45d7-4e8f-8ce4-8f00ae31c78a",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/happyhorse/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "happyhorse",
+    "api_id": "d656e357-50cb-4390-b8c9-67464bc2a2f2",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/happyhorse/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "happyhorse-1.1-t2v",
+        "action": "generate",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "1daf8204-7306-4c54-8014-a00c5996cbfe",
+    "operation_id": "createTalkingPhoto",
+    "method": "POST",
+    "path": "/kling/talking-photo",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image_url": "https://example.com/authorized-test-input",
+        "audio_url": "https://example.com/authorized-test-input",
+        "model": "kling-v2-1-master",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "29187cb2-1acb-43b8-baf5-3f3f709292eb",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/kling/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "2c26cb33-46ac-4bd7-82f9-0ec63e688172",
+    "operation_id": "controlVideoMotion",
+    "method": "POST",
+    "path": "/kling/motion",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image_url": "https://example.com/authorized-test-input",
+        "video_url": "https://example.com/authorized-test-input",
+        "character_orientation": "image",
+        "mode": "std",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "a8b06673-3565-4989-b6be-bd638f72eadb",
+    "operation_id": "syncVideoLips",
+    "method": "POST",
+    "path": "/kling/lip-sync",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "mode": "audio2video",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "ad648b8c-ae07-5852-a9c5-c0fcda578908",
+    "operation_id": "createCommerceVideo",
+    "method": "POST",
+    "path": "/kling/video-commerce",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "contents": [
+          {
+            "type": "avatar_image",
+            "url": "https://example.com/authorized-test-input"
+          }
+        ],
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "f11ce529-5303-4913-8b9a-7146aa5d7016",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/kling/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "kling",
+    "api_id": "f60184f9-3174-5d54-8b97-5b2e6d3753a5",
+    "operation_id": "createProductMedia",
+    "method": "POST",
+    "path": "/kling/goods-studio",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "contents": [
+          {
+            "type": "ref_image",
+            "url": "https://example.com/authorized-test-input"
+          }
+        ],
+        "settings": {
+          "aspect_ratio": "9:16",
+          "duration": 15
+        },
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "localization",
+    "api_id": "f7322d41-51dc-48b2-8584-dabc632b5031",
+    "operation_id": "translateContent",
+    "method": "POST",
+    "path": "/localization/translate",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "fish",
+    "api_id": "0a2c983b-e20f-5926-a45f-07b61373617d",
+    "operation_id": "listVoices",
+    "method": "GET",
+    "path": "/fish/model",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": null
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "fish",
+    "api_id": "70f84537-7c48-57d3-9a21-b2a4f55e8f31",
+    "operation_id": "getVoice",
+    "method": "GET",
+    "path": "/fish/model/{id}",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": null
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "fish",
+    "api_id": "77adcb84-d59f-5ef9-b8a0-8b35eb42a71d",
+    "operation_id": "textToSpeech",
+    "method": "POST",
+    "path": "/fish/tts",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "text": "A calm sunrise over a mountain lake.",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "fish",
+    "api_id": "82dcabe9-b1a3-541f-80f1-decb183b920c",
+    "operation_id": "createVoice",
+    "method": "POST",
+    "path": "/fish/model",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "title": "REPLACE_TITLE",
+        "voices": "REPLACE_VOICES"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "fish",
+    "api_id": "fc541fac-a941-47fd-b6f7-48d6cb9da523",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/fish/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "minimax",
+    "api_id": "64f22fd9-0efd-445e-b0b1-135682fd66d7",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/minimax/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "MiniMax-H3",
+        "content": [
+          {
+            "type": "text",
+            "text": "A calm sunrise over a mountain lake."
+          }
+        ],
+        "resolution": "480P",
+        "duration": 4,
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "minimax",
+    "api_id": "d6cf922e-378b-4f83-8841-e911b597134a",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/minimax/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "glm",
+    "api_id": "f0392e69-ad58-40b9-b28b-e1feee258603",
+    "operation_id": "chatCompletion",
+    "method": "POST",
+    "path": "/glm/chat/completions",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "glm-5.3",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Explain why the sky appears blue in two sentences."
+          }
+        ],
+        "stream": false
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "seedream",
+    "api_id": "86ad30f3-0bc8-4b9b-b019-b9fa5b05672e",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/seedream/images",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "model": "doubao-seedream-5-0-lite-260128",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "seedream",
+    "api_id": "a89ab5c9-f956-42b5-a867-abb3d00d2f75",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/seedream/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "flux",
+    "api_id": "4f36fc31-5a95-42ac-abfc-34670c40238c",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/flux/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "flux",
+    "api_id": "79bc5b19-5ae8-5931-8b9e-643165c02c64",
+    "operation_id": "generateVideo",
+    "method": "POST",
+    "path": "/flux/videos",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake.",
+        "mode": "t2v",
+        "action": "generate"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "flux",
+    "api_id": "deefc5d7-7f22-43e9-929e-f2b6afee60b7",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/flux/images",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "generate",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "size": "1:1",
+        "model": "flux-2-pro",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "deepseek",
+    "api_id": "1d58971c-e3cd-4713-a3ce-854a731adb14",
+    "operation_id": "createConversation",
+    "method": "POST",
+    "path": "/aichat/conversations",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "question": "A calm sunrise over a mountain lake.",
+        "model": "deepseek-v4-flash"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "turnstile",
+    "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+    "operation_id": "getChallengeResult",
+    "method": "POST",
+    "path": "/captcha/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "task_id": "REPLACE_WITH_OWNED_TASK_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "image2text",
+    "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+    "operation_id": "getChallengeResult",
+    "method": "POST",
+    "path": "/captcha/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "task_id": "REPLACE_WITH_OWNED_TASK_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits."
+    ],
+    "special_authorization": true
+  },
+  {
+    "service": "recaptcha",
+    "api_id": "0c6538fd-de94-4e7c-b876-b45ded6487bb",
+    "operation_id": "getChallengeResult",
+    "method": "POST",
+    "path": "/captcha/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "task_id": "REPLACE_WITH_OWNED_TASK_ID"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits."
+    ],
+    "special_authorization": true
+  }
+]

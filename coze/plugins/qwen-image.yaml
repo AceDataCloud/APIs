@@ -1,0 +1,724 @@
+openapi: 3.0.1
+info:
+  title: Qwen Image
+  version: 2.0.0
+  description: 'Create images from text or edit supported reference images with Qwen Image, then retrieve
+    the finished image URLs. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN
+    in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.
+    Start: https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /qwen-image/tasks:
+    post:
+      summary: Query Qwen Image asynchronous task.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Task ID.
+                  type:
+                    type: string
+                    description: Task type.
+                  api_id:
+                    type: string
+                    description: API Identifier.
+                  elapsed:
+                    type: number
+                    format: double
+                    minimum: 0
+                    nullable: true
+                    description: Processing duration (seconds).
+                  request:
+                    type: object
+                    description: Create the request body recorded for the API operation of this task;
+                      the fields depend on the specific operation and action.
+                    additionalProperties: true
+                  user_id:
+                    type: string
+                    description: The account to which the task belongs.
+                  response:
+                    type: object
+                    description: Create the final response recorded for the API operation of this task;
+                      the fields follow the structure of the success or error response in the operation
+                      documentation.
+                    additionalProperties: true
+                    properties:
+                      success:
+                        type: boolean
+                      task_id:
+                        type: string
+                      trace_id:
+                        type: string
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            image_url:
+                              type: string
+                            prompt:
+                              type: string
+                      cost:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                          list_amount:
+                            type: number
+                          currency:
+                            type: string
+                  trace_id:
+                    type: string
+                    description: Request tracking ID.
+                  created_at:
+                    type: number
+                    format: double
+                    description: Task creation time, Unix timestamp (seconds).
+                  started_at:
+                    type: number
+                    format: double
+                    description: Process start time, Unix timestamp (seconds).
+                  finished_at:
+                    type: number
+                    format: double
+                    nullable: true
+                    description: Processing completion time, Unix timestamp (seconds).
+                  actor_user_id:
+                    type: string
+                    nullable: true
+                    description: The account executing the authorization request.
+                  credential_id:
+                    type: string
+                    nullable: true
+                    description: Credentials used to start tasks.
+                  application_id:
+                    type: string
+                    description: Application for billing.
+                  authorization_id:
+                    type: string
+                    nullable: true
+                    description: Authorization used when starting the task.
+                  count:
+                    type: integer
+                    minimum: 0
+                    description: Total number of matching tasks.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - type
+                      - created_at
+                      - trace_id
+                      - request
+                      properties:
+                        id:
+                          type: string
+                          description: Task ID.
+                        type:
+                          type: string
+                          description: Task type.
+                        api_id:
+                          type: string
+                          description: API Identifier.
+                        elapsed:
+                          type: number
+                          format: double
+                          minimum: 0
+                          nullable: true
+                          description: Processing duration (seconds).
+                        request:
+                          type: object
+                          description: Create the request body recorded for the API operation of this
+                            task; the fields depend on the specific operation and action.
+                          additionalProperties: true
+                        user_id:
+                          type: string
+                          description: The account to which the task belongs.
+                        response:
+                          type: object
+                          description: Create the final response recorded for the API operation of this
+                            task; the fields follow the structure of the success or error response in
+                            the operation documentation.
+                          additionalProperties: true
+                          properties:
+                            success:
+                              type: boolean
+                            task_id:
+                              type: string
+                            trace_id:
+                              type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  image_url:
+                                    type: string
+                                  prompt:
+                                    type: string
+                            cost:
+                              type: object
+                              properties:
+                                amount:
+                                  type: number
+                                list_amount:
+                                  type: number
+                                currency:
+                                  type: string
+                        trace_id:
+                          type: string
+                          description: Request tracking ID.
+                        created_at:
+                          type: number
+                          format: double
+                          description: Task creation time, Unix timestamp (seconds).
+                        started_at:
+                          type: number
+                          format: double
+                          description: Process start time, Unix timestamp (seconds).
+                        finished_at:
+                          type: number
+                          format: double
+                          nullable: true
+                          description: Processing completion time, Unix timestamp (seconds).
+                        actor_user_id:
+                          type: string
+                          nullable: true
+                          description: The account executing the authorization request.
+                        credential_id:
+                          type: string
+                          nullable: true
+                          description: Credentials used to start tasks.
+                        application_id:
+                          type: string
+                          description: Application for billing.
+                        authorization_id:
+                          type: string
+                          nullable: true
+                          description: Authorization used when starting the task.
+                    description: Matching task list.
+          description: Operation executed successfully.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, it may be due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: getTaskResults
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: The ID of the Qwen Image task.
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of IDs for multiple Qwen Image tasks.
+                action:
+                  enum:
+                  - retrieve
+                  - retrieve_batch
+                  type: string
+                  default: retrieve
+                  description: Operation type. Use `retrieve` to get a single task, and use `retrieve_batch`
+                    to batch retrieve multiple tasks.
+        required: true
+      description: 'Query Qwen Image asynchronous task. Full input requirements: https://platform.acedata.cloud/documents/qwen-image-tasks
+        A non-null response can be a progress snapshot. Require terminal success and a non-empty primary
+        media URL or content, not just a cover image or an empty data array.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/qwen-image-tasks
+  /qwen-image/images:
+    post:
+      summary: Qwen Image image generation and editing interface.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cost:
+                    type: object
+                    properties:
+                      amount:
+                        type: number
+                        description: 应用折扣后的实际扣费金额。
+                      currency:
+                        type: string
+                        description: Billing unit.
+                      list_amount:
+                        type: number
+                        description: Apply the listed price amount before discounts.
+                    description: Cost details for this request.
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - image_url
+                      properties:
+                        image_url:
+                          type: string
+                          format: uri
+                          description: Permanently stored generated image URL.
+                    description: Generate image list.
+                  usage:
+                    type: object
+                    description: Actual image input and output measurement.
+                    additionalProperties: true
+                  success:
+                    type: boolean
+                    description: A boolean flag indicating whether this request was successful.
+                  task_id:
+                    type: string
+                    description: The task ID for this request.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request successful (OK).
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error codes.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - anyOf:
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error code.
+                          message:
+                            type: string
+                            description: Error message of the response.
+                      - type: object
+                        properties:
+                          code:
+                            type: string
+                            description: Response error codes.
+                          message:
+                            type: string
+                            description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    anyOf:
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Response error message.
+                    - type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, rate limit exceeded.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server side.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the format of the response returned by the server. If not specified, the
+          default format is `application/json`.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: generateImage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - prompt
+              properties:
+                n:
+                  type: integer
+                  default: 1
+                  maximum: 6
+                  minimum: 1
+                  description: Number of output images, from 1 to 6.
+                seed:
+                  type: integer
+                  maximum: 2147483647
+                  minimum: 0
+                  description: Random seed.
+                size:
+                  type: string
+                  pattern: ^[0-9]+\*[0-9]+$
+                  description: Output dimensions, pixel area must be between 512×512 and 2048×2048.
+                async:
+                  type: boolean
+                  default: true
+                  description: Whether to return a task ID immediately.
+                model:
+                  enum:
+                  - qwen-image-3.0
+                  - qwen-image-3.0-pro
+                  type: string
+                  default: qwen-image-3.0
+                  description: Model name.
+                prompt:
+                  type: string
+                  maxLength: 18000
+                  minLength: 1
+                  description: Image generation or editing prompt.
+                watermark:
+                  type: boolean
+                  default: false
+                  description: Whether to add a watermark.
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+                  maxItems: 3
+                  minItems: 1
+                  description: Optional 1–3 reference images; providing them enables image editing.
+                callback_url:
+                  type: string
+                  format: uri
+                  description: Callback URL for asynchronous completion.
+                prompt_extend:
+                  type: boolean
+                  default: true
+                  description: Whether to enhance the prompt.
+                enable_thinking:
+                  type: boolean
+                  default: true
+                  description: Whether to enable enhanced reasoning.
+                negative_prompt:
+                  type: string
+                  description: Content to exclude from the image.
+                prompt_extend_mode:
+                  enum:
+                  - direct
+                  - agent
+                  type: string
+                  default: direct
+                  description: Prompt enhancement mode; agent is text-to-image only.
+        required: true
+      description: 'Qwen Image image generation and editing interface. Full input requirements: https://platform.acedata.cloud/documents/qwen-image-images
+        Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not
+        a completed result. Do not resubmit while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/qwen-image-images

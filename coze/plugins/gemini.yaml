@@ -1,0 +1,2169 @@
+openapi: 3.0.1
+info:
+  title: Gemini
+  version: 2.0.0
+  description: 'Use Gemini chat and native content requests, or create a video and retrieve its completed
+    result. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+    Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /v1beta/models/{model}:generateContent:
+    post:
+      summary: This interface can call the Google Gemini native format API generateContent endpoint, supporting
+        functions such as text generation, multimodal understanding, JS
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usage:
+                    type: object
+                    required:
+                    - prompt_tokens
+                    - completion_tokens
+                    properties:
+                      cost:
+                        type: object
+                        required:
+                        - amount
+                        - currency
+                        properties:
+                          amount:
+                            type: number
+                            description: The quota consumed by this call.
+                          currency:
+                            type: string
+                            description: Cost unit; the standard quota call is credit.
+                          list_amount:
+                            type: number
+                            description: Consumption of the quota before applying the discount.
+                        description: Cost preview for this call.
+                        additionalProperties: false
+                      total_tokens:
+                        type: integer
+                        description: The total number of normalized tokens.
+                      prompt_tokens:
+                        type: integer
+                        description: Normalized input token count.
+                      thoughts_tokens:
+                        type: integer
+                        description: The number of tokens used in the thinking process.
+                      completion_tokens:
+                        type: integer
+                        description: Normalized output token count.
+                      prompt_tokens_details:
+                        type: object
+                        properties:
+                          modalities:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - modality
+                              - tokenCount
+                              properties:
+                                modality:
+                                  type: string
+                                tokenCount:
+                                  type: integer
+                              additionalProperties: false
+                            description: Details of tokens for each input modality.
+                          text_tokens:
+                            type: integer
+                            description: Number of text input tokens included in `prompt_tokens`.
+                          audio_tokens:
+                            type: integer
+                            description: Number of audio input tokens included in `prompt_tokens`; recalculated
+                              according to the model's audio input pricing and will not be billed repeatedly.
+                          image_tokens:
+                            type: integer
+                            description: The number of image input tokens included in prompt_tokens.
+                          video_tokens:
+                            type: integer
+                            description: The number of video input tokens included in `prompt_tokens`.
+                          cached_tokens:
+                            type: integer
+                          cached_modalities:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - modality
+                              - tokenCount
+                              properties:
+                                modality:
+                                  type: string
+                                tokenCount:
+                                  type: integer
+                              additionalProperties: false
+                            description: Details of token for each cache hit mode.
+                          cached_text_tokens:
+                            type: integer
+                            description: Number of cached text tokens included in `cached_tokens`.
+                          cached_audio_tokens:
+                            type: integer
+                            description: Number of cached audio tokens included in `cached_tokens`; recalculated
+                              according to the model's cached audio pricing and will not be billed repeatedly.
+                          cached_image_tokens:
+                            type: integer
+                            description: The number of image cache tokens included in `cached_tokens`.
+                          cached_video_tokens:
+                            type: integer
+                            description: The number of video cache tokens included in `cached_tokens`.
+                        description: Input token cache and modal details.
+                        additionalProperties: false
+                      tool_use_prompt_tokens:
+                        type: integer
+                        description: The number of tokens used in the tool call input.
+                      completion_tokens_details:
+                        type: object
+                        properties:
+                          modalities:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - modality
+                              - tokenCount
+                              properties:
+                                modality:
+                                  type: string
+                                tokenCount:
+                                  type: integer
+                              additionalProperties: false
+                            description: Details of tokens for each output modality.
+                        description: Output the modal details of the token.
+                        additionalProperties: false
+                      tool_use_prompt_tokens_details:
+                        type: object
+                        properties:
+                          modalities:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                              - modality
+                              - tokenCount
+                              properties:
+                                modality:
+                                  type: string
+                                tokenCount:
+                                  type: integer
+                              additionalProperties: false
+                            description: Details of token input modes for each tool.
+                        description: Details of the modal for inputting tokens for tool invocation.
+                        additionalProperties: false
+                    description: The standardized token usage of Ace Data Cloud and the cost of this call.
+                      The cost field may be omitted when the price preview is unavailable.
+                    additionalProperties: false
+                  candidates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                        content:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                            parts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  text:
+                                    type: string
+                                  thought:
+                                    type: boolean
+                                    description: Is this segment a thinking/reasoning step?
+                        finishReason:
+                          enum:
+                          - STOP
+                          - MAX_TOKENS
+                          - SAFETY
+                          - RECITATION
+                          - LANGUAGE
+                          - OTHER
+                          - BLOCKLIST
+                          - PROHIBITED_CONTENT
+                          - SPII
+                          - MALFORMED_FUNCTION_CALL
+                          type: string
+                        safetyRatings:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              blocked:
+                                type: boolean
+                              category:
+                                type: string
+                              probability:
+                                type: string
+                  responseId:
+                    type: string
+                  modelVersion:
+                    type: string
+                  usageMetadata:
+                    type: object
+                    properties:
+                      totalTokenCount:
+                        type: integer
+                      promptTokenCount:
+                        type: integer
+                      cacheTokensDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            modality:
+                              type: string
+                            tokenCount:
+                              type: integer
+                      thoughtsTokenCount:
+                        type: integer
+                      promptTokensDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            modality:
+                              type: string
+                            tokenCount:
+                              type: integer
+                      candidatesTokenCount:
+                        type: integer
+                      cachedContentTokenCount:
+                        type: integer
+                      candidatesTokensDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            modality:
+                              type: string
+                            tokenCount:
+                              type: integer
+                      toolUsePromptTokenCount:
+                        type: integer
+                      toolUsePromptTokensDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            modality:
+                              type: string
+                            tokenCount:
+                              type: integer
+          description: Request successful
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      status:
+                        type: string
+                      message:
+                        type: string
+          description: Request error
+      parameters:
+      - in: path
+        name: model
+        schema:
+          enum:
+          - gemini-3.8-flash
+          - gemini-3.7-flash
+          - gemini-3.6-flash
+          - gemini-3.5-flash
+          - gemini-3.5-flash-lite
+          - gemini-3.1-flash-lite
+          - gemini-3.1-pro-preview
+          - gemini-3-flash-preview
+          - gemini-2.5-pro
+          - gemini-2.5-flash
+          - gemini-2.5-flash-lite
+          - gemini-3.1-flash-image
+          - gemini-2.5-flash-image
+          - gemini-3-pro-image
+          type: string
+        required: true
+        description: 'Model for content generation. Format: model name (without the `models/` prefix).'
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: generateContent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - contents
+              properties:
+                tools:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      functionDeclarations:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - name
+                          properties:
+                            name:
+                              type: string
+                            parameters:
+                              type: object
+                              additionalProperties: true
+                            description:
+                              type: string
+                  description: The model can be used to generate a list of custom function declarations
+                    for the next response.
+                contents:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - parts
+                    properties:
+                      role:
+                        enum:
+                        - user
+                        - model
+                        type: string
+                        description: The role of content producers. Must be `user` or `model`.
+                      parts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                              description: Text content.
+                            fileData:
+                              type: object
+                              properties:
+                                fileUri:
+                                  type: string
+                                mimeType:
+                                  type: string
+                              description: Data based on URI.
+                            inlineData:
+                              type: object
+                              properties:
+                                data:
+                                  type: string
+                                  description: Base64 encoded byte data of the media.
+                                mimeType:
+                                  type: string
+                                  description: IANA standard MIME types of the source data.
+                              description: Inline image or video byte data. Audio MIME types are currently
+                                not accepted.
+                            functionCall:
+                              type: object
+                              properties:
+                                args:
+                                  type: object
+                                  additionalProperties: true
+                                name:
+                                  type: string
+                              description: The prediction returned by the model is FunctionCall.
+                            functionResponse:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                response:
+                                  type: object
+                                  additionalProperties: true
+                              description: The output of FunctionCall.
+                        description: Ordered content segments that make up a single message.
+                  description: The current content of the conversation with the model. In a single-turn
+                    query, it is a single instance; in a multi-turn query (dialogue), it is a repeated
+                    field that includes the dialogue history and the latest request.
+                toolConfig:
+                  type: object
+                  properties:
+                    functionCallingConfig:
+                      type: object
+                      properties:
+                        mode:
+                          enum:
+                          - MODE_UNSPECIFIED
+                          - AUTO
+                          - ANY
+                          - NONE
+                          type: string
+                        allowedFunctionNames:
+                          type: array
+                          items:
+                            type: string
+                  description: Requested tool configuration.
+                safetySettings:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      category:
+                        enum:
+                        - HARM_CATEGORY_HARASSMENT
+                        - HARM_CATEGORY_HATE_SPEECH
+                        - HARM_CATEGORY_SEXUALLY_EXPLICIT
+                        - HARM_CATEGORY_DANGEROUS_CONTENT
+                        - HARM_CATEGORY_CIVIC_INTEGRITY
+                        type: string
+                      threshold:
+                        enum:
+                        - BLOCK_NONE
+                        - BLOCK_ONLY_HIGH
+                        - BLOCK_MEDIUM_AND_ABOVE
+                        - BLOCK_LOW_AND_ABOVE
+                        - 'OFF'
+                        type: string
+                  description: Security settings used to block unsafe content.
+                generationConfig:
+                  type: object
+                  properties:
+                    seed:
+                      type: integer
+                      description: Random seed for deterministic generation.
+                    topK:
+                      type: integer
+                      description: The maximum number of tokens considered during sampling (Top-K).
+                    topP:
+                      type: number
+                      description: The maximum cumulative probability of tokens considered during sampling
+                        (Top-P).
+                    imageConfig:
+                      type: object
+                      properties:
+                        imageSize:
+                          enum:
+                          - '512'
+                          - 1K
+                          - 2K
+                          - 4K
+                          type: string
+                          description: 'Image size options: `512`, `1K`, `2K`, `4K`.'
+                        aspectRatio:
+                          type: string
+                          description: Generate the aspect ratio of the image, such as `1:1`, `16:9`,
+                            `9:16`, `4:3`, etc.
+                      description: 'Image output configuration (for image models only, used in conjunction
+                        with `responseModalities: [IMAGE]`).'
+                    temperature:
+                      type: number
+                      maximum: 2
+                      minimum: 0
+                      description: 'Control the randomness of the output. Value range: [0.0, 2.0].'
+                    stopSequences:
+                      type: array
+                      items:
+                        type: string
+                      description: Generate a character sequence that stops the output (up to 5 characters).
+                    candidateCount:
+                      type: integer
+                      description: The number of generated responses to return.
+                    responseSchema:
+                      type: object
+                      description: Output Schema for generated candidate text (subset of OpenAPI Schema).
+                        Used in conjunction with `responseMimeType` of type `application/json`.
+                      additionalProperties: true
+                    thinkingConfig:
+                      type: object
+                      properties:
+                        thinkingBudget:
+                          type: integer
+                          description: The budget for the number of tokens that the model should generate
+                            for thinking.
+                        includeThoughts:
+                          type: boolean
+                          description: Is the thought process included in the response?
+                      description: Configuration of thinking functions (only supports specific models).
+                    maxOutputTokens:
+                      type: integer
+                      description: The maximum number of tokens in the response.
+                    presencePenalty:
+                      type: number
+                      description: Apply a presence penalty to the tokens that have already appeared in
+                        the response.
+                    frequencyPenalty:
+                      type: number
+                      description: Frequency penalty applied in proportion to the number of token uses.
+                    responseMimeType:
+                      enum:
+                      - text/plain
+                      - application/json
+                      - text/x.enum
+                      type: string
+                      description: 'The MIME types of the generated candidate text. Supported: `text/plain`,
+                        `application/json`, `text/x.enum`.'
+                    responseModalities:
+                      type: array
+                      items:
+                        enum:
+                        - TEXT
+                        - IMAGE
+                        type: string
+                      description: The set of response modalities that the model can return.
+                  description: Configuration options for model generation and output.
+                systemInstruction:
+                  type: object
+                  properties:
+                    parts:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          text:
+                            type: string
+                  description: System instructions set by the developer.
+        required: true
+      description: 'This interface can call the Google Gemini native format API generateContent endpoint,
+        supporting functions such as text generation, multimodal understanding, JS Full input requirements:
+        https://platform.acedata.cloud/documents/gemini-generate-content-api'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/gemini-generate-content-api
+  /gemini/chat/completions:
+    post:
+      summary: Gemini Chat Completion API, compatible with the official API format.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - choices
+                - created
+                - id
+                - model
+                - object
+                properties:
+                  id:
+                    type: string
+                    description: The unique identifier for dialogue completion.
+                  model:
+                    type: string
+                    description: Model used for completing this conversation.
+                  usage:
+                    type: object
+                    required:
+                    - prompt_tokens
+                    - completion_tokens
+                    - total_tokens
+                    properties:
+                      total_tokens:
+                        type: integer
+                        description: The total number of tokens used in this request (prompt + completion).
+                      prompt_tokens:
+                        type: integer
+                        description: The number of tokens in the prompt.
+                      completion_tokens:
+                        type: integer
+                        description: The number of tokens in the generated completion content.
+                      prompt_tokens_details:
+                        type: object
+                        properties:
+                          audio_tokens:
+                            type: integer
+                            description: The number of audio input tokens in the prompt.
+                          cached_tokens:
+                            type: integer
+                            description: The number of tokens in the prompt that hit the cache.
+                        description: Details of token usage for prompts.
+                      completion_tokens_details:
+                        type: object
+                        properties:
+                          audio_tokens:
+                            type: integer
+                            description: The number of tokens in the audio output generated by the model.
+                          reasoning_tokens:
+                            type: integer
+                            description: The number of tokens generated by the model for inference.
+                          accepted_prediction_tokens:
+                            type: integer
+                            description: The number of tokens that appear in the completion of the predicted
+                              content when using predicted outputs.
+                          rejected_prediction_tokens:
+                            type: integer
+                            description: The number of tokens in the predicted content that do not appear
+                              in the completion when using predicted outputs.
+                        description: Complete the token usage details.
+                    description: Usage statistics for this completion request.
+                  object:
+                    enum:
+                    - chat.completion
+                    type: string
+                    description: Object type, fixed as `chat.completion`.
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - finish_reason
+                      - index
+                      - message
+                      properties:
+                        index:
+                          type: number
+                          description: The index of the option in the list of options.
+                        message:
+                          type: object
+                          required:
+                          - role
+                          properties:
+                            role:
+                              enum:
+                              - assistant
+                              type: string
+                              description: The role of the author of the message.
+                            audio:
+                              type: object
+                              nullable: true
+                              required:
+                              - id
+                              - data
+                              - expires_at
+                              properties:
+                                id:
+                                  type: string
+                                  description: The unique identifier for the audio reply.
+                                data:
+                                  type: string
+                                  description: Base64 encoded audio bytes generated by the model.
+                                expires_at:
+                                  type: integer
+                                  description: The audio reply is no longer available on the server (for
+                                    multi-turn conversations) Unix timestamp (seconds).
+                                transcript:
+                                  type: string
+                                  description: Text transcription of audio generated by the model.
+                              description: When the audio output modality is requested, this object contains
+                                the audio response data returned by the model.
+                            content:
+                              type: string
+                              nullable: true
+                              description: Content of the message.
+                            refusal:
+                              type: string
+                              nullable: true
+                              description: The message generated by the model to refuse to answer.
+                            tool_calls:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - type
+                                - function
+                                properties:
+                                  id:
+                                    type: string
+                                    description: The ID of the tool call.
+                                  type:
+                                    enum:
+                                    - function
+                                    type: string
+                                    description: The type of tool invocation. Currently, only `function`
+                                      is supported.
+                                  function:
+                                    type: object
+                                    required:
+                                    - name
+                                    - arguments
+                                    properties:
+                                      name:
+                                        type: string
+                                        description: The name of the function to be called.
+                                      arguments:
+                                        type: string
+                                        description: The parameters used when calling the function are
+                                          generated by the model in JSON format.
+                                    description: Function for model invocation.
+                              nullable: true
+                              description: Tool calls generated by the model, such as function calls.
+                          description: A message completing a dialogue generated by the model.
+                        logprobs:
+                          type: object
+                          nullable: true
+                          description: The logarithmic probability information of this option.
+                          additionalProperties: true
+                        finish_reason:
+                          enum:
+                          - stop
+                          - length
+                          - tool_calls
+                          - content_filter
+                          - function_call
+                          type: string
+                          description: Reasons for the model to stop generating tokens. If the model reaches
+                            a natural stopping point or hits the provided stopping sequence, it is `stop`;
+                            if it reaches the maximum token number specified in the request, it is `length`;
+                            if content is omitted due to content filter flags, it is `content_filter`;
+                            if the model called a tool, it is `tool_calls`; if the model called a function
+                            (deprecated), it is `function_call`.
+                    description: Dialogue completion options list. If `n` is greater than 1, it may include
+                      multiple options.
+                  created:
+                    type: number
+                    description: Create the Unix timestamp (seconds) when this conversation is completed.
+                  system_fingerprint:
+                    type: string
+                    description: This fingerprint indicates the backend configuration used for the model
+                      run. It can be used in conjunction with the request parameter `seed` to understand
+                      when changes that may affect determinism occurred in the backend.
+                description: Indicates a dialogue completion response returned by the model based on the
+                  provided input.
+            text/event-stream:
+              schema:
+                type: object
+                required:
+                - id
+                - object
+                - created
+                - model
+                - choices
+                properties:
+                  id:
+                    type: string
+                  model:
+                    type: string
+                  usage:
+                    type: object
+                    nullable: true
+                    required:
+                    - prompt_tokens
+                    - completion_tokens
+                    - total_tokens
+                    properties:
+                      total_tokens:
+                        type: integer
+                        description: The total number of tokens used in this request (prompt + completion).
+                      prompt_tokens:
+                        type: integer
+                        description: The number of tokens in the prompt.
+                      completion_tokens:
+                        type: integer
+                        description: The number of tokens in the generated completion content.
+                      prompt_tokens_details:
+                        type: object
+                        properties:
+                          audio_tokens:
+                            type: integer
+                            description: The number of audio input tokens in the prompt.
+                          cached_tokens:
+                            type: integer
+                            description: The number of tokens in the prompt that hit the cache.
+                        description: Details of token usage for prompts.
+                      completion_tokens_details:
+                        type: object
+                        properties:
+                          audio_tokens:
+                            type: integer
+                            description: The number of tokens in the audio output generated by the model.
+                          reasoning_tokens:
+                            type: integer
+                            description: The number of tokens generated by the model for inference.
+                          accepted_prediction_tokens:
+                            type: integer
+                            description: The number of tokens that appear in the completion of the predicted
+                              content when using predicted outputs.
+                          rejected_prediction_tokens:
+                            type: integer
+                            description: The number of tokens in the predicted content that do not appear
+                              in the completion when using predicted outputs.
+                        description: Complete the token usage details.
+                    description: Only return the usage data block before the end when stream_options.include_usage
+                      is enabled.
+                  object:
+                    enum:
+                    - chat.completion.chunk
+                    type: string
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - index
+                      - delta
+                      - finish_reason
+                      properties:
+                        delta:
+                          type: object
+                          properties:
+                            role:
+                              enum:
+                              - assistant
+                              type: string
+                              nullable: true
+                            content:
+                              type: string
+                              nullable: true
+                            tool_calls:
+                              type: array
+                              items:
+                                type: object
+                                required:
+                                - id
+                                - type
+                                - function
+                                properties:
+                                  id:
+                                    type: string
+                                    description: The ID of the tool call.
+                                  type:
+                                    enum:
+                                    - function
+                                    type: string
+                                    description: The type of tool invocation. Currently, only `function`
+                                      is supported.
+                                  function:
+                                    type: object
+                                    required:
+                                    - name
+                                    - arguments
+                                    properties:
+                                      name:
+                                        type: string
+                                        description: The name of the function to be called.
+                                      arguments:
+                                        type: string
+                                        description: The parameters used when calling the function are
+                                          generated by the model in JSON format.
+                                    description: Function for model invocation.
+                              nullable: true
+                              description: Tool calls generated by the model, such as function calls.
+                            reasoning_content:
+                              type: string
+                              nullable: true
+                        index:
+                          type: integer
+                        finish_reason:
+                          type: string
+                          nullable: true
+                    description: Incremental output; the usage data block can be an empty array.
+                  created:
+                    type: integer
+                  system_fingerprint:
+                    type: string
+                    nullable: true
+          description: '非流式请求返回 JSON；stream=true 时返回 SSE。每个事件为 data: {chat.completion.chunk}，可选用量数据块的
+            choices 为空，最终以 data: [DONE] 结束。'
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '429':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Too many requests, exceeding rate limit.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          - text/event-stream
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: chatCompletion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - messages
+              properties:
+                n:
+                  type: number
+                  default: 1
+                  maximum: 128
+                  minimum: 1
+                  nullable: true
+                  description: Generate how many dialogue completion options for each input message.
+                seed:
+                  type: integer
+                  nullable: true
+                  description: If specified, the system will strive to perform deterministic sampling,
+                    so that repeated requests using the same `seed` and parameters return the same results.
+                    Determinism cannot be guaranteed; please refer to the `system_fingerprint` in the
+                    response to monitor backend changes.
+                stop:
+                  oneOf:
+                  - type: string
+                    description: Single stop sequence.
+                  - type: array
+                    items:
+                      type: string
+                    maxItems: 4
+                    minItems: 1
+                    description: Up to 4 stop sequences.
+                  nullable: true
+                  description: A maximum of 4 sequences, the API will stop generating when it reaches
+                    these sequences. The returned text does not include the stopping sequences.
+                user:
+                  type: string
+                  description: A unique identifier representing your end users, which helps the platform
+                    monitor and detect abusive behavior.
+                audio:
+                  type: object
+                  nullable: true
+                  required:
+                  - voice
+                  - format
+                  properties:
+                    voice:
+                      enum:
+                      - alloy
+                      - ash
+                      - ballad
+                      - coral
+                      - echo
+                      - fable
+                      - nova
+                      - onyx
+                      - sage
+                      - shimmer
+                      type: string
+                      description: The tone used by the model in its responses.
+                    format:
+                      enum:
+                      - wav
+                      - aac
+                      - mp3
+                      - flac
+                      - opus
+                      - pcm16
+                      type: string
+                      description: Specify the output audio format.
+                  description: 'Audio output parameters. Required when requesting audio output via `modalities:
+                    ["audio"]`.'
+                model:
+                  enum:
+                  - gemini-3.8-flash
+                  - gemini-3.7-flash
+                  - gemini-3.6-flash
+                  - gemini-3.5-flash
+                  - gemini-3.5-flash-lite
+                  - gemini-3.1-flash-lite
+                  - gemini-3.1-pro-preview
+                  - gemini-3-flash-preview
+                  - gemini-2.5-pro
+                  - gemini-2.5-flash
+                  - gemini-2.5-flash-lite
+                  type: string
+                  description: Model ID to be used.
+                store:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Whether to store the output of this conversation completion request for
+                    model distillation or product evaluation.
+                tools:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - type
+                    - function
+                    properties:
+                      type:
+                        enum:
+                        - function
+                        type: string
+                        description: Type of tool. Currently only supports `function`.
+                      function:
+                        type: object
+                        required:
+                        - name
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the function to be called.
+                          parameters:
+                            type: object
+                            description: The parameters accepted by this function are described by a JSON
+                              Schema object.
+                            additionalProperties: true
+                          description:
+                            type: string
+                            description: Description of the function's functionality.
+                        description: Function definition.
+                  nullable: true
+                  description: List of tools that can be called by the model. Currently, only functions
+                    are supported as tools.
+                top_p:
+                  type: number
+                  default: 1
+                  maximum: 1
+                  minimum: 0
+                  nullable: true
+                  description: An alternative method for temperature sampling, called nucleus sampling,
+                    considers only the portion of tokens where the cumulative probability mass reaches
+                    top_p. For example, 0.1 means only considering the tokens that account for the top
+                    10% of cumulative probability mass. It is generally recommended to adjust only one
+                    of these parameters or `temperature`, rather than adjusting both simultaneously.
+                stream:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Use false for Coze JSON tool results.
+                  enum:
+                  - false
+                logprobs:
+                  type: boolean
+                  default: false
+                  nullable: true
+                  description: Whether to return the logarithmic probability of the output tokens. If
+                    true, it will return the logarithmic probability of each output token in the `content`
+                    of `message`.
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - role
+                    properties:
+                      name:
+                        type: string
+                        description: Optional names for participants. Used to provide information to the
+                          model to distinguish different participants under the same role.
+                      role:
+                        enum:
+                        - user
+                        - assistant
+                        - system
+                        - developer
+                        - tool
+                        type: string
+                        description: The role of the message.
+                      content:
+                        oneOf:
+                        - type: string
+                          description: Text content of the message.
+                        - type: array
+                          items:
+                            oneOf:
+                            - type: object
+                              required:
+                              - type
+                              - text
+                              properties:
+                                text:
+                                  type: string
+                                  description: Text content.
+                                type:
+                                  enum:
+                                  - text
+                                  type: string
+                                  description: Types of content sections.
+                            - type: object
+                              required:
+                              - type
+                              - image_url
+                              properties:
+                                type:
+                                  enum:
+                                  - image_url
+                                  type: string
+                                  description: Types of content sections.
+                                image_url:
+                                  type: object
+                                  required:
+                                  - url
+                                  properties:
+                                    url:
+                                      type: string
+                                      description: 'Image data, choose one: ① base64 encoded `data:` URI
+                                        (recommended, most stable), formatted as `data:<media type>;base64,<data>`,
+                                        for example `data:image/jpeg;base64,...`, the media type (MIME)
+                                        is included in the `data:` prefix, and there is no need for a
+                                        separate `media_type` field; ② publicly accessible image URL.
+                                        Supported image types: png, jpeg, webp, heic, heif.'
+                                    detail:
+                                      enum:
+                                      - auto
+                                      - low
+                                      - high
+                                      type: string
+                                      default: auto
+                                      description: Specify the detail level of the image. Options are
+                                        `auto`, `low`, `high`, default is `auto`.
+                                  description: Image input object, following OpenAI visual format. It
+                                    only contains `url` (image URL or base64 `data:` URI) and an optional
+                                    `detail`; it does not accept `media_type` (this field belongs to Anthropic
+                                    Claude, not to OpenAI / Gemini format).
+                          minItems: 1
+                          description: The array of content parts, each part has a clear type. It can
+                            include inputs of type `text` and `image_url`.
+                        description: The content of the message. Plain text messages can use strings,
+                          while multimodal messages (text and images) can use an array of content parts
+                          (containing `text` and `image_url`).
+                      refusal:
+                        type: string
+                        nullable: true
+                        description: The assistant's refusal to answer messages. Use when `role` is `assistant`.
+                      tool_calls:
+                        type: array
+                        items:
+                          type: object
+                          required:
+                          - id
+                          - type
+                          - function
+                          properties:
+                            id:
+                              type: string
+                              description: The ID of the tool call.
+                            type:
+                              enum:
+                              - function
+                              type: string
+                              description: Type of tool. Currently only supports `function`.
+                            function:
+                              type: object
+                              required:
+                              - name
+                              - arguments
+                              properties:
+                                name:
+                                  type: string
+                                  description: The name of the function to be called.
+                                arguments:
+                                  type: string
+                                  description: The parameters used when calling the function are generated
+                                    by the model in JSON format.
+                        description: The tool calls generated by the model in the previous round (when
+                          `role` is `assistant`). Please return it along with the `tool` message that
+                          contains the results of the tool call.
+                      tool_call_id:
+                        type: string
+                        description: The tool call that responds to this message. It is required when
+                          the role is `tool`.
+                  minItems: 1
+                  description: List of messages that make up the current conversation.
+                metadata:
+                  type: object
+                  nullable: true
+                  description: A set of key-value pairs that can be attached to an object, with a maximum
+                    of 16 pairs. It can be used to store additional information about the object in a
+                    structured format. The key is a string of up to 64 characters, and the value is a
+                    string of up to 512 characters.
+                  additionalProperties:
+                    type: string
+                logit_bias:
+                  type: object
+                  nullable: true
+                  description: Modify the likelihood of a specified token appearing in the completion.
+                    Accept a JSON object that maps the token (specified by its token ID in the tokenizer)
+                    to a bias value between -100 and 100.
+                  additionalProperties:
+                    type: integer
+                max_tokens:
+                  type: number
+                  nullable: true
+                  description: The maximum number of tokens that can be generated in dialogue completion.
+                modalities:
+                  type: array
+                  items:
+                    enum:
+                    - text
+                    - audio
+                    type: string
+                  nullable: true
+                  description: You hope for the type of output generated by the model. Most models default
+                    to `["text"]`. The `gpt-4o-audio-preview` model can also be used to generate audio.
+                    If you want the model to generate both text and audio responses, you can use `["text",
+                    "audio"]`.
+                prediction:
+                  type: object
+                  nullable: true
+                  required:
+                  - type
+                  - content
+                  properties:
+                    type:
+                      enum:
+                      - content
+                      type: string
+                      description: Predict the type of content, fixed as `content`.
+                    content:
+                      oneOf:
+                      - type: string
+                        description: Content for prediction.
+                      - type: array
+                        items:
+                          type: object
+                          required:
+                          - type
+                          - text
+                          properties:
+                            text:
+                              type: string
+                            type:
+                              enum:
+                              - text
+                              type: string
+                      description: Content for prediction.
+                  description: Static prediction output content, such as the content of a text file that
+                    is being regenerated. It can be used to shorten response time when most of the response
+                    content is already known in advance.
+                temperature:
+                  type: number
+                  default: 1
+                  maximum: 2
+                  minimum: 0
+                  nullable: true
+                  description: The sampling temperature used ranges from 0 to 2. Higher values (such as
+                    0.8) will make the output more random, while lower values (such as 0.2) will make
+                    the output more focused and certain.
+                tool_choice:
+                  oneOf:
+                  - enum:
+                    - none
+                    - auto
+                    - required
+                    type: string
+                    description: Control which tool the model calls (if any).
+                  - type: object
+                    required:
+                    - type
+                    - function
+                    properties:
+                      type:
+                        enum:
+                        - function
+                        type: string
+                        description: Type of tool. Currently only `function` is supported.
+                      function:
+                        type: object
+                        required:
+                        - name
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the function to be called.
+                    description: Specify the tools that the designated model should use.
+                  description: Control which tool the model calls (if any). `none` means the model will
+                    not call any tools; `auto` means the model can choose between generating a message
+                    or calling one/multiple tools; `required` means the model must call one or more tools.
+                service_tier:
+                  enum:
+                  - auto
+                  - default
+                  - flex
+                  - scale
+                  - priority
+                  type: string
+                  default: auto
+                  nullable: true
+                  description: Specify the processing type used for the designated service request. Set
+                    to `auto` to let the platform choose automatically, `default` for standard pricing/performance,
+                    `flex` for a slower but cheaper Flex processing layer, and `priority` for the fastest
+                    processing layer on supported models.
+                top_logprobs:
+                  type: integer
+                  maximum: 20
+                  minimum: 0
+                  nullable: true
+                  description: The integer value between 0 and 20 specifies the number of most likely
+                    tokens to return at each token position, each accompanied by the corresponding log
+                    probability. When using this parameter, `logprobs` must be set to `true`.
+                stream_options:
+                  type: object
+                  nullable: true
+                  properties:
+                    include_usage:
+                      type: boolean
+                      description: 'If set, an additional chunk will be streamed back before the `data:
+                        [DONE]` message. The `usage` field of this chunk displays the total token usage
+                        statistics for the entire request, while the `choices` field will always be an
+                        empty array.'
+                  description: 'Options for streaming responses. Use only when setting `stream: true`.'
+                response_format:
+                  oneOf:
+                  - type: object
+                    required:
+                    - type
+                    properties:
+                      type:
+                        enum:
+                        - text
+                        type: string
+                        description: Plain text response format.
+                    description: Default text response format.
+                  - type: object
+                    required:
+                    - type
+                    properties:
+                      type:
+                        enum:
+                        - json_object
+                        type: string
+                        description: Enable JSON Object mode.
+                    description: JSON Object response format. The model must be instructed to output JSON
+                      in the prompt.
+                  - type: object
+                    required:
+                    - type
+                    - json_schema
+                    properties:
+                      type:
+                        enum:
+                        - json_schema
+                        type: string
+                        description: Enable structured outputs to ensure that the model output matches
+                          the provided JSON Schema.
+                      json_schema:
+                        type: object
+                        required:
+                        - name
+                        properties:
+                          name:
+                            type: string
+                            description: The name of the response format. It can only contain a-z, A-Z,
+                              0-9, underscores, and hyphens.
+                          schema:
+                            type: object
+                            description: The schema of the response format is described using a JSON Schema
+                              object.
+                            additionalProperties: true
+                          strict:
+                            type: boolean
+                            default: false
+                            nullable: true
+                            description: Whether to enable strict schema adherence.
+                          description:
+                            type: string
+                            description: Description of the purpose of this response format.
+                    description: Use the structured output response format of JSON Schema.
+                  description: 'The object format that the specified model must output. Setting it to
+                    `{ "type": "json_schema", "json_schema": {...} }` enables structured output; setting
+                    it to `{ "type": "json_object" }` enables the older JSON Object mode.'
+                presence_penalty:
+                  type: number
+                  default: 0
+                  maximum: 2
+                  minimum: -2
+                  nullable: true
+                  description: The value ranges from -2.0 to 2.0. Positive values will penalize based
+                    on whether the token has already appeared in the generated text, thereby increasing
+                    the model's likelihood of discussing new topics.
+                reasoning_effort:
+                  enum:
+                  - minimal
+                  - low
+                  - medium
+                  - high
+                  type: string
+                  default: medium
+                  nullable: true
+                  description: The inference input level of the constraint reasoning model (o1/o3/o4/gpt-5
+                    series). Currently supports `minimal`, `low`, `medium`, and `high`. Reducing the inference
+                    input can lead to faster responses and decrease the number of tokens used for inference
+                    in the response.
+                frequency_penalty:
+                  type: number
+                  default: 0
+                  maximum: 2
+                  minimum: -2
+                  nullable: true
+                  description: The value ranges from -2.0 to 2.0. Positive values will penalize based
+                    on the frequency of the token's appearance in the generated text, thereby reducing
+                    the likelihood of the model repeating the same line word for word.
+                web_search_options:
+                  type: object
+                  properties:
+                    user_location:
+                      type: object
+                      nullable: true
+                      properties:
+                        type:
+                          enum:
+                          - approximate
+                          type: string
+                        approximate:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                            region:
+                              type: string
+                            country:
+                              type: string
+                            timezone:
+                              type: string
+                      description: Approximate location parameters for search.
+                    search_context_size:
+                      enum:
+                      - low
+                      - medium
+                      - high
+                      type: string
+                      default: medium
+                      description: High-level guidelines on the size of the context window space occupied
+                        by the search.
+                  description: Options for web search tools, for use with the GPT-4o model that has built-in
+                    search (`gpt-4o-search-preview`, `gpt-4o-mini-search-preview`).
+                parallel_tool_calls:
+                  type: boolean
+                  default: true
+                  description: Whether to enable parallel function calls during tool invocation.
+                max_completion_tokens:
+                  type: integer
+                  nullable: true
+                  description: The maximum number of tokens that can be generated for a single completion,
+                    including visible output tokens and inference tokens. For newer models (o1/o3/o4/gpt-5
+                    series and other inference models), this parameter replaces `max_tokens`.
+        required: true
+      description: 'Gemini Chat Completion API, compatible with the official API format. Full input requirements:
+        https://platform.acedata.cloud/documents/gemini-chat-completions'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/gemini-chat-completions
+  /gemini/videos:
+    post:
+      summary: Gemini video generation API — create a video from a text prompt and optional reference
+        images.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier for the generated video.
+                        state:
+                          enum:
+                          - pending
+                          - succeeded
+                          - failed
+                          type: string
+                          description: The current status of video generation tasks.
+                        video_url:
+                          type: string
+                          description: Generate the access URL for the video.
+                    description: Generated video entry list.
+                  success:
+                    type: boolean
+                    description: Was the request successful?
+                  task_id:
+                    type: string
+                    description: The unique task ID for this video generation request.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request is used for debugging.
+          description: Request successful.
+        '400':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Access denied, insufficient balance or content not approved.
+        '500':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  properties:
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Response error code.
+                        message:
+                          type: string
+                          description: Error message of the response.
+                    trace_id:
+                      type: string
+                      description: The tracking ID for this request.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          - application/x-ndjson
+          type: string
+        required: false
+        description: Specify the format of the response returned by the server. If not specified, the
+          default format is `application/json`. If specified as `application/x-ndjson`, the response will
+          be returned in a chunked streaming format separated by newline characters in JSON format.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: generateVideo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - prompt
+              properties:
+                async:
+                  type: boolean
+                  description: Whether to process in asynchronous mode. When set to `true`, the interface
+                    immediately returns `task_id`, without the need to provide `callback_url`, and then
+                    the result can be obtained by polling the corresponding task query interface; if `callback_url`
+                    is also provided, the result will be pushed to that callback address.
+                  default: true
+                model:
+                  enum:
+                  - omni-flash
+                  type: string
+                  default: omni-flash
+                  description: Models used for generating videos. Currently, only `omni-flash` is supported.
+                prompt:
+                  type: string
+                  description: Describe the text prompts for the video content to be generated.
+                image_urls:
+                  type: array
+                  items:
+                    type: string
+                  description: An optional array of reference image URLs for guiding video generation;
+                    blank entries will be ignored. This parameter is required when using `video_urls`
+                    for video editing (at least one image).
+                resolution:
+                  enum:
+                  - 720p
+                  - 1080p
+                  type: string
+                  default: 720p
+                  description: Output resolution for the generated video. Options are `720p` or `1080p`,
+                    default is `720p`.
+                video_urls:
+                  type: array
+                  items:
+                    type: string
+                  maxItems: 1
+                  description: Optional reference video URL array (up to 1), for video editing / video
+                    reference. At least one `image_urls` must be provided when available.
+                aspect_ratio:
+                  enum:
+                  - '16:9'
+                  - '9:16'
+                  type: string
+                  default: '16:9'
+                  description: Generate the aspect ratio of the video. `16:9` is for landscape, `9:16`
+                    is for portrait.
+                callback_url:
+                  type: string
+                  description: The URL for the callback after the video generation is complete. Once provided,
+                    the request will immediately return `task_id`, and the results will be pushed asynchronously.
+        required: true
+      description: 'Gemini video generation API — create a video from a text prompt and optional reference
+        images. Full input requirements: https://platform.acedata.cloud/documents/gemini-videos Submit
+        once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed
+        result. Do not resubmit while pending.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/gemini-videos
+  /gemini/tasks:
+    post:
+      summary: Gemini task query API — retrieve the result of a Gemini video generation task by its ID.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Task ID.
+                  type:
+                    type: string
+                    description: Task type.
+                  api_id:
+                    type: string
+                    description: API Identifier.
+                  elapsed:
+                    type: number
+                    format: double
+                    minimum: 0
+                    nullable: true
+                    description: Processing duration (seconds).
+                  request:
+                    type: object
+                    description: Create the request body recorded for the API operation of this task;
+                      the fields depend on the specific operation and action.
+                    additionalProperties: true
+                  user_id:
+                    type: string
+                    description: The account to which the task belongs.
+                  response:
+                    type: object
+                    description: Create the final response recorded for the API operation of this task;
+                      the fields follow the structure of the success or error response in the operation
+                      documentation.
+                    additionalProperties: true
+                    properties:
+                      success:
+                        type: boolean
+                      task_id:
+                        type: string
+                      trace_id:
+                        type: string
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            video_url:
+                              type: string
+                            state:
+                              type: string
+                            duration:
+                              type: number
+                            aspect_ratio:
+                              type: string
+                            prompt:
+                              type: string
+                      cost:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                          list_amount:
+                            type: number
+                          currency:
+                            type: string
+                      error:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          message:
+                            type: string
+                  trace_id:
+                    type: string
+                    description: Request tracking ID.
+                  created_at:
+                    type: number
+                    format: double
+                    description: Task creation time, Unix timestamp (seconds).
+                  started_at:
+                    type: number
+                    format: double
+                    description: Process start time, Unix timestamp (seconds).
+                  finished_at:
+                    type: number
+                    format: double
+                    nullable: true
+                    description: Processing completion time, Unix timestamp (seconds).
+                  actor_user_id:
+                    type: string
+                    nullable: true
+                    description: The account for executing the authorization request.
+                  credential_id:
+                    type: string
+                    nullable: true
+                    description: Credentials used to start tasks.
+                  application_id:
+                    type: string
+                    description: Application for billing.
+                  authorization_id:
+                    type: string
+                    nullable: true
+                    description: Authorization used when starting the task.
+                  count:
+                    type: integer
+                    minimum: 0
+                    description: Total number of matching tasks.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - type
+                      - created_at
+                      - trace_id
+                      - request
+                      properties:
+                        id:
+                          type: string
+                          description: Task ID.
+                        type:
+                          type: string
+                          description: Task type.
+                        api_id:
+                          type: string
+                          description: API Identifier.
+                        elapsed:
+                          type: number
+                          format: double
+                          minimum: 0
+                          nullable: true
+                          description: Processing duration (seconds).
+                        request:
+                          type: object
+                          description: Create the request body recorded for the API operation of this
+                            task; the fields depend on the specific operation and action.
+                          additionalProperties: true
+                        user_id:
+                          type: string
+                          description: The account to which the task belongs.
+                        response:
+                          type: object
+                          description: Create the final response recorded for the API operation of this
+                            task; the fields follow the structure of the success or error response in
+                            the operation documentation.
+                          additionalProperties: true
+                          properties:
+                            success:
+                              type: boolean
+                            task_id:
+                              type: string
+                            trace_id:
+                              type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  video_url:
+                                    type: string
+                                  state:
+                                    type: string
+                                  duration:
+                                    type: number
+                                  aspect_ratio:
+                                    type: string
+                                  prompt:
+                                    type: string
+                            cost:
+                              type: object
+                              properties:
+                                amount:
+                                  type: number
+                                list_amount:
+                                  type: number
+                                currency:
+                                  type: string
+                            error:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                message:
+                                  type: string
+                        trace_id:
+                          type: string
+                          description: Request tracking ID.
+                        created_at:
+                          type: number
+                          format: double
+                          description: Task creation time, Unix timestamp (seconds).
+                        started_at:
+                          type: number
+                          format: double
+                          description: Process start time, Unix timestamp (seconds).
+                        finished_at:
+                          type: number
+                          format: double
+                          nullable: true
+                          description: Processing completion time, Unix timestamp (seconds).
+                        actor_user_id:
+                          type: string
+                          nullable: true
+                          description: The account for executing the authorization request.
+                        credential_id:
+                          type: string
+                          nullable: true
+                          description: Credentials used to start tasks.
+                        application_id:
+                          type: string
+                          description: Application for billing.
+                        authorization_id:
+                          type: string
+                          nullable: true
+                          description: Authorization used when starting the task.
+                    description: Matching task list.
+          description: Operation executed successfully.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Request error, possibly due to missing or invalid parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Unauthorized, authorization token is invalid or missing.
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Response error code.
+                      message:
+                        type: string
+                        description: Error message of the response.
+                  trace_id:
+                    type: string
+                    description: The tracking ID for this request.
+          description: Internal server error, an exception occurred on the server.
+      parameters:
+      - in: header
+        name: accept
+        schema:
+          enum:
+          - application/json
+          type: string
+        required: false
+        description: Specify the response format returned by the server.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      operationId: getTaskResults
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Gemini task ID.
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  description: List of IDs for Gemini tasks.
+                action:
+                  enum:
+                  - retrieve
+                  - retrieve_batch
+                  type: string
+                  default: retrieve
+                  description: Operation type. Use `retrieve` to get a single task, and use `retrieve_batch`
+                    to batch retrieve multiple tasks.
+        required: true
+      description: 'Gemini task query API — retrieve the result of a Gemini video generation task by its
+        ID. Full input requirements: https://platform.acedata.cloud/documents/gemini-tasks A non-null
+        response can be a progress snapshot. Require terminal success and a non-empty primary media URL
+        or content, not just a cover image or an empty data array.'
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/gemini-tasks

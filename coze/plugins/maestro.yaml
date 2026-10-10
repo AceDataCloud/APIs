@@ -1,0 +1,731 @@
+openapi: 3.0.1
+info:
+  title: Maestro
+  version: 2.0.0
+  description: 'Produce an end-to-end video from a creative brief with visual style, narration and language
+    controls. Retrieve the task to get the finished video. Bind your own Ace Data Cloud credential privately
+    as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
+    chat or shared examples. Start: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5?from=coze'
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /maestro/tasks:
+    post:
+      summary: Maestro Task Query API
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  required:
+                  - id
+                  - type
+                  - created_at
+                  - trace_id
+                  - request
+                  properties:
+                    id:
+                      type: string
+                      description: Task ID.
+                    type:
+                      type: string
+                      description: Task type.
+                    api_id:
+                      type: string
+                      description: API Identifier.
+                    elapsed:
+                      type: number
+                      format: double
+                      minimum: 0
+                      nullable: true
+                      description: Processing duration (seconds).
+                    request:
+                      type: object
+                      description: Create the request body recorded for the API operation of this task;
+                        the fields depend on the specific operation and action.
+                      additionalProperties: true
+                    user_id:
+                      type: string
+                      description: The account to which the task belongs.
+                    response:
+                      type: object
+                      description: Create the final response recorded for the API operation of this task;
+                        the fields follow the structure of successful or error responses in the operation
+                        documentation.
+                      additionalProperties: true
+                    trace_id:
+                      type: string
+                      description: Request tracking ID.
+                    created_at:
+                      type: number
+                      format: double
+                      description: Task creation time, Unix timestamp (seconds).
+                    started_at:
+                      type: number
+                      format: double
+                      description: Process start time, Unix timestamp (seconds).
+                    finished_at:
+                      type: number
+                      format: double
+                      nullable: true
+                      description: Processing completion time, Unix timestamp (seconds).
+                    actor_user_id:
+                      type: string
+                      nullable: true
+                      description: Account for executing the authorization request.
+                    credential_id:
+                      type: string
+                      nullable: true
+                      description: Credentials used to start tasks.
+                    application_id:
+                      type: string
+                      description: Application for billing.
+                    authorization_id:
+                      type: string
+                      nullable: true
+                      description: Authorization used when starting the task.
+                - type: object
+                  required:
+                  - items
+                  - count
+                  properties:
+                    count:
+                      type: integer
+                      minimum: 0
+                      description: Total number of matching tasks.
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - id
+                        - type
+                        - created_at
+                        - trace_id
+                        - request
+                        properties:
+                          id:
+                            type: string
+                            description: Task ID.
+                          type:
+                            type: string
+                            description: Task type.
+                          api_id:
+                            type: string
+                            description: API Identifier.
+                          elapsed:
+                            type: number
+                            format: double
+                            minimum: 0
+                            nullable: true
+                            description: Processing duration (seconds).
+                          request:
+                            type: object
+                            description: Create the request body recorded for the API operation of this
+                              task; the fields depend on the specific operation and action.
+                            additionalProperties: true
+                          user_id:
+                            type: string
+                            description: The account to which the task belongs.
+                          response:
+                            type: object
+                            description: Create the final response recorded for the API operation of this
+                              task; the fields follow the structure of successful or error responses in
+                              the operation documentation.
+                            additionalProperties: true
+                          trace_id:
+                            type: string
+                            description: Request tracking ID.
+                          created_at:
+                            type: number
+                            format: double
+                            description: Task creation time, Unix timestamp (seconds).
+                          started_at:
+                            type: number
+                            format: double
+                            description: Process start time, Unix timestamp (seconds).
+                          finished_at:
+                            type: number
+                            format: double
+                            nullable: true
+                            description: Processing completion time, Unix timestamp (seconds).
+                          actor_user_id:
+                            type: string
+                            nullable: true
+                            description: Account for executing the authorization request.
+                          credential_id:
+                            type: string
+                            nullable: true
+                            description: Credentials used to start tasks.
+                          application_id:
+                            type: string
+                            description: Application for billing.
+                          authorization_id:
+                            type: string
+                            nullable: true
+                            description: Authorization used when starting the task.
+                      description: Matching task list.
+                - type: object
+                  description: Return when the requested task does not exist.
+                  additionalProperties: false
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Task ID.
+                  type:
+                    type: string
+                    description: Task type.
+                  api_id:
+                    type: string
+                    description: API Identifier.
+                  elapsed:
+                    type: number
+                    format: double
+                    minimum: 0
+                    nullable: true
+                    description: Processing duration (seconds).
+                  request:
+                    type: object
+                    description: Create the request body recorded for the API operation of this task;
+                      the fields depend on the specific operation and action.
+                    additionalProperties: true
+                  user_id:
+                    type: string
+                    description: The account to which the task belongs.
+                  response:
+                    type: object
+                    description: Create the final response recorded for the API operation of this task;
+                      the fields follow the structure of successful or error responses in the operation
+                      documentation.
+                    additionalProperties: true
+                  trace_id:
+                    type: string
+                    description: Request tracking ID.
+                  created_at:
+                    type: number
+                    format: double
+                    description: Task creation time, Unix timestamp (seconds).
+                  started_at:
+                    type: number
+                    format: double
+                    description: Process start time, Unix timestamp (seconds).
+                  finished_at:
+                    type: number
+                    format: double
+                    nullable: true
+                    description: Processing completion time, Unix timestamp (seconds).
+                  actor_user_id:
+                    type: string
+                    nullable: true
+                    description: Account for executing the authorization request.
+                  credential_id:
+                    type: string
+                    nullable: true
+                    description: Credentials used to start tasks.
+                  application_id:
+                    type: string
+                    description: Application for billing.
+                  authorization_id:
+                    type: string
+                    nullable: true
+                    description: Authorization used when starting the task.
+                  count:
+                    type: integer
+                    minimum: 0
+                    description: Total number of matching tasks.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - type
+                      - created_at
+                      - trace_id
+                      - request
+                      properties:
+                        id:
+                          type: string
+                          description: Task ID.
+                        type:
+                          type: string
+                          description: Task type.
+                        api_id:
+                          type: string
+                          description: API Identifier.
+                        elapsed:
+                          type: number
+                          format: double
+                          minimum: 0
+                          nullable: true
+                          description: Processing duration (seconds).
+                        request:
+                          type: object
+                          description: Create the request body recorded for the API operation of this
+                            task; the fields depend on the specific operation and action.
+                          additionalProperties: true
+                        user_id:
+                          type: string
+                          description: The account to which the task belongs.
+                        response:
+                          type: object
+                          description: Create the final response recorded for the API operation of this
+                            task; the fields follow the structure of successful or error responses in
+                            the operation documentation.
+                          additionalProperties: true
+                        trace_id:
+                          type: string
+                          description: Request tracking ID.
+                        created_at:
+                          type: number
+                          format: double
+                          description: Task creation time, Unix timestamp (seconds).
+                        started_at:
+                          type: number
+                          format: double
+                          description: Process start time, Unix timestamp (seconds).
+                        finished_at:
+                          type: number
+                          format: double
+                          nullable: true
+                          description: Processing completion time, Unix timestamp (seconds).
+                        actor_user_id:
+                          type: string
+                          nullable: true
+                          description: Account for executing the authorization request.
+                        credential_id:
+                          type: string
+                          nullable: true
+                          description: Credentials used to start tasks.
+                        application_id:
+                          type: string
+                          description: Application for billing.
+                        authorization_id:
+                          type: string
+                          nullable: true
+                          description: Authorization used when starting the task.
+                    description: Matching task list.
+          description: Task status and (completion time) results.
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - trace_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        description: Stable machine-readable error codes.
+                      message:
+                        type: string
+                        description: Human-readable error message.
+                  trace_id:
+                    type: string
+                    description: Request for support and diagnostic tracking ID.
+          description: Unauthorized.
+      description: 'Retrieve the status and results of the job created by POST /maestro/videos. Polling
+        is free. Full input requirements: https://platform.acedata.cloud/documents/maestro-tasks Maestro
+        completion is status=succeeded with response.success=true and response.data.variants[].output_url.
+        A non-null response can be a progress snapshot. Require terminal success and a non-empty primary
+        media URL or content, not just a cover image or an empty data array.'
+      operationId: getTaskResults
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                title: Query a single task
+                required:
+                - id
+                properties:
+                  id:
+                    type: string
+                    description: The task_id returned by POST /maestro/videos.
+                  action:
+                    enum:
+                    - retrieve
+                    type: string
+                    default: retrieve
+                    description: Fixed as `retrieve`; when omitted, it defaults to querying a single task.
+              - type: object
+                title: Query historical task list
+                required:
+                - action
+                properties:
+                  limit:
+                    type: integer
+                    default: 20
+                    maximum: 100
+                    minimum: 1
+                    description: Maximum number of tasks to return. Default is 20; valid range is 1–100.
+                  action:
+                    enum:
+                    - retrieve_batch
+                    type: string
+                    description: Fixed as `retrieve_batch`; returns the historical tasks of the currently
+                      logged-in executor.
+                  created_at_max:
+                    type: integer
+                    format: int64
+                    description: Only return tasks whose creation time is strictly earlier than this Unix
+                      timestamp (in seconds). The boundary value is not included in the results.
+                  created_at_min:
+                    type: integer
+                    format: int64
+                    description: Only return tasks whose creation time is strictly later than this Unix
+                      timestamp (in seconds). The boundary value is not included in the results.
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: The task_id returned by POST /maestro/videos.
+                action:
+                  enum:
+                  - retrieve
+                  - retrieve_batch
+                  type: string
+                  default: retrieve
+                  description: Fixed as `retrieve`; when omitted, it defaults to querying a single task.
+                limit:
+                  type: integer
+                  default: 20
+                  maximum: 100
+                  minimum: 1
+                  description: Maximum number of tasks to return. Default is 20; valid range is 1–100.
+                created_at_max:
+                  type: integer
+                  format: int64
+                  description: Only return tasks whose creation time is strictly earlier than this Unix
+                    timestamp (in seconds). The boundary value is not included in the results.
+                created_at_min:
+                  type: integer
+                  format: int64
+                  description: Only return tasks whose creation time is strictly later than this Unix
+                    timestamp (in seconds). The boundary value is not included in the results.
+        required: true
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/maestro-tasks
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+  /maestro/videos:
+    post:
+      summary: Maestro Video Generation API
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - task_id
+                - trace_id
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                    description: Use this with POST /maestro/tasks.
+                  trace_id:
+                    type: string
+          description: Job created; poll POST /maestro/tasks with the task_id.
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - detail
+                properties:
+                  detail:
+                    type: string
+                    description: Human-readable error detail.
+          description: Bad request (missing prompt or invalid fields).
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - trace_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        description: Stable machine-readable error code.
+                      message:
+                        type: string
+                        description: Human-readable error message.
+                  trace_id:
+                    type: string
+                    description: Request trace ID for support and diagnostics.
+          description: Unauthorized (missing or invalid token).
+        '403':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  required:
+                  - error
+                  - trace_id
+                  properties:
+                    error:
+                      type: object
+                      required:
+                      - code
+                      - message
+                      properties:
+                        code:
+                          type: string
+                          description: Stable machine-readable error code.
+                        message:
+                          type: string
+                          description: Human-readable error message.
+                    trace_id:
+                      type: string
+                      description: Request trace ID for support and diagnostics.
+                - type: object
+                  required:
+                  - detail
+                  properties:
+                    detail:
+                      type: string
+                      description: Human-readable error detail.
+                type: object
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        description: Stable machine-readable error code.
+                      message:
+                        type: string
+                        description: Human-readable error message.
+                  trace_id:
+                    type: string
+                    description: Request trace ID for support and diagnostics.
+                  detail:
+                    type: string
+                    description: Human-readable error detail.
+          description: Forbidden (insufficient balance, restricted access, or private option).
+        '429':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - trace_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        description: Stable machine-readable error code.
+                      message:
+                        type: string
+                        description: Human-readable error message.
+                  trace_id:
+                    type: string
+                    description: Request trace ID for support and diagnostics.
+          description: Too many requests.
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - trace_id
+                properties:
+                  error:
+                    type: object
+                    required:
+                    - code
+                    - message
+                    properties:
+                      code:
+                        type: string
+                        description: Stable machine-readable error code.
+                      message:
+                        type: string
+                        description: Human-readable error message.
+                  trace_id:
+                    type: string
+                    description: Request trace ID for support and diagnostics.
+          description: Internal error.
+      description: 'Maestro is an agent-native video producer: describe the video you want in `prompt`
+        (optionally attaching reference images/videos/audio via `file_urls`) and a headless creative director
+        plans, generates the assets (images, voiceover, music, clips), composes and renders a finished,
+        captioned video. This is an async job — it returns a `task_id` immediately; poll `POST /maestro/tasks`
+        for the result, or supply `callback_url`. Use `action: remix` / `edit` / `extend` with `ref_task_id`
+        to iterate on a previous video. Full input requirements: https://platform.acedata.cloud/documents/maestro-videos'
+      operationId: generateVideo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - prompt
+              properties:
+                langs:
+                  type: array
+                  items:
+                    type: string
+                  default:
+                  - zh-cn
+                  maxItems: 4
+                  description: Output languages, up to 4. The first is primary; each additional delivered
+                    language is billed +6 credits.
+                style:
+                  enum:
+                  - auto
+                  - cinematic
+                  - glass
+                  - luxury
+                  - swiss
+                  - modern
+                  - editorial
+                  - warm
+                  - vibrant
+                  - neon
+                  - mono
+                  - pastel
+                  - bold
+                  - industrial
+                  - futuristic
+                  - retro
+                  type: string
+                  default: auto
+                  description: 'Optional visual-style preset — expressed through typography, palette,
+                    motion, image treatment and pacing. Orthogonal to `scenario` (it does NOT change routing).
+                    `auto` (default) lets the director pick; every other value adopts a real named look:
+                    `cinematic` = dark film-noir (black + blood-red, Oswald); `glass` = Apple / iOS-26
+                    frosted liquid glass; `luxury` = timeless near-black + indigo, huge whitespace; `swiss`
+                    = precise grid + electric blue + oversized numerals; `modern` = clean light SaaS;
+                    `editorial` = cream magazine + serif; `warm` = intimate cream + amber; `vibrant` =
+                    festive folk colour; `neon` = electric neon glow; `mono` = grayscale, type-led; `pastel`
+                    = soft candy pastels; `bold` = huge poster type; `industrial` = raw glitch + rust;
+                    `futuristic` = particle glow. A freeform string is also accepted as a soft hint.'
+                voice:
+                  enum:
+                  - auto
+                  - warm-female
+                  - bright-female
+                  - anchor-female
+                  - clean-female
+                  - calm-male
+                  - deep-male
+                  - documentary-male
+                  - energetic-male
+                  - storyteller-male
+                  type: string
+                  default: auto
+                  description: 'Optional narration voice — the **timbre** of the voiceover, independent
+                    of language. `auto` (default) lets the director pick a fitting voice. Every preset
+                    is cross-lingual: the same voice speaks whatever language(s) you set in `langs`, so
+                    choose purely by character — `warm-female`, `bright-female`, `anchor-female`, `clean-female`,
+                    `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`.
+                    Advanced: a raw 32-character Fish `reference_id` is also accepted. For `drama` / `avatar`
+                    this sets the primary / narrator timbre; distinct characters may still get their own.'
+                action:
+                  enum:
+                  - generate
+                  - remix
+                  - edit
+                  - extend
+                  type: string
+                  default: generate
+                  description: Production action. generate creates a new video; remix/edit/extend require
+                    ref_task_id.
+                aspect:
+                  enum:
+                  - '9:16'
+                  - '16:9'
+                  - '1:1'
+                  type: string
+                  default: '9:16'
+                  description: Required output aspect ratio. All videos render at 1080p/30fps.
+                prompt:
+                  type: string
+                  description: Natural-language brief describing the video to produce (the topic, what
+                    to show, tone, audience). The agent decides the script, visuals, voiceover and edit.
+                duration:
+                  type: integer
+                  default: 30
+                  maximum: 300
+                  minimum: 5
+                  description: Target video length in seconds, from 5 to 300. Successful jobs are billed
+                    by actual delivered duration, never above the requested duration.
+                scenario:
+                  enum:
+                  - auto
+                  - narrated
+                  - captions
+                  - avatar
+                  - drama
+                  type: string
+                  default: auto
+                  description: 'Production route: auto, narrated, captions, avatar, or drama. captions
+                    requires source video in file_urls; avatar requires a portrait. avatar bills at 1.15×
+                    and drama at 1.35×.'
+                file_urls:
+                  type: array
+                  items:
+                    type: string
+                  maxItems: 20
+                  description: Optional reference media (image / video / audio URLs) the agent can use
+                    — e.g. a product shot or logo to feature, footage to caption.
+                ref_task_id:
+                  type: string
+                  description: 'Required when `action` is remix / edit / extend: the task_id of the previous
+                    video to start from.'
+                callback_url:
+                  type: string
+                  description: Optional. Fired with the result when the task reaches a terminal state
+                    (succeeded / failed).
+        required: true
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/maestro-videos
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string

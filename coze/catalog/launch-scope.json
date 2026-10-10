@@ -1,0 +1,13 @@
+{
+  "excluded_types": [
+    "Dataset"
+  ],
+  "excluded_service_keys": [
+    "aichat",
+    "digitalhuman",
+    "dreamina"
+  ],
+  "scene_agents_in_launch": false,
+  "naming": "Service names with spaces, no AceData prefix and no underscores. CAPTCHA services use Resolver.",
+  "icon_policy": "Use official brand imagery at full frame. Custom utility icons may be generated with GPT Image when requested."
+}

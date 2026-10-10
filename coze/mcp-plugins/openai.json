@@ -1,0 +1,38 @@
+{
+  "name": "OpenAI",
+  "brief": "Chat, images, responses and embeddings",
+  "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.",
+  "icon": "icons/openai.png",
+  "plugin_type": "MCP",
+  "server_url": "https://openai.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "openai_text_to_speech",
+    "openai_transcribe_audio",
+    "openai_chat_completion",
+    "openai_create_embedding",
+    "openai_generate_image",
+    "openai_edit_image",
+    "openai_get_models",
+    "openai_get_realtime_connection_info",
+    "openai_list_chat_models",
+    "openai_list_image_models",
+    "openai_list_embedding_models",
+    "openai_get_usage_guide",
+    "openai_create_response",
+    "openai_get_task",
+    "openai_list_tasks"
+  ],
+  "expected_tool_count": 15,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}
