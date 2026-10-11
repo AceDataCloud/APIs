@@ -26,7 +26,7 @@ Keep tokens outside source control and never expose them in client-side code or 
 | `action` | string | no | `generate` | `generate`, `remix`, `edit`, or `extend` |
 | `ref_task_id` | string | conditional | - | Required when `action` is `remix`, `edit`, or `extend` |
 | `file_urls` | string[] | no | - | Public image, video, or audio references |
-| `langs` | string[] | no | `["zh-cn"]` | Output language codes; the first item is primary |
+| `langs` | string[] | no | `["zh-cn"]` | Exactly one output language code per task, such as `["en"]` |
 | `aspect` | string | no | `9:16` | `9:16`, `16:9`, or `1:1` |
 | `duration` | integer | no | `30` | Target length in seconds, from 5 through 300 |
 | `scenario` | string | no | `auto` | `auto`, `narrated`, `captions`, `avatar`, or `drama` |
@@ -45,7 +45,7 @@ Every non-`generate` action requires `ref_task_id` and creates a new task ID.
 
 ### Production contract
 
-Every request uses the complete production capability: all actions and scenarios, 5–300 seconds, up to 4 languages, and 1080p/30fps output. The base price is 0.60 Credits per delivered second. Avatar uses a 1.15× multiplier, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks and polling are free.
+Every request uses the complete production capability: all actions and scenarios, 5–300 seconds, exactly one output language, and 1080p/30fps output. Successful tasks cost 0.7 Credits per actual delivered second, with no scenario multipliers or language surcharges. Failed tasks and polling are free.
 
 
 ### Scenarios
@@ -54,7 +54,7 @@ Every request uses the complete production capability: all actions and scenarios
 - `narrated`: multi-scene explainer, documentary, brand, history, or product video.
 - `captions`: add kinetic captions to a source video supplied in `file_urls`.
 - `avatar`: talking-head or digital-human production. Supply a usable portrait in `file_urls`.
-- `drama`: character and dialogue-driven short drama; Pro is required.
+- `drama`: character and dialogue-driven short drama.
 
 ### Styles and Voices
 
@@ -66,7 +66,7 @@ Voice presets include:
 - `warm-female`, `bright-female`, `anchor-female`, `clean-female`
 - `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`
 
-Voice controls timbre, not language. One preset can speak each language in `langs`. Advanced callers may pass a 32-hex-character Fish `reference_id` instead of a preset.
+Voice controls timbre, not language. One preset can speak the language selected in `langs`. Advanced callers may pass a 32-hex-character Fish `reference_id` instead of a preset.
 
 ## Create a Video
 
@@ -80,7 +80,7 @@ curl --request POST 'https://api.acedata.cloud/maestro/videos' \
       "https://example.com/product.jpg",
       "https://example.com/logo.png"
     ],
-    "langs": ["en", "de"],
+    "langs": ["en"],
     "aspect": "16:9",
     "duration": 45,
     "scenario": "narrated",
@@ -105,7 +105,7 @@ response = requests.post(
     json={
         "prompt": "Create a concise product launch video for first-time customers.",
         "file_urls": ["https://example.com/product.jpg"],
-        "langs": ["en", "de"],
+        "langs": ["en"],
         "aspect": "16:9",
         "duration": 45,
             "scenario": "narrated",
@@ -136,20 +136,20 @@ An accepted task is not a completed video. Poll the returned task ID before pres
 
 `file_urls` accepts public image, video, and audio URLs. Typical uses include product photos, logos, portrait references, source footage, and reference audio. Local paths are not accessible to the service; upload local files to public storage first.
 
-## Multilingual Production
+## Output Language
 
-Pass several language codes in `langs`:
+Each task delivers one finished video in one language. When supplied, `langs` must contain exactly one language code; omitting it defaults to `["zh-cn"]`. Multiple languages return HTTP 400. Create separate tasks for different language versions; language selection does not change the per-second price.
 
 ```json
 {
   "prompt": "Explain the three main benefits of our customer-support product.",
-  "langs": ["zh-cn", "en", "ja"],
+  "langs": ["en"],
   "aspect": "16:9",
   "duration": 30
 }
 ```
 
-Successful output is represented by delivered items in `response.data.variants`. Inspect the actual variants instead of assuming every requested language was produced.
+Successful output contains one finished video in `response.data.variants`. Read the actual `output_url` from that array.
 
 ## Remix, Edit, or Extend
 
@@ -168,11 +168,20 @@ The response contains a new `task_id`. Retrieve that new task for the revised ou
 
 ## Billing
 
-Maestro settles a successful job from the delivered integer-second duration: `duration × 0.60 × scenario multiplier + language surcharge`. There is no 30-second minimum. Avatar uses 1.15×, drama uses 1.35×, and each additional delivered language adds 6 Credits. Failed tasks are not charged, and polling `POST /maestro/tasks` is free. Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
+Maestro settles a successful job at `billed seconds × 0.7 Credits`. Billed duration is measured in integer seconds and never exceeds the requested duration; if the output duration cannot be read, billing falls back to the requested duration. There is no 30-second minimum, scenario multiplier, or language surcharge. Submission has no separate charge, failed tasks are not charged, and polling `POST /maestro/tasks` is free.
+
+| Billed duration | Credits |
+|---|---:|
+| 30 seconds | 21 |
+| 60 seconds | 42 |
+| 120 seconds | 84 |
+| 300 seconds | 210 |
+
+Consult [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) before estimating cost.
 
 ## Errors
 
-Field validation is performed by the Maestro service. A missing `prompt`, an invalid `action`, a `remix`/`edit`/`extend` without `ref_task_id`, a non-list `file_urls`, or an invalid `voice` returns HTTP 400 with a plain `detail` message:
+Field validation is performed by the Maestro service. A missing `prompt`, an invalid `action`, a `remix`/`edit`/`extend` without `ref_task_id`, multiple languages in `langs`, a non-list `file_urls`, or an invalid `voice` returns HTTP 400 with a plain `detail` message:
 
 ```json
 {
@@ -196,4 +205,4 @@ Relevant gateway codes include `bad_request`, `no_token`, `invalid_token`, `toke
 
 ## Next Step
 
-Use the [Maestro Tasks API guide](maestro_tasks_api_integration_guide.md) to retrieve progress and finished variants.
+Use the [Maestro Tasks API guide](maestro_tasks_api_integration_guide.md) to retrieve progress and the finished video.
