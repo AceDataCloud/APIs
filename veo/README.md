@@ -6,7 +6,7 @@ Veo AI video generation service with text and image input.
 
 ![Veo Video Generation](https://cdn.acedata.cloud/v5cb22.jpg)
 
-API home page: [Ace Data Cloud - Veo Video Generation](https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_service_veo)
+API home page: [Ace Data Cloud - Veo Video Generation](https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_services_73cd74ba_a1bd_4a12_8df6_11d64c38df14)
 
 Keywords: veo-api, ai-video, video-generation, google-veo, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -1011,8 +1011,8 @@ print(response.json())</pre>
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Veo Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_service_veo)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Veo Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/73cd74ba-a1bd-4a12-8df6-11d64c38df14?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_services_73cd74ba_a1bd_4a12_8df6_11d64c38df14)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/veo/videos" \
@@ -1037,10 +1037,10 @@ Explore the supported endpoints and integration guides for Veo Video Generation.
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=veo_api_readme_documents).

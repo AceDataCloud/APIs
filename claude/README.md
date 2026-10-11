@@ -4,7 +4,7 @@ Anthropic Claude generative services, including chat completions and native mess
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_service_claude)
+API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_services_fa3cba27_b01c_4657_942f_63589f727b00)
 
 Keywords: claude-api, anthropic, claude-opus-5-5, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -42,8 +42,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Claude on Ace Data Cloud](https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_service_claude)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Claude on Ace Data Cloud](https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_services_fa3cba27_b01c_4657_942f_63589f727b00)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/v1/chat/completions" \

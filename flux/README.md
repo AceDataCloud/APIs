@@ -26,7 +26,7 @@ Flux AI image generation service.
 
 ![Flux Image Generation](https://cdn.acedata.cloud/cdfv2n.jpg)
 
-API home page: [Ace Data Cloud - Flux Image Generation](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_service_flux)
+API home page: [Ace Data Cloud - Flux Image Generation](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_services_e8ebe055_429a_48e9_9d34_5089eae5fd89)
 
 Keywords: flux-api, ai-image, image-generation, black-forest-labs, rest-api, ai-api, aiimage, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -755,8 +755,8 @@ html.dark .flux-page code { background: #2e1065 !important; color: #c4b5fd !impo
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Flux Image Generation on Ace Data Cloud](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_service_flux)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Flux Image Generation on Ace Data Cloud](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_services_e8ebe055_429a_48e9_9d34_5089eae5fd89)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/flux/images" \
@@ -777,10 +777,10 @@ Explore the supported endpoints and integration guides for Flux Image Generation
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents).

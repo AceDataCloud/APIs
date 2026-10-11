@@ -4,7 +4,7 @@ GLM (General Language Model) generative services by Zhipu AI, including chat com
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - GLM](https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=glm_api_readme_service_glm)
+API home page: [Ace Data Cloud - GLM](https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=glm_api_readme_services_0c5b6cb3_79a7_473f_844f_7821553f2ca7)
 
 Keywords: glm-api, glm-5.2, glm-5.1, glm-4.7, chat-completions, zhipu-ai, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -42,8 +42,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [GLM on Ace Data Cloud](https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=glm_api_readme_service_glm)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [GLM on Ace Data Cloud](https://platform.acedata.cloud/services/0c5b6cb3-79a7-473f-844f-7821553f2ca7?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=glm_api_readme_services_0c5b6cb3_79a7_473f_844f_7821553f2ca7)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=glm_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/glm/chat/completions" \

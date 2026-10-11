@@ -4,7 +4,7 @@ Google Gemini generative services, including chat completions and native generat
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_service_gemini)
+API home page: [Ace Data Cloud - Gemini](https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_services_dda998fe_e11f_41b8_afa9_0a9b8420d60d)
 
 Keywords: gemini-api, google-gemini, gemini-3.6-flash, gemini-3.1-pro, gemini-3.5-flash, chat-completions, generate-content, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -42,8 +42,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Gemini on Ace Data Cloud](https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_service_gemini)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Gemini on Ace Data Cloud](https://platform.acedata.cloud/services/dda998fe-e11f-41b8-afa9-0a9b8420d60d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_services_dda998fe_e11f_41b8_afa9_0a9b8420d60d)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=gemini_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/gemini/chat/completions" \

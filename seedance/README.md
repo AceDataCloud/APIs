@@ -4,7 +4,7 @@ ByteDance Seedance AI video generation service with text, image, audio, and vide
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Seedance Video Generation](https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_service_seedance)
+API home page: [Ace Data Cloud - Seedance Video Generation](https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_services_762c5fd0_a81e_4c59_b9fe_16bcffad7d4a)
 
 Keywords: seedance-api, ai-video, video-generation, bytedance, doubao, text-to-video, image-to-video, reference-audio, reference-video, real-person-reference, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -46,8 +46,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Seedance Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_service_seedance)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Seedance Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_services_762c5fd0_a81e_4c59_b9fe_16bcffad7d4a)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/seedance/videos" \
@@ -91,10 +91,10 @@ Explore the supported endpoints and integration guides for Seedance Video Genera
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedance_api_readme_documents)

@@ -24,7 +24,7 @@ Suno AI music and lyrics generation service.
 
 ![Suno Music Generation](https://cdn.acedata.cloud/20240403-192358.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Suno Music Generation](https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_service_suno)
+API home page: [Ace Data Cloud - Suno Music Generation](https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_services_f2b646d8_3cfd_46ef_969a_1ea9eebde329)
 
 Keywords: suno-api, ai-music, music-generation, lyrics-generation, rest-api, ai-api, aiaudio, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -1141,8 +1141,8 @@ Integrate Suno AI music generation capabilities into your application through a 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Suno Music Generation on Ace Data Cloud](https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_service_suno)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Suno Music Generation on Ace Data Cloud](https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_services_f2b646d8_3cfd_46ef_969a_1ea9eebde329)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/suno/audios" \
@@ -1174,10 +1174,10 @@ Explore the supported endpoints and integration guides for Suno Music Generation
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=suno_api_readme_documents).

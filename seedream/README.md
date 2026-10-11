@@ -2,7 +2,7 @@
 
 ByteDance Seedream AI image generation & editing service.
 
-API home page: [Ace Data Cloud - Seedream Image Generation](https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedream_api_readme_service_seedream)
+API home page: [Ace Data Cloud - Seedream Image Generation](https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedream_api_readme_services_a0a296f0_22de_422b_943d_1c623a73b8dd)
 
 Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, doubao, seededit, text-to-image, rest-api, Ace Data Cloud
 
@@ -61,4 +61,4 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedream_api_readme_platform)
-- [Docs](https://docs.acedata.cloud) · [Status](https://status.acedata.cloud) · [GitHub Org](https://github.com/AceDataCloud)
+- [Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=seedream_api_readme_documents) · [Status](https://status.acedata.cloud) · [GitHub Org](https://github.com/AceDataCloud)

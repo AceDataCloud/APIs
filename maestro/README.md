@@ -97,7 +97,7 @@ Task polling and history retrieval do not consume credits. Successful video jobs
 
 - [Maestro in Ace Data Cloud Studio](https://studio.acedata.cloud/maestro?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=maestro_api_readme_maestro)
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=maestro_api_readme_platform)
-- [Ace Data Cloud documentation](https://docs.acedata.cloud)
+- [Ace Data Cloud documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=maestro_api_readme_documents)
 - [Service status](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub organization](https://github.com/AceDataCloud)
 

@@ -6,7 +6,7 @@ OpenAI generative services, including text, images, video, and other generation.
 
 ![OpenAI generation](https://cdn.acedata.cloud/20240225-225340.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - OpenAI generation](https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_service_openai)
+API home page: [Ace Data Cloud - OpenAI generation](https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_services_06f2acb7_e4d4_43de_9909_76e27b4e2355)
 
 Keywords: openai-api, openai-compatible, chat-completions, rest-api, ai-api, developer-tools, aichat, aiimage, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -1114,8 +1114,8 @@ print(image.data[0].url)</pre>
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [OpenAI generation on Ace Data Cloud](https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_service_openai)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [OpenAI generation on Ace Data Cloud](https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_services_06f2acb7_e4d4_43de_9909_76e27b4e2355)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/openai/chat/completions" \
@@ -1139,10 +1139,10 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=openai_api_readme_documents).

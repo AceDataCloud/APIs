@@ -43,7 +43,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
 - Service page: [Kimi on Ace Data Cloud](https://platform.acedata.cloud/services/kimi?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kimi_api_readme_services_kimi)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kimi_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/kimi/chat/completions" \

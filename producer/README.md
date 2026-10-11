@@ -4,7 +4,7 @@ AI music generation service supporting songs, lyrics, covers, extensions, stem s
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Producer Music Generation](https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_service_producer)
+API home page: [Ace Data Cloud - Producer Music Generation](https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_services_864a7efd_c7a3_4ad8_b372_ba8d64cdeda8)
 
 Keywords: producer-api, ai-music, music-generation, song-generation, lyrics, cover, extend, stems, text-to-music, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -42,8 +42,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Producer Music Generation on Ace Data Cloud](https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_service_producer)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Producer Music Generation on Ace Data Cloud](https://platform.acedata.cloud/services/864a7efd-c7a3-4ad8-b372-ba8d64cdeda8?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_services_864a7efd_c7a3_4ad8_b372_ba8d64cdeda8)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/producer/audios" \
@@ -76,10 +76,10 @@ curl --request POST "https://api.acedata.cloud/producer/audios" \
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=producer_api_readme_documents)

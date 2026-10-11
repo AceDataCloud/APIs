@@ -43,7 +43,7 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
 - Service page: [AI Chat on Ace Data Cloud](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents_59fb1199_6694_4afb_a222_3554d7f7d05a)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/aichat/conversations" \
@@ -79,10 +79,10 @@ Repeated AI execution failures do not automatically pause a scheduled task: it w
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud)
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents)

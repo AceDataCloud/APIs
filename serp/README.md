@@ -6,7 +6,7 @@ Search Engine Results Page (SERP) related API.
 
 ![Search Engine](https://cdn.acedata.cloud/o5gj5l.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Search Engine](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_service_serp)
+API home page: [Ace Data Cloud - Search Engine](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_services_a9af5926_e8d8_4c5e_bdef_bbebf19cdbc3)
 
 Keywords: serp-api, web-search, google-search, search-api, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -822,8 +822,8 @@ for result in data["results"]:
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Search Engine on Ace Data Cloud](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_service_serp)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Search Engine on Ace Data Cloud](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_services_a9af5926_e8d8_4c5e_bdef_bbebf19cdbc3)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/serp/google" \
@@ -843,10 +843,10 @@ Explore the supported endpoints and integration guides for Search Engine.
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents).

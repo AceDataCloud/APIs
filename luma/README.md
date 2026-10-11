@@ -6,7 +6,7 @@ Luma AI video generation service with text and image input.
 
 ![Luma Video Generation](https://cdn.acedata.cloud/k4o0p2.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Luma Video Generation](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_service_luma)
+API home page: [Ace Data Cloud - Luma Video Generation](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_services_dff45a0d_2858_4936_8e2b_3d49c52aff11)
 
 Keywords: luma-ai, ai-video, video-generation, text-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -312,8 +312,8 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Luma Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_service_luma)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Luma Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_services_dff45a0d_2858_4936_8e2b_3d49c52aff11)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/luma/tasks" \
@@ -334,10 +334,10 @@ Explore the supported endpoints and integration guides for Luma Video Generation
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_platform)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=luma_api_readme_documents).

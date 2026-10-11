@@ -4,7 +4,7 @@ xAI Grok generative services, including chat completions.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=grok_api_readme_service_grok)
+API home page: [Ace Data Cloud - Grok](https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=grok_api_readme_services_cbfe0ade_0b4e_4c42_83f4_3e2d5b429545)
 
 Keywords: grok-api, xai-grok, grok-4.7, grok-4.5, grok-4, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -42,8 +42,8 @@ There is a free quota available for first-time applicants, allowing you to use t
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Grok on Ace Data Cloud](https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=grok_api_readme_service_grok)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Grok on Ace Data Cloud](https://platform.acedata.cloud/services/cbfe0ade-0b4e-4c42-83f4-3e2d5b429545?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=grok_api_readme_services_cbfe0ade_0b4e_4c42_83f4_3e2d5b429545)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=grok_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/grok/chat/completions" \

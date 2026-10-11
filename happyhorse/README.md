@@ -4,7 +4,7 @@ Generate and edit AI videos with Happy Horse through one Ace Data Cloud API.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20Video%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Happy Horse Video](https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_service_happyhorse)
+API home page: [Ace Data Cloud - Happy Horse Video](https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_services_9cd79226_f638_4979_9573_212328a65a31)
 
 Keywords: happy-horse-api, happyhorse-api, ai-video, video-generation, video-editing,
 text-to-video, image-to-video, reference-to-video, rest-api, ai-api, Ace Data Cloud
@@ -47,8 +47,8 @@ Save the key in the client's credential store or the environment variable shown 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Happy Horse Video on Ace Data Cloud](https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_service_happyhorse)
-- Developer docs: [docs.acedata.cloud](https://docs.acedata.cloud)
+- Service page: [Happy Horse Video on Ace Data Cloud](https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_services_9cd79226_f638_4979_9573_212328a65a31)
+- Developer docs: [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/happyhorse/videos" \
@@ -90,7 +90,7 @@ curl --request POST "https://api.acedata.cloud/happyhorse/tasks" \
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_platform)
-- [API Documentation](https://docs.acedata.cloud)
+- [API Documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=happyhorse_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
