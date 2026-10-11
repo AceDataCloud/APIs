@@ -1,6 +1,6 @@
 # Maestro AI Video Production API
 
-Maestro turns a natural-language brief and optional reference media into a finished video. Its AI director handles planning, scripting, visual assets, voiceover, music, editing, captions, quality checks, rendering, and multilingual variants.
+Maestro turns a natural-language brief and optional reference media into a finished video. Its AI director handles planning, scripting, visual assets, voiceover, music, editing, captions, quality checks, and rendering. Each task delivers one video in one selected language.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
@@ -13,7 +13,7 @@ Keywords: maestro-api, ai-video, video-production, prompt-to-video, article-to-v
 - Produce a complete video instead of a single model-generated shot
 - Create scripts, visuals, narration, music, captions, and edits in one asynchronous workflow
 - Attach public image, video, and audio references
-- Render localized variants from one production
+- Choose the output language; create separate tasks for different language versions
 - Remix, edit, or extend an earlier Maestro task
 - Use one Ace Data Cloud API token, billing system, and task history
 
@@ -77,7 +77,7 @@ POST /maestro/tasks  ->  pending/planning/producing  ->  succeeded or failed
                                              response.data.variants
 ```
 
-Task polling and history retrieval do not consume credits. Video jobs are settled after production from the output actually delivered; failed jobs are not charged. See [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) for current rates.
+Task polling and history retrieval do not consume credits. Successful video jobs cost 0.7 Credits per actual delivered second for every action, scenario, and language, with no multipliers or language surcharges; failed jobs are not charged. Billed duration is measured in integer seconds, never exceeds the requested duration, and falls back to the requested duration if the output duration cannot be read. A 30-second billed video costs 21 Credits. See [live Maestro pricing](https://platform.acedata.cloud/services/maestro?tab=pricing) for current rates.
 
 ## Related Resources
 
