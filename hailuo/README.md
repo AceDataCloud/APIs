@@ -4,9 +4,23 @@ Hailuo (MiniMax) AI video generation service with text and image input.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Hailuo Video Generation](https://platform.acedata.cloud/service/hailuo)
+API home page: [Ace Data Cloud - Hailuo Video Generation](https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_service_hailuo)
 
 Keywords: hailuo-api, minimax-api, ai-video, video-generation, text-to-video, image-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
+
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
 ## Why Use Hailuo Video Generation on Ace Data Cloud
 
@@ -23,7 +37,7 @@ The Hailuo Tasks API provides a way to query the execution status of video gener
 
 ## Application Process
 
-To use the Hailuo Videos Generation API, you can first visit the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) page and click the "Acquire" button to obtain the credentials needed for the request:
+To use the Hailuo Videos Generation API, you can first visit the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_documents_ee06377b_9185_438f_ac84_3376bcb1275e) page and click the "Acquire" button to obtain the credentials needed for the request:
 
 ![](https://cdn.acedata.cloud/q6ytrc.png)
 
@@ -76,7 +90,7 @@ After the call, the returned result is as follows:
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Hailuo Video Generation on Ace Data Cloud](https://platform.acedata.cloud/service/hailuo)
+- Service page: [Hailuo Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_service_hailuo)
 - Docs: [Developer documentation](https://docs.acedata.cloud)
 
 ```bash
@@ -92,16 +106,16 @@ Explore the supported endpoints and integration guides for Hailuo Video Generati
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) | `/hailuo/videos` | [Hailuo Videos Generation API Integration Guide](docs/hailuo_videos_api_integration_guide.md) |
-| [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04) | `/hailuo/tasks` | [Hailuo Tasks API Integration Guide](docs/hailuo_tasks_api_integration_guide.md) |
+| [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_documents_ee06377b_9185_438f_ac84_3376bcb1275e) | `/hailuo/videos` | [Hailuo Videos Generation API Integration Guide](docs/hailuo_videos_api_integration_guide.md) |
+| [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_documents_4b1ccdbc_b8ed_4171_9a14_48e10970ba04) | `/hailuo/tasks` | [Hailuo Tasks API Integration Guide](docs/hailuo_tasks_api_integration_guide.md) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_platform)
 - [Ace Data Cloud Docs](https://docs.acedata.cloud)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=hailuo_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
