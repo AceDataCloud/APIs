@@ -132,12 +132,12 @@
   },
   "openai": {
     "name": "OpenAI",
-    "brief": "Chat, images, responses and embeddings",
+    "brief": "Chat, images, Responses and task results",
     "description": "Use text chat and Responses, generate or edit images, and retrieve image tasks. Embeddings are disabled in the submitted store version.",
     "scenarios": [
       "Draft campaign copy",
-      "create a product image",
-      "build a document search workflow."
+      "generate or edit an image",
+      "retrieve an existing image task."
     ],
     "icon": "icons/openai.png",
     "category": "Productivity",
@@ -491,12 +491,12 @@
   },
   "localization": {
     "name": "Localization",
-    "brief": "Translate structured localization files",
+    "brief": "Translate Markdown and plain text",
     "description": "Translate Markdown or plain text into a target locale. JSON-object translation is not enabled in the submitted store version.",
     "scenarios": [
-      "Translate application strings",
-      "localize structured copy",
-      "prepare a second-language resource file."
+      "Translate a Markdown guide",
+      "localize a plain-text paragraph",
+      "review a translated article."
     ],
     "icon": "icons/localization.png",
     "category": "Tools",
@@ -510,12 +510,12 @@
   },
   "fish": {
     "name": "Fish",
-    "brief": "Text to speech and authorized voice tools",
+    "brief": "Speech, task results and saved voices",
     "description": "Generate speech, retrieve speech tasks, list voices and read voice details. Custom voice creation is disabled in the submitted store version.",
     "scenarios": [
       "Narrate an article",
-      "create a product voiceover",
-      "use your own licensed voice reference."
+      "list available voices",
+      "retrieve an existing speech task."
     ],
     "icon": "icons/fish.png",
     "category": "Music",

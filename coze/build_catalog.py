@@ -25,6 +25,16 @@ STORE_DESCRIPTIONS = {
     'fish': 'Generate speech, retrieve speech tasks, list voices and read voice details. Custom voice creation is disabled in the submitted store version.',
     'openai': 'Use text chat and Responses, generate or edit images, and retrieve image tasks. Embeddings are disabled in the submitted store version.',
 }
+STORE_BRIEFS = {
+    'localization': 'Translate Markdown and plain text',
+    'fish': 'Speech, task results and saved voices',
+    'openai': 'Chat, images, Responses and task results',
+}
+STORE_SCENARIOS = {
+    'localization': ['Translate a Markdown guide', 'localize a plain-text paragraph', 'review a translated article.'],
+    'fish': ['Narrate an article', 'list available voices', 'retrieve an existing speech task.'],
+    'openai': ['Draft campaign copy', 'generate or edit an image', 'retrieve an existing image task.'],
+}
 
 
 def acquisition_url(url, key):
@@ -389,6 +399,8 @@ def main():
                 (ROOT/'image.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
         listing={k:row[k] for k in ['name','brief','description','scenarios','icon']}
         listing['description'] = STORE_DESCRIPTIONS.get(key, listing['description'])
+        listing['brief'] = STORE_BRIEFS.get(key, listing['brief'])
+        listing['scenarios'] = STORE_SCENARIOS.get(key, listing['scenarios'])
         listing['category']={'Chat':'Productivity','Video':'Video','Image':'Photography','Multimodal':'Productivity','Music':'Music','Audio':'Music','Search':'Web Search','Utility':'Tools','Avatar':'Video','Verification':'Tools'}[p['group']]
         listing['about']=listing['description']+'\n\n'+LISTING_AUTH+'\nGet started: '+start_url
         if key=='deepseek':listing['about']+=' Use a general key or an AI Dialogue key.'
