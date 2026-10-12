@@ -5,9 +5,21 @@ as plugins, so your Coze bots and workflows can generate music, images and video
 and later search the web — through a single Bearer token.
 
 Coze imports **standard OpenAPI 3.0** schemas, so every file here can be imported
-directly with no code. We ship **music (Suno)**, **image** (GPT Image / Nano Banana /
-DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
-`<service>.yaml` per plugin, all synchronous.
+directly with no code. This directory currently contains eight legacy schema examples, one `<service>.yaml` per plugin. Schema availability does not establish store approval or current service availability. The newer store catalog and its authorization flow are being maintained in [the Coze store update](https://github.com/AceDataCloud/APIs/pull/956).
+
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
 ## Plugins
 
@@ -17,16 +29,14 @@ DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
 | [`image.yaml`](./image.yaml) | `generateImage` | `POST /openai/images/generations` | Generate images — GPT Image, Nano Banana or DALL·E (pick the model) |
 | [`seedream.yaml`](./seedream.yaml) | `generateImage` | `POST /seedream/images` | Generate images with ByteDance Seedream (Doubao) |
 | [`flux.yaml`](./flux.yaml) | `generateImage` | `POST /flux/images` | Generate or edit images with Flux |
-| [`sora.yaml`](./sora.yaml) | `generateVideo` | `POST /sora/videos` | Generate videos with OpenAI Sora |
+| [`sora.yaml`](./sora.yaml) | `generateVideo` | `POST /sora/videos` | Historical schema; Sora is retired, do not use for new integrations |
 | [`kling.yaml`](./kling.yaml) | `generateVideo` | `POST /kling/videos` | Generate videos with Kuaishou Kling |
 | [`veo.yaml`](./veo.yaml) | `generateVideo` | `POST /veo/videos` | Generate videos with Google Veo |
 | [`seedance.yaml`](./seedance.yaml) | `generateVideo` | `POST /seedance/videos` | Generate videos with ByteDance Seedance |
 
 ## Import into Coze (扣子)
 
-1. **Get an API token.** Create one at
-   <https://platform.acedata.cloud/console/credentials> — a per-service
-   `api.acedata.cloud` token. Keep it secret.
+1. **Get an API token.** Follow the [API key steps above](#get-your-ace-data-cloud-api-key). Choose a general key for multiple services, or a dedicated key for the service you are importing.
 2. **Create the plugin from the schema.**
    - Coze.com: **Development → Plugins → Create plugin → Import**, then upload the
      `.yaml` (or paste its contents).
@@ -39,8 +49,7 @@ DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
 4. **Test.** Coze turns each `operationId` into a callable tool. Run **Test** with
    a minimal payload, e.g. `{ "prompt": "a lofi track for studying" }`, and confirm
    the response contains an `audio_url`.
-5. **Publish.** Publish the plugin to the Coze plugin store (扣子插件商店) so other
-   users can install it into their own bots and workflows.
+5. **Choose the sharing scope.** The fixed Service token above is for your own private plugin/workflow and uses your balance. Do not publish your personal key as a shared default. A public store submission needs its own reviewed user-authorization configuration; source import, workspace publication and store approval are separate steps.
 
 ## Notes
 
@@ -48,25 +57,20 @@ DALL·E / Seedream / Flux) and **video** (Sora / Kling / Veo / Seedance) — one
   body already contains the `audio_url` / image `url`), which is what Coze tools
   expect. Do **not** add `callback_url` / `async` to the schema — that switches the
   API into webhook mode and Coze would only receive a task id.
-- **One token, all services.** The base URL is `https://api.acedata.cloud` and the
-  same token style works across services, so additional plugins here reuse the same
-  auth setup.
+- **One general key, permitted services.** The base URL is `https://api.acedata.cloud` and the
+  general application key can access the services your account is entitled to use. A service-specific key cannot access another service.
 - **Real descriptions.** These schemas hand-write human-readable descriptions on
   purpose — the platform's internal OpenAPI specs use `$t(...)` i18n placeholders
   that would otherwise show up literally as tool/parameter names inside Coze.
 
-## Roadmap & priorities
+## Store status and next steps
 
-AceData Cloud already ships a batch of plugins **live in the Coze store** — Suno,
-Midjourney, DeepSeek, Grok, SERP — each with real usage (Suno alone: ~789 installs /
-157 calls). This folder is the **versioned source** for their OpenAPI schemas so the
-team can re-import and update them consistently instead of hand-editing in the Coze UI.
+The [Coze store continuation PR](https://github.com/AceDataCloud/APIs/pull/956) records the 2026-10-11 authenticated store checks. It separates source preparation, workspace publication, store review, and installation into an Agent:
 
-The six highest-value services by market traction + platform fit — **Seedream, Flux,
-Sora, Kling, Veo, Seedance** (Coze is a ByteDance product, so ByteDance's own Seedream
-/ Seedance fit especially well) — are now shipped in the Plugins table above.
+- **Approved and verified after installation:** Localization, Short URL, Google Search, DeepSeek, Nano Banana, and Qwen Image.
+- **Submitted; under review at that check:** Kimi, GLM, Grok, Claude, Web Extractor, Gemini, Fish, and OpenAI.
+- **Suno native MCP:** not published; its caller OAuth flow is not compatible with the current Coze flow.
 
-To add more, same pattern, one file each — copy an existing `.yaml`, swap the path,
-parameters and descriptions (take **real** params + endpoint from
-`PlatformBackend/openapi/<uuid>.json`, never invent them), and add a row to the Plugins
-table above. Next candidates: Hailuo, Luma, Wan (video), Fish (audio).
+These are dated review results, not a claim that every schema in this directory is live. Follow the continuation PR for current status and the pending catalog rather than reusing old install/call counts. Installed Agents must bind the user's private credential as a variable reference, keep it out of prompts and shared defaults, and follow the authorization mode documented for that plugin. The private fixed-Service-token import example above is not a multi-user store authorization design.
+
+Before updating a public listing, carry over the detailed API-key steps and tagged setup link, verify that Coze preserves the URL parameters, and read back the approved listing after review. Store metadata and screenshots are updated separately from this GitHub README. Sora's historical schema should not be submitted as an active service.

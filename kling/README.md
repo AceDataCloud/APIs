@@ -4,9 +4,23 @@ Kling AI video generation service with text-to-video, image-to-video, motion con
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Kling Video Generation](https://platform.acedata.cloud/service/kling)
+API home page: [Ace Data Cloud - Kling Video Generation](https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_services_3369e077_2500_4263_86c7_cae0f0e7e843)
 
 Keywords: kling-ai, ai-video, video-generation, text-to-video, image-to-video, motion-control, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
+
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
 ## Why Use Kling Video Generation on Ace Data Cloud
 
@@ -25,15 +39,15 @@ The Kling Motion Generation API generates videos with character motion driven by
 
 ## Application Process
 
-To use the Kling Videos Generation API, apply for the corresponding service on the [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) page. After entering the page, click the "Acquire" button.
+To use the Kling Videos Generation API, apply for the corresponding service on the [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents_3b921a16_a411_4557_8335_53f21d3f9e46) page. After entering the page, click the "Acquire" button.
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Kling Video Generation on Ace Data Cloud](https://platform.acedata.cloud/service/kling)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Kling Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_services_3369e077_2500_4263_86c7_cae0f0e7e843)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/kling/videos" \
@@ -52,17 +66,17 @@ Explore the supported endpoints and integration guides for Kling Video Generatio
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46) | `/kling/videos` | [Kling Videos Generation API Integration Guide](docs/kling_videos_generation_api_integration_guide.md) |
-| [Kling Tasks API](https://platform.acedata.cloud/documents/6b43ff7b-8298-49c8-a390-83df85c2c5e5) | `/kling/tasks` | [Kling Tasks API Integration Guide](docs/kling_tasks_api_integration_guide.md) |
-| [Kling Motion Generation API](https://platform.acedata.cloud/documents/d3f2c369-102d-4856-9565-702ac5f2df63) | `/kling/motion` | [Kling Motion Generation API Integration Guide](docs/kling_motion_generation_api_integration_guide.md) |
+| [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents_3b921a16_a411_4557_8335_53f21d3f9e46) | `/kling/videos` | [Kling Videos Generation API Integration Guide](docs/kling_videos_generation_api_integration_guide.md) |
+| [Kling Tasks API](https://platform.acedata.cloud/documents/6b43ff7b-8298-49c8-a390-83df85c2c5e5?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents_6b43ff7b_8298_49c8_a390_83df85c2c5e5) | `/kling/tasks` | [Kling Tasks API Integration Guide](docs/kling_tasks_api_integration_guide.md) |
+| [Kling Motion Generation API](https://platform.acedata.cloud/documents/d3f2c369-102d-4856-9565-702ac5f2df63?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents_d3f2c369_102d_4856_9565_702ac5f2df63) | `/kling/motion` | [Kling Motion Generation API Integration Guide](docs/kling_motion_generation_api_integration_guide.md) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_platform)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kling_api_readme_documents).

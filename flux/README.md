@@ -1,10 +1,24 @@
 # Flux Image Generation API
 
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+
 ## FLUX 3 video generation
 
 `POST /flux/videos` now supports `action="generate"` with `mode` set to `t2v`, `i2v`, `v2v`, or `draft_enhance`. Use `async=true`, retain the returned task ID, and poll `/flux/tasks`. Video editing and upscaling are not published.
 
-Normal generation accepts `model="flux-3"`, `prompt`, `duration`, `resolution`, `draft`, and `generate_audio`; preserve explicit `false`. I2V additionally needs `keyframes`, V2V needs `start_video`, and draft enhancement needs an owned `draft_task_id`. See the [current video guide](https://platform.acedata.cloud/documents/flux-videos-integration) for mode-specific limits and examples.
+Normal generation accepts `model="flux-3"`, `prompt`, `duration`, `resolution`, `draft`, and `generate_audio`; preserve explicit `false`. I2V additionally needs `keyframes`, V2V needs `start_video`, and draft enhancement needs an owned `draft_task_id`. See the [current video guide](https://platform.acedata.cloud/documents/flux-videos-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents_flux_videos_integration) for mode-specific limits and examples.
 
 Flux AI image generation service.
 
@@ -12,7 +26,7 @@ Flux AI image generation service.
 
 ![Flux Image Generation](https://cdn.acedata.cloud/cdfv2n.jpg)
 
-API home page: [Ace Data Cloud - Flux Image Generation](https://platform.acedata.cloud/service/flux)
+API home page: [Ace Data Cloud - Flux Image Generation](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_services_e8ebe055_429a_48e9_9d34_5089eae5fd89)
 
 Keywords: flux-api, ai-image, image-generation, black-forest-labs, rest-api, ai-api, aiimage, AI API, REST API, Developer API, Ace Data Cloud
 
@@ -741,8 +755,8 @@ html.dark .flux-page code { background: #2e1065 !important; color: #c4b5fd !impo
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Flux Image Generation on Ace Data Cloud](https://platform.acedata.cloud/service/flux)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Flux Image Generation on Ace Data Cloud](https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_services_e8ebe055_429a_48e9_9d34_5089eae5fd89)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/flux/images" \
@@ -757,16 +771,16 @@ Explore the supported endpoints and integration guides for Flux Image Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394) | `/flux/images` | [Flux Images Generation API Integration Guide](https://platform.acedata.cloud/documents/92754994-3970-4f2a-9bf3-113149c25c11) |
-| [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b) | `/flux/tasks` | [Flux Tasks API Integration Guide](https://platform.acedata.cloud/documents/5998d153-b9a6-4798-b5d9-8f523d0d626f) |
+| [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents_6b9197c5_7a3f_4878_a43f_7f94e7e66394) | `/flux/images` | [Flux Images Generation API Integration Guide](https://platform.acedata.cloud/documents/92754994-3970-4f2a-9bf3-113149c25c11?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents_92754994_3970_4f2a_9bf3_113149c25c11) |
+| [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents_39b38bbe_60f3_40da_b2b6_5ce1e091852b) | `/flux/tasks` | [Flux Tasks API Integration Guide](https://platform.acedata.cloud/documents/5998d153-b9a6-4798-b5d9-8f523d0d626f?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents_5998d153_b9a6_4798_b5d9_8f523d0d626f) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_platform)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=flux_api_readme_documents).

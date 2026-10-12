@@ -6,9 +6,23 @@ Nano Banana AI image generation and editing service.
 
 ![Nano Banana Image Generation](https://cdn.acedata.cloud/knpozx.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Nano Banana Image Generation](https://platform.acedata.cloud/service/nano-banana)
+API home page: [Ace Data Cloud - Nano Banana Image Generation](https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_services_44fa6ed2_1ad1_4c7e_a8bd_30002728c0d1)
 
 Keywords: nanobanana-api, ai-image, image-editing, image-generation, rest-api, ai-api, aiimage, AI API, REST API, Developer API, Ace Data Cloud
+
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
 ## Why Use Nano Banana Image Generation on Ace Data Cloud
 
@@ -669,7 +683,7 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 ```
 </p>
 <div class="hero-actions">
-<a href="https://platform.acedata.cloud/documents/nano-banana-images" class="s-btn-primary">📄 View Documentation</a>
+<a href="https://platform.acedata.cloud/documents/nano-banana-images?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_nano_banana_images" class="s-btn-primary">📄 View Documentation</a>
 </div>
 <div class="hero-highlights">
 <span class="h-item">🖼️ 2 Operation Modes</span>
@@ -956,7 +970,7 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 </div>
 </div>
 <div class="steps-cta">
-<a href="https://platform.acedata.cloud/documents/nano-banana-images" class="s-btn-primary">View Documentation →</a>
+<a href="https://platform.acedata.cloud/documents/nano-banana-images?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_nano_banana_images" class="s-btn-primary">View Documentation →</a>
 </div>
 </div>
 </section>
@@ -1082,8 +1096,8 @@ Based on the Google Gemini 2.5 Flash/3 Pro Image model, it achieves high-quality
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Nano Banana Image Generation on Ace Data Cloud](https://platform.acedata.cloud/service/nano-banana)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Nano Banana Image Generation on Ace Data Cloud](https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_services_44fa6ed2_1ad1_4c7e_a8bd_30002728c0d1)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/nano-banana/images" \
@@ -1098,16 +1112,16 @@ Explore the supported endpoints and integration guides for Nano Banana Image Gen
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d) | `/nano-banana/images` | [Nano Banana Images API Integration Guide](https://platform.acedata.cloud/documents/2fb479f8-63ec-424c-a93e-b12cd4250f9e) |
-| [$t(document_title_nanobanana_tasks_api)](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](https://platform.acedata.cloud/documents/e01ef840-3158-4eec-a6e7-337dada8d155) |
+| [Nano Banana Images API](https://platform.acedata.cloud/documents/23985a11-d713-41d1-ad84-24b021805b3d?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_23985a11_d713_41d1_ad84_24b021805b3d) | `/nano-banana/images` | [Nano Banana Images API Integration Guide](https://platform.acedata.cloud/documents/2fb479f8-63ec-424c-a93e-b12cd4250f9e?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_2fb479f8_63ec_424c_a93e_b12cd4250f9e) |
+| [$t(document_title_nanobanana_tasks_api)](https://platform.acedata.cloud/documents/617810f5-081f-4866-a21a-cededecb0ccd?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_617810f5_081f_4866_a21a_cededecb0ccd) | `/nano-banana/tasks` | [Nano Banana Tasks API Integration Guide](https://platform.acedata.cloud/documents/e01ef840-3158-4eec-a6e7-337dada8d155?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents_e01ef840_3158_4eec_a6e7_337dada8d155) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_platform)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=nanobanana_api_readme_documents).
