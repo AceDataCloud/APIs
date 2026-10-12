@@ -1,0 +1,335 @@
+{
+  "id": "acedata-video-generation-poll-v1",
+  "name": "Ace Data Cloud async video with bounded polling",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f8f52d19-8944-470f-a3eb-2c9f03b7fd02",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "21fc5af1-b6e8-49ce-8141-81932ac7e4fd",
+              "name": "prompt",
+              "value": "A paper boat crossing a rain puddle, cinematic tracking shot",
+              "type": "string"
+            },
+            {
+              "id": "1bd4ea0c-c07f-49a4-bdcc-6bd445fe5adb",
+              "name": "image_url",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "2a6a36f8-c034-4a5f-bb59-206ed4456c2a",
+              "name": "ratio",
+              "value": "16:9",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5f5eec25-a1b0-425b-ba31-c59d07fb233e",
+      "name": "Set video input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/wan/videos",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ action: $json.image_url ? 'image2video' : 'text2video', model: $json.image_url ? 'wan2.6-i2v' : 'wan2.6-t2v', prompt: $json.prompt, image_url: $json.image_url || undefined, ratio: $json.ratio, async: true }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "777de459-2159-44f3-9bb7-ce788a0a0272",
+      "name": "Submit video with Ace Data Cloud",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [
+            {
+              "id": "9fc71472-7487-4d32-9ab0-e5040dcd4bf4",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {"type": "number", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e22c4ad3-7f64-4e93-a684-f79913b23717",
+      "name": "Submit succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [740, 0]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Video submission failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"
+      },
+      "id": "c5dd8a93-c27d-4c56-b0ea-2ecab4bcc9a9",
+      "name": "Stop on submit error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [980, 180]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [
+            {
+              "id": "e32075aa-7cab-4517-a17b-a626275ce3a4",
+              "leftValue": "={{ typeof $json.body.task_id === 'string' && $json.body.task_id.length > 0 }}",
+              "rightValue": "",
+              "operator": {"type": "boolean", "operation": "true", "singleValue": true}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "4b4bd068-3159-41da-9bcd-4b189e9fd6a7",
+      "name": "Task ID exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [980, -80]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Video submission returned HTTP 200 without a task_id: ' + JSON.stringify($json.body) }}"
+      },
+      "id": "57f09ce7-23f4-4f54-8cd6-0a9de9140579",
+      "name": "Stop on missing task ID",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1220, 100]
+    },
+    {
+      "parameters": {
+        "jsCode": "return Array.from({ length: 20 }, (_, index) => ({ json: { poll_attempt: index + 1 } }));"
+      },
+      "id": "7da923de-fc9c-4359-8ca8-7f369e1b34d2",
+      "name": "Create bounded poll attempts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1220, -160]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "f383eef1-fe3b-4f96-978e-39a02bfe7f8c",
+      "name": "Loop over poll attempts",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1460, -160]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Video task ' + $('Submit video with Ace Data Cloud').first().json.body.task_id + ' did not finish after 20 polls (approximately 5 minutes).' }}"
+      },
+      "id": "881d5c03-a9bd-439b-a9de-d4b7cad3ed09",
+      "name": "Stop on polling timeout",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [1700, -300]
+    },
+    {
+      "parameters": {
+        "amount": 15,
+        "unit": "seconds"
+      },
+      "id": "3392bf3e-872a-4f2a-a9eb-b07164e0b49a",
+      "name": "Wait before polling",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1700, -80]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.acedata.cloud/wan/tasks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ action: 'retrieve', id: $('Submit video with Ace Data Cloud').first().json.body.task_id }) }}",
+        "options": {
+          "timeout": 60000,
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "9c2ac006-dde6-4420-bc73-777a9c54a6f5",
+      "name": "Poll video task",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1940, -80]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [
+            {
+              "id": "bd146940-f207-4733-9952-7f4df0be6305",
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200,
+              "operator": {"type": "number", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5a46822d-6c2b-48c4-9867-dbe93b5051fd",
+      "name": "Poll succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [2180, -80]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Video task polling failed with HTTP ' + $json.statusCode + ': ' + JSON.stringify($json.body) }}"
+      },
+      "id": "ff7e4c27-5648-47aa-939e-cf0c42ef257e",
+      "name": "Stop on poll error",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2420, 100]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [
+            {
+              "id": "695eef79-d2a4-439b-85ee-87d3873bc2c0",
+              "leftValue": "={{ typeof $json.body.finished_at === 'number' }}",
+              "rightValue": "",
+              "operator": {"type": "boolean", "operation": "true", "singleValue": true}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e4f843e7-61b2-444c-bea2-b52bcd9563a7",
+      "name": "Task finished",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [2420, -140]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2},
+          "conditions": [
+            {
+              "id": "40c35185-16fd-4c3b-b1c6-8a4e17d34af4",
+              "leftValue": "={{ $json.body.response?.success === true && typeof $json.body.response?.video_url === 'string' && $json.body.response.video_url.length > 0 }}",
+              "rightValue": "",
+              "operator": {"type": "boolean", "operation": "true", "singleValue": true}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "48e99333-8c78-432f-bfa1-7725b725ac95",
+      "name": "Video result succeeded",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [2660, -220]
+    },
+    {
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "={{ 'Video task reached a terminal failure: ' + JSON.stringify($json.body.response || $json.body) }}"
+      },
+      "id": "1bd3bd43-0b75-4519-8543-1f32b1a60522",
+      "name": "Stop on terminal failure",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [2900, -40]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {"id": "5be94721-f252-4456-989e-ea12a2396a5a", "name": "status", "value": "success", "type": "string"},
+            {"id": "908c1faf-ee5a-4b33-9e6d-15f922c80b6e", "name": "task_id", "value": "={{ $json.body.id }}", "type": "string"},
+            {"id": "f20e73d9-e746-40d2-90bd-86ad435df3da", "name": "model", "value": "={{ $('Set video input').first().json.image_url ? 'wan2.6-i2v' : 'wan2.6-t2v' }}", "type": "string"},
+            {"id": "ed0a2303-0105-47e8-824d-36411787ab04", "name": "prompt", "value": "={{ $('Set video input').first().json.prompt }}", "type": "string"},
+            {"id": "4af98f33-a549-488a-ac30-eb8a6fb2a8c7", "name": "video_url", "value": "={{ $json.body.response.video_url }}", "type": "string"},
+            {"id": "6454e85f-6afd-41ce-bf06-01c7eda3346a", "name": "thumbnail_url", "value": "={{ $json.body.response.thumbnail_url || null }}", "type": "string"},
+            {"id": "ba7f4770-eb7e-449f-ad81-298dc74631e9", "name": "elapsed_seconds", "value": "={{ $json.body.elapsed || null }}", "type": "number"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "2232076b-1779-4598-8fb2-c88a461c25b6",
+      "name": "Return video result",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [2900, -300]
+    }
+  ],
+  "connections": {
+    "Run manually": {"main": [[{"node": "Set video input", "type": "main", "index": 0}]]},
+    "Set video input": {"main": [[{"node": "Submit video with Ace Data Cloud", "type": "main", "index": 0}]]},
+    "Submit video with Ace Data Cloud": {"main": [[{"node": "Submit succeeded", "type": "main", "index": 0}]]},
+    "Submit succeeded": {"main": [[{"node": "Task ID exists", "type": "main", "index": 0}], [{"node": "Stop on submit error", "type": "main", "index": 0}]]},
+    "Task ID exists": {"main": [[{"node": "Create bounded poll attempts", "type": "main", "index": 0}], [{"node": "Stop on missing task ID", "type": "main", "index": 0}]]},
+    "Create bounded poll attempts": {"main": [[{"node": "Loop over poll attempts", "type": "main", "index": 0}]]},
+    "Loop over poll attempts": {"main": [[{"node": "Stop on polling timeout", "type": "main", "index": 0}], [{"node": "Wait before polling", "type": "main", "index": 0}]]},
+    "Wait before polling": {"main": [[{"node": "Poll video task", "type": "main", "index": 0}]]},
+    "Poll video task": {"main": [[{"node": "Poll succeeded", "type": "main", "index": 0}]]},
+    "Poll succeeded": {"main": [[{"node": "Task finished", "type": "main", "index": 0}], [{"node": "Stop on poll error", "type": "main", "index": 0}]]},
+    "Task finished": {"main": [[{"node": "Video result succeeded", "type": "main", "index": 0}], [{"node": "Loop over poll attempts", "type": "main", "index": 0}]]},
+    "Video result succeeded": {"main": [[{"node": "Return video result", "type": "main", "index": 0}], [{"node": "Stop on terminal failure", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "pinData": {},
+  "tags": []
+}
