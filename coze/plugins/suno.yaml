@@ -5,7 +5,7 @@ info:
   description: 'Create songs and lyrics, extend or transform tracks, manage supported personas and studio
     projects, and retrieve music or export formats with Suno. Bind your own Ace Data Cloud credential
     privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place
-    a token in chat or shared examples. Start: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze'
+    a token in chat or shared examples. Start: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_setup'
 servers:
 - url: https://api.acedata.cloud
 paths:

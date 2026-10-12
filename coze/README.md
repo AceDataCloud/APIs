@@ -7,6 +7,30 @@ Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
 `catalog/launch-scope.json`. Historical source snapshots retain provenance and
 are not the active launch list.
 
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in Coze's private credential configuration described below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+
+## Configure a private user credential
+
+After installing a store plugin, bind its `Authorization` parameter using
+**Reference** to your private `adc_auth` variable. Its value is
+`Bearer <your application API key>`. Exclude the variable from prompts, keep its
+shared default empty, and set the value for the current debug session before
+testing. Read back the saved binding; a fixed Input default can be replaced by
+a model-generated placeholder. Each user supplies their own key and pays from
+their own account. A private Service token is not a public multi-user default.
+
 ## Icons
 
 Official brand assets are recorded in `catalog/official-icons.json` and retained
@@ -80,19 +104,34 @@ actual service call. It is not a credential and grants no service access. Remove
 it and configure caller-owned authorization before release. No paid tools/call
 was executed for metadata discovery.
 
-## Current release gate (2026-10-07)
+## Current release gate (checked 2026-10-11)
 
-Fourteen HTTP plugins have confirmed **Under Review** store submission receipts
-following fresh Coze calls and saved credential-redacted examples:
+Fourteen HTTP plugins have confirmed store submission receipts, covering 32
+currently enabled tools. The authenticated store and installed-Agent check on
+2026-10-11 recorded:
 
-- Wave 1: DeepSeek, Short URL, Google Search, Kimi, GLM and Localization (6 tools).
-- Wave 2: Web Extractor, Claude, Grok, Nano Banana and Qwen Image (13 tools).
-- Wave 3: OpenAI, Gemini and Fish (13 enabled tools).
+- **Approved, found in the store and verified after installation:** Localization,
+  Short URL, Google Search, DeepSeek, Nano Banana and Qwen Image. The private
+  verification Agent exercised eight distinct tools with real results and
+  matching billing records.
+- **Under Review:** Kimi, GLM, Grok, Claude, Web Extractor, Gemini, Fish and OpenAI.
+  No rejection was shown. Store installation and Agent verification await approval.
 
-Workspace v0.0.2 publication and store submission remain separate from approval,
-public discoverability, installation and Agent execution. Those later gates
-have not been verified. Store pages and submission receipts are retained in the
-local operational evidence, with no production credentials committed here.
+Workspace publication, store submission, approval, public discoverability and
+installed-Agent execution are separate gates. These are dated results, not a
+2026-10-12 store readback. Approved store versions still need to be reconciled
+with this source catalog. See [the continuation PR](https://github.com/AceDataCloud/APIs/pull/956)
+for the operational record; private evidence and credentials remain outside Git.
+
+Localization returned translated Markdown; Short URL returned a verified 302
+redirect; Google Search returned real links; DeepSeek returned the requested
+text. Nano Banana and Qwen Image returned completed, viewable images. Qwen reached
+Coze's 10-operation limit while polling; a subsequent Agent turn retrieved the
+same completed task rather than submitting another generation.
+
+The installed-Agent verification exposed the private variable binding issue
+covered above. Temporary test credentials were expired, and both shared/default
+and runtime variable values were cleared after verification.
 
 Gemini's four tools passed fresh calls. OpenAI's five enabled tools returned text
 and completed image results; embeddings returned HTTP 500 and is disabled for
@@ -161,8 +200,9 @@ Extractor, Claude, OpenAI, Kimi, Gemini, Grok, GLM, Nano Banana, Qwen Image,
 Fish and Localization. The latter exposes only the verified Markdown form. This
 workspace publication is separate from Plugin Store submission: the store flow
 asks for a running example for each tool. The subsequent confirmed submissions
-are listed above. Post-publication Agent install and execution remain unverified.
-The pre-handoff test credentials were expired and read back. The pre-handoff
+are listed above. The later installed-Agent check covers the six approved plugins
+listed above; the other eight still await store approval. The pre-handoff test
+credentials were expired and read back. The pre-handoff
 ledger was 29.372048470 Credits of the approved 200-Credit cap; continuation
 usage is tracked separately in the local credential readbacks.
 
@@ -186,10 +226,33 @@ Imported `Failed` labels before testing are not provider-failure evidence.
 Previous API tests do not prove revised native MCP or Coze runtime success.
 
 The user authorized publication of the reviewed first batch on 2026-10-06.
-The other 17 plugins are outside that batch. Store review approval, user installation and Agent E2E
-remain open gates for the first batch, as recorded in the local launch gate.
+The other 17 catalog plugins are outside that batch; Suno remains a separate
+unpublished native MCP draft because caller OAuth is blocked. Across the 32 HTTP
+catalog entries, 18 have not been submitted (those 17 plus Suno). Installation
+and Agent E2E are verified only for the six approved items above, not every
+prepared schema or MCP capability.
 Removed services are excluded from the launch materials; historical private Coze
 drafts are not automatically or permanently deleted by these builders.
+
+## Store copy and acquisition links
+
+The generated `listings.json` is review material. Its setup links retain the
+legacy `from=coze` marker and add `utm_source=coze`, `utm_medium=referral`,
+`utm_campaign=evergreen` and a service-specific `utm_content`. Updating source
+copy does not update an already approved listing. Before a store update, carry
+over the API-key setup steps, read back the saved private binding instructions
+and URL parameters, then verify the approved listing after review. Tagged links
+alone do not prove registrations, first calls or revenue attribution.
+
+## Current host documentation
+
+On 2026-10-12, the [current Coze China plugin documentation](https://docs.coze.cn/create-plugin)
+describes Skill/MCP/optional Panel bundles imported as Agent Plugins 1.0.0 ZIPs,
+and separates publication from enterprise-team-store listing. These HTTP
+OpenAPI assets and native MCP targets are not that bundle format. Verify the
+actual host, region and distribution contract before reusing or uploading them;
+historical HTTP Plugin Store evidence does not establish listing in the newer
+China extension center. Each user must configure their own authorization.
 
 ## Rebuild
 

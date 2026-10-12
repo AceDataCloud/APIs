@@ -114,8 +114,8 @@ Key fields:
 - `progress.stage`, `message`, `activity`, and `render`: latest available production telemetry. Optional values may be `null`.
 - `request`: normalized creation request stored with the task.
 - `response`: final result or failure information when available.
-- `response.data.variants`: delivered language variants. Read each actual `output_url` from this array.
-- `response.data.project`: project-level artifacts when present.
+- `response.data.variants`: contains one finished video in the selected language. Read its actual `output_url` from this array.
+- `response.data.project`: project-level artifacts when present, including the finished video link in `outputs`.
 - `response.data.progress`: append-only production event history when present.
 
 A succeeded task may retain the name of its last execution stage in `progress.stage`; use top-level `status`, not the stage name, to decide whether the task is complete.

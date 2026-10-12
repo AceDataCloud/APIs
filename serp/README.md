@@ -6,9 +6,23 @@ Search Engine Results Page (SERP) related API.
 
 ![Search Engine](https://cdn.acedata.cloud/o5gj5l.png/thumb_600x300)
 
-API home page: [Ace Data Cloud - Search Engine](https://platform.acedata.cloud/service/serp)
+API home page: [Ace Data Cloud - Search Engine](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_services_a9af5926_e8d8_4c5e_bdef_bbebf19cdbc3)
 
 Keywords: serp-api, web-search, google-search, search-api, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
+
+## Get your Ace Data Cloud API key
+
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_api_key). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_pricing).
+3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
+4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
+5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+
+Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
 ## Why Use Search Engine on Ace Data Cloud
 
@@ -808,8 +822,8 @@ for result in data["results"]:
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Search Engine on Ace Data Cloud](https://platform.acedata.cloud/service/serp)
-- Docs: [Developer documentation](https://docs.acedata.cloud)
+- Service page: [Search Engine on Ace Data Cloud](https://platform.acedata.cloud/services/a9af5926-e8d8-4c5e-bdef-bbebf19cdbc3?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_services_a9af5926_e8d8_4c5e_bdef_bbebf19cdbc3)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/serp/google" \
@@ -824,15 +838,15 @@ Explore the supported endpoints and integration guides for Search Engine.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Google SERP API](https://platform.acedata.cloud/documents/44c86226-8eaa-49bf-85f3-1fae8d2e23f1) | `/serp/google` | [Google SERP API Integration Guide](https://platform.acedata.cloud/documents/cc2ce913-df8f-4d22-a051-93fa33b2e51b) |
+| [Google SERP API](https://platform.acedata.cloud/documents/44c86226-8eaa-49bf-85f3-1fae8d2e23f1?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents_44c86226_8eaa_49bf_85f3_1fae8d2e23f1) | `/serp/google` | [Google SERP API Integration Guide](https://platform.acedata.cloud/documents/cc2ce913-df8f-4d22-a051-93fa33b2e51b?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents_cc2ce913_df8f_4d22_a051_93fa33b2e51b) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud)
-- [Ace Data Cloud Docs](https://docs.acedata.cloud)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_platform)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support) or browse the latest documentation on [docs.acedata.cloud](https://docs.acedata.cloud).
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=serp_api_readme_documents).

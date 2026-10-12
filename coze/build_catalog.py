@@ -10,13 +10,33 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 import yaml
 
 ROOT = Path(__file__).resolve().parent
 HTTP = {'get', 'post', 'put', 'patch', 'delete'}
 SLUGS = {'b1fbcc32-e218-4253-9dc3-4fe600a1bfb9':'aichat', 'a0a76008-85ff-4c46-8db7-76481721b9fb':'identity', '349bfa75-d270-44e9-8188-9894e3b9512c':'shorturl','bd4eaf26-4efe-4904-a045-8b83ed56f885':'localization'}
 AUTH = 'Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples.'
-SETUP = 'https://platform.acedata.cloud/?from=coze'
+LISTING_AUTH = 'Bind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.'
+# Store copy follows the reduced scope verified on 2026-10-11. Canonical
+# contracts below retain the full API surface for future validation.
+STORE_DESCRIPTIONS = {
+    'localization': 'Translate Markdown or plain text into a target locale. JSON-object translation is not enabled in the submitted store version.',
+    'fish': 'Generate speech, retrieve speech tasks, list voices and read voice details. Custom voice creation is disabled in the submitted store version.',
+    'openai': 'Use text chat and Responses, generate or edit images, and retrieve image tasks. Embeddings are disabled in the submitted store version.',
+}
+
+
+def acquisition_url(url, key):
+    parts = urlsplit(url)
+    query = dict(parse_qsl(parts.query, keep_blank_values=True))
+    query['from'] = 'coze'
+    query.update(utm_source='coze', utm_medium='referral',
+                 utm_campaign='evergreen', utm_content=f'coze_{key}_setup')
+    return urlunsplit((parts.scheme, parts.netloc, parts.path,
+                       urlencode(query), parts.fragment))
+
+
 IDS = {'seedream','flux','serp','shorturl'}
 OMIT_PATHS = {'/v1/live/sessions':'Requires a live session transport; not a conventional JSON tool.', '/v1/audio/speech':'Binary audio response needs a media URL adapter for Coze.', '/v1/audio/transcriptions':'Multipart file upload needs a tested Coze file adapter.'}
 DEFAULTS = {'/seedream/images':{'model':'doubao-seedream-5-0-lite-260128','size':'2K'}, '/flux/images':{'model':'flux-2-pro','size':'1:1','action':'generate','count':1}, '/serp/google':{'type':'search','number':3}, '/nano-banana/images':{'model':'nano-banana-2','action':'generate'}, '/veo/videos':{'model':'veo31-fast','action':'text2video'}, '/kling/videos':{'model':'kling-v2-6','action':'text2video'}, '/producer/audios':{'model':'FUZZ-2.0','action':'generate'}, '/wan/videos':{'model':'wan2.6-t2v'}, '/suno/lyrics':{'model':'default'}, '/openai/images/generations':{'model':'gpt-image-1'}, '/openai/images/edits':{'model':'gpt-image-1'}, '/openai/embeddings':{'model':'text-embedding-3-small'}}
@@ -302,8 +322,8 @@ def main():
             row['blockers']=['Requires a user-owned deployment URL and scoped authentication before functional plugin creation.'] if s['type']=='Deployment' else (['A local developer client; provided through setup guidance rather than a hosted Coze tool.'] if s['type']=='Agent' else ['Catalog and acquisition guidance only; no public query API is declared.'])
             for o in s['operations']:row['operations'].append({**o,'disposition':'guide_only'})
             coverage.append(row);continue
-        p=profiles[key];start_url=row['source_url']+'?from=coze'
-        if key=='deepseek':start_url='https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9?from=coze'
+        p=profiles[key];start_url=acquisition_url(row['source_url'], key)
+        if key=='deepseek':start_url=acquisition_url('https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9', key)
         row.update({k:p[k] for k in ['name','brief','group','description','scenarios']});row['delivery']='http_plugin'
         spec={'openapi':'3.0.1','info':{'title':p['name'],'version':'2.0.0','description':p['description']+' '+AUTH+' Start: '+start_url},'servers':[{'url':'https://api.acedata.cloud'}],'paths':{}}
         for meta in s['operations']:
@@ -368,9 +388,10 @@ def main():
             if key=='openai':
                 (ROOT/'image.yaml').write_text(yaml.safe_dump(spec,allow_unicode=True,sort_keys=False,width=100))
         listing={k:row[k] for k in ['name','brief','description','scenarios','icon']}
+        listing['description'] = STORE_DESCRIPTIONS.get(key, listing['description'])
         listing['category']={'Chat':'Productivity','Video':'Video','Image':'Photography','Multimodal':'Productivity','Music':'Music','Audio':'Music','Search':'Web Search','Utility':'Tools','Avatar':'Video','Verification':'Tools'}[p['group']]
-        listing['about']=p['description']+'\n\n'+AUTH+'\nGet started: '+start_url
-        if key=='deepseek':listing['about']+=' Use a Global credential or one authorized for the AI Dialogue API.'
+        listing['about']=listing['description']+'\n\n'+LISTING_AUTH+'\nGet started: '+start_url
+        if key=='deepseek':listing['about']+=' Use a general key or an AI Dialogue key.'
         listing['privacy_review']={'data_sent':'User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.','recipient':'Ace Data Cloud API','retention':'Verify current published privacy terms; no retention promise is made in this draft.','sensitive_inputs':key in ['identity','digitalhuman','dreamina','fish','suno']}
         listings[key]=listing;coverage.append(row)
     covered={(c['service'],c['operation_id']) for c in cases}

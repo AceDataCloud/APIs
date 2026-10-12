@@ -5,7 +5,7 @@ info:
   description: 'Produce an end-to-end video from a creative brief with visual style, narration and language
     controls. Retrieve the task to get the finished video. Bind your own Ace Data Cloud credential privately
     as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in
-    chat or shared examples. Start: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5?from=coze'
+    chat or shared examples. Start: https://platform.acedata.cloud/services/0d7031bf-610a-419e-a5a0-db8f240286d5?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_maestro_setup'
 servers:
 - url: https://api.acedata.cloud
 paths:

@@ -5,7 +5,7 @@ info:
   description: 'Use identity, phone and bank-card verification tools in an explicitly authorized workflow.
     Inputs and results require private handling and an accurate privacy declaration. Bind your own Ace
     Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your
-    account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb?from=coze'
+    account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/a0a76008-85ff-4c46-8db7-76481721b9fb?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_identity_setup'
 servers:
 - url: https://api.acedata.cloud
 paths:
