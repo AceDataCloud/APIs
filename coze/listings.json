@@ -434,16 +434,16 @@
   },
   "suno": {
     "name": "Suno",
-    "brief": "Suno songs, lyrics and music production",
-    "description": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.",
+    "brief": "Suno songs, lyrics, voices and audio exports",
+    "description": "Generate music and lyrics, refine styles, upload authorized audio, create voice references, list personas, align words, extract vocals, export MP3/WAV/MIDI data and retrieve tasks.",
     "scenarios": [
-      "Make background music",
-      "develop a song from lyrics",
-      "assemble and export a multi-track project."
+      "Write an original song",
+      "prepare authorized audio and voice references",
+      "retrieve completed music and export results."
     ],
     "icon": "icons/suno.png",
     "category": "Music",
-    "about": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_setup",
+    "about": "Generate music and lyrics, refine styles, upload authorized audio, create voice references, list personas, align words, extract vocals, export MP3/WAV/MIDI data and retrieve tasks.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -596,6 +596,25 @@
     "icon": "icons/flux.png",
     "category": "Productivity",
     "about": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/e8ebe055-429a-48e9-9d34-5089eae5fd89?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_flux_setup",
+    "privacy_review": {
+      "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
+      "recipient": "Ace Data Cloud API",
+      "retention": "Verify current published privacy terms; no retention promise is made in this draft.",
+      "sensitive_inputs": false
+    }
+  },
+  "gpt-image": {
+    "name": "GPT Image",
+    "brief": "GPT Image generation, editing and task results",
+    "description": "Generate and edit images with GPT Image models, then retrieve completed image results.",
+    "scenarios": [
+      "Create an original illustration",
+      "edit an authorized image",
+      "retrieve a completed image task."
+    ],
+    "icon": "icons/openai.png",
+    "category": "Photography",
+    "about": "Generate and edit images with GPT Image models, then retrieve completed image results.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",

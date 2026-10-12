@@ -1,6 +1,7 @@
 # Coze service plugins
 
-This launch review covers 32 API plugins and seven developer/deployment guides.
+This launch review covers 33 API plugin entries across 32 services, including a
+separate GPT Image entry, and seven developer/deployment guides.
 Names use the service brand, spaces instead of underscores, and `Resolver` for
 CAPTCHA services. Fish uses its short brand name. Datasets, Digital Human,
 Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
@@ -67,6 +68,7 @@ and usage guidance all count.
 | Kimi | No dedicated MCP | 1 | [Contract](plugins/kimi.yaml) |
 | Hailuo | 6 | 2 | [Contract](plugins/hailuo.yaml) |
 | OpenAI | 15 | 6 | [Contract](plugins/openai.yaml) |
+| GPT Image | OpenAI image subset | 3 | [Contract](plugins/gpt-image.yaml) |
 | Gemini | No dedicated MCP | 4 | [Contract](plugins/gemini.yaml) |
 | Grok | 8 | 3 | [Contract](plugins/grok.yaml) |
 | Veo | 8 | 2 | [Contract](plugins/veo.yaml) |
@@ -104,7 +106,41 @@ actual service call. It is not a credential and grants no service access. Remove
 it and configure caller-owned authorization before release. No paid tools/call
 was executed for metadata discovery.
 
-## Current release gate (checked 2026-10-11)
+## Suno and standalone GPT Image (checked 2026-10-12)
+
+[GPT Image](https://www.coze.com/store/plugin/7695652131059187765) is a separate
+three-tool plugin: image generation, editing and completed task retrieval.
+It uses the existing OpenAI image routes and GPT Image model family. The
+existing OpenAI plugin retains its current tools. Generation and editing both
+returned completed images through Coze; the edited image changed the requested
+teapot color. Its store submission is **Under Review**.
+
+[Suno](https://www.coze.com/store/plugin/7695633467463286837) now has a submitted
+HTTP plugin with caller-owned Authorization, independent of the unpublished
+native MCP draft. Its **12 enabled tools** passed real Coze calls and have saved,
+redacted examples: music generation, default-model lyrics, style refinement,
+voice-reference creation from authorized audio, persona listing, audio upload,
+lyric timing, vocal-segment extraction, MP3/WAV export, MIDI note data and task
+retrieval. Two generated songs and completed MP3/WAV assets returned HTTP 200.
+The store submission is **Under Review**; public installation and installed-Agent
+verification for these two new entries await approval.
+
+The Coze projections declare actual lyrics/style/upload objects, aligned words,
+export `file_url` values and MIDI instruments/notes, which Coze otherwise drops
+or rejects. MIDI is structured note data, not a downloadable MIDI file.
+Vocal extraction uses synchronous output in this form, and its result URL may
+expire. Timing, MIDI and vocal extraction passed using an uploaded, owned audio
+ID after the generated ID was rejected. The timing example is an excerpt of the
+real response. Use only authorized audio and obtain consent for voice references.
+
+Five advanced Suno tools remain disabled: direct persona creation from a song ID
+rejected both tested source kinds; MP4 export returned a service error; lyric
+blending returned 404; custom-model listing timed out in Coze; studio project
+management was not validated. Persona deletion is not exposed or tested. These
+limits are explicit in the store description; full native-MCP parity is not
+claimed. Provider routing, prices and billing rules are unchanged.
+
+## Initial batch checks (2026-10-11)
 
 Fourteen HTTP plugins have confirmed store submission receipts, covering 32
 currently enabled tools. The authenticated store and installed-Agent check on
@@ -226,11 +262,12 @@ Imported `Failed` labels before testing are not provider-failure evidence.
 Previous API tests do not prove revised native MCP or Coze runtime success.
 
 The user authorized publication of the reviewed first batch on 2026-10-06.
-The other 17 catalog plugins are outside that batch; Suno remains a separate
-unpublished native MCP draft because caller OAuth is blocked. Across the 32 HTTP
-catalog entries, 18 have not been submitted (those 17 plus Suno). Installation
-and Agent E2E are verified only for the six approved items above, not every
-prepared schema or MCP capability.
+The October 12 continuation adds the Suno HTTP plugin and the separate GPT Image
+entry, bringing confirmed submissions to 16 of 33 entries. The other 17 remain
+outside these submitted batches. Suno's native MCP draft remains unpublished
+because caller OAuth is blocked. Installation and Agent E2E are verified only
+for the six initial approved items above, not every prepared schema or MCP
+capability.
 Removed services are excluded from the launch materials; historical private Coze
 drafts are not automatically or permanently deleted by these builders.
 

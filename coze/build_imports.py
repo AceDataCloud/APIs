@@ -13,6 +13,14 @@ import yaml
 ROOT=Path(__file__).resolve().parent
 notes=[]
 
+def concrete_objects(value):
+    """Coze's importer cannot convert boolean additionalProperties to a field."""
+    if isinstance(value,dict):
+        return {k:concrete_objects(v) for k,v in value.items() if k != 'additionalProperties'}
+    if isinstance(value,list):
+        return [concrete_objects(v) for v in value]
+    return value
+
 def kind(s):
     if s.get('type'):return s['type']
     if 'properties' in s or 'additionalProperties' in s:return 'object'
@@ -184,6 +192,76 @@ def main():
     report['localization-md']=[{'field':'POST /localization/translate/request/input','kind':'representation','api_types':['object','string'],'coze_type':'string'}]
     (target/'localization-md.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'localization-md.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    doc=json.loads((target/'openai.json').read_text())
+    canonical=json.loads((ROOT/'plugins/gpt-image.json').read_text())
+    doc['info']=copy.deepcopy(canonical['info'])
+    doc['paths']={uri:op for uri,op in doc['paths'].items() if uri in canonical['paths']}
+    for uri in ('/openai/images/generations','/openai/images/edits'):
+        body=doc['paths'][uri]['post']['requestBody']['content']['application/json']['schema']
+        body['properties']['model']=copy.deepcopy(canonical['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model'])
+    # Keep the explicit success contract for the Coze tool output editor.
+    for methods in doc['paths'].values():
+        for op in methods.values():
+            op['responses']={'200':op['responses']['200']}
+    doc=concrete_objects(doc)
+    report['gpt-image']=[{'kind':'service_subset','reason':'Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; existing OpenAI plugin is unchanged.'}]
+    (target/'gpt-image.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'gpt-image.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+
+    doc=json.loads((ROOT/'plugins/suno.json').read_text())
+    notes.clear()
+    for uri,methods in doc['paths'].items():
+        for method,op in methods.items():
+            loc=method.upper()+' '+uri
+            for media in op.get('requestBody',{}).get('content',{}).values():
+                media['schema']=project(media['schema'],loc+'/request')
+            op['responses']={'200':op['responses']['200']}
+            for media in op['responses']['200'].get('content',{}).values():
+                media['schema']=project(media['schema'],loc+'/response')
+    doc['paths']['/suno/midi']['post']['description']='Retrieve MIDI note data from supported audio. Submit once and poll getTaskResults. The completed response contains instruments and note events, not a downloadable MIDI file. If a generated audio ID is unsupported, upload audio you own and use the returned audio_id.'
+    doc['paths']['/suno/timing']['post']['description']='Return aligned lyric words and their start/end times for supported audio. If a generated ID is unsupported, upload audio you own and use the returned audio_id. The store example is a short excerpt of a real 38-word response.'
+    # Fresh Coze calls return objects for default lyrics and style expansion,
+    # unlike the older array shapes in the public snapshot.
+    lyrics=doc['paths']['/suno/lyrics']['post']
+    lyrics['requestBody']['content']['application/json']['schema']['properties']['model'].update(enum=['default'],default='default')
+    lyrics['responses']['200']['content']['application/json']['schema']['properties']['data']={
+        'type':'object','properties':{'title':{'type':'string'},'text':{'type':'string'},
+        'status':{'type':'string'},'tags':{'type':'array','items':{'type':'string'}}}}
+    doc['paths']['/suno/style']['post']['responses']['200']['content']['application/json']['schema']['properties']['data']={
+        'type':'object','properties':{'upsampled_tags':{'type':'string'}}}
+    doc['paths']['/suno/upload']['post']['responses']['200']['content']['application/json']['schema']['properties']['data']={
+        'type':'object','properties':{**{name:{'type':'string'} for name in
+        ('audio_id','audio_url','image_url','image_large_url','title','lyric','style')},'duration':{'type':'number'}}}
+    doc['paths']['/suno/timing']['post']['responses']['200']['content']['application/json']['schema']['properties']['data']={
+        'type':'object','properties':{'aligned_words':{'type':'array','items':{'type':'object','properties':{
+            'word':{'type':'string'},'start_s':{'type':'number'},'end_s':{'type':'number'},
+            'p_align':{'type':'number'},'success':{'type':'boolean'}}}}}}
+    vocal=doc['paths']['/suno/vox']['post']
+    for name in ('async','callback_url'):
+        vocal['requestBody']['content']['application/json']['schema']['properties'].pop(name,None)
+    vocal['description']='Extract a vocal segment from an owned supported audio ID. This Coze tool waits for the vocal result; async mode is not exposed. Use the returned vocal_audio_url before it expires.'
+    vocal['responses']['200']['content']['application/json']['schema']['properties']['data']={
+        'type':'object','properties':{**{name:{'type':'string'} for name in
+        ('id','source_clip_id','status','vocal_audio_url')},'vocal_start_s':{'type':'number'},'vocal_end_s':{'type':'number'}}}
+    # Coze strips undeclared fields from task responses. Explicitly carry the
+    # music result and export URLs for both a single task and a batch.
+    music=copy.deepcopy(doc['paths']['/suno/audios']['post']['responses']['200']['content']['application/json']['schema']['properties'])
+    music['data']['items']['properties']['file_url']={'type':'string','description':'Completed MP3 or WAV export URL.'}
+    music['data']['items']['properties']['instruments']={'type':'array','items':{'type':'object','properties':{
+        'program':{'type':'integer'},'notes':{'type':'array','items':{'type':'object','properties':{
+            'pitch':{'type':'integer'},'start':{'type':'number'},'end':{'type':'number'},'velocity':{'type':'number'}}}}}}}
+    music.update({
+        'audio_url':{'type':'string'},'video_url':{'type':'string'},
+        'cost':{'type':'object','properties':{'amount':{'type':'number'},'currency':{'type':'string'},'list_amount':{'type':'number'}}},
+        'error':{'type':'object','properties':{'code':{'type':'string'},'message':{'type':'string'}}},
+    })
+    schema=doc['paths']['/suno/tasks']['post']['responses']['200']['content']['application/json']['schema']
+    for props in (schema['properties'],schema['properties']['items']['items']['properties']):
+        props['response']={'type':'object','properties':copy.deepcopy(music)}
+    report['suno']=copy.deepcopy(notes)+[{'kind':'declared_output','reason':'Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft.'}]
+    doc=concrete_objects(doc)
+    (target/'suno.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'suno.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
     (target/'compatibility-notes.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('Built',len(report),'Coze import projections; review representation differences before use.')
 

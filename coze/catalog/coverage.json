@@ -2766,6 +2766,63 @@
       "name": "WhatsApp Account Proxy",
       "brief": "Link your own WhatsApp account by QR code, then let an agent use existing chats and messages through MCP or REST.",
       "readiness": "guide_prepared"
+    },
+    {
+      "key": "gpt-image",
+      "service_id": "06f2acb7-e4d4-43de-9909-76e27b4e2355",
+      "service_type": "Api",
+      "title": "GPT Image",
+      "description": "Generate and edit images with GPT Image models, then retrieve completed image results.",
+      "source_url": "https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355",
+      "icon": "icons/openai.png",
+      "operations": [
+        {
+          "api_id": "8f01fe72-8a3e-4872-8d8d-330cde179b3a",
+          "path": "/openai/images/generations",
+          "method": "POST",
+          "stage": "Production",
+          "docs": "https://platform.acedata.cloud/documents/openai-images-generations",
+          "operation_id": "generateImage",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "8ff29e12-b814-4484-ab50-d39773a7a563",
+          "path": "/openai/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-tasks",
+          "operation_id": "getTaskResults",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
+          "path": "/openai/images/edits",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/openai-images-edits",
+          "operation_id": "editImage",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "GPT Image",
+      "brief": "GPT Image generation, editing and task results",
+      "group": "Image",
+      "scenarios": [
+        "Create an original illustration",
+        "edit an authorized image",
+        "retrieve a completed image task."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/gpt-image.yaml",
+      "variant_of": "openai"
     }
   ]
 }

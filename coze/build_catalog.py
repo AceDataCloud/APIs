@@ -21,16 +21,19 @@ LISTING_AUTH = 'Bind Authorization using Reference to your private adc_auth vari
 # Store copy follows the reduced scope verified on 2026-10-11. Canonical
 # contracts below retain the full API surface for future validation.
 STORE_DESCRIPTIONS = {
+    'suno': 'Generate music and lyrics, refine styles, upload authorized audio, create voice references, list personas, align words, extract vocals, export MP3/WAV/MIDI data and retrieve tasks.',
     'localization': 'Translate Markdown or plain text into a target locale. JSON-object translation is not enabled in the submitted store version.',
     'fish': 'Generate speech, retrieve speech tasks, list voices and read voice details. Custom voice creation is disabled in the submitted store version.',
     'openai': 'Use text chat and Responses, generate or edit images, and retrieve image tasks. Embeddings are disabled in the submitted store version.',
 }
 STORE_BRIEFS = {
+    'suno': 'Suno songs, lyrics, voices and audio exports',
     'localization': 'Translate Markdown and plain text',
     'fish': 'Speech, task results and saved voices',
     'openai': 'Chat, images, Responses and task results',
 }
 STORE_SCENARIOS = {
+    'suno': ['Write an original song', 'prepare authorized audio and voice references', 'retrieve completed music and export results.'],
     'localization': ['Translate a Markdown guide', 'localize a plain-text paragraph', 'review a translated article.'],
     'fish': ['Narrate an article', 'list available voices', 'retrieve an existing speech task.'],
     'openai': ['Draft campaign copy', 'generate or edit an image', 'retrieve an existing image task.'],
@@ -415,6 +418,7 @@ def main():
             op=definition['paths'][item['path']][item['method'].lower()]
             body=op.get('requestBody',{}).get('content',{}).get('application/json',{}).get('schema',{})
             cases.append({'service':row['key'],'api_id':item['api_id'],'operation_id':item['operation_id'],'method':item['method'],'path':item['path'],'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':sample(body)},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits.'],'special_authorization':row['key'] in ['turnstile','image2text','recaptcha']})
+    build_gpt_image_variant(coverage, listings, cases)
     guide=['Ace Data Cloud public service guide','Catalog date: '+src['retrieved_at'],'This is catalog guidance, not proof of Coze store publication.']
     for row in coverage:
         guide+=['','SERVICE: '+row['title'],'TYPE: '+row['service_type'],'DESCRIPTION: '+row['description'],'URL: '+row['source_url'],'COZE ENTRY: '+row['delivery']]
@@ -427,5 +431,46 @@ def main():
     write_json(ROOT/'listings.json',listings)
     write_json(ROOT/'examples/catalog/validation-cases.json',cases)
     print(f'{len(coverage)} services, {len(listings)} API listings, {sum(1 for x in coverage if x.get("schema"))} schemas, {sum(x.get("tool_count",0) for x in coverage)} tools, {len(cases)} draft test cases')
+
+
+def build_gpt_image_variant(coverage, listings, cases):
+    """Expose the existing image routes as a separately installable plugin."""
+    key = 'gpt-image'
+    routes = {'/openai/images/generations', '/openai/images/edits', '/openai/tasks'}
+    doc = json.loads((ROOT/'plugins/openai.json').read_text())
+    doc['paths'] = {path: op for path, op in doc['paths'].items() if path in routes}
+    description = 'Generate and edit images with GPT Image models, then retrieve completed image results.'
+    source = next(row for row in coverage if row['key'] == 'openai')
+    row = copy.deepcopy(source)
+    row.update(key=key, variant_of='openai', name='GPT Image', title='GPT Image',
+               brief='GPT Image generation, editing and task results', group='Image',
+               description=description, scenarios=['Create an original illustration',
+                   'edit an authorized image', 'retrieve a completed image task.'],
+               schema='plugins/gpt-image.yaml', tool_count=3,
+               coze_state='not_created', validation='not_run')
+    row['operations'] = [op for op in row['operations'] if op['path'] in routes]
+    start_url = acquisition_url(row['source_url'], key)
+    doc['info'].update(title='GPT Image', description=description+' '+AUTH+' Start: '+start_url)
+    for path in routes - {'/openai/tasks'}:
+        model = doc['paths'][path]['post']['requestBody']['content']['application/json']['schema']['properties']['model']
+        model['enum'] = [name for name in model['enum'] if name.startswith('gpt-image') and name != 'gpt-image-2:reverse']
+        model['default'] = 'gpt-image-2'
+        model['description'] = 'Select a supported GPT Image model explicitly. Model-specific parameters and prices apply; no automatic model substitution.'
+    write_json(ROOT/'plugins/gpt-image.json', doc)
+    (ROOT/'plugins/gpt-image.yaml').write_text(yaml.safe_dump(doc, allow_unicode=True, sort_keys=False, width=100))
+    listing = {field:row[field] for field in ['name','brief','description','scenarios','icon']}
+    listing.update(category='Photography', about=description+'\n\n'+LISTING_AUTH+'\nGet started: '+start_url,
+                   privacy_review=copy.deepcopy(listings['openai']['privacy_review']))
+    listings[key] = listing
+    coverage.append(row)
+    for case in list(cases):
+        if case['service'] != 'openai' or case['path'] not in routes:
+            continue
+        case = copy.deepcopy(case)
+        case['service'] = key
+        body = case['request']['body']
+        if isinstance(body, dict) and 'model' in body:
+            body['model'] = 'gpt-image-2'
+        cases.append(case)
 
 if __name__=='__main__':main()

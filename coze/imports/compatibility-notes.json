@@ -543,5 +543,35 @@
       ],
       "coze_type": "string"
     }
+  ],
+  "gpt-image": [
+    {
+      "kind": "service_subset",
+      "reason": "Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; existing OpenAI plugin is unchanged."
+    }
+  ],
+  "suno": [
+    {
+      "field": "POST /suno/custom-models/response/data",
+      "kind": "representation",
+      "api_types": [
+        "object",
+        "array"
+      ],
+      "coze_type": "object"
+    },
+    {
+      "field": "POST /suno/custom-models/response/data",
+      "kind": "representation",
+      "api_types": [
+        "object",
+        "array"
+      ],
+      "coze_type": "object"
+    },
+    {
+      "kind": "declared_output",
+      "reason": "Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft."
+    }
   ]
 }

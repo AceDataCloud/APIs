@@ -23,7 +23,7 @@ def main():
     services={}
     for row in rows:
         if row['service_type']!='Api':continue
-        key=row['key'];directory={'nano-banana':'nanobanana'}.get(key,key);folder=repo/directory
+        key=row['key'];directory={'nano-banana':'nanobanana','gpt-image':'openai'}.get(key,key);folder=repo/directory
         if not (folder/'tools').is_dir():
             services[key]={'mcp':None,'status':'no_dedicated_mcp','note':'No corresponding dedicated server exists in the MCP monorepo; the full public service contract remains the baseline.'}
             continue

@@ -2726,5 +2726,82 @@
       "Validate required inputs. Use an authorized owned task or controlled fixture. Inspect the real output and billed Credits."
     ],
     "special_authorization": true
+  },
+  {
+    "service": "gpt-image",
+    "api_id": "8f01fe72-8a3e-4872-8d8d-330cde179b3a",
+    "operation_id": "generateImage",
+    "method": "POST",
+    "path": "/openai/images/generations",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A cute baby sea otter",
+        "model": "gpt-image-2",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gpt-image",
+    "api_id": "8ff29e12-b814-4484-ab50-d39773a7a563",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/openai/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "action": "retrieve"
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "gpt-image",
+    "api_id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
+    "operation_id": "editImage",
+    "method": "POST",
+    "path": "/openai/images/edits",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "image": "https://example.com/authorized-test-input",
+        "prompt": "A calm sunrise over a mountain lake.",
+        "model": "gpt-image-2",
+        "async": true
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
   }
 ]

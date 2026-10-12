@@ -33,7 +33,7 @@ def main():
         row['trial']=trials.get(row['key'])
         row['mcp']=parity['services'].get(row['key'])
         row['e2e']=e2e_services.get(row['key'])
-        row['icon_source']=overrides.get(row['key'],icons[row['key']])
+        row['icon_source']=overrides.get(row['key'],icons[row.get('variant_of',row['key'])])
         if row['key']=='suno':row['native_draft']=native
     payload=json.dumps({'services':[r for r in rows if r['service_type']=='Api'],'guides':[r for r in rows if r['service_type']!='Api'],'mcp_revision':parity.get('source_revision'),'e2e_summary':{k:v for k,v in e2e.items() if k!='services'}},ensure_ascii=False).replace('</','<\\/')
     html=r'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coze · 服务插件审查</title><style>

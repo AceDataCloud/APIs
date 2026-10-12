@@ -274,3 +274,10 @@ DESCRIPTION: Link your own WhatsApp account by QR code, then let an agent use ex
 URL: https://platform.acedata.cloud/services/f36a2d7d-f07c-4830-848d-2b115de958ee
 COZE ENTRY: catalog_assistant
 NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
+
+SERVICE: GPT Image
+TYPE: Api
+DESCRIPTION: Generate and edit images with GPT Image models, then retrieve completed image results.
+URL: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.

@@ -21,7 +21,9 @@ class CozeCatalogTests(unittest.TestCase):
 
     def test_every_public_service_is_accounted_for(self):
         self.assertEqual({x['id'] for x in self.source['services'] if x['type'] != 'Dataset' and builder.slug(x) not in {'aichat','digitalhuman','dreamina'}}, {x['service_id'] for x in self.coverage})
-        self.assertEqual(len(self.coverage), len({x['service_id'] for x in self.coverage}))
+        self.assertEqual(len(self.coverage), len({x['key'] for x in self.coverage}))
+        primary = [row for row in self.coverage if not row.get('variant_of')]
+        self.assertEqual(len(primary), len({x['service_id'] for x in primary}))
         for row in self.coverage:
             self.assertTrue(row['name'])
             self.assertNotIn('AceData',row['name'])
@@ -54,6 +56,34 @@ class CozeCatalogTests(unittest.TestCase):
                         if 'stream' in body.get('properties', {}):
                             self.assertEqual([False], body['properties']['stream']['enum'])
                 self.assertEqual(len(operation_ids), len(set(operation_ids)))
+
+    def test_gpt_image_is_separate_and_keeps_openai_capabilities(self):
+        image=self.plugins['gpt-image']
+        self.assertEqual({'/openai/images/generations','/openai/images/edits','/openai/tasks'},set(image['paths']))
+        self.assertIn('/openai/chat/completions',self.plugins['openai']['paths'])
+        for uri in ('/openai/images/generations','/openai/images/edits'):
+            model=image['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model']
+            self.assertEqual('gpt-image-2',model['default'])
+            self.assertTrue(all(name.startswith('gpt-image') for name in model['enum']))
+        projected=json.loads((ROOT/'imports/gpt-image.json').read_text())
+        validate_spec(projected)
+        result=projected['paths']['/openai/tasks']['post']['responses']['200']['content']['application/json']['schema']['properties']['response']['properties']
+        self.assertIn('url',result['data']['items']['properties'])
+
+    def test_suno_http_tasks_retain_music_and_export_results(self):
+        projected=json.loads((ROOT/'imports/suno.json').read_text())
+        validate_spec(projected)
+        schema=projected['paths']['/suno/tasks']['post']['responses']['200']['content']['application/json']['schema']
+        for props in (schema['properties'],schema['properties']['items']['items']['properties']):
+            fields=props['response']['properties']
+            self.assertTrue({'success','task_id','data','audio_url','error','cost'} <= set(fields))
+            self.assertTrue({'id','audio_url','title','duration','state'} <= set(fields['data']['items']['properties']))
+        lyrics=projected['paths']['/suno/lyrics']['post']
+        fields=lyrics['responses']['200']['content']['application/json']['schema']['properties']['data']
+        Draft4Validator(fields).validate({'title':'Morning','text':'Original lyrics','tags':['folk'],'status':'complete'})
+        self.assertEqual(['default'],lyrics['requestBody']['content']['application/json']['schema']['properties']['model']['enum'])
+        style=projected['paths']['/suno/style']['post']['responses']['200']['content']['application/json']['schema']['properties']['data']
+        Draft4Validator(style).validate({'upsampled_tags':'Gentle acoustic folk with warm vocals.'})
 
     def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
         import yaml
