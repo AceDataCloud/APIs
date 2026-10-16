@@ -1,0 +1,28 @@
+name: Pipedream submission packet
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "pipedream/**"
+      - ".github/workflows/pipedream-submission-packet.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "pipedream/**"
+      - ".github/workflows/pipedream-submission-packet.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m json.tool pipedream/submission-packet.json >/dev/null
+      - run: python -m unittest pipedream/test_submission_packet.py
+      - run: python -m py_compile pipedream/test_submission_packet.py
