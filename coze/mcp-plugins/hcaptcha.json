@@ -1,0 +1,28 @@
+{
+  "name": "hCaptcha Resolver",
+  "brief": "hCaptcha integration and task retrieval",
+  "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
+  "icon": "icons/hcaptcha.png",
+  "plugin_type": "MCP",
+  "server_url": null,
+  "expected_tool_names": [
+    "hcaptcha_recognize",
+    "hcaptcha_get_token",
+    "hcaptcha_get_usage_guide",
+    "hcaptcha_get_api_info",
+    "hcaptcha_get_task"
+  ],
+  "expected_tool_count": 5,
+  "benchmark_source": "source registration",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

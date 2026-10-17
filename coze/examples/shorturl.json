@@ -1,0 +1,13 @@
+{
+  "description": "Sanitized example based on a real Coze trial on 2026-10-04. Replace the placeholder privately with your own API token. Outputs may change on a new run. Only selected response fields are shown.",
+  "request": {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "content": "https://platform.acedata.cloud/?from=coze"
+  },
+  "response": {
+    "success": true,
+    "data": {
+      "url": "https://surl.id/1uNkl9w2wc"
+    }
+  }
+}

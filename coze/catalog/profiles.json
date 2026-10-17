@@ -1,0 +1,418 @@
+{
+  "deepseek": {
+    "name": "DeepSeek",
+    "display_name": "DeepSeek",
+    "group": "Chat",
+    "brief": "Reasoning and writing with DeepSeek",
+    "description": "Write and reason with DeepSeek models through the public Ace Data Cloud AI Dialogue conversation API. Choose the model explicitly and receive a conversation result.",
+    "scenarios": [
+      "Explain a technical concept",
+      "outline a report",
+      "compare two approaches."
+    ]
+  },
+  "claude": {
+    "name": "Claude",
+    "display_name": "Claude",
+    "group": "Chat",
+    "brief": "Claude writing, reasoning and token counting",
+    "description": "Write, analyze and revise content with Claude through chat or native Messages tools. Count tokens before sending a larger request.",
+    "scenarios": [
+      "Revise a proposal",
+      "analyze a document",
+      "estimate prompt tokens."
+    ]
+  },
+  "maestro": {
+    "name": "Maestro",
+    "display_name": "Maestro",
+    "group": "Video",
+    "brief": "Turn a brief into a narrated video",
+    "description": "Produce an end-to-end video from a creative brief with visual style, narration and language controls. Retrieve the task to get the finished video.",
+    "scenarios": [
+      "Create a product explainer",
+      "turn a campaign brief into a narrated video",
+      "revise a previous project."
+    ]
+  },
+  "turnstile": {
+    "name": "Turnstile Resolver",
+    "display_name": "Turnstile Resolver",
+    "group": "Verification",
+    "brief": "Turnstile integration tools",
+    "description": "Integrate Turnstile challenge processing into an authorized site-testing workflow using a site URL and site key.",
+    "scenarios": [
+      "Test your own integration",
+      "inspect task completion in a controlled environment."
+    ]
+  },
+  "image2text": {
+    "name": "CAPTCHA OCR Resolver",
+    "display_name": "CAPTCHA OCR Resolver",
+    "group": "Verification",
+    "brief": "Read text from verification images",
+    "description": "Recognize letters and numbers in verification images for authorized testing workflows.",
+    "scenarios": [
+      "Check OCR on a self-created test image",
+      "validate an owned integration."
+    ]
+  },
+  "kimi": {
+    "name": "Kimi",
+    "display_name": "Kimi",
+    "group": "Chat",
+    "brief": "Kimi writing and reasoning",
+    "description": "Use Kimi models to draft, reason about and summarize text in an agent or workflow.",
+    "scenarios": [
+      "Summarize a report",
+      "plan a research outline",
+      "explain code."
+    ]
+  },
+  "hailuo": {
+    "name": "Hailuo",
+    "display_name": "Hailuo",
+    "group": "Video",
+    "brief": "Hailuo text and image to video",
+    "description": "Create Hailuo clips from text or an image and follow the task through to its final video URL.",
+    "scenarios": [
+      "Animate a product image",
+      "draft a short cinematic scene",
+      "explore director-style camera movement."
+    ]
+  },
+  "openai": {
+    "name": "OpenAI",
+    "display_name": "OpenAI",
+    "group": "Multimodal",
+    "brief": "Chat, images, responses and embeddings",
+    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options.",
+    "scenarios": [
+      "Draft campaign copy",
+      "create a product image",
+      "build a document search workflow."
+    ]
+  },
+  "gemini": {
+    "name": "Gemini",
+    "display_name": "Gemini",
+    "group": "Multimodal",
+    "brief": "Gemini chat, content and video tools",
+    "description": "Use Gemini chat and native content requests, or create a video and retrieve its completed result.",
+    "scenarios": [
+      "Analyze a visual brief",
+      "summarize content",
+      "create a short video concept."
+    ]
+  },
+  "grok": {
+    "name": "Grok",
+    "display_name": "Grok",
+    "group": "Multimodal",
+    "brief": "Grok chat and video creation",
+    "description": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.",
+    "scenarios": [
+      "Compare ideas",
+      "draft content",
+      "generate a promotional clip."
+    ]
+  },
+  "veo": {
+    "name": "Veo",
+    "display_name": "Veo",
+    "group": "Video",
+    "brief": "Veo video creation and result retrieval",
+    "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.",
+    "scenarios": [
+      "Create a cinematic scene",
+      "animate a hero image",
+      "generate a clip from visual ingredients."
+    ]
+  },
+  "aichat": {
+    "name": "AI Chat",
+    "display_name": "AI Chat",
+    "group": "Chat",
+    "brief": "Multi-model conversations and history",
+    "description": "Start and retrieve conversations using Ace Data Cloud's multi-model conversation APIs. Select a model explicitly and keep conversation IDs for follow-up turns.",
+    "scenarios": [
+      "Build a writing assistant",
+      "run a structured conversation",
+      "retrieve a previous answer."
+    ]
+  },
+  "serp": {
+    "name": "Google Search",
+    "display_name": "Google Search",
+    "group": "Search",
+    "brief": "Google search with sources and filters",
+    "description": "Find web pages, images, news, maps and other supported search results with country, language, recency and pagination controls.",
+    "scenarios": [
+      "Research current sources",
+      "find image references",
+      "collect localized search results."
+    ]
+  },
+  "luma": {
+    "name": "Luma",
+    "display_name": "Luma",
+    "group": "Video",
+    "brief": "Luma video creation and extension",
+    "description": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.",
+    "scenarios": [
+      "Animate a scene",
+      "extend an existing clip",
+      "make a looping visual."
+    ]
+  },
+  "identity": {
+    "name": "Identity Verification",
+    "display_name": "Identity Verification",
+    "group": "Verification",
+    "brief": "Identity, phone and bank-card verification",
+    "description": "Use identity, phone and bank-card verification tools in an explicitly authorized workflow. Inputs and results require private handling and an accurate privacy declaration.",
+    "scenarios": [
+      "Validate an approved test fixture",
+      "confirm input format",
+      "inspect an authorized verification result."
+    ]
+  },
+  "seedance": {
+    "name": "Seedance",
+    "display_name": "Seedance",
+    "group": "Video",
+    "brief": "Seedance multimodal video creation",
+    "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.",
+    "scenarios": [
+      "Create a short storyboard",
+      "animate reference images",
+      "combine authorized multimodal references."
+    ]
+  },
+  "recaptcha": {
+    "name": "reCAPTCHA Resolver",
+    "display_name": "reCAPTCHA Resolver",
+    "group": "Verification",
+    "brief": "reCAPTCHA integration and recognition tools",
+    "description": "Process supported reCAPTCHA token or image-recognition requests in authorized integration tests.",
+    "scenarios": [
+      "Test an owned site integration",
+      "inspect a controlled challenge result."
+    ]
+  },
+  "hcaptcha": {
+    "name": "hCaptcha Resolver",
+    "display_name": "hCaptcha Resolver",
+    "group": "Verification",
+    "brief": "hCaptcha integration and task retrieval",
+    "description": "Process supported hCaptcha token or recognition requests and retrieve task results in authorized testing workflows.",
+    "scenarios": [
+      "Validate an owned integration",
+      "retrieve a submitted test task."
+    ]
+  },
+  "qwen-image": {
+    "name": "Qwen Image",
+    "display_name": "Qwen Image",
+    "group": "Image",
+    "brief": "Qwen image generation and editing",
+    "description": "Create images from text or edit supported reference images with Qwen Image, then retrieve the finished image URLs.",
+    "scenarios": [
+      "Design a poster concept",
+      "edit product visuals",
+      "make consistent reference-based images."
+    ]
+  },
+  "shorturl": {
+    "name": "Short URL",
+    "display_name": "Short URL",
+    "group": "Utility",
+    "brief": "Compact links for campaigns and sharing",
+    "description": "Turn a long public URL into a compact shareable link. Use the returned data.url in the next workflow step.",
+    "scenarios": [
+      "Shorten a campaign URL",
+      "share documentation",
+      "create a compact link in a workflow."
+    ]
+  },
+  "webextrator": {
+    "name": "Web Extractor",
+    "display_name": "Web Extractor",
+    "group": "Search",
+    "brief": "Render pages and extract structured content",
+    "description": "Render a public web page or extract its content with WebExtrator. Retrieve asynchronous tasks and inspect the actual output before using it.",
+    "scenarios": [
+      "Read a public documentation page",
+      "extract an article",
+      "collect structured research material."
+    ]
+  },
+  "producer": {
+    "name": "Producer",
+    "display_name": "Producer",
+    "group": "Music",
+    "brief": "Songs, lyrics, stems and audio exports",
+    "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.",
+    "scenarios": [
+      "Create background music",
+      "write lyrics",
+      "produce a variation of an authorized track."
+    ]
+  },
+  "nano-banana": {
+    "name": "Nano Banana",
+    "display_name": "Nano Banana",
+    "group": "Image",
+    "brief": "Nano Banana image creation and editing",
+    "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
+    "scenarios": [
+      "Create product imagery",
+      "edit a scene",
+      "adapt a visual for social media."
+    ]
+  },
+  "wan": {
+    "name": "Wan",
+    "display_name": "Wan",
+    "group": "Video",
+    "brief": "Wan text, image and reference video",
+    "description": "Create videos with Wan from text, images or supported reference video. Use the task tool to retrieve the finished result.",
+    "scenarios": [
+      "Make an advertising concept",
+      "animate an image",
+      "create a scene from authorized references."
+    ]
+  },
+  "dreamina": {
+    "name": "Dreamina",
+    "display_name": "Dreamina",
+    "group": "Avatar",
+    "brief": "Animate a portrait with an audio track",
+    "description": "Turn an authorized portrait and audio track into a talking-photo video with Dreamina, then retrieve the completed task.",
+    "scenarios": [
+      "Animate your own presenter portrait",
+      "make a narrated explainer",
+      "localize an authorized avatar clip."
+    ]
+  },
+  "suno": {
+    "name": "Suno",
+    "display_name": "Suno",
+    "group": "Music",
+    "brief": "Suno songs, lyrics and music production",
+    "description": "Create songs and lyrics, extend or transform tracks, manage supported personas and studio projects, and retrieve music or export formats with Suno.",
+    "scenarios": [
+      "Make background music",
+      "develop a song from lyrics",
+      "assemble and export a multi-track project."
+    ]
+  },
+  "digitalhuman": {
+    "name": "Digital Human",
+    "display_name": "Digital Human",
+    "group": "Avatar",
+    "brief": "Talking avatars, voice and video tools",
+    "description": "Create a talking-avatar video from authorized visual and audio or text inputs. Manage supported voices and retrieve completed tasks.",
+    "scenarios": [
+      "Make a presenter explainer",
+      "animate your own portrait",
+      "generate an authorized voice-led video."
+    ]
+  },
+  "happyhorse": {
+    "name": "HappyHorse",
+    "display_name": "HappyHorse",
+    "group": "Video",
+    "brief": "HappyHorse video generation and editing",
+    "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.",
+    "scenarios": [
+      "Draft an ad scene",
+      "animate a product visual",
+      "edit an authorized clip."
+    ]
+  },
+  "kling": {
+    "name": "Kling",
+    "display_name": "Kling",
+    "group": "Video",
+    "brief": "Kling video, motion and commerce tools",
+    "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.",
+    "scenarios": [
+      "Create a product spot",
+      "animate a talking portrait",
+      "control movement from an authorized reference."
+    ]
+  },
+  "localization": {
+    "name": "Localization",
+    "display_name": "Localization",
+    "group": "Utility",
+    "brief": "Translate structured localization files",
+    "description": "Translate localization content into a target locale while specifying the source format. Review the returned translation before release.",
+    "scenarios": [
+      "Translate application strings",
+      "localize structured copy",
+      "prepare a second-language resource file."
+    ]
+  },
+  "fish": {
+    "name": "Fish",
+    "display_name": "Fish",
+    "group": "Audio",
+    "brief": "Text to speech and authorized voice tools",
+    "description": "Turn text into speech, browse supported saved voices, or create a voice from authorized reference audio. Retrieve asynchronous speech tasks.",
+    "scenarios": [
+      "Narrate an article",
+      "create a product voiceover",
+      "use your own licensed voice reference."
+    ]
+  },
+  "minimax": {
+    "name": "MiniMax",
+    "display_name": "MiniMax",
+    "group": "Video",
+    "brief": "MiniMax video creation and task retrieval",
+    "description": "Create MiniMax videos from supported content inputs, duration and resolution settings. Retrieve tasks to obtain the completed video.",
+    "scenarios": [
+      "Create a cinematic concept",
+      "animate reference content",
+      "produce a short commercial clip."
+    ]
+  },
+  "glm": {
+    "name": "GLM",
+    "display_name": "GLM",
+    "group": "Chat",
+    "brief": "GLM writing and reasoning",
+    "description": "Use GLM chat models for writing, analysis and reasoning with explicit model selection and non-streaming results.",
+    "scenarios": [
+      "Draft a report",
+      "summarize material",
+      "explain a technical problem."
+    ]
+  },
+  "seedream": {
+    "name": "Seedream",
+    "display_name": "Seedream",
+    "group": "Image",
+    "brief": "Seedream product images and illustrations",
+    "description": "Generate images, edit references and use supported layer or transparency options with Seedream. Choose model-specific settings and retrieve completed tasks.",
+    "scenarios": [
+      "Create catalog visuals",
+      "illustrate an article",
+      "prepare editable image layers."
+    ]
+  },
+  "flux": {
+    "name": "FLUX",
+    "display_name": "FLUX",
+    "group": "Multimodal",
+    "brief": "Flux image editing and video creation",
+    "description": "Generate and edit images with Flux or create Flux 3 videos using the supported request modes. Retrieve tasks to collect finished media.",
+    "scenarios": [
+      "Create a product image",
+      "change its background",
+      "turn a scene into a video."
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Nano Banana",
+  "brief": "Nano Banana image creation and editing",
+  "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
+  "icon": "icons/nano-banana.png",
+  "plugin_type": "MCP",
+  "server_url": "https://nanobanana.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "nanobanana_generate_image",
+    "nanobanana_edit_image",
+    "nanobanana_get_task",
+    "nanobanana_get_tasks_batch"
+  ],
+  "expected_tool_count": 4,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

@@ -1,0 +1,4388 @@
+{
+  "claude": {
+    "/v1/messages/count_tokens": {
+      "request_fields": [
+        "model",
+        "system",
+        "messages",
+        "thinking",
+        "tool_choice",
+        "cache_control"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "input_tokens"
+                ],
+                "properties": {
+                  "input_tokens": {
+                    "type": "integer",
+                    "description": "The total number of tokens for the provided message list, system prompts, and tool definitions."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Access denied, insufficient balance or exceeded quota limit."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, exceeding rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/v1/chat/completions": {
+      "request_fields": [
+        "n",
+        "seed",
+        "stop",
+        "user",
+        "model",
+        "store",
+        "top_p",
+        "stream",
+        "logprobs",
+        "messages",
+        "max_tokens",
+        "modalities",
+        "temperature",
+        "tool_choice",
+        "service_tier",
+        "top_logprobs",
+        "presence_penalty",
+        "reasoning_effort",
+        "frequency_penalty",
+        "parallel_tool_calls",
+        "max_completion_tokens"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "integer"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "type": "integer"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "finish_reason": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "prompt_tokens": {
+                        "type": "integer"
+                      },
+                      "completion_tokens": {
+                        "type": "integer"
+                      },
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "prompt_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cached_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_creation_tokens": {
+                            "type": "integer"
+                          },
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "completion_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "reasoning_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "input_tokens": {
+                        "type": "integer"
+                      },
+                      "output_tokens": {
+                        "type": "integer"
+                      },
+                      "input_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "claude_cache_creation_5_m_tokens": {
+                        "type": "integer"
+                      },
+                      "claude_cache_creation_1_h_tokens": {
+                        "type": "integer"
+                      },
+                      "cost": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "list_amount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "service_tier": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "OK, request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Response error message."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server."
+        }
+      }
+    },
+    "/v1/messages": {
+      "request_fields": [
+        "model",
+        "top_k",
+        "top_p",
+        "stream",
+        "system",
+        "messages",
+        "metadata",
+        "thinking",
+        "max_tokens",
+        "temperature",
+        "tool_choice",
+        "cache_control",
+        "output_config",
+        "stop_sequences"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "role",
+                  "content",
+                  "model",
+                  "stop_reason",
+                  "stop_sequence",
+                  "usage"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "The unique identifier of the object."
+                  },
+                  "role": {
+                    "enum": [
+                      "assistant"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "message"
+                    ],
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string",
+                    "description": "The model used to process this request."
+                  },
+                  "usage": {
+                    "type": "object",
+                    "required": [
+                      "input_tokens",
+                      "output_tokens"
+                    ],
+                    "properties": {
+                      "cost": {
+                        "type": "object",
+                        "nullable": true,
+                        "required": [
+                          "amount",
+                          "currency"
+                        ],
+                        "properties": {
+                          "amount": {
+                            "type": "number",
+                            "minimum": 0,
+                            "description": "The quota actually consumed by this request."
+                          },
+                          "currency": {
+                            "type": "string",
+                            "description": "Unit of measurement for the quota."
+                          },
+                          "list_amount": {
+                            "type": "number",
+                            "minimum": 0,
+                            "nullable": true,
+                            "description": "Amount before discount (if any)."
+                          }
+                        },
+                        "description": "The quota consumption recorded by Ace Data Cloud for this non-streaming request; may be null or omitted in streaming responses."
+                      },
+                      "input_tokens": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "service_tier": {
+                        "enum": [
+                          "standard",
+                          "priority",
+                          "batch"
+                        ],
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "output_tokens": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "cache_creation": {
+                        "type": "object",
+                        "nullable": true,
+                        "required": [
+                          "ephemeral_1h_input_tokens",
+                          "ephemeral_5m_input_tokens"
+                        ],
+                        "properties": {
+                          "ephemeral_1h_input_tokens": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "ephemeral_5m_input_tokens": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      },
+                      "output_tokens_details": {
+                        "type": "object",
+                        "nullable": true,
+                        "required": [
+                          "thinking_tokens"
+                        ],
+                        "properties": {
+                          "thinking_tokens": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "description": "Number of output tokens used for reasoning by the model; this value is already included in output_tokens and should not be added again."
+                          }
+                        },
+                        "description": "Output token details. It may be null or omitted when authoritative details are unavailable."
+                      },
+                      "cache_read_input_tokens": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "nullable": true
+                      },
+                      "cache_creation_input_tokens": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "thinking",
+                            "redacted_thinking",
+                            "tool_use"
+                          ]
+                        },
+                        "citations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                          },
+                          "nullable": true
+                        },
+                        "thinking": {
+                          "type": "string"
+                        },
+                        "signature": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ]
+                    }
+                  },
+                  "stop_reason": {
+                    "enum": [
+                      "end_turn",
+                      "max_tokens",
+                      "stop_sequence",
+                      "tool_use",
+                      "pause_turn",
+                      "refusal",
+                      "model_context_window_exceeded"
+                    ],
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "stop_details": {
+                    "type": "object",
+                    "nullable": true,
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "refusal"
+                        ],
+                        "type": "string"
+                      },
+                      "category": {
+                        "enum": [
+                          "cyber",
+                          "bio",
+                          "frontier_llm",
+                          "reasoning_extraction",
+                          "general_harms"
+                        ],
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "explanation": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "stop_sequence": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful"
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request parameter error"
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "身份验证失败。"
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "禁止访问或余额不足。"
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests have triggered the rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal service error."
+        }
+      }
+    }
+  },
+  "openai": {
+    "/openai/images/generations": {
+      "request_fields": [
+        "n",
+        "size",
+        "async",
+        "model",
+        "style",
+        "prompt",
+        "quality",
+        "background",
+        "moderation",
+        "callback_url",
+        "output_format",
+        "partial_images",
+        "response_format",
+        "output_compression"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "created": {
+                    "type": "integer"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Image generation successful or operation executed successfully."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Response error message."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Access denied, the request has been understood, but the server refuses to execute or allows access."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/openai/tasks": {
+      "request_fields": [
+        "id",
+        "ids",
+        "type",
+        "limit",
+        "action",
+        "offset",
+        "user_id",
+        "trace_id",
+        "trace_ids",
+        "count_mode",
+        "application_id",
+        "created_at_max",
+        "created_at_min"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Task ID."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Task type."
+                  },
+                  "api_id": {
+                    "type": "string",
+                    "description": "API Identifier."
+                  },
+                  "elapsed": {
+                    "type": "number",
+                    "format": "double",
+                    "minimum": 0,
+                    "nullable": true,
+                    "description": "Processing duration (seconds)."
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The account to which the task belongs."
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "Request tracking ID."
+                  },
+                  "created_at": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Task creation time, Unix timestamp (seconds)."
+                  },
+                  "started_at": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Process start time, Unix timestamp (seconds)."
+                  },
+                  "finished_at": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true,
+                    "description": "Processing completion time, Unix timestamp (seconds)."
+                  },
+                  "actor_user_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Account for executing the authorization request."
+                  },
+                  "credential_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Credentials used to start tasks."
+                  },
+                  "application_id": {
+                    "type": "string",
+                    "description": "Application for billing."
+                  },
+                  "authorization_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Authorization used when starting the task."
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Total number of matching tasks."
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "type",
+                        "created_at",
+                        "trace_id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Task ID."
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Task type."
+                        },
+                        "api_id": {
+                          "type": "string",
+                          "description": "API Identifier."
+                        },
+                        "elapsed": {
+                          "type": "number",
+                          "format": "double",
+                          "minimum": 0,
+                          "nullable": true,
+                          "description": "Processing duration (seconds)."
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The account to which the task belongs."
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "Request tracking ID."
+                        },
+                        "created_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Task creation time, Unix timestamp (seconds)."
+                        },
+                        "started_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Process start time, Unix timestamp (seconds)."
+                        },
+                        "finished_at": {
+                          "type": "number",
+                          "format": "double",
+                          "nullable": true,
+                          "description": "Processing completion time, Unix timestamp (seconds)."
+                        },
+                        "actor_user_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Account for executing the authorization request."
+                        },
+                        "credential_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Credentials used to start tasks."
+                        },
+                        "application_id": {
+                          "type": "string",
+                          "description": "Application for billing."
+                        },
+                        "authorization_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Authorization used when starting the task."
+                        }
+                      }
+                    },
+                    "description": "Matching task list."
+                  },
+                  "has_more": {
+                    "type": "boolean",
+                    "description": "Is there another page of tasks?"
+                  },
+                  "count_is_exact": {
+                    "type": "boolean",
+                    "description": "Whether `count` is the exact total."
+                  },
+                  "count_relation": {
+                    "enum": [
+                      "eq",
+                      "gte"
+                    ],
+                    "type": "string",
+                    "description": "The relationship between `count` and the actual total: `eq` indicates equality, and `gte` indicates that the actual total is greater than or equal to that value."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Operation executed successfully."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, the authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/openai/embeddings": {
+      "request_fields": [
+        "input",
+        "model",
+        "dimensions",
+        "encoding_format"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "type": "integer"
+                        },
+                        "object": {
+                          "type": "string"
+                        },
+                        "embedding": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "prompt_tokens": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Embedding vector created successfully."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/openai/chat/completions": {
+      "request_fields": [
+        "n",
+        "seed",
+        "stop",
+        "user",
+        "model",
+        "store",
+        "top_p",
+        "stream",
+        "logprobs",
+        "messages",
+        "max_tokens",
+        "modalities",
+        "temperature",
+        "tool_choice",
+        "service_tier",
+        "top_logprobs",
+        "presence_penalty",
+        "reasoning_effort",
+        "frequency_penalty",
+        "parallel_tool_calls",
+        "max_completion_tokens"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "integer"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "type": "integer"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "finish_reason": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "prompt_tokens": {
+                        "type": "integer"
+                      },
+                      "completion_tokens": {
+                        "type": "integer"
+                      },
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "prompt_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cached_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_creation_tokens": {
+                            "type": "integer"
+                          },
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "completion_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "reasoning_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "input_tokens": {
+                        "type": "integer"
+                      },
+                      "output_tokens": {
+                        "type": "integer"
+                      },
+                      "input_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "claude_cache_creation_5_m_tokens": {
+                        "type": "integer"
+                      },
+                      "claude_cache_creation_1_h_tokens": {
+                        "type": "integer"
+                      },
+                      "cost": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "list_amount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "service_tier": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "OK, request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/openai/responses": {
+      "request_fields": [
+        "n",
+        "input",
+        "model",
+        "store",
+        "stream",
+        "include",
+        "background",
+        "max_tokens",
+        "temperature",
+        "tool_choice",
+        "response_format",
+        "max_output_tokens",
+        "parallel_tool_calls"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "input_tokens": {
+                        "type": "integer"
+                      },
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "output_tokens": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "output": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "content": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string"
+                              },
+                              "type": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "text/event-stream": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "item": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "enum": [
+                          "assistant"
+                        ],
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "message",
+                          "function_call",
+                          "custom_tool_call"
+                        ]
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "call_id": {
+                        "type": "string",
+                        "description": "Associate this call with its function_call_output."
+                      },
+                      "arguments": {
+                        "type": "string"
+                      },
+                      "input": {
+                        "type": "string"
+                      },
+                      "namespace": {
+                        "type": "string",
+                        "description": "Optional namespace containing custom tools."
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Response event types, such as `response.output_item.done` or `response.completed`."
+                  },
+                  "delta": {
+                    "type": "string"
+                  },
+                  "response": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "object",
+                      "status",
+                      "model",
+                      "output"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "error": {
+                        "type": "object",
+                        "nullable": true,
+                        "additionalProperties": true
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "usage": {
+                        "nullable": true,
+                        "type": "object"
+                      },
+                      "object": {
+                        "enum": [
+                          "response"
+                        ],
+                        "type": "string"
+                      },
+                      "output": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "enum": [
+                                "assistant"
+                              ],
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string",
+                              "enum": [
+                                "message",
+                                "function_call",
+                                "custom_tool_call"
+                              ]
+                            },
+                            "status": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": true
+                              }
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "call_id": {
+                              "type": "string",
+                              "description": "Associate this call with its function_call_output."
+                            },
+                            "arguments": {
+                              "type": "string"
+                            },
+                            "input": {
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "type": "string",
+                              "description": "Optional namespace containing custom tools."
+                            }
+                          },
+                          "required": [
+                            "type"
+                          ]
+                        }
+                      },
+                      "status": {
+                        "enum": [
+                          "completed",
+                          "failed",
+                          "in_progress",
+                          "incomplete",
+                          "queued",
+                          "cancelled"
+                        ],
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "integer"
+                      },
+                      "output_text": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": true
+                  },
+                  "output_index": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "OK, request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, exceeding rate limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/openai/images/edits": {
+      "request_fields": [
+        "n",
+        "size",
+        "async",
+        "image",
+        "model",
+        "prompt",
+        "quality",
+        "background",
+        "callback_url",
+        "output_format",
+        "input_fidelity",
+        "response_format",
+        "output_compression"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "created": {
+                    "type": "integer"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Image generation successful or operation executed successfully."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Access denied, the request has been understood but rejected, or the current account does not have access permissions."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Response error message."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    }
+  },
+  "kling": {
+    "/kling/talking-photo": {
+      "request_fields": [
+        "mode",
+        "async",
+        "model",
+        "prompt",
+        "duration",
+        "audio_url",
+        "image_url",
+        "callback_url"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "integer"
+                  },
+                  "video_id": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  },
+                  "source_video_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Request error, it may be due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/kling/videos": {
+      "request_fields": [
+        "mode",
+        "async",
+        "model",
+        "action",
+        "prompt",
+        "duration",
+        "video_id",
+        "cfg_scale",
+        "shot_type",
+        "image_list",
+        "multi_shot",
+        "video_list",
+        "voice_list",
+        "aspect_ratio",
+        "callback_url",
+        "element_list",
+        "multi_prompt",
+        "end_image_url",
+        "generate_audio",
+        "negative_prompt",
+        "start_image_url"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "string"
+                  },
+                  "video_id": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful (OK)."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/kling/motion": {
+      "request_fields": [
+        "mode",
+        "async",
+        "prompt",
+        "image_url",
+        "video_url",
+        "model_name",
+        "callback_url",
+        "watermark_info",
+        "keep_original_sound",
+        "character_orientation"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "string"
+                  },
+                  "video_id": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful, returned 200 OK."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/kling/lip-sync": {
+      "request_fields": [
+        "mode",
+        "text",
+        "async",
+        "video_id",
+        "voice_id",
+        "audio_url",
+        "video_url",
+        "audio_file",
+        "audio_type",
+        "voice_speed",
+        "callback_url",
+        "voice_language"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "state": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "integer"
+                  },
+                  "video_id": {
+                    "type": "string"
+                  },
+                  "video_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Request error, it may be due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "success",
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  },
+                  "started_at": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "description": "The request was denied by policy or permission rules."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "success",
+                  "error",
+                  "trace_id"
+                ],
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  },
+                  "started_at": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "description": "The request frequency or concurrency exceeds the limit."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/kling/video-commerce": {
+      "request_fields": [
+        "async",
+        "contents",
+        "settings",
+        "watermark",
+        "callback_url"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "image",
+                            "video"
+                          ],
+                          "type": "string"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "video_url": {
+                          "type": "string"
+                        },
+                        "watermark_url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "seconds": {
+                        "type": "number",
+                        "readOnly": true
+                      },
+                      "image_count": {
+                        "type": "integer",
+                        "readOnly": true
+                      },
+                      "pricing_tier": {
+                        "type": "string",
+                        "readOnly": true
+                      }
+                    }
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Platform task ID or the generated result after completion."
+        }
+      }
+    },
+    "/kling/tasks": {
+      "request_fields": [
+        "id",
+        "ids",
+        "action"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Task ID."
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Task type."
+                  },
+                  "api_id": {
+                    "type": "string",
+                    "description": "API Identifier."
+                  },
+                  "elapsed": {
+                    "type": "number",
+                    "format": "double",
+                    "minimum": 0,
+                    "nullable": true,
+                    "description": "Processing duration (seconds)."
+                  },
+                  "user_id": {
+                    "type": "string",
+                    "description": "The account to which the task belongs."
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "Request tracking ID."
+                  },
+                  "created_at": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Task creation time, Unix timestamp (seconds)."
+                  },
+                  "started_at": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Process start time, Unix timestamp (seconds)."
+                  },
+                  "finished_at": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true,
+                    "description": "Processing completion time, Unix timestamp (seconds)."
+                  },
+                  "actor_user_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "The account for executing the authorization request."
+                  },
+                  "credential_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Credentials used to start tasks."
+                  },
+                  "application_id": {
+                    "type": "string",
+                    "description": "Application for billing."
+                  },
+                  "authorization_id": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Authorization used when starting the task."
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Total number of matching tasks."
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "type",
+                        "created_at",
+                        "trace_id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "Task ID."
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "Task type."
+                        },
+                        "api_id": {
+                          "type": "string",
+                          "description": "API Identifier."
+                        },
+                        "elapsed": {
+                          "type": "number",
+                          "format": "double",
+                          "minimum": 0,
+                          "nullable": true,
+                          "description": "Processing duration (seconds)."
+                        },
+                        "user_id": {
+                          "type": "string",
+                          "description": "The account to which the task belongs."
+                        },
+                        "trace_id": {
+                          "type": "string",
+                          "description": "Request tracking ID."
+                        },
+                        "created_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Task creation time, Unix timestamp (seconds)."
+                        },
+                        "started_at": {
+                          "type": "number",
+                          "format": "double",
+                          "description": "Process start time, Unix timestamp (seconds)."
+                        },
+                        "finished_at": {
+                          "type": "number",
+                          "format": "double",
+                          "nullable": true,
+                          "description": "Processing completion time, Unix timestamp (seconds)."
+                        },
+                        "actor_user_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "The account for executing the authorization request."
+                        },
+                        "credential_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Credentials used to start tasks."
+                        },
+                        "application_id": {
+                          "type": "string",
+                          "description": "Application for billing."
+                        },
+                        "authorization_id": {
+                          "type": "string",
+                          "nullable": true,
+                          "description": "Authorization used when starting the task."
+                        }
+                      }
+                    },
+                    "description": "Matching task list."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Operation executed successfully."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Response error message."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    },
+    "/kling/goods-studio": {
+      "request_fields": [
+        "async",
+        "contents",
+        "settings",
+        "watermark",
+        "callback_url"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "image",
+                            "video"
+                          ],
+                          "type": "string"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "video_url": {
+                          "type": "string"
+                        },
+                        "watermark_url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "seconds": {
+                        "type": "number",
+                        "readOnly": true
+                      },
+                      "image_count": {
+                        "type": "integer",
+                        "readOnly": true
+                      },
+                      "pricing_tier": {
+                        "type": "string",
+                        "readOnly": true
+                      }
+                    }
+                  },
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "task_id": {
+                    "type": "string"
+                  },
+                  "trace_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Platform task ID or the generated result after completion."
+        }
+      }
+    }
+  },
+  "serp": {
+    "/serp/google": {
+      "request_fields": [
+        "page",
+        "type",
+        "query",
+        "range",
+        "number",
+        "country",
+        "language",
+        "image_size"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cost": {
+                    "type": "object",
+                    "required": [
+                      "amount",
+                      "currency"
+                    ],
+                    "properties": {
+                      "amount": {
+                        "type": "number"
+                      },
+                      "currency": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "maps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "news": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "places": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "videos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "organic": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "answer_box": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "knowledge_graph": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "people_also_ask": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "snippet": {
+                          "type": "string"
+                        },
+                        "position": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "related_searches": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  }
+                },
+                "description": "Structured search results. The available set of results depends on the type of search requested.",
+                "additionalProperties": true
+              }
+            }
+          },
+          "description": "Request successful, returning search result data."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Response error message."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Response error message."
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "403": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "error": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "Response error code."
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "Error message of the response."
+                          }
+                        }
+                      },
+                      "trace_id": {
+                        "type": "string",
+                        "description": "The tracking ID for this request."
+                      }
+                    }
+                  }
+                ],
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    }
+  },
+  "kimi": {
+    "/kimi/chat/completions": {
+      "request_fields": [
+        "n",
+        "seed",
+        "stop",
+        "user",
+        "model",
+        "store",
+        "top_p",
+        "stream",
+        "logprobs",
+        "messages",
+        "max_tokens",
+        "modalities",
+        "temperature",
+        "tool_choice",
+        "service_tier",
+        "top_logprobs",
+        "presence_penalty",
+        "reasoning_effort",
+        "frequency_penalty",
+        "parallel_tool_calls",
+        "max_completion_tokens"
+      ],
+      "responses": {
+        "200": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "created": {
+                    "type": "integer"
+                  },
+                  "model": {
+                    "type": "string"
+                  },
+                  "choices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "type": "integer"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "type": "string"
+                            },
+                            "content": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "finish_reason": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "usage": {
+                    "type": "object",
+                    "properties": {
+                      "prompt_tokens": {
+                        "type": "integer"
+                      },
+                      "completion_tokens": {
+                        "type": "integer"
+                      },
+                      "total_tokens": {
+                        "type": "integer"
+                      },
+                      "prompt_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cached_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_creation_tokens": {
+                            "type": "integer"
+                          },
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "completion_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "reasoning_tokens": {
+                            "type": "integer"
+                          },
+                          "text_tokens": {
+                            "type": "integer"
+                          },
+                          "image_tokens": {
+                            "type": "integer"
+                          },
+                          "audio_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "input_tokens": {
+                        "type": "integer"
+                      },
+                      "output_tokens": {
+                        "type": "integer"
+                      },
+                      "input_tokens_details": {
+                        "type": "object",
+                        "properties": {
+                          "cache_write_tokens": {
+                            "type": "integer"
+                          },
+                          "cached_tokens": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "claude_cache_creation_5_m_tokens": {
+                        "type": "integer"
+                      },
+                      "claude_cache_creation_1_h_tokens": {
+                        "type": "integer"
+                      },
+                      "cost": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "number"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "list_amount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "service_tier": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": "OK, request successful."
+        },
+        "400": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Request error, possibly due to missing or invalid parameters."
+        },
+        "401": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Unauthorized, authorization token is invalid or missing."
+        },
+        "429": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Too many requests, rate limit exceeded."
+        },
+        "500": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "type": "string",
+                        "description": "Response error code."
+                      },
+                      "message": {
+                        "type": "string",
+                        "description": "Error message of the response."
+                      }
+                    }
+                  },
+                  "trace_id": {
+                    "type": "string",
+                    "description": "The tracking ID for this request."
+                  }
+                }
+              }
+            }
+          },
+          "description": "Internal server error, an exception occurred on the server side."
+        }
+      }
+    }
+  }
+}
