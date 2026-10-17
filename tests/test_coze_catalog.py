@@ -85,6 +85,27 @@ class CozeCatalogTests(unittest.TestCase):
         style=projected['paths']['/suno/style']['post']['responses']['200']['content']['application/json']['schema']['properties']['data']
         Draft4Validator(style).validate({'upsampled_tags':'Gentle acoustic folk with warm vocals.'})
 
+    def test_suno_store_import_excludes_disabled_and_destructive_operations(self):
+        import yaml
+        projected = json.loads((ROOT / 'imports/suno.json').read_text())
+        self.assertEqual(projected, yaml.safe_load((ROOT / 'imports/suno.yaml').read_text()))
+        expected = {
+            'generateMusic', 'cloneVoice', 'exportMp3', 'uploadAudio',
+            'extractVocalStem', 'exportMidi', 'listPersonas', 'generateLyrics',
+            'exportWav', 'getLyricTiming', 'refineMusicStyle', 'getTaskResults',
+        }
+        self.assertEqual(expected, {op['operationId'] for methods in projected['paths'].values()
+                                    for op in methods.values()})
+        for path, method in [('/suno/mp4', 'post'), ('/suno/custom-models', 'post'),
+                             ('/suno/persona', 'post'), ('/suno/persona', 'delete'),
+                             ('/suno/mashup-lyrics', 'post'), ('/suno/projects', 'post')]:
+            self.assertIn(method, self.plugins['suno']['paths'][path])
+            self.assertNotIn(method, projected['paths'].get(path, {}))
+        for path, methods in projected['paths'].items():
+            for method, op in methods.items():
+                self.assertEqual(self.plugins['suno']['paths'][path][method]['parameters'],
+                                 op['parameters'])
+
     def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
         import yaml
         for key in ('claude', 'openai', 'kling', 'serp', 'kimi'):

@@ -140,6 +140,11 @@ management was not validated. Persona deletion is not exposed or tested. These
 limits are explicit in the store description; full native-MCP parity is not
 claimed. Provider routing, prices and billing rules are unchanged.
 
+`imports/suno.json` and `imports/suno.yaml` contain only these 12 verified tools.
+The five disabled tools and unexercised persona deletion remain solely in the
+full `plugins/suno.*` contracts. Re-import the reduced projection to preserve
+the submitted scope; do not import the full contract as a tested store release.
+
 ## Initial batch checks (2026-10-11)
 
 Fourteen HTTP plugins have confirmed store submission receipts, covering 32

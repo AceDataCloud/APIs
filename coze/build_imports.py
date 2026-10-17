@@ -209,6 +209,20 @@ def main():
     (target/'gpt-image.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
 
     doc=json.loads((ROOT/'plugins/suno.json').read_text())
+    # Re-importing the submitted scope must not re-enable failed, unverified or
+    # destructive tools. The full API contract remains in plugins/suno.*.
+    disabled_suno = {
+        '/suno/mp4': {'post'},
+        '/suno/custom-models': {'post'},
+        '/suno/persona': {'post', 'delete'},
+        '/suno/mashup-lyrics': {'post'},
+        '/suno/projects': {'post'},
+    }
+    for uri, methods in disabled_suno.items():
+        for method in methods:
+            doc['paths'][uri].pop(method)
+        if not doc['paths'][uri]:
+            del doc['paths'][uri]
     notes.clear()
     for uri,methods in doc['paths'].items():
         for method,op in methods.items():
@@ -258,7 +272,11 @@ def main():
     schema=doc['paths']['/suno/tasks']['post']['responses']['200']['content']['application/json']['schema']
     for props in (schema['properties'],schema['properties']['items']['items']['properties']):
         props['response']={'type':'object','properties':copy.deepcopy(music)}
-    report['suno']=copy.deepcopy(notes)+[{'kind':'declared_output','reason':'Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft.'}]
+    report['suno']=copy.deepcopy(notes)+[
+        {'kind':'declared_output','reason':'Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft.'},
+        {'kind':'submitted_scope','reason':'Only the 12 verified HTTP tools are imported. Five failed or unverified tools and unexercised persona deletion remain in the canonical API contract only.',
+         'excluded_operations':[method.upper()+' '+uri for uri,methods in disabled_suno.items() for method in sorted(methods)]},
+    ]
     doc=concrete_objects(doc)
     (target/'suno.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'suno.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))

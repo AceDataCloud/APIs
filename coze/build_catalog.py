@@ -21,7 +21,7 @@ LISTING_AUTH = 'Bind Authorization using Reference to your private adc_auth vari
 # Store copy follows the reduced scope verified on 2026-10-11. Canonical
 # contracts below retain the full API surface for future validation.
 STORE_DESCRIPTIONS = {
-    'suno': 'Generate music and lyrics, refine styles, upload authorized audio, create voice references, list personas, align words, extract vocals, export MP3/WAV/MIDI data and retrieve tasks.',
+    'suno': 'Create songs/lyrics, refine styles, upload authorized audio, use voice references, list personas, align words, extract vocals, retrieve tasks and export MP3/WAV or MIDI notes. No MP4, persona changes, lyric blending, custom-model or studio tools.',
     'localization': 'Translate Markdown or plain text into a target locale. JSON-object translation is not enabled in the submitted store version.',
     'fish': 'Generate speech, retrieve speech tasks, list voices and read voice details. Custom voice creation is disabled in the submitted store version.',
     'openai': 'Use text chat and Responses, generate or edit images, and retrieve image tasks. Embeddings are disabled in the submitted store version.',

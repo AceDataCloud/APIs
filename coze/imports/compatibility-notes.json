@@ -552,26 +552,20 @@
   ],
   "suno": [
     {
-      "field": "POST /suno/custom-models/response/data",
-      "kind": "representation",
-      "api_types": [
-        "object",
-        "array"
-      ],
-      "coze_type": "object"
-    },
-    {
-      "field": "POST /suno/custom-models/response/data",
-      "kind": "representation",
-      "api_types": [
-        "object",
-        "array"
-      ],
-      "coze_type": "object"
-    },
-    {
       "kind": "declared_output",
       "reason": "Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft."
+    },
+    {
+      "kind": "submitted_scope",
+      "reason": "Only the 12 verified HTTP tools are imported. Five failed or unverified tools and unexercised persona deletion remain in the canonical API contract only.",
+      "excluded_operations": [
+        "POST /suno/mp4",
+        "POST /suno/custom-models",
+        "DELETE /suno/persona",
+        "POST /suno/persona",
+        "POST /suno/mashup-lyrics",
+        "POST /suno/projects"
+      ]
     }
   ]
 }
