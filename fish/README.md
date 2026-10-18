@@ -73,6 +73,38 @@ curl --request POST "https://api.acedata.cloud/fish/tts" \
 
 This conditions only the current request. Use `reference_id` for a saved/public voice; never combine it with `references`.
 
+### Create a reusable public voice
+
+`POST /fish/model` saves a cloned voice long-term and publicly: other users may search for and use it. Omit `visibility`; passing `private` or `unlist` does not make the voice private. Only submit reference audio you have permission to process and publish as a reusable voice.
+
+Send `voices` as one publicly downloadable HTTP(S) audio URL string, not an array or multipart upload. Prefer a direct URL ending in `.mp3` or `.wav`. Replace the example URL with your authorized audio before calling:
+
+```bash
+curl --request POST "https://api.acedata.cloud/fish/model" \
+  --header "Authorization: Bearer YOUR_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "title": "My public voice",
+    "voices": "https://example.com/sample-voice.mp3"
+  }'
+```
+
+Successful creation returns HTTP **201** with the voice model object. Retain its `_id` and pass it as `reference_id` to `/fish/tts`. For HTTP 400 caused by a reference-audio download, duration, or format error, check the URL and actual file format.
+
+### List voices created by your account
+
+```bash
+curl --get "https://api.acedata.cloud/fish/model" \
+  --header "Authorization: Bearer YOUR_API_KEY" \
+  --data-urlencode "self=true" \
+  --data-urlencode "page_number=1" \
+  --data-urlencode "page_size=5"
+```
+
+`self=true` lists voices created and saved through Ace Data Cloud by the calling account, including voices created with different API tokens belonging to that account. It filters the list only; the voices remain publicly usable. Results default to newest-created first with 1-based pagination. `author_id` can further filter the author; `sort_by` supports `created_at` and `task_count` in this mode.
+
+Do not combine `title_language` with `self=true`; title-language filtering applies to the public voice library instead. The response contains `total`, `items`, and `has_more`: `has_more` is a boolean for `self=true`, but may be `null` for public-library queries. Treat `null` as an unspecified pagination signal, not an explicit end-of-list.
+
 ## APIs and Guides
 
 | API | Path | Integration Guidance |

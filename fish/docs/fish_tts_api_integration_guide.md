@@ -60,7 +60,9 @@ Download the generated audio from the `audio_url` field.
 
 ### Synthesize with a Cloned Voice
 
-First create a voice model with the Fish Model Create API (`POST /fish/model`) to obtain a model ID, then pass it as `reference_id`:
+First create a voice model with the Fish Model Create API (`POST /fish/model`, HTTP 201) to obtain its `_id`, then pass it as `reference_id`. Created voices are saved long-term and publicly; other users may search for and use them. Sending `visibility: private` or `unlist` does not restrict access. Use only audio you have permission to publish as a reusable voice; see the [creation and account-listing workflow](../README.md#create-a-reusable-public-voice).
+
+`GET /fish/model?self=true` lists voices created and saved through Ace Data Cloud by your account across its API tokens; it is a list filter, not an access restriction.
 
 ```json
 {

@@ -61,6 +61,9 @@ paths:
                     type: boolean
                   has_more:
                     type: boolean
+                    nullable: true
+                    description: Whether another page exists; boolean for `self=true`, possibly `null`
+                      for public-library queries.
           description: Request successful.
         '400':
           content:
@@ -287,7 +290,8 @@ paths:
         schema:
           type: boolean
         required: false
-        description: When `true`, only return the models owned by the current calling account.
+        description: When `true`, list only models created and saved through Ace Data Cloud by the calling
+          account, across its API tokens. This filters the list, not public voice access.
       - in: query
         name: author_id
         schema:
@@ -305,13 +309,13 @@ paths:
         schema:
           type: string
         required: false
-        description: Filter according to the language used in the title.
+        description: Filter the public voice library by title language; not supported with `self=true`.
       - in: query
         name: sort_by
         schema:
           type: string
         required: false
-        description: Sorting fields (for example, `created_at`, `task_count`).
+        description: Sort field; `self=true` supports `created_at` and `task_count`.
       - in: header
         name: accept
         schema:
