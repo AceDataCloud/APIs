@@ -280,6 +280,67 @@ def main():
     doc=concrete_objects(doc)
     (target/'suno.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'suno.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+
+    doc=json.loads((ROOT/'plugins/nano-banana.json').read_text())
+    notes.clear()
+    for uri,methods in doc['paths'].items():
+        for method,op in methods.items():
+            for media in op.get('requestBody',{}).get('content',{}).values():
+                media['schema']=project(media['schema'],method.upper()+' '+uri+'/request')
+            op['responses']={'200':op['responses']['200']}
+            for media in op['responses']['200'].get('content',{}).values():
+                media['schema']=project(media['schema'],method.upper()+' '+uri+'/response')
+    doc=concrete_objects(doc)
+    report['nano-banana']=copy.deepcopy(notes)+[{'kind':'prepared_full_form','reason':
+        'Full two-tool reimport material; the earlier installed version and task-only projection have separate runtime evidence. This new file is not a store update.'}]
+    (target/'nano-banana.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+    (target/'nano-banana.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+
+    # Prepared video store forms. These are not evidence of host import or a
+    # successful generation; retain the caller's explicit model and task IDs.
+    for key in ('seedance', 'happyhorse'):
+        doc=json.loads((ROOT/'plugins'/f'{key}.json').read_text())
+        notes.clear()
+        for uri, methods in doc['paths'].items():
+            for method, op in methods.items():
+                for media in op.get('requestBody',{}).get('content',{}).values():
+                    media['schema']=project(media['schema'],method.upper()+' '+uri+'/request')
+                op['responses']={'200':op['responses']['200']}
+                for media in op['responses']['200'].get('content',{}).values():
+                    media['schema']=project(media['schema'],method.upper()+' '+uri+'/response')
+        create=doc['paths'][f'/{key}/videos']['post']
+        body=create['requestBody']['content']['application/json']['schema']
+        body['properties'].pop('callback_url',None)
+        if key=='seedance':
+            body['properties'].pop('tools',None)
+            body['properties']['content']['items']={
+                'type':'object','required':['type','text'],'properties':{
+                    'type':{'type':'string','enum':['text']},
+                    'text':{'type':'string','maxLength':1000}}}
+            create['description']+=' This prepared Coze form accepts text content only; image/audio/video references and web tools remain in the full API contract.'
+            result={
+                'type':'object','properties':{
+                    'id':{'type':'string'},'task_id':{'type':'string'},
+                    'status':{'type':'string'},'model':{'type':'string'},
+                    'video_url':{'type':'string'},'duration':{'type':'number'},
+                    'resolution':{'type':'string'},'ratio':{'type':'string'},
+                    'content':{'type':'object','properties':{
+                        'video_url':{'type':'string'},'last_frame_url':{'type':'string'}}}}}
+        else:
+            result=copy.deepcopy(create['responses']['200']['content']['application/json']['schema']['properties']['data'])
+        response={'type':'object','properties':{
+            'success':{'type':'boolean'},'task_id':{'type':'string'},
+            'trace_id':{'type':'string'},'data':result,
+            'error':{'type':'object','properties':{'code':{'type':'string'},'message':{'type':'string'}}}}}
+        create['responses']['200']['content']['application/json']['schema']=copy.deepcopy(response)
+        task=doc['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
+        for props in (task['properties'],task['properties']['items']['items']['properties']):
+            props['response']=copy.deepcopy(response)
+        doc=concrete_objects(doc)
+        report[key]=copy.deepcopy(notes)+[{'kind':'prepared_not_host_verified','reason':
+            'Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection.'}]
+        (target/f'{key}.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
+        (target/f'{key}.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
     (target/'compatibility-notes.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('Built',len(report),'Coze import projections; review representation differences before use.')
 

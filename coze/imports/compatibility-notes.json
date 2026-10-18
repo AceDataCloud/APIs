@@ -567,5 +567,23 @@
         "POST /suno/projects"
       ]
     }
+  ],
+  "nano-banana": [
+    {
+      "kind": "prepared_full_form",
+      "reason": "Full two-tool reimport material; the earlier installed version and task-only projection have separate runtime evidence. This new file is not a store update."
+    }
+  ],
+  "seedance": [
+    {
+      "kind": "prepared_not_host_verified",
+      "reason": "Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection."
+    }
+  ],
+  "happyhorse": [
+    {
+      "kind": "prepared_not_host_verified",
+      "reason": "Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection."
+    }
   ]
 }

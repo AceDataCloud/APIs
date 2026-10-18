@@ -1,5 +1,56 @@
 # Coze service plugins
 
+Use a service-specific plugin to add music, image or video tools to a Coze Agent
+or Workflow. Ace Data Cloud provides these integrations and bills API usage to
+the caller's Ace account. They are not endorsements by the model brands or
+entries in Coze's default model-provider selector.
+
+## Find your service and get started
+
+Search by the service name and confirm the publisher is **AceDataCloud**. The
+prepared titles below identify the integration provider; approved store titles
+and versions still require a separate readback. A source file is not a store
+installation.
+
+| Independent service entry | Official international listing | English / 简体中文 | Latest dated evidence |
+|---|---|---|---|
+| Suno by Ace Data Cloud | [Suno](https://www.coze.com/store/plugin/7695633467463286837) | [Guide](guides/suno/README.md) / [教程](guides/suno/README_zh-CN.md) | Submitted 2026-10-12; 12 enabled tools; current approval unknown |
+| Seedance by Ace Data Cloud | No verified listing yet | [Guide](guides/seedance/README.md) / [教程](guides/seedance/README_zh-CN.md) | Prepared text-only two-tool import; not submitted or host-verified |
+| HappyHorse by Ace Data Cloud | No verified listing yet | [Guide](guides/happyhorse/README.md) / [教程](guides/happyhorse/README_zh-CN.md) | Prepared two-tool import; not submitted or host-verified |
+| GPT Image by Ace Data Cloud | [GPT Image](https://www.coze.com/store/plugin/7695652131059187765) | [Guide](guides/gpt-image/README.md) / [教程](guides/gpt-image/README_zh-CN.md) | Submitted 2026-10-12; three enabled tools; current approval unknown |
+| Nano Banana by Ace Data Cloud | [Nano Banana](https://www.coze.com/store/plugin/7693585509326815285) | [Guide](guides/nano-banana/README.md) / [教程](guides/nano-banana/README_zh-CN.md) | Older version installed/tested 2026-10-11; description update under review 2026-10-12 |
+
+The 2026-10-12 documentation-update receipts put all 14 initial listing updates
+back under review, including the six approved older versions. Suno and GPT Image
+bring the recorded submissions to 16. No authenticated 2026-10-18 review or
+version readback is available in this source update. Use existing plugin IDs
+when updating an entry; do not create duplicate submissions.
+
+Each guide covers the official entry, registration, General application,
+API-token copying/creation, private Coze `Reference → adc_auth` binding, first
+use and same-task retrieval. Existing redacted Ace screenshots and unmodified
+Coze China documentation screenshots have dated [source records](_assets/tutorial/sources.json).
+The China images illustrate another plugin and do not establish an Ace install
+or the international editor's current layout.
+
+## Native model-provider status
+
+The [current Coze China model guide](https://docs.coze.cn/guides_model) separates
+its adapted provider selector from custom Chat/Responses/Messages connections.
+Ace Data Cloud is not in that documented provider list. A custom connection can
+be useful but does not constitute default-provider inclusion. The low-code
+[enterprise custom-model route](https://docs.coze.cn/guides_deploy_custom_model)
+has its own plan/administrator requirements.
+
+The open-source [Coze Studio provider registry](https://github.com/coze-dev/coze-studio/blob/fefb05ff27be1da939612fbf9faf5db62583b8ae/backend/bizpkg/config/modelmgr/mode_provider.go)
+and [contribution guide](https://github.com/coze-dev/coze-studio/blob/fefb05ff27be1da939612fbf9faf5db62583b8ae/CONTRIBUTING.md)
+are a separate upstream route. A template using OpenAI protocol still belongs
+to that protocol's provider group; it is not a new Ace provider and does not
+change either commercial Coze region. Default inclusion and public plugin-store
+discovery remain separate release goals.
+
+## Developer catalog
+
 This launch review covers 33 API plugin entries across 32 services, including a
 separate GPT Image entry, and seven developer/deployment guides.
 Names use the service brand, spaces instead of underscores, and `Resolver` for

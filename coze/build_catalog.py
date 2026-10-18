@@ -50,6 +50,17 @@ def acquisition_url(url, key):
                        urlencode(query), parts.fragment))
 
 
+def apply_discovery_copy(listings):
+    discovery = json.loads((ROOT / 'catalog/service-discovery.json').read_text())
+    for key, prepared in discovery['services'].items():
+        listing = listings[key]
+        start_url = listing['about'].split('Get started: ', 1)[1].split()[0]
+        listing.update(name=prepared['listing_name'], brief=prepared['brief'],
+                       description=prepared['description'], category=prepared['category'],
+                       scenarios=prepared['scenarios'])
+        listing['about'] = prepared['description']+'\n\n'+LISTING_AUTH+'\nGet started: '+start_url
+
+
 IDS = {'seedream','flux','serp','shorturl'}
 OMIT_PATHS = {'/v1/live/sessions':'Requires a live session transport; not a conventional JSON tool.', '/v1/audio/speech':'Binary audio response needs a media URL adapter for Coze.', '/v1/audio/transcriptions':'Multipart file upload needs a tested Coze file adapter.'}
 DEFAULTS = {'/seedream/images':{'model':'doubao-seedream-5-0-lite-260128','size':'2K'}, '/flux/images':{'model':'flux-2-pro','size':'1:1','action':'generate','count':1}, '/serp/google':{'type':'search','number':3}, '/nano-banana/images':{'model':'nano-banana-2','action':'generate'}, '/veo/videos':{'model':'veo31-fast','action':'text2video'}, '/kling/videos':{'model':'kling-v2-6','action':'text2video'}, '/producer/audios':{'model':'FUZZ-2.0','action':'generate'}, '/wan/videos':{'model':'wan2.6-t2v'}, '/suno/lyrics':{'model':'default'}, '/openai/images/generations':{'model':'gpt-image-1'}, '/openai/images/edits':{'model':'gpt-image-1'}, '/openai/embeddings':{'model':'text-embedding-3-small'}}
@@ -428,6 +439,7 @@ def main():
         else:guide+=['NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.']
     (ROOT/'catalog/service-guide.txt').write_text('\n'.join(guide)+'\n')
     write_json(ROOT/'catalog/coverage.json',{'snapshot_date':src['retrieved_at'],'services':coverage})
+    apply_discovery_copy(listings)
     write_json(ROOT/'listings.json',listings)
     write_json(ROOT/'examples/catalog/validation-cases.json',cases)
     print(f'{len(coverage)} services, {len(listings)} API listings, {sum(1 for x in coverage if x.get("schema"))} schemas, {sum(x.get("tool_count",0) for x in coverage)} tools, {len(cases)} draft test cases')

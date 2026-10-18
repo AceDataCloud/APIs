@@ -264,17 +264,17 @@
     }
   },
   "seedance": {
-    "name": "Seedance",
-    "brief": "Seedance multimodal video creation",
-    "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.",
+    "name": "Seedance by Ace Data Cloud",
+    "brief": "Seedance video generation through Ace Data Cloud",
+    "description": "Ace Data Cloud integration for Seedance text-to-video and same-task result retrieval. The prepared Coze form is text-only; reference-media inputs are not enabled in this form.",
     "scenarios": [
-      "Create a short storyboard",
-      "animate reference images",
-      "combine authorized multimodal references."
+      "Create a short Seedance video from a scene brief",
+      "choose the Seedance model and video settings explicitly",
+      "retrieve an existing Seedance task."
     ],
     "icon": "icons/seedance.png",
     "category": "Video",
-    "about": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_seedance_setup",
+    "about": "Ace Data Cloud integration for Seedance text-to-video and same-task result retrieval. The prepared Coze form is text-only; reference-media inputs are not enabled in this form.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/762c5fd0-a81e-4c59-b9fe-16bcffad7d4a?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_seedance_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -395,17 +395,17 @@
     }
   },
   "nano-banana": {
-    "name": "Nano Banana",
-    "brief": "Nano Banana image creation and editing",
-    "description": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.",
+    "name": "Nano Banana by Ace Data Cloud",
+    "brief": "Nano Banana image tools through Ace Data Cloud",
+    "description": "Ace Data Cloud integration for Nano Banana image generation and editing. Set the model and output options, then retrieve the same task for completed images.",
     "scenarios": [
-      "Create product imagery",
-      "edit a scene",
-      "adapt a visual for social media."
+      "Create an illustration with Nano Banana",
+      "edit an image you are authorized to use",
+      "retrieve an existing Nano Banana task."
     ],
     "icon": "icons/nano-banana.png",
     "category": "Photography",
-    "about": "Generate images from a prompt or edit image references with Nano Banana. Select a model, aspect ratio and resolution, then retrieve completed results.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_nano-banana_setup",
+    "about": "Ace Data Cloud integration for Nano Banana image generation and editing. Set the model and output options, then retrieve the same task for completed images.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/44fa6ed2-1ad1-4c7e-a8bd-30002728c0d1?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_nano-banana_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -433,17 +433,17 @@
     }
   },
   "suno": {
-    "name": "Suno",
-    "brief": "Suno songs, lyrics, voices and audio exports",
-    "description": "Create songs/lyrics, refine styles, upload authorized audio, use voice references, list personas, align words, extract vocals, retrieve tasks and export MP3/WAV or MIDI notes. No MP4, persona changes, lyric blending, custom-model or studio tools.",
+    "name": "Suno by Ace Data Cloud",
+    "brief": "Suno songs, lyrics and audio tools via Ace",
+    "description": "Ace Data Cloud integration for Suno: songs, lyrics, styles, voices, uploads, timing, vocals, MP3/WAV and MIDI notes. No MP4, persona writes, lyric blending, custom-model or studio tools.",
     "scenarios": [
-      "Write an original song",
-      "prepare authorized audio and voice references",
-      "retrieve completed music and export results."
+      "Create original instrumental music with Suno",
+      "write lyrics or refine a music style",
+      "retrieve an existing Suno task and its audio."
     ],
     "icon": "icons/suno.png",
     "category": "Music",
-    "about": "Create songs/lyrics, refine styles, upload authorized audio, use voice references, list personas, align words, extract vocals, retrieve tasks and export MP3/WAV or MIDI notes. No MP4, persona changes, lyric blending, custom-model or studio tools.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_setup",
+    "about": "Ace Data Cloud integration for Suno: songs, lyrics, styles, voices, uploads, timing, vocals, MP3/WAV and MIDI notes. No MP4, persona writes, lyric blending, custom-model or studio tools.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/f2b646d8-3cfd-46ef-969a-1ea9eebde329?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -452,17 +452,17 @@
     }
   },
   "happyhorse": {
-    "name": "HappyHorse",
-    "brief": "HappyHorse video generation and editing",
-    "description": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.",
+    "name": "HappyHorse by Ace Data Cloud",
+    "brief": "HappyHorse video tools through Ace Data Cloud",
+    "description": "Ace Data Cloud integration for HappyHorse video generation and editing. Select a supported model and action, then retrieve the existing task for the video result.",
     "scenarios": [
-      "Draft an ad scene",
-      "animate a product visual",
-      "edit an authorized clip."
+      "Generate a HappyHorse video from a prompt",
+      "edit a video you are authorized to use",
+      "retrieve an existing HappyHorse task."
     ],
     "icon": "icons/happyhorse.png",
     "category": "Video",
-    "about": "Generate videos from text or images, use supported reference videos, or edit a clip with HappyHorse. Retrieve final media through the task tool.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_setup",
+    "about": "Ace Data Cloud integration for HappyHorse video generation and editing. Select a supported model and action, then retrieve the existing task for the video result.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/9cd79226-f638-4979-9573-212328a65a31?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",
@@ -604,17 +604,17 @@
     }
   },
   "gpt-image": {
-    "name": "GPT Image",
-    "brief": "GPT Image generation, editing and task results",
-    "description": "Generate and edit images with GPT Image models, then retrieve completed image results.",
+    "name": "GPT Image by Ace Data Cloud",
+    "brief": "GPT Image generation and editing through Ace",
+    "description": "Ace Data Cloud integration for GPT Image generation, image editing and task retrieval. Choose a supported GPT Image model explicitly.",
     "scenarios": [
-      "Create an original illustration",
+      "Generate an original product image with GPT Image",
       "edit an authorized image",
-      "retrieve a completed image task."
+      "retrieve an existing GPT Image task."
     ],
     "icon": "icons/openai.png",
     "category": "Photography",
-    "about": "Generate and edit images with GPT Image models, then retrieve completed image results.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_setup",
+    "about": "Ace Data Cloud integration for GPT Image generation, image editing and task retrieval. Choose a supported GPT Image model explicitly.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_setup",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",

@@ -106,6 +106,60 @@ class CozeCatalogTests(unittest.TestCase):
                 self.assertEqual(self.plugins['suno']['paths'][path][method]['parameters'],
                                  op['parameters'])
 
+    def test_prepared_video_forms_preserve_routes_auth_and_completed_media(self):
+        import yaml
+        for key in ('seedance', 'happyhorse'):
+            projected = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
+            self.assertEqual(projected, yaml.safe_load((ROOT / 'imports' / f'{key}.yaml').read_text()))
+            validate_spec(projected)
+            self.assertEqual({f'/{key}/videos', f'/{key}/tasks'}, set(projected['paths']))
+            for path, methods in projected['paths'].items():
+                for method, op in methods.items():
+                    self.assertEqual(self.plugins[key]['paths'][path][method]['parameters'],
+                                     op['parameters'])
+            task = projected['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
+            for container in (task['properties'], task['properties']['items']['items']['properties']):
+                props = container['response']['properties']
+                self.assertTrue({'success', 'task_id', 'data', 'error'} <= set(props))
+                if key == 'seedance':
+                    self.assertIn('video_url', props['data']['properties'])
+                    self.assertIn('video_url', props['data']['properties']['content']['properties'])
+                else:
+                    self.assertIn('video_url', props['data']['items']['properties'])
+            body = projected['paths'][f'/{key}/videos']['post']['requestBody']['content']['application/json']['schema']
+            self.assertNotIn('callback_url', body['properties'])
+            if key == 'seedance':
+                item = body['properties']['content']['items']
+                self.assertEqual(['text'], item['properties']['type']['enum'])
+                self.assertEqual({'type', 'text'}, set(item['required']))
+                self.assertNotIn('tools', body['properties'])
+
+    def test_service_discovery_uses_independent_brands_and_known_store_ids(self):
+        discovery = json.loads((ROOT / 'catalog/service-discovery.json').read_text())['services']
+        listings = json.loads((ROOT / 'listings.json').read_text())
+        self.assertEqual({'suno', 'seedance', 'happyhorse', 'gpt-image', 'nano-banana'}, set(discovery))
+        for key, prepared in discovery.items():
+            listing = listings[key]
+            self.assertEqual(prepared['service_name']+' by Ace Data Cloud', listing['name'])
+            self.assertIn('Ace Data Cloud integration', listing['description'])
+            self.assertEqual(prepared['category'], listing['category'])
+            if key in {'seedance', 'happyhorse'}:
+                self.assertIsNone(prepared['plugin_id'])
+                self.assertIsNone(prepared['official_listing'])
+            else:
+                self.assertTrue(prepared['official_listing'].endswith(prepared['plugin_id']))
+        self.assertEqual(12, discovery['suno']['prepared_tools'])
+
+    def test_full_nano_banana_form_preserves_image_task_results(self):
+        import yaml
+        projected = json.loads((ROOT / 'imports/nano-banana.json').read_text())
+        validate_spec(projected)
+        self.assertEqual(projected, yaml.safe_load((ROOT / 'imports/nano-banana.yaml').read_text()))
+        self.assertEqual(set(self.plugins['nano-banana']['paths']), set(projected['paths']))
+        output = projected['paths']['/nano-banana/tasks']['post']['responses']['200']['content']['application/json']['schema']
+        fields = output['properties']['response']['properties']['data']['items']['properties']
+        self.assertIn('image_url', fields)
+
     def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
         import yaml
         for key in ('claude', 'openai', 'kling', 'serp', 'kimi'):
