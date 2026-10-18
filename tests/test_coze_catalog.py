@@ -159,6 +159,27 @@ class CozeCatalogTests(unittest.TestCase):
         output = projected['paths']['/nano-banana/tasks']['post']['responses']['200']['content']['application/json']['schema']
         fields = output['properties']['response']['properties']['data']['items']['properties']
         self.assertIn('image_url', fields)
+        for props in (output['properties'], output['properties']['items']['items']['properties']):
+            self.assertEqual({'code', 'message'}, set(props['response']['properties']['error']['properties']))
+
+    def test_new_store_forms_omit_numeric_formats_rejected_by_editor(self):
+        def check(value):
+            if isinstance(value, dict):
+                if value.get('type') in ('number', 'integer'):
+                    self.assertNotIn(value.get('format'), {'double', 'float', 'int32', 'int64'})
+                for child in value.values():
+                    check(child)
+            elif isinstance(value, list):
+                for child in value:
+                    check(child)
+        for key in ('seedance', 'happyhorse', 'nano-banana'):
+            projected = json.loads((ROOT / 'imports' / f'{key}.json').read_text())
+            check(projected)
+            props = projected['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']['properties']
+            for name in ('elapsed', 'created_at', 'started_at', 'finished_at'):
+                self.assertEqual('number', props[name]['type'])
+            canonical = self.plugins[key]['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
+            self.assertEqual('double', canonical['properties']['created_at']['format'])
 
     def test_compatibility_imports_preserve_routes_auth_and_file_parity(self):
         import yaml

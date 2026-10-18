@@ -572,18 +572,34 @@
     {
       "kind": "prepared_full_form",
       "reason": "Full two-tool reimport material; the earlier installed version and task-only projection have separate runtime evidence. This new file is not a store update."
+    },
+    {
+      "kind": "editor_numeric_format",
+      "reason": "Remove only numeric format annotations: Coze Studio parameter mapping interprets format as a media/file assist type. Number/integer types and fields remain unchanged."
+    },
+    {
+      "kind": "declared_task_error",
+      "reason": "Explicitly retain error code/message inside recorded single/batch task responses using the public API error shape; do not mistake empty media for a retryable success."
     }
   ],
   "seedance": [
     {
       "kind": "prepared_not_host_verified",
       "reason": "Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection."
+    },
+    {
+      "kind": "editor_numeric_format",
+      "reason": "Remove only numeric format annotations rejected by the official Studio parameter mapper; retain number/integer types, values and media fields."
     }
   ],
   "happyhorse": [
     {
       "kind": "prepared_not_host_verified",
       "reason": "Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection."
+    },
+    {
+      "kind": "editor_numeric_format",
+      "reason": "Remove only numeric format annotations rejected by the official Studio parameter mapper; retain number/integer types, values and media fields."
     }
   ]
 }

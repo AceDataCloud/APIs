@@ -349,6 +349,12 @@ China extension center. Each user must configure their own authorization.
 
 ## Rebuild
 
+For keyless checks against pinned official Coze Studio import/parameter-mapping
+code, see [the reproducible component verification](validation/studio_import/README.md).
+It covers JSON/YAML import, request/response fields and blank/reference credential
+mapping without sending a service request. It is separate from authenticated
+commercial-host installation, permissions, live errors, media and billing.
+
 ```bash
 pip install 'PyYAML>=6,<7' 'openapi-spec-validator>=0.7,<0.8' 'Pillow>=11,<12' 'CairoSVG>=2.7,<3'
 python coze/build_catalog.py

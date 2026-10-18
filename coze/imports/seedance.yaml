@@ -254,7 +254,6 @@ paths:
                     description: API Identifier.
                   elapsed:
                     type: number
-                    format: double
                     minimum: 0
                     nullable: true
                     description: Processing duration (seconds).
@@ -312,15 +311,12 @@ paths:
                     description: Request tracking ID.
                   created_at:
                     type: number
-                    format: double
                     description: Task creation time, Unix timestamp (seconds).
                   started_at:
                     type: number
-                    format: double
                     description: Process start time, Unix timestamp (seconds).
                   finished_at:
                     type: number
-                    format: double
                     nullable: true
                     description: Processing completion time, Unix timestamp (seconds).
                   actor_user_id:
@@ -364,7 +360,6 @@ paths:
                           description: API Identifier.
                         elapsed:
                           type: number
-                          format: double
                           minimum: 0
                           nullable: true
                           description: Processing duration (seconds).
@@ -422,15 +417,12 @@ paths:
                           description: Request tracking ID.
                         created_at:
                           type: number
-                          format: double
                           description: Task creation time, Unix timestamp (seconds).
                         started_at:
                           type: number
-                          format: double
                           description: Process start time, Unix timestamp (seconds).
                         finished_at:
                           type: number
-                          format: double
                           nullable: true
                           description: Processing completion time, Unix timestamp (seconds).
                         actor_user_id:

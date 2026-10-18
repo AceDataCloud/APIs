@@ -21,6 +21,17 @@ def concrete_objects(value):
         return [concrete_objects(v) for v in value]
     return value
 
+
+def editor_numeric_formats(value):
+    """Coze Studio treats schema formats as file/media assist types only."""
+    if isinstance(value, dict):
+        return {k: editor_numeric_formats(v) for k, v in value.items()
+                if not (k == 'format' and value.get('type') in ('number', 'integer')
+                        and v in ('double', 'float', 'int32', 'int64'))}
+    if isinstance(value, list):
+        return [editor_numeric_formats(v) for v in value]
+    return value
+
 def kind(s):
     if s.get('type'):return s['type']
     if 'properties' in s or 'additionalProperties' in s:return 'object'
@@ -282,6 +293,7 @@ def main():
     (target/'suno.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
 
     doc=json.loads((ROOT/'plugins/nano-banana.json').read_text())
+    error_fields=copy.deepcopy(doc['paths']['/nano-banana/tasks']['post']['responses']['401']['content']['application/json']['schema']['properties']['error'])
     notes.clear()
     for uri,methods in doc['paths'].items():
         for method,op in methods.items():
@@ -290,9 +302,16 @@ def main():
             op['responses']={'200':op['responses']['200']}
             for media in op['responses']['200'].get('content',{}).values():
                 media['schema']=project(media['schema'],method.upper()+' '+uri+'/response')
-    doc=concrete_objects(doc)
+    task=doc['paths']['/nano-banana/tasks']['post']['responses']['200']['content']['application/json']['schema']
+    for props in (task['properties'],task['properties']['items']['items']['properties']):
+        props['response']['properties']['error']=copy.deepcopy(error_fields)
+    doc=editor_numeric_formats(concrete_objects(doc))
     report['nano-banana']=copy.deepcopy(notes)+[{'kind':'prepared_full_form','reason':
         'Full two-tool reimport material; the earlier installed version and task-only projection have separate runtime evidence. This new file is not a store update.'}]
+    report['nano-banana'].append({'kind':'editor_numeric_format','reason':
+        'Remove only numeric format annotations: Coze Studio parameter mapping interprets format as a media/file assist type. Number/integer types and fields remain unchanged.'})
+    report['nano-banana'].append({'kind':'declared_task_error','reason':
+        'Explicitly retain error code/message inside recorded single/batch task responses using the public API error shape; do not mistake empty media for a retryable success.'})
     (target/'nano-banana.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'nano-banana.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
 
@@ -336,9 +355,11 @@ def main():
         task=doc['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
         for props in (task['properties'],task['properties']['items']['items']['properties']):
             props['response']=copy.deepcopy(response)
-        doc=concrete_objects(doc)
+        doc=editor_numeric_formats(concrete_objects(doc))
         report[key]=copy.deepcopy(notes)+[{'kind':'prepared_not_host_verified','reason':
             'Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection.'}]
+        report[key].append({'kind':'editor_numeric_format','reason':
+            'Remove only numeric format annotations rejected by the official Studio parameter mapper; retain number/integer types, values and media fields.'})
         (target/f'{key}.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         (target/f'{key}.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
     (target/'compatibility-notes.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')

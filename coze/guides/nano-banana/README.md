@@ -68,6 +68,12 @@ Retain the returned **task_id**. In **getTaskResults** on `/nano-banana/tasks`, 
 
 If pending or the response is empty, query the **same ID** again. Never rerun the generation to poll. A task ID, HTTP 200 or an intermediate preview is not completion. Inspect terminal success and the real media field **response.data[].image_url**; stop on an explicit terminal error. Open only the URL returned by the actual task. Placeholders in this guide are not result evidence.
 
+Canceling or stopping a Coze preview is not proof that an already submitted
+Ace task was canceled. These tools do not expose a task-cancel endpoint. Retain
+its task ID, avoid resubmitting generation, and use the same-task query when you
+resume. Private Key visibility, denied/expired credentials and actual error
+rendering still require the authenticated host check.
+
 ## Troubleshooting
 
 | Symptom | Check |
