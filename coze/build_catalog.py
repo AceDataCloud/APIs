@@ -318,7 +318,6 @@ def build_operation(a,path,method,source):
                     'accessible_upper_bound':{'type':'number'},
                     'window_limited':{'type':'boolean'},
                     'total_is_exact':{'type':'boolean'},
-                    'has_more':{'type':'boolean'},
                 })
             if path in TASK_RESPONSE_FIELDS and 'schema' in c:
                 schema=c['schema']

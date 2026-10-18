@@ -4,7 +4,8 @@ import unittest
 from pathlib import Path
 
 from openapi_spec_validator import validate_spec
-from jsonschema import Draft4Validator
+from openapi_schema_validator import OAS30Validator
+from jsonschema import Draft4Validator, ValidationError
 
 ROOT = Path(__file__).resolve().parents[1] / 'coze'
 spec = importlib.util.spec_from_file_location('coze_build', ROOT / 'build_catalog.py')
@@ -105,6 +106,31 @@ class CozeCatalogTests(unittest.TestCase):
             for method, op in methods.items():
                 self.assertEqual(self.plugins['suno']['paths'][path][method]['parameters'],
                                  op['parameters'])
+
+    def test_suno_projects_do_not_accept_batch_size(self):
+        import yaml
+        canonical = self.plugins['suno']
+        for path in ('plugins/suno.yaml', 'suno.yaml'):
+            self.assertEqual(canonical, yaml.safe_load((ROOT / path).read_text()))
+        operation = canonical['paths']['/suno/projects']['post']
+        contract = self.source['contracts']['ea455d55-7129-44ae-80a3-bf71aae074d8']
+        self.assertEqual(operation, builder.build_operation(
+            contract, '/suno/projects', 'post',
+            contract['definition']['paths']['/suno/projects']['post']))
+        body = operation['requestBody']['content']['application/json']['schema']
+        branch = next(item for item in body['oneOf']
+                      if item['properties']['action']['enum'] == ['generate_track'])
+        self.assertNotIn('batch_size', body['properties'])
+        self.assertNotIn('batch_size', branch['properties'])
+        request = {
+            'action': 'generate_track', 'id': 'owned-project', 'version_id': 'current-version',
+            'source_audio_id': 'owned-source', 'render_audio_id': 'owned-render',
+            'model': 'chirp-v4', 'start_seconds': 0, 'end_seconds': 8,
+            'stem_control_tags': 'add Piano',
+        }
+        OAS30Validator(branch).validate(request)
+        with self.assertRaises(ValidationError):
+            OAS30Validator(branch).validate({**request, 'batch_size': 2})
 
     def test_prepared_video_forms_preserve_routes_auth_and_completed_media(self):
         import yaml
@@ -347,6 +373,39 @@ class CozeCatalogTests(unittest.TestCase):
             'total':1000,'total_is_exact':False,'has_more':True,
             'window_limited':True,'max_offset':1000,'accessible_upper_bound':1000,
         })
+
+    def test_fish_model_contract_updates_survive_building_and_projection(self):
+        import yaml
+        canonical = self.plugins['fish']
+        projected = json.loads((ROOT / 'imports/fish-voices.json').read_text())
+        for document, path in ((canonical, 'plugins/fish.yaml'),
+                               (projected, 'imports/fish-voices.yaml')):
+            self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+        listing = canonical['paths']['/fish/model']['get']
+        self.assertEqual(listing, projected['paths']['/fish/model']['get'])
+        for api_id, method in (('0a2c983b-e20f-5926-a45f-07b61373617d', 'get'),
+                               ('82dcabe9-b1a3-541f-80f1-decb183b920c', 'post')):
+            contract = self.source['contracts'][api_id]
+            self.assertEqual(canonical['paths']['/fish/model'][method], builder.build_operation(
+                contract, '/fish/model', method,
+                contract['definition']['paths']['/fish/model'][method]))
+        params = {item['name']: item for item in listing['parameters']}
+        self.assertIn('across its API tokens', params['self']['description'])
+        self.assertIn('not public voice access', params['self']['description'])
+        self.assertIn('not supported with `self=true`', params['title_language']['description'])
+        self.assertIn('`created_at` and `task_count`', params['sort_by']['description'])
+        schema = listing['responses']['200']['content']['application/json']['schema']
+        self.assertTrue(schema['properties']['has_more']['nullable'])
+        for value in (True, False, None):
+            OAS30Validator(schema).validate({'total': 0, 'items': [], 'has_more': value})
+        with self.assertRaises(ValidationError):
+            OAS30Validator(schema).validate({'has_more': 'false'})
+        creation = canonical['paths']['/fish/model']['post']
+        self.assertIn('201', creation['responses'])
+        self.assertNotIn('200', creation['responses'])
+        visibility = creation['responses']['201']['content']['application/json']['schema']['properties']['visibility']
+        self.assertIn('saved publicly', visibility['description'])
+        self.assertIn('does not restrict access', visibility['description'])
 
     def test_only_public_documented_operations_are_imported(self):
         for row in self.coverage:

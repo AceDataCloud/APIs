@@ -5425,10 +5425,6 @@ paths:
                     type: string
                   prompt:
                     type: string
-                  batch_size:
-                    type: integer
-                    maximum: 4
-                    minimum: 1
                   version_id:
                     type: string
                   end_seconds:
@@ -5694,10 +5690,6 @@ paths:
                   type: string
                 prompt:
                   type: string
-                batch_size:
-                  type: integer
-                  maximum: 4
-                  minimum: 1
                 end_seconds:
                   type: number
                   exclusiveMinimum: true
