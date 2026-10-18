@@ -1,0 +1,31 @@
+{
+  "name": "Grok",
+  "brief": "Grok chat and video creation",
+  "description": "Ask Grok to write and reason, or turn a text or image brief into a video with task retrieval.",
+  "icon": "icons/grok.png",
+  "plugin_type": "MCP",
+  "server_url": "https://grok.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "grok_chat_completions",
+    "grok_list_models",
+    "grok_list_actions",
+    "grok_get_prompt_guide",
+    "grok_get_task",
+    "grok_get_tasks_batch",
+    "grok_text_to_video",
+    "grok_image_to_video"
+  ],
+  "expected_tool_count": 8,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

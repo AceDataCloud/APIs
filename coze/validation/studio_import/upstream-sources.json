@@ -1,0 +1,105 @@
+{
+  "upstream_sha": "fefb05ff27be1da939612fbf9faf5db62583b8ae",
+  "files": [
+    {
+      "path": "backend/crossdomain/plugin/model/openapi.go",
+      "sha256": "270864ed7225a5741b4081586dd46dea0db1d3ee81b054cfe701b43d3ab4672b"
+    },
+    {
+      "path": "backend/crossdomain/plugin/consts/consts.go",
+      "sha256": "d913114aa16ef7768127e1db50e5bab2610917d42b4a44e7938b679cb0cb3db6"
+    },
+    {
+      "path": "backend/pkg/lang/ptr/ptr.go",
+      "sha256": "e7f8579b263b2465967e1959bf61cc598502a0b88d1c37c165d0fa95c218dcce"
+    },
+    {
+      "path": "backend/pkg/lang/slices/iter.go",
+      "sha256": "85a16721ac7988f6bb0527fb4a499b36aad7141345a2479e2e454f2ea06347a7"
+    },
+    {
+      "path": "backend/pkg/logs/logger.go",
+      "sha256": "e8666236e54e925825f11df332ecfca409b38fb28b11cfff87d33fdcef0f75e2"
+    },
+    {
+      "path": "backend/pkg/logs/default.go",
+      "sha256": "3aaa749a92863a36cfbeb0875d75af7ce3c7491c9903dff52e9969e60e047546"
+    },
+    {
+      "path": "backend/pkg/errorx/error.go",
+      "sha256": "99379e00ccc4de5e9d5ac625c11b492822778b40dccc9ed2b8be4c436b52d00d"
+    },
+    {
+      "path": "backend/pkg/errorx/code/register.go",
+      "sha256": "7dbb73d34d65ea5b16e1b519a20485a8907a81605ab1cf340c7e050b912a21bb"
+    },
+    {
+      "path": "backend/pkg/errorx/internal/register.go",
+      "sha256": "7727ffd892c8eeeadcbf9de648021afcca2fb0ca7b5483c9d8bc52f1477cf730"
+    },
+    {
+      "path": "backend/pkg/errorx/internal/stack.go",
+      "sha256": "a49ce7d969d9ba94efaf22dd66fbd9773b0987b8f606d024c1841c853fc26d36"
+    },
+    {
+      "path": "backend/pkg/errorx/internal/status.go",
+      "sha256": "b16a81eda058225deb4ac008073c8dabed8559d60a3b2e1119438da27d96c6c3"
+    },
+    {
+      "path": "backend/pkg/errorx/internal/msg.go",
+      "sha256": "31e9403be6afcc5c20313b8419f3238c3da3c4ade601adb63cd49af85cd9214e"
+    },
+    {
+      "path": "backend/types/errno/plugin.go",
+      "sha256": "2d3e2a102c74ba57b6811929a4f47b1017fc7030f9e99b5596062467d51e1add"
+    },
+    {
+      "path": "backend/types/errno/search.go",
+      "sha256": "88392b81d61670f368b2a900328bfaf201b47edccad7df5298c9e25f0b5ac9fe"
+    },
+    {
+      "path": "backend/types/consts/consts.go",
+      "sha256": "31732aa82751338bd7879bca34b86eafb60b7c18707c2a2afd647cfb2cf2b6c3"
+    },
+    {
+      "path": "backend/crossdomain/plugin/convert/auth.go",
+      "sha256": "1c790e475e3b53b26306f159aea52a27a7e656b1be1574f4d380c01bf9d75a93"
+    },
+    {
+      "path": "backend/api/model/plugin_develop/common/plugin_develop_common.go",
+      "sha256": "1baf692d2e98ca74b3ed93033b52f6017ff019062f36200da0b95202a929345e"
+    },
+    {
+      "path": "backend/crossdomain/plugin/convert/format.go",
+      "sha256": "37445eb311c5685fc3c1b1ed04bebd614cd8ad9d8e51767bc0a863c00037cebb"
+    },
+    {
+      "path": "backend/crossdomain/plugin/convert/param.go",
+      "sha256": "266f9256ddb9ab25a4a573e39df2b9f8d2c3e694fea69eb4be078a9310bf9089"
+    },
+    {
+      "path": "backend/crossdomain/plugin/model/toolinfo.go",
+      "sha256": "21ac68e9a83d94dcf6551af52858491038c37b68cf196e8689fafeb6f1e3f609"
+    },
+    {
+      "path": "backend/api/model/marketplace/product_public_api/public_api.go",
+      "sha256": "ef3aa737770e87d618852d0753164d01353c2482297c1e36bafaa175237942c7"
+    },
+    {
+      "path": "backend/api/model/marketplace/product_common/product_common.go",
+      "sha256": "7ef96f28142f451e81d73d4da3f0f9e587eccdf3f92b907ca47472b57165e36d"
+    },
+    {
+      "path": "backend/api/model/marketplace/marketplace_common/marketplace_common.go",
+      "sha256": "a9b4530df64c8170e9b554bc833b733608d41533be60104c086933c13ce45ebe"
+    },
+    {
+      "path": "backend/api/model/base/base.go",
+      "sha256": "3215ad6046fee1911a3eb9204682654ad8de3fb82d553c06160895afe469b8fb"
+    },
+    {
+      "path": "backend/api/model/app/bot_common/bot_common.go",
+      "sha256": "ad9f170dced86e579d7e3b4ba0d936a37955fd6f27ee86063faf3150337c1edd"
+    }
+  ]
+}

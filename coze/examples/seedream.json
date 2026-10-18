@@ -1,0 +1,17 @@
+{
+  "description": "Sanitized example based on a real Coze trial on 2026-10-04. Replace the placeholder privately with your own API token. Outputs may change on a new run. Only selected response fields are shown.",
+  "request": {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "model": "doubao-seedream-5-0-lite-260128",
+    "size": "2K",
+    "prompt": "Premium studio product photograph of an unbranded white ceramic coffee mug on a pale blue background, soft natural shadows, clean composition, no text, no logo, square image."
+  },
+  "response": {
+    "success": true,
+    "data": [
+      {
+        "image_url": "https://platform2.cdn.acedata.cloud/seedream/ba1eb6eb-8afd-4161-884e-5583a7930d02.jpg"
+      }
+    ]
+  }
+}

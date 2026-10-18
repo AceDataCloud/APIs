@@ -1,0 +1,31 @@
+{
+  "name": "Luma",
+  "brief": "Luma video creation and extension",
+  "description": "Generate a video from text or supported image references, extend a prior result, and retrieve the final video through the task tool.",
+  "icon": "icons/luma.png",
+  "plugin_type": "MCP",
+  "server_url": "https://luma.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "luma_list_aspect_ratios",
+    "luma_list_actions",
+    "luma_get_task",
+    "luma_get_tasks_batch",
+    "luma_generate_video",
+    "luma_generate_video_from_image",
+    "luma_extend_video",
+    "luma_extend_video_from_url"
+  ],
+  "expected_tool_count": 8,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

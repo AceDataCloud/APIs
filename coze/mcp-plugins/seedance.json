@@ -1,0 +1,30 @@
+{
+  "name": "Seedance",
+  "brief": "Seedance multimodal video creation",
+  "description": "Create videos with Seedance from text and supported image, audio or video references. Select model-specific duration and output options, then retrieve the task.",
+  "icon": "icons/seedance.png",
+  "plugin_type": "MCP",
+  "server_url": "https://seedance.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "seedance_list_models",
+    "seedance_list_resolutions",
+    "seedance_list_actions",
+    "seedance_get_task",
+    "seedance_get_tasks_batch",
+    "seedance_generate_video",
+    "seedance_generate_video_from_image"
+  ],
+  "expected_tool_count": 7,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

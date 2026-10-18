@@ -1,0 +1,41 @@
+{
+  "name": "Producer",
+  "brief": "Songs, lyrics, stems and audio exports",
+  "description": "Generate music and lyrics, extend or transform supported tracks, and retrieve tasks or export formats with Producer.",
+  "icon": "icons/producer.png",
+  "plugin_type": "MCP",
+  "server_url": "https://producer.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "producer_generate_music",
+    "producer_generate_custom_music",
+    "producer_extend_music",
+    "producer_cover_music",
+    "producer_variation_music",
+    "producer_swap_vocals",
+    "producer_swap_instrumentals",
+    "producer_replace_section",
+    "producer_stems_music",
+    "producer_list_models",
+    "producer_list_actions",
+    "producer_get_lyric_format_guide",
+    "producer_generate_lyrics",
+    "producer_upload_audio",
+    "producer_generate_video",
+    "producer_generate_wav",
+    "producer_get_task",
+    "producer_get_tasks_batch"
+  ],
+  "expected_tool_count": 18,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

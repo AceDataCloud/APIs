@@ -1,0 +1,41 @@
+{
+  "retrieved_at": "2026-10-18",
+  "files": [
+    {
+      "file": "get-api-key-en.png",
+      "source_url": "https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png",
+      "page_url": "https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md",
+      "retrieved_at": "2026-10-18",
+      "edited": false,
+      "sha256": "b63787f2bd15af82fef9ab61c99e11c454355ac86e91f7f94559386b795069b7",
+      "limits": "Ace screenshot, redacted; reused from Dify guide. The example key name is Dify tutorial; use Coze tutorial instead. No Coze credential dialog is shown."
+    },
+    {
+      "file": "create-api-key-en.png",
+      "source_url": "https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png",
+      "page_url": "https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md",
+      "retrieved_at": "2026-10-18",
+      "edited": false,
+      "sha256": "977c06780b36ca33f2fb3ba546e2594efe5895400e4cb58d842eb564c3bb09da",
+      "limits": "Ace screenshot, redacted; the sample credential name belongs to the reused Dify guide, not a Coze preset."
+    },
+    {
+      "file": "coze-official-agent-tools.webp",
+      "source_url": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/fa26b8b67af0431ebccd9e4c00607bb8~tplv-goo7wpa0wc-topic.webp",
+      "page_url": "https://docs.coze.cn/guides_use_plugin",
+      "retrieved_at": "2026-10-18",
+      "edited": false,
+      "sha256": "d6f79ad9354370c6d14b418fef72ea28dc7880d64fe872f4357f22dac5aefd07",
+      "limits": "Official Coze China low-code guide, unmodified. Shows another example plugin in the Skills area, not an Ace installation or international-store approval."
+    },
+    {
+      "file": "coze-official-workflow-tools.webp",
+      "source_url": "https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/5dd1bf3541d149b8aa106038a064acae~tplv-goo7wpa0wc-topic.webp",
+      "page_url": "https://docs.coze.cn/guides_use_plugin",
+      "retrieved_at": "2026-10-18",
+      "edited": false,
+      "sha256": "4295927893f1bac537e606188bc793ef2607dd76f207fe79a31489f2093efd30",
+      "limits": "Official Coze China low-code node picker, unmodified. Shows plugin category only; not an Ace installation or international-store approval."
+    }
+  ]
+}

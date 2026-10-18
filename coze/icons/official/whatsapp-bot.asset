@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="WhatsApp account proxy">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#31d69a"/><stop offset="1" stop-color="#08775a"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#dfffee"/></linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="58" fill="url(#g)"/>
+  <circle cx="187" cy="66" r="48" fill="#ffffff18"/>
+  <circle cx="63" cy="199" r="68" fill="#043c3422"/>
+  <path d="M58 75c0-16 13-29 29-29h78c22 0 39 17 39 39v58c0 22-17 39-39 39h-37l-38 25 6-30c-22-4-38-23-38-46V75Z" fill="url(#b)"/>
+  <path d="M91 104h80M91 126h61" stroke="#119b72" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="180" cy="177" r="37" fill="#064f41" stroke="#e3fff2" stroke-width="8"/>
+  <path d="M161 178c12-17 26-17 39 0" fill="none" stroke="#a9f4d4" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="161" cy="178" r="6" fill="#a9f4d4"/><circle cx="200" cy="178" r="6" fill="#a9f4d4"/>
+</svg>

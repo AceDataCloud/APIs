@@ -1,0 +1,26 @@
+{
+  "identity": {
+    "file": "icons/custom/identity.png",
+    "source": "Custom utility icon generated with GPT Image 2",
+    "model": "gpt-image-2",
+    "prompt_ref": "catalog/generated-icon-prompts.json",
+    "url": null,
+    "generated": true
+  },
+  "webextrator": {
+    "file": "icons/custom/webextrator.png",
+    "source": "Custom utility icon generated with GPT Image 2",
+    "model": "gpt-image-2",
+    "prompt_ref": "catalog/generated-icon-prompts.json",
+    "url": null,
+    "generated": true
+  },
+  "localization": {
+    "file": "icons/custom/localization.png",
+    "source": "Custom utility icon generated with GPT Image 2",
+    "model": "gpt-image-2",
+    "prompt_ref": "catalog/generated-icon-prompts.json",
+    "url": null,
+    "generated": true
+  }
+}

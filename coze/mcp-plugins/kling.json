@@ -1,0 +1,38 @@
+{
+  "name": "Kling",
+  "brief": "Kling video, motion and commerce tools",
+  "description": "Create videos, talking photos, lip sync and motion-controlled clips with Kling. Use commerce tools for supported product workflows and retrieve final tasks.",
+  "icon": "icons/kling.png",
+  "plugin_type": "MCP",
+  "server_url": "https://kling.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "kling_generate_with_assets",
+    "kling_list_models",
+    "kling_list_actions",
+    "kling_lip_sync",
+    "kling_talking_photo",
+    "kling_generate_motion",
+    "kling_generate_turbo_video",
+    "kling_generate_storyboard",
+    "kling_goods_studio",
+    "kling_video_commerce",
+    "kling_get_task",
+    "kling_get_tasks_batch",
+    "kling_generate_video",
+    "kling_generate_video_from_image",
+    "kling_extend_video"
+  ],
+  "expected_tool_count": 15,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}
