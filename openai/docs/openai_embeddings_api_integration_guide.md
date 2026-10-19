@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/4qtbvr.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the OpenAI official website. Here we mainly have 3 types of models; details can be found in the models we provide. The last parameter is `input`, which is the text we need to convert into a word vector.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the model category we choose to use from the OpenAI official website. The available models are `text-embedding-3-small` and `text-embedding-3-large`. The older `text-embedding-ada-002` is no longer available; existing vector indexes must be rebuilt before switching models. The last parameter is `input`, which is the text we need to convert into a word vector.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -46,7 +46,7 @@ headers = {
 
 payload = {
     "input": "The food was delicious and the waiter...",
-    "model": "text-embedding-ada-002",
+    "model": "text-embedding-3-small",
     "encoding_format": "float"
 }
 
@@ -92,7 +92,7 @@ After the call, we find that the returned result is as follows:
       ]
     }
   ],
-  "model": "text-embedding-ada-002",
+  "model": "text-embedding-3-small",
   "usage": {
     "prompt_tokens": 8,
     "total_tokens": 8

@@ -1,0 +1,430 @@
+{
+  "claude": {
+    "path": "/v1/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "claude-haiku-4-5-20251001",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 160
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "kimi": {
+    "path": "/kimi/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "kimi-k3",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 160
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "openai": {
+    "path": "/openai/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "gpt-4o-mini",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 160
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "gemini": {
+    "path": "/gemini/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "gemini-2.5-flash",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 2048
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "grok": {
+    "path": "/grok/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "grok-3",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 160
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "glm": {
+    "path": "/glm/chat/completions",
+    "method": "POST",
+    "body": {
+      "model": "glm-4.7",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sky appears blue in two sentences."
+        }
+      ],
+      "stream": false,
+      "max_tokens": 160
+    },
+    "status": "not_run",
+    "acceptance": "Confirm non-empty assistant text and reconcile billed Credits.",
+    "billing_limit_credits": null
+  },
+  "maestro": {
+    "path": "/maestro/videos",
+    "method": "POST",
+    "body": {
+      "prompt": "Create a short English explainer about morning light over a mountain lake.",
+      "duration": 5,
+      "langs": [
+        "en"
+      ],
+      "scenario": "narrated",
+      "style": "cinematic"
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "hailuo": {
+    "path": "/hailuo/videos",
+    "method": "POST",
+    "body": {
+      "model": "minimax-t2v",
+      "action": "generate",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "veo": {
+    "path": "/veo/videos",
+    "method": "POST",
+    "body": {
+      "model": "veo31-fast",
+      "action": "text2video",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "aspect_ratio": "16:9",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "serp": {
+    "path": "/serp/google",
+    "method": "POST",
+    "body": {
+      "type": "search",
+      "query": "Ace Data Cloud API documentation",
+      "number": 3
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "luma": {
+    "path": "/luma/videos",
+    "method": "POST",
+    "body": {
+      "action": "generate",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "aspect_ratio": "16:9",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "seedance": {
+    "path": "/seedance/videos",
+    "method": "POST",
+    "body": {
+      "model": "doubao-seedance-1-0-pro-fast-251015",
+      "content": [
+        {
+          "type": "text",
+          "text": "A calm sunrise over a mountain lake, gentle camera movement, no text."
+        }
+      ],
+      "duration": 5,
+      "resolution": "720p",
+      "ratio": "16:9",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "qwen-image": {
+    "path": "/qwen-image/images",
+    "method": "POST",
+    "body": {
+      "model": "qwen-image-3.0",
+      "prompt": "A ceramic vase on a clean neutral studio background.",
+      "n": 1,
+      "size": "1024*1024",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "shorturl": {
+    "path": "/shorturl",
+    "method": "POST",
+    "body": {
+      "content": "https://platform.acedata.cloud/?from=coze"
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "webextrator": {
+    "path": "/webextrator/extract",
+    "method": "POST",
+    "body": {
+      "url": "https://example.com/",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require usable page content, not an access challenge or empty extraction.",
+    "billing_limit_credits": null
+  },
+  "producer": {
+    "path": "/producer/audios",
+    "method": "POST",
+    "body": {
+      "model": "FUZZ-2.0",
+      "action": "generate",
+      "lyric": "",
+      "prompt": "A gentle acoustic instrumental with a calm morning mood.",
+      "instrumental": true,
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "nano-banana": {
+    "path": "/nano-banana/images",
+    "method": "POST",
+    "body": {
+      "model": "nano-banana-2",
+      "action": "generate",
+      "prompt": "A ceramic vase on a clean neutral studio background.",
+      "count": 1,
+      "aspect_ratio": "1:1",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "wan": {
+    "path": "/wan/videos",
+    "method": "POST",
+    "body": {
+      "model": "wan2.6-t2v",
+      "action": "text2video",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "duration": 5,
+      "resolution": "720P",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "suno": {
+    "path": "/suno/audios",
+    "method": "POST",
+    "body": {
+      "model": "chirp-v6-mini",
+      "action": "generate",
+      "prompt": "A gentle acoustic instrumental with a calm morning mood.",
+      "instrumental": true,
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "happyhorse": {
+    "path": "/happyhorse/videos",
+    "method": "POST",
+    "body": {
+      "model": "happyhorse-1.1-t2v",
+      "action": "generate",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "duration": 5,
+      "resolution": "720P",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "kling": {
+    "path": "/kling/videos",
+    "method": "POST",
+    "body": {
+      "model": "kling-v2-6",
+      "action": "text2video",
+      "prompt": "A calm sunrise over a mountain lake, gentle camera movement, no text.",
+      "duration": 5,
+      "mode": "std",
+      "aspect_ratio": "16:9",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "localization": {
+    "path": "/localization/translate",
+    "method": "POST",
+    "body": {
+      "input": {
+        "welcome": "Welcome",
+        "save": "Save"
+      },
+      "locale": "zh-CN",
+      "extension": "json"
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "fish": {
+    "path": "/fish/tts",
+    "method": "POST",
+    "body": {
+      "text": "Welcome to Ace Data Cloud. Turn your ideas into useful workflows.",
+      "format": "mp3",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "minimax": {
+    "path": "/minimax/videos",
+    "method": "POST",
+    "body": {
+      "model": "MiniMax-H3",
+      "content": [
+        {
+          "type": "text",
+          "text": "A calm sunrise over a mountain lake, gentle camera movement, no text."
+        }
+      ],
+      "duration": 4,
+      "resolution": "768P",
+      "ratio": "16:9",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require task.status=succeeded and a playable task.content.url from the MiniMax task response.",
+    "billing_limit_credits": null
+  },
+  "seedream": {
+    "path": "/seedream/images",
+    "method": "POST",
+    "body": {
+      "model": "doubao-seedream-5-0-lite-260128",
+      "prompt": "A ceramic vase on a clean neutral studio background.",
+      "size": "2K",
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "flux": {
+    "path": "/flux/images",
+    "method": "POST",
+    "body": {
+      "model": "flux-2-pro",
+      "action": "generate",
+      "prompt": "A ceramic vase on a clean neutral studio background.",
+      "size": "1:1",
+      "count": 1,
+      "async": true
+    },
+    "status": "not_run",
+    "acceptance": "Require a real result; for asynchronous output, poll to completion and inspect the returned media.",
+    "billing_limit_credits": null
+  },
+  "identity": {
+    "status": "awaiting_authorized_fixture",
+    "reason": "Prepare a controlled fixture for this integration; no personal information or third-party challenge is used."
+  },
+  "turnstile": {
+    "status": "awaiting_authorized_fixture",
+    "reason": "Prepare a controlled fixture for this integration; no personal information or third-party challenge is used."
+  },
+  "recaptcha": {
+    "status": "awaiting_authorized_fixture",
+    "reason": "Prepare a controlled fixture for this integration; no personal information or third-party challenge is used."
+  },
+  "hcaptcha": {
+    "status": "awaiting_authorized_fixture",
+    "reason": "Prepare a controlled fixture for this integration; no personal information or third-party challenge is used."
+  },
+  "image2text": {
+    "status": "awaiting_authorized_fixture",
+    "reason": "Prepare a controlled fixture for this integration; no personal information or third-party challenge is used."
+  },
+  "deepseek": {
+    "path": "/aichat/conversations",
+    "method": "POST",
+    "body": {
+      "model": "deepseek-v4-flash",
+      "question": "Explain why the sky appears blue in two sentences.",
+      "stateful": false
+    },
+    "status": "not_run",
+    "authorization": "Outside the currently approved 23-service smoke-test batch.",
+    "acceptance": "Verify the published DeepSeek model through the shared AI Dialogue route and inspect non-empty output."
+  }
+}

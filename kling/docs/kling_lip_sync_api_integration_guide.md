@@ -57,7 +57,7 @@ curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   "success": true,
   "task_id": "07a3ec65-9f7e-4a09-b7b7-282684082527",
   "video_id": "895055968777281546",
-  "video_url": "https://platform2.cdn.acedata.cloud/kling/07a3ec65-9f7e-4a09-b7b7-282684082527.mp4",
+  "video_url": "https://cdn.acedata.cloud/assets/examples/kling/6c68c267-065b-4423-b66b-a0e4c59ee0d5-6a664a591a53.mp4",
   "duration": "4.966",
   "state": "succeed"
 }
@@ -85,7 +85,7 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
 curl -X POST 'https://api.acedata.cloud/kling/lip-sync' \
   -H 'authorization: Bearer ${API_KEY}' -H 'content-type: application/json' \
   -d '{"mode":"audio2video","video_id":"895055164389466178","audio_url":"https://your.cdn/voice.mp3"}'
-# → { "video_url": "https://platform2.cdn.acedata.cloud/kling/....mp4", ... }
+# → { "video_url": "https://cdn.acedata.cloud/assets/examples/kling/6c68c267-065b-4423-b66b-a0e4c59ee0d5-6a664a591a53.mp4", ... }
 ```
 ## Error response
 ```json

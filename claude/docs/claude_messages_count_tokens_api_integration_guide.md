@@ -16,14 +16,16 @@ This API is completely free to use and does not consume any quota.
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use. The current lineup leads with `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-sonnet-4-5-20250929` remain available.
+- `model`: Choose the Claude model to use. `claude-opus-5-5` is available on this native Messages surface with a 1M-token context window and up to 128K output tokens. The current lineup also includes `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-sonnet-4-5-20250929` remain available.
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:
 
 - `system`: System prompt, which will be included in the token count.
 - `tools`: Tool definitions, which will be included in the token count.
-- `thinking`: Extended thinking configuration.
+- `thinking`: Thinking configuration, passed through unchanged, including `type`, `budget_tokens`, `display`, and new extension fields. Common types include `adaptive`, `enabled`, and `disabled`; supported values and combinations are determined by the selected model, not a fixed platform enum.
+
+Common display values are `summarized` and `omitted`. The beta value `updates` requires the request header `anthropic-beta: thinking-display-updates-2026-08-18`; the platform forwards the display value and beta header unchanged. Use the same model, thinking configuration, and applicable beta headers as the Messages request you are estimating. This endpoint still only counts input tokens and does not generate thinking content or progress updates.
 
 ### cURL Example
 

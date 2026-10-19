@@ -1,0 +1,19 @@
+{
+  "description": "Sanitized example based on a real Coze trial on 2026-10-04. Replace the placeholder privately with your own API token. Outputs may change on a new run. Only selected response fields are shown.",
+  "request": {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "action": "generate",
+    "model": "flux-2-pro",
+    "size": "1:1",
+    "count": 1,
+    "prompt": "A clean editorial product photograph of an unbranded amber glass skincare bottle on a warm cream pedestal, soft daylight, elegant neutral background, no text, no logos, square composition."
+  },
+  "response": {
+    "success": true,
+    "data": [
+      {
+        "image_url": "https://platform2.cdn.acedata.cloud/flux/93fedc41-f90b-4972-925e-94dd2bcbfd41.jpg"
+      }
+    ]
+  }
+}

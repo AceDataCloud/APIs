@@ -22,7 +22,7 @@ curl -X POST 'https://api.acedata.cloud/seedream/tasks' \
 {
   "success": true,
   "task_id": "ec22ae22-0140-4033-8c86-a48b536da595",
-  "data": { "status": "succeeded", "image_url": "https://platform.cdn.acedata.cloud/seedream/xxxx.png", "model": "doubao-seedream-5-0-260128" }
+  "data": { "status": "succeeded", "image_url": "https://platform.cdn.acedata.cloud/seedream/xxxx.png", "model": "doubao-seedream-5-0-lite-260128" }
 }
 ```
 

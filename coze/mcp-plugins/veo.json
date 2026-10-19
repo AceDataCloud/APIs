@@ -1,0 +1,31 @@
+{
+  "name": "Veo",
+  "brief": "Veo video creation and result retrieval",
+  "description": "Create videos from text or supported image references with Veo. Retrieve the submitted task and use the finished media URL in the next step.",
+  "icon": "icons/veo.png",
+  "plugin_type": "MCP",
+  "server_url": "https://veo.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "veo_list_models",
+    "veo_list_actions",
+    "veo_get_prompt_guide",
+    "veo_get_task",
+    "veo_get_tasks_batch",
+    "veo_text_to_video",
+    "veo_image_to_video",
+    "veo_get_1080p"
+  ],
+  "expected_tool_count": 8,
+  "benchmark_source": "live tools/list",
+  "draft_only_discovery_header": {
+    "Authorization": "Bearer COZE_METADATA_ONLY_INVALID_TOKEN"
+  },
+  "release_requirements": [
+    "Verify all expected tools and schemas in Coze.",
+    "Remove the invalid discovery marker and configure caller-owned authorization before release.",
+    "Validate actual Coze execution and asynchronous results within an authorized test scope.",
+    "Wait for user review before workspace publication or store submission."
+  ],
+  "status": "prepared_not_published",
+  "note": "This is review/configuration material, not a native Coze export and not execution evidence."
+}

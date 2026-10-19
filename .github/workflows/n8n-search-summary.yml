@@ -3,18 +3,10 @@ name: n8n search summary workflow
 on:
   push:
     branches: [main]
-    paths:
-      - "workflows/n8n/search-summary.json"
-      - "workflows/n8n/search-summary.md"
-      - "workflows/n8n/test_search_summary_workflow.py"
-      - ".github/workflows/n8n-search-summary.yml"
+    paths: ["workflows/n8n/**", "tests/test_n8n_search_summary.py", "scripts/check_n8n_search_summary.sh", ".github/workflows/n8n-search-summary.yml"]
   pull_request:
     branches: [main]
-    paths:
-      - "workflows/n8n/search-summary.json"
-      - "workflows/n8n/search-summary.md"
-      - "workflows/n8n/test_search_summary_workflow.py"
-      - ".github/workflows/n8n-search-summary.yml"
+    paths: ["workflows/n8n/**", "tests/test_n8n_search_summary.py", "scripts/check_n8n_search_summary.sh", ".github/workflows/n8n-search-summary.yml"]
 
 permissions:
   contents: read
@@ -22,41 +14,33 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "24"
-      - run: python -m json.tool workflows/n8n/search-summary.json >/dev/null
-      - run: python -m unittest workflows/n8n/test_search_summary_workflow.py
-      - run: python -m py_compile workflows/n8n/test_search_summary_workflow.py
-      - run: npm install --global n8n@2.38.2
-      - name: Import workflow with n8n
-        env:
-          DB_TYPE: sqlite
-          N8N_DIAGNOSTICS_ENABLED: "false"
-          N8N_ENCRYPTION_KEY: ci-only-search-summary-key
-          N8N_EXPRESSION_ENGINE: quickjs
-          N8N_USER_FOLDER: ${{ runner.temp }}/n8n-search-summary
-          N8N_VERSION_NOTIFICATIONS_ENABLED: "false"
+      - run: pip install 'PyYAML>=6,<7' 'openapi-spec-validator>=0.7,<0.8'
+      - run: python -m unittest discover -s tests -v
+      - name: Free import and missing-credential boundary in pinned host
         run: |
-          n8n import:workflow --input=workflows/n8n/search-summary.json
-          n8n export:workflow --all --output="$RUNNER_TEMP/search-summary-export.json"
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          workflows = json.loads(Path(os.environ["RUNNER_TEMP"], "search-summary-export.json").read_text())
-          assert len(workflows) == 1
-          assert workflows[0]["id"] == "acedata-search-summary-v1"
-          PY
-          if n8n export:credentials --all --output="$RUNNER_TEMP/search-summary-credentials.json" >"$RUNNER_TEMP/credentials.log" 2>&1; then
-            echo "Expected an empty credential export to return non-zero" >&2
-            exit 1
-          fi
-          grep -F "No credentials found with specified filters" "$RUNNER_TEMP/credentials.log"
-          test ! -e "$RUNNER_TEMP/search-summary-credentials.json"
+          mkdir -p "$RUNNER_TEMP/n8n-search-summary-evidence"
+          docker run --rm --network none --user 0:0 \
+            --entrypoint /bin/sh \
+            -v "$PWD:/workspace:ro" \
+            -v "$RUNNER_TEMP/n8n-search-summary-evidence:/evidence" \
+            -e N8N_USER_FOLDER=/tmp/n8n-search-summary \
+            -e N8N_DIAGNOSTICS_ENABLED=false \
+            -e N8N_VERSION_NOTIFICATIONS_ENABLED=false \
+            -e N8N_ENCRYPTION_KEY=ci-only-search-summary-key \
+            -e N8N_EXPRESSION_ENGINE=quickjs \
+            docker.n8n.io/n8nio/n8n:2.43.7 \
+            /workspace/scripts/check_n8n_search_summary.sh
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: n8n-search-summary-free-host
+          path: ${{ runner.temp }}/n8n-search-summary-evidence

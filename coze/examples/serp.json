@@ -1,0 +1,31 @@
+{
+  "description": "Sanitized example based on a real Coze trial on 2026-10-04. Replace the placeholder privately with your own API token. Outputs may change on a new run. Only selected response fields are shown.",
+  "request": {
+    "Authorization": "Bearer YOUR_API_TOKEN",
+    "query": "Ace Data Cloud API documentation",
+    "number": 3,
+    "country": "us",
+    "language": "en",
+    "page": 1,
+    "type": "search"
+  },
+  "response": {
+    "organic": [
+      {
+        "title": "Ace Data Cloud - Unified Interface for All Modalities",
+        "link": "https://platform.acedata.cloud/",
+        "position": 1
+      },
+      {
+        "title": "Ace Data Cloud",
+        "link": "https://github.com/acedatacloud",
+        "position": 2
+      },
+      {
+        "title": "Ace Data Cloud Service Documentation",
+        "link": "https://platform.acedata.cloud/documents",
+        "position": 3
+      }
+    ]
+  }
+}
