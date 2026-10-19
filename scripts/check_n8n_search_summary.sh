@@ -23,6 +23,18 @@ node - "$evidence_dir/credential-check.log" <<'JS'
 const text = require('fs').readFileSync(process.argv[2], 'utf8');
 if (!text.includes('No credentials found with specified filters')) throw new Error(text);
 JS
+if n8n execute --id=acedata-search-summary-v1 > "$evidence_dir/unconfigured-execution.log" 2>&1; then
+  echo 'Unexpected execution success without an explicit model' >&2
+  exit 1
+fi
+node - "$evidence_dir/unconfigured-execution.log" <<'JS'
+const fs = require('fs');
+const path = process.argv[2];
+const text = fs.readFileSync(path, 'utf8').replace(/("resumeToken"\s*:\s*")[^"]+/g, '$1[REDACTED]');
+fs.writeFileSync(path, text);
+if (!text.includes('Choose your exact chat-completions model ID before running.') || /Credentials not found/i.test(text))
+  throw new Error('Expected local input rejection before the HTTP credential boundary');
+JS
 # A synthetic model isolates missing credentials without choosing a real model.
 node - "$evidence_dir/configured-no-key.json" <<'JS'
 const fs = require('fs');
@@ -38,11 +50,14 @@ if n8n execute --id=acedata-search-summary-v1 > "$evidence_dir/no-key-execution.
 fi
 node - "$evidence_dir/no-key-execution.log" <<'JS'
 const fs = require('fs');
-const text = fs.readFileSync(process.argv[2], 'utf8');
-if (!/does not have any credentials set|credentials? (?:is|are) (?:not set|missing)|Node does not have any credentials/i.test(text))
-  throw new Error('Expected a missing-credential failure: ' + text);
+const path = process.argv[2];
+const text = fs.readFileSync(path, 'utf8').replace(/("resumeToken"\s*:\s*")[^"]+/g, '$1[REDACTED]');
+fs.writeFileSync(path, text);
+if (!/Credentials not found|does not have any credentials set|credentials? (?:is|are) (?:not set|missing)/i.test(text))
+  throw new Error('Expected a missing-credential failure; inspect the sanitized execution log');
 fs.writeFileSync('/evidence/receipt.json', JSON.stringify({host:'n8n 2.43.7',
   network:'Docker --network none', importedInactive:true, savedCredentials:0,
+  unconfigured:'rejected locally before search',
   configuredNoKey:'failed at required credential boundary', serviceRequests:0,
   paidCalls:0, fullResearchRun:'not tested'}, null, 2) + '\n');
 JS
