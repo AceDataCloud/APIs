@@ -448,7 +448,9 @@ paths:
                 negative_tags:
                   type: string
                   description: Descriptions of styles or genres that should not appear in the generated
-                    music will only take effect when the custom mode (`custom` is `true`).
+                    music will only take effect when the custom mode (`custom` is `true`). This API currently
+                    sets no fixed character limit for this field; overly long content may still fail to
+                    process, so keep it concise.
                 samples_start:
                   type: number
                   description: Add a default start time for the uploaded audio sample, with a default
