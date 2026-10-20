@@ -40109,7 +40109,7 @@
                         "negative_tags": {
                           "rank": 91,
                           "type": "string",
-                          "description": "Descriptions of styles or genres that should not appear in the generated music will only take effect when the custom mode (`custom` is `true`)."
+                          "description": "Descriptions of styles or genres that should not appear in the generated music will only take effect when the custom mode (`custom` is `true`). This API currently sets no fixed character limit for this field; overly long content may still fail to process, so keep it concise."
                         },
                         "samples_start": {
                           "rank": 96,
@@ -40213,7 +40213,12 @@
           }
         }
       },
-      "source_definition_sha256": "cf77e71092d9f289f000a633feecd847c9e840cea46c373c38a1257891cdafe4"
+      "source_definition_sha256": "cf77e71092d9f289f000a633feecd847c9e840cea46c373c38a1257891cdafe4",
+      "backend_update": {
+        "revision": "0a24625bbdba7c2e28115e738a43136a23e7c29f",
+        "source_file": "openapi/09a26295-5972-4392-9318-dcd9b218f90d.json",
+        "source_file_sha256": "03586464598bb7a2f28d71c21765e02a2d5ee0569ec7f1898fafe36b21f66147"
+      }
     },
     "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84": {
       "id": "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84",

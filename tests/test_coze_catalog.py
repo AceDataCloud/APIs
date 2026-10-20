@@ -107,6 +107,28 @@ class CozeCatalogTests(unittest.TestCase):
                 self.assertEqual(self.plugins['suno']['paths'][path][method]['parameters'],
                                  op['parameters'])
 
+    def test_suno_negative_tags_guidance_survives_building_and_projection(self):
+        import yaml
+        canonical = self.plugins['suno']
+        projected = json.loads((ROOT / 'imports/suno.json').read_text())
+        for document, path in ((canonical, 'plugins/suno.yaml'),
+                               (canonical, 'suno.yaml'),
+                               (projected, 'imports/suno.yaml')):
+            self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+        contract = self.source['contracts']['09a26295-5972-4392-9318-dcd9b218f90d']
+        operation = canonical['paths']['/suno/audios']['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, '/suno/audios', 'post',
+            contract['definition']['paths']['/suno/audios']['post']))
+        tags = operation['requestBody']['content']['application/json']['schema']['properties']['negative_tags']
+        imported = projected['paths']['/suno/audios']['post']['requestBody']['content']['application/json']['schema']['properties']['negative_tags']
+        self.assertEqual(tags, imported)
+        self.assertEqual('string', tags['type'])
+        self.assertNotIn('maxLength', tags)
+        self.assertIn('`custom` is `true`', tags['description'])
+        self.assertIn('no fixed character limit', tags['description'])
+        self.assertIn('overly long content may still fail to process', tags['description'])
+
     def test_suno_projects_do_not_accept_batch_size(self):
         import yaml
         canonical = self.plugins['suno']
