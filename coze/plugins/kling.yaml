@@ -537,7 +537,11 @@ paths:
                     total pixels ≤8,294,400, and aspect ratio 0.4–2. `refer_type` can be `feature` or
                     `base` (default); `keep_original_sound` can be `yes` or `no`. Materials must be referenced
                     in the prompt using `<<<video_1>>>`. `base` cannot be used together with the first
-                    frame/last frame; when a reference video exists, `generate_audio` must be `false`.'
+                    frame/last frame; when a reference video exists, `generate_audio` must be `false`.
+                    Reference videos use a separate billing tier. Base editing is billed by actual
+                    output duration rounded to whole seconds; feature reference uses the requested
+                    duration. The response field `usage.reference_video_seconds` reports the final
+                    billable seconds. Reference images alone do not trigger reference-video billing.'
                 voice_list:
                   type: array
                   items:

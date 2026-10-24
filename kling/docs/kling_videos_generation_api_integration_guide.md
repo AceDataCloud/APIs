@@ -70,6 +70,19 @@ curl -X POST 'https://api.acedata.cloud/kling/videos' \
   "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
 }'
 ```
+## O1 and Omni Reference-Video Billing
+
+For successful `kling-o1` text-to-video or image-to-video requests, the following prices apply to a 5-second output without a reference video, or five billable seconds with a reference video:
+
+| Mode | Without `video_list` | With `video_list` |
+| --- | ---: | ---: |
+| `std` | 4.005 Credits | 6.010 Credits |
+| `pro` | 5.340 Credits | 8.010 Credits |
+
+For both `kling-o1` and `kling-v3-omni`, successful requests with a reference video use a separate tier: **1.202 Credits per billable second** in `std` or **1.602 Credits per billable second** in `pro`. Omitting `video_list` avoids this tier; `image_list`, first-frame images and last-frame images alone do not trigger reference-video billing. Reference videos cannot be combined with `generate_audio=true`.
+
+For `refer_type=base` (the default), editing may follow the reference video's length. Billing uses the actual output duration rounded to a whole second: 5.708 seconds bills as 6 seconds, while 5.041 seconds bills as 5 seconds. For `refer_type=feature`, billing uses the requested `duration`. The response field `usage.reference_video_seconds` reports the final billable seconds, so the pre-request estimate can differ from the final charge.
+
 ## Model Capability Matrix
 Different models have varying support for parameters. The following matrix is organized from the [Kling official video models documentation](https://app.klingai.com/global/dev/document-api/apiReference/model/videoModels). Please verify that the current `model` / `mode` / `duration` combination supports the features you need before calling, otherwise the request will return errors such as `model/mode/duration(...) is not supported with image_tail`.
 | Model                | Mode            | `end_image_url` (First and Last Frame) | `generate_audio` (Accompanying Audio) | `camera_control` (Camera Movement) | Remarks                                         |
