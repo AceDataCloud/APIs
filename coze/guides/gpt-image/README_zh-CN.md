@@ -4,6 +4,8 @@
 
 [English](README.md) · [当前价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_pricing)
 
+Ace Data Cloud 在中国大陆目录中隐藏 OpenAI 图像生成、编辑 API 及其配套指南。本国际站教程及下方中国站编辑器截图不代表这些 API 在中国大陆可用，也不代表已在中国站商店发布；继续前请先核对所在地区的服务目录。
+
 ## 1. 搜索并安装正确插件
 
 打开 [GPT Image 的 Coze 插件商店页](https://www.coze.com/store/plugin/7695652131059187765)，确认发布者为 **AceDataCloud**。最近留存的 **2026-10-12** 投稿仍在审核；今天未重新认证批准、搜索和安装状态。若没有 Install/Add 或显示审核中，就停在这一阶段；源码教程不代表市场正式版。

@@ -129,6 +129,30 @@ class CozeCatalogTests(unittest.TestCase):
         self.assertIn('no fixed character limit', tags['description'])
         self.assertIn('overly long content may still fail to process', tags['description'])
 
+    def test_kling_reference_video_billing_guidance_survives_building_and_projection(self):
+        import yaml
+        canonical = self.plugins['kling']
+        projected = json.loads((ROOT / 'imports/kling.json').read_text())
+        for document, path in ((canonical, 'plugins/kling.yaml'),
+                               (canonical, 'kling.yaml'),
+                               (projected, 'imports/kling.yaml')):
+            self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+        contract = self.source['contracts']['29187cb2-1acb-43b8-baf5-3f3f709292eb']
+        operation = canonical['paths']['/kling/videos']['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, '/kling/videos', 'post',
+            contract['definition']['paths']['/kling/videos']['post']))
+        video = operation['requestBody']['content']['application/json']['schema']['properties']['video_list']
+        imported = projected['paths']['/kling/videos']['post']['requestBody']['content']['application/json']['schema']['properties']['video_list']
+        self.assertEqual(video, imported)
+        description = video['description']
+        self.assertIn('separate billing tier', description)
+        self.assertIn('Base editing is billed by actual output duration rounded to whole seconds', description)
+        self.assertIn('feature reference uses the requested duration', description)
+        self.assertIn('usage.reference_video_seconds', description)
+        self.assertIn('Reference images alone do not trigger reference-video billing', description)
+        self.assertIn('`generate_audio` must be `false`', description)
+
     def test_suno_projects_do_not_accept_batch_size(self):
         import yaml
         canonical = self.plugins['suno']
