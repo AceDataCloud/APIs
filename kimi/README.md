@@ -31,7 +31,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3.1-pro`, supports reasoning, visual understanding, tool calling, and a 1,048,576-token context window. `kimi-k3` and Kimi K2 models remain available for compatibility.
+Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3.1-pro`, supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens; actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning and supports the top-level `reasoning_effort` values `low`, `high`, and `max`; use `max` for K3.
 
 ## Application Process
 
