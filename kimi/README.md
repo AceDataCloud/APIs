@@ -6,7 +6,7 @@ Moonshot AI Kimi generative services, including chat completions.
 
 API home page: [Ace Data Cloud - Kimi](https://platform.acedata.cloud/services/kimi?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=kimi_api_readme_services_kimi)
 
-Keywords: kimi-api, moonshot-ai, kimi-k3, kimi-k2, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: kimi-api, moonshot-ai, kimi-k3.1-pro, kimi-k3, kimi-k2, chat-completions, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Get your Ace Data Cloud API key
 
@@ -31,7 +31,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3`, supports reasoning, vision, tool calling, a 1,048,576-token context window, and up to 16,384 output tokens. Kimi K2 models remain available for compatibility with existing applications.
+Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3.1-pro`, supports reasoning, visual understanding, tool calling, and a 1,048,576-token context window. `kimi-k3` and Kimi K2 models remain available for compatibility.
 
 ## Application Process
 
@@ -50,7 +50,7 @@ curl --request POST "https://api.acedata.cloud/kimi/chat/completions" \
   --header "Authorization: Bearer YOUR_API_KEY" \
   --header "Content-Type: application/json" \
   --data '{
-    "model": "kimi-k3",
+    "model": "kimi-k3.1-pro",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
