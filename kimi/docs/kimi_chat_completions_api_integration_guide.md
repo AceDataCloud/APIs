@@ -4,7 +4,7 @@ Kimi is a very powerful AI dialogue system that can generate smooth and natural 
 
 This document mainly introduces the usage process of the Kimi Chat Completion API, allowing us to easily utilize the official Kimi dialogue features.
 
-The recommended model is `kimi-k3.1-pro`, which supports reasoning, visual understanding, tool calling, and a 1,048,576-token context window. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
+The recommended model is `kimi-k3.1-pro`, which supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
 
 ## Application Process
 
@@ -73,6 +73,23 @@ Among them, `choices` contains Kimi's response information, and the `choices` in
 <p><img src="https://cdn.acedata.cloud/tv9rul.png" width="400" class="m-auto"></p>
 
 As can be seen, the `content` field in `choices` contains the specific content of Kimi's reply.
+
+## Reasoning Effort
+
+For `kimi-k3.1-pro`, set the top-level `reasoning_effort` field to `low`, `high`, or `max`. Reasoning is always enabled; do not send a configuration that disables it. For `kimi-k3`, use `max`. The `thinking` field is for K2.6, not K3.1 Pro or K3.
+
+```bash
+curl https://api.acedata.cloud/kimi/chat/completions \
+  -H "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "kimi-k3.1-pro",
+    "messages": [{"role": "user", "content": "Review this code and suggest a fix."}],
+    "reasoning_effort": "low"
+  }'
+```
+
+Read the reply from `choices[].message.content`. If the response includes `reasoning_content` or `tool_calls`, preserve the complete assistant message and send it back unchanged in subsequent turns, including when returning tool results. Input, output, and cache-hit token usage affect billing; consult the model catalog's Pricing card for current prices.
 
 ## Streaming Response
 

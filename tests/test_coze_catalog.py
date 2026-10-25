@@ -129,6 +129,46 @@ class CozeCatalogTests(unittest.TestCase):
         self.assertIn('no fixed character limit', tags['description'])
         self.assertIn('overly long content may still fail to process', tags['description'])
 
+    def test_kimi_k31_reasoning_survives_building_and_projection(self):
+        import yaml
+        route = '/kimi/chat/completions'
+        canonical = self.plugins['kimi']
+        projected = json.loads((ROOT / 'imports/kimi.json').read_text())
+        contract = self.source['contracts']['5c4649ee-22c6-44ea-84d6-6ecc3674f998']
+        operation = canonical['paths'][route]['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, route, 'post', contract['definition']['paths'][route]['post']))
+        for document, path in ((canonical, 'plugins/kimi.yaml'),
+                               (projected, 'imports/kimi.yaml')):
+            with self.subTest(path=path):
+                self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+                validate_spec(document)
+                self.assertEqual({route}, set(document['paths']))
+                body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                fields = body['properties']
+                self.assertEqual(['kimi-k3.1-pro', 'kimi-k3', 'kimi-k2.6',
+                                  'kimi-k2-thinking-turbo', 'kimi-k2.5', 'kimi-k2-thinking'],
+                                 fields['model']['enum'])
+                effort = fields['reasoning_effort']
+                self.assertEqual(['low', 'high', 'max'], effort['enum'])
+                self.assertEqual(['kimi-k3.1-pro', 'kimi-k3'], effort['x-allowed-models'])
+                self.assertIn('use `max` for K3', effort['description'])
+                self.assertIn('always enable reasoning', effort['description'])
+                for model, levels in (('kimi-k3.1-pro', ('low', 'high', 'max')),
+                                      ('kimi-k3', ('max',))):
+                    for level in levels:
+                        OAS30Validator(body).validate({
+                            'model': model, 'messages': [{'role': 'user', 'content': 'Hello'}],
+                            'reasoning_effort': level, 'stream': False,
+                        })
+                with self.assertRaises(ValidationError):
+                    OAS30Validator(effort).validate('disabled')
+                reasoning = fields['messages']['items']['properties']['reasoning_content']
+                self.assertIn('K3.1 Pro or K3', reasoning['description'])
+                self.assertIn('unchanged', reasoning['description'])
+        message = operation['responses']['200']['content']['application/json']['schema']['properties']['choices']['items']['properties']['message']
+        self.assertIn('K3.1 Pro or K3', message['properties']['reasoning_content']['description'])
+
     def test_kling_reference_video_billing_guidance_survives_building_and_projection(self):
         import yaml
         canonical = self.plugins['kling']

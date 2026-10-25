@@ -65,7 +65,9 @@ Explore the supported endpoints and integration guides for AI Chat.
 
 ## AI Chat v2 Execution Limits
 
-[AI Chat v2](https://platform.acedata.cloud/documents/aichat2-conversations?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents_aichat2_conversations) supports agent tool calls. The following limits apply to v2, not the `/aichat/conversations` endpoint documented above.
+[AI Chat v2](https://platform.acedata.cloud/documents/aichat2-conversations?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents_aichat2_conversations) supports agent tool calls. Its `model` field supports `kimi-k3.1-pro`, with `kimi-k3` still available. This is the v2 model list, not the separate `/aichat/conversations` model list documented above.
+
+The following limits apply to v2, not the `/aichat/conversations` endpoint documented above.
 
 | Endpoint | Optional field | Range | Default when omitted |
 | --- | --- | --- | --- |
