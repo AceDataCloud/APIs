@@ -4,7 +4,7 @@ Kimi is a very powerful AI dialogue system that can generate smooth and natural 
 
 This document mainly introduces the usage process of the Kimi Chat Completion API, allowing us to easily utilize the official Kimi dialogue features.
 
-The recommended model is `kimi-k3.1-pro`, which supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
+`kimi-k3.1-pro` supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
 
 ## Application Process
 
