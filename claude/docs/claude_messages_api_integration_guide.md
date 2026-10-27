@@ -16,9 +16,13 @@ Upon first application, there will be a free quota provided, allowing you to use
 
 ## Basic Usage
 
-The request path for the Claude Messages API is `/v1/messages`, consistent with the Anthropic official API. We need to provide at least three required parameters:
+The request path for the Claude Messages API is `/v1/messages`, consistent with the Anthropic official API.
 
-- `model`: Choose the Claude model to use. `claude-opus-5-5` is available on this native Messages surface with a 1M-token context window and up to 128K output tokens. The current lineup also includes `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
+Compatible model requests accepted by the platform are billed for the selected model's input, output, and cache usage. Messages `usage.input_tokens` excludes the separately reported `usage.cache_read_input_tokens` and `usage.cache_creation_input_tokens`; input, output, cache reads, and cache creation are settled separately. Switching API formats does not turn token billing into a fixed per-request fee. Refer to the console's current model prices and the response's `usage.cost` when present for the charge; streaming responses may omit `cost` or return it as null.
+
+We need to provide at least three required parameters:
+
+- `model`: Choose the Claude model to use. Messages is the recommended API for `claude-opus-5-5`, which has a 1M-token context window and up to 128K output tokens. The current lineup also includes `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
