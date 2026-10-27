@@ -31,7 +31,11 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. `claude-opus-5-5` is available through the native Messages API with a 1M-token context window and up to 128K output tokens. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The native Messages API is recommended for `claude-opus-5-5`, which has a 1M-token context window and up to 128K output tokens. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+
+## Token and Cache Billing
+
+Compatible model requests accepted by the platform are billed for the selected model's input, output, and cache usage, not a fixed fee for switching API formats. Chat Completions `usage.prompt_tokens` includes cached tokens, with reported cache usage charged at the corresponding cache rates. Messages `usage.input_tokens` excludes separately reported cache-read and cache-creation tokens, which are settled separately. Check the console's current model prices and the response's `usage.cost` when present; Messages streaming responses may omit `cost` or return it as null. See the [Messages guide](docs/claude_messages_api_integration_guide.md#basic-usage) for the usage fields.
 
 ## Application Process
 
