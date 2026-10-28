@@ -401,6 +401,7 @@
             "name": "model",
             "schema": {
               "enum": [
+                "gemini-4-argon",
                 "gemini-3.8-flash",
                 "gemini-3.7-flash",
                 "gemini-3.6-flash",
@@ -1488,6 +1489,7 @@
                   },
                   "model": {
                     "enum": [
+                      "gemini-4-argon",
                       "gemini-3.8-flash",
                       "gemini-3.7-flash",
                       "gemini-3.6-flash",

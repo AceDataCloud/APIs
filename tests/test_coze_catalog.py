@@ -169,6 +169,60 @@ class CozeCatalogTests(unittest.TestCase):
         message = operation['responses']['200']['content']['application/json']['schema']['properties']['choices']['items']['properties']['message']
         self.assertIn('K3.1 Pro or K3', message['properties']['reasoning_content']['description'])
 
+    def test_opus_55_and_argon_models_survive_building_and_projection(self):
+        import yaml
+        cases = (
+            ('claude', 'claude', '/v1/chat/completions',
+             '6b2b437b-b6d5-466c-8750-b16650072593', 'claude-opus-5-5',
+             ('claude-fable-5-1', 'claude-fable-5', 'claude-opus-5')),
+            ('gemini', 'gemini-chat', '/gemini/chat/completions',
+             '94b49b55-2ea8-4d46-a93c-eb308e1a52d5', 'gemini-4-argon',
+             ('gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-2.5-flash')),
+        )
+        for key, projection, route, api_id, model, aliases in cases:
+            contract = self.source['contracts'][api_id]
+            canonical = self.plugins[key]
+            operation = canonical['paths'][route]['post']
+            self.assertEqual(operation, builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+            projected = json.loads((ROOT / 'imports' / f'{projection}.json').read_text())
+            for document, path in ((canonical, f'plugins/{key}.yaml'),
+                                   (projected, f'imports/{projection}.yaml')):
+                with self.subTest(path=path):
+                    self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+                    validate_spec(document)
+                    body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                    models = body['properties']['model']['enum']
+                    self.assertIn(model, models)
+                    self.assertTrue(set(aliases) <= set(models))
+                    self.assertEqual(operation['requestBody']['content']['application/json']['schema']['properties']['model']['enum'], models)
+                    request = {'model': model, 'messages': [{'role': 'user', 'content': 'Hello'}],
+                               'stream': False, 'max_tokens': 32768, 'n': 1}
+                    OAS30Validator(body).validate(request)
+                    with self.assertRaises(ValidationError):
+                        OAS30Validator(body).validate({**request, 'model': 'unpublished-model'})
+                    with self.assertRaises(ValidationError):
+                        OAS30Validator(body).validate({**request, 'stream': True})
+
+    def test_argon_native_model_enum_preserves_json_only_coze_scope(self):
+        contract = self.source['contracts']['7a632630-eb9f-4776-b11c-8cc86ae250d7']
+        for route, methods in contract['definition']['paths'].items():
+            operation = methods['post']
+            model = next(p['schema'] for p in operation['parameters'] if p['name'] == 'model')
+            self.assertIn('gemini-4-argon', model['enum'])
+            self.assertIn('gemini-3.8-flash', model['enum'])
+            OAS30Validator(model).validate('gemini-4-argon')
+            if 'streamGenerateContent' in route:
+                self.assertNotIn(route, self.plugins['gemini']['paths'])
+                continue
+            built = builder.build_operation(contract, route, 'post', operation)
+            self.assertEqual(built, self.plugins['gemini']['paths'][route]['post'])
+            body = built['requestBody']['content']['application/json']['schema']
+            OAS30Validator(body).validate({
+                'contents': [{'role': 'user', 'parts': [{'text': 'Hello'}]}],
+                'generationConfig': {'maxOutputTokens': 32768},
+            })
+
     def test_kling_reference_video_billing_guidance_survives_building_and_projection(self):
         import yaml
         canonical = self.plugins['kling']
