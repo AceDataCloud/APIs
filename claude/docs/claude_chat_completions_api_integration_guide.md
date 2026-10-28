@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ejeq57.png" width="400" class="m-auto" /></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `claude-fable-5-1` for the latest flagship with a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; `claude-opus-5-5` and `claude-fable-5-1` are among the published choices. The earlier `claude-fable-5` remains available. The last parameter is `messages`, which is an array of our input questions. Each message contains `role` and `content`; roles include `user`, `assistant`, and `system`. Use the native Messages API when you need complete thinking blocks or native tool semantics.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -32,6 +32,8 @@ Common optional parameters:
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
+
+For `claude-opus-5-5`, both ordinary and streaming Chat Completions are supported. Set `n` to 1, omit non-default `temperature` and `top_p`, and use `tool_choice: "auto"` instead of forcing a tool. The Chat-compatible response does not return native thinking blocks.
 
 <p><img src="https://cdn.acedata.cloud/v6lbjo.png" width="400" class="m-auto" /></p>
 
