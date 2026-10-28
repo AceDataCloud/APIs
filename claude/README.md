@@ -31,7 +31,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. The native Messages API is recommended for `claude-opus-5-5`, which has a 1M-token context window and up to 128K output tokens. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. `claude-opus-5-5` is available through Chat Completions and Messages; use Messages when you need complete native thinking blocks and tool semantics. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
 
 ## Token and Cache Billing
 
