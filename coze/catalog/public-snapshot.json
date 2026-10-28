@@ -5601,6 +5601,7 @@
                           "enum": [
                             "claude-fable-5-1",
                             "claude-fable-5",
+                            "claude-opus-5-5",
                             "claude-opus-5",
                             "claude-opus-4-8",
                             "claude-sonnet-5",
@@ -6225,7 +6226,12 @@
           }
         }
       },
-      "source_definition_sha256": "c33c705230638f966018ece952d62d86f90fa1119c660d80d394356195db4dad"
+      "source_definition_sha256": "c33c705230638f966018ece952d62d86f90fa1119c660d80d394356195db4dad",
+      "backend_update": {
+        "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
+        "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
+        "source_file_sha256": "3e3e32e5189d85e716c92f69e3fc3a6626482988f05e0f16d29074944edc41e9"
+      }
     },
     "a43a98fc-f833-4cfb-8596-8066faad2c42": {
       "id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
@@ -16499,6 +16505,7 @@
                         },
                         "model": {
                           "enum": [
+                            "gemini-4-argon",
                             "gemini-3.8-flash",
                             "gemini-3.7-flash",
                             "gemini-3.6-flash",
@@ -17116,7 +17123,12 @@
           }
         }
       },
-      "source_definition_sha256": "7de628d94f4f2966f6806c4094f16aac31a1e4fca6ac9d1c43452766637e967e"
+      "source_definition_sha256": "7de628d94f4f2966f6806c4094f16aac31a1e4fca6ac9d1c43452766637e967e",
+      "backend_update": {
+        "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
+        "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
+        "source_file_sha256": "8942e0c8a35ee9831210eac629680ec5c9dd287cc2954403c956aa0f481ac2fa"
+      }
     },
     "aff80c74-b190-445b-9124-6422ed763c50": {
       "id": "aff80c74-b190-445b-9124-6422ed763c50",
@@ -19813,6 +19825,7 @@
                   "name": "model",
                   "schema": {
                     "enum": [
+                      "gemini-4-argon",
                       "gemini-3.8-flash",
                       "gemini-3.7-flash",
                       "gemini-3.6-flash",
@@ -20172,6 +20185,7 @@
                   "name": "model",
                   "schema": {
                     "enum": [
+                      "gemini-4-argon",
                       "gemini-3.8-flash",
                       "gemini-3.7-flash",
                       "gemini-3.6-flash",
@@ -20249,7 +20263,12 @@
           }
         }
       },
-      "source_definition_sha256": "75f2d24308b5fcfc3f9a4dfcc33a87c1b116e9f4de31a51c5d238b82d25c3a38"
+      "source_definition_sha256": "75f2d24308b5fcfc3f9a4dfcc33a87c1b116e9f4de31a51c5d238b82d25c3a38",
+      "backend_update": {
+        "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
+        "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+        "source_file_sha256": "b5a73b70c68707219ab363790653f733abb8720f36c0914250f9621f448d8897"
+      }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
       "id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",
