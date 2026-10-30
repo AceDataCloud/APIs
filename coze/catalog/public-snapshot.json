@@ -11953,13 +11953,15 @@
                             "high",
                             "medium",
                             "low",
+                            "xhigh",
+                            "max",
                             "hd",
                             "standard"
                           ],
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT image model options: `auto` (default), `high`, `medium`, `low`. `dall-e-3` options: `hd` or `standard`. `dall-e-2` supports only: `standard`."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -12044,7 +12046,12 @@
           }
         }
       },
-      "source_definition_sha256": "c7c3bbdfb991f3f456165bc6c77c33d1c67eb71c6c1ff5a3d6a55685c4383ec2"
+      "source_definition_sha256": "c7c3bbdfb991f3f456165bc6c77c33d1c67eb71c6c1ff5a3d6a55685c4383ec2",
+      "backend_update": {
+        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
+        "source_file_sha256": "c782d41ac8926afd82b438b257208c315579ab3dbb34d74813fa9c9fea65c360"
+      }
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
       "id": "8ff29e12-b814-4484-ab50-d39773a7a563",
@@ -15572,12 +15579,14 @@
                             "high",
                             "medium",
                             "low",
+                            "xhigh",
+                            "max",
                             "standard"
                           ],
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. The GPT Image series models support: `auto`, `high`, `medium`, `low`."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15716,12 +15725,14 @@
                             "high",
                             "medium",
                             "low",
+                            "xhigh",
+                            "max",
                             "standard"
                           ],
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image series models: `auto` (default), `high`, `medium`, `low`. `dall-e-2`: only supports `standard`."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15811,7 +15822,12 @@
           }
         }
       },
-      "source_definition_sha256": "925d827b3812eaefccd4022563e291110f68ee101f17a7a11efbc2b5b2eae92c"
+      "source_definition_sha256": "925d827b3812eaefccd4022563e291110f68ee101f17a7a11efbc2b5b2eae92c",
+      "backend_update": {
+        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
+        "source_file_sha256": "0ffed4f67e7d620bcfe9c88371f355a517ffcf81de75381e1595e3324073685e"
+      }
     },
     "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": {
       "id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
@@ -40067,7 +40083,7 @@
                         "persona_id": {
                           "rank": 95,
                           "type": "string",
-                          "description": "Generate the singer Persona ID used when creating songs based on the unique style characteristics of the specified singer."
+                          "description": "Singer-style or cloned-voice Persona ID. For cover / upload_cover, this selects the cover voice. For a private voice, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Voice creation, upload, and cover generation must use the same service channel. No additional vocal_gender is needed."
                         },
                         "sound_type": {
                           "enum": [
@@ -40236,9 +40252,9 @@
       },
       "source_definition_sha256": "cf77e71092d9f289f000a633feecd847c9e840cea46c373c38a1257891cdafe4",
       "backend_update": {
-        "revision": "0a24625bbdba7c2e28115e738a43136a23e7c29f",
+        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
         "source_file": "openapi/09a26295-5972-4392-9318-dcd9b218f90d.json",
-        "source_file_sha256": "03586464598bb7a2f28d71c21765e02a2d5ee0569ec7f1898fafe36b21f66147"
+        "source_file_sha256": "5d9824c1cba21835a946f0ce4a1a10851c9da303b80e700298d2fec0e9d56285"
       }
     },
     "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84": {
@@ -42804,6 +42820,12 @@
                           "type": "string",
                           "format": "uri",
                           "description": "Optional HTTPS callback address. The result will be sent to this address after the upload is completed or fails."
+                        },
+                        "persona_id": {
+                          "rank": 63,
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Optional voice Persona ID, supported only with mode=standard, not mode=enhanced. Include it when uploading the original song for a specific-voice cover to associate the audio with that voice. Voice creation, upload, and cover generation must use the same service channel."
                         }
                       }
                     }
@@ -42830,7 +42852,12 @@
           }
         }
       },
-      "source_definition_sha256": "3f654dbd106e48bbfc965d9970ba8238b9d5f1997aa22b47adffbb987cca37c4"
+      "source_definition_sha256": "3f654dbd106e48bbfc965d9970ba8238b9d5f1997aa22b47adffbb987cca37c4",
+      "backend_update": {
+        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "source_file": "openapi/8823cd83-54f6-4ea8-979a-7fa448577186.json",
+        "source_file_sha256": "5a3c147fa6c4817619c7d773aec25df88f95635ff44a02df28ecba1b75a48dd9"
+      }
     },
     "a8d46e2d-a042-4321-ab97-a5ab1d7fed5e": {
       "id": "a8d46e2d-a042-4321-ab97-a5ab1d7fed5e",

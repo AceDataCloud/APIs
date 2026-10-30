@@ -698,7 +698,7 @@
                   },
                   "persona_id": {
                     "type": "string",
-                    "description": "Generate the singer Persona ID used when creating songs based on the unique style characteristics of the specified singer."
+                    "description": "Singer-style or cloned-voice Persona ID. For cover / upload_cover, this selects the cover voice. For a private voice, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Voice creation, upload, and cover generation must use the same service channel. No additional vocal_gender is needed."
                   },
                   "sound_type": {
                     "enum": [
@@ -3921,6 +3921,11 @@
                     "type": "string",
                     "format": "uri",
                     "description": "Optional HTTPS callback address. The result will be sent to this address after the upload is completed or fails."
+                  },
+                  "persona_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Optional voice Persona ID, supported only with mode=standard, not mode=enhanced. Include it when uploading the original song for a specific-voice cover to associate the audio with that voice. Voice creation, upload, and cover generation must use the same service channel."
                   }
                 }
               }
