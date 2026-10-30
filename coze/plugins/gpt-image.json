@@ -470,12 +470,14 @@
                       "high",
                       "medium",
                       "low",
+                      "xhigh",
+                      "max",
                       "hd",
                       "standard"
                     ],
                     "type": "string",
                     "default": "auto",
-                    "description": "Image quality. GPT image model options: `auto` (default), `high`, `medium`, `low`. `dall-e-3` options: `hd` or `standard`. `dall-e-2` supports only: `standard`."
+                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                   },
                   "background": {
                     "enum": [
@@ -1562,11 +1564,13 @@
                       "high",
                       "medium",
                       "low",
+                      "xhigh",
+                      "max",
                       "standard"
                     ],
                     "type": "string",
                     "default": "auto",
-                    "description": "Image quality. The GPT Image series models support: `auto`, `high`, `medium`, `low`."
+                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
                   },
                   "background": {
                     "enum": [

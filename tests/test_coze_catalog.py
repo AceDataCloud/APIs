@@ -71,6 +71,75 @@ class CozeCatalogTests(unittest.TestCase):
         result=projected['paths']['/openai/tasks']['post']['responses']['200']['content']['application/json']['schema']['properties']['response']['properties']
         self.assertIn('url',result['data']['items']['properties'])
 
+    def test_image_quality_survives_building_and_projection(self):
+        import yaml
+        for route, api_id in (
+            ('/openai/images/generations', '8f01fe72-8a3e-4872-8d8d-330cde179b3a'),
+            ('/openai/images/edits', 'fb74083e-bb68-48d5-8ba6-b5a224400cd3'),
+        ):
+            contract = self.source['contracts'][api_id]
+            source = contract['definition']['paths'][route]['post']
+            canonical = self.plugins['openai']['paths'][route]['post']
+            self.assertEqual(canonical, builder.build_operation(contract, route, 'post', source))
+            for media in source['requestBody']['content'].values():
+                quality = media['schema']['properties']['quality']
+                self.assertTrue({'auto', 'low', 'medium', 'high', 'xhigh', 'max', 'standard'} <= set(quality['enum']))
+                self.assertIn('Only `gpt-image-2.5-flare`', quality['description'])
+                self.assertIn('`gpt-image-2.5-sunburst`', quality['description'])
+                self.assertIn('`:official`', quality['description'])
+                self.assertIn('actual token usage', quality['description'])
+            for key in ('openai', 'gpt-image'):
+                for folder in ('plugins', 'imports'):
+                    with self.subTest(route=route, service=key, folder=folder):
+                        document = json.loads((ROOT / folder / f'{key}.json').read_text())
+                        self.assertEqual(document, yaml.safe_load((ROOT / folder / f'{key}.yaml').read_text()))
+                        fields = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']
+                        self.assertEqual(canonical['requestBody']['content']['application/json']['schema']['properties']['quality'], fields['quality'])
+                        for level in ('xhigh', 'max'):
+                            OAS30Validator(fields['quality']).validate(level)
+                        with self.assertRaises(ValidationError):
+                            OAS30Validator(fields['quality']).validate('ultra')
+                        self.assertTrue({'gpt-image-2:official', 'gpt-image-2.5-flare:official',
+                                         'gpt-image-2.5-sunburst:official'} <= set(fields['model']['enum']))
+                        if key == 'openai':
+                            self.assertIn('gpt-image-2:reverse', fields['model']['enum'])
+        self.assertEqual(self.plugins['openai'], yaml.safe_load((ROOT / 'image.yaml').read_text()))
+
+    def test_suno_private_voice_cover_inputs_survive_building_and_projection(self):
+        import yaml
+        projected = json.loads((ROOT / 'imports/suno.json').read_text())
+        for document, path in ((self.plugins['suno'], 'plugins/suno.yaml'),
+                               (self.plugins['suno'], 'suno.yaml'),
+                               (projected, 'imports/suno.yaml')):
+            self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+        for route, api_id in (
+            ('/suno/upload', '8823cd83-54f6-4ea8-979a-7fa448577186'),
+            ('/suno/audios', '09a26295-5972-4392-9318-dcd9b218f90d'),
+        ):
+            contract = self.source['contracts'][api_id]
+            operation = self.plugins['suno']['paths'][route]['post']
+            self.assertEqual(operation, builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+            for document in (self.plugins['suno'], projected):
+                with self.subTest(route=route, projected=document is projected):
+                    body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                    persona = body['properties']['persona_id']
+                    self.assertIn('same service channel', persona['description'])
+                    if route == '/suno/upload':
+                        self.assertNotIn('persona_id', body['required'])
+                        self.assertEqual(1, persona['minLength'])
+                        self.assertIn('only with mode=standard, not mode=enhanced', persona['description'])
+                        OAS30Validator(body).validate({'audio_url': 'https://example.com/song.mp3'})
+                        OAS30Validator(body).validate({'audio_url': 'https://example.com/song.mp3',
+                                                      'mode': 'standard', 'persona_id': 'OWNED_VOICE_ID'})
+                        with self.assertRaises(ValidationError):
+                            OAS30Validator(persona).validate('')
+                    else:
+                        for text in ('cover / upload_cover', '/suno/upload', 'same persona_id',
+                                     'returned audio_id', 'No additional vocal_gender'):
+                            self.assertIn(text, persona['description'])
+                        self.assertIn('upload_cover', body['properties']['action']['enum'])
+
     def test_suno_http_tasks_retain_music_and_export_results(self):
         projected=json.loads((ROOT/'imports/suno.json').read_text())
         validate_spec(projected)
