@@ -28,7 +28,7 @@ client = OpenAI(
 response = client.chat.completions.create(
     model="mimo-v2.6-pro",
     messages=[{"role": "user", "content": "Explain how a rainbow forms."}],
-    max_tokens=256,
+    max_completion_tokens=256,
     extra_body={"thinking": {"type": "disabled"}},
 )
 print(response.choices[0].message.content)
@@ -43,7 +43,7 @@ Set `stream=true` for SSE and `stream_options={"include_usage": true}` for final
 
 Use `thinking.type=enabled` for reasoning or `disabled` to turn it off. Reasoning is returned in `reasoning_content`, separately from final `content`. Preserve assistant reasoning, complete `tool_calls` and matching `tool_call_id` values when continuing a tool interaction.
 
-Only `type=function` tools are in scope. Your application executes tools and returns their results; a tool call emitted by the model does not mean the tool ran. Built-in web search is not enabled.
+Only `type=function` tools and `tool_choice=auto` are in scope. Your application executes tools and returns their results; a tool call emitted by the model does not mean the tool ran. Built-in web search is not enabled.
 
 ## Billing
 
