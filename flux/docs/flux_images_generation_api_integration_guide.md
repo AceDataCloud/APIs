@@ -32,16 +32,15 @@ Additionally, we set the Request Body, including:
 - `model`: the generation model, default is `flux-dev`.
 - `callback_url`: the URL to receive the callback result.
 
-The parameter `size` has some special restrictions, mainly divided into two types: `width x height` aspect ratio and `x:y` image ratio, as detailed below:
+The `size` field is model-specific. Use aspect-ratio strings for Flux 2 and Kontext, not pixel-size strings such as `1024x1024`:
 
-| Model                 | Range                                 |
-| ------------------ | ---------------------------------- |
-| flux-2-flex        | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-2-pro         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-2-max         | Supports aspect ratio x >= 64 must be a multiple of 32          |
-| flux-dev           | Supports aspect ratio 256 <= x <= 1440 must be a multiple of 32 |
-| flux-kontext-pro   | Does not support aspect ratio supports image ratio                     |
-| flux-kontext-max   | Does not support aspect ratio supports image ratio                     |
+| Model | Size format |
+| --- | --- |
+| `flux-2-flex`, `flux-2-pro`, `flux-2-max` | Aspect ratio such as `1:1` or `16:9` |
+| `flux-dev` | Pixel dimensions; each dimension 256–1440 and a multiple of 32 |
+| `flux-kontext-pro`, `flux-kontext-max` | Aspect ratio such as `1:1` or `16:9` |
+
+When using Flux MCP, `flux-2-klein` is generation-only and is not an edit-model option.
 
 Reference image ratios: "1:1", "16:9", "21:9", "3:2", "2:3", "4:5", "5:4", "3:4", "4:3", "9:16", "9:21",
 

@@ -91,6 +91,10 @@ curl --request POST "https://api.acedata.cloud/fish/model" \
 
 Successful creation returns HTTP **201** with the voice model object. Retain its `_id` and pass it as `reference_id` to `/fish/tts`. For HTTP 400 caused by a reference-audio download, duration, or format error, check the URL and actual file format.
 
+### Reuse the voice through MCP
+
+With Fish MCP configured, call `fish_create_model(title="My public voice", voices="https://example.com/authorized-voice.wav")` using your own authorized sample URL. This saves a long-term public voice, with no private/unlisted option. Pass its returned `_id` as `reference_id` to `fish_generate_audio`; use `fish_list_models(self=true)` to find voices you saved. For one-shot reference conditioning instead, use `fish_generate_audio` with `references` and do not create a saved voice.
+
 ### List voices created by your account
 
 ```bash

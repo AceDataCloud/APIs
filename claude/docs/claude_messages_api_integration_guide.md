@@ -1,8 +1,10 @@
 # Claude Messages API Application and Usage
 
-Anthropic Claude is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. The Claude Messages API is the official native API format from Anthropic, which differs from the OpenAI compatible format (Chat Completion) by adopting Anthropic's own request and response structure, allowing better utilization of Claude's unique capabilities, such as multimodal content input, tool invocation, and advanced features like Extended Thinking.
+The Messages API uses the Anthropic Messages request and response format for messages, system prompts, content blocks, tool calls, thinking controls and streaming events. Choose a published model with `model` while keeping the same Messages data structures.
 
-This document mainly introduces the usage process of the Claude Messages API, allowing us to use the native interface consistent with Anthropic's official standards to invoke Claude's dialogue capabilities.
+## GPT-6.1 Terra
+
+Set `model: "gpt-6.1-terra"` and continue to send Messages-format `messages` and `max_tokens`. Read text and usage from the Messages response structure. Check current prices and account access before switching models; separately reported cache-read and cache-creation tokens are settled separately.
 
 ## Application Process
 
@@ -22,7 +24,7 @@ Compatible model requests accepted by the platform are billed for the selected m
 
 We need to provide at least three required parameters:
 
-- `model`: Choose the Claude model to use. Messages is the recommended API for `claude-opus-5-5`, which has a 1M-token context window and up to 128K output tokens. The current lineup also includes `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-opus-4-20250514` and `claude-sonnet-4-20250514` remain available.
+- `model`: Use a complete ID from this endpoint's published model list. In addition to the Claude models, this entry lists `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-6-astra`, `gpt-5.6-sol-fast`, `gpt-5.6-sol`, `glm-5.3`, `glm-5.2`, `glm-5.1`, `glm-5-turbo`, `glm-5` and `gemini-3.6-flash`. Check the selected model's limits, pricing and account availability; keep the Messages request and response format when switching.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 
@@ -41,7 +43,31 @@ Common optional parameters:
 - `thinking`: Thinking configuration, including model-supported `type`, `budget_tokens`, `display`, and extension fields.
 - `output_config`: Output configuration, including `effort` and model-supported extension fields.
 
-`thinking`, `output_config`, effort values, sampling parameters, and new extension fields are passed through unchanged. The platform does not enforce a fixed per-model enum or combination table or automatically rewrite thinking modes. The selected model determines which parameters it accepts, and parameter errors are returned to the client; pass-through does not guarantee support across models or protocol conversions.
+Use `tools[].input_schema`, `tool_choice`, `tool_use` and `tool_result` for tool interactions. Set `tool_choice.disable_parallel_tool_use: true` to disallow parallel tool calls in a turn. Thinking controls use `thinking` and `output_config.effort`; structured output uses `output_config.format`. `max_tokens` is the output budget, shared by thinking and final text, and is not automatically increased.
+
+Fields are forwarded within the same protocol or mapped by meaning across protocols. Accepted values and combinations depend on the selected model; inspect the returned field and reason for parameter errors.
+
+### Structured Output
+
+The reduced Coze parameter-editor import omits `output_config.format` because it cannot represent an arbitrary JSON Schema. Use the direct API or SDK for this procedure; the canonical Coze API contract retains the field.
+
+Include this request fragment to specify a JSON Schema. Read the generated result from Messages `content` text blocks, not a Responses or Chat Completions envelope:
+
+```json
+{
+  "output_config": {
+    "format": {
+      "type": "json_schema",
+      "schema": {
+        "type": "object",
+        "properties": {"answer": {"type": "string"}},
+        "required": ["answer"],
+        "additionalProperties": false
+      }
+    }
+  }
+}
+```
 
 ### cURL Example
 

@@ -16,7 +16,7 @@ This API is completely free to use and does not consume any quota.
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Choose the Claude model to use. `claude-opus-5-5` is available on this native Messages surface with a 1M-token context window and up to 128K output tokens. The current lineup also includes `claude-fable-5-1` (1M-token context and up to 128K output tokens), while `claude-fable-5`, `claude-opus-5`, `claude-opus-4-8` and `claude-sonnet-5` remain available; older releases such as `claude-sonnet-4-5-20250929` remain available.
+- `model`: Use a complete ID from this endpoint's model list and the same model as the subsequent Messages request. The expanded list includes `gpt-6.1-terra`, the published GPT Sol/Luna/Astra aliases, GLM 5 models and `gemini-3.6-flash` alongside Claude models; see the [Messages guide](claude_messages_api_integration_guide.md#basic-usage).
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:
@@ -79,7 +79,7 @@ Example of return result:
 
 ### Using Anthropic SDK
 
-The Claude Messages Count Tokens API is fully compatible with the official Anthropic SDK and can be called directly using the `anthropic` library.
+The Claude Messages Count Tokens API accepts the Anthropic SDK's stable request structure and can be called using the `anthropic` library. It counts input tokens for the selected model before a Messages request; it does not generate an answer.
 
 ```python
 from anthropic import Anthropic

@@ -53,7 +53,7 @@
 }
 ```
 
-范围说明：HappyHorse models/actions have different required reference fields. This first example uses text-to-video; generated media and installation still require host validation.
+HappyHorse 各模型和操作的参考素材要求不同。上例仅为文生视频模板，生成结果与安装仍需宿主验证。`video_edit` 的输出时长和画幅继承源视频，`duration` 和 `ratio` 不会覆盖它们；编辑按输入与输出视频的合计时长计费。`image_to_video` 的画幅继承输入图片，忽略 `ratio`。
 
 保留返回的 **task_id**；在 **getTaskResults**（`/happyhorse/tasks`）通过Reference绑定生成工具输出，或填已有本人任务：
 

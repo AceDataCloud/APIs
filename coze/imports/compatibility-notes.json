@@ -180,6 +180,11 @@
       "field": "POST /v1/messages/request/tools",
       "kind": "omitted_optional_input",
       "reason": "Opaque object unsupported by Coze editor; canonical contract retains it."
+    },
+    {
+      "field": "POST /v1/messages/request/output_config/format",
+      "kind": "omitted_optional_input",
+      "reason": "Arbitrary JSON Schema cannot be represented in the Coze parameter editor; use the canonical Messages API for structured output."
     }
   ],
   "kimi": [

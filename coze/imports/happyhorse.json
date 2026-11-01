@@ -505,7 +505,7 @@
                     ],
                     "type": "string",
                     "default": "16:9",
-                    "description": "Output video aspect ratio. Text-to-video and reference image-to-video support this parameter; the first frame image-to-video will follow the aspect ratio of the first frame image."
+                    "description": "Output aspect ratio for generate and reference_to_video. image_to_video and video_edit ignore this field and inherit the source image or video aspect ratio, respectively."
                   },
                   "action": {
                     "enum": [
@@ -527,7 +527,7 @@
                     "default": 5,
                     "maximum": 15,
                     "minimum": 3,
-                    "description": "Output video duration (seconds), value range 3–15. The output duration of `video_edit` is determined by the input video."
+                    "description": "Output duration in seconds, from 3 to 15, for generate, image_to_video and reference_to_video. video_edit ignores this field and inherits source duration; editing is billed for combined input and output video duration."
                   },
                   "image_url": {
                     "type": "string",

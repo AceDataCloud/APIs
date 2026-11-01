@@ -12,7 +12,17 @@ There is a free quota available for first-time applicants, allowing you to use t
 
 ## Basic Usage
 
-The most basic usage is to input an `action` plus a `prompt`. The request body fields are described below:
+Choose required fields by action rather than requiring lyrics and a prompt for every request:
+
+| Action / mode | Required inputs |
+| --- | --- |
+| `generate`, `custom=false` (default) | Non-empty `prompt` |
+| `generate`, `custom=true`, `instrumental=false` | Non-empty `lyric` |
+| `generate`, `custom=true`, `instrumental=true` | No lyrics or extra prompt required |
+| `extend` | Non-empty `audio_id`, `continue_at > 0`, and `lyric` unless `instrumental=true` |
+| `cover`, `variation`, `replace_section`, `swap_vocals`, `swap_instrumentals`, `stems` | Non-empty source `audio_id`; also supply the operation-specific fields |
+
+The request body fields are described below:
 
 - `action`: the operation type. `generate` (new song), `cover`, `extend`, `replace_section`.
 - `prompt`: the song description used when `custom` is false.
@@ -24,7 +34,9 @@ The most basic usage is to input an `action` plus a `prompt`. The request body f
 - `audio_id`: an existing audio ID, required for `extend` / `cover` / `replace_section`.
 - `continue_at`: extension start point, in seconds.
 - `replace_section_start` / `replace_section_end`: time range to regenerate, in seconds.
-- `lyrics_strength`, `sound_strength`, `weirdness`: 0–1 creative controls.
+- `lyrics_strength`: 0–1 lyric influence, default `0.5`.
+- `sound_strength`: 0.2–1 audio-prompt influence, default `0.5`.
+- `weirdness`: 0–1 creative control, default `0.5`.
 - `seed`: seed for reproducibility.
 - `callback_url`: an asynchronous callback URL. When provided, the API returns immediately with a `task_id` and POSTs the result when generation completes.
 - `async`: optional. When `true`, the API returns immediately with a `task_id`; poll the result with the Producer Tasks API.
@@ -84,7 +96,7 @@ Send `action: "generate"` with a `prompt` (see the request example above).
 ### Extend a Song
 
 ```json
-{ "action": "extend", "audio_id": "existing-audio-id", "continue_at": 30 }
+{ "action": "extend", "audio_id": "existing-audio-id", "continue_at": 30, "instrumental": true }
 ```
 
 ### Replace a Section

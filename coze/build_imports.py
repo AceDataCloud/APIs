@@ -131,6 +131,11 @@ def main():
                     output=op['responses']['200']['content']['application/json']['schema']['properties']
                     output['response']=copy.deepcopy(source['response'])
                     output['items']['items']['properties']['response']=copy.deepcopy(source['items']['items']['properties']['response'])
+                if path.stem=='claude' and uri=='/v1/messages':
+                    output_config=props['output_config']
+                    output_config.get('properties',{}).pop('format',None)
+                    output_config['description']='Reasoning effort configuration for this Coze form. Structured output format is omitted; use the canonical Messages API for JSON Schema output.'
+                    notes.append({'field':loc+'/request/output_config/format','kind':'omitted_optional_input','reason':'Arbitrary JSON Schema cannot be represented in the Coze parameter editor; use the canonical Messages API for structured output.'})
                 if path.stem in {'claude','serp'}:
                     op['responses']={'200':op['responses']['200']}
                     def clean(value):

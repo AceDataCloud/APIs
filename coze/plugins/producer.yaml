@@ -273,8 +273,6 @@ paths:
               type: object
               required:
               - action
-              - lyric
-              - prompt
               properties:
                 seed:
                   type: string
@@ -325,6 +323,7 @@ paths:
                   type: boolean
                   description: Is it a custom mode? If `true`, the audio will be generated based on the
                     `lyric`; otherwise, it will be generated based on the `prompt`.
+                  default: false
                 prompt:
                   type: string
                   description: Prompts for generating audio should not exceed 200 characters in length.
@@ -361,6 +360,89 @@ paths:
                 replace_section_start:
                   type: number
                   description: Replace the starting time point of the segment (seconds).
+              oneOf:
+              - type: object
+                properties:
+                  action:
+                    enum:
+                    - generate
+                allOf:
+                - anyOf:
+                  - required:
+                    - custom
+                    properties:
+                      custom:
+                        enum:
+                        - true
+                  - required:
+                    - prompt
+                    properties:
+                      prompt:
+                        type: string
+                        minLength: 1
+                - anyOf:
+                  - not:
+                      required:
+                      - custom
+                      properties:
+                        custom:
+                          enum:
+                          - true
+                  - required:
+                    - instrumental
+                    properties:
+                      instrumental:
+                        enum:
+                        - true
+                  - required:
+                    - lyric
+                    properties:
+                      lyric:
+                        type: string
+                        minLength: 1
+              - type: object
+                required:
+                - audio_id
+                - continue_at
+                properties:
+                  action:
+                    enum:
+                    - extend
+                  audio_id:
+                    type: string
+                    minLength: 1
+                  continue_at:
+                    type: number
+                    minimum: 0
+                    exclusiveMinimum: true
+                anyOf:
+                - required:
+                  - instrumental
+                  properties:
+                    instrumental:
+                      enum:
+                      - true
+                - required:
+                  - lyric
+                  properties:
+                    lyric:
+                      type: string
+                      minLength: 1
+              - type: object
+                required:
+                - audio_id
+                properties:
+                  action:
+                    enum:
+                    - cover
+                    - variation
+                    - swap_vocals
+                    - swap_instrumentals
+                    - replace_section
+                    - stems
+                  audio_id:
+                    type: string
+                    minLength: 1
         required: true
       description: 'Producer AI music generation API, generates 1 song per request. Full input requirements:
         https://platform.acedata.cloud/documents/producer-audios Submit once with async=true. Retain task_id

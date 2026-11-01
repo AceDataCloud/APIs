@@ -644,13 +644,13 @@
                   },
                   "audio_id": {
                     "type": "string",
-                    "description": "Audio ID used for generating additional audio based on existing audio. This field is required when `action` is `extend` or `concat`."
+                    "description": "Source audio ID. Required for extend, upload_extend, cover, upload_cover, concat, stems, all_stems, replace_section, underpainting, overpainting, remaster, samples, add_stem, extract_stem and adjust_speed."
                   },
                   "duration": {
                     "type": "integer",
                     "maximum": 360,
                     "minimum": 10,
-                    "description": "The expected song duration (in seconds) must be an integer, with a range of 10 to 360. This is used for song generation in custom mode (`custom` is `true`). It is a preference prompt rather than a strict constraint: the model will refer to this value but does not guarantee to meet it. The actual product duration is based on the `duration` field in the response, which is usually shorter than the expected value, and results from submitting the same request multiple times may also vary significantly."
+                    "description": "Target track length in seconds, an integer from 10 to 360. Only generate currently uses this field; other actions do not. This is a hint, not a guaranteed length; read actual duration from the result."
                   },
                   "max_mode": {
                     "type": "boolean",
@@ -698,7 +698,7 @@
                   },
                   "persona_id": {
                     "type": "string",
-                    "description": "Singer-style or cloned-voice Persona ID. For cover / upload_cover, this selects the cover voice. For a private voice, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Voice creation, upload, and cover generation must use the same service channel. No additional vocal_gender is needed."
+                    "description": "Singer-style or cloned-voice Persona ID, not audio_id. Supports generate, cover / upload_cover, artist_consistency and artist_consistency_vox; the last two require persona_id and may also receive the source song audio_id. extend and upload_extend do not use an extra persona_id. Voice support for mashup and inspo depends on the service channel; other actions do not guarantee it. For private voice covers, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Keep all steps on the same service channel. No additional vocal_gender is needed."
                   },
                   "sound_type": {
                     "enum": [
@@ -710,11 +710,11 @@
                   },
                   "continue_at": {
                     "type": "number",
-                    "description": "Continue generating from the specified time point (seconds) of the existing audio. For example, 213.5 means to continue from 3 minutes and 33.5 seconds."
+                    "description": "Extension boundary in seconds for extend and upload_extend. Must be greater than 0; decimals such as 30.792 are preserved without rounding. Lyrics and style guide only new content after this boundary, not the earlier source audio. Use generate for a new song or cover to reinterpret the source."
                   },
                   "samples_end": {
                     "type": "number",
-                    "description": "Add the end time of the sample for the uploaded audio, which must be less than the total duration of the song."
+                    "description": "Required sample end time in seconds, greater than the start and no later than the source duration."
                   },
                   "audio_format": {
                     "enum": [
@@ -735,7 +735,7 @@
                   },
                   "instrumental": {
                     "type": "boolean",
-                    "description": "Pure accompaniment mode (no lyrics), default is `false`. When set to `true`, the lyrics filled in above will be ignored."
+                    "description": "Instrumental mode without lyrics, default false; also applies to inspo. When true, supplied lyrics are ignored."
                   },
                   "lyric_prompt": {
                     "type": "string",
@@ -751,11 +751,11 @@
                   },
                   "negative_tags": {
                     "type": "string",
-                    "description": "Descriptions of styles or genres that should not appear in the generated music will only take effect when the custom mode (`custom` is `true`). This API currently sets no fixed character limit for this field; overly long content may still fail to process, so keep it concise."
+                    "description": "Music styles or genres to exclude when `custom` is `true`, or for replace_section. This API sets no fixed character limit; overly long content may still fail to process, so keep it concise."
                   },
                   "samples_start": {
                     "type": "number",
-                    "description": "Add a default start time for the uploaded audio sample, with a default value of 0."
+                    "description": "Sample start time in seconds, default 0, non-negative; decimal seconds are supported."
                   },
                   "style_influence": {
                     "type": "number",
@@ -799,7 +799,7 @@
                   },
                   "replace_section_end": {
                     "type": "number",
-                    "description": "When `action` is `replace_section`, specify the end time (in seconds) of the segment to be replaced."
+                    "description": "Required replace_section end time in seconds, greater than the start and no later than the source duration."
                   },
                   "underpainting_start": {
                     "type": "number",
@@ -807,7 +807,7 @@
                   },
                   "replace_section_start": {
                     "type": "number",
-                    "description": "When `action` is `replace_section`, specify the start time (in seconds) of the segment to be replaced."
+                    "description": "Required replace_section start time in seconds, non-negative; decimals are supported."
                   },
                   "replace_section_result_mode": {
                     "enum": [

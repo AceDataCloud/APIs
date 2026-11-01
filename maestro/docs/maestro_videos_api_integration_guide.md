@@ -66,7 +66,7 @@ Voice presets include:
 - `warm-female`, `bright-female`, `anchor-female`, `clean-female`
 - `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`
 
-Voice controls timbre, not language. One preset can speak the language selected in `langs`. Advanced callers may pass a 32-hex-character Fish `reference_id` instead of a preset.
+Voice controls timbre, not language. One preset can speak the language selected in `langs`. Advanced callers may pass a 32-hex-character Fish `reference_id` instead of a preset. Other freeform strings are not valid voice IDs, unlike freeform visual-style hints.
 
 ## Create a Video
 
