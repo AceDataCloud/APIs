@@ -2,8 +2,6 @@
 
 MiMo 2.6 Pro and MiMo 2.6 Flash are Xiaomi MiMo models. This API follows the OpenAI Chat Completions format and bills input, output and cached input tokens separately.
 
-> This is a preparation guide. The service is not yet available. Check service acquisition status and the model list in the console before integrating.
-
 ## Models and endpoint
 
 | Model | Intended use |
@@ -11,7 +9,7 @@ MiMo 2.6 Pro and MiMo 2.6 Flash are Xiaomi MiMo models. This API follows the Ope
 | `mimo-v2.6-pro` | Complex analysis, reasoning and tool calling |
 | `mimo-v2.6-flash` | Everyday chat and lightweight tasks |
 
-Once available, acquire MiMo and create an API credential for the service. Send requests to `https://api.acedata.cloud/mimo/chat/completions`, or set the OpenAI SDK base URL to `https://api.acedata.cloud/mimo`. The unified `/v1/chat/completions` endpoint also requires the corresponding service permission.
+Acquire MiMo and create an API credential for the service. Send requests to `https://api.acedata.cloud/mimo/chat/completions`, or set the OpenAI SDK base URL to `https://api.acedata.cloud/mimo`. The unified `/v1/chat/completions` endpoint also requires the corresponding service permission.
 
 The initial scope is text Chat Completions. Image, audio, video, built-in web search, Responses, Messages, Batch and UltraSpeed are outside this release.
 
