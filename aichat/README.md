@@ -89,8 +89,8 @@ Repeated AI execution failures do not automatically pause a scheduled task: it w
 
 If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_documents)
 
-## MiMo integration preparation
+## MiMo
 
-`mimo-v2.6-pro` and `mimo-v2.6-flash` are prepared for text chat, reasoning and function tools. They are not yet available; consult the console before calling them. The dedicated contract is `POST /mimo/chat/completions`, with the permitted `/v1/chat/completions` alias. AiChat v2 uses its own conversation payload and the `mimo` model group.
+`mimo-v2.6-pro` and `mimo-v2.6-flash` support text chat, reasoning and function tools. Consult the console for service status and account access. The dedicated contract is `POST /mimo/chat/completions`, with the permitted `/v1/chat/completions` alias. AiChat v2 uses its own conversation payload and the `mimo` model group.
 
-See the [MiMo preparation guide](docs/mimo_chat_completions_integration_guide.md) for request shape and billing semantics.
+See the [MiMo integration guide](docs/mimo_chat_completions_integration_guide.md) for request shape and billing semantics.
