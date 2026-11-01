@@ -4947,9 +4947,22 @@
               "properties": {
                 "model": {
                   "enum": [
+                    "gpt-6.1-sol",
+                    "gpt-6.1-terra",
+                    "gpt-6-sol",
+                    "gpt-6-luna",
                     "claude-opus-5-5",
-                    "claude-sonnet-5-5",
+                    "gpt-6-astra",
+                    "glm-5.3",
+                    "glm-5.2",
+                    "glm-5.1",
+                    "glm-5-turbo",
+                    "glm-5",
+                    "gpt-5.6-sol-fast",
+                    "gpt-5.6-sol",
                     "claude-fable-5-1",
+                    "gemini-3.6-flash",
+                    "claude-sonnet-5-5",
                     "claude-fable-5",
                     "claude-opus-5",
                     "claude-opus-4-8",
@@ -5043,7 +5056,12 @@
           }
         }
       },
-      "source_definition_sha256": "0045e42ef540f223ed6a0e51c27719391230b0f2ec97ddab90289221983e119c"
+      "source_definition_sha256": "33672ce1552d101666aa040a99fb5c5d0f839add7481f2103807c8c94748201e",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/01011450-70f7-430f-a8a3-97b0903b0a24.json",
+        "source_file_sha256": "1fce0cc33e39fd4a65c3e52d84749e9932f9ebee669d2e9b154d863e5aec857d"
+      }
     },
     "6b2b437b-b6d5-466c-8750-b16650072593": {
       "id": "6b2b437b-b6d5-466c-8750-b16650072593",
@@ -7176,9 +7194,22 @@
               "properties": {
                 "model": {
                   "enum": [
+                    "gpt-6.1-sol",
+                    "gpt-6.1-terra",
+                    "gpt-6-sol",
+                    "gpt-6-luna",
                     "claude-opus-5-5",
-                    "claude-sonnet-5-5",
+                    "gpt-6-astra",
+                    "glm-5.3",
+                    "glm-5.2",
+                    "glm-5.1",
+                    "glm-5-turbo",
+                    "glm-5",
+                    "gpt-5.6-sol-fast",
+                    "gpt-5.6-sol",
                     "claude-fable-5-1",
+                    "gemini-3.6-flash",
+                    "claude-sonnet-5-5",
                     "claude-fable-5",
                     "claude-opus-5",
                     "claude-opus-4-8",
@@ -7267,9 +7298,23 @@
                     "effort": {
                       "type": "string",
                       "description": "Control the overall inference input of the model, optional low, medium, high, xhigh, or max; please choose according to the specific model capabilities."
+                    },
+                    "format": {
+                      "type": "object",
+                      "description": "Structured output configuration. With type=json_schema, schema supplies the output JSON Schema. Read generated results from Messages content text blocks.",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "schema": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      },
+                      "additionalProperties": true
                     }
                   },
-                  "description": "Output and inference input configuration. The fields and levels supported by different models may vary.",
+                  "description": "Unified output configuration, including reasoning effort and structured output format; forwarded or mapped to the actual generation protocol.",
                   "additionalProperties": true
                 },
                 "stop_sequences": {
@@ -7381,7 +7426,12 @@
           }
         }
       },
-      "source_definition_sha256": "1937785dc619de6495f1ea1736df90633dfef685ec4ecf6c7608a98af5a5cc26"
+      "source_definition_sha256": "6ab0e0831e16395eb88a22cb40f2efda03ada194a3b26b3e43176b8872e1b9a2",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/a43a98fc-f833-4cfb-8596-8066faad2c42.json",
+        "source_file_sha256": "519cd6705721dcf2e32c36204e6380e8a2afa611e2108373744ebf6ce11f9d62"
+      }
     },
     "553a0038-eef7-4e79-87c7-9d4e7321ca9b": {
       "id": "553a0038-eef7-4e79-87c7-9d4e7321ca9b",
@@ -7815,44 +7865,35 @@
                           "description": "Output languages, up to 4. The first is primary; each additional delivered language is billed +6 credits."
                         },
                         "style": {
-                          "enum": [
-                            "auto",
-                            "cinematic",
-                            "glass",
-                            "luxury",
-                            "swiss",
-                            "modern",
-                            "editorial",
-                            "warm",
-                            "vibrant",
-                            "neon",
-                            "mono",
-                            "pastel",
-                            "bold",
-                            "industrial",
-                            "futuristic",
-                            "retro"
-                          ],
                           "type": "string",
                           "default": "auto",
                           "description": "Optional visual-style preset — expressed through typography, palette, motion, image treatment and pacing. Orthogonal to `scenario` (it does NOT change routing). `auto` (default) lets the director pick; every other value adopts a real named look: `cinematic` = dark film-noir (black + blood-red, Oswald); `glass` = Apple / iOS-26 frosted liquid glass; `luxury` = timeless near-black + indigo, huge whitespace; `swiss` = precise grid + electric blue + oversized numerals; `modern` = clean light SaaS; `editorial` = cream magazine + serif; `warm` = intimate cream + amber; `vibrant` = festive folk colour; `neon` = electric neon glow; `mono` = grayscale, type-led; `pastel` = soft candy pastels; `bold` = huge poster type; `industrial` = raw glitch + rust; `futuristic` = particle glow. A freeform string is also accepted as a soft hint."
                         },
                         "voice": {
-                          "enum": [
-                            "auto",
-                            "warm-female",
-                            "bright-female",
-                            "anchor-female",
-                            "clean-female",
-                            "calm-male",
-                            "deep-male",
-                            "documentary-male",
-                            "energetic-male",
-                            "storyteller-male"
-                          ],
                           "type": "string",
                           "default": "auto",
-                          "description": "Optional narration voice — the **timbre** of the voiceover, independent of language. `auto` (default) lets the director pick a fitting voice. Every preset is cross-lingual: the same voice speaks whatever language(s) you set in `langs`, so choose purely by character — `warm-female`, `bright-female`, `anchor-female`, `clean-female`, `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`. Advanced: a raw 32-character Fish `reference_id` is also accepted. For `drama` / `avatar` this sets the primary / narrator timbre; distinct characters may still get their own."
+                          "description": "Optional narration voice — the **timbre** of the voiceover, independent of language. `auto` (default) lets the director pick a fitting voice. Every preset is cross-lingual: the same voice speaks whatever language(s) you set in `langs`, so choose purely by character — `warm-female`, `bright-female`, `anchor-female`, `clean-female`, `calm-male`, `deep-male`, `documentary-male`, `energetic-male`, `storyteller-male`. Advanced: a raw 32-character Fish `reference_id` is also accepted. For `drama` / `avatar` this sets the primary / narrator timbre; distinct characters may still get their own.",
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "auto",
+                                "warm-female",
+                                "bright-female",
+                                "anchor-female",
+                                "clean-female",
+                                "calm-male",
+                                "deep-male",
+                                "documentary-male",
+                                "energetic-male",
+                                "storyteller-male"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^[0-9a-fA-F]{32}$"
+                            }
+                          ]
                         },
                         "action": {
                           "enum": [
@@ -7984,7 +8025,12 @@
           }
         }
       },
-      "source_definition_sha256": "a2505ff089deb9e0f4c1f24a7049e2e56518a7a5db343f070bf9c53b27cf01ec"
+      "source_definition_sha256": "4c03860bbaf4f44d1d3b7889ed738cf88a4644d9e8e587e7f29bdc42195c9f2b",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/ab512c42-324c-42e6-8d79-49a5042f3548.json",
+        "source_file_sha256": "5dd4bce9ef704853c270ed0a108150105311e247c6617a5712d263df6a74ecce"
+      }
     },
     "b329b4e1-b9d4-4aa2-8b84-f55fb5292f23": {
       "id": "b329b4e1-b9d4-4aa2-8b84-f55fb5292f23",
@@ -11928,21 +11974,6 @@
                           "description": "The style of `dall-e-3`: `vivid` (hyper-realistic/dramatic) or `natural` (more naturally neutral)."
                         },
                         "prompt": {
-                          "enum": [
-                            "A cute baby sea otter",
-                            "A wooden bookshelf consisting of three shelves: on the top shelf one book, the second shelf three books, and the bottom shelf seven books.",
-                            "Cinematic minimal portrait of a solitary man standing in an intense orange-to-red gradient environment, strong silhouette lighting, deep shadow contrast, reflective glossy floor, symmetrical composition.",
-                            "Symmetrical design featuring two elegant blue peacocks with detailed feather patterns, surrounded by blue floral elements, intricate vintage botanical ornament, soft beige background, decorative art illustration.",
-                            "Avant-garde sports fashion advertisement, oversized basketball posed like a monumental sculpture, female athlete reclining across the ball's curved surface, giant word 'ELEVATE' in bold typography behind, burnt orange studio backdrop, glossy reflective floor.",
-                            "High-fashion surrealist poster for Rolex. Deep emerald green minimalist studio with polished reflective floor. A massive Rolex watch standing upright like a monument; a male model in tailored dark green suit leans casually against the watch face, wearing a matching Rolex.",
-                            "Ultra-realistic product photography of a rich strawberry soft-serve ice cream in a crispy waffle cone, clean modern premium aesthetic, soft serve vibrant natural pink, sculpted swirl with curled peak, lightly topped with strawberry dust.",
-                            "Hyper-realistic UI/UX mockup on a slim modern laptop on a minimal wooden desk with soft natural daylight; clean SaaS dashboard with elegant typography, glassmorphism cards, smooth gradients, subtle drop shadows, charts, sidebar navigation, macOS-style window frame.",
-                            "9:16 vertical Korean idol portrait photoshoot, 3x3 grid (nine frames), same person in all images, consistent facial features and styling, soft black mist filter effect, lowered contrast, blooming highlights, subtle glow around light sources.",
-                            "Mobile phone photo, old CCD camera aesthetic, harsh flash, grainy, dim messy indoor lighting, candid snapshot feeling, slight motion blur.",
-                            "Create a science fiction movie poster.",
-                            "以中国连环画（小人书）的风格帮我绘制大闹天宫",
-                            "新中式水墨山水海报，竖版9:16构图，东方极简美学风格，大面积留白，主题是春岚一叶红"
-                          ],
                           "rank": 10,
                           "type": "string",
                           "description": "Text description of the required image. The GPT image model supports up to 32,000 characters, `dall-e-2` supports up to 1,000 characters, and `dall-e-3` supports up to 4,000 characters. A selection of example prompts is provided in the dropdown list (source: [EvoLinkAI/awesome-gpt-image-2-prompts](https://github.com/EvoLinkAI/awesome-gpt-image-2-prompts), Apache-2.0 license); you can also enter your own."
@@ -12046,11 +12077,11 @@
           }
         }
       },
-      "source_definition_sha256": "c7c3bbdfb991f3f456165bc6c77c33d1c67eb71c6c1ff5a3d6a55685c4383ec2",
+      "source_definition_sha256": "262423e0f65902fae63367f928a80486a200f5374c219fa5781bca37b9f6cd17",
       "backend_update": {
-        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
         "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
-        "source_file_sha256": "c782d41ac8926afd82b438b257208c315579ab3dbb34d74813fa9c9fea65c360"
+        "source_file_sha256": "18c4d9ae55d4da9a3865039cc500958cb542beb184c2f3801bbcdeb17db01e73"
       }
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
@@ -13383,6 +13414,7 @@
                         "model": {
                           "enum": [
                             "gpt-6.1-sol",
+                            "gpt-6.1-terra",
                             "gpt-6-sol",
                             "gpt-6-luna",
                             "gpt-6-astra",
@@ -13394,6 +13426,7 @@
                             "gpt-4o-mini:free",
                             "gpt-5.6-luna",
                             "gpt-5.6-terra",
+                            "gpt-5.6-sol-fast",
                             "gpt-5.6-sol",
                             "gpt-5.5",
                             "gpt-5.5-pro",
@@ -13424,7 +13457,9 @@
                             "o3",
                             "o3-mini",
                             "o3-pro",
-                            "o4-mini"
+                            "o4-mini",
+                            "mimo-v2.6-pro",
+                            "mimo-v2.6-flash"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -14105,7 +14140,12 @@
           }
         }
       },
-      "source_definition_sha256": "752181820d69d1b95d0e3b2de50cdbb639d73f0979111a4ab089685dd55673ce"
+      "source_definition_sha256": "95dfd49856ced0ebf109438d822a52f08b535ebfb221729183be0379335a3dba",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/c9969b66-effb-4753-b504-a82c4d16f83f.json",
+        "source_file_sha256": "60f72981d3b60082e4d077315fe698a94f5e57307de75cda0bedab0b5bab27c3"
+      }
     },
     "ed972a38-ecef-4fcb-af33-750de42d25dc": {
       "id": "ed972a38-ecef-4fcb-af33-750de42d25dc",
@@ -14341,11 +14381,13 @@
                         "model": {
                           "enum": [
                             "gpt-6.1-sol",
+                            "gpt-6.1-terra",
                             "gpt-6-sol",
                             "gpt-6-luna",
                             "gpt-6-astra",
                             "gpt-5.6-luna",
                             "gpt-5.6-terra",
+                            "gpt-5.6-sol-fast",
                             "gpt-5.6-sol",
                             "gpt-5.5",
                             "gpt-5.5-pro",
@@ -15173,7 +15215,12 @@
           }
         }
       },
-      "source_definition_sha256": "a2a6da675dd3fa35c4c14683ba75cbdda2ea21c54d2988f46e960829f4d2c63a"
+      "source_definition_sha256": "bcaaccf631e710defd5334ba4c116d2c9419342179bd31cf30e1c2fbd3bb4272",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/ed972a38-ecef-4fcb-af33-750de42d25dc.json",
+        "source_file_sha256": "47d75a4c6570ee9741f45ddd8f50a3f3734d022817b3d8ce2854e259fe76dbee"
+      }
     },
     "fb74083e-bb68-48d5-8ba6-b5a224400cd3": {
       "id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
@@ -33609,8 +33656,9 @@
                         },
                         "delay": {
                           "rank": 40,
-                          "type": "number",
-                          "description": "The additional seconds to wait after the page has finished loading and before capturing the HTML."
+                          "type": "integer",
+                          "description": "Extra wait after page load, in non-negative integer seconds.",
+                          "minimum": 0
                         },
                         "headers": {
                           "rank": 70,
@@ -33622,9 +33670,10 @@
                         },
                         "timeout": {
                           "rank": 30,
-                          "type": "number",
+                          "type": "integer",
                           "default": 30,
-                          "description": "The total timeout for rendering operations, in seconds."
+                          "description": "Per-navigation timeout in positive integer seconds, default 30.",
+                          "minimum": 1
                         },
                         "user_agent": {
                           "rank": 80,
@@ -33640,8 +33689,8 @@
                           ],
                           "rank": 20,
                           "type": "string",
-                          "default": "networkidle",
-                          "description": "Waiting conditions for page loading. Optional values: `load` (page load complete), `domcontentloaded` (DOM parsing complete), `networkidle` (network idle), `commit` (continue as soon as a response is received). The default value is `networkidle`."
+                          "default": "load",
+                          "description": "Page-ready condition: load, domcontentloaded, networkidle or commit. Default load."
                         },
                         "callback_url": {
                           "rank": 90,
@@ -33669,6 +33718,68 @@
                           "rank": 50,
                           "type": "string",
                           "description": "Wait for the CSS selector to appear before capturing HTML."
+                        },
+                        "cookies": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "name",
+                              "value",
+                              "domain"
+                            ],
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "description": "Cookie name."
+                              },
+                              "value": {
+                                "type": "string",
+                                "description": "Cookie value."
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Cookie domain."
+                              },
+                              "path": {
+                                "type": "string",
+                                "description": "Optional cookie path."
+                              },
+                              "expires": {
+                                "type": "number",
+                                "description": "Optional expiry as a Unix timestamp in seconds."
+                              },
+                              "httpOnly": {
+                                "type": "boolean",
+                                "description": "Whether the cookie is HTTP-only."
+                              },
+                              "secure": {
+                                "type": "boolean",
+                                "description": "Whether the cookie requires a secure connection."
+                              },
+                              "sameSite": {
+                                "type": "string",
+                                "description": "Cookie SameSite policy.",
+                                "enum": [
+                                  "Strict",
+                                  "Lax",
+                                  "None"
+                                ]
+                              }
+                            }
+                          },
+                          "description": "Cookies installed before navigation. Each item requires name, value and domain."
+                        },
+                        "bypass_cache": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Skip cache reads and fetch a fresh page; the result can still be written to cache."
+                        },
+                        "cache_ttl_seconds": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "default": 3600,
+                          "description": "Result cache TTL in non-negative integer seconds, default 3600. Set 0 to avoid caching this result."
                         }
                       }
                     }
@@ -33695,7 +33806,12 @@
           }
         }
       },
-      "source_definition_sha256": "d7d7e224d0cf1f284d6ed82061b005b78b561e8cade91cb4d89792e1382c0873"
+      "source_definition_sha256": "727fe308d5bd89d5267686468275dcab4ae4b0536a381ee6169bf1bc7c207c0e",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/4ab24fda-2140-476c-a190-91bde5f0baf4.json",
+        "source_file_sha256": "eeaccaa0fb1ad71036f1a229647850b0e039917d11a6eb8cffb993bb685445d9"
+      }
     },
     "c32c05d0-5f47-4b89-8458-9776aad4a8c4": {
       "id": "c32c05d0-5f47-4b89-8458-9776aad4a8c4",
@@ -33904,8 +34020,9 @@
                         },
                         "delay": {
                           "rank": 60,
-                          "type": "number",
-                          "description": "Additional waiting time before starting extraction after the page has finished loading (unit: seconds)."
+                          "type": "integer",
+                          "description": "Extra wait after page load, in non-negative integer seconds.",
+                          "minimum": 0
                         },
                         "headers": {
                           "rank": 90,
@@ -33917,9 +34034,10 @@
                         },
                         "timeout": {
                           "rank": 50,
-                          "type": "number",
+                          "type": "integer",
                           "default": 30,
-                          "description": "The total timeout for the extraction operation (unit: seconds)."
+                          "description": "Per-navigation timeout in positive integer seconds, default 30.",
+                          "minimum": 1
                         },
                         "enable_llm": {
                           "rank": 30,
@@ -33941,8 +34059,8 @@
                           ],
                           "rank": 40,
                           "type": "string",
-                          "default": "networkidle",
-                          "description": "Waiting conditions for page loading."
+                          "default": "load",
+                          "description": "Page-ready condition: load, domcontentloaded, networkidle or commit. Default load."
                         },
                         "callback_url": {
                           "rank": 110,
@@ -33980,6 +34098,68 @@
                           "rank": 70,
                           "type": "string",
                           "description": "Wait for the CSS selector to appear before starting the extraction."
+                        },
+                        "cookies": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "name",
+                              "value",
+                              "domain"
+                            ],
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "description": "Cookie name."
+                              },
+                              "value": {
+                                "type": "string",
+                                "description": "Cookie value."
+                              },
+                              "domain": {
+                                "type": "string",
+                                "description": "Cookie domain."
+                              },
+                              "path": {
+                                "type": "string",
+                                "description": "Optional cookie path."
+                              },
+                              "expires": {
+                                "type": "number",
+                                "description": "Optional expiry as a Unix timestamp in seconds."
+                              },
+                              "httpOnly": {
+                                "type": "boolean",
+                                "description": "Whether the cookie is HTTP-only."
+                              },
+                              "secure": {
+                                "type": "boolean",
+                                "description": "Whether the cookie requires a secure connection."
+                              },
+                              "sameSite": {
+                                "type": "string",
+                                "description": "Cookie SameSite policy.",
+                                "enum": [
+                                  "Strict",
+                                  "Lax",
+                                  "None"
+                                ]
+                              }
+                            }
+                          },
+                          "description": "Cookies installed before navigation. Each item requires name, value and domain."
+                        },
+                        "bypass_cache": {
+                          "type": "boolean",
+                          "default": false,
+                          "description": "Skip cache reads and fetch a fresh page; the result can still be written to cache."
+                        },
+                        "cache_ttl_seconds": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "default": 3600,
+                          "description": "Result cache TTL in non-negative integer seconds, default 3600. Set 0 to avoid caching this result."
                         }
                       }
                     }
@@ -34006,7 +34186,12 @@
           }
         }
       },
-      "source_definition_sha256": "5f37ed4b89e480cbc8cb646ddb0c78699465ecde2ead30937faef2bda325973a"
+      "source_definition_sha256": "219095c9ecb4a0128aff30c590ff7d828936643e8220bd1ad38d0672a4a04227",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/c32c05d0-5f47-4b89-8458-9776aad4a8c4.json",
+        "source_file_sha256": "6e1dca3f10bcf281953cda91abcb573dba0726bbd487c5f0233e560ad149d5e0"
+      }
     },
     "c9e67e77-d448-4a78-bdd1-91567e0a318a": {
       "id": "c9e67e77-d448-4a78-bdd1-91567e0a318a",
@@ -34725,9 +34910,7 @@
                     "schema": {
                       "type": "object",
                       "required": [
-                        "action",
-                        "lyric",
-                        "prompt"
+                        "action"
                       ],
                       "properties": {
                         "seed": {
@@ -34783,7 +34966,8 @@
                         "custom": {
                           "rank": 7,
                           "type": "boolean",
-                          "description": "Is it a custom mode? If `true`, the audio will be generated based on the `lyric`; otherwise, it will be generated based on the `prompt`."
+                          "description": "Is it a custom mode? If `true`, the audio will be generated based on the `lyric`; otherwise, it will be generated based on the `prompt`.",
+                          "default": false
                         },
                         "prompt": {
                           "rank": 6,
@@ -34836,7 +35020,159 @@
                           "type": "number",
                           "description": "Replace the starting time point of the segment (seconds)."
                         }
-                      }
+                      },
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "action": {
+                              "enum": [
+                                "generate"
+                              ]
+                            }
+                          },
+                          "allOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "required": [
+                                    "custom"
+                                  ],
+                                  "properties": {
+                                    "custom": {
+                                      "enum": [
+                                        true
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "required": [
+                                    "prompt"
+                                  ],
+                                  "properties": {
+                                    "prompt": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "anyOf": [
+                                {
+                                  "not": {
+                                    "required": [
+                                      "custom"
+                                    ],
+                                    "properties": {
+                                      "custom": {
+                                        "enum": [
+                                          true
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "required": [
+                                    "instrumental"
+                                  ],
+                                  "properties": {
+                                    "instrumental": {
+                                      "enum": [
+                                        true
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "required": [
+                                    "lyric"
+                                  ],
+                                  "properties": {
+                                    "lyric": {
+                                      "type": "string",
+                                      "minLength": 1
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "audio_id",
+                            "continue_at"
+                          ],
+                          "properties": {
+                            "action": {
+                              "enum": [
+                                "extend"
+                              ]
+                            },
+                            "audio_id": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "continue_at": {
+                              "type": "number",
+                              "minimum": 0,
+                              "exclusiveMinimum": true
+                            }
+                          },
+                          "anyOf": [
+                            {
+                              "required": [
+                                "instrumental"
+                              ],
+                              "properties": {
+                                "instrumental": {
+                                  "enum": [
+                                    true
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "required": [
+                                "lyric"
+                              ],
+                              "properties": {
+                                "lyric": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "required": [
+                            "audio_id"
+                          ],
+                          "properties": {
+                            "action": {
+                              "enum": [
+                                "cover",
+                                "variation",
+                                "swap_vocals",
+                                "swap_instrumentals",
+                                "replace_section",
+                                "stems"
+                              ]
+                            },
+                            "audio_id": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 },
@@ -34861,7 +35197,12 @@
           }
         }
       },
-      "source_definition_sha256": "8436c91115158137011853e5892dae930fad2106a0387e3888bc6f54cad9acbe"
+      "source_definition_sha256": "56195fdb81806c9a21b5b7651bd0b7168c566eda32fab4545dc1c68b12b02a47",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/01d96900-9f8c-41d7-814c-95c7a885ba61.json",
+        "source_file_sha256": "a06cdf6563cc46fa3edb8c9cfa223492a2c6d585828a0d0d2840a3cbfdb903ce"
+      }
     },
     "2f636fdb-faa4-4308-8cef-9258dd14fd90": {
       "id": "2f636fdb-faa4-4308-8cef-9258dd14fd90",
@@ -40022,14 +40363,14 @@
                         "audio_id": {
                           "rank": 95,
                           "type": "string",
-                          "description": "Audio ID used for generating additional audio based on existing audio. This field is required when `action` is `extend` or `concat`."
+                          "description": "Source audio ID. Required for extend, upload_extend, cover, upload_cover, concat, stems, all_stems, replace_section, underpainting, overpainting, remaster, samples, add_stem, extract_stem and adjust_speed."
                         },
                         "duration": {
                           "rank": 96,
                           "type": "integer",
                           "maximum": 360,
                           "minimum": 10,
-                          "description": "The expected song duration (in seconds) must be an integer, with a range of 10 to 360. This is used for song generation in custom mode (`custom` is `true`). It is a preference prompt rather than a strict constraint: the model will refer to this value but does not guarantee to meet it. The actual product duration is based on the `duration` field in the response, which is usually shorter than the expected value, and results from submitting the same request multiple times may also vary significantly."
+                          "description": "Target track length in seconds, an integer from 10 to 360. Only generate currently uses this field; other actions do not. This is a hint, not a guaranteed length; read actual duration from the result."
                         },
                         "max_mode": {
                           "rank": 21,
@@ -40083,7 +40424,7 @@
                         "persona_id": {
                           "rank": 95,
                           "type": "string",
-                          "description": "Singer-style or cloned-voice Persona ID. For cover / upload_cover, this selects the cover voice. For a private voice, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Voice creation, upload, and cover generation must use the same service channel. No additional vocal_gender is needed."
+                          "description": "Singer-style or cloned-voice Persona ID, not audio_id. Supports generate, cover / upload_cover, artist_consistency and artist_consistency_vox; the last two require persona_id and may also receive the source song audio_id. extend and upload_extend do not use an extra persona_id. Voice support for mashup and inspo depends on the service channel; other actions do not guarantee it. For private voice covers, first upload the original song through /suno/upload with the same persona_id, then use the returned audio_id. Keep all steps on the same service channel. No additional vocal_gender is needed."
                         },
                         "sound_type": {
                           "enum": [
@@ -40097,12 +40438,12 @@
                         "continue_at": {
                           "rank": 96,
                           "type": "number",
-                          "description": "Continue generating from the specified time point (seconds) of the existing audio. For example, 213.5 means to continue from 3 minutes and 33.5 seconds."
+                          "description": "Extension boundary in seconds for extend and upload_extend. Must be greater than 0; decimals such as 30.792 are preserved without rounding. Lyrics and style guide only new content after this boundary, not the earlier source audio. Use generate for a new song or cover to reinterpret the source."
                         },
                         "samples_end": {
                           "rank": 96,
                           "type": "number",
-                          "description": "Add the end time of the sample for the uploaded audio, which must be less than the total duration of the song."
+                          "description": "Required sample end time in seconds, greater than the start and no later than the source duration."
                         },
                         "audio_format": {
                           "enum": [
@@ -40127,7 +40468,7 @@
                         "instrumental": {
                           "rank": 70,
                           "type": "boolean",
-                          "description": "Pure accompaniment mode (no lyrics), default is `false`. When set to `true`, the lyrics filled in above will be ignored."
+                          "description": "Instrumental mode without lyrics, default false; also applies to inspo. When true, supplied lyrics are ignored."
                         },
                         "lyric_prompt": {
                           "rank": 12,
@@ -40146,12 +40487,12 @@
                         "negative_tags": {
                           "rank": 91,
                           "type": "string",
-                          "description": "Descriptions of styles or genres that should not appear in the generated music will only take effect when the custom mode (`custom` is `true`). This API currently sets no fixed character limit for this field; overly long content may still fail to process, so keep it concise."
+                          "description": "Music styles or genres to exclude when `custom` is `true`, or for replace_section. This API sets no fixed character limit; overly long content may still fail to process, so keep it concise."
                         },
                         "samples_start": {
                           "rank": 96,
                           "type": "number",
-                          "description": "Add a default start time for the uploaded audio sample, with a default value of 0."
+                          "description": "Sample start time in seconds, default 0, non-negative; decimal seconds are supported."
                         },
                         "style_influence": {
                           "rank": 96,
@@ -40203,7 +40544,7 @@
                         "replace_section_end": {
                           "rank": 96,
                           "type": "number",
-                          "description": "When `action` is `replace_section`, specify the end time (in seconds) of the segment to be replaced."
+                          "description": "Required replace_section end time in seconds, greater than the start and no later than the source duration."
                         },
                         "underpainting_start": {
                           "rank": 96,
@@ -40213,7 +40554,7 @@
                         "replace_section_start": {
                           "rank": 96,
                           "type": "number",
-                          "description": "When `action` is `replace_section`, specify the start time (in seconds) of the segment to be replaced."
+                          "description": "Required replace_section start time in seconds, non-negative; decimals are supported."
                         },
                         "replace_section_result_mode": {
                           "enum": [
@@ -40250,11 +40591,11 @@
           }
         }
       },
-      "source_definition_sha256": "cf77e71092d9f289f000a633feecd847c9e840cea46c373c38a1257891cdafe4",
+      "source_definition_sha256": "30f3c287086efbd67e105628065cb750457032525dc6059cb667090f485bdae4",
       "backend_update": {
-        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
         "source_file": "openapi/09a26295-5972-4392-9318-dcd9b218f90d.json",
-        "source_file_sha256": "5d9824c1cba21835a946f0ce4a1a10851c9da303b80e700298d2fec0e9d56285"
+        "source_file_sha256": "6e1e9314e6be05d43d7b458024c083b09d13a1af8ffbdb3b02f30986e6220582"
       }
     },
     "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84": {
@@ -48966,7 +49307,7 @@
                           "rank": 80,
                           "type": "string",
                           "default": "16:9",
-                          "description": "Output video aspect ratio. Text-to-video and reference image-to-video support this parameter; the first frame image-to-video will follow the aspect ratio of the first frame image."
+                          "description": "Output aspect ratio for generate and reference_to_video. image_to_video and video_edit ignore this field and inherit the source image or video aspect ratio, respectively."
                         },
                         "action": {
                           "enum": [
@@ -48991,7 +49332,7 @@
                           "default": 5,
                           "maximum": 15,
                           "minimum": 3,
-                          "description": "Output video duration (seconds), value range 3–15. The output duration of `video_edit` is determined by the input video."
+                          "description": "Output duration in seconds, from 3 to 15, for generate, image_to_video and reference_to_video. video_edit ignores this field and inherits source duration; editing is billed for combined input and output video duration."
                         },
                         "image_url": {
                           "rank": 40,
@@ -49067,7 +49408,12 @@
           }
         }
       },
-      "source_definition_sha256": "864fc0ddecbe2d34c9823fa1055168225b2902229a4eb05d2289eb22ae4adb48"
+      "source_definition_sha256": "376ea59e7b78a82e36af7be4c4f21f0a863475d2024284f244010ae475158298",
+      "backend_update": {
+        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "source_file": "openapi/d656e357-50cb-4390-b8c9-67464bc2a2f2.json",
+        "source_file_sha256": "207d8df72fd9afc4d3b551f0170bd547dfe5fc0c8be615331c136051d879cdf8"
+      }
     },
     "1daf8204-7306-4c54-8014-a00c5996cbfe": {
       "id": "1daf8204-7306-4c54-8014-a00c5996cbfe",

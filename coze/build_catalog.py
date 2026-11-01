@@ -165,10 +165,13 @@ def import_body(schema):
     s=copy.deepcopy(schema)
     variants=s.get('oneOf',s.get('anyOf',[]))
     if variants and all(v.get('type')=='object' or 'properties' in v for v in variants):
-        props=copy.deepcopy(s.get('properties',{}));req=None
+        base_props=s.get('properties',{})
+        props=copy.deepcopy(base_props);req=None
         for v in variants:
             vr=set(v.get('required',[]));req=vr if req is None else req&vr
             for k,p in v.get('properties',{}).items():
+                # Typed base fields already constrain the retained conditional branches.
+                if k in base_props and 'type' in base_props[k]:continue
                 if k not in props:props[k]=copy.deepcopy(p)
                 elif props[k]!=p:
                     if props[k].get('type')==p.get('type') and props[k].get('enum') and p.get('enum'):

@@ -38,9 +38,22 @@ paths:
               properties:
                 model:
                   enum:
+                  - gpt-6.1-sol
+                  - gpt-6.1-terra
+                  - gpt-6-sol
+                  - gpt-6-luna
                   - claude-opus-5-5
-                  - claude-sonnet-5-5
+                  - gpt-6-astra
+                  - glm-5.3
+                  - glm-5.2
+                  - glm-5.1
+                  - glm-5-turbo
+                  - glm-5
+                  - gpt-5.6-sol-fast
+                  - gpt-5.6-sol
                   - claude-fable-5-1
+                  - gemini-3.6-flash
+                  - claude-sonnet-5-5
                   - claude-fable-5
                   - claude-opus-5
                   - claude-opus-4-8
@@ -631,9 +644,22 @@ paths:
               properties:
                 model:
                   enum:
+                  - gpt-6.1-sol
+                  - gpt-6.1-terra
+                  - gpt-6-sol
+                  - gpt-6-luna
                   - claude-opus-5-5
-                  - claude-sonnet-5-5
+                  - gpt-6-astra
+                  - glm-5.3
+                  - glm-5.2
+                  - glm-5.1
+                  - glm-5-turbo
+                  - glm-5
+                  - gpt-5.6-sol-fast
+                  - gpt-5.6-sol
                   - claude-fable-5-1
+                  - gemini-3.6-flash
+                  - claude-sonnet-5-5
                   - claude-fable-5
                   - claude-opus-5
                   - claude-opus-4-8
@@ -749,8 +775,8 @@ paths:
                       type: string
                       description: Control the overall inference input of the model, optional low, medium,
                         high, xhigh, or max; please choose according to the specific model capabilities.
-                  description: Output and inference input configuration. The fields and levels supported
-                    by different models may vary.
+                  description: Reasoning effort configuration for this Coze form. Structured output format
+                    is omitted; use the canonical Messages API for JSON Schema output.
                 stop_sequences:
                   type: array
                   items:

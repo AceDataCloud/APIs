@@ -218,9 +218,22 @@
                 "properties": {
                   "model": {
                     "enum": [
+                      "gpt-6.1-sol",
+                      "gpt-6.1-terra",
+                      "gpt-6-sol",
+                      "gpt-6-luna",
                       "claude-opus-5-5",
-                      "claude-sonnet-5-5",
+                      "gpt-6-astra",
+                      "glm-5.3",
+                      "glm-5.2",
+                      "glm-5.1",
+                      "glm-5-turbo",
+                      "glm-5",
+                      "gpt-5.6-sol-fast",
+                      "gpt-5.6-sol",
                       "claude-fable-5-1",
+                      "gemini-3.6-flash",
+                      "claude-sonnet-5-5",
                       "claude-fable-5",
                       "claude-opus-5",
                       "claude-opus-4-8",
@@ -3209,9 +3222,22 @@
                 "properties": {
                   "model": {
                     "enum": [
+                      "gpt-6.1-sol",
+                      "gpt-6.1-terra",
+                      "gpt-6-sol",
+                      "gpt-6-luna",
                       "claude-opus-5-5",
-                      "claude-sonnet-5-5",
+                      "gpt-6-astra",
+                      "glm-5.3",
+                      "glm-5.2",
+                      "glm-5.1",
+                      "glm-5-turbo",
+                      "glm-5",
+                      "gpt-5.6-sol-fast",
+                      "gpt-5.6-sol",
                       "claude-fable-5-1",
+                      "gemini-3.6-flash",
+                      "claude-sonnet-5-5",
                       "claude-fable-5",
                       "claude-opus-5",
                       "claude-opus-4-8",
@@ -4543,9 +4569,23 @@
                       "effort": {
                         "type": "string",
                         "description": "Control the overall inference input of the model, optional low, medium, high, xhigh, or max; please choose according to the specific model capabilities."
+                      },
+                      "format": {
+                        "type": "object",
+                        "description": "Structured output configuration. With type=json_schema, schema supplies the output JSON Schema. Read generated results from Messages content text blocks.",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                          }
+                        },
+                        "additionalProperties": true
                       }
                     },
-                    "description": "Output and inference input configuration. The fields and levels supported by different models may vary.",
+                    "description": "Unified output configuration, including reasoning effort and structured output format; forwarded or mapped to the actual generation protocol.",
                     "additionalProperties": true
                   },
                   "stop_sequences": {

@@ -78,6 +78,18 @@ Setting `max_turns` to `1` requests a single answer without tool calls. For sche
 
 Repeated AI execution failures do not automatically pause a scheduled task: it will try again at the next scheduled time. Automatic pausing occurs after five consecutive failures to hand the task to the execution service. Insufficient balance marks a run as failed and triggers a recharge notification. An enabled task does not mean its latest run succeeded; check run history with `action: "retrieve_runs"` on `POST /aichat2/scheduled-tasks` for execution results.
 
+## Search Scheduled Tasks
+
+On `POST /aichat2/scheduled-tasks`, use `action: "retrieve_batch"` to list the current user's tasks, newest first. Optional `search` matches task-name substrings, ignoring English case and surrounding whitespace; it is not a regular expression. Omit it or send an empty string for all tasks. Search runs before pagination across the user's complete task list.
+
+Request body example (use the same authenticated request setup as above):
+
+```json
+{"action": "retrieve_batch", "search": "daily", "offset": 0, "limit": 10}
+```
+
+`offset` defaults to `0`; `limit` defaults to `100` and must be 1–100. Read the current page from `items` and the total matching count from `count`. Increase `offset` by `limit`, keeping `search` unchanged, until the accumulated results reach `count`.
+
 ## Related Resources
 
 - [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=aichat_api_readme_platform)

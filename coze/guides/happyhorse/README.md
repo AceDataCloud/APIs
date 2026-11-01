@@ -55,7 +55,7 @@ For an authorized first generation, select **generateVideo** and use the exact d
 }
 ```
 
-HappyHorse models/actions have different required reference fields. This first example uses text-to-video; generated media and installation still require host validation.
+HappyHorse models/actions have different required reference fields. This first example uses text-to-video; generated media and installation still require host validation. For `video_edit`, output duration and aspect ratio inherit the source video; `duration` and `ratio` do not override them, and billing uses combined input/output video duration. `image_to_video` inherits the source image's aspect ratio, so `ratio` is ignored.
 
 Retain the returned **task_id**. In **getTaskResults** on `/happyhorse/tasks`, select **Reference** to the generation tool's task ID (or use an already-owned completed task):
 

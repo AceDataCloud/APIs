@@ -39,16 +39,16 @@ Content-Type:  application/json
 |---|---|:---:|---|---|
 | `url` | string | ✅ | — | Page URL to render. Must be `http(s)://`. |
 | `user_agent` | string | ❌ | rotating modern Chrome UA | Override the browser User-Agent header. |
-| `timeout` | number | ❌ | 30 | Per-request navigation timeout in **seconds**. |
-| `wait_until` | enum | ❌ | `networkidle` | Page-ready condition: `load` \| `domcontentloaded` \| `networkidle` \| `commit`. |
-| `delay` | number | ❌ | 0 | Extra wait **in seconds** after `wait_until` fires (use for SPAs that re-render). |
+| `timeout` | integer | ❌ | 30 | Per-navigation timeout in **positive integer seconds** (minimum 1). |
+| `wait_until` | enum | ❌ | `load` | Page-ready condition: `load` \| `domcontentloaded` \| `networkidle` \| `commit`. |
+| `delay` | integer | ❌ | 0 | Extra wait in **non-negative integer seconds** after `wait_until` fires (use for SPAs that re-render). |
 | `wait_for_selector` | string | ❌ | — | CSS selector to wait for before considering the page ready. Cuts down on flaky `networkidle` failures. |
 | `block_resources` | string[] | ❌ | `["image","font","media"]` (server default) | Resource types to drop. Choices: `image`, `font`, `media`, `stylesheet`, `xhr`, `fetch`. Blocking saves bandwidth and renders faster. |
 | `headers` | object | ❌ | — | Additional request headers sent to the target site (e.g. `{"Accept-Language": "en-US"}`). |
 | `cookies` | array | ❌ | — | Cookies to install before navigation. See [Cookie shape](#cookie-shape). |
 | `callback_url` | string | ❌ | — | Callback address in asynchronous mode; the platform `POST`s the final envelope here when the task finishes. Providing this field automatically enables async mode. |
 | `bypass_cache` | boolean | ❌ | false | Skip the Redis result cache for this request (still writes the fresh result back). |
-| `cache_ttl_seconds` | number | ❌ | 3600 | Override the global cache TTL for this entry. `0` is allowed and means "don't cache this response". |
+| `cache_ttl_seconds` | integer | ❌ | 3600 | Non-negative cache TTL in seconds. `0` means "don't cache this response". |
 | `async` | boolean | ❌ | `false` | Set to `true` to return `task_id` immediately; results are delivered via `callback_url` or the Tasks API. |
 
 > Note: parameters use **snake_case** on the platform contract. The internal
@@ -56,6 +56,8 @@ Content-Type:  application/json
 > external callers should always use snake_case.
 
 ### Cookie shape
+
+Each cookie requires `name`, `value` and `domain`. Optional fields are `path`, `expires` (Unix seconds), `httpOnly`, `secure` and `sameSite` (`Strict`, `Lax` or `None`). Keep real cookie values private and use only sessions you are authorized to access.
 
 ```json
 {
@@ -262,9 +264,7 @@ curl -X POST https://api.acedata.cloud/webextrator/render \
 
 ## Tips and Gotchas
 
-- **`wait_until` choice matters.** `networkidle` is the safest but slowest;
-  `domcontentloaded` is fast but may miss late XHR-injected content; `load`
-  works well for classic static pages.
+- **`wait_until` defaults to `load`.** Select `networkidle` explicitly when needed, but pages with continuous network activity may not reach it. `domcontentloaded` can miss late XHR-injected content; use `wait_for_selector` for a specific readiness condition.
 - **Cache key ignores `async`.** Synchronous and asynchronous requests for the same URL
   hit the same cache entry — switching freely will not invalidate anything.
 - **Cache key ignores `bypass_cache` and `cache_ttl_seconds`.** Those are

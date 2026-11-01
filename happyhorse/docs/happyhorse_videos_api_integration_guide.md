@@ -118,6 +118,9 @@ When using `reference_to_video`, `image_urls` can include 1–9 reference images
 }
 ```
 ## Video Editing
+
+`video_edit` inherits the source video's duration and aspect ratio; supplying `duration` or `ratio` does not change them. Editing is billed for the combined input and output video duration. `image_to_video` likewise inherits the input image's aspect ratio, ignoring `ratio`; its `duration` still applies. Use `ratio` for `generate` or `reference_to_video`.
+
 When using `video_edit`, you must provide the video URL to be edited `video_url` and the editing intent `prompt`. Optional `image_urls` will serve as reference images, for example, for changing outfits, style transfer, or partial replacement. The `audio_setting` can be `auto` or `origin`, where `origin` means to keep the original video audio.
 ```json
 {

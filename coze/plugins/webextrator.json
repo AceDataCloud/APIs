@@ -170,8 +170,9 @@
                     "default": true
                   },
                   "delay": {
-                    "type": "number",
-                    "description": "The additional seconds to wait after the page has finished loading and before capturing the HTML."
+                    "type": "integer",
+                    "description": "Extra wait after page load, in non-negative integer seconds.",
+                    "minimum": 0
                   },
                   "headers": {
                     "type": "object",
@@ -181,9 +182,10 @@
                     }
                   },
                   "timeout": {
-                    "type": "number",
+                    "type": "integer",
                     "default": 30,
-                    "description": "The total timeout for rendering operations, in seconds."
+                    "description": "Per-navigation timeout in positive integer seconds, default 30.",
+                    "minimum": 1
                   },
                   "user_agent": {
                     "type": "string",
@@ -197,8 +199,8 @@
                       "commit"
                     ],
                     "type": "string",
-                    "default": "networkidle",
-                    "description": "Waiting conditions for page loading. Optional values: `load` (page load complete), `domcontentloaded` (DOM parsing complete), `networkidle` (network idle), `commit` (continue as soon as a response is received). The default value is `networkidle`."
+                    "default": "load",
+                    "description": "Page-ready condition: load, domcontentloaded, networkidle or commit. Default load."
                   },
                   "callback_url": {
                     "type": "string",
@@ -223,6 +225,68 @@
                   "wait_for_selector": {
                     "type": "string",
                     "description": "Wait for the CSS selector to appear before capturing HTML."
+                  },
+                  "cookies": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "value",
+                        "domain"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Cookie name."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Cookie value."
+                        },
+                        "domain": {
+                          "type": "string",
+                          "description": "Cookie domain."
+                        },
+                        "path": {
+                          "type": "string",
+                          "description": "Optional cookie path."
+                        },
+                        "expires": {
+                          "type": "number",
+                          "description": "Optional expiry as a Unix timestamp in seconds."
+                        },
+                        "httpOnly": {
+                          "type": "boolean",
+                          "description": "Whether the cookie is HTTP-only."
+                        },
+                        "secure": {
+                          "type": "boolean",
+                          "description": "Whether the cookie requires a secure connection."
+                        },
+                        "sameSite": {
+                          "type": "string",
+                          "description": "Cookie SameSite policy.",
+                          "enum": [
+                            "Strict",
+                            "Lax",
+                            "None"
+                          ]
+                        }
+                      }
+                    },
+                    "description": "Cookies installed before navigation. Each item requires name, value and domain."
+                  },
+                  "bypass_cache": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip cache reads and fetch a fresh page; the result can still be written to cache."
+                  },
+                  "cache_ttl_seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 3600,
+                    "description": "Result cache TTL in non-negative integer seconds, default 3600. Set 0 to avoid caching this result."
                   }
                 }
               }
@@ -427,8 +491,9 @@
                     "default": true
                   },
                   "delay": {
-                    "type": "number",
-                    "description": "Additional waiting time before starting extraction after the page has finished loading (unit: seconds)."
+                    "type": "integer",
+                    "description": "Extra wait after page load, in non-negative integer seconds.",
+                    "minimum": 0
                   },
                   "headers": {
                     "type": "object",
@@ -438,9 +503,10 @@
                     }
                   },
                   "timeout": {
-                    "type": "number",
+                    "type": "integer",
                     "default": 30,
-                    "description": "The total timeout for the extraction operation (unit: seconds)."
+                    "description": "Per-navigation timeout in positive integer seconds, default 30.",
+                    "minimum": 1
                   },
                   "enable_llm": {
                     "type": "boolean",
@@ -459,8 +525,8 @@
                       "commit"
                     ],
                     "type": "string",
-                    "default": "networkidle",
-                    "description": "Waiting conditions for page loading."
+                    "default": "load",
+                    "description": "Page-ready condition: load, domcontentloaded, networkidle or commit. Default load."
                   },
                   "callback_url": {
                     "type": "string",
@@ -494,6 +560,68 @@
                   "wait_for_selector": {
                     "type": "string",
                     "description": "Wait for the CSS selector to appear before starting the extraction."
+                  },
+                  "cookies": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "value",
+                        "domain"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Cookie name."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Cookie value."
+                        },
+                        "domain": {
+                          "type": "string",
+                          "description": "Cookie domain."
+                        },
+                        "path": {
+                          "type": "string",
+                          "description": "Optional cookie path."
+                        },
+                        "expires": {
+                          "type": "number",
+                          "description": "Optional expiry as a Unix timestamp in seconds."
+                        },
+                        "httpOnly": {
+                          "type": "boolean",
+                          "description": "Whether the cookie is HTTP-only."
+                        },
+                        "secure": {
+                          "type": "boolean",
+                          "description": "Whether the cookie requires a secure connection."
+                        },
+                        "sameSite": {
+                          "type": "string",
+                          "description": "Cookie SameSite policy.",
+                          "enum": [
+                            "Strict",
+                            "Lax",
+                            "None"
+                          ]
+                        }
+                      }
+                    },
+                    "description": "Cookies installed before navigation. Each item requires name, value and domain."
+                  },
+                  "bypass_cache": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip cache reads and fetch a fresh page; the result can still be written to cache."
+                  },
+                  "cache_ttl_seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 3600,
+                    "description": "Result cache TTL in non-negative integer seconds, default 3600. Set 0 to avoid caching this result."
                   }
                 }
               }

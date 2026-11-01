@@ -44,7 +44,7 @@ Extract accepts **everything** Render accepts (see
 [Render API guide](webextrator_render_api_integration_guide.md#request-body) —
 `url`, `user_agent`, `timeout`, `wait_until`, `delay`, `wait_for_selector`,
 `block_resources`, `headers`, `cookies`, `callback_url`, `bypass_cache`,
-`cache_ttl_seconds`, `async`) plus the two Extract-specific fields:
+`cache_ttl_seconds`, `async`) plus the two Extract-specific fields. The shared `wait_until` default is `load`; `timeout` is a positive integer in seconds (default 30), and `delay` is a non-negative integer in seconds. Cookies require `name`, `value` and `domain`. `bypass_cache=true` skips cache reads but still permits writes; `cache_ttl_seconds` is a non-negative integer (default 3600), with `0` disabling caching of this result.
 
 | Field | Type | Required | Default | Description |
 |---|---|:---:|---|---|

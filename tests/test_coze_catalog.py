@@ -105,6 +105,161 @@ class CozeCatalogTests(unittest.TestCase):
                             self.assertIn('gpt-image-2:reverse', fields['model']['enum'])
         self.assertEqual(self.plugins['openai'], yaml.safe_load((ROOT / 'image.yaml').read_text()))
 
+    def test_producer_inputs_are_required_by_action(self):
+        import yaml
+        route = '/producer/audios'
+        contract = self.source['contracts']['01d96900-9f8c-41d7-814c-95c7a885ba61']
+        operation = self.plugins['producer']['paths'][route]['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, route, 'post', contract['definition']['paths'][route]['post']))
+        self.assertEqual(self.plugins['producer'], yaml.safe_load((ROOT / 'plugins/producer.yaml').read_text()))
+        body = operation['requestBody']['content']['application/json']['schema']
+        self.assertEqual(['action'], body['required'])
+        self.assertFalse(body['properties']['custom']['default'])
+        for field in ('action', 'audio_id', 'continue_at'):
+            self.assertNotIn('anyOf', body['properties'][field])
+        self.assertEqual('string', body['properties']['action']['type'])
+        for request in (
+            {'action': 'generate', 'prompt': 'Original acoustic music'},
+            {'action': 'generate', 'custom': True, 'lyric': 'Original lyrics'},
+            {'action': 'generate', 'custom': True, 'instrumental': True},
+            {'action': 'extend', 'audio_id': 'OWNED_AUDIO_ID', 'continue_at': 30.792, 'lyric': 'Next verse'},
+            {'action': 'extend', 'audio_id': 'OWNED_AUDIO_ID', 'continue_at': 1, 'instrumental': True},
+            *({'action': action, 'audio_id': 'OWNED_AUDIO_ID'} for action in
+              ('cover', 'variation', 'swap_vocals', 'swap_instrumentals', 'replace_section', 'stems')),
+        ):
+            with self.subTest(valid=request):
+                OAS30Validator(body).validate(request)
+        for request in (
+            {'action': 'generate'},
+            {'action': 'generate', 'prompt': ''},
+            {'action': 'generate', 'custom': True},
+            {'action': 'generate', 'custom': True, 'lyric': ''},
+            {'action': 'extend', 'audio_id': 'OWNED_AUDIO_ID', 'continue_at': 1},
+            {'action': 'extend', 'audio_id': 'OWNED_AUDIO_ID', 'continue_at': 0, 'instrumental': True},
+            {'action': 'extend', 'continue_at': 1, 'instrumental': True},
+            {'action': 'cover'},
+        ):
+            with self.subTest(invalid=request), self.assertRaises(ValidationError):
+                OAS30Validator(body).validate(request)
+
+    def test_web_extractor_timing_cookies_and_cache_inputs(self):
+        import yaml
+        self.assertEqual(self.plugins['webextrator'], yaml.safe_load((ROOT / 'plugins/webextrator.yaml').read_text()))
+        for route, api_id in (
+            ('/webextrator/render', '4ab24fda-2140-476c-a190-91bde5f0baf4'),
+            ('/webextrator/extract', 'c32c05d0-5f47-4b89-8458-9776aad4a8c4'),
+        ):
+            contract = self.source['contracts'][api_id]
+            operation = self.plugins['webextrator']['paths'][route]['post']
+            self.assertEqual(operation, builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+            fields = operation['requestBody']['content']['application/json']['schema']['properties']
+            self.assertEqual('load', fields['wait_until']['default'])
+            self.assertFalse(fields['bypass_cache']['default'])
+            self.assertEqual(3600, fields['cache_ttl_seconds']['default'])
+            for field, minimum in (('timeout', 1), ('delay', 0), ('cache_ttl_seconds', 0)):
+                with self.subTest(route=route, field=field):
+                    self.assertEqual('integer', fields[field]['type'])
+                    OAS30Validator(fields[field]).validate(minimum)
+                    for invalid in (minimum - 1, 1.5):
+                        with self.assertRaises(ValidationError):
+                            OAS30Validator(fields[field]).validate(invalid)
+            cookie = fields['cookies']['items']
+            valid = {'name': 'session', 'value': 'AUTHORIZED_TEST_VALUE', 'domain': 'example.com'}
+            OAS30Validator(cookie).validate(valid)
+            for required in ('name', 'value', 'domain'):
+                with self.assertRaises(ValidationError):
+                    OAS30Validator(cookie).validate({k: v for k, v in valid.items() if k != required})
+            for same_site in ('Strict', 'Lax', 'None'):
+                OAS30Validator(cookie).validate({**valid, 'sameSite': same_site})
+            with self.assertRaises(ValidationError):
+                OAS30Validator(cookie).validate({**valid, 'sameSite': 'invalid'})
+
+    def test_messages_public_models_and_structured_output(self):
+        import yaml
+        projected = json.loads((ROOT / 'imports/claude.json').read_text())
+        for document, path in ((self.plugins['claude'], 'plugins/claude.yaml'),
+                               (projected, 'imports/claude.yaml')):
+            self.assertEqual(document, yaml.safe_load((ROOT / path).read_text()))
+            for route in ('/v1/messages', '/v1/messages/count_tokens'):
+                fields = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']
+                models = fields['model']['enum']
+                self.assertTrue({'gpt-6.1-terra', 'gpt-6.1-sol', 'gpt-6-sol', 'gpt-6-luna',
+                                 'gpt-6-astra', 'gpt-5.6-sol-fast', 'gpt-5.6-sol',
+                                 'glm-5.3', 'glm-5.2', 'glm-5.1', 'glm-5-turbo', 'glm-5',
+                                 'gemini-3.6-flash', 'claude-opus-5-5'} <= set(models))
+                self.assertFalse({'mimo-v2.6-pro', 'mimo-v2.6-flash'} & set(models))
+            fields = document['paths']['/v1/messages']['post']['requestBody']['content']['application/json']['schema']['properties']
+            if path.startswith('plugins/'):
+                self.assertIn('format', fields['output_config']['properties'])
+                OAS30Validator(fields['output_config']).validate({'format': {
+                    'type': 'json_schema', 'schema': {'type': 'object', 'properties': {'answer': {'type': 'string'}}}}})
+            else:
+                self.assertNotIn('format', fields['output_config']['properties'])
+        notes = json.loads((ROOT / 'imports/compatibility-notes.json').read_text())['claude']
+        self.assertTrue(any(note['field'].endswith('/output_config/format') and
+                            note['kind'] == 'omitted_optional_input' for note in notes))
+        for route, api_id in (('/v1/messages', 'a43a98fc-f833-4cfb-8596-8066faad2c42'),
+                              ('/v1/messages/count_tokens', '01011450-70f7-430f-a8a3-97b0903b0a24')):
+            contract = self.source['contracts'][api_id]
+            self.assertEqual(self.plugins['claude']['paths'][route]['post'], builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+
+    def test_openai_models_and_freeform_image_prompts(self):
+        for folder in ('plugins', 'imports'):
+            document = json.loads((ROOT / folder / 'openai.json').read_text())
+            for route in ('/openai/chat/completions', '/openai/responses'):
+                models = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']['model']['enum']
+                self.assertIn('gpt-6.1-terra', models)
+                self.assertIn('gpt-5.6-sol-fast', models)
+                if route.endswith('/chat/completions'):
+                    self.assertTrue({'mimo-v2.6-pro', 'mimo-v2.6-flash'} <= set(models))
+                else:
+                    self.assertFalse({'mimo-v2.6-pro', 'mimo-v2.6-flash'} & set(models))
+            for key in ('openai', 'gpt-image'):
+                document = json.loads((ROOT / folder / f'{key}.json').read_text())
+                prompt = document['paths']['/openai/images/generations']['post']['requestBody']['content']['application/json']['schema']['properties']['prompt']
+                self.assertNotIn('enum', prompt)
+                OAS30Validator(prompt).validate('An original watercolor of a quiet harbor at dawn.')
+
+    def test_maestro_accepts_freeform_style_but_not_freeform_voice(self):
+        import yaml
+        document = self.plugins['maestro']
+        self.assertEqual(document, yaml.safe_load((ROOT / 'plugins/maestro.yaml').read_text()))
+        contract = self.source['contracts']['ab512c42-324c-42e6-8d79-49a5042f3548']
+        operation = document['paths']['/maestro/videos']['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, '/maestro/videos', 'post', contract['definition']['paths']['/maestro/videos']['post']))
+        fields = operation['requestBody']['content']['application/json']['schema']['properties']
+        OAS30Validator(fields['style']).validate('Muted watercolor with soft typography')
+        for voice in ('auto', 'documentary-male', 'a' * 32, 'ABCDEF0123456789' * 2):
+            OAS30Validator(fields['voice']).validate(voice)
+        for voice in ('warm and friendly', 'a' * 31, 'g' * 32):
+            with self.assertRaises(ValidationError):
+                OAS30Validator(fields['voice']).validate(voice)
+
+    def test_happyhorse_inherited_geometry_guidance_survives_projection(self):
+        import yaml
+        for folder in ('plugins', 'imports'):
+            document = json.loads((ROOT / folder / 'happyhorse.json').read_text())
+            self.assertEqual(document, yaml.safe_load((ROOT / folder / 'happyhorse.yaml').read_text()))
+            fields = document['paths']['/happyhorse/videos']['post']['requestBody']['content']['application/json']['schema']['properties']
+            self.assertIn('image_to_video and video_edit ignore', fields['ratio']['description'])
+            self.assertIn('inherits source duration', fields['duration']['description'])
+            self.assertIn('combined input and output', fields['duration']['description'])
+
+    def test_suno_action_scope_guidance_survives_projection(self):
+        projected = json.loads((ROOT / 'imports/suno.json').read_text())
+        for document in (self.plugins['suno'], projected):
+            fields = document['paths']['/suno/audios']['post']['requestBody']['content']['application/json']['schema']['properties']
+            for field, phrase in (('continue_at', 'without rounding'), ('duration', 'Only generate'),
+                                  ('persona_id', 'extend and upload_extend do not use'),
+                                  ('negative_tags', 'replace_section'), ('instrumental', 'inspo'),
+                                  ('samples_end', 'greater than the start'),
+                                  ('replace_section_end', 'greater than the start')):
+                self.assertIn(phrase, fields[field]['description'])
+
     def test_suno_private_voice_cover_inputs_survive_building_and_projection(self):
         import yaml
         projected = json.loads((ROOT / 'imports/suno.json').read_text())
