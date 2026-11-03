@@ -100,8 +100,10 @@ paths:
                   - gpt-image-1.5
                   - gpt-image-2
                   - gpt-image-2.5-flare
+                  - gpt-image-2.5-flare:reverse
                   - gpt-image-2.5-flare:official
                   - gpt-image-2.5-sunburst
+                  - gpt-image-2.5-sunburst:reverse
                   - gpt-image-2.5-sunburst:official
                   - gpt-image-2:official
                   type: string
@@ -137,9 +139,9 @@ paths:
                   default: auto
                   description: Image quality. GPT Image models support `auto` (default), `low`, `medium`,
                     and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their
-                    `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports
-                    `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual
-                    token usage.
+                    `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3`
+                    supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants
+                    bill actual token usage.
                 background:
                   enum:
                   - transparent
@@ -628,8 +630,10 @@ paths:
                   - gpt-image-1.5
                   - gpt-image-2
                   - gpt-image-2.5-flare
+                  - gpt-image-2.5-flare:reverse
                   - gpt-image-2.5-flare:official
                   - gpt-image-2.5-sunburst
+                  - gpt-image-2.5-sunburst:reverse
                   - gpt-image-2.5-sunburst:official
                   - gpt-image-2:official
                   type: string
@@ -653,8 +657,8 @@ paths:
                   default: auto
                   description: Image quality. GPT Image models support `auto` (default), `low`, `medium`,
                     and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their
-                    `:official` variants, additionally support `xhigh` and `max`. Official variants bill
-                    actual token usage.
+                    `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official
+                    variants bill actual token usage.
                 background:
                   enum:
                   - transparent
