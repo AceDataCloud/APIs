@@ -11950,8 +11950,10 @@
                             "gpt-image-1.5",
                             "gpt-image-2",
                             "gpt-image-2.5-flare",
+                            "gpt-image-2.5-flare:reverse",
                             "gpt-image-2.5-flare:official",
                             "gpt-image-2.5-sunburst",
+                            "gpt-image-2.5-sunburst:reverse",
                             "gpt-image-2.5-sunburst:official",
                             "gpt-image-2:reverse",
                             "gpt-image-2:official",
@@ -11992,7 +11994,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -12077,11 +12079,11 @@
           }
         }
       },
-      "source_definition_sha256": "262423e0f65902fae63367f928a80486a200f5374c219fa5781bca37b9f6cd17",
+      "source_definition_sha256": "05a6c9e8201ae8cbbc1eeb8cf4afc89a87e643125cddfccf85a1bdb75a880828",
       "backend_update": {
-        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "revision": "454e952950696a6398349e15defd1c1da201cf4d",
         "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
-        "source_file_sha256": "18c4d9ae55d4da9a3865039cc500958cb542beb184c2f3801bbcdeb17db01e73"
+        "source_file_sha256": "5b66b6e577224a585a13245d2778f23037e8969cd729566126e059a1bda992f7"
       }
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
@@ -15600,8 +15602,10 @@
                             "gpt-image-1.5",
                             "gpt-image-2",
                             "gpt-image-2.5-flare",
+                            "gpt-image-2.5-flare:reverse",
                             "gpt-image-2.5-flare:official",
                             "gpt-image-2.5-sunburst",
+                            "gpt-image-2.5-sunburst:reverse",
                             "gpt-image-2.5-sunburst:official",
                             "gpt-image-2:reverse",
                             "gpt-image-2:official",
@@ -15633,7 +15637,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15746,8 +15750,10 @@
                             "gpt-image-1.5",
                             "gpt-image-2",
                             "gpt-image-2.5-flare",
+                            "gpt-image-2.5-flare:reverse",
                             "gpt-image-2.5-flare:official",
                             "gpt-image-2.5-sunburst",
+                            "gpt-image-2.5-sunburst:reverse",
                             "gpt-image-2.5-sunburst:official",
                             "gpt-image-2:reverse",
                             "gpt-image-2:official",
@@ -15779,7 +15785,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. `dall-e-2` supports only `standard`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15869,11 +15875,11 @@
           }
         }
       },
-      "source_definition_sha256": "925d827b3812eaefccd4022563e291110f68ee101f17a7a11efbc2b5b2eae92c",
+      "source_definition_sha256": "2de5e9ed135644f4205a64a1f1dbf047d13afb8584eef8e48cfb537ebe0a4fe2",
       "backend_update": {
-        "revision": "5d360616545b2002ce2e908b026451b15d7959fa",
+        "revision": "454e952950696a6398349e15defd1c1da201cf4d",
         "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
-        "source_file_sha256": "0ffed4f67e7d620bcfe9c88371f355a517ffcf81de75381e1595e3324073685e"
+        "source_file_sha256": "71bed5fe73bc00f1a406cf965ffce47567efbf6d9dfc363c4fd3faee5a062d4f"
       }
     },
     "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": {

@@ -86,14 +86,19 @@ class CozeCatalogTests(unittest.TestCase):
                 self.assertTrue({'auto', 'low', 'medium', 'high', 'xhigh', 'max', 'standard'} <= set(quality['enum']))
                 self.assertIn('Only `gpt-image-2.5-flare`', quality['description'])
                 self.assertIn('`gpt-image-2.5-sunburst`', quality['description'])
+                self.assertIn('`:reverse`', quality['description'])
                 self.assertIn('`:official`', quality['description'])
                 self.assertIn('actual token usage', quality['description'])
+                models = media['schema']['properties']['model']['enum']
+                self.assertTrue({'gpt-image-2.5-flare:reverse',
+                                 'gpt-image-2.5-sunburst:reverse'} <= set(models))
             for key in ('openai', 'gpt-image'):
                 for folder in ('plugins', 'imports'):
                     with self.subTest(route=route, service=key, folder=folder):
                         document = json.loads((ROOT / folder / f'{key}.json').read_text())
                         self.assertEqual(document, yaml.safe_load((ROOT / folder / f'{key}.yaml').read_text()))
-                        fields = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']
+                        body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                        fields = body['properties']
                         self.assertEqual(canonical['requestBody']['content']['application/json']['schema']['properties']['quality'], fields['quality'])
                         for level in ('xhigh', 'max'):
                             OAS30Validator(fields['quality']).validate(level)
@@ -101,6 +106,17 @@ class CozeCatalogTests(unittest.TestCase):
                             OAS30Validator(fields['quality']).validate('ultra')
                         self.assertTrue({'gpt-image-2:official', 'gpt-image-2.5-flare:official',
                                          'gpt-image-2.5-sunburst:official'} <= set(fields['model']['enum']))
+                        for model in ('gpt-image-2.5-flare:reverse', 'gpt-image-2.5-sunburst:reverse'):
+                            self.assertIn(model, fields['model']['enum'])
+                            OAS30Validator(fields['model']).validate(model)
+                            request = {'model': model, 'prompt': 'An original watercolor',
+                                       'quality': 'max', 'n': 2}
+                            if route.endswith('/edits'):
+                                request['image'] = ['https://example.com/input.png']
+                            OAS30Validator(body).validate(request)
+                        for model in ('gpt-image-2.5', 'gpt-image-2.5:reverse'):
+                            with self.assertRaises(ValidationError):
+                                OAS30Validator(fields['model']).validate(model)
                         if key == 'openai':
                             self.assertIn('gpt-image-2:reverse', fields['model']['enum'])
         self.assertEqual(self.plugins['openai'], yaml.safe_load((ROOT / 'image.yaml').read_text()))
