@@ -439,10 +439,16 @@
                       "nano-banana",
                       "nano-banana-2-lite",
                       "nano-banana-2",
-                      "nano-banana-pro"
+                      "nano-banana-pro",
+                      "gpt-image-2.6-flare",
+                      "gpt-image-2.6-flare:reverse",
+                      "gpt-image-2.6-flare:official",
+                      "gpt-image-2.6-sunburst",
+                      "gpt-image-2.6-sunburst:reverse",
+                      "gpt-image-2.6-sunburst:official"
                     ],
                     "type": "string",
-                    "description": "Models for image generation. Supports OpenAI's `dall-e-2`, `dall-e-3`, `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst` series, as well as Google's `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`. The parameters `size`, `quality`, `style`, `background`, `output_format`, `moderation`, and `response_format` supported by different models vary, please refer to the description of each field for details. `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on the actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio).",
+                    "description": "Models for image generation. Supports OpenAI's `dall-e-2`, `dall-e-3`, `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst` series, as well as Google's `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`. The parameters `size`, `quality`, `style`, `background`, `output_format`, `moderation`, and `response_format` supported by different models vary, please refer to the description of each field for details. `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on the actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`.",
                     "default": "gpt-image-1"
                   },
                   "style": {
@@ -471,7 +477,7 @@
                     ],
                     "type": "string",
                     "default": "auto",
-                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
+                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`, and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                   },
                   "background": {
                     "enum": [
@@ -4874,11 +4880,17 @@
                       "nano-banana",
                       "nano-banana-2-lite",
                       "nano-banana-2",
-                      "nano-banana-pro"
+                      "nano-banana-pro",
+                      "gpt-image-2.6-flare",
+                      "gpt-image-2.6-flare:reverse",
+                      "gpt-image-2.6-flare:official",
+                      "gpt-image-2.6-sunburst",
+                      "gpt-image-2.6-sunburst:reverse",
+                      "gpt-image-2.6-sunburst:official"
                     ],
                     "type": "string",
                     "default": "gpt-image-1",
-                    "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio)."
+                    "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`."
                   },
                   "prompt": {
                     "type": "string",
@@ -4896,7 +4908,7 @@
                     ],
                     "type": "string",
                     "default": "auto",
-                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
+                    "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`, and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
                   },
                   "background": {
                     "enum": [

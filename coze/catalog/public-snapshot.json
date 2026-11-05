@@ -11960,11 +11960,17 @@
                             "nano-banana",
                             "nano-banana-2-lite",
                             "nano-banana-2",
-                            "nano-banana-pro"
+                            "nano-banana-pro",
+                            "gpt-image-2.6-flare",
+                            "gpt-image-2.6-flare:reverse",
+                            "gpt-image-2.6-flare:official",
+                            "gpt-image-2.6-sunburst",
+                            "gpt-image-2.6-sunburst:reverse",
+                            "gpt-image-2.6-sunburst:official"
                           ],
                           "rank": 1,
                           "type": "string",
-                          "description": "Models for image generation. Supports OpenAI's `dall-e-2`, `dall-e-3`, `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst` series, as well as Google's `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`. The parameters `size`, `quality`, `style`, `background`, `output_format`, `moderation`, and `response_format` supported by different models vary, please refer to the description of each field for details. `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on the actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio)."
+                          "description": "Models for image generation. Supports OpenAI's `dall-e-2`, `dall-e-3`, `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst` series, as well as Google's `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`. The parameters `size`, `quality`, `style`, `background`, `output_format`, `moderation`, and `response_format` supported by different models vary, please refer to the description of each field for details. `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on the actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`."
                         },
                         "style": {
                           "enum": [
@@ -11994,7 +12000,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`, and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-3` supports `hd` or `standard`; `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -12079,11 +12085,11 @@
           }
         }
       },
-      "source_definition_sha256": "05a6c9e8201ae8cbbc1eeb8cf4afc89a87e643125cddfccf85a1bdb75a880828",
+      "source_definition_sha256": "ac06d14bd35f4ad2a6b7e2d8a10dc103cd3696e66ccde6a067f37877c8b9247a",
       "backend_update": {
-        "revision": "454e952950696a6398349e15defd1c1da201cf4d",
+        "revision": "f3943ac1d8c997d9622d8e50d96338f9d1323149",
         "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
-        "source_file_sha256": "5b66b6e577224a585a13245d2778f23037e8969cd729566126e059a1bda992f7"
+        "source_file_sha256": "ee482f8f57369fd8297c7f5c5bcadd4b9d37fc18c2acde1a5cb0c328f94efdf2"
       }
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
@@ -15612,12 +15618,18 @@
                             "nano-banana",
                             "nano-banana-2-lite",
                             "nano-banana-2",
-                            "nano-banana-pro"
+                            "nano-banana-pro",
+                            "gpt-image-2.6-flare",
+                            "gpt-image-2.6-flare:reverse",
+                            "gpt-image-2.6-flare:official",
+                            "gpt-image-2.6-sunburst",
+                            "gpt-image-2.6-sunburst:reverse",
+                            "gpt-image-2.6-sunburst:official"
                           ],
                           "rank": 22,
                           "type": "string",
                           "default": "dall-e-3",
-                          "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio)."
+                          "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`."
                         },
                         "prompt": {
                           "rank": 10,
@@ -15637,7 +15649,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`, and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15760,12 +15772,18 @@
                             "nano-banana",
                             "nano-banana-2-lite",
                             "nano-banana-2",
-                            "nano-banana-pro"
+                            "nano-banana-pro",
+                            "gpt-image-2.6-flare",
+                            "gpt-image-2.6-flare:reverse",
+                            "gpt-image-2.6-flare:official",
+                            "gpt-image-2.6-sunburst",
+                            "gpt-image-2.6-sunburst:reverse",
+                            "gpt-image-2.6-sunburst:official"
                           ],
                           "rank": 22,
                           "type": "string",
                           "default": "dall-e-3",
-                          "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio)."
+                          "description": "Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image series (`gpt-image-1`, `gpt-image-1.5`, `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`) as well as Google Nano Banana series (`nano-banana`, `nano-banana-2-lite`, `nano-banana-2`, `nano-banana-pro`). `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`."
                         },
                         "prompt": {
                           "rank": 10,
@@ -15785,7 +15803,7 @@
                           "rank": 40,
                           "type": "string",
                           "default": "auto",
-                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-2` supports only `standard`. Official variants bill actual token usage."
+                          "description": "Image quality. GPT Image models support `auto` (default), `low`, `medium`, and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`, and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. `dall-e-2` supports only `standard`. Official variants bill actual token usage."
                         },
                         "background": {
                           "enum": [
@@ -15875,11 +15893,11 @@
           }
         }
       },
-      "source_definition_sha256": "2de5e9ed135644f4205a64a1f1dbf047d13afb8584eef8e48cfb537ebe0a4fe2",
+      "source_definition_sha256": "0ece31ecdb10363ad59a0a2d184ff0c63f1f8701f2f3d667aa1b1ceb118cd150",
       "backend_update": {
-        "revision": "454e952950696a6398349e15defd1c1da201cf4d",
+        "revision": "f3943ac1d8c997d9622d8e50d96338f9d1323149",
         "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
-        "source_file_sha256": "71bed5fe73bc00f1a406cf965ffce47567efbf6d9dfc363c4fd3faee5a062d4f"
+        "source_file_sha256": "46534eece61a6b8317e5bb6a53014a76b546d54a53b59c9cf06d35bbaee23d44"
       }
     },
     "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": {
