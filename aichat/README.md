@@ -78,6 +78,42 @@ Setting `max_turns` to `1` requests a single answer without tool calls. For sche
 
 Repeated AI execution failures do not automatically pause a scheduled task: it will try again at the next scheduled time. Automatic pausing occurs after five consecutive failures to hand the task to the execution service. Insufficient balance marks a run as failed and triggers a recharge notification. An enabled task does not mean its latest run succeeded; check run history with `action: "retrieve_runs"` on `POST /aichat2/scheduled-tasks` for execution results.
 
+## Scheduled Task Timing and Accounts
+
+Use `POST /aichat2/scheduled-tasks` for these v2 controls, not `/aichat/conversations`.
+
+| Field | Behavior |
+| --- | --- |
+| `jitter_seconds` | Nonnegative integer seconds; defaults to `60`. Cloud runs get an independent random offset before or after their planned time; `0` disables it. For interval schedules, the range is capped at one quarter of `interval_seconds`. Local runs have no jitter. |
+| `trigger_probability` | Number from `0` to `1`, default `1`. Each account independently decides whether to start at each trigger: `0` always skips, `1` always starts, and `0.5` starts about half the attempts over time, not necessarily half the accounts each round. Applies to cloud, local, and immediate runs, independently of jitter. |
+| `unattended_policy.connection_bindings` | Cloud tasks can select multiple accounts for one connector, with one account each for other connectors, up to 100 bindings total. Local execution still permits only one account per connector. |
+
+For example, update an existing task with your installed skill and connected account IDs:
+
+```json
+{
+  "action": "update",
+  "id": "YOUR_TASK_ID",
+  "jitter_seconds": 600,
+  "trigger_probability": 0.5,
+  "unattended_policy": {
+    "allowed_skills": ["your-installed-skill"],
+    "connection_bindings": [
+      {"connector_identifier": "github/github", "connection_id": "account-one"},
+      {"connector_identifier": "github/github", "connection_id": "account-two"}
+    ]
+  }
+}
+```
+
+Each selected cloud account has its own schedule, conversation, authorization check, billing, and run result. One account's failure does not block the others. With jitter disabled, runs share a planned time but are processed sequentially, not guaranteed to start simultaneously. The task list retains one configuration and shows the account count and earliest next trigger.
+
+Probability is sampled before conversation creation, model calls, and model charges. A skipped attempt records `status: "skipped"` and `error_code: "probability_skipped"`, does not pause the task, and incurs no model charge. Duplicate callbacks reuse the saved decision rather than sampling again.
+
+Immediate runs evaluate probability independently for every selected account. The API returns a `runs` array with `run_id` and `status` (plus `conversation_id` for started runs), and `triggered_count` / `skipped_count`. Compatibility fields refer to the first started run; when all attempts skip, there is no `conversation_id`.
+
+Changing account selection reschedules the next execution; editing the prompt or probability does not. Pause, resume, and delete affect all accounts, while already-started runs may finish. Existing single-account tasks retain their settings; multi-account selection does not merge copied tasks, so pause redundant copies to avoid duplicate runs. In run history, `run_accounts` snapshots only the accounts selected for that run; later binding changes do not rewrite it.
+
 ## Search Scheduled Tasks
 
 On `POST /aichat2/scheduled-tasks`, use `action: "retrieve_batch"` to list the current user's tasks, newest first. Optional `search` matches task-name substrings, ignoring English case and surrounding whitespace; it is not a regular expression. Omit it or send an empty string for all tasks. Search runs before pagination across the user's complete task list.

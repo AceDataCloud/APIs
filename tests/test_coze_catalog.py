@@ -73,6 +73,12 @@ class CozeCatalogTests(unittest.TestCase):
 
     def test_image_quality_survives_building_and_projection(self):
         import yaml
+        image26_models = tuple(f'gpt-image-2.6-{variant}{suffix}'
+                               for variant in ('flare', 'sunburst')
+                               for suffix in ('', ':reverse', ':official'))
+        unsupported_models = ('gpt-image-2.5', 'gpt-image-2.5:reverse',
+                              'gpt-image-2.6', 'gpt-image-2.6:reverse',
+                              'gpt-image-2.6:official')
         for route, api_id in (
             ('/openai/images/generations', '8f01fe72-8a3e-4872-8d8d-330cde179b3a'),
             ('/openai/images/edits', 'fb74083e-bb68-48d5-8ba6-b5a224400cd3'),
@@ -84,14 +90,21 @@ class CozeCatalogTests(unittest.TestCase):
             for media in source['requestBody']['content'].values():
                 quality = media['schema']['properties']['quality']
                 self.assertTrue({'auto', 'low', 'medium', 'high', 'xhigh', 'max', 'standard'} <= set(quality['enum']))
-                self.assertIn('Only `gpt-image-2.5-flare`', quality['description'])
+                self.assertIn('`gpt-image-2.5-flare`', quality['description'])
+                self.assertIn('`gpt-image-2.6-flare`', quality['description'])
+                self.assertIn('`gpt-image-2.6-sunburst`', quality['description'])
                 self.assertIn('`gpt-image-2.5-sunburst`', quality['description'])
                 self.assertIn('`:reverse`', quality['description'])
                 self.assertIn('`:official`', quality['description'])
                 self.assertIn('actual token usage', quality['description'])
-                models = media['schema']['properties']['model']['enum']
+                model_schema = media['schema']['properties']['model']
                 self.assertTrue({'gpt-image-2.5-flare:reverse',
-                                 'gpt-image-2.5-sunburst:reverse'} <= set(models))
+                                 'gpt-image-2.5-sunburst:reverse'} <= set(model_schema['enum']))
+                for model in image26_models:
+                    OAS30Validator(model_schema).validate(model)
+                for model in unsupported_models:
+                    with self.assertRaises(ValidationError):
+                        OAS30Validator(model_schema).validate(model)
             for key in ('openai', 'gpt-image'):
                 for folder in ('plugins', 'imports'):
                     with self.subTest(route=route, service=key, folder=folder):
@@ -106,7 +119,8 @@ class CozeCatalogTests(unittest.TestCase):
                             OAS30Validator(fields['quality']).validate('ultra')
                         self.assertTrue({'gpt-image-2:official', 'gpt-image-2.5-flare:official',
                                          'gpt-image-2.5-sunburst:official'} <= set(fields['model']['enum']))
-                        for model in ('gpt-image-2.5-flare:reverse', 'gpt-image-2.5-sunburst:reverse'):
+                        for model in ('gpt-image-2.5-flare:reverse', 'gpt-image-2.5-sunburst:reverse',
+                                      *image26_models):
                             self.assertIn(model, fields['model']['enum'])
                             OAS30Validator(fields['model']).validate(model)
                             request = {'model': model, 'prompt': 'An original watercolor',
@@ -114,7 +128,7 @@ class CozeCatalogTests(unittest.TestCase):
                             if route.endswith('/edits'):
                                 request['image'] = ['https://example.com/input.png']
                             OAS30Validator(body).validate(request)
-                        for model in ('gpt-image-2.5', 'gpt-image-2.5:reverse'):
+                        for model in unsupported_models:
                             with self.assertRaises(ValidationError):
                                 OAS30Validator(fields['model']).validate(model)
                         if key == 'openai':
