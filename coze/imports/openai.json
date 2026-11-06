@@ -228,7 +228,7 @@
                     "default": "auto",
                     "pattern": "^(auto|\\d+x\\d+)$",
                     "nullable": true,
-                    "description": "The size of the generated image is in the format `width x height`, or fill in `auto` to select the aspect ratio based on the prompt semantics. **`gpt-image-2`** accepts any `WIDTHxHEIGHT` value that conforms to the format, including 1K presets (`1024x1024`, `1536x1024`, `1024x1536`, `1792x1024`, `1024x1792`), 2K presets (`2048x2048`, `2048x1536`, `1536x2048`, `2048x1152`, `1152x2048`), 4K presets (`2880x2880`, `3264x2448`, `2448x3264`, `3840x2160`, `2160x3840`), and any custom size; regardless of the size, each image is billed uniformly. Size restrictions: custom sizes must be multiples of 16, with the longer side not exceeding 3840, and total pixels not exceeding 8,294,400. `dall-e-2` supports: `256x256`, `512x512`, `1024x1024`. `dall-e-3` supports: `1024x1024`, `1792x1024`, `1024x1792`. When explicitly passing `auto`, the platform will determine based on clear pixels or ratios, naming standards (paper / print / platform ad / advertisement / device / photography / film), medium conventions, and composition in a sequential manner. In addition to common ratios, it can also retain non-standard ratios such as `1.91:1`, `1.85:1`, `2.39:1`, ISO paper `1:√2`, etc.; the result will be normalized to the service-supported multiples of 16 and pixel budget. If automatic judgment is unavailable, it will fall back to the model's default aspect ratio. Omitting the `size` field will directly use the model's default aspect ratio. If there are strict pixel requirements, please directly pass `WIDTHxHEIGHT`."
+                    "description": "Static PNG/JPEG/WebP size: auto or WIDTHxHEIGHT. GPT Image 2, 2.5 Flare/Sunburst, and 2.6 Flare/Sunburst (including :reverse and :official) support custom sizes with both dimensions multiples of 16, longer side at most 3840, total pixels 655,360–8,294,400, and aspect ratio at most 3:1. Presets: 1K (1024x1024, 1536x1024, 1024x1536, 1792x1024, 1024x1792), 2K (2048x2048, 2048x1536, 1536x2048, 2048x1152, 1152x2048), 4K (2880x2880, 3264x2448, 2448x3264, 3840x2160, 2160x3840). Pass concrete pixels, not 4K; 4096x4096 exceeds the pixel limit. Standard and :reverse variants bill per successful image; :official size and quality affect actual token usage. dall-e-2 supports 256x256, 512x512, 1024x1024; dall-e-3 supports 1024x1024, 1792x1024, 1024x1792. Explicit auto uses prompt dimensions, ratios, named standards, medium conventions, and composition, normalized to model limits; if unavailable it falls back to the model default. Omitted size uses the model default. For GPT Image 2.6 GIF, omitted or auto uses the 512x512 preset; start with 512x512, frame_count=9, frame_duration_ms=200. Actual dimensions may be adjusted by the model. GIF size, frames, and n share a model pixel budget; do not apply static 4K rules."
                   },
                   "async": {
                     "type": "boolean",
@@ -316,15 +316,37 @@
                     "type": "string",
                     "description": "Optional callback URL. Once provided, the API will immediately return `task_id` and will push the results to that URL via a POST request after the image generation is complete. The callback payload contains `task_id`, `trace_id`, `success` (boolean), and the complete response data or error information."
                   },
+                  "frame_count": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 16,
+                    "description": "GIF frame count: integer 2–16, default 9. Only for output_format=gif; invalid values are rejected before generation."
+                  },
+                  "frame_duration_ms": {
+                    "type": "integer",
+                    "minimum": 20,
+                    "maximum": 655350,
+                    "description": "GIF milliseconds per frame: integer 20–655350, default 200. Encoding rounds to the nearest 10ms; only for output_format=gif."
+                  },
+                  "complexity": {
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "medium",
+                      "high"
+                    ],
+                    "description": "GPT Image 2.6 only: composition planning complexity low, medium, or high; omitted uses model default high. Independent of rendering quality, with no separate surcharge; official variants still bill actual tokens."
+                  },
                   "output_format": {
                     "enum": [
                       "png",
                       "jpeg",
-                      "webp"
+                      "webp",
+                      "gif"
                     ],
                     "type": "string",
                     "default": "png",
-                    "description": "The return format of the GPT image model. Optional values are `png`, `jpeg`, or `webp`."
+                    "description": "Output format: png, jpeg, or webp. GPT Image 2.6 Flare/Sunburst (including :reverse and :official) also support native GIF, preserving animation frames, loop information, and duration. SVG is not supported. GIF cannot be combined with masks, markup, custom output_compression, prompt_rewriter, or partial-image streaming."
                   },
                   "partial_images": {
                     "type": "integer",
@@ -345,7 +367,6 @@
                   },
                   "output_compression": {
                     "type": "integer",
-                    "default": 100,
                     "maximum": 100,
                     "minimum": 0,
                     "description": "The compression level (0-100%) of the GPT image model when using `webp` or `jpeg` output formats."
@@ -2519,7 +2540,7 @@
                     "default": "auto",
                     "pattern": "^(auto|\\d+x\\d+)$",
                     "nullable": true,
-                    "description": "Image size, in the format of `WIDTHxHEIGHT`, or `auto`. **`gpt-image-2`** accepts any `WIDTHxHEIGHT` value that conforms to this format, including 1K presets (`1024x1024`, `1536x1024`, `1024x1536`, `1792x1024`, `1024x1792`), 2K presets (`2048x2048`, `2048x1536`, `1536x2048`, `2048x1152`, `1152x2048`), 4K presets (`2880x2880`, `3264x2448`, `2448x3264`, `3840x2160`, `2160x3840`), and custom sizes; regardless of the size, each image is billed at a fixed price. Size limitations: custom sizes must be multiples of 16, with the long side ≤ 3840, and total pixel count ≤ 8,294,400. `dall-e-2` supports: `256x256`, `512x512`, `1024x1024`. When passing `auto` (default) or leaving it blank, the output will maintain the aspect ratio of the reference image; if the aspect ratio needs to be changed, `WIDTHxHEIGHT` must be explicitly specified."
+                    "description": "Static PNG/JPEG/WebP size: auto or WIDTHxHEIGHT. GPT Image 2, 2.5 Flare/Sunburst, and 2.6 Flare/Sunburst (including :reverse and :official) support custom sizes with both dimensions multiples of 16, longer side at most 3840, total pixels 655,360–8,294,400, and aspect ratio at most 3:1. Presets: 1K (1024x1024, 1536x1024, 1024x1536, 1792x1024, 1024x1792), 2K (2048x2048, 2048x1536, 1536x2048, 2048x1152, 1152x2048), 4K (2880x2880, 3264x2448, 2448x3264, 3840x2160, 2160x3840). Pass concrete pixels, not 4K; 4096x4096 exceeds the pixel limit. Standard and :reverse variants bill per successful image; :official size and quality affect actual token usage. dall-e-2 supports 256x256, 512x512, 1024x1024. Omitted or auto size considers prompt size intent, falling back to the first reference image if no intent is found or automatic planning is unavailable, then normalizes to model limits. For GPT Image 2.6 GIF, omitted or auto uses the 512x512 preset; start with 512x512, frame_count=9, frame_duration_ms=200. Actual dimensions may be adjusted by the model. GIF size, frames, and n share a model pixel budget; do not apply static 4K rules."
                   },
                   "async": {
                     "type": "boolean",
@@ -2596,15 +2617,41 @@
                     "type": "string",
                     "description": "Optional callback URL. When provided, the interface immediately returns `task_id` and pushes the results to that URL via POST after the image editing is completed."
                   },
+                  "frame_count": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 16,
+                    "description": "GIF frame count: integer 2–16, default 9. Only for output_format=gif; invalid values are rejected before generation."
+                  },
+                  "frame_duration_ms": {
+                    "type": "integer",
+                    "minimum": 20,
+                    "maximum": 655350,
+                    "description": "GIF milliseconds per frame: integer 20–655350, default 200. Encoding rounds to the nearest 10ms; only for output_format=gif."
+                  },
+                  "complexity": {
+                    "type": "string",
+                    "enum": [
+                      "low",
+                      "medium",
+                      "high"
+                    ],
+                    "description": "GPT Image 2.6 only: composition planning complexity low, medium, or high; omitted uses model default high. Independent of rendering quality, with no separate surcharge; official variants still bill actual tokens."
+                  },
                   "output_format": {
                     "enum": [
                       "png",
                       "jpeg",
-                      "webp"
+                      "webp",
+                      "gif"
                     ],
                     "type": "string",
                     "default": "png",
-                    "description": "The return formats of the GPT Image series models are: `png`, `jpeg`, or `webp`."
+                    "description": "Output format: png, jpeg, or webp. GPT Image 2.6 Flare/Sunburst (including :reverse and :official) also support native GIF, preserving animation frames, loop information, and duration. SVG is not supported. GIF cannot be combined with masks, markup, custom output_compression, prompt_rewriter, or partial-image streaming."
+                  },
+                  "markup": {
+                    "description": "GPT Image 2.6 static edits only: transparent PNG annotation layer containing transparent pixels and matching the first reference image's orientation-corrected dimensions. Each image is limited to 16777216 pixels; markup is limited to 40MB. JSON accepts an HTTPS URL, PNG data URL, or an object containing only image_url; multipart accepts a file or HTTPS URL. Cannot be combined with mask, GIF, or prompt_rewriter; file_id is not supported. This Coze form accepts only HTTPS URL or PNG data URL strings; use the API directly for image_url objects or multipart uploads.",
+                    "type": "string"
                   },
                   "input_fidelity": {
                     "enum": [
@@ -2626,7 +2673,6 @@
                   },
                   "output_compression": {
                     "type": "integer",
-                    "default": 100,
                     "maximum": 100,
                     "minimum": 0,
                     "description": "Compression level (0-100%) when outputting `webp` or `jpeg`."

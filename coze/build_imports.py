@@ -117,6 +117,11 @@ def main():
                         assert name not in body.get('required',[]), 'Never remove a required API input'
                         del props[name]
                         notes.append({'field':loc+'/request/'+name,'kind':'omitted_optional_input','reason':'Opaque object unsupported by Coze editor; canonical contract retains it.'})
+                if path.stem == 'openai' and uri in {'/openai/images/generations', '/openai/images/edits'}:
+                    # GIF rejects explicit compression, so do not prefill a static-only option.
+                    props['output_compression'].pop('default', None)
+                    if 'markup' in props:
+                        props['markup']['description'] += ' This Coze form accepts only HTTPS URL or PNG data URL strings; use the API directly for image_url objects or multipart uploads.'
                 if path.stem in {'openai','claude','kimi'} and uri.endswith('/chat/completions'):
                     message=props['messages']['items']
                     assert 'tool_calls' not in message.get('required',[])

@@ -465,6 +465,15 @@
         "array"
       ],
       "coze_type": "array"
+    },
+    {
+      "field": "POST /openai/images/edits/request/markup",
+      "kind": "representation",
+      "api_types": [
+        "string",
+        "object"
+      ],
+      "coze_type": "string"
     }
   ],
   "serp": [],

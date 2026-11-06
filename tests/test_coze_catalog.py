@@ -135,6 +135,77 @@ class CozeCatalogTests(unittest.TestCase):
                             self.assertIn('gpt-image-2:reverse', fields['model']['enum'])
         self.assertEqual(self.plugins['openai'], yaml.safe_load((ROOT / 'image.yaml').read_text()))
 
+    def test_image26_animation_and_markup_survive_building_and_projection(self):
+        import yaml
+        for route, api_id in (
+            ('/openai/images/generations', '8f01fe72-8a3e-4872-8d8d-330cde179b3a'),
+            ('/openai/images/edits', 'fb74083e-bb68-48d5-8ba6-b5a224400cd3'),
+        ):
+            contract = self.source['contracts'][api_id]
+            source = contract['definition']['paths'][route]['post']
+            canonical = self.plugins['openai']['paths'][route]['post']
+            self.assertEqual(canonical, builder.build_operation(contract, route, 'post', source))
+            for media in source['requestBody']['content'].values():
+                fields = media['schema']['properties']
+                self.assertEqual(['png', 'jpeg', 'webp', 'gif'], fields['output_format']['enum'])
+                self.assertEqual((2, 16), (fields['frame_count']['minimum'], fields['frame_count']['maximum']))
+                self.assertEqual((20, 655350), (fields['frame_duration_ms']['minimum'], fields['frame_duration_ms']['maximum']))
+                self.assertIn('GPT Image 2.6', fields['output_format']['description'])
+                self.assertIn('512x512', fields['size']['description'])
+                if route.endswith('/edits'):
+                    if media is source['requestBody']['content']['application/json']:
+                        OAS30Validator(fields['markup']).validate({'image_url': 'https://example.com/annotation.png'})
+                        with self.assertRaises(ValidationError):
+                            OAS30Validator(fields['markup']).validate({'file_id': 'unsupported'})
+                        with self.assertRaises(ValidationError):
+                            OAS30Validator(fields['markup']).validate({'image_url': 'https://example.com/annotation.png', 'extra': True})
+                    else:
+                        self.assertEqual('binary', fields['markup']['format'])
+            for key in ('openai', 'gpt-image'):
+                for folder in ('plugins', 'imports'):
+                    with self.subTest(route=route, service=key, folder=folder):
+                        doc = json.loads((ROOT / folder / f'{key}.json').read_text())
+                        self.assertEqual(doc, yaml.safe_load((ROOT / folder / f'{key}.yaml').read_text()))
+                        body = doc['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                        fields = body['properties']
+                        for name, valid, invalid in (
+                            ('frame_count', (2, 9, 16), (1, 17, 2.5, '9', True)),
+                            ('frame_duration_ms', (20, 200, 655350), (19, 655351, 20.5, '200', True)),
+                            ('complexity', ('low', 'medium', 'high'), ('auto', 'max', 1)),
+                            ('output_format', ('gif', 'png', 'jpeg', 'webp'), ('svg', 'mp4')),
+                        ):
+                            for value in valid:
+                                OAS30Validator(fields[name]).validate(value)
+                            for value in invalid:
+                                with self.assertRaises(ValidationError):
+                                    OAS30Validator(fields[name]).validate(value)
+                        for variant in ('flare', 'sunburst'):
+                            for suffix in ('', ':reverse', ':official'):
+                                request = {'model': f'gpt-image-2.6-{variant}{suffix}',
+                                           'prompt': 'An original looping animation',
+                                           'output_format': 'gif', 'size': '512x512',
+                                           'frame_count': 9, 'frame_duration_ms': 200,
+                                           'complexity': 'high', 'n': 1, 'async': True}
+                                if route.endswith('/edits'):
+                                    request['image'] = ['https://example.com/input.png']
+                                OAS30Validator(body).validate(request)
+                        if folder == 'imports':
+                            self.assertNotIn('default', fields['output_compression'])
+                        if route.endswith('/edits'):
+                            for markup in ('https://example.com/annotation.png', 'data:image/png;base64,ANNOTATION'):
+                                OAS30Validator(fields['markup']).validate(markup)
+                            if folder == 'imports':
+                                self.assertEqual('string', fields['markup']['type'])
+                                self.assertIn('This Coze form accepts only', fields['markup']['description'])
+                            else:
+                                OAS30Validator(fields['markup']).validate({'image_url': 'https://example.com/annotation.png'})
+                        else:
+                            self.assertNotIn('markup', fields)
+        notes = json.loads((ROOT / 'imports/compatibility-notes.json').read_text())['openai']
+        self.assertTrue(any(note['field'].endswith('/request/markup') and
+                            note['kind'] == 'representation' and note['coze_type'] == 'string'
+                            for note in notes))
+
     def test_producer_inputs_are_required_by_action(self):
         import yaml
         route = '/producer/audios'
