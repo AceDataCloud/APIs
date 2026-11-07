@@ -84,8 +84,8 @@ Use `POST /aichat2/scheduled-tasks` for these v2 controls, not `/aichat/conversa
 
 | Field | Behavior |
 | --- | --- |
-| `jitter_seconds` | Nonnegative integer seconds; defaults to `60`. Cloud runs get an independent random offset before or after their planned time; `0` disables it. For interval schedules, the range is capped at one quarter of `interval_seconds`. Local runs have no jitter. |
-| `trigger_probability` | Number from `0` to `1`, default `1`. Each account independently decides whether to start at each trigger: `0` always skips, `1` always starts, and `0.5` starts about half the attempts over time, not necessarily half the accounts each round. Applies to cloud, local, and immediate runs, independently of jitter. |
+| `jitter_seconds` | Nonnegative integer seconds; defaults to `60`. Automatic cloud runs get an independent random offset before or after their planned time; `0` disables it. For interval schedules, the range is capped at one quarter of `interval_seconds`. Local and manual runs have no jitter. |
+| `trigger_probability` | Number from `0` to `1`, default `1`. Each account independently decides whether to start at each automatic scheduled trigger: `0` skips all automatic attempts but still allows manual runs, `1` always starts, and `0.5` starts about half the attempts over time, not necessarily half the accounts each round. Applies to automatic cloud and local runs, independently of jitter; manual runs do not sample probability. |
 | `unattended_policy.connection_bindings` | Cloud tasks can select multiple accounts for one connector, with one account each for other connectors, up to 100 bindings total. Local execution still permits only one account per connector. |
 
 For example, update an existing task with your installed skill and connected account IDs:
@@ -106,13 +106,31 @@ For example, update an existing task with your installed skill and connected acc
 }
 ```
 
-Each selected cloud account has its own schedule, conversation, authorization check, billing, and run result. One account's failure does not block the others. With jitter disabled, runs share a planned time but are processed sequentially, not guaranteed to start simultaneously. The task list retains one configuration and shows the account count and earliest next trigger.
+Each selected cloud account has its own schedule, conversation, authorization check, billing, and run result. One account's failure does not block the others. For automatic runs with jitter disabled, accounts share a planned time but are processed sequentially, not guaranteed to start simultaneously. The task list retains one configuration and shows the account count and earliest next trigger.
 
-Probability is sampled before conversation creation, model calls, and model charges. A skipped attempt records `status: "skipped"` and `error_code: "probability_skipped"`, does not pause the task, and incurs no model charge. Duplicate callbacks reuse the saved decision rather than sampling again.
+For automatic scheduled runs, probability is sampled before conversation creation, model calls, and model charges. A skipped attempt records `status: "skipped"` and `error_code: "probability_skipped"`, does not pause the task, and incurs no model charge. Duplicate callbacks reuse the saved decision rather than sampling again.
 
-Immediate runs evaluate probability independently for every selected account. The API returns a `runs` array with `run_id` and `status` (plus `conversation_id` for started runs), and `triggered_count` / `skipped_count`. Compatibility fields refer to the first started run; when all attempts skip, there is no `conversation_id`.
+Changing saved account selection reschedules the next execution; editing the prompt or probability does not. Pause, resume, and delete affect all accounts, while already-started runs may finish. Existing single-account tasks retain their settings; multi-account selection does not merge copied tasks, so pause redundant copies to avoid duplicate runs. In run history, `run_accounts` snapshots only the accounts selected for that run; later binding changes do not rewrite it.
 
-Changing account selection reschedules the next execution; editing the prompt or probability does not. Pause, resume, and delete affect all accounts, while already-started runs may finish. Existing single-account tasks retain their settings; multi-account selection does not merge copied tasks, so pause redundant copies to avoid duplicate runs. In run history, `run_accounts` snapshots only the accounts selected for that run; later binding changes do not rewrite it.
+### Manually Trigger Selected Accounts
+
+On `POST /aichat2/scheduled-tasks`, use `action: "trigger_selected"` to run only selected accounts for this invocation:
+
+```json
+{
+  "action": "trigger_selected",
+  "id": "YOUR_TASK_ID",
+  "connection_ids": ["account-one"]
+}
+```
+
+`connection_ids` is required and must be a nonempty array without duplicates. Select only accounts already saved for the task's multi-account connector; fixed accounts for other connectors remain bound to each run. An out-of-scope account, including one removed from the task, rejects the entire request without starting any runs. The existing `action: "trigger"` without an account list still attempts all configured accounts. If an older server does not support `trigger_selected`, it returns an error; do not fall back to triggering all accounts.
+
+Manual runs bypass `jitter_seconds` and do not wait for the previous account to finish. Each selected account starts without sampling the saved `trigger_probability`, even when it is `0`; unselected accounts get no run records. This also applies to single-account immediate triggers, `action: "trigger"`, and local manual runs. Saved account bindings, trigger probability, and the next automatic schedule remain unchanged; authorization checks and normal billing still apply.
+
+When a cloud manual trigger is accepted, the API returns `runs`, each with `run_id`, `status: "queued"`, and `conversation_id`. `triggered_count` is the number of accounts started; the compatibility field `skipped_count` is always `0`. Top-level compatibility fields refer to the first started run. Each manual run records its effective `trigger_probability` as `1`, without rewriting task configuration or historical records. Acceptance does not mean execution has completed successfully.
+
+In Nexior, a multi-account task's immediate-trigger control opens an account picker with nothing selected by default; choose one or more accounts or select all. Single-account tasks trigger directly. Starting one account opens its conversation; starting multiple accounts shows the task's run history.
 
 ## Search Scheduled Tasks
 
