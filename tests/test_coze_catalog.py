@@ -548,6 +548,30 @@ class CozeCatalogTests(unittest.TestCase):
                 'generationConfig': {'maxOutputTokens': 32768},
             })
 
+    def test_gemini_thought_summaries_are_boolean_opt_in(self):
+        import yaml
+        route = '/v1beta/models/{model}:generateContent'
+        contract = self.source['contracts']['7a632630-eb9f-4776-b11c-8cc86ae250d7']
+        operation = self.plugins['gemini']['paths'][route]['post']
+        self.assertEqual(operation, builder.build_operation(
+            contract, route, 'post', contract['definition']['paths'][route]['post']))
+        self.assertEqual(self.plugins['gemini'], yaml.safe_load((ROOT / 'plugins/gemini.yaml').read_text()))
+        body = operation['requestBody']['content']['application/json']['schema']
+        thinking = body['properties']['generationConfig']['properties']['thinkingConfig']
+        include_thoughts = thinking['properties']['includeThoughts']
+        self.assertEqual('boolean', include_thoughts['type'])
+        self.assertIs(False, include_thoughts['default'])
+        request = {'contents': [{'role': 'user', 'parts': [{'text': 'Hello'}]}]}
+        OAS30Validator(body).validate(request)
+        OAS30Validator(body).validate({**request, 'generationConfig': {'thinkingConfig': {}}})
+        for value in (False, True):
+            OAS30Validator(body).validate({**request, 'generationConfig': {
+                'thinkingConfig': {'includeThoughts': value, 'thinkingBudget': 2048}}})
+        for value in ('true', 'false', 0, 1, None):
+            with self.subTest(invalid=value), self.assertRaises(ValidationError):
+                OAS30Validator(include_thoughts).validate(value)
+        self.assertNotIn('/v1beta/models/{model}:streamGenerateContent', self.plugins['gemini']['paths'])
+
     def test_kling_reference_video_billing_guidance_survives_building_and_projection(self):
         import yaml
         canonical = self.plugins['kling']
