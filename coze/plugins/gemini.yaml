@@ -496,6 +496,7 @@ paths:
                             for thinking.
                         includeThoughts:
                           type: boolean
+                          default: false
                           description: Is the thought process included in the response?
                       description: Configuration of thinking functions (only supports specific models).
                     maxOutputTokens:

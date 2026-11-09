@@ -20271,6 +20271,7 @@
                                 },
                                 "includeThoughts": {
                                   "type": "boolean",
+                                  "default": false,
                                   "description": "Is the thought process included in the response?"
                                 }
                               },
@@ -20443,9 +20444,9 @@
       },
       "source_definition_sha256": "75f2d24308b5fcfc3f9a4dfcc33a87c1b116e9f4de31a51c5d238b82d25c3a38",
       "backend_update": {
-        "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
+        "revision": "7e4b894dd02190dc34a7da06c419eb6167f96b97",
         "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
-        "source_file_sha256": "b5a73b70c68707219ab363790653f733abb8720f36c0914250f9621f448d8897"
+        "source_file_sha256": "9436928315dd33e06bc127e944adb3a396259fc506111d6832595546424ee7aa"
       }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {

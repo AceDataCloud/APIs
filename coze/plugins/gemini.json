@@ -678,6 +678,7 @@
                           },
                           "includeThoughts": {
                             "type": "boolean",
+                            "default": false,
                             "description": "Is the thought process included in the response?"
                           }
                         },
