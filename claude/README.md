@@ -6,7 +6,13 @@ Anthropic Claude generative services, including chat completions and native mess
 
 API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/services/fa3cba27-b01c-4657-942f-63589f727b00?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=claude_api_readme_services_fa3cba27_b01c_4657_942f_63589f727b00)
 
-Keywords: claude-api, anthropic, claude-opus-5-5, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+Keywords: claude-api, anthropic, claude-opus-5-5, claude-fable-5-2, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
+
+## Claude Fable 5.2
+
+Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
+
+At the current maximum package (142,800 Credits for $13,584), standard input costs $1.60 and output costs $8 per million tokens. Cache reads cost $0.04, five-minute cache writes $2, and one-hour cache writes $3.20 per million tokens. These are 20% of Anthropic's standard API rates at that package rate; other packages and account discounts must be checked on the [live pricing page](https://platform.acedata.cloud/models/claude-fable-5-2?m=chat&tab=pricing).
 
 ## Get your Ace Data Cloud API key
 
@@ -31,7 +37,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 ## Overview
 
-Claude is Anthropic's AI assistant, offering powerful language understanding and generation. `claude-opus-5-5` is available through Chat Completions and Messages; use Messages when you need complete native thinking blocks and tool semantics. The current flagship `claude-fable-5-1` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5` remains available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
+Claude is Anthropic's AI assistant, offering powerful language understanding and generation. `claude-opus-5-5` is available through Chat Completions and Messages; use Messages when you need complete native thinking blocks and tool semantics. The current flagship `claude-fable-5-2` provides a 1M-token context window and up to 128K output tokens. The earlier `claude-fable-5-1` and `claude-fable-5` remain available alongside `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-sonnet-5`, and `claude-haiku-4-5-20251001`. It supports OpenAI-compatible chat completions format as well as Anthropic's native messages API, with features including multi-turn dialogue, streaming responses, vision models, and extended thinking.
 
 ## Token and Cache Billing
 

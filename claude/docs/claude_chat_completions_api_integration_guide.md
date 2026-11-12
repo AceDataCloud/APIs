@@ -4,6 +4,12 @@ Anthropic Claude is a very powerful AI dialogue system that can generate smooth 
 
 This document mainly introduces the usage process of the Claude Chat Completion API, allowing us to easily utilize the official Claude dialogue functionality.
 
+## Claude Fable 5.2
+
+Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
+
+At the current maximum package (142,800 Credits for $13,584), standard input costs $1.60 and output costs $8 per million tokens. Cache reads cost $0.04, five-minute cache writes $2, and one-hour cache writes $3.20 per million tokens. These are 20% of Anthropic's standard API rates at that package rate; other packages and account discounts must be checked on the [live pricing page](https://platform.acedata.cloud/models/claude-fable-5-2?m=chat&tab=pricing).
+
 ## Application Process
 
 To use the Claude Chat Completion API, you can first visit the [Claude Chat Completion API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page and click the "Acquire" button to obtain the credentials needed for the request:

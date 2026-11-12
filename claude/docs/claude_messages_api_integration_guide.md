@@ -2,6 +2,12 @@
 
 The Messages API uses the Anthropic Messages request and response format for messages, system prompts, content blocks, tool calls, thinking controls and streaming events. Choose a published model with `model` while keeping the same Messages data structures.
 
+## Claude Fable 5.2
+
+Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
+
+At the current maximum package (142,800 Credits for $13,584), standard input costs $1.60 and output costs $8 per million tokens. Cache reads cost $0.04, five-minute cache writes $2, and one-hour cache writes $3.20 per million tokens. These are 20% of Anthropic's standard API rates at that package rate; other packages and account discounts must be checked on the [live pricing page](https://platform.acedata.cloud/models/claude-fable-5-2?m=chat&tab=pricing).
+
 ## GPT-6.1 Terra
 
 Set `model: "gpt-6.1-terra"` and continue to send Messages-format `messages` and `max_tokens`. Read text and usage from the Messages response structure. Check current prices and account access before switching models; separately reported cache-read and cache-creation tokens are settled separately.

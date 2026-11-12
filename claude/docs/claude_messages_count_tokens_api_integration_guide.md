@@ -4,6 +4,8 @@ The Claude Messages Count Tokens API can calculate the input token count of a me
 
 This document mainly describes the usage process of the Claude Messages Count Tokens API.
 
+`claude-fable-5-2` is not available on Count Tokens. Use the final generation response’s `usage` for its actual token consumption; another model’s count is not an exact substitute.
+
 ## Application Process
 
 To use the Claude Messages Count Tokens API, you can first go to the [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) page and click the "Acquire" button to obtain the credentials needed for the request.
