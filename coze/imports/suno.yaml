@@ -29,7 +29,10 @@ paths:
                           description: The unique ID of this result
                         lyric:
                           type: string
-                          description: Generate lyrics for the content.
+                          description: Song lyric metadata, not an audio transcript. replace_section full_song
+                            mode combines complete lyrics when source lyric timing is available and may
+                            return empty lyrics otherwise. Listen to confirm new words were sung; this
+                            field does not prove a successful lyric change.
                         model:
                           type: string
                           description: Model used for generation
@@ -95,7 +98,10 @@ paths:
                               description: The unique ID of this result
                             lyric:
                               type: string
-                              description: Generate lyrics for the content.
+                              description: Song lyric metadata, not an audio transcript. replace_section
+                                full_song mode combines complete lyrics when source lyric timing is available
+                                and may return empty lyrics otherwise. Listen to confirm new words were
+                                sung; this field does not prove a successful lyric change.
                             model:
                               type: string
                               description: Model used for generation
@@ -142,7 +148,10 @@ paths:
                               description: The unique ID of this result
                             lyric:
                               type: string
-                              description: Generate lyrics for the content.
+                              description: Song lyric metadata, not an audio transcript. replace_section
+                                full_song mode combines complete lyrics when source lyric timing is available
+                                and may return empty lyrics otherwise. Listen to confirm new words were
+                                sung; this field does not prove a successful lyric change.
                             model:
                               type: string
                               description: Model used for generation
@@ -246,7 +255,10 @@ paths:
                   type: string
                   description: Lyrics for generating music under custom mode (`custom` is `true`). `chirp-v3-5`
                     and `chirp-v4` have a maximum of 3000 characters; `chirp-v4-5` and above (including
-                    `chirp-v5`, `chirp-v5-5`) have a maximum of 5000 characters.
+                    `chirp-v5`, `chirp-v5-5`) have a maximum of 5000 characters. For replace_section,
+                    supply only the local new lyrics for the selected interval, not the entire song. Prefer
+                    the same local lyrics in prompt; full-song output does not require full-song lyric
+                    input.
                 model:
                   enum:
                   - chirp-v6
@@ -320,9 +332,11 @@ paths:
                     based on the lyrics; otherwise, it will be generated based on the prompts.
                 prompt:
                   type: string
-                  description: The prompt words for generating music in inspiration mode (when `custom`
-                    is set to `false`) must not exceed 500 characters. For custom mode, please use `lyric`
-                    and `style`.
+                  description: For ordinary inspiration generation (custom=false), the prompt must not
+                    exceed 500 characters; ordinary custom generation uses lyric and style. For replace_section,
+                    prompt is the local new lyrics for the selected interval, preferably identical to
+                    lyric, not inspiration or style. Adding prompt does not guarantee verbatim singing.
+                    For add_stem, this optional field describes the track to add.
                 variety:
                   enum:
                   - 'off'
@@ -516,15 +530,17 @@ paths:
                   - full_song
                   type: string
                   default: full_song
-                  description: When `action` is `replace_section`, specify the return format. `full_song`
-                    (default) will concatenate 2 candidates separately and return 2 complete songs; `candidates`
-                    will return 2 uncombined replacement segment candidates, which need to be selected
-                    before calling `concat`.
+                  description: For replace_section, full_song (default) joins two candidates separately
+                    and returns two complete songs without another concat call; complete songs need not
+                    match the source duration. candidates returns two uncombined replacements to select
+                    before concat. For another edit, use the chosen complete result ID and recheck its
+                    interval.
         required: true
-      description: 'Suno AI music generation API, generates 2 songs per request with extension support.
-        Full input requirements: https://platform.acedata.cloud/documents/suno-audios Submit once with
-        async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result.
-        Do not resubmit while pending.'
+      description: 'A successful action=stems request has a standard fee of 0.56 Credits, counting vocal
+        and instrumental outputs together as one request. Applicable discounts follow the actual bill;
+        failed requests are not charged. Other actions retain their own prices. Full input requirements:
+        https://platform.acedata.cloud/documents/suno-audios Submit once with async=true. Retain task_id
+        and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.'
       externalDocs:
         url: https://platform.acedata.cloud/documents/suno-audios
   /suno/voices:
@@ -604,8 +620,8 @@ paths:
                   type: string
                   description: Description information for custom voice personality.
         required: true
-      description: 'Suno Voice Clone API. Create a custom voice persona from an uploaded audio file for
-        voice cloning in music generation. Full input requirements: https://platform.acedata.cloud/documents/suno-voices'
+      description: 'A successful voice creation request has a standard fee of 0.15 Credits. Applicable
+        discounts follow the actual bill; failed requests are not charged. Full input requirements: https://platform.acedata.cloud/documents/suno-voices'
       externalDocs:
         url: https://platform.acedata.cloud/documents/suno-voices
   /suno/mp3:
@@ -1139,8 +1155,9 @@ paths:
                   description: Prompts for generating lyrics, describing the desired theme or style of
                     the lyrics.
         required: true
-      description: 'Suno lyrics generation API. Generates structured song lyrics from a prompt; supports
-        the default and remi-v1 models. Full input requirements: https://platform.acedata.cloud/documents/suno-lyrics'
+      description: 'A successful lyrics generation request has a standard fee of 0.08 Credits, even when
+        it returns multiple lyric candidates. Applicable discounts follow the actual bill; failed requests
+        are not charged. Full input requirements: https://platform.acedata.cloud/documents/suno-lyrics'
       externalDocs:
         url: https://platform.acedata.cloud/documents/suno-lyrics
   /suno/wav:
@@ -1393,7 +1410,10 @@ paths:
                               description: The unique ID of this result
                             lyric:
                               type: string
-                              description: Generate lyrics for the content.
+                              description: Song lyric metadata, not an audio transcript. replace_section
+                                full_song mode combines complete lyrics when source lyric timing is available
+                                and may return empty lyrics otherwise. Listen to confirm new words were
+                                sung; this field does not prove a successful lyric change.
                             model:
                               type: string
                               description: Model used for generation
@@ -1483,7 +1503,11 @@ paths:
                                   description: The unique ID of this result
                                 lyric:
                                   type: string
-                                  description: Generate lyrics for the content.
+                                  description: Song lyric metadata, not an audio transcript. replace_section
+                                    full_song mode combines complete lyrics when source lyric timing is
+                                    available and may return empty lyrics otherwise. Listen to confirm
+                                    new words were sung; this field does not prove a successful lyric
+                                    change.
                                 model:
                                   type: string
                                   description: Model used for generation
@@ -1530,7 +1554,11 @@ paths:
                                   description: The unique ID of this result
                                 lyric:
                                   type: string
-                                  description: Generate lyrics for the content.
+                                  description: Song lyric metadata, not an audio transcript. replace_section
+                                    full_song mode combines complete lyrics when source lyric timing is
+                                    available and may return empty lyrics otherwise. Listen to confirm
+                                    new words were sung; this field does not prove a successful lyric
+                                    change.
                                 model:
                                   type: string
                                   description: Model used for generation
@@ -1688,7 +1716,11 @@ paths:
                                     description: The unique ID of this result
                                   lyric:
                                     type: string
-                                    description: Generate lyrics for the content.
+                                    description: Song lyric metadata, not an audio transcript. replace_section
+                                      full_song mode combines complete lyrics when source lyric timing
+                                      is available and may return empty lyrics otherwise. Listen to confirm
+                                      new words were sung; this field does not prove a successful lyric
+                                      change.
                                   model:
                                     type: string
                                     description: Model used for generation
@@ -1779,7 +1811,11 @@ paths:
                                         description: The unique ID of this result
                                       lyric:
                                         type: string
-                                        description: Generate lyrics for the content.
+                                        description: Song lyric metadata, not an audio transcript. replace_section
+                                          full_song mode combines complete lyrics when source lyric timing
+                                          is available and may return empty lyrics otherwise. Listen to
+                                          confirm new words were sung; this field does not prove a successful
+                                          lyric change.
                                       model:
                                         type: string
                                         description: Model used for generation
@@ -1826,7 +1862,11 @@ paths:
                                         description: The unique ID of this result
                                       lyric:
                                         type: string
-                                        description: Generate lyrics for the content.
+                                        description: Song lyric metadata, not an audio transcript. replace_section
+                                          full_song mode combines complete lyrics when source lyric timing
+                                          is available and may return empty lyrics otherwise. Listen to
+                                          confirm new words were sung; this field does not prove a successful
+                                          lyric change.
                                       model:
                                         type: string
                                         description: Model used for generation
