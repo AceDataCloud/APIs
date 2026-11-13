@@ -5617,6 +5617,7 @@
                         },
                         "model": {
                           "enum": [
+                            "claude-fable-5-2",
                             "claude-fable-5-1",
                             "claude-fable-5",
                             "claude-opus-5-5",
@@ -6246,9 +6247,9 @@
       },
       "source_definition_sha256": "c33c705230638f966018ece952d62d86f90fa1119c660d80d394356195db4dad",
       "backend_update": {
-        "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
-        "source_file_sha256": "3e3e32e5189d85e716c92f69e3fc3a6626482988f05e0f16d29074944edc41e9"
+        "source_file_sha256": "6923b433c4616017553f6a79f1ad4fd8d10fab92ff0f594763dc54e00518cc00"
       }
     },
     "a43a98fc-f833-4cfb-8596-8066faad2c42": {
@@ -7207,6 +7208,7 @@
                     "glm-5",
                     "gpt-5.6-sol-fast",
                     "gpt-5.6-sol",
+                    "claude-fable-5-2",
                     "claude-fable-5-1",
                     "gemini-3.6-flash",
                     "claude-sonnet-5-5",
@@ -7428,9 +7430,9 @@
       },
       "source_definition_sha256": "6ab0e0831e16395eb88a22cb40f2efda03ada194a3b26b3e43176b8872e1b9a2",
       "backend_update": {
-        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/a43a98fc-f833-4cfb-8596-8066faad2c42.json",
-        "source_file_sha256": "519cd6705721dcf2e32c36204e6380e8a2afa611e2108373744ebf6ce11f9d62"
+        "source_file_sha256": "e4e275870130fed399b40a9e509e9869a7d315eb9a64a35d3bd08417249bade4"
       }
     },
     "553a0038-eef7-4e79-87c7-9d4e7321ca9b": {
@@ -23572,6 +23574,7 @@
                             "claude-opus-4-20250514",
                             "claude-opus-4-5-20251101",
                             "claude-opus-4-6",
+                            "claude-fable-5-2",
                             "claude-fable-5-1",
                             "claude-fable-5",
                             "claude-opus-5",
@@ -23861,7 +23864,12 @@
           }
         }
       },
-      "source_definition_sha256": "62b69933d72808c1c3c1379f5585ce5d01f165457c961108081def6d49b03539"
+      "source_definition_sha256": "62b69933d72808c1c3c1379f5585ce5d01f165457c961108081def6d49b03539",
+      "backend_update": {
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
+        "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+        "source_file_sha256": "94a7db1c00ff1efe47f04efe4fc2d0f08aa50c826911b18ddde99bc289984eaf"
+      }
     },
     "7753ed09-1046-46d3-ad80-cd7ff19676b5": {
       "id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",
@@ -39744,7 +39752,7 @@
                                 },
                                 "lyric": {
                                   "type": "string",
-                                  "description": "Generate lyrics for the content."
+                                  "description": "Song lyric metadata, not an audio transcript. replace_section full_song mode combines complete lyrics when source lyric timing is available and may return empty lyrics otherwise. Listen to confirm new words were sung; this field does not prove a successful lyric change."
                                 },
                                 "model": {
                                   "type": "string",
@@ -39826,7 +39834,7 @@
                                     },
                                     "lyric": {
                                       "type": "string",
-                                      "description": "Generate lyrics for the content."
+                                      "description": "Song lyric metadata, not an audio transcript. replace_section full_song mode combines complete lyrics when source lyric timing is available and may return empty lyrics otherwise. Listen to confirm new words were sung; this field does not prove a successful lyric change."
                                     },
                                     "model": {
                                       "type": "string",
@@ -39884,7 +39892,7 @@
                                     },
                                     "lyric": {
                                       "type": "string",
-                                      "description": "Generate lyrics for the content."
+                                      "description": "Song lyric metadata, not an audio transcript. replace_section full_song mode combines complete lyrics when source lyric timing is available and may return empty lyrics otherwise. Listen to confirm new words were sung; this field does not prove a successful lyric change."
                                     },
                                     "model": {
                                       "type": "string",
@@ -40389,7 +40397,7 @@
                         "lyric": {
                           "rank": 60,
                           "type": "string",
-                          "description": "Lyrics for generating music under custom mode (`custom` is `true`). `chirp-v3-5` and `chirp-v4` have a maximum of 3000 characters; `chirp-v4-5` and above (including `chirp-v5`, `chirp-v5-5`) have a maximum of 5000 characters."
+                          "description": "Lyrics for generating music under custom mode (`custom` is `true`). `chirp-v3-5` and `chirp-v4` have a maximum of 3000 characters; `chirp-v4-5` and above (including `chirp-v5`, `chirp-v5-5`) have a maximum of 5000 characters. For replace_section, supply only the local new lyrics for the selected interval, not the entire song. Prefer the same local lyrics in prompt; full-song output does not require full-song lyric input."
                         },
                         "model": {
                           "enum": [
@@ -40461,7 +40469,7 @@
                         "prompt": {
                           "rank": 10,
                           "type": "string",
-                          "description": "The prompt words for generating music in inspiration mode (when `custom` is set to `false`) must not exceed 500 characters. For custom mode, please use `lyric` and `style`.",
+                          "description": "For ordinary inspiration generation (custom=false), the prompt must not exceed 500 characters; ordinary custom generation uses lyric and style. For replace_section, prompt is the local new lyrics for the selected interval, preferably identical to lyric, not inspiration or style. Adding prompt does not guarantee verbatim singing. For add_stem, this optional field describes the track to add.",
                           "additionalProperties": true
                         },
                         "variety": {
@@ -40680,14 +40688,15 @@
                           "rank": 97,
                           "type": "string",
                           "default": "full_song",
-                          "description": "When `action` is `replace_section`, specify the return format. `full_song` (default) will concatenate 2 candidates separately and return 2 complete songs; `candidates` will return 2 uncombined replacement segment candidates, which need to be selected before calling `concat`."
+                          "description": "For replace_section, full_song (default) joins two candidates separately and returns two complete songs without another concat call; complete songs need not match the source duration. candidates returns two uncombined replacements to select before concat. For another edit, use the chosen complete result ID and recheck its interval."
                         }
                       }
                     }
                   }
                 },
                 "required": true
-              }
+              },
+              "description": "A successful action=stems request has a standard fee of 0.56 Credits, counting vocal and instrumental outputs together as one request. Applicable discounts follow the actual bill; failed requests are not charged. Other actions retain their own prices."
             }
           }
         },
@@ -40709,9 +40718,9 @@
       },
       "source_definition_sha256": "30f3c287086efbd67e105628065cb750457032525dc6059cb667090f485bdae4",
       "backend_update": {
-        "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/09a26295-5972-4392-9318-dcd9b218f90d.json",
-        "source_file_sha256": "6e1e9314e6be05d43d7b458024c083b09d13a1af8ffbdb3b02f30986e6220582"
+        "source_file_sha256": "519e3e7d295f25b364f38b6c2950e9d551289067f6d7fb7b5980f60fa1f7d60c"
       }
     },
     "1aece23f-07b3-4c21-8b2b-d93ce9bf0e84": {
@@ -41023,7 +41032,8 @@
                   }
                 },
                 "required": true
-              }
+              },
+              "description": "A successful voice creation request has a standard fee of 0.15 Credits. Applicable discounts follow the actual bill; failed requests are not charged."
             }
           }
         },
@@ -41043,7 +41053,12 @@
           }
         }
       },
-      "source_definition_sha256": "e2531d4d79b78b4c16ca45d0db31bf96dc045aeceed9b12dce09071eaa57f341"
+      "source_definition_sha256": "e2531d4d79b78b4c16ca45d0db31bf96dc045aeceed9b12dce09071eaa57f341",
+      "backend_update": {
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
+        "source_file": "openapi/1aece23f-07b3-4c21-8b2b-d93ce9bf0e84.json",
+        "source_file_sha256": "35be554989d8462c4e18220253db2403e2ee0cc9d24eb484bc32b92e5657f5b9"
+      }
     },
     "2e4c9e30-a793-4f43-9322-d682120ffff2": {
       "id": "2e4c9e30-a793-4f43-9322-d682120ffff2",
@@ -45377,7 +45392,8 @@
                   }
                 },
                 "required": true
-              }
+              },
+              "description": "A successful lyrics generation request has a standard fee of 0.08 Credits, even when it returns multiple lyric candidates. Applicable discounts follow the actual bill; failed requests are not charged."
             }
           }
         },
@@ -45397,7 +45413,12 @@
           }
         }
       },
-      "source_definition_sha256": "c7504c5e4a77f77a5ae57ba89cb3d68777e6e712888058b3ec600057ea4245bb"
+      "source_definition_sha256": "c7504c5e4a77f77a5ae57ba89cb3d68777e6e712888058b3ec600057ea4245bb",
+      "backend_update": {
+        "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
+        "source_file": "openapi/c98fe4e5-73c0-462d-ad24-5080ee1fa01a.json",
+        "source_file_sha256": "6544e8eb1efaceb1cb23ddcc83193efa49f5d67126dc04c21ca50093e477052b"
+      }
     },
     "d4004774-4d0b-4aac-a8ea-be99627880e6": {
       "id": "d4004774-4d0b-4aac-a8ea-be99627880e6",

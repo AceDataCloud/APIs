@@ -62,6 +62,31 @@ class MirrorOwnershipTests(unittest.TestCase):
         self.assertIn("it is not a request parameter", (ROOT / "README.md").read_text())
         self.assertNotIn("No Rate Limits", (ROOT / "openai/README.md").read_text())
 
+    def test_suno_replacement_guide_uses_local_lyrics_and_checks_audio(self):
+        import json
+        text = (ROOT / 'suno/docs/suno_audios_generation_api_integration_guide.md').read_text()
+        section = text.split('## Replace Section\n', 1)[1].split('\n## ', 1)[0]
+        request = json.loads(section.split('```json\n', 1)[1].split('\n```', 1)[0])
+        self.assertEqual('replace_section', request['action'])
+        self.assertEqual('YOUR_COMPLETED_AUDIO_ID', request['audio_id'])
+        self.assertEqual(request['lyric'], request['prompt'])
+        self.assertEqual('full_song', request['replace_section_result_mode'])
+        self.assertTrue(request['async'])
+        self.assertLess(request['replace_section_start'], request['replace_section_end'])
+        self.assertNotIn('"success":', section)
+        for requirement in ('response.data', 'Listen to both', 'not an audio transcript',
+                            'does not mean equal length', 'recheck its duration and interval',
+                            'already concatenated', 'cannot lock replacement length'):
+            self.assertIn(requirement, section)
+        for filename, fee in (
+            ('suno_audios_generation_api_integration_guide.md', '0.56 Credits'),
+            ('suno_lyrics_generation_api_integration_guide.md', '0.08 Credits'),
+            ('suno_voices_api_integration_guide.md', '0.15 Credits'),
+        ):
+            guide = (ROOT / 'suno/docs' / filename).read_text()
+            self.assertIn(fee, guide)
+            self.assertIn('failed requests are not charged', guide)
+
 
 if __name__ == "__main__":
     unittest.main()

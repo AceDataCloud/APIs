@@ -529,6 +529,87 @@ class CozeCatalogTests(unittest.TestCase):
                     with self.assertRaises(ValidationError):
                         OAS30Validator(body).validate({**request, 'stream': True})
 
+    def test_fable_52_is_available_only_on_supported_coze_routes(self):
+        import yaml
+        model = 'claude-fable-5-2'
+        for route, api_id in (
+            ('/v1/chat/completions', '6b2b437b-b6d5-466c-8750-b16650072593'),
+            ('/v1/messages', 'a43a98fc-f833-4cfb-8596-8066faad2c42'),
+        ):
+            contract = self.source['contracts'][api_id]
+            operation = self.plugins['claude']['paths'][route]['post']
+            self.assertEqual(operation, builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+            for folder in ('plugins', 'imports'):
+                with self.subTest(route=route, folder=folder):
+                    document = json.loads((ROOT / folder / 'claude.json').read_text())
+                    self.assertEqual(document, yaml.safe_load((ROOT / folder / 'claude.yaml').read_text()))
+                    body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
+                    models = body['properties']['model']['enum']
+                    self.assertTrue({model, 'claude-fable-5-1', 'claude-fable-5'} <= set(models))
+                    OAS30Validator(body).validate({
+                        'model': model, 'messages': [{'role': 'user', 'content': 'Hello'}],
+                        'max_tokens': 32768, 'stream': False,
+                    })
+                    count = document['paths']['/v1/messages/count_tokens']['post']['requestBody']['content']['application/json']['schema']
+                    with self.assertRaises(ValidationError):
+                        OAS30Validator(count).validate({
+                            'model': model, 'messages': [{'role': 'user', 'content': 'Hello'}],
+                        })
+                    self.assertFalse(any(route.endswith('/responses') for route in document['paths']))
+        contract = self.source['contracts']['3769e83e-88f8-4e2c-8f38-6bf20391b094']
+        body = contract['definition']['paths']['/aichat2/conversations']['post']['requestBody']['content']['application/json']['schema']
+        self.assertIn(model, body['properties']['model']['enum'])
+        self.assertNotIn('aichat', self.plugins)
+
+    def test_suno_editing_and_billing_descriptions_survive_projection(self):
+        import yaml
+        for route, api_id, fee in (
+            ('/suno/audios', '09a26295-5972-4392-9318-dcd9b218f90d', '0.56 Credits'),
+            ('/suno/voices', '1aece23f-07b3-4c21-8b2b-d93ce9bf0e84', '0.15 Credits'),
+            ('/suno/lyrics', 'c98fe4e5-73c0-462d-ad24-5080ee1fa01a', '0.08 Credits'),
+        ):
+            contract = self.source['contracts'][api_id]
+            operation = self.plugins['suno']['paths'][route]['post']
+            self.assertEqual(operation, builder.build_operation(
+                contract, route, 'post', contract['definition']['paths'][route]['post']))
+            for folder in ('plugins', 'imports'):
+                with self.subTest(route=route, folder=folder):
+                    document = json.loads((ROOT / folder / 'suno.json').read_text())
+                    self.assertEqual(document, yaml.safe_load((ROOT / folder / 'suno.yaml').read_text()))
+                    operation = document['paths'][route]['post']
+                    self.assertIn(fee, operation['description'])
+                    self.assertIn('failed requests are not charged', operation['description'])
+                    if route != '/suno/audios':
+                        continue
+                    body = operation['requestBody']['content']['application/json']['schema']
+                    fields = body['properties']
+                    self.assertIn('local new lyrics', fields['lyric']['description'])
+                    self.assertIn('identical to lyric', fields['prompt']['description'])
+                    mode = fields['replace_section_result_mode']
+                    self.assertEqual('full_song', mode['default'])
+                    self.assertEqual({'full_song', 'candidates'}, set(mode['enum']))
+                    self.assertIn('without another concat', mode['description'])
+                    self.assertIn('recheck its interval', mode['description'])
+                    result = operation['responses']['200']['content']['application/json']['schema']['properties']['data']['items']['properties']
+                    self.assertIn('not an audio transcript', result['lyric']['description'])
+                    if folder == 'imports':
+                        tasks = document['paths']['/suno/tasks']['post']['responses']['200']['content']['application/json']['schema']['properties']
+                        for props in (tasks, tasks['items']['items']['properties']):
+                            lyric = props['response']['properties']['data']['items']['properties']['lyric']
+                            self.assertEqual(result['lyric']['description'], lyric['description'])
+                    for value in ('full_song', 'candidates'):
+                        OAS30Validator(body).validate({
+                            'action': 'replace_section', 'audio_id': 'YOUR_COMPLETED_AUDIO_ID',
+                            'model': 'chirp-v6', 'lyric': 'Local new lyrics', 'prompt': 'Local new lyrics',
+                            'replace_section_start': 30.0, 'replace_section_end': 50.0,
+                            'replace_section_result_mode': value, 'async': True,
+                        })
+                    with self.assertRaises(ValidationError):
+                        OAS30Validator(mode).validate('unsupported')
+        self.assertEqual(self.plugins['suno'], yaml.safe_load((ROOT / 'suno.yaml').read_text()))
+        self.assertEqual(12, len(json.loads((ROOT / 'imports/suno.json').read_text())['paths']))
+
     def test_argon_native_model_enum_preserves_json_only_coze_scope(self):
         contract = self.source['contracts']['7a632630-eb9f-4776-b11c-8cc86ae250d7']
         for route, methods in contract['definition']['paths'].items():

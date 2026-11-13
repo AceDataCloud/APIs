@@ -1475,6 +1475,7 @@ paths:
                     ["audio"]`.'
                 model:
                   enum:
+                  - claude-fable-5-2
                   - claude-fable-5-1
                   - claude-fable-5
                   - claude-opus-5-5
@@ -2303,6 +2304,7 @@ paths:
                   - glm-5
                   - gpt-5.6-sol-fast
                   - gpt-5.6-sol
+                  - claude-fable-5-2
                   - claude-fable-5-1
                   - gemini-3.6-flash
                   - claude-sonnet-5-5
