@@ -33,7 +33,7 @@ This restriction changes neither trial API availability nor pricing; fees are se
 | `luma/` | [LumaAPI](https://github.com/AceDataCloud/LumaAPI) | Luma video generation API docs |
 | `maestro/` | [MaestroAPI](https://github.com/AceDataCloud/MaestroAPI) | Maestro end-to-end AI video production API docs |
 | `suno/` | [SunoAPI](https://github.com/AceDataCloud/SunoAPI) | Suno music generation API docs |
-| `sora/` | [SoraAPI](https://github.com/AceDataCloud/SoraAPI) | Sora video generation API docs |
+| `sora/` | [SoraAPI](https://github.com/AceDataCloud/SoraAPI) | Retired; migration guidance and historical documentation |
 | `veo/` | [VeoAPI](https://github.com/AceDataCloud/VeoAPI) | Veo video generation API docs |
 | `flux/` | [FluxAPI](https://github.com/AceDataCloud/FluxAPI) | Flux image generation API docs |
 | `happyhorse/` | [HappyHorseAPI](https://github.com/AceDataCloud/HappyHorseAPI) | Happy Horse video generation and editing API docs |

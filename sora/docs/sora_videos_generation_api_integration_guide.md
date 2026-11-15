@@ -1,3 +1,5 @@
+> **Retired integration.** This is historical documentation, not a currently supported API contract. Do not use it for new requests. See the [retirement and migration guide](../README.md).
+
 # Sora Videos Generation API Integration Guide
 
 This document introduces the integration guide for the Sora Videos Generation API. Through this API, you can input custom parameters to generate official Sora videos. This API supports two version modes:
