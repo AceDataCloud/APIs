@@ -915,7 +915,8 @@
                   "page": {
                     "type": "integer",
                     "minimum": 1,
-                    "default": 1
+                    "default": 1,
+                    "maximum": 10001
                   },
                   "page_size": {
                     "type": "integer",
@@ -987,7 +988,44 @@
                       }
                     }
                   }
-                ]
+                ],
+                "allOf": [
+                  {
+                    "not": {
+                      "allOf": [
+                        {
+                          "anyOf": [
+                            {
+                              "required": [
+                                "page"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "page_size"
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "anyOf": [
+                            {
+                              "required": [
+                                "limit"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "offset"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "description": "Page and page_size cannot be mixed with limit or offset. The resulting offset must not exceed 10000. Missing or foreign task IDs return 404 on retrieve and are omitted from batch results."
               }
             }
           }
@@ -1071,6 +1109,11 @@
                             "status": {
                               "type": "string",
                               "enum": [
+                                "created",
+                                "submitting",
+                                "processing",
+                                "storing",
+                                "submission_unknown",
                                 "succeeded",
                                 "partial_failed",
                                 "failed"
@@ -1079,45 +1122,64 @@
                             "data": {
                               "type": "array",
                               "items": {
-                                "type": "object",
-                                "required": [
-                                  "id",
-                                  "model",
-                                  "state"
-                                ],
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
+                                "anyOf": [
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "id",
+                                      "model",
+                                      "state"
+                                    ],
+                                    "properties": {
+                                      "id": {
+                                        "type": "string"
+                                      },
+                                      "model": {
+                                        "type": "string"
+                                      },
+                                      "state": {
+                                        "type": "string"
+                                      },
+                                      "title": {
+                                        "type": "string"
+                                      },
+                                      "lyric": {
+                                        "type": "string"
+                                      },
+                                      "style": {
+                                        "type": "string"
+                                      },
+                                      "audio_url": {
+                                        "type": "string"
+                                      },
+                                      "image_url": {
+                                        "type": "string"
+                                      },
+                                      "created_at": {
+                                        "type": "string"
+                                      },
+                                      "duration": {
+                                        "type": "number",
+                                        "minimum": 0
+                                      }
+                                    }
                                   },
-                                  "model": {
-                                    "type": "string"
-                                  },
-                                  "state": {
-                                    "type": "string"
-                                  },
-                                  "title": {
-                                    "type": "string"
-                                  },
-                                  "lyric": {
-                                    "type": "string"
-                                  },
-                                  "style": {
-                                    "type": "string"
-                                  },
-                                  "audio_url": {
-                                    "type": "string"
-                                  },
-                                  "image_url": {
-                                    "type": "string"
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  },
-                                  "duration": {
-                                    "type": "number",
-                                    "minimum": 0
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "title",
+                                      "text"
+                                    ],
+                                    "properties": {
+                                      "title": {
+                                        "type": "string"
+                                      },
+                                      "text": {
+                                        "type": "string"
+                                      }
+                                    }
                                   }
-                                }
+                                ]
                               }
                             },
                             "error": {
@@ -1132,6 +1194,23 @@
                               }
                             }
                           }
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "audios",
+                            "lyrics"
+                          ]
+                        },
+                        "trace_id": {
+                          "type": "string"
+                        },
+                        "started_at": {
+                          "type": "number"
+                        },
+                        "elapsed": {
+                          "type": "number",
+                          "minimum": 0
                         }
                       }
                     },
@@ -1216,6 +1295,11 @@
                                   "status": {
                                     "type": "string",
                                     "enum": [
+                                      "created",
+                                      "submitting",
+                                      "processing",
+                                      "storing",
+                                      "submission_unknown",
                                       "succeeded",
                                       "partial_failed",
                                       "failed"
@@ -1224,45 +1308,64 @@
                                   "data": {
                                     "type": "array",
                                     "items": {
-                                      "type": "object",
-                                      "required": [
-                                        "id",
-                                        "model",
-                                        "state"
-                                      ],
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id",
+                                            "model",
+                                            "state"
+                                          ],
+                                          "properties": {
+                                            "id": {
+                                              "type": "string"
+                                            },
+                                            "model": {
+                                              "type": "string"
+                                            },
+                                            "state": {
+                                              "type": "string"
+                                            },
+                                            "title": {
+                                              "type": "string"
+                                            },
+                                            "lyric": {
+                                              "type": "string"
+                                            },
+                                            "style": {
+                                              "type": "string"
+                                            },
+                                            "audio_url": {
+                                              "type": "string"
+                                            },
+                                            "image_url": {
+                                              "type": "string"
+                                            },
+                                            "created_at": {
+                                              "type": "string"
+                                            },
+                                            "duration": {
+                                              "type": "number",
+                                              "minimum": 0
+                                            }
+                                          }
                                         },
-                                        "model": {
-                                          "type": "string"
-                                        },
-                                        "state": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "lyric": {
-                                          "type": "string"
-                                        },
-                                        "style": {
-                                          "type": "string"
-                                        },
-                                        "audio_url": {
-                                          "type": "string"
-                                        },
-                                        "image_url": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "duration": {
-                                          "type": "number",
-                                          "minimum": 0
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "title",
+                                            "text"
+                                          ],
+                                          "properties": {
+                                            "title": {
+                                              "type": "string"
+                                            },
+                                            "text": {
+                                              "type": "string"
+                                            }
+                                          }
                                         }
-                                      }
+                                      ]
                                     }
                                   },
                                   "error": {
@@ -1277,6 +1380,23 @@
                                     }
                                   }
                                 }
+                              },
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "audios",
+                                  "lyrics"
+                                ]
+                              },
+                              "trace_id": {
+                                "type": "string"
+                              },
+                              "started_at": {
+                                "type": "number"
+                              },
+                              "elapsed": {
+                                "type": "number",
+                                "minimum": 0
                               }
                             }
                           }
@@ -1361,6 +1481,11 @@
                         "status": {
                           "type": "string",
                           "enum": [
+                            "created",
+                            "submitting",
+                            "processing",
+                            "storing",
+                            "submission_unknown",
                             "succeeded",
                             "partial_failed",
                             "failed"
@@ -1369,45 +1494,64 @@
                         "data": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "required": [
-                              "id",
-                              "model",
-                              "state"
-                            ],
-                            "properties": {
-                              "id": {
-                                "type": "string"
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "required": [
+                                  "id",
+                                  "model",
+                                  "state"
+                                ],
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "model": {
+                                    "type": "string"
+                                  },
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "lyric": {
+                                    "type": "string"
+                                  },
+                                  "style": {
+                                    "type": "string"
+                                  },
+                                  "audio_url": {
+                                    "type": "string"
+                                  },
+                                  "image_url": {
+                                    "type": "string"
+                                  },
+                                  "created_at": {
+                                    "type": "string"
+                                  },
+                                  "duration": {
+                                    "type": "number",
+                                    "minimum": 0
+                                  }
+                                }
                               },
-                              "model": {
-                                "type": "string"
-                              },
-                              "state": {
-                                "type": "string"
-                              },
-                              "title": {
-                                "type": "string"
-                              },
-                              "lyric": {
-                                "type": "string"
-                              },
-                              "style": {
-                                "type": "string"
-                              },
-                              "audio_url": {
-                                "type": "string"
-                              },
-                              "image_url": {
-                                "type": "string"
-                              },
-                              "created_at": {
-                                "type": "string"
-                              },
-                              "duration": {
-                                "type": "number",
-                                "minimum": 0
+                              {
+                                "type": "object",
+                                "required": [
+                                  "title",
+                                  "text"
+                                ],
+                                "properties": {
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  }
+                                }
                               }
-                            }
+                            ]
                           }
                         },
                         "error": {
@@ -1422,6 +1566,23 @@
                           }
                         }
                       }
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "audios",
+                        "lyrics"
+                      ]
+                    },
+                    "trace_id": {
+                      "type": "string"
+                    },
+                    "started_at": {
+                      "type": "number"
+                    },
+                    "elapsed": {
+                      "type": "number",
+                      "minimum": 0
                     },
                     "items": {
                       "type": "array",
@@ -1497,6 +1658,11 @@
                               "status": {
                                 "type": "string",
                                 "enum": [
+                                  "created",
+                                  "submitting",
+                                  "processing",
+                                  "storing",
+                                  "submission_unknown",
                                   "succeeded",
                                   "partial_failed",
                                   "failed"
@@ -1505,45 +1671,64 @@
                               "data": {
                                 "type": "array",
                                 "items": {
-                                  "type": "object",
-                                  "required": [
-                                    "id",
-                                    "model",
-                                    "state"
-                                  ],
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "required": [
+                                        "id",
+                                        "model",
+                                        "state"
+                                      ],
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "model": {
+                                          "type": "string"
+                                        },
+                                        "state": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "lyric": {
+                                          "type": "string"
+                                        },
+                                        "style": {
+                                          "type": "string"
+                                        },
+                                        "audio_url": {
+                                          "type": "string"
+                                        },
+                                        "image_url": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "duration": {
+                                          "type": "number",
+                                          "minimum": 0
+                                        }
+                                      }
                                     },
-                                    "model": {
-                                      "type": "string"
-                                    },
-                                    "state": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "lyric": {
-                                      "type": "string"
-                                    },
-                                    "style": {
-                                      "type": "string"
-                                    },
-                                    "audio_url": {
-                                      "type": "string"
-                                    },
-                                    "image_url": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "duration": {
-                                      "type": "number",
-                                      "minimum": 0
+                                    {
+                                      "type": "object",
+                                      "required": [
+                                        "title",
+                                        "text"
+                                      ],
+                                      "properties": {
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "text": {
+                                          "type": "string"
+                                        }
+                                      }
                                     }
-                                  }
+                                  ]
                                 }
                               },
                               "error": {
@@ -1558,6 +1743,23 @@
                                 }
                               }
                             }
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "audios",
+                              "lyrics"
+                            ]
+                          },
+                          "trace_id": {
+                            "type": "string"
+                          },
+                          "started_at": {
+                            "type": "number"
+                          },
+                          "elapsed": {
+                            "type": "number",
+                            "minimum": 0
                           }
                         }
                       }
