@@ -5,6 +5,8 @@ or Workflow. Ace Data Cloud provides these integrations and bills API usage to
 the caller's Ace account. They are not endorsements by the model brands or
 entries in Coze's default model-provider selector.
 
+ACE Music: [prepared import candidate](candidates/acemusic/README.md) for the new service; deployment and host validation are pending.
+
 ## Find your service and get started
 
 Search by the service name and confirm the publisher is **AceDataCloud**. The

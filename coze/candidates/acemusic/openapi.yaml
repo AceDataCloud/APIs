@@ -1,0 +1,1315 @@
+openapi: 3.0.1
+info:
+  title: ACE Music
+  version: 1.0.0
+  description: Create song pairs and editable lyrics; retrieve the original task. Bind your own Ace Data
+    Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account.
+    Never place a token in chat or shared examples.
+servers:
+- url: https://api.acedata.cloud
+paths:
+  /acemusic/audios:
+    post:
+      operationId: generateMusic
+      summary: ACE Music Audios
+      description: 'Create one group of two song candidates from an idea or custom lyrics. A complete
+        group is billed once; final partial or failed groups are free. Submission is asynchronous by default.
+        Full input requirements: https://platform.acedata.cloud/documents/acemusic-audios Submit once
+        with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed
+        result. Do not resubmit while pending.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - generate
+                  default: generate
+                model:
+                  type: string
+                  enum:
+                  - acemusic-v1.1
+                  - acemusic-v1
+                  default: acemusic-v1.1
+                custom:
+                  type: boolean
+                  default: false
+                prompt:
+                  type: string
+                  description: Creation idea. Required when custom is false.
+                  maxLength: 20000
+                  minLength: 1
+                lyric:
+                  type: string
+                  description: Custom lyrics. Required when custom is true.
+                  maxLength: 20000
+                  minLength: 1
+                style:
+                  type: string
+                  description: Musical style for custom creation.
+                  maxLength: 20000
+                  minLength: 1
+                title:
+                  type: string
+                  maxLength: 20000
+                  minLength: 1
+                async:
+                  type: boolean
+                  default: true
+                  description: Return a persistent task ID; query /acemusic/tasks for the result.
+                callback_url:
+                  type: string
+                  format: uri
+                  description: Optional HTTPS callback for the final result. Implies asynchronous execution.
+                  maxLength: 20000
+                  minLength: 1
+              oneOf:
+              - properties:
+                  custom:
+                    enum:
+                    - false
+                required:
+                - prompt
+                not:
+                  anyOf:
+                  - required:
+                    - lyric
+                  - required:
+                    - title
+                  - required:
+                    - style
+              - properties:
+                  custom:
+                    enum:
+                    - true
+                required:
+                - custom
+                - lyric
+                - style
+                - title
+                not:
+                  required:
+                  - prompt
+      responses:
+        '200':
+          description: Request accepted or result available. Inspect the task state before treating generation
+            as complete.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  required:
+                  - task_id
+                  properties:
+                    task_id:
+                      type: string
+                    trace_id:
+                      type: string
+                - type: object
+                  required:
+                  - success
+                  - task_id
+                  properties:
+                    success:
+                      type: boolean
+                    task_id:
+                      type: string
+                    trace_id:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                      - succeeded
+                      - partial_failed
+                      - failed
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - id
+                        - model
+                        - state
+                        properties:
+                          id:
+                            type: string
+                          model:
+                            type: string
+                          state:
+                            type: string
+                          title:
+                            type: string
+                          lyric:
+                            type: string
+                          style:
+                            type: string
+                          audio_url:
+                            type: string
+                          image_url:
+                            type: string
+                          created_at:
+                            type: string
+                          duration:
+                            type: number
+                            minimum: 0
+                    error:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        message:
+                          type: string
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  success:
+                    type: boolean
+                  status:
+                    type: string
+                    enum:
+                    - succeeded
+                    - partial_failed
+                    - failed
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      - model
+                      - state
+                      properties:
+                        id:
+                          type: string
+                        model:
+                          type: string
+                        state:
+                          type: string
+                        title:
+                          type: string
+                        lyric:
+                          type: string
+                        style:
+                          type: string
+                        audio_url:
+                          type: string
+                        image_url:
+                          type: string
+                        created_at:
+                          type: string
+                        duration:
+                          type: number
+                          minimum: 0
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                required:
+                - task_id
+        '400':
+          description: Invalid request or unsupported model.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '401':
+          description: Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '403':
+          description: Access denied or content rejected.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '500':
+          description: Service failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '202':
+          description: Durable task accepted. Save task_id and query the original task; this is not a
+            completed result.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - task_id
+                properties:
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  status:
+                    type: string
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Reuse the same key for the same creation request to retrieve its original task. A
+          different payload with the same key is rejected.
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/acemusic-audios
+  /acemusic/lyrics:
+    post:
+      operationId: generateLyrics
+      summary: ACE Music Lyrics
+      description: 'Generate a title and editable lyrics. This is a separate paid operation; generating
+        a song does not implicitly invoke it. Full input requirements: https://platform.acedata.cloud/documents/acemusic-lyrics'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - prompt
+              properties:
+                prompt:
+                  type: string
+                  minLength: 1
+                  maxLength: 20000
+                style:
+                  type: string
+                  maxLength: 20000
+      responses:
+        '200':
+          description: Request accepted or result available. Inspect the task state before treating generation
+            as complete.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - task_id
+                - data
+                properties:
+                  success:
+                    type: boolean
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - title
+                      - text
+                      properties:
+                        title:
+                          type: string
+                        text:
+                          type: string
+        '400':
+          description: Invalid request or unsupported model.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '401':
+          description: Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '403':
+          description: Access denied or content rejected.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '500':
+          description: Service failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '202':
+          description: Durable task accepted. Save task_id and query the original task; this is not a
+            completed result.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - task_id
+                properties:
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  status:
+                    type: string
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/acemusic-lyrics
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string
+  /acemusic/tasks:
+    post:
+      operationId: getTaskResults
+      summary: ACE Music Tasks
+      description: 'Retrieve only tasks owned by the authenticated caller. Polling is free and remains
+        available with a zero balance; authentication and API permissions are required. Full input requirements:
+        https://platform.acedata.cloud/documents/acemusic-tasks A non-null response can be a progress
+        snapshot. Require terminal success and a non-empty primary media URL or content, not just a cover
+        image or an empty data array.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - retrieve
+                  - retrieve_batch
+                  - list
+                id:
+                  type: string
+                ids:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+                  maxItems: 100
+                page:
+                  type: integer
+                  minimum: 1
+                  default: 1
+                  maximum: 10001
+                page_size:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  default: 20
+                type:
+                  type: string
+                  enum:
+                  - audios
+                  - lyrics
+                  description: Optional history type filter.
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  description: Alternative history page size; use page/page_size or limit/offset consistently.
+                offset:
+                  type: integer
+                  minimum: 0
+                  maximum: 10000
+                created_at_min:
+                  type: number
+                  minimum: 0
+                  description: Inclusive creation-time lower bound, Unix seconds.
+                created_at_max:
+                  type: number
+                  minimum: 0
+                  description: Inclusive creation-time upper bound, Unix seconds.
+              oneOf:
+              - properties:
+                  action:
+                    enum:
+                    - retrieve
+                required:
+                - id
+              - properties:
+                  action:
+                    enum:
+                    - retrieve_batch
+                required:
+                - ids
+              - properties:
+                  action:
+                    enum:
+                    - list
+              allOf:
+              - not:
+                  allOf:
+                  - anyOf:
+                    - required:
+                      - page
+                    - required:
+                      - page_size
+                  - anyOf:
+                    - required:
+                      - limit
+                    - required:
+                      - offset
+              description: Page and page_size cannot be mixed with limit or offset. The resulting offset
+                must not exceed 10000. Missing or foreign task IDs return 404 on retrieve and are omitted
+                from batch results.
+      responses:
+        '200':
+          description: Request accepted or result available. Inspect the task state before treating generation
+            as complete.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - type: object
+                  required:
+                  - id
+                  properties:
+                    id:
+                      type: string
+                    state:
+                      type: string
+                    status:
+                      type: string
+                    created_at:
+                      type: number
+                    finished_at:
+                      type: number
+                      nullable: true
+                    request:
+                      type: object
+                      description: The caller-owned public creation parameters.
+                      additionalProperties: false
+                      properties:
+                        action:
+                          type: string
+                        model:
+                          type: string
+                        prompt:
+                          type: string
+                        lyric:
+                          type: string
+                        style:
+                          type: string
+                        title:
+                          type: string
+                        custom:
+                          type: boolean
+                        async:
+                          type: boolean
+                    response:
+                      type: object
+                      required:
+                      - success
+                      - task_id
+                      properties:
+                        success:
+                          type: boolean
+                        task_id:
+                          type: string
+                        trace_id:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                          - created
+                          - submitting
+                          - processing
+                          - storing
+                          - submission_unknown
+                          - succeeded
+                          - partial_failed
+                          - failed
+                        data:
+                          type: array
+                          items:
+                            anyOf:
+                            - type: object
+                              required:
+                              - id
+                              - model
+                              - state
+                              properties:
+                                id:
+                                  type: string
+                                model:
+                                  type: string
+                                state:
+                                  type: string
+                                title:
+                                  type: string
+                                lyric:
+                                  type: string
+                                style:
+                                  type: string
+                                audio_url:
+                                  type: string
+                                image_url:
+                                  type: string
+                                created_at:
+                                  type: string
+                                duration:
+                                  type: number
+                                  minimum: 0
+                            - type: object
+                              required:
+                              - title
+                              - text
+                              properties:
+                                title:
+                                  type: string
+                                text:
+                                  type: string
+                        error:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            message:
+                              type: string
+                    type:
+                      type: string
+                      enum:
+                      - audios
+                      - lyrics
+                    trace_id:
+                      type: string
+                    started_at:
+                      type: number
+                    elapsed:
+                      type: number
+                      minimum: 0
+                - type: object
+                  required:
+                  - items
+                  - count
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                        - id
+                        properties:
+                          id:
+                            type: string
+                          state:
+                            type: string
+                          status:
+                            type: string
+                          created_at:
+                            type: number
+                          finished_at:
+                            type: number
+                            nullable: true
+                          request:
+                            type: object
+                            description: The caller-owned public creation parameters.
+                            additionalProperties: false
+                            properties:
+                              action:
+                                type: string
+                              model:
+                                type: string
+                              prompt:
+                                type: string
+                              lyric:
+                                type: string
+                              style:
+                                type: string
+                              title:
+                                type: string
+                              custom:
+                                type: boolean
+                              async:
+                                type: boolean
+                          response:
+                            type: object
+                            required:
+                            - success
+                            - task_id
+                            properties:
+                              success:
+                                type: boolean
+                              task_id:
+                                type: string
+                              trace_id:
+                                type: string
+                              status:
+                                type: string
+                                enum:
+                                - created
+                                - submitting
+                                - processing
+                                - storing
+                                - submission_unknown
+                                - succeeded
+                                - partial_failed
+                                - failed
+                              data:
+                                type: array
+                                items:
+                                  anyOf:
+                                  - type: object
+                                    required:
+                                    - id
+                                    - model
+                                    - state
+                                    properties:
+                                      id:
+                                        type: string
+                                      model:
+                                        type: string
+                                      state:
+                                        type: string
+                                      title:
+                                        type: string
+                                      lyric:
+                                        type: string
+                                      style:
+                                        type: string
+                                      audio_url:
+                                        type: string
+                                      image_url:
+                                        type: string
+                                      created_at:
+                                        type: string
+                                      duration:
+                                        type: number
+                                        minimum: 0
+                                  - type: object
+                                    required:
+                                    - title
+                                    - text
+                                    properties:
+                                      title:
+                                        type: string
+                                      text:
+                                        type: string
+                              error:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                  message:
+                                    type: string
+                          type:
+                            type: string
+                            enum:
+                            - audios
+                            - lyrics
+                          trace_id:
+                            type: string
+                          started_at:
+                            type: number
+                          elapsed:
+                            type: number
+                            minimum: 0
+                    count:
+                      type: integer
+                      minimum: 0
+                - type: object
+                  additionalProperties: false
+                  description: No matching task exists for this caller.
+                type: object
+                properties:
+                  id:
+                    type: string
+                  state:
+                    type: string
+                  status:
+                    type: string
+                  created_at:
+                    type: number
+                  finished_at:
+                    type: number
+                    nullable: true
+                  request:
+                    type: object
+                    description: The caller-owned public creation parameters.
+                    additionalProperties: false
+                    properties:
+                      action:
+                        type: string
+                      model:
+                        type: string
+                      prompt:
+                        type: string
+                      lyric:
+                        type: string
+                      style:
+                        type: string
+                      title:
+                        type: string
+                      custom:
+                        type: boolean
+                      async:
+                        type: boolean
+                  response:
+                    type: object
+                    required:
+                    - success
+                    - task_id
+                    properties:
+                      success:
+                        type: boolean
+                      task_id:
+                        type: string
+                      trace_id:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - created
+                        - submitting
+                        - processing
+                        - storing
+                        - submission_unknown
+                        - succeeded
+                        - partial_failed
+                        - failed
+                      data:
+                        type: array
+                        items:
+                          anyOf:
+                          - type: object
+                            required:
+                            - id
+                            - model
+                            - state
+                            properties:
+                              id:
+                                type: string
+                              model:
+                                type: string
+                              state:
+                                type: string
+                              title:
+                                type: string
+                              lyric:
+                                type: string
+                              style:
+                                type: string
+                              audio_url:
+                                type: string
+                              image_url:
+                                type: string
+                              created_at:
+                                type: string
+                              duration:
+                                type: number
+                                minimum: 0
+                          - type: object
+                            required:
+                            - title
+                            - text
+                            properties:
+                              title:
+                                type: string
+                              text:
+                                type: string
+                      error:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          message:
+                            type: string
+                  type:
+                    type: string
+                    enum:
+                    - audios
+                    - lyrics
+                  trace_id:
+                    type: string
+                  started_at:
+                    type: number
+                  elapsed:
+                    type: number
+                    minimum: 0
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - id
+                      properties:
+                        id:
+                          type: string
+                        state:
+                          type: string
+                        status:
+                          type: string
+                        created_at:
+                          type: number
+                        finished_at:
+                          type: number
+                          nullable: true
+                        request:
+                          type: object
+                          description: The caller-owned public creation parameters.
+                          additionalProperties: false
+                          properties:
+                            action:
+                              type: string
+                            model:
+                              type: string
+                            prompt:
+                              type: string
+                            lyric:
+                              type: string
+                            style:
+                              type: string
+                            title:
+                              type: string
+                            custom:
+                              type: boolean
+                            async:
+                              type: boolean
+                        response:
+                          type: object
+                          required:
+                          - success
+                          - task_id
+                          properties:
+                            success:
+                              type: boolean
+                            task_id:
+                              type: string
+                            trace_id:
+                              type: string
+                            status:
+                              type: string
+                              enum:
+                              - created
+                              - submitting
+                              - processing
+                              - storing
+                              - submission_unknown
+                              - succeeded
+                              - partial_failed
+                              - failed
+                            data:
+                              type: array
+                              items:
+                                anyOf:
+                                - type: object
+                                  required:
+                                  - id
+                                  - model
+                                  - state
+                                  properties:
+                                    id:
+                                      type: string
+                                    model:
+                                      type: string
+                                    state:
+                                      type: string
+                                    title:
+                                      type: string
+                                    lyric:
+                                      type: string
+                                    style:
+                                      type: string
+                                    audio_url:
+                                      type: string
+                                    image_url:
+                                      type: string
+                                    created_at:
+                                      type: string
+                                    duration:
+                                      type: number
+                                      minimum: 0
+                                - type: object
+                                  required:
+                                  - title
+                                  - text
+                                  properties:
+                                    title:
+                                      type: string
+                                    text:
+                                      type: string
+                            error:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                message:
+                                  type: string
+                        type:
+                          type: string
+                          enum:
+                          - audios
+                          - lyrics
+                        trace_id:
+                          type: string
+                        started_at:
+                          type: number
+                        elapsed:
+                          type: number
+                          minimum: 0
+                  count:
+                    type: integer
+                    minimum: 0
+        '400':
+          description: Invalid request or unsupported model.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '401':
+          description: Invalid credentials.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '403':
+          description: Access denied or content rejected.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+        '500':
+          description: Service failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - success
+                - error
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                    - false
+                  task_id:
+                    type: string
+                  trace_id:
+                    type: string
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+      externalDocs:
+        url: https://platform.acedata.cloud/documents/acemusic-tasks
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization.
+          Usage is billed to your account. Never place a token in chat or shared examples.
+        schema:
+          type: string

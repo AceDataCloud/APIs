@@ -1,4 +1,10 @@
 mappings:
+  acemusic:
+    repo: AceDataCloud/ACEMusicAPI
+    metadata: true
+    exclude:
+      - .github
+      - .gitbooks
   luma:
     repo: AceDataCloud/LumaAPI
     metadata: true
