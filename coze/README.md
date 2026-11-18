@@ -61,7 +61,7 @@ Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
 `catalog/launch-scope.json`. Historical source snapshots retain provenance and
 are not the active launch list.
 
-### Regenerate OpenAI model additions
+### Regenerate model additions
 
 From a committed Backend checkout, regenerate only the selected model additions:
 
@@ -70,11 +70,23 @@ python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
   --model gpt-6.2-astra --model gpt-6.2-sol
 ```
 
-The offline helper checks both Backend endpoint enums, records source provenance,
-runs the existing catalog/import generators in a temporary directory, and writes
-only the OpenAI artifacts. Existing defaults, other services and the original
-catalog retrieval date are preserved. Source changes do not update installed
-Coze plugins; re-import the prepared material after the API release is verified.
+The default service is `openai`, covering Chat Completions and Responses. Select
+additional existing contracts with repeated `--service` options:
+
+```bash
+python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
+  --service claude --service aichat \
+  --model gpt-6.2-astra --model gpt-6.2-sol
+```
+
+The offline helper checks the selected Backend endpoint enums, records source
+provenance, runs the existing catalog/import generators in a temporary directory,
+and writes the selected model additions. `claude` covers Messages and Count
+Tokens; `aichat` updates the existing AI Chat v1/v2 source snapshots within the
+current launch scope. Existing defaults, examples and the original catalog
+retrieval date are preserved. Re-import the prepared material after the API
+release is verified; installed plugins and store listings have separate
+publication steps.
 
 ## Get your Ace Data Cloud API key
 

@@ -18,7 +18,7 @@ This API is completely free to use and does not consume any quota.
 
 The request path for the Claude Messages Count Tokens API is `/v1/messages/count_tokens`, consistent with the official Anthropic API. We need to provide at least two required parameters:
 
-- `model`: Use a complete ID from this endpoint's model list and the same model as the subsequent Messages request. The expanded list includes `gpt-6.1-terra`, the published GPT Sol/Luna/Astra aliases, GLM 5 models and `gemini-3.6-flash` alongside Claude models; see the [Messages guide](claude_messages_api_integration_guide.md#basic-usage).
+- `model`: Use a complete ID from this endpoint's model list and the same model as the subsequent Messages request. The expanded list includes `gpt-6.2-astra`, `gpt-6.2-sol`, `gpt-6.1-terra`, the published GPT Sol/Luna/Astra aliases, GLM 5 models and `gemini-3.6-flash` alongside Claude models; see the [Messages guide](claude_messages_api_integration_guide.md#basic-usage).
 - `messages`: An array of input messages, each containing `role` and `content`.
 
 Common optional parameters:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate selected OpenAI model additions from a committed Backend source.
+"""Regenerate selected chat model additions from a committed Backend source.
 
 Keep the dated public snapshot and its other contracts intact. This is an offline
 source update, not proof of API deployment or Coze import/store publication.
@@ -20,30 +20,74 @@ import build_catalog
 import build_imports
 
 ROOT = Path(__file__).resolve().parent
-CONTRACTS = {
-    "c9969b66-effb-4753-b504-a82c4d16f83f": "/openai/chat/completions",
-    "ed972a38-ecef-4fcb-af33-750de42d25dc": "/openai/responses",
+SERVICE_CONTRACTS = {
+    "openai": {
+        "c9969b66-effb-4753-b504-a82c4d16f83f": "/openai/chat/completions",
+        "ed972a38-ecef-4fcb-af33-750de42d25dc": "/openai/responses",
+    },
+    "claude": {
+        "a43a98fc-f833-4cfb-8596-8066faad2c42": "/v1/messages",
+        "01011450-70f7-430f-a8a3-97b0903b0a24": "/v1/messages/count_tokens",
+    },
+    "aichat": {
+        "1d58971c-e3cd-4713-a3ce-854a731adb14": "/aichat/conversations",
+        "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
+    },
 }
-OUTPUTS = (
-    "catalog/public-snapshot.json",
-    "plugins/openai.json",
-    "plugins/openai.yaml",
-    "imports/openai.json",
-    "imports/openai.yaml",
-    "image.yaml",
-)
+CONTRACTS = SERVICE_CONTRACTS["openai"]
+
+
+def selected_contracts(services):
+    return {
+        api_id: path
+        for service in services
+        for api_id, path in SERVICE_CONTRACTS[service].items()
+    }
+
+
+def selected_outputs(services):
+    outputs = ["catalog/public-snapshot.json"]
+    for service in dict.fromkeys(services):
+        # AI Chat is excluded by launch-scope.json. Update its historical
+        # snapshot contracts without creating or promoting a plugin entry.
+        if service == "aichat":
+            continue
+        outputs.extend(
+            f"{directory}/{service}.{extension}"
+            for directory in ("plugins", "imports")
+            for extension in ("json", "yaml")
+        )
+        if service == "openai":
+            outputs.append("image.yaml")
+    return tuple(outputs)
+
+
+OUTPUTS = selected_outputs(("openai",))
+
+
+def resolve_ref(definition, schema):
+    seen = set()
+    while "$ref" in schema:
+        reference = schema["$ref"]
+        if not reference.startswith("#/") or reference in seen:
+            raise ValueError(f"Unsupported model schema reference: {reference}")
+        seen.add(reference)
+        schema = definition
+        for part in reference[2:].split("/"):
+            schema = schema[part.replace("~1", "/").replace("~0", "~")]
+    return schema
 
 
 def model_enum(definition, path):
-    return definition["paths"][path]["post"]["requestBody"]["content"][
-        "application/json"
-    ]["schema"]["properties"]["model"]["enum"]
+    body = resolve_ref(definition, definition["paths"][path]["post"]["requestBody"])
+    schema = resolve_ref(definition, body["content"]["application/json"]["schema"])
+    return resolve_ref(definition, schema["properties"]["model"])["enum"]
 
 
-def update_snapshot(snapshot, backend_dir, models, revision):
+def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",)):
     result = copy.deepcopy(snapshot)
     requested = list(dict.fromkeys(models))
-    for api_id, path in CONTRACTS.items():
+    for api_id, path in selected_contracts(services).items():
         source_file = f"openapi/{api_id}.json"
         source_bytes = (backend_dir / source_file).read_bytes()
         source = json.loads(source_bytes)
@@ -67,7 +111,7 @@ def update_snapshot(snapshot, backend_dir, models, revision):
     return result
 
 
-def regenerate(root, snapshot):
+def regenerate(root, snapshot, services=("openai",)):
     old_catalog_root, old_import_root = build_catalog.ROOT, build_imports.ROOT
     try:
         with tempfile.TemporaryDirectory(prefix="coze-openai-models-") as temp:
@@ -80,7 +124,7 @@ def regenerate(root, snapshot):
             build_catalog.ROOT = build_imports.ROOT = stage
             build_catalog.main()
             build_imports.main()
-            for name in OUTPUTS:
+            for name in selected_outputs(services):
                 destination = root / name
                 data = (stage / name).read_bytes()
                 if destination.read_bytes() != data:
@@ -93,9 +137,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend-dir", type=Path, required=True)
     parser.add_argument("--model", action="append", required=True)
+    parser.add_argument("--service", action="append", choices=tuple(SERVICE_CONTRACTS))
     args = parser.parse_args()
+    services = args.service or ["openai"]
     backend_dir = args.backend_dir.resolve()
-    inputs = [f"openapi/{api_id}.json" for api_id in CONTRACTS]
+    inputs = [f"openapi/{api_id}.json" for api_id in selected_contracts(services)]
     dirty = subprocess.check_output(
         ["git", "-C", str(backend_dir), "status", "--porcelain", "--", *inputs],
         text=True,
@@ -106,9 +152,9 @@ def main():
         ["git", "-C", str(backend_dir), "rev-parse", "HEAD"], text=True
     ).strip()
     snapshot = json.loads((ROOT / OUTPUTS[0]).read_text())
-    updated = update_snapshot(snapshot, backend_dir, args.model, revision)
-    regenerate(ROOT, updated)
-    print(f"Updated only OpenAI import artifacts from Backend {revision}")
+    updated = update_snapshot(snapshot, backend_dir, args.model, revision, services)
+    regenerate(ROOT, updated, services)
+    print(f"Updated only {', '.join(dict.fromkeys(services))} model artifacts from Backend {revision}")
 
 
 if __name__ == "__main__":
