@@ -3,7 +3,7 @@
   "info": {
     "title": "ACE Music",
     "version": "1.0.0",
-    "description": "Create song pairs and editable lyrics; retrieve the original task. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples."
+    "description": "Create song groups, import one reference, cover or blend two owned tracks, and generate editable lyrics. Retrieve the original task. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples."
   },
   "servers": [
     {
@@ -15,7 +15,7 @@
       "post": {
         "operationId": "generateMusic",
         "summary": "ACE Music Audios",
-        "description": "Create one group of two song candidates from an idea or custom lyrics. A complete group is billed once; final partial or failed groups are free. Submission is asynchronous by default. Full input requirements: https://platform.acedata.cloud/documents/acemusic-audios Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.",
+        "description": "Generate, cover or mash up one group of two song candidates, or import one audio reference from an HTTPS URL. Complete two-track groups and successful one-track imports have separate prices. Final failed or partial generation groups are free. Save the original task ID and query it instead of resubmitting. Full input requirements: https://platform.acedata.cloud/documents/acemusic-audios Submit once with async=true. Retain task_id and poll the matching task tool; a task ID is not a completed result. Do not resubmit while pending.",
         "requestBody": {
           "required": true,
           "content": {
@@ -27,9 +27,13 @@
                   "action": {
                     "type": "string",
                     "enum": [
-                      "generate"
+                      "generate",
+                      "upload",
+                      "cover",
+                      "mashup"
                     ],
-                    "default": "generate"
+                    "default": "generate",
+                    "description": "generate creates new songs, upload imports one audio reference, cover reworks one owned track, and mashup blends exactly two owned tracks."
                   },
                   "model": {
                     "type": "string",
@@ -37,11 +41,13 @@
                       "acemusic-v1.1",
                       "acemusic-v1"
                     ],
-                    "default": "acemusic-v1.1"
+                    "default": "acemusic-v1.1",
+                    "description": "Generation supports both models. Cover and mashup use acemusic-v1.1. Omit for upload."
                   },
                   "custom": {
                     "type": "boolean",
-                    "default": false
+                    "default": false,
+                    "description": "Only used by generate: false for an idea, true for supplied lyrics."
                   },
                   "prompt": {
                     "type": "string",
@@ -51,20 +57,21 @@
                   },
                   "lyric": {
                     "type": "string",
-                    "description": "Custom lyrics. Required when custom is true.",
+                    "description": "Lyrics for custom generation, cover or mashup.",
                     "maxLength": 20000,
                     "minLength": 1
                   },
                   "style": {
                     "type": "string",
-                    "description": "Musical style for custom creation.",
+                    "description": "Musical style for custom generation, cover or mashup.",
                     "maxLength": 20000,
                     "minLength": 1
                   },
                   "title": {
                     "type": "string",
                     "maxLength": 20000,
-                    "minLength": 1
+                    "minLength": 1,
+                    "description": "Required for custom generation; optional for cover and mashup."
                   },
                   "async": {
                     "type": "boolean",
@@ -77,11 +84,55 @@
                     "description": "Optional HTTPS callback for the final result. Implies asynchronous execution.",
                     "maxLength": 20000,
                     "minLength": 1
+                  },
+                  "audio_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://",
+                    "minLength": 1,
+                    "maxLength": 20000,
+                    "description": "HTTPS source audio URL for upload. Use audio_id or mashup_audio_ids for already imported or generated tracks."
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20000,
+                    "description": "Optional display name for an upload."
+                  },
+                  "audio_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20000,
+                    "description": "Public platform track ID owned by the caller. Required for cover; optional on upload to associate the import with an existing reference track."
+                  },
+                  "mashup_audio_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 20000
+                    },
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "uniqueItems": true,
+                    "description": "Exactly two distinct caller-owned public track IDs. The selected references must be compatible with each other."
+                  },
+                  "audio_influence": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 100,
+                    "default": 60,
+                    "description": "Audio reference strength for cover and mashup. Defaults to 60."
                   }
                 },
                 "oneOf": [
                   {
                     "properties": {
+                      "action": {
+                        "enum": [
+                          "generate"
+                        ]
+                      },
                       "custom": {
                         "enum": [
                           false
@@ -100,12 +151,37 @@
                         },
                         {
                           "required": [
+                            "style"
+                          ]
+                        },
+                        {
+                          "required": [
                             "title"
                           ]
                         },
                         {
                           "required": [
-                            "style"
+                            "audio_url"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_id"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "mashup_audio_ids"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_influence"
                           ]
                         }
                       ]
@@ -113,6 +189,11 @@
                   },
                   {
                     "properties": {
+                      "action": {
+                        "enum": [
+                          "generate"
+                        ]
+                      },
                       "custom": {
                         "enum": [
                           true
@@ -126,8 +207,192 @@
                       "title"
                     ],
                     "not": {
-                      "required": [
-                        "prompt"
+                      "anyOf": [
+                        {
+                          "required": [
+                            "prompt"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_url"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_id"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "mashup_audio_ids"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_influence"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "upload"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "audio_url"
+                    ],
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "model"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "custom"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "prompt"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "lyric"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "style"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "title"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "mashup_audio_ids"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_influence"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "cover"
+                        ]
+                      },
+                      "model": {
+                        "enum": [
+                          "acemusic-v1.1"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "audio_id",
+                      "lyric",
+                      "style"
+                    ],
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "custom"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "prompt"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_url"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "mashup_audio_ids"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "mashup"
+                        ]
+                      },
+                      "model": {
+                        "enum": [
+                          "acemusic-v1.1"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "mashup_audio_ids",
+                      "lyric",
+                      "style"
+                    ],
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "custom"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "prompt"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_url"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "name"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "audio_id"
+                          ]
+                        }
                       ]
                     }
                   }
@@ -138,7 +403,7 @@
         },
         "responses": {
           "200": {
-            "description": "Request accepted or result available. Inspect the task state before treating generation as complete.",
+            "description": "Request accepted or result available. Generation, cover and mashup target two tracks; upload targets one. Inspect the original task state before treating it as complete.",
             "content": {
               "application/json": {
                 "schema": {
@@ -223,7 +488,8 @@
                                 "minimum": 0
                               }
                             }
-                          }
+                          },
+                          "description": "One track for a successful upload, or two candidates for a complete generate/cover/mashup group. A partial group may retain only its successful candidate."
                         },
                         "error": {
                           "type": "object",
@@ -300,7 +566,8 @@
                             "minimum": 0
                           }
                         }
-                      }
+                      },
+                      "description": "One track for a successful upload, or two candidates for a complete generate/cover/mashup group. A partial group may retain only its successful candidate."
                     },
                     "error": {
                       "type": "object",
@@ -322,7 +589,7 @@
             }
           },
           "400": {
-            "description": "Invalid request or unsupported model.",
+            "description": "Invalid request, unsupported model/action or incompatible references.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1087,6 +1354,45 @@
                             },
                             "async": {
                               "type": "boolean"
+                            },
+                            "audio_url": {
+                              "type": "string",
+                              "format": "uri",
+                              "pattern": "^https://",
+                              "minLength": 1,
+                              "maxLength": 20000,
+                              "description": "HTTPS source audio URL for upload. Use audio_id or mashup_audio_ids for already imported or generated tracks."
+                            },
+                            "name": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 20000,
+                              "description": "Optional display name for an upload."
+                            },
+                            "audio_id": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 20000,
+                              "description": "Public platform track ID owned by the caller. Required for cover; optional on upload to associate the import with an existing reference track."
+                            },
+                            "mashup_audio_ids": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 20000
+                              },
+                              "minItems": 2,
+                              "maxItems": 2,
+                              "uniqueItems": true,
+                              "description": "Exactly two distinct caller-owned public track IDs. The selected references must be compatible with each other."
+                            },
+                            "audio_influence": {
+                              "type": "number",
+                              "minimum": 1,
+                              "maximum": 100,
+                              "default": 60,
+                              "description": "Audio reference strength for cover and mashup. Defaults to 60."
                             }
                           }
                         },
@@ -1200,7 +1506,8 @@
                           "enum": [
                             "audios",
                             "lyrics"
-                          ]
+                          ],
+                          "description": "Audio tasks include generate, upload, cover and mashup. Lyrics tasks use lyrics."
                         },
                         "trace_id": {
                           "type": "string"
@@ -1273,6 +1580,45 @@
                                   },
                                   "async": {
                                     "type": "boolean"
+                                  },
+                                  "audio_url": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "pattern": "^https://",
+                                    "minLength": 1,
+                                    "maxLength": 20000,
+                                    "description": "HTTPS source audio URL for upload. Use audio_id or mashup_audio_ids for already imported or generated tracks."
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 20000,
+                                    "description": "Optional display name for an upload."
+                                  },
+                                  "audio_id": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 20000,
+                                    "description": "Public platform track ID owned by the caller. Required for cover; optional on upload to associate the import with an existing reference track."
+                                  },
+                                  "mashup_audio_ids": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxLength": 20000
+                                    },
+                                    "minItems": 2,
+                                    "maxItems": 2,
+                                    "uniqueItems": true,
+                                    "description": "Exactly two distinct caller-owned public track IDs. The selected references must be compatible with each other."
+                                  },
+                                  "audio_influence": {
+                                    "type": "number",
+                                    "minimum": 1,
+                                    "maximum": 100,
+                                    "default": 60,
+                                    "description": "Audio reference strength for cover and mashup. Defaults to 60."
                                   }
                                 }
                               },
@@ -1386,7 +1732,8 @@
                                 "enum": [
                                   "audios",
                                   "lyrics"
-                                ]
+                                ],
+                                "description": "Audio tasks include generate, upload, cover and mashup. Lyrics tasks use lyrics."
                               },
                               "trace_id": {
                                 "type": "string"
@@ -1459,6 +1806,45 @@
                         },
                         "async": {
                           "type": "boolean"
+                        },
+                        "audio_url": {
+                          "type": "string",
+                          "format": "uri",
+                          "pattern": "^https://",
+                          "minLength": 1,
+                          "maxLength": 20000,
+                          "description": "HTTPS source audio URL for upload. Use audio_id or mashup_audio_ids for already imported or generated tracks."
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20000,
+                          "description": "Optional display name for an upload."
+                        },
+                        "audio_id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20000,
+                          "description": "Public platform track ID owned by the caller. Required for cover; optional on upload to associate the import with an existing reference track."
+                        },
+                        "mashup_audio_ids": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 20000
+                          },
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "uniqueItems": true,
+                          "description": "Exactly two distinct caller-owned public track IDs. The selected references must be compatible with each other."
+                        },
+                        "audio_influence": {
+                          "type": "number",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 60,
+                          "description": "Audio reference strength for cover and mashup. Defaults to 60."
                         }
                       }
                     },
@@ -1572,7 +1958,8 @@
                       "enum": [
                         "audios",
                         "lyrics"
-                      ]
+                      ],
+                      "description": "Audio tasks include generate, upload, cover and mashup. Lyrics tasks use lyrics."
                     },
                     "trace_id": {
                       "type": "string"
@@ -1636,6 +2023,45 @@
                               },
                               "async": {
                                 "type": "boolean"
+                              },
+                              "audio_url": {
+                                "type": "string",
+                                "format": "uri",
+                                "pattern": "^https://",
+                                "minLength": 1,
+                                "maxLength": 20000,
+                                "description": "HTTPS source audio URL for upload. Use audio_id or mashup_audio_ids for already imported or generated tracks."
+                              },
+                              "name": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 20000,
+                                "description": "Optional display name for an upload."
+                              },
+                              "audio_id": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 20000,
+                                "description": "Public platform track ID owned by the caller. Required for cover; optional on upload to associate the import with an existing reference track."
+                              },
+                              "mashup_audio_ids": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxLength": 20000
+                                },
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "uniqueItems": true,
+                                "description": "Exactly two distinct caller-owned public track IDs. The selected references must be compatible with each other."
+                              },
+                              "audio_influence": {
+                                "type": "number",
+                                "minimum": 1,
+                                "maximum": 100,
+                                "default": 60,
+                                "description": "Audio reference strength for cover and mashup. Defaults to 60."
                               }
                             }
                           },
@@ -1749,7 +2175,8 @@
                             "enum": [
                               "audios",
                               "lyrics"
-                            ]
+                            ],
+                            "description": "Audio tasks include generate, upload, cover and mashup. Lyrics tasks use lyrics."
                           },
                           "trace_id": {
                             "type": "string"

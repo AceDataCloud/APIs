@@ -1,6 +1,6 @@
 # ACE Music API
 
-从一句灵感或自定义歌词创作歌曲，试听并下载两首候选。
+从灵感、歌词或参考音频创作歌曲，可导入参考、翻唱一首已有作品或融合两首参考，试听并下载结果。
 
 本目录由 AceDataCloud/APIs 维护；接口与指南源在 PlatformBackend，文档通过发布流程同步。
 
@@ -12,7 +12,7 @@
 - [Studio](https://studio.acedata.cloud/acemusic)
 - [在线文档](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios)
 
-模型：`acemusic-v1.1`（默认）、`acemusic-v1`。歌曲生成默认异步，提交后保存平台任务 ID，使用免费任务 API 查询原任务。一次完整双曲组收一次费用；最终失败或部分失败不收生成费。歌词 API 独立收费。
+基础生成模型：`acemusic-v1.1`（默认）、`acemusic-v1`；翻唱与融合使用 `acemusic-v1.1`。同一 `/acemusic/audios` 接口支持 `generate`、`upload`、`cover` 和 `mashup`。参考使用个人平台音轨 ID，融合要求恰好两首不同且兼容的参考。默认异步，提交后保存平台任务 ID，使用免费任务 API 查询原任务。完整双曲组收一次费用，成功上传一首参考另收上传费；最终失败或部分失败组不收生成费，上传失败不收费。歌词 API 独立收费。
 
 本次新增服务的发布依赖对应 Backend 与 worker PR；源码存在不表示生产已开放。
 
