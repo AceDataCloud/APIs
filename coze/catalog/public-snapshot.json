@@ -13491,7 +13491,9 @@
                             "o3-pro",
                             "o4-mini",
                             "mimo-v2.6-pro",
-                            "mimo-v2.6-flash"
+                            "mimo-v2.6-flash",
+                            "gpt-6.2-astra",
+                            "gpt-6.2-sol"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -14177,7 +14179,19 @@
         "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
         "source_file": "openapi/c9969b66-effb-4753-b504-a82c4d16f83f.json",
         "source_file_sha256": "60f72981d3b60082e4d077315fe698a94f5e57307de75cda0bedab0b5bab27c3"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/c9969b66-effb-4753-b504-a82c4d16f83f.json",
+          "source_file_sha256": "f8e1fcad8bdec92f12c55b970c08dc5e950b3a28bc758756f729469ada7f9858",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "ed972a38-ecef-4fcb-af33-750de42d25dc": {
       "id": "ed972a38-ecef-4fcb-af33-750de42d25dc",
@@ -14490,7 +14504,9 @@
                             "o4-mini",
                             "o4-mini-2025-04-16",
                             "o4-mini-all",
-                            "o4-mini-high-all"
+                            "o4-mini-high-all",
+                            "gpt-6.2-astra",
+                            "gpt-6.2-sol"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -15252,7 +15268,19 @@
         "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
         "source_file": "openapi/ed972a38-ecef-4fcb-af33-750de42d25dc.json",
         "source_file_sha256": "47d75a4c6570ee9741f45ddd8f50a3f3734d022817b3d8ce2854e259fe76dbee"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/ed972a38-ecef-4fcb-af33-750de42d25dc.json",
+          "source_file_sha256": "33e2613d035b0e614ef5493168a550eaa8b7a481327fc18a9ff3ac236d4e673b",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "fb74083e-bb68-48d5-8ba6-b5a224400cd3": {
       "id": "fb74083e-bb68-48d5-8ba6-b5a224400cd3",
