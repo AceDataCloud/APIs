@@ -61,6 +61,21 @@ Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
 `catalog/launch-scope.json`. Historical source snapshots retain provenance and
 are not the active launch list.
 
+### Regenerate OpenAI model additions
+
+From a committed Backend checkout, regenerate only the selected model additions:
+
+```bash
+python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
+  --model gpt-6.2-astra --model gpt-6.2-sol
+```
+
+The offline helper checks both Backend endpoint enums, records source provenance,
+runs the existing catalog/import generators in a temporary directory, and writes
+only the OpenAI artifacts. Existing defaults, other services and the original
+catalog retrieval date are preserved. Source changes do not update installed
+Coze plugins; re-import the prepared material after the API release is verified.
+
 ## Get your Ace Data Cloud API key
 
 1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_api_key). Sign in, or register an account first.

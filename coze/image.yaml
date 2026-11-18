@@ -1629,6 +1629,8 @@ paths:
                   - o4-mini
                   - mimo-v2.6-pro
                   - mimo-v2.6-flash
+                  - gpt-6.2-astra
+                  - gpt-6.2-sol
                   type: string
                   description: Model ID to be used.
                 store:
@@ -3084,6 +3086,8 @@ paths:
                   - o4-mini-2025-04-16
                   - o4-mini-all
                   - o4-mini-high-all
+                  - gpt-6.2-astra
+                  - gpt-6.2-sol
                   type: string
                   description: Model ID to be used.
                 store:
