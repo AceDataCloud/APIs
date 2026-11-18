@@ -73,6 +73,8 @@ paths:
                   - claude-3-5-sonnet-20240620
                   - claude-3-haiku-20240307
                   - claude-3-sonnet-20240229
+                  - gpt-6.2-astra
+                  - gpt-6.2-sol
                   type: string
                   description: A model used for counting token numbers.
                 system:
@@ -681,6 +683,8 @@ paths:
                   - claude-3-5-sonnet-20240620
                   - claude-3-haiku-20240307
                   - claude-3-sonnet-20240229
+                  - gpt-6.2-astra
+                  - gpt-6.2-sol
                   type: string
                   description: Used to complete the model you prompted.
                 top_k:

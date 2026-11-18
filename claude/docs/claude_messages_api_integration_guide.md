@@ -2,6 +2,10 @@
 
 The Messages API uses the Anthropic Messages request and response format for messages, system prompts, content blocks, tool calls, thinking controls and streaming events. Choose a published model with `model` while keeping the same Messages data structures.
 
+## GPT-6.2 Astra and Sol
+
+Set `model` to `gpt-6.2-astra` or `gpt-6.2-sol` and keep Messages-format `messages` and `max_tokens`. Read text and usage from the Messages response structure. Check current prices, account access and model-specific feature support before switching models.
+
 ## Claude Fable 5.2
 
 Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
@@ -30,7 +34,7 @@ Compatible model requests accepted by the platform are billed for the selected m
 
 We need to provide at least three required parameters:
 
-- `model`: Use a complete ID from this endpoint's published model list. In addition to the Claude models, this entry lists `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-6-astra`, `gpt-5.6-sol-fast`, `gpt-5.6-sol`, `glm-5.3`, `glm-5.2`, `glm-5.1`, `glm-5-turbo`, `glm-5` and `gemini-3.6-flash`. Check the selected model's limits, pricing and account availability; keep the Messages request and response format when switching.
+- `model`: Use a complete ID from this endpoint's published model list. In addition to the Claude models, this entry lists `gpt-6.2-astra`, `gpt-6.2-sol`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-6-astra`, `gpt-5.6-sol-fast`, `gpt-5.6-sol`, `glm-5.3`, `glm-5.2`, `glm-5.1`, `glm-5-turbo`, `glm-5` and `gemini-3.6-flash`. Check the selected model's limits, pricing and account availability; keep the Messages request and response format when switching.
 - `messages`: An array of input messages, each containing `role` (role) and `content` (content), where `role` supports `user` and `assistant`.
 - `max_tokens`: The maximum number of output tokens, used to limit the length of a single reply.
 

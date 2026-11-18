@@ -4981,7 +4981,9 @@
                     "claude-3-5-haiku-20241022",
                     "claude-3-5-sonnet-20240620",
                     "claude-3-haiku-20240307",
-                    "claude-3-sonnet-20240229"
+                    "claude-3-sonnet-20240229",
+                    "gpt-6.2-astra",
+                    "gpt-6.2-sol"
                   ],
                   "type": "string",
                   "description": "A model used for counting token numbers."
@@ -5061,7 +5063,19 @@
         "revision": "207155b0d2558153d83b2bb1539df77e38df8395",
         "source_file": "openapi/01011450-70f7-430f-a8a3-97b0903b0a24.json",
         "source_file_sha256": "1fce0cc33e39fd4a65c3e52d84749e9932f9ebee669d2e9b154d863e5aec857d"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/01011450-70f7-430f-a8a3-97b0903b0a24.json",
+          "source_file_sha256": "6a0053c2ae372e64e1e71a2dfbbf2fdd8b58eac0abd4cdf47cea7ef052b4e374",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "6b2b437b-b6d5-466c-8750-b16650072593": {
       "id": "6b2b437b-b6d5-466c-8750-b16650072593",
@@ -7230,7 +7244,9 @@
                     "claude-3-5-haiku-20241022",
                     "claude-3-5-sonnet-20240620",
                     "claude-3-haiku-20240307",
-                    "claude-3-sonnet-20240229"
+                    "claude-3-sonnet-20240229",
+                    "gpt-6.2-astra",
+                    "gpt-6.2-sol"
                   ],
                   "type": "string",
                   "description": "Used to complete the model you prompted."
@@ -7433,7 +7449,19 @@
         "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/a43a98fc-f833-4cfb-8596-8066faad2c42.json",
         "source_file_sha256": "e4e275870130fed399b40a9e509e9869a7d315eb9a64a35d3bd08417249bade4"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/a43a98fc-f833-4cfb-8596-8066faad2c42.json",
+          "source_file_sha256": "326f62e2483cab32dfd248d610b050324ffad13eebb373d8a8d7880f6fe649a1",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "553a0038-eef7-4e79-87c7-9d4e7321ca9b": {
       "id": "553a0038-eef7-4e79-87c7-9d4e7321ca9b",
@@ -23242,7 +23270,9 @@
                             "glm-5.1",
                             "glm-4.7",
                             "glm-4.6",
-                            "glm-3-turbo"
+                            "glm-3-turbo",
+                            "gpt-6.2-astra",
+                            "gpt-6.2-sol"
                           ],
                           "rank": 5,
                           "type": "string",
@@ -23296,7 +23326,19 @@
           }
         }
       },
-      "source_definition_sha256": "254bff19ede9e61b34225a5938cf3ffcddc68c14f3c165d33b6dc3bcc3001045"
+      "source_definition_sha256": "254bff19ede9e61b34225a5938cf3ffcddc68c14f3c165d33b6dc3bcc3001045",
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/1d58971c-e3cd-4713-a3ce-854a731adb14.json",
+          "source_file_sha256": "384ef4629e347055beb1a3e5d2bd034010d28fe976d9b2682cefc867913c845e",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "3769e83e-88f8-4e2c-8f38-6bf20391b094": {
       "id": "3769e83e-88f8-4e2c-8f38-6bf20391b094",
@@ -23658,7 +23700,9 @@
                             "gemini-3-flash-preview",
                             "gemini-2.5-pro",
                             "gemini-2.5-flash",
-                            "gemini-2.5-flash-lite"
+                            "gemini-2.5-flash-lite",
+                            "gpt-6.2-astra",
+                            "gpt-6.2-sol"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -23897,7 +23941,19 @@
         "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
         "source_file_sha256": "94a7db1c00ff1efe47f04efe4fc2d0f08aa50c826911b18ddde99bc289984eaf"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "941921ab061084f30ebe5f4899c6729e025b7c3a",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "5b72bd6e00efdc00e4d8c03ad28ccc2abae5310e2c3d16550fa8ea7bca8849ef",
+          "models_added": [
+            "gpt-6.2-astra",
+            "gpt-6.2-sol"
+          ],
+          "scope": "request model enum additions only; no live publication claim"
+        }
+      ]
     },
     "7753ed09-1046-46d3-ad80-cd7ff19676b5": {
       "id": "7753ed09-1046-46d3-ad80-cd7ff19676b5",

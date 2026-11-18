@@ -8,6 +8,10 @@ API home page: [Ace Data Cloud - Claude](https://platform.acedata.cloud/services
 
 Keywords: claude-api, anthropic, claude-opus-5-5, claude-fable-5-2, claude-fable-5-1, claude-fable-5, claude-opus-5, claude-opus-4-8, claude-sonnet-5, claude-chat-completions, claude-messages, rest-api, ai-api, developer-tools, AI API, REST API, Developer API, Ace Data Cloud
 
+## GPT-6.2 on Messages
+
+Select `gpt-6.2-astra` or `gpt-6.2-sol` on `/v1/messages` while keeping the Messages request and response format. Send `messages` and `max_tokens`, and read the returned `content` and `usage` fields. Check the selected model's current pricing and account availability; model-specific Claude features depend on the selected model. See the [Messages guide](docs/claude_messages_api_integration_guide.md#basic-usage).
+
 ## Claude Fable 5.2
 
 Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
