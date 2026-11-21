@@ -69,6 +69,7 @@ Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextproto
 
 | MCP Server | Docs |
 |---|---|
+| ACE Music MCP Server | [View documentation](https://platform.acedata.cloud/documents/mcp-acemusic?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=catalog_api_readme_documents_mcp_acemusic) |
 | Flux MCP Server | [View documentation](https://platform.acedata.cloud/documents/flux-mcp?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=catalog_api_readme_documents_flux_mcp) |
 | Luma MCP Server | [View documentation](https://platform.acedata.cloud/documents/luma-mcp?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=catalog_api_readme_documents_luma_mcp) |
 | Nanobanana MCP Server | [View documentation](https://platform.acedata.cloud/documents/nano-banana-mcp?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=catalog_api_readme_documents_nano_banana_mcp) |
