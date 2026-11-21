@@ -36,12 +36,13 @@ limitation, not a portable Coze build result.
 
 ## What is exercised
 
-For Seedance, HappyHorse and Nano Banana, both JSON and YAML pass through
+For ACE Music, Seedance, HappyHorse and Nano Banana, both JSON and YAML pass through
 kin-openapi parsing and official `Openapi3T.Validate`,
 `Openapi3Operation.ToEinoSchemaParameterInfo`, `ToolInfo.ToReqAPIParameter`
 and `ToolInfo.ToRespAPIParameter`.
 
-- Two tools, same-task retrieval fields and media paths survive conversion.
+- The three ACE Music HTTP tools preserve required private Authorization binding, task IDs, audio track IDs, playable URLs, lyric text, batch results and terminal errors. Both JSON and YAML passed 21 checks each with the pinned mapper. See the [ACE Music results](acemusic-result.json).
+- Existing two-tool image and video imports preserve their same-task retrieval fields and media paths.
 - Single/batch task errors and the returned media fields stay visible.
 - Authorization is required with no default/example credential.
 - An in-memory `x-variable-ref=adc_auth` survives the official mapper. No token

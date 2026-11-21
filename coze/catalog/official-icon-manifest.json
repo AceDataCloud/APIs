@@ -1,4 +1,9 @@
 {
+  "acemusic": {
+    "sha256": "52deddfc87b9adf1a215e4c69395c65890701ce87a5c7c084cd91b684c46ba35",
+    "source_url": "https://cdn.acedata.cloud/acemusic-icon-52deddfc87b9.png",
+    "source": "https://platform.acedata.cloud/api/v1/services/acemusic/?lang=en"
+  },
   "claude": {
     "sha256": "0def79a4174914dee87799c82cdcf93a7bafc6d2028ca94de53e4b4980678306",
     "source_url": "https://cdn.acedata.cloud/8fnw4v.jpg",

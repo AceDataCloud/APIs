@@ -1,0 +1,26 @@
+{
+  "name": "ACE Music",
+  "brief": "ACE Music songs, reference tracks and lyrics",
+  "description": "Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.",
+  "icon": "icons/acemusic.png",
+  "plugin_type": "MCP",
+  "server_url": "https://acemusic.mcp.acedata.cloud/mcp",
+  "expected_tool_names": [
+    "acemusic_cover_audio",
+    "acemusic_generate_custom_music",
+    "acemusic_generate_lyrics",
+    "acemusic_generate_music",
+    "acemusic_get_capabilities",
+    "acemusic_get_task",
+    "acemusic_get_tasks_batch",
+    "acemusic_list_models",
+    "acemusic_list_tasks",
+    "acemusic_mashup_audio",
+    "acemusic_upload_audio"
+  ],
+  "expected_tool_count": 11,
+  "benchmark_source": "https://acemusic.mcp.acedata.cloud/.well-known/mcp/server-card.json",
+  "authorization": "Bind the caller’s private Authorization credential (Bearer API key) in the client.",
+  "status": "prepared_not_published",
+  "note": "Configuration reference for a private remote MCP integration. Check tool discovery and the credential binding in your own Coze workspace."
+}

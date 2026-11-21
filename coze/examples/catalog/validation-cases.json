@@ -2803,5 +2803,73 @@
       "Inspect the returned media or content and reconcile billed Credits."
     ],
     "special_authorization": false
+  },
+  {
+    "service": "acemusic",
+    "api_id": "4c52eae4-e361-5ccb-9af4-1892e918649f",
+    "operation_id": "generateMusic",
+    "method": "POST",
+    "path": "/acemusic/audios",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "acemusic",
+    "api_id": "b3637223-92ae-5e2f-8536-6df3ef16c509",
+    "operation_id": "generateLyrics",
+    "method": "POST",
+    "path": "/acemusic/lyrics",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": {
+        "prompt": "A calm sunrise over a mountain lake."
+      }
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
+  },
+  {
+    "service": "acemusic",
+    "api_id": "cd422d13-3e61-5d2e-88fc-7281ff471565",
+    "operation_id": "getTaskResults",
+    "method": "POST",
+    "path": "/acemusic/tasks",
+    "request": {
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      },
+      "body": "REPLACE_"
+    },
+    "status": "not_run",
+    "fixture_kind": "draft_request_not_execution_evidence",
+    "acceptance": [
+      "Validate the request against the current model/action requirements.",
+      "Confirm a successful real response and expected result fields.",
+      "For async creation, poll the matching retrieval tool to a terminal result.",
+      "Inspect the returned media or content and reconcile billed Credits."
+    ],
+    "special_authorization": false
   }
 ]

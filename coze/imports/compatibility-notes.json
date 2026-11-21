@@ -615,5 +615,15 @@
       "kind": "editor_numeric_format",
       "reason": "Remove only numeric format annotations rejected by the official Studio parameter mapper; retain number/integer types, values and media fields."
     }
+  ],
+  "acemusic": [
+    {
+      "kind": "editor_format",
+      "reason": "Remove uri format and numeric format annotations rejected by Coze Studio; URLs remain string fields."
+    },
+    {
+      "kind": "conditional_constraints",
+      "reason": "The editor exposes individual fields. The full API validates required fields per selected song or retrieval action."
+    }
   ]
 }

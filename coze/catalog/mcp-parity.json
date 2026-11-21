@@ -15727,6 +15727,62 @@
         "flux_get_task",
         "flux_get_tasks_batch"
       ]
+    },
+    "acemusic": {
+      "mcp": "acemusic",
+      "endpoint": "https://acemusic.mcp.acedata.cloud/mcp",
+      "mcp_tool_count": 11,
+      "tools": [
+        {
+          "name": "acemusic_cover_audio",
+          "description": "Submit one paid cover task targeting two songs from an owned reference.\n\n    Use a public audio ID returned by a successful task. Reference compatibility\n    is checked by the service; do not upload again or generate a replacement on\n    rejection. Save the original task_id and query it instead of resubmitting.\n    "
+        },
+        {
+          "name": "acemusic_generate_custom_music",
+          "description": "Submit one paid ACE Music task using the user's lyrics and style.\n\n    Lyrics are sent as the singular platform field lyric. This creates a new\n    song group; it does not upload, cover, extend or separate existing audio.\n    "
+        },
+        {
+          "name": "acemusic_generate_lyrics",
+          "description": "Generate a title and lyrics. This is a separately priced request.\n\n    Show or edit the lyrics before a separate custom music generation. Do not\n    call this implicitly when the user has already supplied complete lyrics.\n    "
+        },
+        {
+          "name": "acemusic_generate_music",
+          "description": "Submit one ACE Music task from an idea, targeting two song candidates.\n\n    This is a paid generation. Save the returned task ID and use acemusic_get_task\n    until the group reaches a terminal state. Never resubmit to check progress.\n    A callback is optional; use a real webhook you control.\n    "
+        },
+        {
+          "name": "acemusic_get_capabilities",
+          "description": "Describe supported workflows, fees and task recovery boundaries."
+        },
+        {
+          "name": "acemusic_get_task",
+          "description": "Retrieve your existing task and its song-group state without generating.\n\n    Inspect the persisted response and group state. Partial failure is terminal:\n    keep any successful audio and report the failed candidate. An audio URL by\n    itself does not prove that the entire group has completed.\n    "
+        },
+        {
+          "name": "acemusic_get_tasks_batch",
+          "description": "Retrieve up to 50 original task IDs in one authenticated free request."
+        },
+        {
+          "name": "acemusic_list_models",
+          "description": "List supported public ACE Music model IDs and the default."
+        },
+        {
+          "name": "acemusic_list_tasks",
+          "description": "List the caller's ACE Music task history with bounded pagination."
+        },
+        {
+          "name": "acemusic_mashup_audio",
+          "description": "Submit one paid two-reference mashup task targeting two songs.\n\n    Both public audio IDs must be caller-owned and compatible references.\n    The service rejects incompatible sources; never substitute references or\n    perform an extra paid upload automatically. Poll the returned task_id.\n    "
+        },
+        {
+          "name": "acemusic_upload_audio",
+          "description": "Import one reference track as a separate priced operation.\n\n    This does not create a cover automatically. An optional caller-owned\n    platform audio_id anchors the import to that track for later reference use.\n    Save task_id and query the original task until its single track succeeds.\n    "
+        }
+      ],
+      "coze_http_operation_count": 3,
+      "benchmark_source": "public server card",
+      "source_url": "https://acemusic.mcp.acedata.cloud/.well-known/mcp/server-card.json",
+      "source_date": "2026-11-22",
+      "status": "native_mcp_target_not_connected"
     }
   }
 }
