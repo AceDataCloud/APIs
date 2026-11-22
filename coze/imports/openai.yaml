@@ -213,6 +213,7 @@ paths:
                   - gpt-image-2.6-sunburst
                   - gpt-image-2.6-sunburst:reverse
                   - gpt-image-2.6-sunburst:official
+                  - nano-banana-2.1
                   type: string
                   description: 'Models for image generation. Supports OpenAI''s `dall-e-2`, `dall-e-3`,
                     `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst`
@@ -2032,6 +2033,7 @@ paths:
                   - gpt-image-2.6-sunburst
                   - gpt-image-2.6-sunburst:reverse
                   - gpt-image-2.6-sunburst:official
+                  - nano-banana-2.1
                   type: string
                   default: gpt-image-1
                   description: 'Models used for image editing. Supports `dall-e-2`, `dall-e-3`, GPT Image

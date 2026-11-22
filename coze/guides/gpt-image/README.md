@@ -6,6 +6,8 @@ Use GPT Image through an independent Coze plugin maintained by **Ace Data Cloud*
 
 Ace Data Cloud hides the OpenAI image generation/editing APIs and their companion guides from its mainland-China catalog. This international Coze guide and the China editor screenshots below do not establish regional API availability or a China-store release. Check your region's catalog before proceeding.
 
+The model selector preserves the complete generation/edit endpoint enum, including supported DALL-E and Nano Banana compatibility aliases. Choose the model explicitly when needed; the existing GPT Image 2 default is preserved. Leave optional size and quality unset unless selecting values supported by that model; this import does not insert shared size/quality defaults. Existing explicit workflow values remain your choices, so review them when changing models.
+
 ## 1. Find and install the correct plugin
 
 Open [GPT Image in Coze Plugin Store](https://www.coze.com/store/plugin/7695652131059187765). Confirm the publisher is **AceDataCloud**. The latest recorded submission was under review on **2026-10-12**; approval and search/install availability have not been authenticated again. If Install/Add is absent or the version is under review, stop at that gate; do not treat this source guide as a released store package.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate selected chat model changes from a committed Backend source.
+"""Regenerate selected model changes from a committed Backend source.
 
 Keep the dated public snapshot and its other contracts intact. This is an offline
 source update, not proof of API deployment or Coze import/store publication.
@@ -24,6 +24,10 @@ SERVICE_CONTRACTS = {
     "openai": {
         "c9969b66-effb-4753-b504-a82c4d16f83f": "/openai/chat/completions",
         "ed972a38-ecef-4fcb-af33-750de42d25dc": "/openai/responses",
+    },
+    "gpt-image": {
+        "8f01fe72-8a3e-4872-8d8d-330cde179b3a": "/openai/images/generations",
+        "fb74083e-bb68-48d5-8ba6-b5a224400cd3": "/openai/images/edits",
     },
     "claude": {
         "a43a98fc-f833-4cfb-8596-8066faad2c42": "/v1/messages",
@@ -66,9 +70,15 @@ def selected_outputs(services):
             for directory in ("plugins", "imports")
             for extension in ("json", "yaml")
         )
-        if service == "openai":
+        if service in ("openai", "gpt-image"):
             outputs.append("image.yaml")
-    return tuple(outputs)
+        if service == "gpt-image":
+            outputs.extend(
+                f"{directory}/openai.{extension}"
+                for directory in ("plugins", "imports")
+                for extension in ("json", "yaml")
+            )
+    return tuple(dict.fromkeys(outputs))
 
 
 OUTPUTS = selected_outputs(("openai",))

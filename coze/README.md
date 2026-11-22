@@ -79,6 +79,8 @@ python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
   --model gpt-6.2-astra --model gpt-6.2-sol
 ```
 
+Use `--service gpt-image` for model additions to both image generation and editing contracts. It regenerates the full endpoint enum in the standalone GPT Image and existing OpenAI JSON/YAML definitions; compatible aliases are not filtered by name.
+
 Choose `--service deepseek` to refresh the two AI Dialogue source contracts
 and the DeepSeek plugin's JSON and YAML definitions. Use `--remove-model` for
 a retired ID. The helper checks that the ID is absent from both source enums.

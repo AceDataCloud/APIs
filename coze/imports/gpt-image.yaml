@@ -2,9 +2,10 @@ openapi: 3.0.1
 info:
   title: GPT Image
   version: 2.0.0
-  description: 'Generate and edit images with GPT Image models, then retrieve completed image results.
-    Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage
-    is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen'
+  description: 'Generate and edit images through the OpenAI-compatible image API, including GPT Image
+    and supported DALL-E and Nano Banana aliases, then retrieve completed results. Bind your own Ace Data
+    Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account.
+    Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen'
 servers:
 - url: https://api.acedata.cloud
 paths:
@@ -66,7 +67,6 @@ paths:
                     parts will be returned and charged.'
                 size:
                   type: string
-                  default: auto
                   pattern: ^(auto|\d+x\d+)$
                   nullable: true
                   description: 'Static PNG/JPEG/WebP size: auto or WIDTHxHEIGHT. GPT Image 2, 2.5 Flare/Sunburst,
@@ -93,6 +93,8 @@ paths:
                   default: true
                 model:
                   enum:
+                  - dall-e-2
+                  - dall-e-3
                   - gpt-image-1
                   - gpt-image-1.5
                   - gpt-image-2
@@ -102,16 +104,22 @@ paths:
                   - gpt-image-2.5-sunburst
                   - gpt-image-2.5-sunburst:reverse
                   - gpt-image-2.5-sunburst:official
+                  - gpt-image-2:reverse
                   - gpt-image-2:official
+                  - nano-banana
+                  - nano-banana-2-lite
+                  - nano-banana-2
+                  - nano-banana-pro
                   - gpt-image-2.6-flare
                   - gpt-image-2.6-flare:reverse
                   - gpt-image-2.6-flare:official
                   - gpt-image-2.6-sunburst
                   - gpt-image-2.6-sunburst:reverse
                   - gpt-image-2.6-sunburst:official
+                  - nano-banana-2.1
                   type: string
-                  description: Select a supported GPT Image model explicitly. Model-specific parameters
-                    and prices apply; no automatic model substitution.
+                  description: Select an image model supported by this OpenAI-compatible endpoint explicitly.
+                    Model-specific parameters and prices apply; no automatic model substitution.
                   default: gpt-image-2
                 style:
                   enum:
@@ -139,7 +147,6 @@ paths:
                   - hd
                   - standard
                   type: string
-                  default: auto
                   description: Image quality. GPT Image models support `auto` (default), `low`, `medium`,
                     and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`,
                     and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants,
@@ -621,7 +628,6 @@ paths:
                     and charged.'
                 size:
                   type: string
-                  default: auto
                   pattern: ^(auto|\d+x\d+)$
                   nullable: true
                   description: 'Static PNG/JPEG/WebP size: auto or WIDTHxHEIGHT. GPT Image 2, 2.5 Flare/Sunburst,
@@ -656,6 +662,8 @@ paths:
                     format: uri
                 model:
                   enum:
+                  - dall-e-2
+                  - dall-e-3
                   - gpt-image-1
                   - gpt-image-1.5
                   - gpt-image-2
@@ -665,17 +673,23 @@ paths:
                   - gpt-image-2.5-sunburst
                   - gpt-image-2.5-sunburst:reverse
                   - gpt-image-2.5-sunburst:official
+                  - gpt-image-2:reverse
                   - gpt-image-2:official
+                  - nano-banana
+                  - nano-banana-2-lite
+                  - nano-banana-2
+                  - nano-banana-pro
                   - gpt-image-2.6-flare
                   - gpt-image-2.6-flare:reverse
                   - gpt-image-2.6-flare:official
                   - gpt-image-2.6-sunburst
                   - gpt-image-2.6-sunburst:reverse
                   - gpt-image-2.6-sunburst:official
+                  - nano-banana-2.1
                   type: string
                   default: gpt-image-2
-                  description: Select a supported GPT Image model explicitly. Model-specific parameters
-                    and prices apply; no automatic model substitution.
+                  description: Select an image model supported by this OpenAI-compatible endpoint explicitly.
+                    Model-specific parameters and prices apply; no automatic model substitution.
                 prompt:
                   type: string
                   description: Describe the text of the desired editing effect. `dall-e-2` up to 1000
@@ -690,7 +704,6 @@ paths:
                   - max
                   - standard
                   type: string
-                  default: auto
                   description: Image quality. GPT Image models support `auto` (default), `low`, `medium`,
                     and `high`. `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, `gpt-image-2.6-flare`,
                     and `gpt-image-2.6-sunburst`, including their `:reverse` and `:official` variants,

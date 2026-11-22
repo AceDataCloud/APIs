@@ -561,7 +561,15 @@
   "gpt-image": [
     {
       "kind": "service_subset",
-      "reason": "Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; existing OpenAI plugin is unchanged."
+      "reason": "Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; the complete endpoint model enums are preserved and existing OpenAI operations keep their routes."
+    },
+    {
+      "kind": "omitted_import_defaults",
+      "fields": [
+        "size",
+        "quality"
+      ],
+      "reason": "Preserve the existing model default; leave optional size/quality unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases."
     }
   ],
   "suno": [
