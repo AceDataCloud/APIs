@@ -23270,7 +23270,8 @@
                             "gpt-6.2-astra",
                             "gpt-6.2-sol",
                             "deepseek-flash",
-                            "deepseek-v3.2"
+                            "deepseek-v3.2",
+                            "deepseek-v4.1-flash-1017"
                           ],
                           "rank": 5,
                           "type": "string",
@@ -23349,6 +23350,15 @@
             "deepseek-r1-0528",
             "deepseek-v3",
             "deepseek-v3-250324"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "e4dd6a8861ae35a7486e0d9ec5ee42f0799ceb8a",
+          "source_file": "openapi/1d58971c-e3cd-4713-a3ce-854a731adb14.json",
+          "source_file_sha256": "3bc37e7dee55aac71e35c808fd9b2084b55a5fc22902b972ea17dcd4a33acc0b",
+          "models_added": [
+            "deepseek-v4.1-flash-1017"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }
@@ -23711,7 +23721,8 @@
                             "gpt-6.2-astra",
                             "gpt-6.2-sol",
                             "deepseek-flash",
-                            "deepseek-v3.2"
+                            "deepseek-v3.2",
+                            "deepseek-v4.1-flash-1017"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -23978,6 +23989,15 @@
             "deepseek-v3",
             "deepseek-v3-250324",
             "deepseek-v3.2-exp"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "e4dd6a8861ae35a7486e0d9ec5ee42f0799ceb8a",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "a04b0f19273de704c7527bf021989c9f4dedf1a1c5c80b5c6667a968ee7bad50",
+          "models_added": [
+            "deepseek-v4.1-flash-1017"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }

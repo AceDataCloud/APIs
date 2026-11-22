@@ -293,7 +293,8 @@
                       "deepseek-v4-flash",
                       "deepseek-v4-pro",
                       "deepseek-flash",
-                      "deepseek-v3.2"
+                      "deepseek-v3.2",
+                      "deepseek-v4.1-flash-1017"
                     ],
                     "type": "string",
                     "description": "The name of the large language model used to answer prompt words.",
