@@ -606,7 +606,7 @@
   "gpt-image": {
     "name": "GPT Image by Ace Data Cloud",
     "brief": "GPT Image generation and editing through Ace",
-    "description": "Ace Data Cloud integration for GPT Image generation, image editing and task retrieval. Choose a supported GPT Image model explicitly.",
+    "description": "Ace Data Cloud integration for image generation, editing and task retrieval through the OpenAI-compatible image API. Choose a GPT Image model or supported DALL-E/Nano Banana alias explicitly.",
     "scenarios": [
       "Generate an original product image with GPT Image",
       "edit an authorized image",
@@ -614,7 +614,7 @@
     ],
     "icon": "icons/openai.png",
     "category": "Photography",
-    "about": "Ace Data Cloud integration for GPT Image generation, image editing and task retrieval. Choose a supported GPT Image model explicitly.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen",
+    "about": "Ace Data Cloud integration for image generation, editing and task retrieval through the OpenAI-compatible image API. Choose a GPT Image model or supported DALL-E/Nano Banana alias explicitly.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen",
     "privacy_review": {
       "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
       "recipient": "Ace Data Cloud API",

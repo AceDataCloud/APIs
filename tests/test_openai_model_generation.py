@@ -20,6 +20,33 @@ with patch.object(sys, "path", [str(COZE), *sys.path]):
 
 
 class OpenAIModelGenerationTests(unittest.TestCase):
+    def test_image_additions_keep_compatible_aliases_in_both_plugins(self):
+        services = ("gpt-image",)
+        snapshot = json.loads((COZE / updater.OUTPUTS[0]).read_text())
+        model = "fixture-compatible-image-alias"
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for name in ("catalog", "plugins"):
+                shutil.copytree(COZE / name, root / name)
+            for name in updater.selected_outputs(services):
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(COZE / name, target)
+            (root / "openapi").mkdir()
+            for api_id, path in updater.selected_contracts(services).items():
+                definition = copy.deepcopy(snapshot["contracts"][api_id]["definition"])
+                updater.model_enum(definition, path).append(model)
+                (root / "openapi" / f"{api_id}.json").write_text(json.dumps(definition))
+            updated = updater.update_snapshot(snapshot, root, [model], "fixture-revision", services)
+            with contextlib.redirect_stdout(io.StringIO()):
+                updater.regenerate(root, updated, services)
+            for service in ("gpt-image", "openai"):
+                for directory in ("plugins", "imports"):
+                    document = json.loads((root / directory / f"{service}.json").read_text())
+                    for path in updater.selected_contracts(services).values():
+                        self.assertIn(model, updater.model_enum(document, path))
+            self.assertEqual(updater.update_snapshot(updated, root, [model], "fixture-revision", services), updated)
+
     def test_selected_compatibility_contracts_preserve_other_snapshot_content(self):
         services = ("claude", "aichat")
         snapshot = json.loads((COZE / updater.OUTPUTS[0]).read_text())

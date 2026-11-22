@@ -2772,7 +2772,7 @@
       "service_id": "06f2acb7-e4d4-43de-9909-76e27b4e2355",
       "service_type": "Api",
       "title": "GPT Image",
-      "description": "Generate and edit images with GPT Image models, then retrieve completed image results.",
+      "description": "Generate and edit images through the OpenAI-compatible image API, including GPT Image and supported DALL-E and Nano Banana aliases, then retrieve completed results.",
       "source_url": "https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355",
       "icon": "icons/openai.png",
       "operations": [

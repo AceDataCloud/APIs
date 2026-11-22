@@ -453,7 +453,7 @@ def build_gpt_image_variant(coverage, listings, cases):
     routes = {'/openai/images/generations', '/openai/images/edits', '/openai/tasks'}
     doc = json.loads((ROOT/'plugins/openai.json').read_text())
     doc['paths'] = {path: op for path, op in doc['paths'].items() if path in routes}
-    description = 'Generate and edit images with GPT Image models, then retrieve completed image results.'
+    description = 'Generate and edit images through the OpenAI-compatible image API, including GPT Image and supported DALL-E and Nano Banana aliases, then retrieve completed results.'
     source = next(row for row in coverage if row['key'] == 'openai')
     row = copy.deepcopy(source)
     row.update(key=key, variant_of='openai', name='GPT Image', title='GPT Image',
@@ -467,9 +467,9 @@ def build_gpt_image_variant(coverage, listings, cases):
     doc['info'].update(title='GPT Image', description=description+' '+AUTH+' Start: '+start_url)
     for path in routes - {'/openai/tasks'}:
         model = doc['paths'][path]['post']['requestBody']['content']['application/json']['schema']['properties']['model']
-        model['enum'] = [name for name in model['enum'] if name.startswith('gpt-image') and name != 'gpt-image-2:reverse']
+        # Keep the complete endpoint enum, including supported compatibility aliases.
         model['default'] = 'gpt-image-2'
-        model['description'] = 'Select a supported GPT Image model explicitly. Model-specific parameters and prices apply; no automatic model substitution.'
+        model['description'] = 'Select an image model supported by this OpenAI-compatible endpoint explicitly. Model-specific parameters and prices apply; no automatic model substitution.'
     write_json(ROOT/'plugins/gpt-image.json', doc)
     (ROOT/'plugins/gpt-image.yaml').write_text(yaml.safe_dump(doc, allow_unicode=True, sort_keys=False, width=100))
     listing = {field:row[field] for field in ['name','brief','description','scenarios','icon']}

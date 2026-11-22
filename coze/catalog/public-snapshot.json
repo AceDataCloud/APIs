@@ -12010,7 +12010,8 @@
                             "gpt-image-2.6-flare:official",
                             "gpt-image-2.6-sunburst",
                             "gpt-image-2.6-sunburst:reverse",
-                            "gpt-image-2.6-sunburst:official"
+                            "gpt-image-2.6-sunburst:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 1,
                           "type": "string",
@@ -12156,7 +12157,18 @@
         "revision": "f33c55fa6a71b702fe5be3802aef7c365d7633b4",
         "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
         "source_file_sha256": "6d9efa9f14328745eeede3a449b59f88ffd7bcdad3e2d155c58b134c05f1371a"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
+          "source_file_sha256": "6d9efa9f14328745eeede3a449b59f88ffd7bcdad3e2d155c58b134c05f1371a",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
       "id": "8ff29e12-b814-4484-ab50-d39773a7a563",
@@ -15718,7 +15730,8 @@
                             "gpt-image-2.6-flare:official",
                             "gpt-image-2.6-sunburst",
                             "gpt-image-2.6-sunburst:reverse",
-                            "gpt-image-2.6-sunburst:official"
+                            "gpt-image-2.6-sunburst:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 22,
                           "type": "string",
@@ -16061,7 +16074,18 @@
         "revision": "f33c55fa6a71b702fe5be3802aef7c365d7633b4",
         "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
         "source_file_sha256": "690ed496ce95fed18f902521a8c74fcec44c4548a3f2d9f41c36593d4bdb5534"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
+          "source_file_sha256": "690ed496ce95fed18f902521a8c74fcec44c4548a3f2d9f41c36593d4bdb5534",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": {
       "id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
