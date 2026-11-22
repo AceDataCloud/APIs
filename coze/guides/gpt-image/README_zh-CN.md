@@ -2,7 +2,7 @@
 
 通过 **Ace Data Cloud 提供的独立集成**在 Coze 中使用 GPT Image。调用的是 Ace Data Cloud API，不冒充模型品牌官方插件，也不是 Coze 默认模型服务商。
 
-[English](README.md) · [当前价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_pricing)
+[English](README.md) · [当前价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)
 
 Ace Data Cloud 在中国大陆目录中隐藏 OpenAI 图像生成、编辑 API 及其配套指南。本国际站教程及下方中国站编辑器截图不代表这些 API 在中国大陆可用，也不代表已在中国站商店发布；继续前请先核对所在地区的服务目录。
 
@@ -22,7 +22,7 @@ Ace Data Cloud 在中国大陆目录中隐藏 OpenAI 图像生成、编辑 API �
 
 ## 2. 注册、登录并获取API Token
 
-1. 打开 [Ace Data Cloud → Applications / 我的应用](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_api_key)，注册或登录。
+1. 打开 [Ace Data Cloud → Applications / 我的应用](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
 2. 找到 **General application / 通用应用**；没有则点 **Initialize General Application / 初始化通用应用**。通用Key可访问账号有权使用的服务，专用应用Key仅限对应服务。核对 **GPT Image** 权限、模型当前价格和余额。
 3. 用复制按钮取已有Key，或 **Manage Keys / 管理密钥 → Create / 创建** 一个名为 `Coze GPT Image` 的独立Key。按需设置有效期、用量和允许的API。首流程允许 `/openai/images/generations` 与 `/openai/tasks`；需要编辑时再允许对应操作。
 
@@ -77,6 +77,6 @@ pending或空结果时继续查**同一ID**，不重跑生成。HTTP200、task_i
 | 429 | 等待并降并发，不自动付费重试。 |
 | 5xx/失败 | 保存原task/trace ID排查，不泄露Key。 |
 
-[当前模型与价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_pricing) · [应用与密钥](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_api_key) · [完整合同](../../plugins/gpt-image.yaml) · [Coze导入文件](../../imports/gpt-image.json)
+[当前模型与价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [应用与密钥](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [完整合同](../../plugins/gpt-image.yaml) · [Coze导入文件](../../imports/gpt-image.json)
 
 源码、导入成功、工作区发布、官方审核、普通安装、真实调用、终态账单与付费增长分别验收。尚未通过的宿主验证不写成已上线。
