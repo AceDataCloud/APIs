@@ -4,7 +4,7 @@ Kimi is a very powerful AI dialogue system that can generate smooth and natural 
 
 This document mainly introduces the usage process of the Kimi Chat Completion API, allowing us to easily utilize the official Kimi dialogue features.
 
-`kimi-k3.1-pro` supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
+`kimi-k3.1-pro` supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. The other supported model IDs are `kimi-k3`, `kimi-k2.6`, and `kimi-k2.7-code`. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
 
 ## Application Process
 
@@ -22,41 +22,35 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/ej5ozg.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3.1-pro` for the current flagship or select an older Kimi model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`; use `kimi-k3.1-pro` for the current flagship or select another supported Kimi model. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/six7e3.png" width="400" class="m-auto"></p>
 
-The following response snapshot was captured from a K2.5 request and is retained to illustrate the response structure. When you use the K3.1 Pro examples below, the response `model` field will be `kimi-k3.1-pro` and the generated content will reflect that model:
+This example shows the response structure from a K3 request. The `model` field identifies the requested model.
 
 ```json
 {
-  "id": "chatcmpl-b5d9e1b799c137e3",
+  "id": "msg_2D4Btbg1WgvkNE3tCYkR4xGA",
   "object": "chat.completion",
-  "created": 1770991864,
-  "model": "kimi-k2.5",
+  "created": 1784466588,
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " Hello! How can I help you today?",
-        "refusal": null,
-        "tool_calls": []
+        "content": "Hello! How can I help you today?"
       },
       "logprobs": null,
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 9,
-    "completion_tokens": 184,
-    "total_tokens": 193,
-    "prompt_tokens_details": {
-      "cached_tokens_details": {}
-    },
-    "completion_tokens_details": {}
+    "prompt_tokens": 86,
+    "completion_tokens": 206,
+    "total_tokens": 292
   }
 }
 ```
@@ -240,35 +234,29 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple query words, you can easily achieve multi-turn dialogue. The following retained K2.5 snapshot illustrates the response structure; a K3.1 Pro request returns `model: kimi-k3.1-pro` and content from that model:
+Send conversation history in `messages` to continue a dialogue. This K3 response shows the structure of the final result.
 
 ```json
 {
-  "id": "chatcmpl-81e5f161ea077f5e",
+  "id": "msg_Rqp8nPGBDHWwBlL4VpxuafOp",
   "object": "chat.completion",
-  "created": 1770992310,
-  "model": "kimi-k2.5",
+  "created": 1784466628,
+  "model": "kimi-k3",
   "choices": [
     {
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": " I'm Kimi, an AI assistant made by Moonshot AI. I'm from the **K2.5** series.",
-        "refusal": null,
-        "tool_calls": []
+        "content": "I’m Kimi, an AI assistant developed by Moonshot AI (月之暗面). I don’t have a specific public model version identifier to share from here."
       },
       "logprobs": null,
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 28,
-    "completion_tokens": 235,
-    "total_tokens": 263,
-    "prompt_tokens_details": {
-      "cached_tokens_details": {}
-    },
-    "completion_tokens_details": {}
+    "prompt_tokens": 134,
+    "completion_tokens": 346,
+    "total_tokens": 480
   }
 }
 ```

@@ -29,6 +29,10 @@ SERVICE_CONTRACTS = {
         "a43a98fc-f833-4cfb-8596-8066faad2c42": "/v1/messages",
         "01011450-70f7-430f-a8a3-97b0903b0a24": "/v1/messages/count_tokens",
     },
+    "kimi": {
+        "5c4649ee-22c6-44ea-84d6-6ecc3674f998": "/kimi/chat/completions",
+        "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
+    },
     "aichat": {
         "1d58971c-e3cd-4713-a3ce-854a731adb14": "/aichat/conversations",
         "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",

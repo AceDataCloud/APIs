@@ -43,6 +43,8 @@ This restriction changes neither trial API availability nor pricing; fees are se
 
 Kimi is Moonshot AI's powerful AI dialogue system. The current flagship, `kimi-k3.1-pro`, supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens; actual request limits depend on the current API. `kimi-k3` and Kimi K2 models remain available for compatibility. K3.1 Pro always uses reasoning and supports the top-level `reasoning_effort` values `low`, `high`, and `max`; use `max` for K3.
 
+The supported model IDs are `kimi-k3.1-pro`, `kimi-k3`, `kimi-k2.6`, and `kimi-k2.7-code`.
+
 ## Application Process
 
 To use the Kimi API, apply for the corresponding service on the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page. After entering the page, click the "Acquire" button.
