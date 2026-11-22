@@ -16,7 +16,7 @@ Select `gpt-6.2-astra` or `gpt-6.2-sol` on `/v1/messages` while keeping the Mess
 
 Use the exact model ID `claude-fable-5-2` on Messages or Chat Completions. Prefer Messages for native thinking blocks and tool interaction. Adaptive thinking remains on; omit `temperature`, `top_p`, and `top_k`, use automatic tool choice, and provide enough `max_tokens` for both thinking and final text. This model currently does not support the Count Tokens or Responses endpoints on Ace Data Cloud.
 
-At the current maximum package (142,800 Credits for $13,584), standard input costs $3.20 and output costs $16 per million tokens. Cache reads cost $0.08, five-minute cache writes $4, and one-hour cache writes $6.40 per million tokens. These are 40% of Anthropic's standard API rates (60% lower) at that package rate; other packages and account discounts must be checked on the [live pricing page](https://platform.acedata.cloud/models/claude-fable-5-2?m=chat&tab=pricing).
+At the current maximum package (142,800 Credits for $13,584), standard input costs $3.20 and output costs $16 per million tokens. Cache reads cost $0.08, five-minute cache writes $4, and one-hour cache writes $6.40 per million tokens. These are 40% of Anthropic's standard API rates (60% lower) at that package rate; other packages and account discounts must be checked on the [live pricing page](https://platform.acedata.cloud/models/claude-fable-5-2?m=chat&tab=pricing&utm_source=github).
 
 ## Get your Ace Data Cloud API key
 
