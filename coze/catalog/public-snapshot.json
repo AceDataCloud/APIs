@@ -23254,10 +23254,6 @@
                             "o4-mini-2025-04-16",
                             "o4-mini-all",
                             "o4-mini-high-all",
-                            "deepseek-r1",
-                            "deepseek-r1-0528",
-                            "deepseek-v3",
-                            "deepseek-v3-250324",
                             "deepseek-v4.1-flash",
                             "deepseek-v4-flash",
                             "deepseek-v4-pro",
@@ -23272,7 +23268,9 @@
                             "glm-4.6",
                             "glm-3-turbo",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "deepseek-flash",
+                            "deepseek-v3.2"
                           ],
                           "rank": 5,
                           "type": "string",
@@ -23337,6 +23335,22 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "f2d9f323ff2b4d5e4bd890f7215c693a4b629007",
+          "source_file": "openapi/1d58971c-e3cd-4713-a3ce-854a731adb14.json",
+          "source_file_sha256": "369929c203c213afa2716beeefc1ee54980a6259b5cf42699cd557d549daebbb",
+          "models_added": [
+            "deepseek-flash",
+            "deepseek-v3.2"
+          ],
+          "models_removed": [
+            "deepseek-r1",
+            "deepseek-r1-0528",
+            "deepseek-v3",
+            "deepseek-v3-250324"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -23659,13 +23673,6 @@
                             "grok-4",
                             "grok-4.5",
                             "grok-4-0709",
-                            "deepseek-chat",
-                            "deepseek-r1",
-                            "deepseek-r1-0528",
-                            "deepseek-reasoner",
-                            "deepseek-v3",
-                            "deepseek-v3-250324",
-                            "deepseek-v3.2-exp",
                             "deepseek-v4.1-flash",
                             "deepseek-v4-flash",
                             "deepseek-v4-pro",
@@ -23702,7 +23709,9 @@
                             "gemini-2.5-flash",
                             "gemini-2.5-flash-lite",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "deepseek-flash",
+                            "deepseek-v3.2"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -23952,6 +23961,25 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "f2d9f323ff2b4d5e4bd890f7215c693a4b629007",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "ef005bcb3946440e66b7178ef47c72496b408f68a939cec0958ad05acb390dc3",
+          "models_added": [
+            "deepseek-flash",
+            "deepseek-v3.2"
+          ],
+          "models_removed": [
+            "deepseek-chat",
+            "deepseek-r1",
+            "deepseek-r1-0528",
+            "deepseek-reasoner",
+            "deepseek-v3",
+            "deepseek-v3-250324",
+            "deepseek-v3.2-exp"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },

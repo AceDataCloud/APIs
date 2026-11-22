@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate selected chat model additions from a committed Backend source.
+"""Regenerate selected chat model changes from a committed Backend source.
 
 Keep the dated public snapshot and its other contracts intact. This is an offline
 source update, not proof of API deployment or Coze import/store publication.
@@ -34,6 +34,8 @@ SERVICE_CONTRACTS = {
         "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
     },
 }
+# The DeepSeek plugin exposes the DeepSeek subset of AI Dialogue's model enum.
+SERVICE_CONTRACTS["deepseek"] = SERVICE_CONTRACTS["aichat"]
 CONTRACTS = SERVICE_CONTRACTS["openai"]
 
 
@@ -51,6 +53,9 @@ def selected_outputs(services):
         # AI Chat is excluded by launch-scope.json. Update its historical
         # snapshot contracts without creating or promoting a plugin entry.
         if service == "aichat":
+            continue
+        if service == "deepseek":
+            outputs.extend(("plugins/deepseek.json", "plugins/deepseek.yaml"))
             continue
         outputs.extend(
             f"{directory}/{service}.{extension}"
@@ -84,7 +89,7 @@ def model_enum(definition, path):
     return resolve_ref(definition, schema["properties"]["model"])["enum"]
 
 
-def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",)):
+def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",), retired=()):
     result = copy.deepcopy(snapshot)
     requested = list(dict.fromkeys(models))
     for api_id, path in selected_contracts(services).items():
@@ -94,19 +99,22 @@ def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",
         source_models = model_enum(source, path)
         if not set(requested) <= set(source_models):
             raise ValueError(f"Requested model absent from Backend {source_file}")
+        if set(retired).intersection(source_models):
+            raise ValueError(f"Retired model still present in Backend {source_file}")
         contract = result["contracts"][api_id]
         target_models = model_enum(contract["definition"], path)
         additions = [model for model in requested if model not in target_models]
-        if not additions:
+        removed = [model for model in target_models if model in retired]
+        if not additions and not removed:
             continue
-        # Preserve existing defaults and draft examples by appending new IDs.
-        target_models.extend(additions)
+        target_models[:] = [model for model in target_models if model not in retired] + additions
         contract.setdefault("backend_model_enum_updates", []).append({
             "revision": revision,
             "source_file": source_file,
             "source_file_sha256": hashlib.sha256(source_bytes).hexdigest(),
             "models_added": additions,
-            "scope": "request model enum additions only; no live publication claim",
+            **({"models_removed": removed} if removed else {}),
+            "scope": "request model enum changes only; no live publication claim",
         })
     return result
 
@@ -137,6 +145,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend-dir", type=Path, required=True)
     parser.add_argument("--model", action="append", required=True)
+    parser.add_argument("--remove-model", action="append", default=[], help="Remove a model only if absent from the selected Backend contracts")
     parser.add_argument("--service", action="append", choices=tuple(SERVICE_CONTRACTS))
     args = parser.parse_args()
     services = args.service or ["openai"]
@@ -152,7 +161,7 @@ def main():
         ["git", "-C", str(backend_dir), "rev-parse", "HEAD"], text=True
     ).strip()
     snapshot = json.loads((ROOT / OUTPUTS[0]).read_text())
-    updated = update_snapshot(snapshot, backend_dir, args.model, revision, services)
+    updated = update_snapshot(snapshot, backend_dir, args.model, revision, services, args.remove_model)
     regenerate(ROOT, updated, services)
     print(f"Updated only {', '.join(dict.fromkeys(services))} model artifacts from Backend {revision}")
 

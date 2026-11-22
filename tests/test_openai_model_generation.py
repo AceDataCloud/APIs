@@ -46,6 +46,39 @@ class OpenAIModelGenerationTests(unittest.TestCase):
                 self.assertEqual(provenance["models_added"], ["fixture-new-model"])
             self.assertEqual(updated, before)
 
+    def test_deepseek_retirement_requires_backend_absence_and_rebuilds_the_service_plugin(self):
+        services = ("deepseek",)
+        snapshot = json.loads((COZE / updater.OUTPUTS[0]).read_text())
+        active, retired = "deepseek-test-active", "deepseek-test-retired"
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for name in ("catalog", "plugins"):
+                shutil.copytree(COZE / name, root / name)
+            (root / "openapi").mkdir()
+            contracts = updater.selected_contracts(services)
+            for api_id, path in contracts.items():
+                definition = snapshot["contracts"][api_id]["definition"]
+                updater.model_enum(definition, path).append(retired)
+                source = copy.deepcopy(definition)
+                ids = updater.model_enum(source, path)
+                ids.remove(retired)
+                ids.append(active)
+                (root / "openapi" / f"{api_id}.json").write_text(json.dumps(source))
+            with self.assertRaisesRegex(ValueError, "still present"):
+                updater.update_snapshot(snapshot, root, [active], "revision", services, [active])
+            updated = updater.update_snapshot(snapshot, root, [active], "revision", services, [retired])
+            self.assertEqual(updater.update_snapshot(updated, root, [active], "revision", services, [retired]), updated)
+            with contextlib.redirect_stdout(io.StringIO()):
+                updater.regenerate(root, updated, services)
+            for api_id, path in contracts.items():
+                contract = updated["contracts"][api_id]
+                self.assertNotIn(retired, updater.model_enum(contract["definition"], path))
+                self.assertEqual(contract["backend_model_enum_updates"][-1]["models_removed"], [retired])
+            plugin = json.loads((root / "plugins/deepseek.json").read_text())
+            ids = updater.model_enum(plugin, "/aichat/conversations")
+            self.assertIn(active, ids)
+            self.assertNotIn(retired, ids)
+
     def test_selected_additions_preserve_historical_contracts_and_defaults(self):
         snapshot = json.loads((COZE / updater.OUTPUTS[0]).read_text())
         before = copy.deepcopy(snapshot)

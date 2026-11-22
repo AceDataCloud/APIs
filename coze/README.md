@@ -61,7 +61,7 @@ Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
 `catalog/launch-scope.json`. Historical source snapshots retain provenance and
 are not the active launch list.
 
-### Regenerate model additions
+### Regenerate model changes
 
 From a committed Backend checkout, regenerate only the selected model additions:
 
@@ -79,9 +79,13 @@ python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
   --model gpt-6.2-astra --model gpt-6.2-sol
 ```
 
+Choose `--service deepseek` to refresh the two AI Dialogue source contracts
+and the DeepSeek plugin's JSON and YAML definitions. Use `--remove-model` for
+a retired ID. The helper checks that the ID is absent from both source enums.
+
 The offline helper checks the selected Backend endpoint enums, records source
 provenance, runs the existing catalog/import generators in a temporary directory,
-and writes the selected model additions. `claude` covers Messages and Count
+and writes the selected model changes. `claude` covers Messages and Count
 Tokens; `aichat` updates the existing AI Chat v1/v2 source snapshots within the
 current launch scope. Existing defaults, examples and the original catalog
 retrieval date are preserved. Re-import the prepared material after the API

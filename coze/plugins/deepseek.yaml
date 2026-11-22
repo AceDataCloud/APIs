@@ -195,13 +195,11 @@ paths:
                     an existing dialogue.
                 model:
                   enum:
-                  - deepseek-r1
-                  - deepseek-r1-0528
-                  - deepseek-v3
-                  - deepseek-v3-250324
                   - deepseek-v4.1-flash
                   - deepseek-v4-flash
                   - deepseek-v4-pro
+                  - deepseek-flash
+                  - deepseek-v3.2
                   type: string
                   description: The name of the large language model used to answer prompt words.
                   default: deepseek-v4-flash
