@@ -472,7 +472,7 @@ class CozeCatalogTests(unittest.TestCase):
                 body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
                 fields = body['properties']
                 self.assertEqual(['kimi-k3.1-pro', 'kimi-k3', 'kimi-k2.6',
-                                  'kimi-k2-thinking-turbo', 'kimi-k2.5', 'kimi-k2-thinking'],
+                                  'kimi-k2.7-code'],
                                  fields['model']['enum'])
                 effort = fields['reasoning_effort']
                 self.assertEqual(['low', 'high', 'max'], effort['enum'])

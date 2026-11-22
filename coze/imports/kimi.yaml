@@ -235,9 +235,7 @@ paths:
                   - kimi-k3.1-pro
                   - kimi-k3
                   - kimi-k2.6
-                  - kimi-k2-thinking-turbo
-                  - kimi-k2.5
-                  - kimi-k2-thinking
+                  - kimi-k2.7-code
                   type: string
                   description: Model ID to be used.
                 store:
@@ -307,8 +305,8 @@ paths:
                       reasoning_content:
                         type: string
                         nullable: true
-                        description: Reasoning content from the previous Kimi K3.1 Pro or K3 assistant message.
-                          Return it unchanged in multi-turn dialogues and tool calls.
+                        description: Reasoning content from the previous Kimi K3.1 Pro or K3 assistant
+                          message. Return it unchanged in multi-turn dialogues and tool calls.
                   minItems: 1
                   description: List of messages that make up the current conversation.
                 max_tokens:
@@ -383,8 +381,8 @@ paths:
                   - max
                   type: string
                   nullable: true
-                  description: Kimi K3.1 Pro supports `low`, `high`, and `max`; use `max` for K3. Both always
-                    enable reasoning. For K2.6, use `thinking` instead.
+                  description: Kimi K3.1 Pro supports `low`, `high`, and `max`; use `max` for K3. Both
+                    always enable reasoning. For K2.6, use `thinking` instead.
                   x-allowed-models:
                   - kimi-k3.1-pro
                   - kimi-k3

@@ -9652,9 +9652,7 @@
                             "kimi-k3.1-pro",
                             "kimi-k3",
                             "kimi-k2.6",
-                            "kimi-k2-thinking-turbo",
-                            "kimi-k2.5",
-                            "kimi-k2-thinking"
+                            "kimi-k2.7-code"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -10330,7 +10328,23 @@
           }
         }
       },
-      "source_definition_sha256": "9ca1bf1e37ce19f30bf5fd72d9140ae27847cd074d357319012abd8d607e930f"
+      "source_definition_sha256": "9ca1bf1e37ce19f30bf5fd72d9140ae27847cd074d357319012abd8d607e930f",
+      "backend_model_enum_updates": [
+        {
+          "revision": "7339d8abe08ffaf5dcdbce6e25daa7b4ad1cef5b",
+          "source_file": "openapi/5c4649ee-22c6-44ea-84d6-6ecc3674f998.json",
+          "source_file_sha256": "b456632bb720c126a0a9682a09e9e491e0204e7558aa406e8701f784b65f3ba1",
+          "models_added": [
+            "kimi-k2.7-code"
+          ],
+          "models_removed": [
+            "kimi-k2-thinking-turbo",
+            "kimi-k2.5",
+            "kimi-k2-thinking"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "51dca1fb-cc12-4a4a-b31a-01b62043abcd": {
       "id": "51dca1fb-cc12-4a4a-b31a-01b62043abcd",
@@ -23686,11 +23700,8 @@
                             "deepseek-v4.1-flash",
                             "deepseek-v4-flash",
                             "deepseek-v4-pro",
-                            "kimi-k2-thinking",
-                            "kimi-k2-thinking-turbo",
                             "kimi-k3",
                             "kimi-k2.6",
-                            "kimi-k2.5",
                             "glm-3-turbo",
                             "glm-4.5",
                             "glm-4.5v",
@@ -23722,7 +23733,8 @@
                             "gpt-6.2-sol",
                             "deepseek-flash",
                             "deepseek-v3.2",
-                            "deepseek-v4.1-flash-1017"
+                            "deepseek-v4.1-flash-1017",
+                            "kimi-k2.7-code"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -23998,6 +24010,20 @@
           "source_file_sha256": "a04b0f19273de704c7527bf021989c9f4dedf1a1c5c80b5c6667a968ee7bad50",
           "models_added": [
             "deepseek-v4.1-flash-1017"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "7339d8abe08ffaf5dcdbce6e25daa7b4ad1cef5b",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "fb11ba65fed30a2f668c7aedd40a52f86421bc57064bcaf296d51a3228a012a4",
+          "models_added": [
+            "kimi-k2.7-code"
+          ],
+          "models_removed": [
+            "kimi-k2-thinking",
+            "kimi-k2-thinking-turbo",
+            "kimi-k2.5"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }
