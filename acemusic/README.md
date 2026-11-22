@@ -8,9 +8,9 @@
 - [歌词生成](lyrics.md)
 - [任务与历史](tasks.md)
 - [OpenAPI](openapi.json)
-- [开发者控制台](https://platform.acedata.cloud/console/applications)
-- [Studio](https://studio.acedata.cloud/acemusic)
-- [在线文档](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios)
+- [开发者控制台](https://platform.acedata.cloud/console/applications?utm_source=github)
+- [Studio](https://studio.acedata.cloud/acemusic?utm_source=github)
+- [在线文档](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios?utm_source=github)
 
 基础生成模型：`acemusic-v1.1`（默认）、`acemusic-v1`；翻唱与融合使用 `acemusic-v1.1`。同一 `/acemusic/audios` 接口支持 `generate`、`upload`、`cover` 和 `mashup`。参考使用个人平台音轨 ID，融合要求恰好两首不同且兼容的参考。默认异步，提交后保存平台任务 ID，使用免费任务 API 查询原任务。完整双曲组收一次费用，成功上传一首参考另收上传费；最终失败或部分失败组不收生成费，上传失败不收费。歌词 API 独立收费。
 
