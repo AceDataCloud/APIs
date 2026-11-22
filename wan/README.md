@@ -4,14 +4,14 @@ Tongyi Wanxiang AI video generation service with text and image input.
 
 ![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
 
-API home page: [Ace Data Cloud - Wan Video Generation](https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_services_f35a16da_726b_425f_96ba_bec7436cfc23)
+API home page: [Ace Data Cloud - Wan Video Generation](https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 Keywords: wan-api, ai-video, video-generation, tongyi-wanxiang, text-to-video, image-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
 
 ## Get your Ace Data Cloud API key
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_api_key). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_pricing).
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
 4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
 5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
@@ -47,15 +47,15 @@ The Wan Tasks API queries the execution status of tasks by inputting the task ID
 
 ## Application Process
 
-To use the Wan Videos Generation API, apply for the corresponding service on the [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents_52b0f490_1bbf_4fe5_b60e_96626d333d2c) page. After entering the page, click the "Acquire" button.
+To use the Wan Videos Generation API, apply for the corresponding service on the [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page. After entering the page, click the "Acquire" button.
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Quick Start
 
 - Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Wan Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_services_f35a16da_726b_425f_96ba_bec7436cfc23)
-- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents)
+- Service page: [Wan Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/f35a16da-726b-425f-96ba-bec7436cfc23?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ```bash
 curl --request POST "https://api.acedata.cloud/wan/videos" \
@@ -75,16 +75,16 @@ Explore the supported endpoints and integration guides for Wan Video Generation.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents_52b0f490_1bbf_4fe5_b60e_96626d333d2c) | `/wan/videos` | [Wan Videos Generation API Integration Guide](docs/wan_videos_generation_api_integration_guide.md) |
-| [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents_240ef446_cbec_461c_a633_4a64178d7018) | `/wan/tasks` | [Wan Tasks API Integration Guide](docs/wan_tasks_api_integration_guide.md) |
+| [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/wan/videos` | [Wan Videos Generation API Integration Guide](docs/wan_videos_generation_api_integration_guide.md) |
+| [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/wan/tasks` | [Wan Tasks API Integration Guide](docs/wan_tasks_api_integration_guide.md) |
 
 ## Related Resources
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_platform)
-- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents)
+- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 - [Status Page](https://status.acedata.cloud)
 - [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
 
 ## Support
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_support) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=wan_api_readme_documents)
+If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)

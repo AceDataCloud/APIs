@@ -6,7 +6,7 @@ Do not build new integrations against `/sora/videos` or install Sora-specific to
 
 ## Migrate an existing workflow
 
-Choose a currently available video service from the [Ace Data Cloud service catalog](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=sora_api_retirement). Review its current API contract and pricing before updating your application:
+Choose a currently available video service from the [Ace Data Cloud service catalog](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Review its current API contract and pricing before updating your application:
 
 - [Seedance API](https://github.com/AceDataCloud/SeedanceAPI)
 - [Kling API](https://github.com/AceDataCloud/KlingAPI)

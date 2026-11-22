@@ -40,12 +40,12 @@ STORE_SCENARIOS = {
 }
 
 
-def acquisition_url(url, key):
+def acquisition_url(url):
     parts = urlsplit(url)
     query = dict(parse_qsl(parts.query, keep_blank_values=True))
     query['from'] = 'coze'
     query.update(utm_source='coze', utm_medium='referral',
-                 utm_campaign='evergreen', utm_content=f'coze_{key}_setup')
+                 utm_campaign='evergreen')
     return urlunsplit((parts.scheme, parts.netloc, parts.path,
                        urlencode(query), parts.fragment))
 
@@ -348,8 +348,8 @@ def main():
             row['blockers']=['Requires a user-owned deployment URL and scoped authentication before functional plugin creation.'] if s['type']=='Deployment' else (['A local developer client; provided through setup guidance rather than a hosted Coze tool.'] if s['type']=='Agent' else ['Catalog and acquisition guidance only; no public query API is declared.'])
             for o in s['operations']:row['operations'].append({**o,'disposition':'guide_only'})
             coverage.append(row);continue
-        p=profiles[key];start_url=acquisition_url(row['source_url'], key)
-        if key=='deepseek':start_url=acquisition_url('https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9', key)
+        p=profiles[key];start_url=acquisition_url(row['source_url'])
+        if key=='deepseek':start_url=acquisition_url('https://platform.acedata.cloud/services/b1fbcc32-e218-4253-9dc3-4fe600a1bfb9')
         row.update({k:p[k] for k in ['name','brief','group','description','scenarios']});row['delivery']='http_plugin'
         spec={'openapi':'3.0.1','info':{'title':p['name'],'version':'2.0.0','description':p['description']+' '+AUTH+' Start: '+start_url},'servers':[{'url':'https://api.acedata.cloud'}],'paths':{}}
         for meta in s['operations']:
@@ -463,7 +463,7 @@ def build_gpt_image_variant(coverage, listings, cases):
                schema='plugins/gpt-image.yaml', tool_count=3,
                coze_state='not_created', validation='not_run')
     row['operations'] = [op for op in row['operations'] if op['path'] in routes]
-    start_url = acquisition_url(row['source_url'], key)
+    start_url = acquisition_url(row['source_url'])
     doc['info'].update(title='GPT Image', description=description+' '+AUTH+' Start: '+start_url)
     for path in routes - {'/openai/tasks'}:
         model = doc['paths'][path]['post']['requestBody']['content']['application/json']['schema']['properties']['model']

@@ -2,7 +2,7 @@
 
 Use Suno through an independent Coze plugin maintained by **Ace Data Cloud**. This integration calls Ace Data Cloud APIs; it does not claim to be the model brand's official plugin or a Coze default model provider.
 
-[简体中文](README_zh-CN.md) · [Current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_pricing)
+[简体中文](README_zh-CN.md) · [Current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)
 
 ## 1. Find and install the correct plugin
 
@@ -22,7 +22,7 @@ Source: [Coze official guide](https://docs.coze.cn/guides_use_plugin), retrieved
 
 ## 2. Register and get your API Token
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_api_key); register or sign in.
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen); register or sign in.
 2. Find **General application**. If absent, choose **Initialize General Application**. A general key can use the services your account is entitled to use; a service-specific application's key is limited to its service. Check **Suno**, current model price and balance.
 3. Copy the existing API Key, or open **Manage Keys → Create** to create a separately named key such as `Coze Suno`. Review expiration, usage limit and Allowed APIs. For this first flow, allow `/suno/audios` and `/suno/tasks`; also allow the editing operation only if you intend to use it.
 
@@ -78,7 +78,7 @@ If pending or the response is empty, query the **same ID** again. Never rerun th
 | 429 | Respect rate limits and reduce concurrency; no automatic paid retry. |
 | 5xx / failed | Preserve the task/trace ID and inspect the original request; never expose the key. |
 
-[API access and current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_pricing) · [Account and keys](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_suno_api_key) · [Source](../../plugins/suno.yaml)
+[API access and current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [Account and keys](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [Source](../../plugins/suno.yaml)
 
 ## Publisher checklist
 

@@ -2,7 +2,7 @@
 
 通过 **Ace Data Cloud 提供的独立集成**在 Coze 中使用 HappyHorse。调用的是 Ace Data Cloud API，不冒充模型品牌官方插件，也不是 Coze 默认模型服务商。
 
-[English](README.md) · [当前价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_pricing)
+[English](README.md) · [当前价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)
 
 ## 1. 搜索并安装正确插件
 
@@ -20,7 +20,7 @@
 
 ## 2. 注册、登录并获取API Token
 
-1. 打开 [Ace Data Cloud → Applications / 我的应用](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_api_key)，注册或登录。
+1. 打开 [Ace Data Cloud → Applications / 我的应用](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
 2. 找到 **General application / 通用应用**；没有则点 **Initialize General Application / 初始化通用应用**。通用Key可访问账号有权使用的服务，专用应用Key仅限对应服务。核对 **HappyHorse** 权限、模型当前价格和余额。
 3. 用复制按钮取已有Key，或 **Manage Keys / 管理密钥 → Create / 创建** 一个名为 `Coze HappyHorse` 的独立Key。按需设置有效期、用量和允许的API。首流程允许 `/happyhorse/videos` 与 `/happyhorse/tasks`；需要编辑时再允许对应操作。
 
@@ -81,6 +81,6 @@ pending或空结果时继续查**同一ID**，不重跑生成。HTTP200、task_i
 | 429 | 等待并降并发，不自动付费重试。 |
 | 5xx/失败 | 保存原task/trace ID排查，不泄露Key。 |
 
-[当前模型与价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_pricing) · [应用与密钥](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_happyhorse_api_key) · [完整合同](../../plugins/happyhorse.yaml) · [Coze导入文件](../../imports/happyhorse.json)
+[当前模型与价格](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [应用与密钥](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [完整合同](../../plugins/happyhorse.yaml) · [Coze导入文件](../../imports/happyhorse.json)
 
 源码、导入成功、工作区发布、官方审核、普通安装、真实调用、终态账单与付费增长分别验收。尚未通过的宿主验证不写成已上线。
