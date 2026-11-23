@@ -222,14 +222,14 @@ def main():
         body['properties']['model']=copy.deepcopy(canonical['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model'])
         # A shared auto/default is not valid for every compatible image model.
         # Leave optional parameters unset in the host; preserve the existing model default.
-        for field in ('size','quality'):
+        for field in ('size','quality','style','background','moderation','output_format','partial_images'):
             body['properties'].get(field,{}).pop('default',None)
     # Keep the explicit success contract for the Coze tool output editor.
     for methods in doc['paths'].values():
         for op in methods.values():
             op['responses']={'200':op['responses']['200']}
     doc=concrete_objects(doc)
-    report['gpt-image']=[{'kind':'service_subset','reason':'Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; the complete endpoint model enums are preserved and existing OpenAI operations keep their routes.'}, {'kind':'omitted_import_defaults','fields':['size','quality'],'reason':'Preserve the existing model default; leave optional size/quality unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases.'}]
+    report['gpt-image']=[{'kind':'service_subset','reason':'Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; the complete endpoint model enums are preserved and existing OpenAI operations keep their routes.'}, {'kind':'omitted_import_defaults','fields':['size','quality','style','background','moderation','output_format','partial_images'],'reason':'Preserve the existing model default; leave model-specific optional image settings unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases.'}]
     (target/'gpt-image.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'gpt-image.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
 

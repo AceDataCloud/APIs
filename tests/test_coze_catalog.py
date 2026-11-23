@@ -75,8 +75,8 @@ class CozeCatalogTests(unittest.TestCase):
             self.assertIn('gpt-image-2:reverse',fields['model']['enum'])
             self.assertTrue({'dall-e-2','dall-e-3','nano-banana','nano-banana-2-lite','nano-banana-2','nano-banana-2.1','nano-banana-pro'} <= set(fields['model']['enum']))
             self.assertEqual('gpt-image-2',fields['model']['default'])
-            for name in ('size','quality'):
-                self.assertNotIn('default',fields[name])
+            for name in ('size','quality','style','background','moderation','output_format','partial_images'):
+                self.assertNotIn('default',fields.get(name,{}))
             required=projected['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['required']
             self.assertNotIn('size',required)
             self.assertNotIn('quality',required)
