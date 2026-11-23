@@ -1193,6 +1193,7 @@ paths:
                   - mimo-v2.6-flash
                   - gpt-6.2-astra
                   - gpt-6.2-sol
+                  - gpt-5-all
                   type: string
                   description: Model ID to be used.
                 store:
@@ -1742,6 +1743,7 @@ paths:
                   - o4-mini-high-all
                   - gpt-6.2-astra
                   - gpt-6.2-sol
+                  - gpt-5-all
                   type: string
                   description: Model ID to be used.
                 store:

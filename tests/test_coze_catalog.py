@@ -335,6 +335,7 @@ class CozeCatalogTests(unittest.TestCase):
             for route in ('/openai/chat/completions', '/openai/responses'):
                 models = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']['model']['enum']
                 self.assertIn('gpt-6.1-terra', models)
+                self.assertIn('gpt-5-all', models)
                 self.assertIn('gpt-5.6-sol-fast', models)
                 if route.endswith('/chat/completions'):
                     self.assertTrue({'mimo-v2.6-pro', 'mimo-v2.6-flash'} <= set(models))

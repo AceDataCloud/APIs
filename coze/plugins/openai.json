@@ -2143,7 +2143,8 @@
                       "mimo-v2.6-pro",
                       "mimo-v2.6-flash",
                       "gpt-6.2-astra",
-                      "gpt-6.2-sol"
+                      "gpt-6.2-sol",
+                      "gpt-5-all"
                     ],
                     "type": "string",
                     "description": "Model ID to be used."
@@ -4164,7 +4165,8 @@
                       "o4-mini-all",
                       "o4-mini-high-all",
                       "gpt-6.2-astra",
-                      "gpt-6.2-sol"
+                      "gpt-6.2-sol",
+                      "gpt-5-all"
                     ],
                     "type": "string",
                     "description": "Model ID to be used."
