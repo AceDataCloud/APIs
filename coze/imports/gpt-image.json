@@ -126,7 +126,6 @@
                       "natural"
                     ],
                     "type": "string",
-                    "default": "vivid",
                     "description": "The style of `dall-e-3`: `vivid` (hyper-realistic/dramatic) or `natural` (more naturally neutral)."
                   },
                   "prompt": {
@@ -154,7 +153,6 @@
                       "auto"
                     ],
                     "type": "string",
-                    "default": "auto",
                     "description": "Set the background opacity for the GPT image model. The optional values are `transparent`, `opaque`, or `auto` (default). When selecting `transparent`, please use an output format that supports the Alpha channel (png/webp)."
                   },
                   "moderation": {
@@ -163,7 +161,6 @@
                       "auto"
                     ],
                     "type": "string",
-                    "default": "auto",
                     "description": "The content review levels of the GPT image model. `low` will relax the filtering strength; `auto` uses the default policy."
                   },
                   "callback_url": {
@@ -199,12 +196,10 @@
                       "gif"
                     ],
                     "type": "string",
-                    "default": "png",
                     "description": "Output format: png, jpeg, or webp. GPT Image 2.6 Flare/Sunburst (including :reverse and :official) also support native GIF, preserving animation frames, loop information, and duration. SVG is not supported. GIF cannot be combined with masks, markup, custom output_compression, prompt_rewriter, or partial-image streaming."
                   },
                   "partial_images": {
                     "type": "integer",
-                    "default": 0,
                     "maximum": 3,
                     "minimum": 0,
                     "description": "The number of intermediate images sent during the streaming process (0-3). `0` indicates that the final image is returned directly in one event."
@@ -813,7 +808,6 @@
                       "auto"
                     ],
                     "type": "string",
-                    "default": "auto",
                     "description": "Only applicable to the GPT Image series models. Transparency handling methods: `transparent` (transparent), `opaque` (opaque), or `auto` (automatic)."
                   },
                   "callback_url": {
@@ -849,7 +843,6 @@
                       "gif"
                     ],
                     "type": "string",
-                    "default": "png",
                     "description": "Output format: png, jpeg, or webp. GPT Image 2.6 Flare/Sunburst (including :reverse and :official) also support native GIF, preserving animation frames, loop information, and duration. SVG is not supported. GIF cannot be combined with masks, markup, custom output_compression, prompt_rewriter, or partial-image streaming."
                   },
                   "markup": {

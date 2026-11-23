@@ -567,9 +567,14 @@
       "kind": "omitted_import_defaults",
       "fields": [
         "size",
-        "quality"
+        "quality",
+        "style",
+        "background",
+        "moderation",
+        "output_format",
+        "partial_images"
       ],
-      "reason": "Preserve the existing model default; leave optional size/quality unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases."
+      "reason": "Preserve the existing model default; leave model-specific optional image settings unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases."
     }
   ],
   "suno": [
