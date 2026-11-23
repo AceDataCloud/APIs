@@ -579,6 +579,17 @@
   ],
   "suno": [
     {
+      "kind": "model_subset",
+      "field": "POST /suno/lyrics/request/model",
+      "included_models": [
+        "default"
+      ],
+      "deferred_models": [
+        "remi-v1"
+      ],
+      "reason": "Retain the previously verified object-shaped Coze lyric output. The public API declares an array, and current implementations may return an object or array; current host/output compatibility remains unverified. Do not broaden the model enum while discarding the lyric result."
+    },
+    {
       "kind": "declared_output",
       "reason": "Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft."
     },

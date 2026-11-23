@@ -1501,8 +1501,7 @@
                   "model": {
                     "enum": [
                       "text-embedding-3-small",
-                      "text-embedding-3-large",
-                      "text-embedding-ada-002"
+                      "text-embedding-3-large"
                     ],
                     "type": "string",
                     "description": "The ID of the embedding model to be used (for example, `text-embedding-3-small`, `text-embedding-3-large`).",

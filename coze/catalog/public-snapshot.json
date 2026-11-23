@@ -5652,7 +5652,8 @@
                             "claude-3-5-haiku-20241022",
                             "claude-3-5-sonnet-20240620",
                             "claude-3-haiku-20240307",
-                            "claude-3-sonnet-20240229"
+                            "claude-3-sonnet-20240229",
+                            "gpt-5.6-sol-fast"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -6264,7 +6265,18 @@
         "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
         "source_file_sha256": "6923b433c4616017553f6a79f1ad4fd8d10fab92ff0f594763dc54e00518cc00"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
+          "source_file_sha256": "6923b433c4616017553f6a79f1ad4fd8d10fab92ff0f594763dc54e00518cc00",
+          "models_added": [
+            "gpt-5.6-sol-fast"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "a43a98fc-f833-4cfb-8596-8066faad2c42": {
       "id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
@@ -12940,8 +12952,7 @@
                         "model": {
                           "enum": [
                             "text-embedding-3-small",
-                            "text-embedding-3-large",
-                            "text-embedding-ada-002"
+                            "text-embedding-3-large"
                           ],
                           "type": "string",
                           "description": "The ID of the embedding model to be used (for example, `text-embedding-3-small`, `text-embedding-3-large`)."
@@ -12984,7 +12995,19 @@
           }
         }
       },
-      "source_definition_sha256": "a23720d1f4da05ffce7acc91db33abf050d382217c6c11bf9e1407c57584cd71"
+      "source_definition_sha256": "a23720d1f4da05ffce7acc91db33abf050d382217c6c11bf9e1407c57584cd71",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/a0840c8a-2b9a-4407-8aaf-0057f0e1f65c.json",
+          "source_file_sha256": "1c185f2308b618210eeeee749c693cbad81cb8c587209603819f5cbe533374c0",
+          "models_added": [],
+          "models_removed": [
+            "text-embedding-ada-002"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "c9969b66-effb-4753-b504-a82c4d16f83f": {
       "id": "c9969b66-effb-4753-b504-a82c4d16f83f",
@@ -16790,7 +16813,9 @@
                             "gemini-3-flash-preview",
                             "gemini-2.5-pro",
                             "gemini-2.5-flash",
-                            "gemini-2.5-flash-lite"
+                            "gemini-2.5-flash-lite",
+                            "gemini-4-carbon",
+                            "gemini-4-hydrogen"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -17402,7 +17427,19 @@
         "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
         "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
         "source_file_sha256": "8942e0c8a35ee9831210eac629680ec5c9dd287cc2954403c956aa0f481ac2fa"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
+          "source_file_sha256": "2e07c0fc5086f81f285ace70043692d249781b7f95f78a0ea1468f37648bf291",
+          "models_added": [
+            "gemini-4-carbon",
+            "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "aff80c74-b190-445b-9124-6422ed763c50": {
       "id": "aff80c74-b190-445b-9124-6422ed763c50",
@@ -19049,7 +19086,9 @@
                             "glm-5.1",
                             "glm-4.7",
                             "glm-4.6",
-                            "glm-3-turbo"
+                            "glm-3-turbo",
+                            "glm-4.5",
+                            "glm-4.5v"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -19690,7 +19729,19 @@
           }
         }
       },
-      "source_definition_sha256": "c5a3fac64514ae6d015e38ab53f052216dc9f6c5e8ff799c9abfbae24348c015"
+      "source_definition_sha256": "c5a3fac64514ae6d015e38ab53f052216dc9f6c5e8ff799c9abfbae24348c015",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/f0392e69-ad58-40b9-b28b-e1feee258603.json",
+          "source_file_sha256": "58981a36d83002af9ee079d888d9a1802844675116de5065404156ada77998ec",
+          "models_added": [
+            "glm-4.5",
+            "glm-4.5v"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "7a632630-eb9f-4776-b11c-8cc86ae250d7": {
       "id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
@@ -20113,7 +20164,9 @@
                       "gemini-2.5-flash-lite",
                       "gemini-3.1-flash-image",
                       "gemini-2.5-flash-image",
-                      "gemini-3-pro-image"
+                      "gemini-3-pro-image",
+                      "gemini-4-carbon",
+                      "gemini-4-hydrogen"
                     ],
                     "type": "string"
                   },
@@ -20543,7 +20596,19 @@
         "revision": "7e4b894dd02190dc34a7da06c419eb6167f96b97",
         "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
         "source_file_sha256": "9436928315dd33e06bc127e944adb3a396259fc506111d6832595546424ee7aa"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+          "source_file_sha256": "a6a5c6d7cbabe6eccc4823d062bdff49b1522f44a0c1fda7f834e7703a3d004d",
+          "models_added": [
+            "gemini-4-carbon",
+            "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
       "id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",
@@ -38456,7 +38521,8 @@
                             "nano-banana:official",
                             "nano-banana-2-lite:official",
                             "nano-banana-2:official",
-                            "nano-banana-pro:official"
+                            "nano-banana-pro:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -38538,7 +38604,18 @@
           }
         }
       },
-      "source_definition_sha256": "a0fc5f6514cd4bc111be349c42053e72a00240a94df4ac121c7d31c26cb18f5e"
+      "source_definition_sha256": "a0fc5f6514cd4bc111be349c42053e72a00240a94df4ac121c7d31c26cb18f5e",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/9d8a117e-31ca-4322-a0fd-1771296ec610.json",
+          "source_file_sha256": "c9b7abd91ee4b753bbb0e2b52aad21235f6551ef7f9a515b044f1eb0753ef0aa",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "25e349c9-a490-4ae5-9a96-e5952d2dbcf7": {
       "id": "25e349c9-a490-4ae5-9a96-e5952d2dbcf7",
