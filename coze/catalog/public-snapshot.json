@@ -13570,7 +13570,8 @@
                             "mimo-v2.6-pro",
                             "mimo-v2.6-flash",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "gpt-5-all"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -14267,6 +14268,15 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "b087ed54390230e97c0b9d48f0d184e411b61c9e",
+          "source_file": "openapi/c9969b66-effb-4753-b504-a82c4d16f83f.json",
+          "source_file_sha256": "4b737195b7b7391037fc2b6619e3d2102996dff8568f96dbae441720a7ec7998",
+          "models_added": [
+            "gpt-5-all"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -14583,7 +14593,8 @@
                             "o4-mini-all",
                             "o4-mini-high-all",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "gpt-5-all"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -15356,6 +15367,15 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "b087ed54390230e97c0b9d48f0d184e411b61c9e",
+          "source_file": "openapi/ed972a38-ecef-4fcb-af33-750de42d25dc.json",
+          "source_file_sha256": "a1af666937dfad65c03dc31d6ac8cd2f43f7932cbaf48817058421c0c4f8f982",
+          "models_added": [
+            "gpt-5-all"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
