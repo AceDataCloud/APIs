@@ -79,6 +79,8 @@ python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
   --model gpt-6.2-astra --model gpt-6.2-sol
 ```
 
+Select operation-specific targets for models that have different protocol contracts: `claude-chat`, `gemini-chat`, `gemini-native`, `glm`, `nano-banana`, or `openai-embeddings`. The Gemini native target updates its URL `model` parameter, not a JSON body field. These targets do not move a Messages-only model into Chat Completions or mix embedding/image models into chat lists.
+
 Use `--service gpt-image` for model additions to both image generation and editing contracts. It regenerates the full endpoint enum in the standalone GPT Image and existing OpenAI JSON/YAML definitions; compatible aliases are not filtered by name.
 
 Choose `--service deepseek` to refresh the two AI Dialogue source contracts
@@ -286,6 +288,8 @@ license metadata and pagination bounds, so Coze does not return empty entries.
 The same completed tasks were read again through Coze after output fixes,
 without repeating generation. These changes do not alter provider routing,
 authentication or billing rules.
+
+The prepared Suno lyric form still exposes only `default`. The public API also declares `remi-v1`, but the current response contract and the previously verified Coze object output differ. This is an unresolved compatibility boundary, not full lyric-model coverage; do not enable the additional model by dropping its result fields. Current commercial-host verification remains required.
 
 ### Earlier validation and scope
 

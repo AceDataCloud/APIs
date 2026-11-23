@@ -458,7 +458,8 @@
                       "nano-banana:official",
                       "nano-banana-2-lite:official",
                       "nano-banana-2:official",
-                      "nano-banana-pro:official"
+                      "nano-banana-pro:official",
+                      "nano-banana-2.1"
                     ],
                     "type": "string",
                     "description": "Models used for generating images. If not specified, the default is `nano-banana`. `nano-banana-2-lite` is an alias for `gemini-3.1-flash-lite-image` (only 1K, fast generation speed), `nano-banana-2` is an alias for `gemini-3.1-flash-image` (provides professional-level quality at flash speed), `nano-banana-pro` is an alias for `gemini-3-pro-image`, and `nano-banana` is an alias for `gemini-2.5-flash-image`. Models with the `:official` suffix (`nano-banana:official`, `nano-banana-2-lite:official`, `nano-banana-2:official`, `nano-banana-pro:official`) are provided through official channels, offering better image quality and stability, with different billing.",

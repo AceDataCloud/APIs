@@ -263,6 +263,7 @@ def main():
     # unlike the older array shapes in the public snapshot.
     lyrics=doc['paths']['/suno/lyrics']['post']
     lyrics['requestBody']['content']['application/json']['schema']['properties']['model'].update(enum=['default'],default='default')
+    lyrics['requestBody']['content']['application/json']['schema']['properties']['model']['description']='This Coze HTTP form currently exposes only default with the previously verified object-shaped lyric output. remi-v1 remains in the canonical API contract; its output shape must be validated for this host before it is exposed here.'
     lyrics['responses']['200']['content']['application/json']['schema']['properties']['data']={
         'type':'object','properties':{'title':{'type':'string'},'text':{'type':'string'},
         'status':{'type':'string'},'tags':{'type':'array','items':{'type':'string'}}}}
@@ -298,6 +299,7 @@ def main():
     for props in (schema['properties'],schema['properties']['items']['items']['properties']):
         props['response']={'type':'object','properties':copy.deepcopy(music)}
     report['suno']=copy.deepcopy(notes)+[
+        {'kind':'model_subset','field':'POST /suno/lyrics/request/model','included_models':['default'],'deferred_models':['remi-v1'],'reason':'Retain the previously verified object-shaped Coze lyric output. The public API declares an array, and current implementations may return an object or array; current host/output compatibility remains unverified. Do not broaden the model enum while discarding the lyric result.'},
         {'kind':'declared_output','reason':'Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft.'},
         {'kind':'submitted_scope','reason':'Only the 12 verified HTTP tools are imported. Five failed or unverified tools and unexercised persona deletion remain in the canonical API contract only.',
          'excluded_operations':[method.upper()+' '+uri for uri,methods in disabled_suno.items() for method in sorted(methods)]},

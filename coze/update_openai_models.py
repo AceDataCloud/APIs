@@ -25,6 +25,24 @@ SERVICE_CONTRACTS = {
         "c9969b66-effb-4753-b504-a82c4d16f83f": "/openai/chat/completions",
         "ed972a38-ecef-4fcb-af33-750de42d25dc": "/openai/responses",
     },
+    "claude-chat": {
+        "6b2b437b-b6d5-466c-8750-b16650072593": "/v1/chat/completions",
+    },
+    "gemini-chat": {
+        "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": "/gemini/chat/completions",
+    },
+    "gemini-native": {
+        "7a632630-eb9f-4776-b11c-8cc86ae250d7": "/v1beta/models/{model}:generateContent",
+    },
+    "glm": {
+        "f0392e69-ad58-40b9-b28b-e1feee258603": "/glm/chat/completions",
+    },
+    "nano-banana": {
+        "9d8a117e-31ca-4322-a0fd-1771296ec610": "/nano-banana/images",
+    },
+    "openai-embeddings": {
+        "a0840c8a-2b9a-4407-8aaf-0057f0e1f65c": "/openai/embeddings",
+    },
     "gpt-image": {
         "8f01fe72-8a3e-4872-8d8d-330cde179b3a": "/openai/images/generations",
         "fb74083e-bb68-48d5-8ba6-b5a224400cd3": "/openai/images/edits",
@@ -46,6 +64,15 @@ SERVICE_CONTRACTS = {
 SERVICE_CONTRACTS["deepseek"] = SERVICE_CONTRACTS["aichat"]
 CONTRACTS = SERVICE_CONTRACTS["openai"]
 
+# These protocol targets share an existing plugin but have distinct model contracts.
+SERVICE_OUTPUTS = {
+    "claude-chat": ("plugins/claude", "imports/claude"),
+    "gemini-chat": ("plugins/gemini", "imports/gemini-chat"),
+    "gemini-native": ("plugins/gemini",),
+    "glm": ("plugins/glm", "imports/glm-chat"),
+    "openai-embeddings": ("plugins/openai", "imports/openai", "image"),
+}
+
 
 def selected_contracts(services):
     return {
@@ -58,6 +85,11 @@ def selected_contracts(services):
 def selected_outputs(services):
     outputs = ["catalog/public-snapshot.json"]
     for service in dict.fromkeys(services):
+        if service in SERVICE_OUTPUTS:
+            for stem in SERVICE_OUTPUTS[service]:
+                extensions = ("yaml",) if stem == "image" else ("json", "yaml")
+                outputs.extend(f"{stem}.{extension}" for extension in extensions)
+            continue
         # AI Chat is excluded by launch-scope.json. Update its historical
         # snapshot contracts without creating or promoting a plugin entry.
         if service == "aichat":
@@ -98,9 +130,17 @@ def resolve_ref(definition, schema):
 
 
 def model_enum(definition, path):
-    body = resolve_ref(definition, definition["paths"][path]["post"]["requestBody"])
-    schema = resolve_ref(definition, body["content"]["application/json"]["schema"])
-    return resolve_ref(definition, schema["properties"]["model"])["enum"]
+    item = definition["paths"][path]
+    operation = item["post"]
+    body = resolve_ref(definition, operation.get("requestBody", {}))
+    schema = resolve_ref(definition, body.get("content", {}).get("application/json", {}).get("schema", {}))
+    if "model" in schema.get("properties", {}):
+        return resolve_ref(definition, schema["properties"]["model"])["enum"]
+    for parameter in [*item.get("parameters", []), *operation.get("parameters", [])]:
+        parameter = resolve_ref(definition, parameter)
+        if parameter.get("name") == "model" and parameter.get("in") in ("path", "header", "query"):
+            return resolve_ref(definition, parameter["schema"])["enum"]
+    raise ValueError(f"No declared model enum at {path}")
 
 
 def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",), retired=()):

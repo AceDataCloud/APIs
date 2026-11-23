@@ -1373,7 +1373,7 @@
                       "default"
                     ],
                     "type": "string",
-                    "description": "The model used for generating lyrics has a default value of `default`, with optional values including `default` and `remi-v1`.",
+                    "description": "This Coze HTTP form currently exposes only default with the previously verified object-shaped lyric output. remi-v1 remains in the canonical API contract; its output shape must be validated for this host before it is exposed here.",
                     "default": "default"
                   },
                   "prompt": {

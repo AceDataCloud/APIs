@@ -583,6 +583,7 @@ paths:
                   - nano-banana-2-lite:official
                   - nano-banana-2:official
                   - nano-banana-pro:official
+                  - nano-banana-2.1
                   type: string
                   description: Models used for generating images. If not specified, the default is `nano-banana`.
                     `nano-banana-2-lite` is an alias for `gemini-3.1-flash-lite-image` (only 1K, fast
