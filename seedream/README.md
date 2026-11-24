@@ -32,7 +32,7 @@ This restriction changes neither trial API availability nor pricing; fees are se
 
 ## Overview
 
-The Seedream Images API generates, edits, streams, and decomposes images with `doubao-seedream-4-0-250828`, `doubao-seedream-4-5-251128`, `doubao-seedream-5-0-lite-260128`, and `doubao-seedream-5-0-pro-260628`. The Seedream Tasks API queries async task status.
+The Seedream Images API supports image generation and editing. Model-specific options include native transparency, layer decomposition, and streaming. Use the Seedream Tasks API to query async task status.
 
 ## Quick Start
 
@@ -47,6 +47,8 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 
 | Model | Notes |
 | ---- | ---- |
+| `doubao-seedream-5-5-261028` | Multi-turn editing, native transparent PNG, up to 99 editable layers and optional OCR; 1K/1.5K/2K |
+| `doubao-seedream-5-0-flash-260915` | Fast single-image generation and editing, up to 16 editable layers; 1K/1.5K/2K |
 | `doubao-seedream-5-0-pro-260628` | Single image, precise editing, transparent background, layer decomposition; 1K/1.5K/2K |
 | `doubao-seedream-5-0-lite-260128` | Sequential images, streaming, web search; 2K/3K/4K |
 | `doubao-seedream-4-5-251128` | 4.5 |
