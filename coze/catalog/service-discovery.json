@@ -131,6 +131,33 @@
       "status_date": "2026-10-12",
       "guide_en": "guides/nano-banana/README.md",
       "guide_zh": "guides/nano-banana/README_zh-CN.md"
+    },
+    "acemusic": {
+      "service_name": "ACE Music",
+      "listing_name": "ACE Music by Ace Data Cloud",
+      "brief": "ACE Music songs, reference tracks and lyrics",
+      "description": "Ace Data Cloud integration for ACE Music. Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.",
+      "category": "Music",
+      "scenarios": [
+        "Create a song with custom lyrics",
+        "cover or combine owned reference tracks",
+        "recover the original task and listen to completed audio."
+      ],
+      "search_terms": [
+        "ACE Music",
+        "ACEMusic",
+        "ACE Music by Ace Data Cloud"
+      ],
+      "keywords_field": "not_assumed_supported; use natural service names in title, brief and scenarios",
+      "plugin_id": null,
+      "official_listing": null,
+      "listing_state_as_of": "workspace_import_prepared",
+      "current_store_state": "no_verified_listing",
+      "submitted_enabled_tools": 0,
+      "prepared_tools": 3,
+      "status_date": "2026-11-22",
+      "guide_en": "guides/acemusic/README.md",
+      "guide_zh": "guides/acemusic/README_zh-CN.md"
     }
   }
 }

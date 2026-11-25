@@ -104,11 +104,15 @@ func main() {
 				}
 				_, maperr := model.NewOpenapi3Operation(op).ToEinoSchemaParameterInfo(ctx)
 				assert(&row, op.OperationID+"_agent_schema", maperr == nil, fmt.Sprint(maperr))
-				auth := op.Parameters[1].Value
+				var auth *openapi3.Parameter
 				for _, p := range op.Parameters {
 					if p.Value.Name == "Authorization" {
 						auth = p.Value
 					}
+				}
+				if auth == nil {
+					row.Errors = append(row.Errors, op.OperationID+" missing Authorization header")
+					continue
 				}
 				assert(&row, op.OperationID+"_blank_credential", auth.Name == "Authorization" && auth.Required && auth.In == "header" && auth.Schema.Value.Default == nil && auth.Schema.Value.Example == nil, "required header, no saved default/example")
 				// In-memory Reference binding uses only a variable name, never a token.
@@ -131,6 +135,11 @@ func main() {
 					if service == "seedance" {
 						media = "response.data.content.video_url"
 					}
+					if service == "acemusic" {
+						media = "response.data[].audio_url"
+						assert(&row, "track_id_mapping", strings.Contains(joined, "|response.data[].id|"), "owned reference track ID")
+						assert(&row, "lyrics_mapping", strings.Contains(joined, "|response.data[].text|"), "recover lyrics by the same task ID")
+					}
 					if service == "nano-banana" {
 						media = "response.data[].image_url"
 					}
@@ -142,6 +151,12 @@ func main() {
 				body := map[string]interface{}{"id": "OWNED_TASK_ID_PLACEHOLDER", "action": "retrieve"}
 				if op.OperationID != "getTaskResults" {
 					switch service {
+					case "acemusic":
+						body = map[string]interface{}{"prompt": "Schema fixture only."}
+						if op.OperationID == "generateMusic" {
+							body["action"] = "generate"
+							body["async"] = true
+						}
 					case "seedance":
 						body = map[string]interface{}{"model": "doubao-seedance-1-0-pro-fast-251015", "content": []interface{}{map[string]interface{}{"type": "text", "text": "A test description; no generation is sent."}}, "async": true}
 					case "happyhorse":
@@ -173,7 +188,11 @@ func main() {
 			}
 		}
 		sort.Strings(row.Tools)
-		assert(&row, "two_tools", len(row.Tools) == 2, "exact two-tool import")
+		if service == "acemusic" {
+			assert(&row, "three_tools", strings.Join(row.Tools, ",") == "generateLyrics,generateMusic,getTaskResults", "three ACE Music HTTP tools")
+		} else {
+			assert(&row, "two_tools", len(row.Tools) == 2, "exact two-tool import")
+		}
 		results = append(results, row)
 	}
 	b, _ := json.MarshalIndent(results, "", "  ")

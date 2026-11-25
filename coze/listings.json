@@ -603,6 +603,25 @@
       "sensitive_inputs": false
     }
   },
+  "acemusic": {
+    "name": "ACE Music by Ace Data Cloud",
+    "brief": "ACE Music songs, reference tracks and lyrics",
+    "description": "Ace Data Cloud integration for ACE Music. Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.",
+    "scenarios": [
+      "Create a song with custom lyrics",
+      "cover or combine owned reference tracks",
+      "recover the original task and listen to completed audio."
+    ],
+    "icon": "icons/acemusic.png",
+    "category": "Music",
+    "about": "Ace Data Cloud integration for ACE Music. Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.\n\nBind Authorization using Reference to your private adc_auth variable (Bearer YOUR_API_TOKEN). Keep shared defaults and prompts empty. Your account is billed.\nGet started: https://platform.acedata.cloud/services/024e09b4-52cf-5e98-a91a-efedf43104c4?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_acemusic_setup",
+    "privacy_review": {
+      "data_sent": "User-selected prompts, content, URLs and request parameters; Authorization carries the caller credential.",
+      "recipient": "Ace Data Cloud API",
+      "retention": "Verify current published privacy terms; no retention promise is made in this draft.",
+      "sensitive_inputs": false
+    }
+  },
   "gpt-image": {
     "name": "GPT Image by Ace Data Cloud",
     "brief": "GPT Image generation and editing through Ace",

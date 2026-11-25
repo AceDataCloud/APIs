@@ -376,6 +376,8 @@ def main():
                             pr=schema.get('properties',{}).get(k)
                             if pr and ('default' in pr or k=='model'):ex[k]=sample(pr,k)
                         if path.endswith('/chat/completions'):ex['messages']=[{'role':'user','content':'Explain why the sky appears blue in two sentences.'}]
+                        if path=='/acemusic/audios':ex={'action':'generate','model':'acemusic-v1.1','custom':False,'prompt':'A folk song about the night train','async':True}
+                        if path=='/acemusic/tasks':ex={'action':'retrieve','id':'YOUR_EXISTING_TASK_ID'}
                         if path=='/shorturl':ex={'content':'https://platform.acedata.cloud/?from=coze'}
                         if path=='/serp/google':ex={'query':'Ace Data Cloud API documentation','type':'search','number':3}
                     case={'service':key,'api_id':a['id'],'operation_id':op['operationId'],'method':method.upper(),'path':path,'request':{'headers':{'Authorization':'Bearer YOUR_API_TOKEN'},'body':ex if method!='get' else None},'status':'not_run','fixture_kind':'draft_request_not_execution_evidence','acceptance':['Validate the request against the current model/action requirements.','Confirm a successful real response and expected result fields.','For async creation, poll the matching retrieval tool to a terminal result.','Inspect the returned media or content and reconcile billed Credits.'],'special_authorization':method=='delete' or key in ['identity','turnstile','recaptcha','hcaptcha','image2text'] or any(w in path for w in ['voices','custom-models'])}

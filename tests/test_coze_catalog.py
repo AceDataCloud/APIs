@@ -756,13 +756,13 @@ class CozeCatalogTests(unittest.TestCase):
     def test_service_discovery_uses_independent_brands_and_known_store_ids(self):
         discovery = json.loads((ROOT / 'catalog/service-discovery.json').read_text())['services']
         listings = json.loads((ROOT / 'listings.json').read_text())
-        self.assertEqual({'suno', 'seedance', 'happyhorse', 'gpt-image', 'nano-banana'}, set(discovery))
+        self.assertEqual({'acemusic', 'suno', 'seedance', 'happyhorse', 'gpt-image', 'nano-banana'}, set(discovery))
         for key, prepared in discovery.items():
             listing = listings[key]
             self.assertEqual(prepared['service_name']+' by Ace Data Cloud', listing['name'])
             self.assertIn('Ace Data Cloud integration', listing['description'])
             self.assertEqual(prepared['category'], listing['category'])
-            if key in {'seedance', 'happyhorse'}:
+            if key in {'acemusic', 'seedance', 'happyhorse'}:
                 self.assertIsNone(prepared['plugin_id'])
                 self.assertIsNone(prepared['official_listing'])
             else:

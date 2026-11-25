@@ -414,5 +414,17 @@
       "change its background",
       "turn a scene into a video."
     ]
+  },
+  "acemusic": {
+    "name": "ACE Music",
+    "display_name": "ACE Music",
+    "group": "Music",
+    "brief": "ACE Music songs, reference tracks and lyrics",
+    "description": "Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.",
+    "scenarios": [
+      "Create a song with custom lyrics",
+      "cover or combine owned reference tracks",
+      "recover the original task and listen to completed audio."
+    ]
   }
 }

@@ -61,7 +61,7 @@ def main():
         subprocess.run([args.go, 'mod', 'download'], cwd=work, env=env, check=True)
         env['GOPROXY'] = 'off'
         files = [str(COZE / 'imports' / f'{service}.{extension}')
-                 for service in ('seedance', 'happyhorse', 'nano-banana')
+                 for service in ('seedance', 'happyhorse', 'nano-banana', 'acemusic')
                  for extension in ('json', 'yaml')]
         cmd = [args.go, 'run', '-mod=readonly']
         if args.intel_link_workaround:

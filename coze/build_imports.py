@@ -22,14 +22,14 @@ def concrete_objects(value):
     return value
 
 
-def editor_numeric_formats(value):
+def editor_formats(value, *, plain_urls=False):
     """Coze Studio treats schema formats as file/media assist types only."""
     if isinstance(value, dict):
-        return {k: editor_numeric_formats(v) for k, v in value.items()
-                if not (k == 'format' and value.get('type') in ('number', 'integer')
-                        and v in ('double', 'float', 'int32', 'int64'))}
+        omit = ((value.get('type') in ('number', 'integer') and value.get('format') in ('double', 'float', 'int32', 'int64'))
+                or (plain_urls and value.get('type') == 'string' and value.get('format') == 'uri'))
+        return {k: editor_formats(v, plain_urls=plain_urls) for k, v in value.items() if not (omit and k == 'format')}
     if isinstance(value, list):
-        return [editor_numeric_formats(v) for v in value]
+        return [editor_formats(v, plain_urls=plain_urls) for v in value]
     return value
 
 def kind(s):
@@ -321,7 +321,7 @@ def main():
     task=doc['paths']['/nano-banana/tasks']['post']['responses']['200']['content']['application/json']['schema']
     for props in (task['properties'],task['properties']['items']['items']['properties']):
         props['response']['properties']['error']=copy.deepcopy(error_fields)
-    doc=editor_numeric_formats(concrete_objects(doc))
+    doc=editor_formats(concrete_objects(doc))
     report['nano-banana']=copy.deepcopy(notes)+[{'kind':'prepared_full_form','reason':
         'Full two-tool reimport material; the earlier installed version and task-only projection have separate runtime evidence. This new file is not a store update.'}]
     report['nano-banana'].append({'kind':'editor_numeric_format','reason':
@@ -371,13 +371,41 @@ def main():
         task=doc['paths'][f'/{key}/tasks']['post']['responses']['200']['content']['application/json']['schema']
         for props in (task['properties'],task['properties']['items']['items']['properties']):
             props['response']=copy.deepcopy(response)
-        doc=editor_numeric_formats(concrete_objects(doc))
+        doc=editor_formats(concrete_objects(doc))
         report[key]=copy.deepcopy(notes)+[{'kind':'prepared_not_host_verified','reason':
             'Two-tool video form retains same-task retrieval and explicit media/error fields. No store submission or real Coze import is established; Seedance inputs are text-only in this projection.'}]
         report[key].append({'kind':'editor_numeric_format','reason':
             'Remove only numeric format annotations rejected by the official Studio parameter mapper; retain number/integer types, values and media fields.'})
         (target/f'{key}.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
         (target/f'{key}.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
+    # ACE Music declares conditional request contracts. Coze edits individual
+    # fields, while the API validates each selected action against the full schema.
+    key = 'acemusic'
+    doc = json.loads((ROOT / 'plugins/acemusic.json').read_text())
+    notes.clear()
+    for path, methods in doc['paths'].items():
+        op = methods['post']
+        location = 'POST ' + path
+        form = op['requestBody']['content']['application/json']
+        schema = form['schema']
+        form['schema'] = project({k: v for k, v in schema.items() if k not in ('oneOf', 'allOf')}, location + '/request')
+        result = op['responses']['200']['content']['application/json']
+        result['schema'] = project(result['schema'], location + '/response')
+        accepted = op['responses'].get('202', {}).get('content', {}).get('application/json', {}).get('schema')
+        if accepted:
+            # Coze maps one response per tool. Keep acceptance fields optional
+            # alongside final result fields for both HTTP 202 and 200.
+            props = result['schema']['properties']
+            for name, definition in project(accepted, location + '/accepted').get('properties', {}).items():
+                props.setdefault(name, definition)
+            result['schema'].pop('required', None)
+        op['responses'] = {'200': op['responses']['200']}
+        op['description'] += ' Use the fields for the selected action only; retain the returned task_id and retrieve the original task.'
+    doc = editor_formats(concrete_objects(doc), plain_urls=True)
+    report[key] = list(notes) + [{'kind': 'editor_format', 'reason': 'Remove uri format and numeric format annotations rejected by Coze Studio; URLs remain string fields.'}, {'kind': 'conditional_constraints',
+        'reason': 'The editor exposes individual fields. The full API validates required fields per selected song or retrieval action.'}]
+    (target / 'acemusic.json').write_text(json.dumps(doc, ensure_ascii=False, indent=2) + '\n')
+    (target / 'acemusic.yaml').write_text(yaml.safe_dump(doc, allow_unicode=True, sort_keys=False, width=100))
     (target/'compatibility-notes.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('Built',len(report),'Coze import projections; review representation differences before use.')
 

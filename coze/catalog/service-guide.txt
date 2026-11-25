@@ -275,6 +275,13 @@ URL: https://platform.acedata.cloud/services/f36a2d7d-f07c-4830-848d-2b115de958e
 COZE ENTRY: catalog_assistant
 NEXT STEP: Provision a user-owned deployment and configure its own URL and access before automation. Sending messages is not enabled by this guide.
 
+SERVICE: ACE Music
+TYPE: Api
+DESCRIPTION: Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.
+URL: https://platform.acedata.cloud/services/024e09b4-52cf-5e98-a91a-efedf43104c4
+COZE ENTRY: http_plugin
+NEXT STEP: Select the matching plugin once it is published, then privately configure your own Ace Data Cloud credential.
+
 SERVICE: GPT Image
 TYPE: Api
 DESCRIPTION: Generate and edit images through the OpenAI-compatible image API, including GPT Image and supported DALL-E and Nano Banana aliases, then retrieve completed results.

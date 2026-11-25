@@ -232,5 +232,11 @@
     "source": "Anonymous public Service.icon_url",
     "service_id": "f36a2d7d-f07c-4830-848d-2b115de958ee",
     "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
+  },
+  "acemusic": {
+    "url": "https://cdn.acedata.cloud/acemusic-icon-52deddfc87b9.png",
+    "source": "https://platform.acedata.cloud/api/v1/services/acemusic/?lang=en",
+    "service_id": "024e09b4-52cf-5e98-a91a-efedf43104c4",
+    "transformation": "Contained on a plain 512px canvas only; no badge, caption or recoloring."
   }
 }

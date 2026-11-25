@@ -2768,6 +2768,62 @@
       "readiness": "guide_prepared"
     },
     {
+      "key": "acemusic",
+      "service_id": "024e09b4-52cf-5e98-a91a-efedf43104c4",
+      "service_type": "Api",
+      "title": "ACE Music",
+      "description": "Create songs from ideas or lyrics, import an authorized reference MP3, cover a track, combine two tracks, write lyrics and retrieve original tasks.",
+      "source_url": "https://platform.acedata.cloud/services/024e09b4-52cf-5e98-a91a-efedf43104c4",
+      "icon": "icons/acemusic.png",
+      "operations": [
+        {
+          "api_id": "4c52eae4-e361-5ccb-9af4-1892e918649f",
+          "path": "/acemusic/audios",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/acemusic-audios",
+          "operation_id": "generateMusic",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "b3637223-92ae-5e2f-8536-6df3ef16c509",
+          "path": "/acemusic/lyrics",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/acemusic-lyrics",
+          "operation_id": "generateLyrics",
+          "disposition": "schema_prepared"
+        },
+        {
+          "api_id": "cd422d13-3e61-5d2e-88fc-7281ff471565",
+          "path": "/acemusic/tasks",
+          "method": "POST",
+          "stage": "Beta",
+          "docs": "https://platform.acedata.cloud/documents/acemusic-tasks",
+          "operation_id": "getTaskResults",
+          "disposition": "schema_prepared"
+        }
+      ],
+      "blockers": [
+        "Expanded tool set requires Coze import verification and authorized real trials."
+      ],
+      "name": "ACE Music",
+      "brief": "ACE Music songs, reference tracks and lyrics",
+      "group": "Music",
+      "scenarios": [
+        "Create a song with custom lyrics",
+        "cover or combine owned reference tracks",
+        "recover the original task and listen to completed audio."
+      ],
+      "delivery": "http_plugin",
+      "tool_count": 3,
+      "readiness": "draft_assets_prepared",
+      "plugin_url": null,
+      "coze_state": "not_created",
+      "validation": "not_run",
+      "schema": "plugins/acemusic.yaml"
+    },
+    {
       "key": "gpt-image",
       "service_id": "06f2acb7-e4d4-43de-9909-76e27b4e2355",
       "service_type": "Api",

@@ -1,0 +1,93 @@
+{
+  "upstream_revision": "fefb05ff27be1da939612fbf9faf5db62583b8ae",
+  "date": "2026-11-22",
+  "scope": "Keyless validation with the official parser and parameter mapper. No Coze workspace or paid API request.",
+  "files": [
+    {
+      "file": "acemusic.json",
+      "parse": "PASS",
+      "host_validate": "PASS",
+      "tools": [
+        "generateLyrics",
+        "generateMusic",
+        "getTaskResults"
+      ],
+      "request_mapping": {
+        "generateLyrics": "PASS 3 top-level fields",
+        "generateMusic": "PASS 16 top-level fields",
+        "getTaskResults": "PASS 11 top-level fields"
+      },
+      "response_mapping": {
+        "generateLyrics": "PASS 5 top-level fields",
+        "generateMusic": "PASS 6 top-level fields",
+        "getTaskResults": "PASS 13 top-level fields"
+      },
+      "checks": {
+        "batch_media_mapping": "PASS: same media field in batch items",
+        "generateLyrics_agent_schema": "PASS: <nil>",
+        "generateLyrics_blank_credential": "PASS: required header, no saved default/example",
+        "generateLyrics_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "generateLyrics_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "generateLyrics_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "generateMusic_agent_schema": "PASS: <nil>",
+        "generateMusic_blank_credential": "PASS: required header, no saved default/example",
+        "generateMusic_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "generateMusic_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "generateMusic_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "getTaskResults_agent_schema": "PASS: <nil>",
+        "getTaskResults_blank_credential": "PASS: required header, no saved default/example",
+        "getTaskResults_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "getTaskResults_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "getTaskResults_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "lyrics_mapping": "PASS: recover lyrics by the same task ID",
+        "result_media_mapping": "PASS: response.data[].audio_url",
+        "terminal_error_mapping": "PASS: explicit terminal error field",
+        "three_tools": "PASS: three ACE Music HTTP tools",
+        "track_id_mapping": "PASS: owned reference track ID"
+      }
+    },
+    {
+      "file": "acemusic.yaml",
+      "parse": "PASS",
+      "host_validate": "PASS",
+      "tools": [
+        "generateLyrics",
+        "generateMusic",
+        "getTaskResults"
+      ],
+      "request_mapping": {
+        "generateLyrics": "PASS 3 top-level fields",
+        "generateMusic": "PASS 16 top-level fields",
+        "getTaskResults": "PASS 11 top-level fields"
+      },
+      "response_mapping": {
+        "generateLyrics": "PASS 5 top-level fields",
+        "generateMusic": "PASS 6 top-level fields",
+        "getTaskResults": "PASS 13 top-level fields"
+      },
+      "checks": {
+        "batch_media_mapping": "PASS: same media field in batch items",
+        "generateLyrics_agent_schema": "PASS: <nil>",
+        "generateLyrics_blank_credential": "PASS: required header, no saved default/example",
+        "generateLyrics_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "generateLyrics_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "generateLyrics_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "generateMusic_agent_schema": "PASS: <nil>",
+        "generateMusic_blank_credential": "PASS: required header, no saved default/example",
+        "generateMusic_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "generateMusic_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "generateMusic_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "getTaskResults_agent_schema": "PASS: <nil>",
+        "getTaskResults_blank_credential": "PASS: required header, no saved default/example",
+        "getTaskResults_missing_auth_rejected": "PASS: no-key request rejected by required-header validation; no API request",
+        "getTaskResults_reference_mapping": "PASS: official mapper preserves private variable name; no credential value stored",
+        "getTaskResults_schema_request_accepted": "PASS: invalid public marker used only in memory, not sent",
+        "lyrics_mapping": "PASS: recover lyrics by the same task ID",
+        "result_media_mapping": "PASS: response.data[].audio_url",
+        "terminal_error_mapping": "PASS: explicit terminal error field",
+        "three_tools": "PASS: three ACE Music HTTP tools",
+        "track_id_mapping": "PASS: owned reference track ID"
+      }
+    }
+  ]
+}

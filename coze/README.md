@@ -5,7 +5,7 @@ or Workflow. Ace Data Cloud provides these integrations and bills API usage to
 the caller's Ace account. They are not endorsements by the model brands or
 entries in Coze's default model-provider selector.
 
-ACE Music: [prepared import candidate](candidates/acemusic/README.md) for the new service; deployment and host validation are pending.
+ACE Music is available as a [workspace API import](imports/acemusic.yaml) and a [remote MCP configuration](mcp-plugins/acemusic.json).
 
 ## Find your service and get started
 
@@ -16,6 +16,7 @@ installation.
 
 | Independent service entry | Official international listing | English / 简体中文 | Latest dated evidence |
 |---|---|---|---|
+| ACE Music by Ace Data Cloud | Workspace import; no verified store listing | [Guide](guides/acemusic/README.md) / [教程](guides/acemusic/README_zh-CN.md) | Three HTTP tools; the hosted MCP advertises eleven tools |
 | Suno by Ace Data Cloud | [Suno](https://www.coze.com/store/plugin/7695633467463286837) | [Guide](guides/suno/README.md) / [教程](guides/suno/README_zh-CN.md) | Submitted 2026-10-12; 12 enabled tools; current approval unknown |
 | Seedance by Ace Data Cloud | No verified listing yet | [Guide](guides/seedance/README.md) / [教程](guides/seedance/README_zh-CN.md) | Prepared text-only two-tool import; not submitted or host-verified |
 | HappyHorse by Ace Data Cloud | No verified listing yet | [Guide](guides/happyhorse/README.md) / [教程](guides/happyhorse/README_zh-CN.md) | Prepared two-tool import; not submitted or host-verified |
