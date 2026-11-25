@@ -152,4 +152,4 @@ class SearchSummaryTest(unittest.TestCase):
             self.assertEqual(query['utm_source'], ['opensource'])
             self.assertEqual(query['utm_medium'], ['referral'])
             self.assertEqual(query['utm_campaign'], ['evergreen'])
-            self.assertTrue(query['utm_content'][0])
+            self.assertEqual({key for key in query if key.startswith('utm_')}, {'utm_source', 'utm_medium', 'utm_campaign'})

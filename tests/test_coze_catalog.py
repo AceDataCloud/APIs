@@ -65,8 +65,27 @@ class CozeCatalogTests(unittest.TestCase):
         for uri in ('/openai/images/generations','/openai/images/edits'):
             model=image['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model']
             self.assertEqual('gpt-image-2',model['default'])
-            self.assertTrue(all(name.startswith('gpt-image') for name in model['enum']))
+            original=self.plugins['openai']['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model']
+            self.assertEqual(original['enum'],model['enum'])
         projected=json.loads((ROOT/'imports/gpt-image.json').read_text())
+        for uri in ('/openai/images/generations','/openai/images/edits'):
+            fields=projected['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']
+            original=self.plugins['openai']['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']
+            self.assertEqual(original['model']['enum'],fields['model']['enum'])
+            self.assertIn('gpt-image-2:reverse',fields['model']['enum'])
+            self.assertTrue({'dall-e-2','dall-e-3','nano-banana','nano-banana-2-lite','nano-banana-2','nano-banana-2.1','nano-banana-pro'} <= set(fields['model']['enum']))
+            self.assertEqual('gpt-image-2',fields['model']['default'])
+            for name in ('size','quality','style','background','moderation','output_format','partial_images'):
+                self.assertNotIn('default',fields.get(name,{}))
+            required=projected['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['required']
+            self.assertNotIn('size',required)
+            self.assertNotIn('quality',required)
+            schema=projected['paths'][uri]['post']['requestBody']['content']['application/json']['schema']
+            for model in fields['model']['enum']:
+                payload={'model':model,'prompt':'Schema fixture only.','async':True}
+                if uri.endswith('/edits'):
+                    payload['image']=['https://example.com/reference.png']
+                OAS30Validator(schema).validate(payload)
         validate_spec(projected)
         result=projected['paths']['/openai/tasks']['post']['responses']['200']['content']['application/json']['schema']['properties']['response']['properties']
         self.assertIn('url',result['data']['items']['properties'])
@@ -112,7 +131,10 @@ class CozeCatalogTests(unittest.TestCase):
                         self.assertEqual(document, yaml.safe_load((ROOT / folder / f'{key}.yaml').read_text()))
                         body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
                         fields = body['properties']
-                        self.assertEqual(canonical['requestBody']['content']['application/json']['schema']['properties']['quality'], fields['quality'])
+                        expected_quality=dict(canonical['requestBody']['content']['application/json']['schema']['properties']['quality'])
+                        if key == 'gpt-image' and folder == 'imports':
+                            expected_quality.pop('default',None)
+                        self.assertEqual(expected_quality, fields['quality'])
                         for level in ('xhigh', 'max'):
                             OAS30Validator(fields['quality']).validate(level)
                         with self.assertRaises(ValidationError):
@@ -313,6 +335,7 @@ class CozeCatalogTests(unittest.TestCase):
             for route in ('/openai/chat/completions', '/openai/responses'):
                 models = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']['properties']['model']['enum']
                 self.assertIn('gpt-6.1-terra', models)
+                self.assertIn('gpt-5-all', models)
                 self.assertIn('gpt-5.6-sol-fast', models)
                 if route.endswith('/chat/completions'):
                     self.assertTrue({'mimo-v2.6-pro', 'mimo-v2.6-flash'} <= set(models))
@@ -472,7 +495,7 @@ class CozeCatalogTests(unittest.TestCase):
                 body = document['paths'][route]['post']['requestBody']['content']['application/json']['schema']
                 fields = body['properties']
                 self.assertEqual(['kimi-k3.1-pro', 'kimi-k3', 'kimi-k2.6',
-                                  'kimi-k2-thinking-turbo', 'kimi-k2.5', 'kimi-k2-thinking'],
+                                  'kimi-k2.7-code'],
                                  fields['model']['enum'])
                 effort = fields['reasoning_effort']
                 self.assertEqual(['low', 'high', 'max'], effort['enum'])

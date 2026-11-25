@@ -5700,7 +5700,8 @@
                             "claude-3-5-haiku-20241022",
                             "claude-3-5-sonnet-20240620",
                             "claude-3-haiku-20240307",
-                            "claude-3-sonnet-20240229"
+                            "claude-3-sonnet-20240229",
+                            "gpt-5.6-sol-fast"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -6312,7 +6313,18 @@
         "revision": "a2d8303cf1c22c78e880dc7411fea5b1c044e99c",
         "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
         "source_file_sha256": "6923b433c4616017553f6a79f1ad4fd8d10fab92ff0f594763dc54e00518cc00"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/6b2b437b-b6d5-466c-8750-b16650072593.json",
+          "source_file_sha256": "6923b433c4616017553f6a79f1ad4fd8d10fab92ff0f594763dc54e00518cc00",
+          "models_added": [
+            "gpt-5.6-sol-fast"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "a43a98fc-f833-4cfb-8596-8066faad2c42": {
       "id": "a43a98fc-f833-4cfb-8596-8066faad2c42",
@@ -9700,9 +9712,7 @@
                             "kimi-k3.1-pro",
                             "kimi-k3",
                             "kimi-k2.6",
-                            "kimi-k2-thinking-turbo",
-                            "kimi-k2.5",
-                            "kimi-k2-thinking"
+                            "kimi-k2.7-code"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -10378,7 +10388,23 @@
           }
         }
       },
-      "source_definition_sha256": "9ca1bf1e37ce19f30bf5fd72d9140ae27847cd074d357319012abd8d607e930f"
+      "source_definition_sha256": "9ca1bf1e37ce19f30bf5fd72d9140ae27847cd074d357319012abd8d607e930f",
+      "backend_model_enum_updates": [
+        {
+          "revision": "7339d8abe08ffaf5dcdbce6e25daa7b4ad1cef5b",
+          "source_file": "openapi/5c4649ee-22c6-44ea-84d6-6ecc3674f998.json",
+          "source_file_sha256": "b456632bb720c126a0a9682a09e9e491e0204e7558aa406e8701f784b65f3ba1",
+          "models_added": [
+            "kimi-k2.7-code"
+          ],
+          "models_removed": [
+            "kimi-k2-thinking-turbo",
+            "kimi-k2.5",
+            "kimi-k2-thinking"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "51dca1fb-cc12-4a4a-b31a-01b62043abcd": {
       "id": "51dca1fb-cc12-4a4a-b31a-01b62043abcd",
@@ -12044,7 +12070,8 @@
                             "gpt-image-2.6-flare:official",
                             "gpt-image-2.6-sunburst",
                             "gpt-image-2.6-sunburst:reverse",
-                            "gpt-image-2.6-sunburst:official"
+                            "gpt-image-2.6-sunburst:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 1,
                           "type": "string",
@@ -12190,7 +12217,18 @@
         "revision": "f33c55fa6a71b702fe5be3802aef7c365d7633b4",
         "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
         "source_file_sha256": "6d9efa9f14328745eeede3a449b59f88ffd7bcdad3e2d155c58b134c05f1371a"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/8f01fe72-8a3e-4872-8d8d-330cde179b3a.json",
+          "source_file_sha256": "6d9efa9f14328745eeede3a449b59f88ffd7bcdad3e2d155c58b134c05f1371a",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "8ff29e12-b814-4484-ab50-d39773a7a563": {
       "id": "8ff29e12-b814-4484-ab50-d39773a7a563",
@@ -12962,8 +13000,7 @@
                         "model": {
                           "enum": [
                             "text-embedding-3-small",
-                            "text-embedding-3-large",
-                            "text-embedding-ada-002"
+                            "text-embedding-3-large"
                           ],
                           "type": "string",
                           "description": "The ID of the embedding model to be used (for example, `text-embedding-3-small`, `text-embedding-3-large`)."
@@ -13006,7 +13043,19 @@
           }
         }
       },
-      "source_definition_sha256": "a23720d1f4da05ffce7acc91db33abf050d382217c6c11bf9e1407c57584cd71"
+      "source_definition_sha256": "a23720d1f4da05ffce7acc91db33abf050d382217c6c11bf9e1407c57584cd71",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/a0840c8a-2b9a-4407-8aaf-0057f0e1f65c.json",
+          "source_file_sha256": "1c185f2308b618210eeeee749c693cbad81cb8c587209603819f5cbe533374c0",
+          "models_added": [],
+          "models_removed": [
+            "text-embedding-ada-002"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "c9969b66-effb-4753-b504-a82c4d16f83f": {
       "id": "c9969b66-effb-4753-b504-a82c4d16f83f",
@@ -13569,7 +13618,8 @@
                             "mimo-v2.6-pro",
                             "mimo-v2.6-flash",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "gpt-5-all"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -14266,6 +14316,15 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "b087ed54390230e97c0b9d48f0d184e411b61c9e",
+          "source_file": "openapi/c9969b66-effb-4753-b504-a82c4d16f83f.json",
+          "source_file_sha256": "4b737195b7b7391037fc2b6619e3d2102996dff8568f96dbae441720a7ec7998",
+          "models_added": [
+            "gpt-5-all"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -14582,7 +14641,8 @@
                             "o4-mini-all",
                             "o4-mini-high-all",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "gpt-5-all"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -15355,6 +15415,15 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "b087ed54390230e97c0b9d48f0d184e411b61c9e",
+          "source_file": "openapi/ed972a38-ecef-4fcb-af33-750de42d25dc.json",
+          "source_file_sha256": "a1af666937dfad65c03dc31d6ac8cd2f43f7932cbaf48817058421c0c4f8f982",
+          "models_added": [
+            "gpt-5-all"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -15752,7 +15821,8 @@
                             "gpt-image-2.6-flare:official",
                             "gpt-image-2.6-sunburst",
                             "gpt-image-2.6-sunburst:reverse",
-                            "gpt-image-2.6-sunburst:official"
+                            "gpt-image-2.6-sunburst:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 22,
                           "type": "string",
@@ -16095,7 +16165,18 @@
         "revision": "f33c55fa6a71b702fe5be3802aef7c365d7633b4",
         "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
         "source_file_sha256": "690ed496ce95fed18f902521a8c74fcec44c4548a3f2d9f41c36593d4bdb5534"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/fb74083e-bb68-48d5-8ba6-b5a224400cd3.json",
+          "source_file_sha256": "690ed496ce95fed18f902521a8c74fcec44c4548a3f2d9f41c36593d4bdb5534",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": {
       "id": "94b49b55-2ea8-4d46-a93c-eb308e1a52d5",
@@ -16800,7 +16881,9 @@
                             "gemini-3-flash-preview",
                             "gemini-2.5-pro",
                             "gemini-2.5-flash",
-                            "gemini-2.5-flash-lite"
+                            "gemini-2.5-flash-lite",
+                            "gemini-4-carbon",
+                            "gemini-4-hydrogen"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -17412,7 +17495,19 @@
         "revision": "47925c86fc07ee640fa7bc04593270113c55f7fd",
         "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
         "source_file_sha256": "8942e0c8a35ee9831210eac629680ec5c9dd287cc2954403c956aa0f481ac2fa"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
+          "source_file_sha256": "2e07c0fc5086f81f285ace70043692d249781b7f95f78a0ea1468f37648bf291",
+          "models_added": [
+            "gemini-4-carbon",
+            "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "aff80c74-b190-445b-9124-6422ed763c50": {
       "id": "aff80c74-b190-445b-9124-6422ed763c50",
@@ -19059,7 +19154,9 @@
                             "glm-5.1",
                             "glm-4.7",
                             "glm-4.6",
-                            "glm-3-turbo"
+                            "glm-3-turbo",
+                            "glm-4.5",
+                            "glm-4.5v"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -19700,7 +19797,19 @@
           }
         }
       },
-      "source_definition_sha256": "c5a3fac64514ae6d015e38ab53f052216dc9f6c5e8ff799c9abfbae24348c015"
+      "source_definition_sha256": "c5a3fac64514ae6d015e38ab53f052216dc9f6c5e8ff799c9abfbae24348c015",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/f0392e69-ad58-40b9-b28b-e1feee258603.json",
+          "source_file_sha256": "58981a36d83002af9ee079d888d9a1802844675116de5065404156ada77998ec",
+          "models_added": [
+            "glm-4.5",
+            "glm-4.5v"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "7a632630-eb9f-4776-b11c-8cc86ae250d7": {
       "id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
@@ -20123,7 +20232,9 @@
                       "gemini-2.5-flash-lite",
                       "gemini-3.1-flash-image",
                       "gemini-2.5-flash-image",
-                      "gemini-3-pro-image"
+                      "gemini-3-pro-image",
+                      "gemini-4-carbon",
+                      "gemini-4-hydrogen"
                     ],
                     "type": "string"
                   },
@@ -20553,7 +20664,19 @@
         "revision": "7e4b894dd02190dc34a7da06c419eb6167f96b97",
         "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
         "source_file_sha256": "9436928315dd33e06bc127e944adb3a396259fc506111d6832595546424ee7aa"
-      }
+      },
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+          "source_file_sha256": "a6a5c6d7cbabe6eccc4823d062bdff49b1522f44a0c1fda7f834e7703a3d004d",
+          "models_added": [
+            "gemini-4-carbon",
+            "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
       "id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",
@@ -23302,10 +23425,6 @@
                             "o4-mini-2025-04-16",
                             "o4-mini-all",
                             "o4-mini-high-all",
-                            "deepseek-r1",
-                            "deepseek-r1-0528",
-                            "deepseek-v3",
-                            "deepseek-v3-250324",
                             "deepseek-v4.1-flash",
                             "deepseek-v4-flash",
                             "deepseek-v4-pro",
@@ -23320,7 +23439,10 @@
                             "glm-4.6",
                             "glm-3-turbo",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "deepseek-flash",
+                            "deepseek-v3.2",
+                            "deepseek-v4.1-flash-1017"
                           ],
                           "rank": 5,
                           "type": "string",
@@ -23385,6 +23507,31 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "f2d9f323ff2b4d5e4bd890f7215c693a4b629007",
+          "source_file": "openapi/1d58971c-e3cd-4713-a3ce-854a731adb14.json",
+          "source_file_sha256": "369929c203c213afa2716beeefc1ee54980a6259b5cf42699cd557d549daebbb",
+          "models_added": [
+            "deepseek-flash",
+            "deepseek-v3.2"
+          ],
+          "models_removed": [
+            "deepseek-r1",
+            "deepseek-r1-0528",
+            "deepseek-v3",
+            "deepseek-v3-250324"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "e4dd6a8861ae35a7486e0d9ec5ee42f0799ceb8a",
+          "source_file": "openapi/1d58971c-e3cd-4713-a3ce-854a731adb14.json",
+          "source_file_sha256": "3bc37e7dee55aac71e35c808fd9b2084b55a5fc22902b972ea17dcd4a33acc0b",
+          "models_added": [
+            "deepseek-v4.1-flash-1017"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -23707,21 +23854,11 @@
                             "grok-4",
                             "grok-4.5",
                             "grok-4-0709",
-                            "deepseek-chat",
-                            "deepseek-r1",
-                            "deepseek-r1-0528",
-                            "deepseek-reasoner",
-                            "deepseek-v3",
-                            "deepseek-v3-250324",
-                            "deepseek-v3.2-exp",
                             "deepseek-v4.1-flash",
                             "deepseek-v4-flash",
                             "deepseek-v4-pro",
-                            "kimi-k2-thinking",
-                            "kimi-k2-thinking-turbo",
                             "kimi-k3",
                             "kimi-k2.6",
-                            "kimi-k2.5",
                             "glm-3-turbo",
                             "glm-4.5",
                             "glm-4.5v",
@@ -23750,7 +23887,11 @@
                             "gemini-2.5-flash",
                             "gemini-2.5-flash-lite",
                             "gpt-6.2-astra",
-                            "gpt-6.2-sol"
+                            "gpt-6.2-sol",
+                            "deepseek-flash",
+                            "deepseek-v3.2",
+                            "deepseek-v4.1-flash-1017",
+                            "kimi-k2.7-code"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -24000,6 +24141,48 @@
             "gpt-6.2-sol"
           ],
           "scope": "request model enum additions only; no live publication claim"
+        },
+        {
+          "revision": "f2d9f323ff2b4d5e4bd890f7215c693a4b629007",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "ef005bcb3946440e66b7178ef47c72496b408f68a939cec0958ad05acb390dc3",
+          "models_added": [
+            "deepseek-flash",
+            "deepseek-v3.2"
+          ],
+          "models_removed": [
+            "deepseek-chat",
+            "deepseek-r1",
+            "deepseek-r1-0528",
+            "deepseek-reasoner",
+            "deepseek-v3",
+            "deepseek-v3-250324",
+            "deepseek-v3.2-exp"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "e4dd6a8861ae35a7486e0d9ec5ee42f0799ceb8a",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "a04b0f19273de704c7527bf021989c9f4dedf1a1c5c80b5c6667a968ee7bad50",
+          "models_added": [
+            "deepseek-v4.1-flash-1017"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "7339d8abe08ffaf5dcdbce6e25daa7b4ad1cef5b",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "fb11ba65fed30a2f668c7aedd40a52f86421bc57064bcaf296d51a3228a012a4",
+          "models_added": [
+            "kimi-k2.7-code"
+          ],
+          "models_removed": [
+            "kimi-k2-thinking",
+            "kimi-k2-thinking-turbo",
+            "kimi-k2.5"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
         }
       ]
     },
@@ -38406,7 +38589,8 @@
                             "nano-banana:official",
                             "nano-banana-2-lite:official",
                             "nano-banana-2:official",
-                            "nano-banana-pro:official"
+                            "nano-banana-pro:official",
+                            "nano-banana-2.1"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -38488,7 +38672,18 @@
           }
         }
       },
-      "source_definition_sha256": "a0fc5f6514cd4bc111be349c42053e72a00240a94df4ac121c7d31c26cb18f5e"
+      "source_definition_sha256": "a0fc5f6514cd4bc111be349c42053e72a00240a94df4ac121c7d31c26cb18f5e",
+      "backend_model_enum_updates": [
+        {
+          "revision": "1540845b79a47404a2ee550aff26391ed3379a24",
+          "source_file": "openapi/9d8a117e-31ca-4322-a0fd-1771296ec610.json",
+          "source_file_sha256": "c9b7abd91ee4b753bbb0e2b52aad21235f6551ef7f9a515b044f1eb0753ef0aa",
+          "models_added": [
+            "nano-banana-2.1"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        }
+      ]
     },
     "25e349c9-a490-4ae5-9a96-e5952d2dbcf7": {
       "id": "25e349c9-a490-4ae5-9a96-e5952d2dbcf7",

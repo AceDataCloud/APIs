@@ -2,9 +2,11 @@
 
 Use GPT Image through an independent Coze plugin maintained by **Ace Data Cloud**. This integration calls Ace Data Cloud APIs; it does not claim to be the model brand's official plugin or a Coze default model provider.
 
-[简体中文](README_zh-CN.md) · [Current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_pricing)
+[简体中文](README_zh-CN.md) · [Current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)
 
 Ace Data Cloud hides the OpenAI image generation/editing APIs and their companion guides from its mainland-China catalog. This international Coze guide and the China editor screenshots below do not establish regional API availability or a China-store release. Check your region's catalog before proceeding.
+
+The model selector preserves the complete generation/edit endpoint enum, including supported DALL-E and Nano Banana compatibility aliases. Choose the model explicitly when needed; the existing GPT Image 2 default is preserved. Leave model-specific optional settings (size, quality, style, background, moderation, output format and partial previews) unset unless selecting values supported by that model; the import does not insert shared presets for these fields. Existing explicit workflow values remain your choices, so review them when changing models.
 
 ## 1. Find and install the correct plugin
 
@@ -24,7 +26,7 @@ Source: [Coze official guide](https://docs.coze.cn/guides_use_plugin), retrieved
 
 ## 2. Register and get your API Token
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_api_key); register or sign in.
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen); register or sign in.
 2. Find **General application**. If absent, choose **Initialize General Application**. A general key can use the services your account is entitled to use; a service-specific application's key is limited to its service. Check **GPT Image**, current model price and balance.
 3. Copy the existing API Key, or open **Manage Keys → Create** to create a separately named key such as `Coze GPT Image`. Review expiration, usage limit and Allowed APIs. For this first flow, allow `/openai/images/generations` and `/openai/tasks`; also allow the editing operation only if you intend to use it.
 
@@ -79,7 +81,7 @@ If pending or the response is empty, query the **same ID** again. Never rerun th
 | 429 | Respect rate limits and reduce concurrency; no automatic paid retry. |
 | 5xx / failed | Preserve the task/trace ID and inspect the original request; never expose the key. |
 
-[API access and current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_pricing) · [Account and keys](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_gpt-image_api_key) · [Source](../../plugins/gpt-image.yaml)
+[API access and current pricing](https://platform.acedata.cloud/models?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [Account and keys](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen) · [Source](../../plugins/gpt-image.yaml)
 
 ## Publisher checklist
 

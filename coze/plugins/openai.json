@@ -3,7 +3,7 @@
   "info": {
     "title": "OpenAI",
     "version": "2.0.0",
-    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_openai_setup"
+    "description": "Use OpenAI chat and Responses, generate or edit images, and create embeddings. Each tool exposes its current model and input options. Bind your own Ace Data Cloud credential privately as Bearer YOUR_API_TOKEN in Authorization. Usage is billed to your account. Never place a token in chat or shared examples. Start: https://platform.acedata.cloud/services/06f2acb7-e4d4-43de-9909-76e27b4e2355?from=coze&utm_source=coze&utm_medium=referral&utm_campaign=evergreen"
   },
   "servers": [
     {
@@ -445,7 +445,8 @@
                       "gpt-image-2.6-flare:official",
                       "gpt-image-2.6-sunburst",
                       "gpt-image-2.6-sunburst:reverse",
-                      "gpt-image-2.6-sunburst:official"
+                      "gpt-image-2.6-sunburst:official",
+                      "nano-banana-2.1"
                     ],
                     "type": "string",
                     "description": "Models for image generation. Supports OpenAI's `dall-e-2`, `dall-e-3`, `gpt-image-1` / `gpt-image-1.5` / `gpt-image-2` / `gpt-image-2.5-flare` / `gpt-image-2.5-sunburst` series, as well as Google's `nano-banana` / `nano-banana-2-lite` / `nano-banana-2` / `nano-banana-pro`. The parameters `size`, `quality`, `style`, `background`, `output_format`, `moderation`, and `response_format` supported by different models vary, please refer to the description of each field for details. `gpt-image-2` offers two optional suffix variants: `gpt-image-2:official` (official channel, stable and compliant, billed based on the actual Token usage for text input, image input, and image output) and `gpt-image-2:reverse` (equivalent to the default `gpt-image-2`, with a better cost-performance ratio). GPT Image 2.6 supports `gpt-image-2.6-flare` and `gpt-image-2.6-sunburst`, each with `:reverse` and `:official` variants. Standard and `:reverse` variants cost 0.22 Credits per successful image; `:official` variants bill actual token usage at the same rates as 2.5 official. Use the full model ID, not `gpt-image-2.6`.",
@@ -1500,8 +1501,7 @@
                   "model": {
                     "enum": [
                       "text-embedding-3-small",
-                      "text-embedding-3-large",
-                      "text-embedding-ada-002"
+                      "text-embedding-3-large"
                     ],
                     "type": "string",
                     "description": "The ID of the embedding model to be used (for example, `text-embedding-3-small`, `text-embedding-3-large`).",
@@ -2143,7 +2143,8 @@
                       "mimo-v2.6-pro",
                       "mimo-v2.6-flash",
                       "gpt-6.2-astra",
-                      "gpt-6.2-sol"
+                      "gpt-6.2-sol",
+                      "gpt-5-all"
                     ],
                     "type": "string",
                     "description": "Model ID to be used."
@@ -4164,7 +4165,8 @@
                       "o4-mini-all",
                       "o4-mini-high-all",
                       "gpt-6.2-astra",
-                      "gpt-6.2-sol"
+                      "gpt-6.2-sol",
+                      "gpt-5-all"
                     ],
                     "type": "string",
                     "description": "Model ID to be used."
@@ -4912,7 +4914,8 @@
                       "gpt-image-2.6-flare:official",
                       "gpt-image-2.6-sunburst",
                       "gpt-image-2.6-sunburst:reverse",
-                      "gpt-image-2.6-sunburst:official"
+                      "gpt-image-2.6-sunburst:official",
+                      "nano-banana-2.1"
                     ],
                     "type": "string",
                     "default": "gpt-image-1",

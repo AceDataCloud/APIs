@@ -2,17 +2,14 @@
 
 Use `POST https://api.acedata.cloud/seedream/images` with an AceDataCloud bearer token. Acquire a token from the [Seedream API page](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e).
 
-## Seedream 5.0 capability matrix
+## Model selection
 
-| Capability | 5.0 Pro | 5.0 Lite |
+| Model | Presets | Capabilities |
 |---|---|---|
-| Model | `doubao-seedream-5-0-pro-260628` | `doubao-seedream-5-0-lite-260128` |
-| Single image generation/editing | Yes | Yes |
-| Reference images | Up to 10 | Up to 14 |
-| Sequential images / streaming / web search | No | Yes |
-| Layer decomposition / transparent background | Yes | No |
-| Prompt optimization | `standard`, `fast` | `standard` |
-| Preset sizes | `1K`, `1.5K`, `2K` | `2K`, `3K`, `4K` |
+| `doubao-seedream-5-5-261028` | 1K, 1.5K, 2K | Up to 10 references, native transparent PNG, up to 99 editable layers and optional styled OCR |
+| `doubao-seedream-5-0-flash-260915` | 1K, 1.5K, 2K | Fast single-image generation and editing, up to 10 references and 16 editable layers |
+| `doubao-seedream-5-0-pro-260628` | 1K, 1.5K, 2K | Up to 10 references and 16 editable layers, standard or fast prompt optimization |
+| `doubao-seedream-5-0-lite-260128` | 2K, 3K, 4K | Up to 14 references, sequential images, streaming and web search |
 
 Explicit `WIDTHxHEIGHT` values are accepted within each model's pixel and aspect-ratio limits. Seedream 4.5 and 4.0 remain supported for compatibility.
 
@@ -32,36 +29,36 @@ curl https://api.acedata.cloud/seedream/images \
   }'
 ```
 
-Add `image` as one URL/Base64 string or an array for editing. Lite requires input image count plus requested outputs to be at most 15. `response_format` is `url` or `b64_json`; Pro/Lite `output_format` is `jpeg` or `png`. Lite supports `tools: [{"type":"web_search"}]` when current information matters.
+Add `image` as one image URL, a Base64 string, or an array for editing. Lite requires the sum of input images and requested outputs to be at most 15 and can use `tools: [{"type":"web_search"}]`. Use `output_format` to choose JPEG or PNG and `response_format` to choose a URL or Base64. For 5.5 or Flash layer decomposition, use URL output.
 
-## Transparent-background Pro edit
+## Generate a transparent image
 
 ```json
 {
-  "model": "doubao-seedream-5-0-pro-260628",
-  "prompt": "replace the parrot with a peacock",
-  "image": "https://example.com/transparent-layer.png",
+  "model": "doubao-seedream-5-5-261028",
+  "prompt": "A matte blue cube isolated on a transparent background",
   "background": "transparent",
   "output_format": "png",
   "size": "1.5K"
 }
 ```
 
-This mode requires exactly one transparent PNG input. `background: transparent` cannot be combined with JPEG output or layer decomposition.
+Seedream 5.5 accepts a text prompt alone, or a prompt with reference images. For transparent editing with 5.0 Pro or Flash, supply exactly one reference image with an alpha channel. Use PNG for transparent output and omit `background` in layer decomposition.
 
 ## Decompose one image into editable layers
 
 ```json
 {
-  "model": "doubao-seedream-5-0-pro-260628",
+  "model": "doubao-seedream-5-5-261028",
   "image": "https://example.com/poster.png",
   "layer_decomposition": true,
+  "layer_decomposition_options": {"max_images": 12, "text_recognition": true},
   "size": "auto",
   "watermark": false
 }
 ```
 
-`prompt` is optional: omit it for automatic decomposition, describe desired elements, or use normalized `<bbox>` coordinates. The result has one base image (`z_index: 0`) plus up to 16 transparent PNG layers. Layer objects may contain `name`, `description`, and `bounding_box.absolute`/`normalized`. Draw layers in ascending `z_index` at their bounding-box positions to reconstruct the image. Any failed layer fails the whole Pro decomposition.
+Omit `prompt` for automatic decomposition, describe desired elements, or use normalized `<bbox>` coordinates. The result contains one base image (`z_index: 0`) and transparent PNG layers. Seedream 5.5 allows up to 100 images including the base and can return text and styles in `data[].text_recognition` for recognized text layers. Seedream 5.0 Pro and Flash support up to 16 layers. Draw layers in ascending `z_index` at their bounding-box positions to reconstruct the image.
 
 ## Async and streaming
 
@@ -73,7 +70,7 @@ Lite/4.x streaming uses `"stream": true` and `Accept: application/x-ndjson`. Rea
 
 A normal response includes `success`, `task_id`, `trace_id`, `data`, optional `tools`, and `usage`. Each data item can contain `image_url` or `b64_json`, `size`, and `output_format`. Lite image sets can include per-item `error` objects without discarding successful items. Layer responses additionally include `z_index`, `name`, `description`, and bounding boxes.
 
-Result URLs are temporary; persist files promptly. Current Credits are listed on the [live pricing page](https://platform.acedata.cloud/services/seedream?tab=pricing). Pro outputs are billed individually by actual size; layer outputs use the layer price tier. Lite bills only successful outputs.
+Save results you want to keep before their URLs expire. Seedream 5.5 charges for each reference image and each successful output by pixel tier. Seedream 5.0 Flash charges a flat rate for each successful output and includes reference images. The base image and layers are individual outputs. [Current pricing](https://platform.acedata.cloud/services/seedream?tab=pricing)
 
 ## Error codes
 

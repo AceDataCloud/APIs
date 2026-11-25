@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate selected chat model additions from a committed Backend source.
+"""Regenerate selected model changes from a committed Backend source.
 
 Keep the dated public snapshot and its other contracts intact. This is an offline
 source update, not proof of API deployment or Coze import/store publication.
@@ -25,16 +25,53 @@ SERVICE_CONTRACTS = {
         "c9969b66-effb-4753-b504-a82c4d16f83f": "/openai/chat/completions",
         "ed972a38-ecef-4fcb-af33-750de42d25dc": "/openai/responses",
     },
+    "claude-chat": {
+        "6b2b437b-b6d5-466c-8750-b16650072593": "/v1/chat/completions",
+    },
+    "gemini-chat": {
+        "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": "/gemini/chat/completions",
+    },
+    "gemini-native": {
+        "7a632630-eb9f-4776-b11c-8cc86ae250d7": "/v1beta/models/{model}:generateContent",
+    },
+    "glm": {
+        "f0392e69-ad58-40b9-b28b-e1feee258603": "/glm/chat/completions",
+    },
+    "nano-banana": {
+        "9d8a117e-31ca-4322-a0fd-1771296ec610": "/nano-banana/images",
+    },
+    "openai-embeddings": {
+        "a0840c8a-2b9a-4407-8aaf-0057f0e1f65c": "/openai/embeddings",
+    },
+    "gpt-image": {
+        "8f01fe72-8a3e-4872-8d8d-330cde179b3a": "/openai/images/generations",
+        "fb74083e-bb68-48d5-8ba6-b5a224400cd3": "/openai/images/edits",
+    },
     "claude": {
         "a43a98fc-f833-4cfb-8596-8066faad2c42": "/v1/messages",
         "01011450-70f7-430f-a8a3-97b0903b0a24": "/v1/messages/count_tokens",
+    },
+    "kimi": {
+        "5c4649ee-22c6-44ea-84d6-6ecc3674f998": "/kimi/chat/completions",
+        "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
     },
     "aichat": {
         "1d58971c-e3cd-4713-a3ce-854a731adb14": "/aichat/conversations",
         "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
     },
 }
+# The DeepSeek plugin exposes the DeepSeek subset of AI Dialogue's model enum.
+SERVICE_CONTRACTS["deepseek"] = SERVICE_CONTRACTS["aichat"]
 CONTRACTS = SERVICE_CONTRACTS["openai"]
+
+# These protocol targets share an existing plugin but have distinct model contracts.
+SERVICE_OUTPUTS = {
+    "claude-chat": ("plugins/claude", "imports/claude"),
+    "gemini-chat": ("plugins/gemini", "imports/gemini-chat"),
+    "gemini-native": ("plugins/gemini",),
+    "glm": ("plugins/glm", "imports/glm-chat"),
+    "openai-embeddings": ("plugins/openai", "imports/openai", "image"),
+}
 
 
 def selected_contracts(services):
@@ -48,18 +85,32 @@ def selected_contracts(services):
 def selected_outputs(services):
     outputs = ["catalog/public-snapshot.json"]
     for service in dict.fromkeys(services):
+        if service in SERVICE_OUTPUTS:
+            for stem in SERVICE_OUTPUTS[service]:
+                extensions = ("yaml",) if stem == "image" else ("json", "yaml")
+                outputs.extend(f"{stem}.{extension}" for extension in extensions)
+            continue
         # AI Chat is excluded by launch-scope.json. Update its historical
         # snapshot contracts without creating or promoting a plugin entry.
         if service == "aichat":
+            continue
+        if service == "deepseek":
+            outputs.extend(("plugins/deepseek.json", "plugins/deepseek.yaml"))
             continue
         outputs.extend(
             f"{directory}/{service}.{extension}"
             for directory in ("plugins", "imports")
             for extension in ("json", "yaml")
         )
-        if service == "openai":
+        if service in ("openai", "gpt-image"):
             outputs.append("image.yaml")
-    return tuple(outputs)
+        if service == "gpt-image":
+            outputs.extend(
+                f"{directory}/openai.{extension}"
+                for directory in ("plugins", "imports")
+                for extension in ("json", "yaml")
+            )
+    return tuple(dict.fromkeys(outputs))
 
 
 OUTPUTS = selected_outputs(("openai",))
@@ -79,12 +130,20 @@ def resolve_ref(definition, schema):
 
 
 def model_enum(definition, path):
-    body = resolve_ref(definition, definition["paths"][path]["post"]["requestBody"])
-    schema = resolve_ref(definition, body["content"]["application/json"]["schema"])
-    return resolve_ref(definition, schema["properties"]["model"])["enum"]
+    item = definition["paths"][path]
+    operation = item["post"]
+    body = resolve_ref(definition, operation.get("requestBody", {}))
+    schema = resolve_ref(definition, body.get("content", {}).get("application/json", {}).get("schema", {}))
+    if "model" in schema.get("properties", {}):
+        return resolve_ref(definition, schema["properties"]["model"])["enum"]
+    for parameter in [*item.get("parameters", []), *operation.get("parameters", [])]:
+        parameter = resolve_ref(definition, parameter)
+        if parameter.get("name") == "model" and parameter.get("in") in ("path", "header", "query"):
+            return resolve_ref(definition, parameter["schema"])["enum"]
+    raise ValueError(f"No declared model enum at {path}")
 
 
-def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",)):
+def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",), retired=()):
     result = copy.deepcopy(snapshot)
     requested = list(dict.fromkeys(models))
     for api_id, path in selected_contracts(services).items():
@@ -94,19 +153,22 @@ def update_snapshot(snapshot, backend_dir, models, revision, services=("openai",
         source_models = model_enum(source, path)
         if not set(requested) <= set(source_models):
             raise ValueError(f"Requested model absent from Backend {source_file}")
+        if set(retired).intersection(source_models):
+            raise ValueError(f"Retired model still present in Backend {source_file}")
         contract = result["contracts"][api_id]
         target_models = model_enum(contract["definition"], path)
         additions = [model for model in requested if model not in target_models]
-        if not additions:
+        removed = [model for model in target_models if model in retired]
+        if not additions and not removed:
             continue
-        # Preserve existing defaults and draft examples by appending new IDs.
-        target_models.extend(additions)
+        target_models[:] = [model for model in target_models if model not in retired] + additions
         contract.setdefault("backend_model_enum_updates", []).append({
             "revision": revision,
             "source_file": source_file,
             "source_file_sha256": hashlib.sha256(source_bytes).hexdigest(),
             "models_added": additions,
-            "scope": "request model enum additions only; no live publication claim",
+            **({"models_removed": removed} if removed else {}),
+            "scope": "request model enum changes only; no live publication claim",
         })
     return result
 
@@ -137,6 +199,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend-dir", type=Path, required=True)
     parser.add_argument("--model", action="append", required=True)
+    parser.add_argument("--remove-model", action="append", default=[], help="Remove a model only if absent from the selected Backend contracts")
     parser.add_argument("--service", action="append", choices=tuple(SERVICE_CONTRACTS))
     args = parser.parse_args()
     services = args.service or ["openai"]
@@ -152,7 +215,7 @@ def main():
         ["git", "-C", str(backend_dir), "rev-parse", "HEAD"], text=True
     ).strip()
     snapshot = json.loads((ROOT / OUTPUTS[0]).read_text())
-    updated = update_snapshot(snapshot, backend_dir, args.model, revision, services)
+    updated = update_snapshot(snapshot, backend_dir, args.model, revision, services, args.remove_model)
     regenerate(ROOT, updated, services)
     print(f"Updated only {', '.join(dict.fromkeys(services))} model artifacts from Backend {revision}")
 

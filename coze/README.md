@@ -62,7 +62,7 @@ Dreamina, AI Chat and the earlier cross-service Agent concepts are excluded by
 `catalog/launch-scope.json`. Historical source snapshots retain provenance and
 are not the active launch list.
 
-### Regenerate model additions
+### Regenerate model changes
 
 From a committed Backend checkout, regenerate only the selected model additions:
 
@@ -80,9 +80,17 @@ python coze/update_openai_models.py --backend-dir /path/to/PlatformBackend \
   --model gpt-6.2-astra --model gpt-6.2-sol
 ```
 
+Select operation-specific targets for models that have different protocol contracts: `claude-chat`, `gemini-chat`, `gemini-native`, `glm`, `nano-banana`, or `openai-embeddings`. The Gemini native target updates its URL `model` parameter, not a JSON body field. These targets do not move a Messages-only model into Chat Completions or mix embedding/image models into chat lists.
+
+Use `--service gpt-image` for model additions to both image generation and editing contracts. It regenerates the full endpoint enum in the standalone GPT Image and existing OpenAI JSON/YAML definitions; compatible aliases are not filtered by name.
+
+Choose `--service deepseek` to refresh the two AI Dialogue source contracts
+and the DeepSeek plugin's JSON and YAML definitions. Use `--remove-model` for
+a retired ID. The helper checks that the ID is absent from both source enums.
+
 The offline helper checks the selected Backend endpoint enums, records source
 provenance, runs the existing catalog/import generators in a temporary directory,
-and writes the selected model additions. `claude` covers Messages and Count
+and writes the selected model changes. `claude` covers Messages and Count
 Tokens; `aichat` updates the existing AI Chat v1/v2 source snapshots within the
 current launch scope. Existing defaults, examples and the original catalog
 retrieval date are preserved. Re-import the prepared material after the API
@@ -91,8 +99,8 @@ publication steps.
 
 ## Get your Ace Data Cloud API key
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_api_key). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=coze_api_readme_pricing).
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
 4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
 5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
@@ -282,6 +290,8 @@ The same completed tasks were read again through Coze after output fixes,
 without repeating generation. These changes do not alter provider routing,
 authentication or billing rules.
 
+The prepared Suno lyric form still exposes only `default`. The public API also declares `remi-v1`, but the current response contract and the previously verified Coze object output differ. This is an unresolved compatibility boundary, not full lyric-model coverage; do not enable the additional model by dropping its result fields. Current commercial-host verification remains required.
+
 ### Earlier validation and scope
 
 The local `e2e-v4/launch-gate.json` evidence file is the
@@ -371,7 +381,7 @@ drafts are not automatically or permanently deleted by these builders.
 
 The generated `listings.json` is review material. Its setup links retain the
 legacy `from=coze` marker and add `utm_source=coze`, `utm_medium=referral`,
-`utm_campaign=evergreen` and a service-specific `utm_content`. Updating source
+and `utm_campaign=evergreen`. Updating source
 copy does not update an already approved listing. Before a store update, carry
 over the API-key setup steps, read back the saved private binding instructions
 and URL parameters, then verify the approved listing after review. Tagged links

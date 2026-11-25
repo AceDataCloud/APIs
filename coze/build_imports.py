@@ -220,12 +220,16 @@ def main():
     for uri in ('/openai/images/generations','/openai/images/edits'):
         body=doc['paths'][uri]['post']['requestBody']['content']['application/json']['schema']
         body['properties']['model']=copy.deepcopy(canonical['paths'][uri]['post']['requestBody']['content']['application/json']['schema']['properties']['model'])
+        # A shared auto/default is not valid for every compatible image model.
+        # Leave optional parameters unset in the host; preserve the existing model default.
+        for field in ('size','quality','style','background','moderation','output_format','partial_images'):
+            body['properties'].get(field,{}).pop('default',None)
     # Keep the explicit success contract for the Coze tool output editor.
     for methods in doc['paths'].values():
         for op in methods.values():
             op['responses']={'200':op['responses']['200']}
     doc=concrete_objects(doc)
-    report['gpt-image']=[{'kind':'service_subset','reason':'Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; existing OpenAI plugin is unchanged.'}]
+    report['gpt-image']=[{'kind':'service_subset','reason':'Standalone GPT Image plugin uses only image generation, image editing and image task retrieval; the complete endpoint model enums are preserved and existing OpenAI operations keep their routes.'}, {'kind':'omitted_import_defaults','fields':['size','quality','style','background','moderation','output_format','partial_images'],'reason':'Preserve the existing model default; leave model-specific optional image settings unset unless chosen for that model, so no shared GPT parameter default is inserted for DALL-E or compatible aliases.'}]
     (target/'gpt-image.json').write_text(json.dumps(doc,ensure_ascii=False,indent=2)+'\n')
     (target/'gpt-image.yaml').write_text(yaml.safe_dump(doc,allow_unicode=True,sort_keys=False,width=100))
 
@@ -259,6 +263,7 @@ def main():
     # unlike the older array shapes in the public snapshot.
     lyrics=doc['paths']['/suno/lyrics']['post']
     lyrics['requestBody']['content']['application/json']['schema']['properties']['model'].update(enum=['default'],default='default')
+    lyrics['requestBody']['content']['application/json']['schema']['properties']['model']['description']='This Coze HTTP form currently exposes only default with the previously verified object-shaped lyric output. remi-v1 remains in the canonical API contract; its output shape must be validated for this host before it is exposed here.'
     lyrics['responses']['200']['content']['application/json']['schema']['properties']['data']={
         'type':'object','properties':{'title':{'type':'string'},'text':{'type':'string'},
         'status':{'type':'string'},'tags':{'type':'array','items':{'type':'string'}}}}
@@ -294,6 +299,7 @@ def main():
     for props in (schema['properties'],schema['properties']['items']['items']['properties']):
         props['response']={'type':'object','properties':copy.deepcopy(music)}
     report['suno']=copy.deepcopy(notes)+[
+        {'kind':'model_subset','field':'POST /suno/lyrics/request/model','included_models':['default'],'deferred_models':['remi-v1'],'reason':'Retain the previously verified object-shaped Coze lyric output. The public API declares an array, and current implementations may return an object or array; current host/output compatibility remains unverified. Do not broaden the model enum while discarding the lyric result.'},
         {'kind':'declared_output','reason':'Caller-owned HTTP authorization and explicit music result fields; native MCP OAuth remains a separate draft.'},
         {'kind':'submitted_scope','reason':'Only the 12 verified HTTP tools are imported. Five failed or unverified tools and unexercised persona deletion remain in the canonical API contract only.',
          'excluded_operations':[method.upper()+' '+uri for uri,methods in disabled_suno.items() for method in sorted(methods)]},

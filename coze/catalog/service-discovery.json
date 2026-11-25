@@ -84,7 +84,7 @@
       "service_name": "GPT Image",
       "listing_name": "GPT Image by Ace Data Cloud",
       "brief": "GPT Image generation and editing through Ace",
-      "description": "Ace Data Cloud integration for GPT Image generation, image editing and task retrieval. Choose a supported GPT Image model explicitly.",
+      "description": "Ace Data Cloud integration for image generation, editing and task retrieval through the OpenAI-compatible image API. Choose a GPT Image model or supported DALL-E/Nano Banana alias explicitly.",
       "category": "Photography",
       "scenarios": [
         "Generate an original product image with GPT Image",
