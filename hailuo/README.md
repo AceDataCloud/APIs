@@ -1,114 +1,67 @@
-# Hailuo Video Generation API
+# Hailuo API
 
-Hailuo (MiniMax) AI video generation service with text and image input.
+Generate videos through Ace Data Cloud and retrieve the completed video by task ID.
 
-![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
+[API documentation](https://docs.acedata.cloud/en/guides/hailuo/hailuo_videos) · [Models and pricing](https://platform.acedata.cloud/services/hailuo?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/hailuo/hailuo_videos)
 
-API home page: [Ace Data Cloud - Hailuo Video Generation](https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+## Get an API key
 
-Keywords: hailuo-api, minimax-api, ai-video, video-generation, text-to-video, image-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
+1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
+2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
+3. Save the raw key in your terminal environment.
 
-## Get your Ace Data Cloud API key
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+## Quickstart
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
-
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
-
-## Trial account concurrency
-
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
-
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
-
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
-
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Why Use Hailuo Video Generation on Ace Data Cloud
-
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
-
-## Overview
-
-The Hailuo Videos Generation API allows you to generate official Hailuo (MiniMax) videos by providing custom parameters. It supports both text-to-video (`minimax-t2v`) and image-to-video (`minimax-i2v`) generation models.
-
-The Hailuo Tasks API provides a way to query the execution status of video generation tasks by inputting the task ID generated by the Hailuo Videos Generation API.
-
-## Application Process
-
-To use the Hailuo Videos Generation API, you can first visit the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page and click the "Acquire" button to obtain the credentials needed for the request:
-
-![](https://cdn.acedata.cloud/q6ytrc.png)
-
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
-
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
-
-## Basic Usage
-
-To generate a video, pass an `action` of `generate` along with a `prompt`. You can also specify a model and an optional first frame image:
-
-```shell
-curl -X POST 'https://api.acedata.cloud/hailuo/videos' \
--H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
--H 'content-type: application/json' \
--d '{
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/hailuo/videos \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
   "action": "generate",
-  "prompt": "Internal heat"
+  "model": "minimax-t2v",
+  "prompt": "A sailboat crossing a calm lake at sunrise, slow camera pan",
+  "async": true
 }'
 ```
 
-Main request parameters:
+Save the returned `task_id`. An accepted response has this shape.
 
-- `model`: The video generation model. Use `minimax-t2v` for text-to-video or `minimax-i2v` for image-to-video. Default is `minimax-t2v`.
-- `action`: The action for this video generation task. Use `generate` to create a new video.
-- `prompt`: The prompt for generating the video.
-- `first_image_url`: The first frame reference image link (required when using `minimax-i2v`). Base64 encoding is not supported.
-- `callback_url`: Asynchronous callback URL.
+```json
+{"task_id":"YOUR_TASK_ID"}
+```
 
-After the call, the returned result is as follows:
+Query that same task approximately every 10 seconds.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/hailuo/tasks \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+```
+
+Continue until the task record has `finished_at`, then check `response.success`. On success, open `response.data[0].video_url`. If `response.success` is false, inspect `response.error` and keep the original task ID for support.
+
+A completed result contains fields like these. The media URL below is illustrative.
 
 ```json
 {
-  "success": true,
-  "task_id": "baf1034c-684c-46be-ae6d-89ebb89b690d",
-  "trace_id": "3221eb74-1a25-447a-ba69-7d9b310e306c",
-  "data": [
-    {
-      "id": "0pv8yhe4fdrge0cmckpv23pd2g",
-      "model": "minimax-t2v",
-      "prompt": "Internal heat",
-      "video_url": "https://file.aigpai.com/czjl/qoueLWBokF3ud6tdVD6VJTZuXTnK5HaMO2qAOS46Ef8VSBFUA/tmp9e3u11c1.output.mp4",
-      "state": "succeeded"
-    }
-  ]
+  "finished_at": 1790000000,
+  "response": {
+    "success": true,
+    "data": [
+      {
+        "video_url": "https://media.example.com/result.mp4"
+      }
+    ]
+  }
 }
 ```
 
-## Quick Start
-
-- Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Hailuo Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/5eaa73b7-b9a7-4a17-afb3-f658fd5495b0?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
-```bash
-curl --request POST "https://api.acedata.cloud/hailuo/videos" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{"action": "generate", "prompt": "A beautiful sunset over the ocean"}'
-```
+Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
 
 ## APIs and Guides
 
@@ -119,13 +72,19 @@ Explore the supported endpoints and integration guides for Hailuo Video Generati
 | [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/hailuo/videos` | [Hailuo Videos Generation API Integration Guide](docs/hailuo_videos_api_integration_guide.md) |
 | [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/hailuo/tasks` | [Hailuo Tasks API Integration Guide](docs/hailuo_tasks_api_integration_guide.md) |
 
-## Related Resources
+## Troubleshooting
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Status Page](https://status.acedata.cloud)
-- [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
-## Support
+## Trial account concurrency
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.

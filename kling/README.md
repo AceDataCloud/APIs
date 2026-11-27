@@ -1,74 +1,64 @@
-# Kling Video Generation API
+# Kling API
 
-Kling AI video generation service with text-to-video, image-to-video, motion control, and video extension.
+Generate videos through Ace Data Cloud and retrieve the completed video by task ID.
 
-![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
+[API documentation](https://docs.acedata.cloud/en/guides/kling/kling_videos) · [Models and pricing](https://platform.acedata.cloud/services/kling?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/kling/kling_videos)
 
-API home page: [Ace Data Cloud - Kling Video Generation](https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+## Get an API key
 
-Keywords: kling-ai, ai-video, video-generation, text-to-video, image-to-video, motion-control, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
-
-## Get your Ace Data Cloud API key
-
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
-
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
-
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
-
-## Trial account concurrency
-
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
-
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
-
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
-
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Why Use Kling Video Generation on Ace Data Cloud
-
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
-
-## Overview
-
-The Kling Videos Generation API generates official Kling AI videos by inputting custom parameters such as prompt, action, model, and optional reference images. It supports text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`) actions across a range of Kling models.
-
-The Kling Tasks API queries the execution status of tasks generated by the Kling Videos Generation API or the Kling Motion Generation API using a task ID.
-
-The Kling Motion Generation API generates videos with character motion driven by a reference image and a reference video, keeping character movements consistent with the reference video.
-
-## Application Process
-
-To use the Kling Videos Generation API, apply for the corresponding service on the [Kling Videos Generation API](https://platform.acedata.cloud/documents/3b921a16-a411-4557-8335-53f21d3f9e46?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page. After entering the page, click the "Acquire" button.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
-
-## Quick Start
-
-- Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Kling Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/3369e077-2500-4263-86c7-cae0f0e7e843?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
+2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
+3. Save the raw key in your terminal environment.
 
 ```bash
-curl --request POST "https://api.acedata.cloud/kling/videos" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "action": "text2video",
-    "model": "kling-v1",
-    "prompt": "White ceramic coffee mug on glossy marble countertop with morning window light. Camera slowly rotates 360 degrees around the mug, pausing briefly at the handle."
-  }'
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+## Quickstart
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/kling/videos \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "action": "text2video",
+  "model": "kling-v3",
+  "prompt": "A sailboat crossing a calm lake at sunrise, slow camera pan",
+  "duration": 5,
+  "async": true
+}'
+```
+
+Save the returned `task_id`. An accepted response has this shape.
+
+```json
+{"task_id":"YOUR_TASK_ID"}
+```
+
+Query that same task approximately every 10 seconds.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/kling/tasks \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+```
+
+Continue until the task record has `finished_at`, then check `response.success`. On success, open `response.video_url`. If `response.success` is false, inspect `response.error` and keep the original task ID for support.
+
+A completed result contains fields like these. The media URL below is illustrative.
+
+```json
+{
+  "finished_at": 1790000000,
+  "response": {
+    "success": true,
+    "video_url": "https://media.example.com/result.mp4"
+  }
+}
+```
+
+Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
 
 ## APIs and Guides
 
@@ -80,13 +70,19 @@ Explore the supported endpoints and integration guides for Kling Video Generatio
 | [Kling Tasks API](https://platform.acedata.cloud/documents/6b43ff7b-8298-49c8-a390-83df85c2c5e5?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/kling/tasks` | [Kling Tasks API Integration Guide](docs/kling_tasks_api_integration_guide.md) |
 | [Kling Motion Generation API](https://platform.acedata.cloud/documents/d3f2c369-102d-4856-9565-702ac5f2df63?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/kling/motion` | [Kling Motion Generation API Integration Guide](docs/kling_motion_generation_api_integration_guide.md) |
 
-## Related Resources
+## Troubleshooting
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Status Page](https://status.acedata.cloud)
-- [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
-## Support
+## Trial account concurrency
 
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.

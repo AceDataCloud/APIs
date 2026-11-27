@@ -1,47 +1,53 @@
-# Seedream Image Generation API
+# Seedream API
 
-ByteDance Seedream AI image generation & editing service.
+Generate images from text and edit reference images through Ace Data Cloud.
 
-API home page: [Ace Data Cloud - Seedream Image Generation](https://platform.acedata.cloud/services/a0a296f0-22de-422b-943d-1c623a73b8dd?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API documentation](https://docs.acedata.cloud/en/guides/seedream/seedream_images) · [Models and pricing](https://platform.acedata.cloud/services/seedream?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/seedream/seedream_images)
 
-Keywords: seedream-api, ai-image, image-generation, image-editing, bytedance, doubao, seededit, text-to-image, rest-api, Ace Data Cloud
+## Get an API key
 
-## Get your Ace Data Cloud API key
-
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
-
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
-
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
-
-## Trial account concurrency
-
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
-
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
-
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
-
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Overview
-
-The Seedream Images API supports image generation and editing. Model-specific options include native transparency, layer decomposition, and streaming. Use the Seedream Tasks API to query async task status.
-
-## Quick Start
+1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
+2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
+3. Save the raw key in your terminal environment.
 
 ```bash
-curl --request POST "https://api.acedata.cloud/seedream/images" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{"model": "doubao-seedream-5-0-lite-260128", "prompt": "a serene mountain lake at sunrise, photorealistic", "size": "2K"}'
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+## Quickstart
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/seedream/images \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "doubao-seedream-5-5-261028",
+  "prompt": "A blue ceramic coffee mug on a white table, soft morning light, product photograph",
+  "size": "2K"
+}'
+```
+
+Read `data[0].image_url` from the response. The following fields illustrate a successful result and media URLs are placeholders.
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "image_url": "https://media.example.com/image.png"
+    }
+  ]
+}
+```
+
+Open or download the URL returned by your own request.
+
+## APIs and Guides
+
+| API | Path | Guide |
+| ---- | ---- | ---- |
+| [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/images` | [Integration Guide](docs/seedream_images_generation_api_integration_guide.md) |
+| [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/tasks` | [Integration Guide](docs/seedream_tasks_api_integration_guide.md) |
 
 ## Models
 
@@ -54,7 +60,6 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 | `doubao-seedream-4-5-251128` | 4.5 |
 | `doubao-seedream-4-0-250828` | 4.0 |
 
-
 ## Key 5.0 operations
 
 - Generate/edit: `prompt`, optional `image`, model-specific `size`, `output_format`, and prompt optimization.
@@ -63,14 +68,19 @@ curl --request POST "https://api.acedata.cloud/seedream/images" \
 - Pro layers: one PNG/JPEG, `layer_decomposition: true`; returns a base plus up to 16 positioned PNG layers.
 - Lite streaming: `stream: true` with `Accept: application/x-ndjson`; do not combine with async/callback.
 
-## APIs and Guides
+## Troubleshooting
 
-| API | Path | Guide |
-| ---- | ---- | ---- |
-| [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/images` | [Integration Guide](docs/seedream_images_generation_api_integration_guide.md) |
-| [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/tasks` | [Integration Guide](docs/seedream_tasks_api_integration_guide.md) |
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
-## Related Resources
+## Trial account concurrency
 
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Status](https://status.acedata.cloud) · [GitHub Org](https://github.com/AceDataCloud)
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.

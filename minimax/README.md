@@ -1,26 +1,84 @@
-# MiniMax H3 API
+# MiniMax API
 
-Generation waits for completion by default. Send `async=true` or `callback_url` to receive a `task_id`, then poll `/minimax/tasks`. The published model is `MiniMax-H3`; H3 Max, prompt enhancement and regeneration are not published.
+Generate videos through Ace Data Cloud and retrieve the completed video by task ID.
 
-Generate 4–15 second videos from text, first/last frames, and multimodal references through AceDataCloud.
+[API documentation](https://docs.acedata.cloud/en/guides/minimax/minimax_videos) · [Models and pricing](https://platform.acedata.cloud/services/minimax?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/minimax/minimax_videos)
 
-MCP integration: [MiniMax H3 MCP](https://github.com/AceDataCloud/MinimaxMCP).
+## Get an API key
 
-The MCP supports `MiniMax-H3` at `768P` or `2K`, using text, reference images, or audio. After generation returns a task ID, keep querying the task until its status is `succeeded`, `failed`, or `cancelled`. Only use `task.content.url` after `succeeded`; for failure or cancellation, inspect the task's error information. Receiving a task ID does not mean the video is ready. See the [task retrieval procedure](docs/tasks.md).
+1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
+2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
+3. Save the raw key in your terminal environment.
 
-## Get your Ace Data Cloud API key
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+## Quickstart
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/minimax/videos \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "MiniMax-H3",
+  "content": [
+    {
+      "type": "text",
+      "text": "A sailboat crossing a calm lake at sunrise, slow camera pan"
+    }
+  ],
+  "resolution": "768P",
+  "duration": 5,
+  "async": true
+}'
+```
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+Save the returned `task_id`. An accepted response has this shape.
 
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+```json
+{"task_id":"YOUR_TASK_ID"}
+```
+
+Query that same task approximately every 10 seconds.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/minimax/tasks \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+```
+
+Continue while `task.status` is `queued` or `running`. Stop on `succeeded`, `failed`, or `cancelled`. On success, open `task.content.url`.
+
+A completed result contains fields like these. The media URL below is illustrative.
+
+```json
+{
+  "task": {
+    "status": "succeeded",
+    "content": {
+      "url": "https://media.example.com/result.mp4"
+    }
+  }
+}
+```
+
+Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
+
+## API reference
+
+- [`/minimax/videos`](https://platform.acedata.cloud/documents/64f22fd9-0efd-445e-b0b1-135682fd66d7?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/minimax/tasks`](https://platform.acedata.cloud/documents/d6cf922e-378b-4f83-8841-e911b597134a?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/minimax/prompt-enhancement`](https://platform.acedata.cloud/documents/8b5f8ebb-4137-5b1b-b58c-832414a8d0be?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/minimax/regenerate`](https://platform.acedata.cloud/documents/dcccdf41-b57e-55fe-801e-de416167d729?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 
@@ -31,46 +89,3 @@ A new billable request returns `429 too_many_requests` while another is running.
 For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
 
 This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Endpoints
-
-| Method | Path | Purpose |
-| --- | --- | --- |
-| POST | `https://api.acedata.cloud/minimax/videos` | Create a video task |
-| POST | `https://api.acedata.cloud/minimax/tasks` | Retrieve or delete task records |
-
-## Quick start
-
-```bash
-curl -X POST https://api.acedata.cloud/minimax/videos \
-  -H "Authorization: Bearer $ACEDATACLOUD_API_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "MiniMax-H3",
-    "content": [
-      {
-        "type": "text",
-        "text": "A red fox running through a snowy forest at dawn, low tracking shot"
-      }
-    ],
-    "resolution": "2K",
-    "ratio": "16:9",
-    "duration": 4,
-    "async": true
-  }'
-```
-
-Poll the returned `task_id`:
-
-```bash
-curl -X POST https://api.acedata.cloud/minimax/tasks \
-  -H "Authorization: Bearer $ACEDATACLOUD_API_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"action":"retrieve","id":"TASK_ID"}'
-```
-
-The API uses a `content` array for the required text prompt and optional image, video, and audio references. Poll the task about every 10 seconds until it reaches a terminal status.
-
-- [Video generation guide](docs/videos.md)
-- [Task API guide](docs/tasks.md)
-- [AceDataCloud console](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen)

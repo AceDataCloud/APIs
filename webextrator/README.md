@@ -1,62 +1,40 @@
 # WebExtrator API
 
-WebExtrator is Ace Data Cloud's web rendering and intelligent content extraction
-service. Give it a URL and get back either the fully-rendered HTML (`render`) or
-a typed structured payload (`extract`) — Article / Product / Recipe / Video /
-Discussion / Job — all behind a single `Authorization: Bearer` API key.
+Extract readable Markdown and structured content from web pages through Ace Data Cloud.
 
-![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square)
-![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square)
-![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
+[API documentation](https://docs.acedata.cloud/en/guides/webextrator/webextrator_extract) · [Models and pricing](https://platform.acedata.cloud/services/webextrator?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/webextrator/webextrator_extract)
 
-API home page: [Ace Data Cloud — WebExtrator](https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+## Get an API key
 
-Keywords: web extract api, web scraping api, headless chromium, schema.org
-mapper, structured content extraction, llm extraction, content type detection,
-patchright, readability, web rendering, ai api, rest api, developer tools,
-Ace Data Cloud
+1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
+2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
+3. Save the raw key in your terminal environment.
 
----
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-## Get your Ace Data Cloud API key
+## Quickstart
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/webextrator/extract \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "url": "https://docs.acedata.cloud/en/quickstart"
+}'
+```
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+Read `data.markdown` from the response. The following fields illustrate a successful result.
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
-
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
-
-## Trial account concurrency
-
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
-
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
-
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
-
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Why WebExtrator on Ace Data Cloud
-
-- **Three-layer extraction pipeline** — deterministic schema.org JSON-LD
-  mapper first; LLM type-aware extractor (Article / Product / Recipe / Video /
-  Discussion / Job) for sites without structured data; result cache (Redis)
-  collapses duplicate URLs to <1 ms.
-- **Real headless Chromium via Patchright** — bypasses simple bot checks out of
-  the box, supports custom UA / cookies / headers / wait conditions.
-- **Synchronous and asynchronous modes** — get a result inline in seconds, or
-  fire-and-forget with a callback URL and retrieve later via the Tasks API.
-- **Production-grade auth and billing** — one API key, one bill, usage tracked
-  per request via the standard AceDataCloud platform.
-- **Free quota for new users** — try the service before you commit.
-
----
+```json
+{
+  "success": true,
+  "data": {
+    "markdown": "# Quickstart\n\nStart your first API request."
+  }
+}
+```
 
 ## Endpoints
 
@@ -80,82 +58,6 @@ predictable.
 | Pull article / product / video / recipe / job metadata from a real-world URL | `/webextrator/extract` | schema.org mapper covers ~60 % of the long tail with zero LLM cost; LLM fills the rest |
 | Convert a page to clean markdown for downstream LLM input | `/webextrator/extract` | Returns Turndown-converted markdown + readability text in addition to structured payload |
 | Look up a result you got via async / callback mode | `/webextrator/tasks` | Retrieves the full envelope by `task_id` or `trace_id` |
-
----
-
-## Quick Start
-
-### 1. Render a page
-
-```bash
-curl -X POST https://api.acedata.cloud/webextrator/render \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "url": "https://example.com",
-    "wait_until": "networkidle",
-    "block_resources": ["image", "media", "font"]
-  }'
-```
-
-### 2. Extract typed content
-
-```bash
-curl -X POST https://api.acedata.cloud/webextrator/extract \
-  -H "Authorization: Bearer $API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "url": "https://en.wikipedia.org/wiki/Diffbot",
-    "expected_type": "article"
-  }'
-```
-
-Response (trimmed) — the `structured.schemaOrg.primary` block is the typed
-payload, and `description / byline / publishedAt` are back-filled from it:
-
-```json
-{
-  "success": true,
-  "task_id": "550e8400-e29b-41d4-a716-446655440000",
-  "trace_id": "550e8400-e29b-41d4-a716-446655440001",
-  "started_at": 1777717800.123,
-  "finished_at": 1777717802.535,
-  "elapsed": 2.412,
-  "data": {
-    "kind": "extract",
-    "url": "https://en.wikipedia.org/wiki/Diffbot",
-    "finalUrl": "https://en.wikipedia.org/wiki/Diffbot",
-    "contentType": "article",
-    "title": "Diffbot",
-    "description": "American machine learning and knowledge management company",
-    "byline": "Contributors to Wikimedia projects",
-    "publishedAt": "2007-08-08T05:47:27Z",
-    "language": "en",
-    "images": ["https://en.wikipedia.org/static/images/icons/enwiki-25.svg"],
-    "links": ["https://en.wikipedia.org/wiki/Machine_learning"],
-    "markdown": "# Diffbot\n\nDiffbot is a developer of machine learning ...",
-    "text": "Diffbot is a developer of machine learning algorithms ...",
-    "structured": {
-      "schemaOrg": {
-        "primary": {
-          "kind": "article",
-          "subtype": "Article",
-          "headline": "American machine learning and knowledge management company",
-          "datePublished": "2007-08-08T05:47:27Z",
-          "dateModified": "2025-07-10T20:42:45Z",
-          "author": { "name": "Contributors to Wikimedia projects", "type": "Organization" },
-          "publisher": { "name": "Wikimedia Foundation, Inc." }
-        },
-        "breadcrumbs": [],
-        "all": [ /* ... */ ]
-      },
-      "openGraph": { /* ... */ },
-      "jsonLd": [ /* raw passthrough */ ]
-    },
-    "elapsedMs": 2412
-  }
-}
-```
 
 ---
 
@@ -188,20 +90,6 @@ for `bypass_cache` and `cache_ttl_seconds`.
 
 ---
 
-## Application Process
-
-To use the WebExtrator API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/services/38bebded-b12d-4c1c-9a91-cdaccdd71745?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-After landing on the page, click the **Acquire** button to obtain credentials.
-
-If you are not logged in or registered, you will be automatically redirected to
-the login page inviting you to register and log in.
-
-A free quota is provided to first-time applicants — try the API before
-committing to paid usage.
-
----
-
 ## SDKs and Tooling
 
 - **HTTP / cURL** — examples in every guide.
@@ -219,3 +107,20 @@ committing to paid usage.
 | WebExtrator Render API | `/webextrator/render` | [Render API integration guide](docs/webextrator_render_api_integration_guide.md) |
 | WebExtrator Extract API | `/webextrator/extract` | [Extract API integration guide](docs/webextrator_extract_api_integration_guide.md) |
 | WebExtrator Tasks API | `/webextrator/tasks` | [Tasks API integration guide](docs/webextrator_tasks_api_integration_guide.md) |
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+
+## Trial account concurrency
+
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.

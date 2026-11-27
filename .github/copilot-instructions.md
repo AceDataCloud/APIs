@@ -32,3 +32,12 @@ Use the exact Backend commit range linked in the sync PR. When that snapshot cha
 
 - Keep changes incremental; do not copy the Backend guide tree.
 - Standalone API repos are mirrors of this monorepo.
+
+## API README structure
+
+- Write service landing READMEs in English Markdown. Link the existing Chinese guide for Chinese readers.
+- Lead with the API purpose, current pricing and a direct Applications link. Put a valid minimal request immediately after the short API key steps.
+- Match required fields, model IDs, endpoints and result paths to the pinned Backend contract. Include a successful response shape and, for asynchronous operations, query the original task through its terminal state.
+- Keep detailed API guides and service-specific limitations accessible after the Quickstart. Preserve current billing and trial-concurrency information there.
+- Keep website HTML/CSS in the website introduction source. Do not embed full landing-page markup or keyword lists into README files.
+- Preserve the first-call structure when applying incremental capability updates.
