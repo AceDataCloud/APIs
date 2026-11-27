@@ -23,8 +23,8 @@ class OpenAIModelGenerationTests(unittest.TestCase):
     def test_operation_specific_targets_match_snapshot_model_contracts(self):
         expected = {
             "claude-chat": ("gpt-5.6-sol-fast",),
-            "gemini-chat": ("gemini-4-carbon", "gemini-4-hydrogen"),
-            "gemini-native": ("gemini-4-carbon", "gemini-4-hydrogen"),
+            "gemini-chat": ("gemini-4-carbon", "gemini-4-hydrogen", "gemini-4-neon"),
+            "gemini-native": ("gemini-4-carbon", "gemini-4-hydrogen", "gemini-4-neon"),
             "glm": ("glm-4.5", "glm-4.5v"),
             "nano-banana": ("nano-banana-2.1",),
             "openai-embeddings": ("text-embedding-3-small", "text-embedding-3-large"),
