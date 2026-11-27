@@ -57,6 +57,16 @@ export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 | `glm/` | [GlmAPI](https://github.com/AceDataCloud/GlmAPI) | GLM chat completions API docs |
 | `kimi/` | [KimiAPI](https://github.com/AceDataCloud/KimiAPI) | Kimi chat completions API docs |
 | `coze/` | [CozeAPI](https://github.com/AceDataCloud/CozeAPI) | Importable OpenAPI plugin schemas for Coze / 扣子 |
+| `deepseek/` | [DeepSeekAPI](https://github.com/AceDataCloud/DeepSeekAPI) | [deepseek API quickstart](deepseek/README.md) |
+| `mimo/` | [MiMoAPI](https://github.com/AceDataCloud/MiMoAPI) | [mimo API quickstart](mimo/README.md) |
+| `dreamina/` | [DreaminaAPI](https://github.com/AceDataCloud/DreaminaAPI) | [dreamina API quickstart](dreamina/README.md) |
+| `digitalhuman/` | [DigitalHumanAPI](https://github.com/AceDataCloud/DigitalHumanAPI) | [digitalhuman API quickstart](digitalhuman/README.md) |
+| `turnstile/` | [TurnstileAPI](https://github.com/AceDataCloud/TurnstileAPI) | [turnstile API quickstart](turnstile/README.md) |
+| `recaptcha/` | [ReCaptchaAPI](https://github.com/AceDataCloud/ReCaptchaAPI) | [recaptcha API quickstart](recaptcha/README.md) |
+| `hcaptcha/` | [HCaptchaAPI](https://github.com/AceDataCloud/HCaptchaAPI) | [hcaptcha API quickstart](hcaptcha/README.md) |
+| `image2text/` | [Image2TextAPI](https://github.com/AceDataCloud/Image2TextAPI) | [image2text API quickstart](image2text/README.md) |
+| `identity/` | [IdentityAPI](https://github.com/AceDataCloud/IdentityAPI) | [identity API quickstart](identity/README.md) |
+| `localization/` | [LocalizationAPI](https://github.com/AceDataCloud/LocalizationAPI) | [localization API quickstart](localization/README.md) |
 
 ## MCP Servers
 
@@ -120,3 +130,5 @@ For async APIs, acceptance or a task ID is not completion: keep querying the sam
 This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
 
 The read-only user flag `has_recharged` records this eligibility; it is not a request parameter. Realtime connection authentication does not occupy this ordinary-request slot and retains its existing per-turn billing.
+
+Mirrors marked `create_missing: true` are provisioned as public repositories by the post-merge sync. This includes the newly added service packages and the Qwen Image mapping. Each service README remains independently readable from its mirror.
