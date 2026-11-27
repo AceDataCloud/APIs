@@ -23911,7 +23911,8 @@
                             "deepseek-flash",
                             "deepseek-v3.2",
                             "deepseek-v4.1-flash-1017",
-                            "kimi-k2.7-code"
+                            "kimi-k2.7-code",
+                            "gemini-4-neon"
                           ],
                           "rank": 10,
                           "type": "string",
@@ -24201,6 +24202,15 @@
             "kimi-k2-thinking",
             "kimi-k2-thinking-turbo",
             "kimi-k2.5"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "29f9c2ad51e292b6c424a0c006e38630bdb9a274",
+          "source_file": "openapi/3769e83e-88f8-4e2c-8f38-6bf20391b094.json",
+          "source_file_sha256": "ab5bcb4a83d0969a6a4dd56aad039ac6f0c3fb0fc8e7c32c08234b51e641732f",
+          "models_added": [
+            "gemini-4-neon"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }

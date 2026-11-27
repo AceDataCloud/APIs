@@ -22,6 +22,7 @@ with patch.object(sys, "path", [str(COZE), *sys.path]):
 class OpenAIModelGenerationTests(unittest.TestCase):
     def test_operation_specific_targets_match_snapshot_model_contracts(self):
         expected = {
+            "aichat-v2": ("gemini-4-neon",),
             "claude-chat": ("gpt-5.6-sol-fast",),
             "gemini-chat": ("gemini-4-carbon", "gemini-4-hydrogen", "gemini-4-neon"),
             "gemini-native": ("gemini-4-carbon", "gemini-4-hydrogen", "gemini-4-neon"),

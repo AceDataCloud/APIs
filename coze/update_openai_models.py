@@ -55,6 +55,9 @@ SERVICE_CONTRACTS = {
         "5c4649ee-22c6-44ea-84d6-6ecc3674f998": "/kimi/chat/completions",
         "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
     },
+    "aichat-v2": {
+        "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
+    },
     "aichat": {
         "1d58971c-e3cd-4713-a3ce-854a731adb14": "/aichat/conversations",
         "3769e83e-88f8-4e2c-8f38-6bf20391b094": "/aichat2/conversations",
@@ -92,7 +95,7 @@ def selected_outputs(services):
             continue
         # AI Chat is excluded by launch-scope.json. Update its historical
         # snapshot contracts without creating or promoting a plugin entry.
-        if service == "aichat":
+        if service in ("aichat", "aichat-v2"):
             continue
         if service == "deepseek":
             outputs.extend(("plugins/deepseek.json", "plugins/deepseek.yaml"))

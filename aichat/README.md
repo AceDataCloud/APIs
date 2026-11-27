@@ -73,6 +73,16 @@ Explore the supported endpoints and integration guides for AI Chat.
 | ---- | ---- | ------------ |
 | [AI Chat Conversations API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/aichat/conversations` | [AI Chat Conversations API Integration Guide](docs/aichat_conversations_api_integration_guide.md) |
 
+## Gemini 4 Neon with AI Chat v2
+
+Send a question to `POST /aichat2/conversations` using your application API key:
+
+```json
+{"action":"chat","model":"gemini-4-neon","question":"Summarize the three release milestones.","stateful":false}
+```
+
+The `answer` field contains the reply. The response includes token usage.
+
 ## AI Chat v2 Execution Limits
 
 [AI Chat v2](https://platform.acedata.cloud/documents/aichat2-conversations?utm_source=github&utm_medium=referral&utm_campaign=evergreen) supports agent tool calls. Its `model` field includes `gpt-6.2-astra`, `gpt-6.2-sol`, `claude-fable-5-2` and `kimi-k3.1-pro`, with `claude-fable-5-1`, `claude-fable-5`, and `kimi-k3` still available. The Kimi options also include `kimi-k2.6` and `kimi-k2.7-code`. Use the `chatgpt` model group for the GPT models and follow the v2 conversation payload. This is the v2 model list, not the separate `/aichat/conversations` model list documented above.
