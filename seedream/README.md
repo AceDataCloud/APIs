@@ -46,8 +46,8 @@ Open or download the URL returned by your own request.
 
 | API | Path | Guide |
 | ---- | ---- | ---- |
-| [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/images` | [Integration Guide](docs/seedream_images_generation_api_integration_guide.md) |
-| [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/tasks` | [Integration Guide](docs/seedream_tasks_api_integration_guide.md) |
+| [Seedream Images API](https://platform.acedata.cloud/documents/seedream-images?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/images` | [Integration Guide](docs/seedream_images_generation_api_integration_guide.md) |
+| [Seedream Tasks API](https://platform.acedata.cloud/documents/seedream-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedream/tasks` | [Integration Guide](docs/seedream_tasks_api_integration_guide.md) |
 
 ## Models
 

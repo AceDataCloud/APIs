@@ -68,10 +68,8 @@ Keep polling the original task after a timeout or page reload. Submit again only
 
 ## API reference
 
-- [`/minimax/videos`](https://platform.acedata.cloud/documents/64f22fd9-0efd-445e-b0b1-135682fd66d7?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/minimax/tasks`](https://platform.acedata.cloud/documents/d6cf922e-378b-4f83-8841-e911b597134a?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/minimax/prompt-enhancement`](https://platform.acedata.cloud/documents/8b5f8ebb-4137-5b1b-b58c-832414a8d0be?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/minimax/regenerate`](https://platform.acedata.cloud/documents/dcccdf41-b57e-55fe-801e-de416167d729?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/minimax/videos`](https://platform.acedata.cloud/documents/minimax-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/minimax/tasks`](https://platform.acedata.cloud/documents/minimax-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

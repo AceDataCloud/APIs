@@ -68,8 +68,8 @@ Keep polling the original task after a timeout or page reload. Submit again only
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
-| [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
+| [Producer Audios Generation API](https://platform.acedata.cloud/documents/producer-audios?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/producer/audios` | [Producer Audios Generation API Integration Guide](docs/producer_audios_generation_api_integration_guide.md) |
+| [Producer Tasks API](https://platform.acedata.cloud/documents/producer-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/producer/tasks` | [Producer Tasks API Integration Guide](docs/producer_tasks_api_integration_guide.md) |
 
 ## Models
 

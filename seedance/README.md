@@ -90,8 +90,8 @@ Explore the supported endpoints and integration guides for Seedance Video Genera
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Seedance Videos Generation API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedance/videos` | [Seedance Videos Generation API Integration Guide](docs/seedance_videos_generation_api_integration_guide.md) |
-| [Seedance Tasks API](https://platform.acedata.cloud/documents/c09d6a1b-3cca-4f7c-add3-8c14be60da3c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedance/tasks` | [Seedance Tasks API Integration Guide](docs/seedance_tasks_api_integration_guide.md) |
+| [Seedance Videos Generation API](https://platform.acedata.cloud/documents/seedance-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedance/videos` | [Seedance Videos Generation API Integration Guide](docs/seedance_videos_generation_api_integration_guide.md) |
+| [Seedance Tasks API](https://platform.acedata.cloud/documents/seedance-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/seedance/tasks` | [Seedance Tasks API Integration Guide](docs/seedance_tasks_api_integration_guide.md) |
 
 ## Troubleshooting
 

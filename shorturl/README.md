@@ -40,7 +40,7 @@ Read `data.url` from the response. The following fields illustrate a successful 
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Short URL API](https://platform.acedata.cloud/documents/d57df7ea-e1ba-4873-905c-d4c072e40450?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/shorturl` | [Short URL API Integration Guide](docs/short_url_api_integration_guide.md) |
+| [Short URL API](https://platform.acedata.cloud/documents/shorturl?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/shorturl` | [Short URL API Integration Guide](docs/short_url_api_integration_guide.md) |
 
 ## Troubleshooting
 

@@ -69,9 +69,9 @@ Keep polling the original task after a timeout or page reload. Submit again only
 
 ## API reference
 
-- [`/acemusic/audios`](https://platform.acedata.cloud/documents/4c52eae4-e361-5ccb-9af4-1892e918649f?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/acemusic/lyrics`](https://platform.acedata.cloud/documents/b3637223-92ae-5e2f-8536-6df3ef16c509?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/acemusic/tasks`](https://platform.acedata.cloud/documents/cd422d13-3e61-5d2e-88fc-7281ff471565?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/acemusic/audios`](https://platform.acedata.cloud/documents/acemusic-audios?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/acemusic/lyrics`](https://platform.acedata.cloud/documents/acemusic-lyrics?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/acemusic/tasks`](https://platform.acedata.cloud/documents/acemusic-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## More examples and integrations
 
