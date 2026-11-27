@@ -78,3 +78,12 @@ class QuickstartResponsesTests(unittest.TestCase):
             with self.subTest(service=service):
                 blocks = response_blocks(quickstart((ROOT / service / "README.md").read_text()))
                 self.assertTrue(output(blocks[-1]).startswith("https://"))
+
+
+    def test_model_specific_task_states_and_seedance_output_variants_are_documented(self):
+        maestro = quickstart((ROOT / "maestro/README.md").read_text())
+        _, pending, completed = response_blocks(maestro)
+        self.assertEqual(pending["status"], "producing")
+        self.assertNotIn("type", pending)
+        seedance = quickstart((ROOT / "seedance/README.md").read_text())
+        self.assertIn("response.data.content?.video_url ?? response.data.video_url", seedance)

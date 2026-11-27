@@ -128,7 +128,7 @@ Query again after a few seconds while processing continues.
 }
 ```
 
-Continue while `finished_at` is null or absent. When the task finishes, inspect `response.success` and the result state. On success, open `response.data.content.video_url`. On failure, inspect `response.error` and retain the original task ID for support.
+Continue while `finished_at` is null or absent. When the task finishes, inspect `response.success` and the result state. On success, read `response.data.content.video_url` or `response.data.video_url`, depending on the returned result. In JavaScript use `response.data.content?.video_url ?? response.data.video_url`. On failure, inspect `response.error` and retain the original task ID for support.
 
 Keep querying the original task after a timeout or page reload. Submit again when you intend to start another generation.
 

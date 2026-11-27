@@ -61,9 +61,8 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/maestro/ta
 ```json
 {
   "id": "TASK_ID",
-  "type": "videos",
   "trace_id": "TRACE_ID",
-  "status": "running",
+  "status": "producing",
   "created_at": 1790000000,
   "progress": {
     "percent": 20,
@@ -83,7 +82,6 @@ Query again after a few seconds while processing continues.
 ```json
 {
   "id": "TASK_ID",
-  "type": "videos",
   "trace_id": "TRACE_ID",
   "status": "succeeded",
   "created_at": 1790000000,
