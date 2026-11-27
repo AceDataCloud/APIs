@@ -22,8 +22,6 @@ Create a 3D model from a prompt or reference images, then texture, convert, rig 
 export ACEDATACLOUD_API_TOKEN='YOUR_API_KEY'
 ```
 
-[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
 ## Use with an AI agent
 
 Install the [Tripo 3D Skill](https://github.com/AceDataCloud/Skills/tree/main/skills/tripo-3d) for request examples and task handling. For an MCP client, configure `uvx mcp-tripo` as a local stdio server and supply your service token in `ACEDATACLOUD_API_TOKEN`. [MCP package](https://pypi.org/project/mcp-tripo/)

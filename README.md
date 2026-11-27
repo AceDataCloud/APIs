@@ -2,7 +2,7 @@
 
 English API guides and runnable examples for chat, images, music, video, speech and developer tools. Choose a service below, get an application API key, then follow its Quickstart to the result.
 
-[Get an API key](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Documentation](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[Get an API key](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [API documentation](https://platform.acedata.cloud/documents?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
@@ -16,8 +16,6 @@ English API guides and runnable examples for chat, images, music, video, speech 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
-
-[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 

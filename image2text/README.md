@@ -17,8 +17,6 @@ Recognize letters and digits in a verification image through Ace Data Cloud.
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
 
-[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
 ## Quickstart
 
 Set `image` to the Base64-encoded image bytes. The example below reads a local image file and creates JSON with Python 3.
@@ -57,7 +55,7 @@ Read `text` for the recognized characters. The value depends on the supplied ima
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For authentication errors, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) to check the key’s allowed APIs, expiration and usage limit.
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
