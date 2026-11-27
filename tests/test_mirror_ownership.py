@@ -30,7 +30,7 @@ class MirrorOwnershipTests(unittest.TestCase):
                 text = path.read_text()
                 self.assertNotIn("docs.acedata.cloud", text)
                 self.assertIn("get-api-key-en.png", text)
-                self.assertIn("create-api-key-en.png", text)
+                self.assertNotIn("create-api-key-en.png", text)
                 self.assertIn("platform.acedata.cloud/console/applications", text)
 
     def test_no_legacy_agent_dispatch_listener_remains(self):

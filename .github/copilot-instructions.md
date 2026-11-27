@@ -36,11 +36,11 @@ Use the exact Backend commit range linked in the sync PR. When that snapshot cha
 ## API README structure
 
 - Link customer documentation to verified `https://platform.acedata.cloud/documents/<alias>` pages, using `lang=en` or `lang=zh-cn`. Use the public Document alias rather than replacing a documentation host mechanically.
-- Keep the API key steps illustrated with the existing redacted General Application and Create New Credential screenshots. Place each image beside the step it explains and link the platform API key guide.
+- Keep the API key steps short and use the existing redacted General Application copy-key screenshot. Omit the Create New Credential screenshot and creation detour from the Quickstart. Link the platform key guide for optional settings.
 
 - Write service landing READMEs in English Markdown. Link the existing Chinese guide for Chinese readers.
 - Lead with the API purpose, current pricing and a direct Applications link. Put a valid minimal request immediately after the short API key steps.
-- Match required fields, model IDs, endpoints and result paths to the pinned Backend contract. Include a successful response shape and, for asynchronous operations, query the original task through its terminal state.
+- Match required fields, model IDs, endpoints and result paths to the pinned Backend contract. Place an explicit Response JSON block immediately after every Quickstart request. For asynchronous operations show separate submission, processing and completed response JSON blocks, keep the same task ID through the query, and use the actual service result fields. Label sanitized examples as illustrative.
 - Keep detailed API guides and service-specific limitations accessible after the Quickstart. Preserve current billing and trial-concurrency information there.
 - Keep website HTML/CSS in the website introduction source. Do not embed full landing-page markup or keyword lists into README files.
 - Preserve the first-call structure when applying incremental capability updates.

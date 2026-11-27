@@ -7,25 +7,23 @@ Request a verification token for your website integration through Ace Data Cloud
 ## Get an API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+2. Find **General Application** and click the copy button marked **1**. If needed, select **Initialize General Application** first. Confirm access to this service and enough balance for your request.
 
-![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+![Copy the API key from General Application using the button marked 1](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
-
-![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
-
-3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
+3. Save the copied key in your terminal. The examples add the `Bearer` prefix in the HTTP header.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
 
-[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
 Replace `website_url` and `website_key` with the page URL and site key from the website integration you are testing.
+
+### Request
 
 ```bash
 curl --fail-with-body --silent --show-error https://api.acedata.cloud/captcha/token/hcaptcha \
@@ -37,7 +35,9 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/captcha/to
 }'
 ```
 
-Read `token` from the response. The following fields illustrate a successful result.
+### Response JSON
+
+Illustrative response with placeholder identifiers and output values.
 
 ```json
 {
@@ -45,6 +45,8 @@ Read `token` from the response. The following fields illustrate a successful res
   "elapsed": 12.4
 }
 ```
+
+Use the `token` returned by your request. `elapsed` is the processing time in seconds.
 
 ## API reference
 

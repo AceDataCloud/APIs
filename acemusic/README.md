@@ -7,23 +7,21 @@ Create songs from a short description or your own lyrics through Ace Data Cloud.
 ## Get an API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+2. Find **General Application** and click the copy button marked **1**. If needed, select **Initialize General Application** first. Confirm access to this service and enough balance for your request.
 
-![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+![Copy the API key from General Application using the button marked 1](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
-
-![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
-
-3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
+3. Save the copied key in your terminal. The examples add the `Bearer` prefix in the HTTP header.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
 
-[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
+
+### Submit a request
 
 ```bash
 curl --fail-with-body --silent --show-error https://api.acedata.cloud/acemusic/audios \
@@ -38,43 +36,97 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/acemusic/a
 }'
 ```
 
-Save the returned `task_id`. An accepted response has this shape.
+### Submission response JSON
+
+The following JSON examples illustrate the documented fields. IDs, timestamps and output URLs are placeholders. Use the values returned by your own request.
 
 ```json
-{"task_id":"YOUR_TASK_ID"}
+{
+  "task_id": "TASK_ID",
+  "trace_id": "TRACE_ID",
+  "status": "created"
+}
 ```
 
-Query that same task approximately every 10 seconds.
+Save `task_id` and query that same task.
+
+### Query the task
 
 ```bash
 curl --fail-with-body --silent --show-error https://api.acedata.cloud/acemusic/tasks \
   --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
   --header 'Content-Type: application/json' \
-  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+  --data '{"action":"retrieve","id":"TASK_ID"}'
 ```
 
-Continue while the task is processing. Stop on `succeeded`, `failed`, or `partial_failed`, checking the task state and `response.success`. A complete generation has two songs. Open the completed tracks in `response.data[*].audio_url`. For `partial_failed`, inspect `response.error` and any delivered track.
-
-A completed result contains fields like these. The media URL below is illustrative.
+### Processing response JSON
 
 ```json
 {
-  "finished_at": 1790000000,
-  "response": {
-    "success": true,
-    "data": [
-      {
-        "audio_url": "https://media.example.com/song-1.mp3"
-      },
-      {
-        "audio_url": "https://media.example.com/song-2.mp3"
-      }
-    ]
-  }
+  "id": "TASK_ID",
+  "type": "audios",
+  "created_at": 1790000000,
+  "trace_id": "TRACE_ID",
+  "request": {
+    "action": "generate",
+    "model": "acemusic-v1.1",
+    "custom": false,
+    "prompt": "An uplifting acoustic folk song about a new beginning, with warm vocals",
+    "async": true
+  },
+  "finished_at": null,
+  "state": "processing"
 }
 ```
 
-Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
+Query again after a few seconds while processing continues.
+
+### Completed response JSON
+
+```json
+{
+  "id": "TASK_ID",
+  "type": "audios",
+  "created_at": 1790000000,
+  "trace_id": "TRACE_ID",
+  "request": {
+    "action": "generate",
+    "model": "acemusic-v1.1",
+    "custom": false,
+    "prompt": "An uplifting acoustic folk song about a new beginning, with warm vocals",
+    "async": true
+  },
+  "finished_at": 1790000045,
+  "elapsed": 45,
+  "response": {
+    "success": true,
+    "task_id": "TASK_ID",
+    "trace_id": "TRACE_ID",
+    "data": [
+      {
+        "id": "AUDIO_ID_1",
+        "model": "acemusic-v1.1",
+        "state": "succeeded",
+        "title": "A New Beginning",
+        "audio_url": "https://media.example.com/song-1.mp3"
+      },
+      {
+        "id": "AUDIO_ID_2",
+        "model": "acemusic-v1.1",
+        "state": "succeeded",
+        "title": "A New Beginning",
+        "audio_url": "https://media.example.com/song-2.mp3"
+      }
+    ],
+    "status": "succeeded"
+  },
+  "state": "succeeded"
+}
+```
+
+Continue while `state` is processing. Stop on `succeeded`, `failed`, or `partial_failed`. For a successful two-song group, read `response.data[*].audio_url`. On failure inspect `response.error`.
+
+Keep querying the original task after a timeout or page reload. Submit again when you intend to start another generation.
 
 ## API reference
 

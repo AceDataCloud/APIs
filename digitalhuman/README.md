@@ -7,25 +7,23 @@ Create a talking-person video from a portrait and speech audio through Ace Data 
 ## Get an API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+2. Find **General Application** and click the copy button marked **1**. If needed, select **Initialize General Application** first. Confirm access to this service and enough balance for your request.
 
-![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+![Copy the API key from General Application using the button marked 1](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
-
-![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
-
-3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
+3. Save the copied key in your terminal. The examples add the `Bearer` prefix in the HTTP header.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
 
-[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
 Replace the two URLs with an accessible, clear portrait and speech audio that you have permission to use. Keep both files reachable while the task runs.
+
+### Submit a request
 
 ```bash
 curl --fail-with-body --silent --show-error https://api.acedata.cloud/digital-human/videos \
@@ -38,36 +36,91 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/digital-hu
 }'
 ```
 
-Save the returned `task_id`. An accepted response has this shape.
+### Submission response JSON
+
+The following JSON examples illustrate the documented fields. IDs, timestamps and output URLs are placeholders. Use the values returned by your own request.
 
 ```json
-{"task_id":"YOUR_TASK_ID"}
+{
+  "success": true,
+  "task_id": "TASK_ID",
+  "trace_id": "TRACE_ID",
+  "state": "pending"
+}
 ```
 
-Query that same task approximately every 10 seconds.
+Save `task_id` and query that same task.
+
+### Query the task
 
 ```bash
 curl --fail-with-body --silent --show-error https://api.acedata.cloud/digital-human/tasks \
   --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
   --header 'Content-Type: application/json' \
-  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+  --data '{"action":"retrieve","id":"TASK_ID"}'
 ```
 
-The detailed task response includes `status`, `finished_at` and `response`. Continue until `finished_at` is set, then inspect `response.success`. On success, open `response.video_url`. On failure, inspect the returned error and keep the original task ID for support.
-
-A completed result contains fields like these. The media URL below is illustrative.
+### Processing response JSON
 
 ```json
 {
-  "finished_at": 1790000000,
+  "id": "TASK_ID",
+  "status": "running",
+  "kind": "video",
+  "created_at": 1790000000,
+  "started_at": 1790000001,
+  "finished_at": null,
+  "elapsed": null,
+  "request": {
+    "image_url": "https://YOUR_PORTRAIT_IMAGE",
+    "audio_url": "https://YOUR_SPEECH_AUDIO",
+    "async": true
+  },
   "response": {
     "success": true,
-    "video_url": "https://media.example.com/result.mp4"
+    "task_id": "TASK_ID",
+    "trace_id": "TRACE_ID",
+    "state": "running",
+    "progress": 20
   }
 }
 ```
 
-Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
+Query again after a few seconds while processing continues.
+
+### Completed response JSON
+
+```json
+{
+  "id": "TASK_ID",
+  "status": "succeed",
+  "kind": "video",
+  "created_at": 1790000000,
+  "started_at": 1790000001,
+  "finished_at": 1790000045,
+  "elapsed": 44,
+  "request": {
+    "image_url": "https://YOUR_PORTRAIT_IMAGE",
+    "audio_url": "https://YOUR_SPEECH_AUDIO",
+    "async": true
+  },
+  "response": {
+    "success": true,
+    "task_id": "TASK_ID",
+    "trace_id": "TRACE_ID",
+    "video_url": "https://media.example.com/result.mp4",
+    "state": "succeed",
+    "progress": 100,
+    "duration": 5,
+    "width": 1280,
+    "height": 720
+  }
+}
+```
+
+For this detailed `retrieve` response, wait for `response.state` to become `succeed` or `failed`. A successful query can have `response.success=true` while video processing is still running. On completion read `response.video_url`; on failure read `response.error`.
+
+Keep querying the original task after a timeout or page reload. Submit again when you intend to start another generation.
 
 ## API reference
 
