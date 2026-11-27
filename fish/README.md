@@ -1,26 +1,72 @@
-# Fish Voice Generation API
+# Fish Audio API
 
-Fish Audio text-to-speech and voice-cloning service: synthesize speech from text and create custom voice models from reference audio.
+Turn text into speech with a saved voice through Ace Data Cloud.
 
-![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
+[API documentation](https://platform.acedata.cloud/documents/fish-tts-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/fish?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/fish-tts-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-API home page: [Ace Data Cloud - Fish Voice Generation](https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+## Get an API key
 
-Keywords: fish-api, fish-audio, text-to-speech, tts, voice-clone, voice-model, speech-synthesis, rest-api, ai-api, AI API, REST API, Developer API, Ace Data Cloud
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
 
-## Get your Ace Data Cloud API key
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+
+## Quickstart
+
+Supply `reference_id` to select a saved voice. See the voice guide for available voices and reference-audio preparation.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/fish/tts \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "text": "Hello! Your first speech request is ready.",
+  "format": "mp3"
+}'
+```
+
+Read `audio_url` from the response. The following fields illustrate a successful result and media URLs are placeholders.
+
+```json
+{
+  "audio_url": "https://media.example.com/speech.mp3"
+}
+```
+
+Open or download the URL returned by your own request.
+
+## APIs and Guides
+
+| API | Path | Integration Guidance |
+| ---- | ---- | ------------ |
+| [Fish TTS API](https://platform.acedata.cloud/documents/fish-tts?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/tts` | [Fish TTS API Integration Guide](docs/fish_tts_api_integration_guide.md) |
+| [Fish Tasks API](https://platform.acedata.cloud/documents/fish-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/tasks` | [Fish Tasks API Integration Guide](docs/fish_tasks_api_integration_guide.md) |
+| [Fish Model Create API](https://platform.acedata.cloud/documents/fish-model?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model` | Create a custom voice model from reference audio |
+| [Fish Model Query API](https://platform.acedata.cloud/documents/fish-model-query?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model` | List voice models |
+| [Fish Model Get API](https://platform.acedata.cloud/documents/fish-model-get?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model/{id}` | Fetch a single voice model |
+
+## Voices and reference audio
+
+For a saved voice, set `reference_id` in the TTS request. See [TTS and one-shot reference audio](docs/fish_tts_api_integration_guide.md) and [voice model management](https://platform.acedata.cloud/documents/fish-model-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) for preparation and supported options.
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 
@@ -31,111 +77,3 @@ A new billable request returns `429 too_many_requests` while another is running.
 For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
 
 This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Why Use Fish Voice Generation on Ace Data Cloud
-
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
-
-## Overview
-
-The Fish TTS API converts text into natural speech using a saved voice model or a one-shot HTTPS reference audio sample. The Fish Model APIs create, query, and fetch custom voice models from reference audio, and the Fish Tasks API polls asynchronous jobs.
-
-## Application Process
-
-To use the Fish TTS API, apply for the corresponding service on the [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page. After entering the page, click the "Acquire" button.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
-
-## Quick Start
-
-- Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Fish Voice Generation on Ace Data Cloud](https://platform.acedata.cloud/services/caf99abc-ddcf-4714-b2a5-862d9b469509?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
-```bash
-curl --request POST "https://api.acedata.cloud/fish/tts" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "text": "Hello, this is a demonstration of AI voice synthesis."
-  }'
-```
-
-### One-shot voice clone
-
-```bash
-curl --request POST "https://api.acedata.cloud/fish/tts" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --header "model: s2-pro" \
-  --data '{
-    "text": "New speech in the referenced voice.",
-    "format": "mp3",
-    "references": [{
-      "audio": "https://cdn.acedata.cloud/reference.mp3",
-      "text": "The exact reference transcript."
-    }]
-  }'
-```
-
-This conditions only the current request. Use `reference_id` for a saved/public voice; never combine it with `references`.
-
-### Create a reusable public voice
-
-`POST /fish/model` saves a cloned voice long-term and publicly: other users may search for and use it. Omit `visibility`; passing `private` or `unlist` does not make the voice private. Only submit reference audio you have permission to process and publish as a reusable voice.
-
-Send `voices` as one publicly downloadable HTTP(S) audio URL string, not an array or multipart upload. Prefer a direct URL ending in `.mp3` or `.wav`. Replace the example URL with your authorized audio before calling:
-
-```bash
-curl --request POST "https://api.acedata.cloud/fish/model" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "title": "My public voice",
-    "voices": "https://example.com/sample-voice.mp3"
-  }'
-```
-
-Successful creation returns HTTP **201** with the voice model object. Retain its `_id` and pass it as `reference_id` to `/fish/tts`. For HTTP 400 caused by a reference-audio download, duration, or format error, check the URL and actual file format.
-
-### Reuse the voice through MCP
-
-With Fish MCP configured, call `fish_create_model(title="My public voice", voices="https://example.com/authorized-voice.wav")` using your own authorized sample URL. This saves a long-term public voice, with no private/unlisted option. Pass its returned `_id` as `reference_id` to `fish_generate_audio`; use `fish_list_models(self=true)` to find voices you saved. For one-shot reference conditioning instead, use `fish_generate_audio` with `references` and do not create a saved voice.
-
-### List voices created by your account
-
-```bash
-curl --get "https://api.acedata.cloud/fish/model" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --data-urlencode "self=true" \
-  --data-urlencode "page_number=1" \
-  --data-urlencode "page_size=5"
-```
-
-`self=true` lists voices created and saved through Ace Data Cloud by the calling account, including voices created with different API tokens belonging to that account. It filters the list only; the voices remain publicly usable. Results default to newest-created first with 1-based pagination. `author_id` can further filter the author; `sort_by` supports `created_at` and `task_count` in this mode.
-
-Do not combine `title_language` with `self=true`; title-language filtering applies to the public voice library instead. The response contains `total`, `items`, and `has_more`: `has_more` is a boolean for `self=true`, but may be `null` for public-library queries. Treat `null` as an unspecified pagination signal, not an explicit end-of-list.
-
-## APIs and Guides
-
-| API | Path | Integration Guidance |
-| ---- | ---- | ------------ |
-| [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/tts` | [Fish TTS API Integration Guide](docs/fish_tts_api_integration_guide.md) |
-| [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/tasks` | [Fish Tasks API Integration Guide](docs/fish_tasks_api_integration_guide.md) |
-| [Fish Model Create API](https://platform.acedata.cloud/documents/82dcabe9-b1a3-541f-80f1-decb183b920c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model` | Create a custom voice model from reference audio |
-| [Fish Model Query API](https://platform.acedata.cloud/documents/0a2c983b-e20f-5926-a45f-07b61373617d?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model` | List voice models |
-| [Fish Model Get API](https://platform.acedata.cloud/documents/70f84537-7c48-57d3-9a21-b2a4f55e8f31?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/fish/model/{id}` | Fetch a single voice model |
-
-## Related Resources
-
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Status Page](https://status.acedata.cloud)
-- [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
-
-## Support
-
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)

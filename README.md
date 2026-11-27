@@ -1,30 +1,27 @@
-# AceDataCloud APIs
+# Ace Data Cloud APIs
 
-Monorepo for all AceDataCloud API documentation repositories.
+English API guides and runnable examples for chat, images, music, video, speech and developer tools. Choose a service below, get an application API key, then follow its Quickstart to the result.
 
-## Get your Ace Data Cloud API key
+[Get an API key](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Documentation](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+## Get an API key
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
 
-## Trial account concurrency
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply. The read-only user flag `has_recharged` records this eligibility; it is not a request parameter.
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
-
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage. Realtime connection authentication does not occupy this ordinary-request slot and retains its existing per-turn billing.
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## APIs
 
@@ -52,7 +49,7 @@ This restriction changes neither trial API availability nor pricing; fees are se
 | `claude/` | [ClaudeAPI](https://github.com/AceDataCloud/ClaudeAPI) | Claude chat completions API docs |
 | `gemini/` | [GeminiAPI](https://github.com/AceDataCloud/GeminiAPI) | Gemini chat completions API docs |
 | `fish/` | [FishAPI](https://github.com/AceDataCloud/FishAPI) | Fish Audio TTS and voice cloning API docs |
-| `face/` | [FaceAPI](https://github.com/AceDataCloud/FaceAPI) | Face transformation API docs |
+| `face/` | [FaceAPI](https://github.com/AceDataCloud/FaceAPI) | Historical reference; check current service availability |
 | `shorturl/` | [ShortURLAPI](https://github.com/AceDataCloud/ShortURLAPI) | Short URL API docs |
 | `webextrator/` | [WebExtratorAPI](https://github.com/AceDataCloud/WebExtratorAPI) | Web extraction and rendering API docs |
 | `aichat/` | [AiChatAPI](https://github.com/AceDataCloud/AiChatAPI) | AI Dialogue (multi-model chat) API docs |
@@ -111,3 +108,15 @@ Entries marked `metadata: true` in `sync.yaml` also let Backend ecosystem.py
 maintain GitHub description, homepage and topics from the public service catalog.
 This opt-in preserves the old repo.py coverage without changing repository files;
 private/retired services are skipped.
+
+## Trial account concurrency
+
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
+
+The read-only user flag `has_recharged` records this eligibility; it is not a request parameter. Realtime connection authentication does not occupy this ordinary-request slot and retains its existing per-turn billing.

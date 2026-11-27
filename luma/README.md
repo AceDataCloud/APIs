@@ -1,28 +1,88 @@
-# Luma Video Generation API
+# Luma API
 
-Luma AI video generation service with text and image input.
+Generate videos through Ace Data Cloud and retrieve the completed video by task ID.
 
-![Platform](https://img.shields.io/badge/platform-Ace%20Data%20Cloud-0f766e?style=flat-square) ![API](https://img.shields.io/badge/type-AI%20API-2563eb?style=flat-square) ![Docs](https://img.shields.io/badge/docs-online-16a34a?style=flat-square)
+[API documentation](https://platform.acedata.cloud/documents/luma-videos-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/luma?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/luma-videos-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-![Luma Video Generation](https://cdn.acedata.cloud/k4o0p2.png/thumb_600x300)
+## Get an API key
 
-API home page: [Ace Data Cloud - Luma Video Generation](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
 
-Keywords: luma-ai, ai-video, video-generation, text-to-video, rest-api, ai-api, aivideo, AI API, REST API, Developer API, Ace Data Cloud
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-## Get your Ace Data Cloud API key
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+
+## Quickstart
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/luma/videos \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "action": "generate",
+  "prompt": "A sailboat crossing a calm lake at sunrise, slow camera pan",
+  "aspect_ratio": "16:9",
+  "async": true
+}'
+```
+
+Save the returned `task_id`. An accepted response has this shape.
+
+```json
+{"task_id":"YOUR_TASK_ID"}
+```
+
+Query that same task approximately every 10 seconds.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/luma/tasks \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+```
+
+Continue until the task record has `finished_at`, then check `response.success`. On success, open `response.video_url`. If `response.success` is false, inspect `response.error` and keep the original task ID for support.
+
+A completed result contains fields like these. The media URL below is illustrative.
+
+```json
+{
+  "finished_at": 1790000000,
+  "response": {
+    "success": true,
+    "video_url": "https://media.example.com/result.mp4"
+  }
+}
+```
+
+Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
+
+## APIs and Guides
+
+Explore the supported endpoints and integration guides for Luma Video Generation.
+
+| API | Path | Integration Guidance |
+| ---- | ---- | ------------ |
+| [Luma Tasks API](https://platform.acedata.cloud/documents/luma-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/tasks` | [Luma Tasks API Integration Guide](https://platform.acedata.cloud/documents/luma-tasks-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Luma Videos Generation API](https://platform.acedata.cloud/documents/luma-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/videos` | [Luma Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/luma-videos-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 
@@ -33,321 +93,3 @@ A new billable request returns `429 too_many_requests` while another is running.
 For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
 
 This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
-
-## Why Use Luma Video Generation on Ace Data Cloud
-
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
-
-## Overview
-
-The main function of the Luma Tasks API is to query the execution status of tasks by inputting the task ID generated by the Luma Videos Generation API.
-
-This document will provide detailed integration instructions for the Luma Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Luma Tasks API, you can easily query the execution status of tasks from the Luma Videos Generation API.
-
-## Application Process
-
-To use the Luma Tasks API, you first need to apply for the corresponding service on the application page [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f?utm_source=github&utm_medium=referral&utm_campaign=evergreen), and then copy the task ID from the Luma Videos Generation API, as shown in the image:
-
-![](https://cdn.acedata.cloud/ynk4ow.png)
-
-Finally, go to the Tasks API page [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff?utm_source=github&utm_medium=referral&utm_campaign=evergreen) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you have not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
-
-## Request Example
-
-The Luma Tasks API can be used to query the results of the Luma Videos Generation API. For information on how to use the Luma Videos Generation API, please refer to the documentation [Luma Videos Generation API](https://platform.acedata.cloud/documents/16bb0108-1f09-45b3-97ac-16a668750a8c?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-
-We will take one task ID returned by the Luma Videos Generation API as an example to demonstrate how to use this API. Suppose we have a task ID: 50fc6182-fa86-4c7d-ac12-2fa27ec2f151, and we will demonstrate how to pass in a task ID.
-
-### Task Example Image
-
-<p><img src="https://cdn.acedata.cloud/frcrux.png" width="500" class="m-auto"></p>
-
-### Setting Request Headers and Request Body
-
-**Request Headers** include:
-
-- `accept`: Specifies that the response should be in JSON format, set to `application/json`.
-- `authorization`: The key to call the API, which can be selected directly after application.
-
-**Request Body** includes:
-
-- `id`: The uploaded task ID.
-- `action`: The operation method for the task.
-
-Set as shown in the image below:
-
-<p><img src="https://cdn.acedata.cloud/g6ev5b.png" width="500" class="m-auto"></p>
-
-### Code Example
-
-You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
-
-<p><img src="https://cdn.acedata.cloud/i4fxqf.png" width="500" class="m-auto"></p>
-
-Some code examples are as follows:
-
-#### CURL
-
-```bash
-curl -X POST 'https://api.acedata.cloud/luma/tasks' \
--H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
--H 'content-type: application/json' \
--d '{
-  "id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-  "action": "retrieve"
-}'
-```
-
-#### Python
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/luma/tasks"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-    "action": "retrieve"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-### Response Example
-
-Upon successful request, the API will return the detailed information of the video task here. For example:
-
-```json
-{
-  "_id": "66d297a3550a4144a5a5db42",
-  "id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-  "api_id": "94fc9028-5a9f-4875-aae4-38463bd30ac5",
-  "application_id": "06484a45-9d04-498a-98a7-67086dee8166",
-  "created_at": 1725077411.961,
-  "credential_id": "e6a879e5-a7c0-4f7b-9d6f-f9a837421a50",
-  "request": {
-    "action": "generate",
-    "prompt": "Astronauts shuttle from space to volcano"
-  },
-  "trace_id": "0b7c1c1a-045c-4145-a434-609cba88f0a9",
-  "user_id": "ad7afe47-cea9-4cda-980f-2ad8810e51cf",
-  "response": {
-    "success": true,
-    "task_id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-    "video_id": "4b088fc8-2bbc-4706-80a6-a0fb118adc1a",
-    "prompt": "Astronauts shuttle from space to volcano",
-    "video_url": "https://platform.cdn.acedata.cloud/luma/50fc6182-fa86-4c7d-ac12-2fa27ec2f151.mp4",
-    "video_height": 752,
-    "video_width": 1360,
-    "state": "completed",
-    "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/50fc6182-fa86-4c7d-ac12-2fa27ec2f151.jpg",
-    "thumbnail_width": 1360,
-    "thumbnail_height": 752
-  },
-  "finished_at": 1725077566.241
-}
-```
-
-The returned result contains multiple fields, with the request field being the request body when the task was initiated, and the response field being the response body returned after the task is completed, consistent with the requests and responses of the Luma Videos Generation API. The field descriptions are as follows.
-
-- `id`: The ID of the video task generated, used to uniquely identify this video generation task.
-- `video_id`: The unique identifier of the video in this queried video task, which needs to be passed when performing extension operations on the video next time.
-- `request`: The request information in the queried video task.
-- `response`: The return information in the queried video task.
-
-## Batch Query Operation
-
-This is for querying the details of multiple task IDs, and unlike the above, the action needs to be selected as retrieve_batch.
-
-**Request Body** includes:
-
-- `ids`: An array of uploaded task IDs.
-- `action`: The operation method for the task.
-
-Set as shown in the image below:
-
-<p><img src="https://cdn.acedata.cloud/mpcf1m.png" width="500" class="m-auto"></p>
-
-### Code Example
-
-You can see that various language codes have been automatically generated on the right side of the page, as shown in the image:
-
-<p><img src="https://cdn.acedata.cloud/zs6y35.png" width="500" class="m-auto"></p>
-
-Some code examples are as follows:
-
-### Response Example
-
-Upon successful request, the API will return the specific details of all batch video tasks this time. For example:
-```json
-{
-  "items": [
-    {
-      "_id": "66d297a3550a4144a5a5db42",
-      "id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-      "api_id": "94fc9028-5a9f-4875-aae4-38463bd30ac5",
-      "application_id": "06484a45-9d04-498a-98a7-67086dee8166",
-      "created_at": 1725077411.961,
-      "credential_id": "e6a879e5-a7c0-4f7b-9d6f-f9a837421a50",
-      "request": {
-        "action": "generate",
-        "prompt": "Astronauts shuttle from space to volcano"
-      },
-      "trace_id": "0b7c1c1a-045c-4145-a434-609cba88f0a9",
-      "user_id": "ad7afe47-cea9-4cda-980f-2ad8810e51cf",
-      "response": {
-        "success": true,
-        "task_id": "50fc6182-fa86-4c7d-ac12-2fa27ec2f151",
-        "video_id": "4b088fc8-2bbc-4706-80a6-a0fb118adc1a",
-        "prompt": "Astronauts shuttle from space to volcano",
-        "video_url": "https://platform.cdn.acedata.cloud/luma/50fc6182-fa86-4c7d-ac12-2fa27ec2f151.mp4",
-        "video_height": 752,
-        "video_width": 1360,
-        "state": "completed",
-        "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/50fc6182-fa86-4c7d-ac12-2fa27ec2f151.jpg",
-        "thumbnail_width": 1360,
-        "thumbnail_height": 752
-      },
-      "finished_at": 1725077566.241
-    },
-    {
-      "_id": "66d29ed3550a4144a5a6c089",
-      "id": "76a05f61-68ad-4c1a-838f-a00cd08cf65b",
-      "api_id": "94fc9028-5a9f-4875-aae4-38463bd30ac5",
-      "application_id": "06484a45-9d04-498a-98a7-67086dee8166",
-      "created_at": 1725079250.921,
-      "credential_id": "e6a879e5-a7c0-4f7b-9d6f-f9a837421a50",
-      "request": {
-        "action": "generate",
-        "prompt": "la la la"
-      },
-      "trace_id": "338f1616-741d-40b6-8d62-c025434024c6",
-      "user_id": "ad7afe47-cea9-4cda-980f-2ad8810e51cf",
-      "response": {
-        "success": true,
-        "task_id": "76a05f61-68ad-4c1a-838f-a00cd08cf65b",
-        "video_id": "5a638d6a-7481-4c5e-8843-36c9d1b5bcd5",
-        "prompt": "la la la",
-        "video_url": "https://platform.cdn.acedata.cloud/luma/76a05f61-68ad-4c1a-838f-a00cd08cf65b.mp4",
-        "video_height": 752,
-        "video_width": 1360,
-        "state": "completed",
-        "thumbnail_url": "https://platform.cdn.acedata.cloud/luma/76a05f61-68ad-4c1a-838f-a00cd08cf65b.jpg",
-        "thumbnail_width": 1360,
-        "thumbnail_height": 752
-      },
-      "finished_at": 1725079406.71
-    }
-  ],
-  "count": 2
-}
-```
-
-#### CURL
-
-```bash
-curl -X POST 'https://api.acedata.cloud/luma/tasks' \
--H 'accept: application/json' \
--H 'authorization: Bearer {token}' \
--H 'content-type: application/json' \
--d '{
-  "ids": ["50fc6182-fa86-4c7d-ac12-2fa27ec2f151","76a05f61-68ad-4c1a-838f-a00cd08cf65b"],
-  "action": "retrieve_batch"
-}'
-```
-
-#### Python
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/luma/tasks"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "ids": ["50fc6182-fa86-4c7d-ac12-2fa27ec2f151","76a05f61-68ad-4c1a-838f-a00cd08cf65b"],
-    "action": "retrieve_batch"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-## Error Handling
-
-When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
-
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
-
-### Error Response Example
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "api_error",
-    "message": "fetch failed"
-  },
-  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
-}
-```
-
-
-## Quick Start
-
-- Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
-- Service page: [Luma Video Generation on Ace Data Cloud](https://platform.acedata.cloud/services/dff45a0d-2858-4936-8e2b-3d49c52aff11?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- Docs: [Developer documentation](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
-```bash
-curl --request POST "https://api.acedata.cloud/luma/tasks" \
-  --header "Authorization: Bearer YOUR_API_KEY" \
-  --header "Content-Type: application/json" \
-  --data '{}'
-```
-
-## APIs and Guides
-
-Explore the supported endpoints and integration guides for Luma Video Generation.
-
-| API | Path | Integration Guidance |
-| ---- | ---- | ------------ |
-| [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/tasks` | [Luma Tasks API Integration Guide](https://platform.acedata.cloud/documents/3e965973-7b28-4844-b404-bd28bfeb5097?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/videos` | [Luma Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/16bb0108-1f09-45b3-97ac-16a668750a8c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-
-## Related Resources
-
-- [Ace Data Cloud Developer Platform](https://platform.acedata.cloud?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Ace Data Cloud Docs](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [Status Page](https://status.acedata.cloud)
-- [Ace Data Cloud GitHub Organization](https://github.com/AceDataCloud)
-
-## Support
-
-If you meet any issue, please check [support info](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen) or browse the latest documentation on [docs.acedata.cloud](https://platform.acedata.cloud/documents?utm_source=github&utm_medium=referral&utm_campaign=evergreen).

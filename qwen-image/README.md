@@ -1,32 +1,56 @@
-# Qwen Image 3 API
+# Qwen Image API
 
-Generate and edit images with Qwen Image 3 through Ace Data Cloud.
+Generate images from text and edit reference images through Ace Data Cloud.
 
-Service page: [Qwen Image 3](https://platform.acedata.cloud/services/9a33d10b-9f5d-438f-9701-c34906a2d891?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API documentation](https://platform.acedata.cloud/documents/qwen-image-images-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/qwen-image?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/qwen-image-images-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-## Get your Ace Data Cloud API key
+## Get an API key
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
-3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
-4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
-5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
 
-Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
-## Trial account concurrency
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
 
-A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+## Quickstart
 
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/qwen-image/images \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "qwen-image-3.0",
+  "prompt": "A blue ceramic coffee mug on a white table, soft morning light, product photograph",
+  "size": "1024*1024",
+  "n": 1
+}'
+```
+
+Read `data[0].image_url` from the response. The following fields illustrate a successful result and media URLs are placeholders.
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "image_url": "https://media.example.com/image.png"
+    }
+  ]
+}
+```
+
+Open or download the URL returned by your own request.
 
 ## Models
 
@@ -34,15 +58,6 @@ This restriction changes neither trial API availability nor pricing; fees are se
 |---|---|
 | `qwen-image-3.0` | Value, throughput, batch production |
 | `qwen-image-3.0-pro` | Complex layouts and high-detail output |
-
-## Quick start
-
-```bash
-curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
-  -H 'Authorization: Bearer YOUR_API_KEY' \
-  -H 'Content-Type: application/json' \
-  -d '{"model":"qwen-image-3.0","prompt":"A clean bilingual product poster","size":"1024*1024","n":1}'
-```
 
 ## APIs
 
@@ -56,3 +71,20 @@ curl -X POST 'https://api.acedata.cloud/qwen-image/images' \
 - MCP: `mcp-qwen-image`
 - Hosted MCP: `https://qwen-image.mcp.acedata.cloud/mcp`
 - CLI: `qwen-image-cli`
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+
+## Trial account concurrency
+
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.

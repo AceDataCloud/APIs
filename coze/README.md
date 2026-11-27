@@ -7,6 +7,9 @@ entries in Coze's default model-provider selector.
 
 ACE Music is available as a [workspace API import](imports/acemusic.yaml) and a [remote MCP configuration](mcp-plugins/acemusic.json).
 
+
+For direct HTTP API requests, choose a service in the [API Quickstart directory](https://github.com/AceDataCloud/APIs#apis). Each service guide explains application keys, a first request and its result.
+
 ## Find your service and get started
 
 Search by the service name and confirm the publisher is **AceDataCloud**. The

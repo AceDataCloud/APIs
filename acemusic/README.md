@@ -1,38 +1,106 @@
 # ACE Music API
 
-从灵感、歌词或参考音频创作歌曲，可导入参考、翻唱一首已有作品或融合两首参考，试听并下载结果。
+Create songs from a short description or your own lyrics through Ace Data Cloud.
 
-本目录由 AceDataCloud/APIs 维护；接口与指南源在 PlatformBackend，文档通过发布流程同步。
+[API documentation](https://platform.acedata.cloud/documents/acemusic-audios-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/acemusic?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/acemusic-audios-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
-- [歌曲生成](audios.md)
-- [歌词生成](lyrics.md)
-- [任务与历史](tasks.md)
-- [OpenAPI](openapi.json)
-- [开发者控制台](https://platform.acedata.cloud/console/applications?utm_source=github)
-- [Studio](https://studio.acedata.cloud/acemusic?utm_source=github)
-- [在线文档](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios?utm_source=github)
+## Get an API key
 
-基础生成模型：`acemusic-v1.1`（默认）、`acemusic-v1`；翻唱与融合使用 `acemusic-v1.1`。同一 `/acemusic/audios` 接口支持 `generate`、`upload`、`cover` 和 `mashup`。参考使用个人平台音轨 ID，融合要求恰好两首不同且兼容的参考。默认异步，提交后保存平台任务 ID，使用免费任务 API 查询原任务。完整双曲组收一次费用，成功上传一首参考另收上传费；最终失败或部分失败组不收生成费，上传失败不收费。歌词 API 独立收费。
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
 
-## 开发者与 Agent 入口
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-[ACE Music 完整生态导航](https://github.com/AceDataCloud/AceMusicMCP)汇集各客户端、工作流宿主和开发工具的安装入口。
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
 
-| 用途 | 入口 |
-| --- | --- |
-| 在扣子中接入 | [CozeAPI 导入目录与双语教程](https://github.com/AceDataCloud/CozeAPI) |
-| 调用 API | [API 参考与示例](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios.md) · [OpenAPI](openapi.json) |
-| 在 Agent 中创作和查询 | [ACE Music MCP](https://github.com/AceDataCloud/AceMusicMCP) · [连接指南](https://platform.acedata.cloud/documents/mcp-acemusic) · [VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=acedatacloud.mcp-acemusic) |
-| 给 Agent 安装操作指南 | [ACE Music Skill](https://skills.sh/acedatacloud/skills/ace-music) · [SKILL.md](https://github.com/AceDataCloud/Skills/blob/main/skills/ace-music/SKILL.md) |
-| 在脚本或业务代码中使用 | [命令行客户端](https://pypi.org/project/acemusic-cli/) · [Python、TypeScript 和 Go SDK](https://github.com/AceDataCloud/SDK) |
-| 在 n8n 中编排 | [社区节点与工作流示例](https://github.com/AceDataCloud/ACEMusicN8N) |
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
+
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
+
+```bash
+export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
+```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+
+## Quickstart
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/acemusic/audios \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "action": "generate",
+  "model": "acemusic-v1.1",
+  "custom": false,
+  "prompt": "An uplifting acoustic folk song about a new beginning, with warm vocals",
+  "async": true
+}'
+```
+
+Save the returned `task_id`. An accepted response has this shape.
+
+```json
+{"task_id":"YOUR_TASK_ID"}
+```
+
+Query that same task approximately every 10 seconds.
+
+```bash
+curl --fail-with-body --silent --show-error https://api.acedata.cloud/acemusic/tasks \
+  --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"action":"retrieve","id":"YOUR_TASK_ID"}'
+```
+
+Continue while the task is processing. Stop on `succeeded`, `failed`, or `partial_failed`, checking the task state and `response.success`. A complete generation has two songs. Open the completed tracks in `response.data[*].audio_url`. For `partial_failed`, inspect `response.error` and any delivered track.
+
+A completed result contains fields like these. The media URL below is illustrative.
+
+```json
+{
+  "finished_at": 1790000000,
+  "response": {
+    "success": true,
+    "data": [
+      {
+        "audio_url": "https://media.example.com/song-1.mp3"
+      },
+      {
+        "audio_url": "https://media.example.com/song-2.mp3"
+      }
+    ]
+  }
+}
+```
+
+Keep polling the original task after a timeout or page reload. Submit again only when you intend to start a new generation.
+
+## API reference
+
+- [`/acemusic/audios`](https://platform.acedata.cloud/documents/acemusic-audios?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/acemusic/lyrics`](https://platform.acedata.cloud/documents/acemusic-lyrics?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/acemusic/tasks`](https://platform.acedata.cloud/documents/acemusic-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+
+## More examples and integrations
+
+- [Song generation, upload, cover and mashup](https://platform.acedata.cloud/documents/acemusic-audios-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [Lyrics](https://platform.acedata.cloud/documents/acemusic-lyrics-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Task retrieval](https://platform.acedata.cloud/documents/acemusic-tasks-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [OpenAPI](openapi.json)
+- [SDKs](https://github.com/AceDataCloud/SDK) · [CLI](https://pypi.org/project/acemusic-cli/) · [MCP and integrations](https://github.com/AceDataCloud/AceMusicMCP)
+
+## Troubleshooting
+
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For insufficient balance, open the application and review its balance and the current service price.
+- For request validation errors, compare the model and required fields with the linked API reference.
+- For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 
-Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply. The read-only user flag `has_recharged` records this eligibility; it is not a request parameter.
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
 
 A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
 
 For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
 
-This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage. Realtime connection authentication does not occupy this ordinary-request slot and retains its existing per-turn billing.
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage.
