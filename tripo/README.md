@@ -9,6 +9,10 @@ Create a 3D model from a prompt or reference images, then texture, convert, rig 
 | `/tripo/animations` | `rig_check`, `rig`, `retarget` | Riggability report, rigged model or animated file |
 | `/tripo/tasks` | `retrieve` (default), `retrieve_batch` | One task record or an ordered list of records |
 
+## Use with an AI agent
+
+Install the [Tripo 3D Skill](https://github.com/AceDataCloud/Skills/tree/main/skills/tripo-3d) for request examples and task handling. For an MCP client, configure `uvx mcp-tripo` as a local stdio server and supply your service token in `ACEDATACLOUD_API_TOKEN`. [MCP package](https://pypi.org/project/mcp-tripo/)
+
 ## Try a free request
 
 The following example checks whether the Khronos sample Box mesh can be rigged. It uses the same submit-and-poll flow as a paid generation. Set `ACEDATACLOUD_API_TOKEN` to your service token, and run from this directory with Node.js 18+ and jq installed. [Khronos glTF sample asset](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/Box)

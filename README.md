@@ -70,6 +70,7 @@ Ace Data Cloud provides [Model Context Protocol (MCP)](https://modelcontextproto
 
 | MCP Server | Docs |
 |---|---|
+| Tripo 3D MCP Server | [Package and setup](https://pypi.org/project/mcp-tripo/) |
 | ACE Music MCP Server | [View documentation](https://platform.acedata.cloud/documents/mcp-acemusic?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 | Flux MCP Server | [View documentation](https://platform.acedata.cloud/documents/flux-mcp?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 | Luma MCP Server | [View documentation](https://platform.acedata.cloud/documents/luma-mcp?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
