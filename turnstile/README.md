@@ -39,7 +39,7 @@ Read `token` from the response. The following fields illustrate a successful res
 
 ## API reference
 
-- [`/captcha/token/turnstile`](https://platform.acedata.cloud/documents/b329b4e1-b9d4-4aa2-8b84-f55fb5292f23?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/captcha/token/turnstile`](https://platform.acedata.cloud/documents/captcha-token-turnstile?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

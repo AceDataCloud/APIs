@@ -39,9 +39,9 @@ Read `token` from the response. The following fields illustrate a successful res
 
 ## API reference
 
-- [`/captcha/tasks`](https://platform.acedata.cloud/documents/0c6538fd-de94-4e7c-b876-b45ded6487bb?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/captcha/recognition/hcaptcha`](https://platform.acedata.cloud/documents/149493b2-7e69-4b45-8423-0fb2c6c840dd?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/captcha/token/hcaptcha`](https://platform.acedata.cloud/documents/a7b39afc-870f-4d33-b28e-ae853690b391?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/captcha/tasks`](https://platform.acedata.cloud/documents/captcha-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/captcha/recognition/hcaptcha`](https://platform.acedata.cloud/documents/recognition-hcaptcha-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/captcha/token/hcaptcha`](https://platform.acedata.cloud/documents/captcha-token-hcaptcha?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

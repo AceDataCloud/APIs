@@ -2,7 +2,7 @@
 
 Generate text and build conversations with DeepSeek models through Ace Data Cloud.
 
-[API documentation](https://platform.acedata.cloud/documents/f416edc1-a771-4a31-90e7-b14ca3a3d674?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/deepseek?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/f416edc1-a771-4a31-90e7-b14ca3a3d674?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API documentation](https://platform.acedata.cloud/models/deepseek-flash?m=chat&lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/deepseek?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/models/deepseek-flash?m=chat&lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
@@ -49,7 +49,7 @@ Read `choices[0].message.content` from the response. The following fields illust
 
 ## API reference
 
-- [`/deepseek/chat/completions`](https://platform.acedata.cloud/documents/f416edc1-a771-4a31-90e7-b14ca3a3d674?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/deepseek/chat/completions`](https://platform.acedata.cloud/services/deepseek?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

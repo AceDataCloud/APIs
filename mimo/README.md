@@ -49,7 +49,7 @@ Read `choices[0].message.content` from the response. The following fields illust
 
 ## API reference
 
-- [`/mimo/chat/completions`](https://platform.acedata.cloud/documents/1df39eca-cb1e-5c7c-83d2-e7098c31b67e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/mimo/chat/completions`](https://platform.acedata.cloud/documents/mimo-chat-completions?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

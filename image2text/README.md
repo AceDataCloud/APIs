@@ -42,7 +42,7 @@ Read `text` from the response. The following fields illustrate a successful resu
 
 ## API reference
 
-- [`/captcha/recognition/image2text`](https://platform.acedata.cloud/documents/66a6d478-f47c-4850-ab83-26e0ffea2b71?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/captcha/recognition/image2text`](https://platform.acedata.cloud/documents/captcha-recognition-image2text?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

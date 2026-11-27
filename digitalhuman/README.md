@@ -2,7 +2,7 @@
 
 Create a talking-person video from a portrait and speech audio through Ace Data Cloud.
 
-[API documentation](https://docs.acedata.cloud/en/api-reference/digitalhuman/digital-human-videos) · [Models and pricing](https://platform.acedata.cloud/services/digitalhuman?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/5ced04db-8d92-4a6b-b988-91423dcc1f02?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API documentation](https://docs.acedata.cloud/en/api-reference/digitalhuman/digital-human-videos) · [Models and pricing](https://platform.acedata.cloud/services/digitalhuman?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/digitalhuman-videos?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
@@ -62,9 +62,9 @@ Keep polling the original task after a timeout or page reload. Submit again only
 
 ## API reference
 
-- [`/digital-human/videos`](https://platform.acedata.cloud/documents/5ced04db-8d92-4a6b-b988-91423dcc1f02?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/digital-human/voices`](https://platform.acedata.cloud/documents/c334172a-a0b1-451f-8137-d9c9830a15b9?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/digital-human/tasks`](https://platform.acedata.cloud/documents/74bb973d-939a-4a6e-89f4-1667deb8ea3b?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/digital-human/videos`](https://platform.acedata.cloud/documents/digitalhuman-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/digital-human/voices`](https://platform.acedata.cloud/documents/digitalhuman-voices?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/digital-human/tasks`](https://platform.acedata.cloud/documents/digitalhuman-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

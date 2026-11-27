@@ -37,7 +37,7 @@ Read `data` from the response. The following fields illustrate a successful resu
 
 ## API reference
 
-- [`/localization/translate`](https://platform.acedata.cloud/documents/f7322d41-51dc-48b2-8584-dabc632b5031?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/localization/translate`](https://platform.acedata.cloud/documents/localization-translate?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

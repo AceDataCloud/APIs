@@ -37,16 +37,16 @@ Read `id_num` from the response. The following fields illustrate a successful re
 
 ## API reference
 
-- [`/identity/bankcard/check-1e`](https://platform.acedata.cloud/documents/5c98d0d5-729e-47e1-9719-d22b6b4efaf4?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/bankcard/check-2e`](https://platform.acedata.cloud/documents/6e3c7e69-632f-4e59-b0bc-c0363ffe1c1f?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/bankcard/check-3e`](https://platform.acedata.cloud/documents/3a0d976c-69e9-4995-a249-91738d103c11?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/bankcard/check-4e`](https://platform.acedata.cloud/documents/efd09245-9092-426a-b721-9145a3c06e87?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/idcard/check-1e`](https://platform.acedata.cloud/documents/10455fc1-2399-40b4-b486-4a93812b4143?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/idcard/check-2e`](https://platform.acedata.cloud/documents/78e1cf92-2bde-4599-ac4c-75485130e548?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/idcard/ocr`](https://platform.acedata.cloud/documents/5eb27329-8f0b-4e02-b8cc-54c7ba96633d?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/phone/check-1e`](https://platform.acedata.cloud/documents/e90adc40-95f0-418a-8fd5-6dec725a9f4f?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/phone/check-2e`](https://platform.acedata.cloud/documents/34c42afe-f2ce-423f-8e19-dcf1ba650346?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/identity/phone/check-3e`](https://platform.acedata.cloud/documents/f34e4918-4aaf-4a21-b007-25636b37cf2f?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/bankcard/check-1e`](https://platform.acedata.cloud/documents/identity-bankcard-check-1e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/bankcard/check-2e`](https://platform.acedata.cloud/documents/identity-bankcard-check-2e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/bankcard/check-3e`](https://platform.acedata.cloud/documents/identity-bankcard-check-3e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/bankcard/check-4e`](https://platform.acedata.cloud/documents/identity-bankcard-check-4e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/idcard/check-1e`](https://platform.acedata.cloud/documents/identity-idcard-check-1e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/idcard/check-2e`](https://platform.acedata.cloud/documents/identity-idcard-check-2e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/idcard/ocr`](https://platform.acedata.cloud/documents/identity-idcard-ocr?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/phone/check-1e`](https://platform.acedata.cloud/documents/identity-phone-check-1e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/phone/check-2e`](https://platform.acedata.cloud/documents/identity-phone-check-2e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/identity/phone/check-3e`](https://platform.acedata.cloud/documents/identity-phone-check-3e?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 

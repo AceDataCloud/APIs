@@ -65,8 +65,8 @@ Keep polling the original task after a timeout or page reload. Submit again only
 
 ## API reference
 
-- [`/dreamina/videos`](https://platform.acedata.cloud/documents/b3880780-678f-4495-bda7-3a1ecf42781c?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-- [`/dreamina/tasks`](https://platform.acedata.cloud/documents/b35fd461-8da1-4aec-9e40-5e361ed26223?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/dreamina/videos`](https://platform.acedata.cloud/documents/dreamina-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- [`/dreamina/tasks`](https://platform.acedata.cloud/documents/dreamina-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Troubleshooting
 
