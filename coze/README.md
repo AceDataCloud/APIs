@@ -107,7 +107,7 @@ publication steps.
 
 ![Copy the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-3. Use the raw key in your client's credential field. HTTP requests add `Bearer ` in the Authorization header. See the [platform key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) for optional settings.
+3. Use the raw key in your client's credential field. HTTP requests add `Bearer ` in the Authorization header. To limit which APIs the key can call, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 

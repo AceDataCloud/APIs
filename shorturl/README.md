@@ -17,8 +17,6 @@ Create a short link from a destination URL through Ace Data Cloud.
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
 
-[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
-
 ## Quickstart
 
 ### Request
@@ -28,7 +26,7 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/shorturl \
   --header "Authorization: Bearer $ACEDATACLOUD_API_KEY" \
   --header 'Content-Type: application/json' \
   --data '{
-  "content": "https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen"
+  "content": "https://platform.acedata.cloud/documents/shorturl?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen"
 }'
 ```
 
@@ -55,7 +53,7 @@ Copy `data.url` from your response to use the generated short link.
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+- For authentication errors, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) to check the key’s allowed APIs, expiration and usage limit.
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
