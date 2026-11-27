@@ -16883,7 +16883,8 @@
                             "gemini-2.5-flash",
                             "gemini-2.5-flash-lite",
                             "gemini-4-carbon",
-                            "gemini-4-hydrogen"
+                            "gemini-4-hydrogen",
+                            "gemini-4-neon"
                           ],
                           "rank": 0,
                           "type": "string",
@@ -17504,6 +17505,15 @@
           "models_added": [
             "gemini-4-carbon",
             "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "29f9c2ad51e292b6c424a0c006e38630bdb9a274",
+          "source_file": "openapi/94b49b55-2ea8-4d46-a93c-eb308e1a52d5.json",
+          "source_file_sha256": "57566ebc8182631fb932f69e3c4963a769a5729b63ab66c2bb9fb65edb2a6fbb",
+          "models_added": [
+            "gemini-4-neon"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }
@@ -20234,7 +20244,8 @@
                       "gemini-2.5-flash-image",
                       "gemini-3-pro-image",
                       "gemini-4-carbon",
-                      "gemini-4-hydrogen"
+                      "gemini-4-hydrogen",
+                      "gemini-4-neon"
                     ],
                     "type": "string"
                   },
@@ -20673,6 +20684,15 @@
           "models_added": [
             "gemini-4-carbon",
             "gemini-4-hydrogen"
+          ],
+          "scope": "request model enum changes only; no live publication claim"
+        },
+        {
+          "revision": "29f9c2ad51e292b6c424a0c006e38630bdb9a274",
+          "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+          "source_file_sha256": "ef70170e4c9c12ff69b6cdbdca14eeabc481ab32451ae88008e81d261f37d4fc",
+          "models_added": [
+            "gemini-4-neon"
           ],
           "scope": "request model enum changes only; no live publication claim"
         }

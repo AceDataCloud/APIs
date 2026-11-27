@@ -417,7 +417,8 @@
                 "gemini-2.5-flash-image",
                 "gemini-3-pro-image",
                 "gemini-4-carbon",
-                "gemini-4-hydrogen"
+                "gemini-4-hydrogen",
+                "gemini-4-neon"
               ],
               "type": "string"
             },
@@ -1505,7 +1506,8 @@
                       "gemini-2.5-flash",
                       "gemini-2.5-flash-lite",
                       "gemini-4-carbon",
-                      "gemini-4-hydrogen"
+                      "gemini-4-hydrogen",
+                      "gemini-4-neon"
                     ],
                     "type": "string",
                     "description": "Model ID to be used."
