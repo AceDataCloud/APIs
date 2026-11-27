@@ -28,9 +28,7 @@ Source: [Coze official guide](https://docs.coze.cn/guides_use_plugin), retrieved
 
 ![Copy a redacted API Key or open Manage Keys](../../_assets/tutorial/get-api-key-en.png)
 
-![Create an optional separate credential](../../_assets/tutorial/create-api-key-en.png)
-
-These are existing Ace account screenshots reused from the [SunoDify guide](https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md). They were reviewed on **2026-10-18** and contain redacted values. `Dify tutorial` is the example name in the original image; use `Coze Seedance` instead. No new key was created for this guide.
+These are existing Ace account screenshots reused from the [SunoDify guide](https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md). They were reviewed on **2026-10-18** and contain redacted values. No new key was created for this guide.
 
 Copy only the token string. A `platform-...` account-management token cannot replace an API Token for the service. Any trial allowance is what your account currently displays; the plugin listing does not make generation free.
 

@@ -12,27 +12,23 @@ Create a 3D model from a prompt or reference images, then texture, convert, rig 
 ## Get an API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+2. Find **General Application** and click the copy button marked **1**. If needed, select **Initialize General Application** first. Confirm access to this service and enough balance for your request.
 
-![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+![Copy the API key from General Application using the button marked 1](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
-
-![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
-
-3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
+3. Save the copied key in your terminal. The examples add the `Bearer` prefix in the HTTP header.
 
 ```bash
 export ACEDATACLOUD_API_TOKEN='YOUR_API_KEY'
 ```
 
-[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
+[API key help](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Use with an AI agent
 
 Install the [Tripo 3D Skill](https://github.com/AceDataCloud/Skills/tree/main/skills/tripo-3d) for request examples and task handling. For an MCP client, configure `uvx mcp-tripo` as a local stdio server and supply your service token in `ACEDATACLOUD_API_TOKEN`. [MCP package](https://pypi.org/project/mcp-tripo/)
 
-## Try a free request
+## Quickstart
 
 The following example checks whether the Khronos sample Box mesh can be rigged. It uses the same submit-and-poll flow as a paid generation. Set `ACEDATACLOUD_API_TOKEN` to your service token, and run from this directory with Node.js 18+ and jq installed. [Khronos glTF sample asset](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/Box)
 
@@ -51,7 +47,29 @@ TASK_ID=$(jq -er '.task_id' <<<"$RECEIPT")
 node poll.mjs "$TASK_ID"
 ```
 
-The async receipt has the form `{"task_id":"<TASK_ID>"}`. The polling example posts `{"id":"<TASK_ID>"}` to `/tripo/tasks` and prints the final task record. For this Box mesh, the observed result had the following fields (identifiers abbreviated).
+### Submission response JSON
+
+```json
+{
+  "task_id": "TASK_ID"
+}
+```
+
+The `TASK_ID` value is the original task identifier. The polling example posts `{"id":"<TASK_ID>"}` to `/tripo/tasks` and prints the final task record. While processing, a task record can have the following fields.
+
+### Processing response JSON
+
+```json
+{
+  "id": "TASK_ID",
+  "progress": 0,
+  "finished_at": null
+}
+```
+
+### Completed response JSON
+
+For this Box mesh, the observed result had the following fields (identifiers abbreviated).
 
 ```json
 {
@@ -79,6 +97,39 @@ curl --fail-with-body --silent --show-error https://api.acedata.cloud/tripo/gene
   -H "Idempotency-Key: $REQUEST_KEY" \
   -d '{"prompt":"A wooden chair with four straight legs","texture":"none","async":true}'
 ```
+
+### Submission response JSON
+
+```json
+{
+  "task_id": "TASK_ID"
+}
+```
+
+Pass this `task_id` to `node poll.mjs "TASK_ID"` as above. A completed generation has the following response excerpt.
+
+### Completed response JSON
+
+```json
+{
+  "id": "TASK_ID",
+  "progress": 100,
+  "response": {
+    "success": true,
+    "task_id": "TASK_ID",
+    "trace_id": "TRACE_ID",
+    "data": [
+      {
+        "id": "MODEL_ID",
+        "model_url": "https://media.example.com/model.glb",
+        "format": "GLB"
+      }
+    ]
+  }
+}
+```
+
+The identifiers and URL are placeholders. Download `response.data[0].model_url` from your actual response.
 
 Pass exactly one of `prompt`, `image_url`, or `image_urls`. Single images and multiview slots accept public HTTPS PNG or JPEG files up to 20 MiB each. Multiview accepts two to four slots in front, left, back, right order. The front and at least one other view are required. Use `null` to skip an intermediate view. The default `model` is `v3.1-20260211`, and the default `texture` is `standard`.
 

@@ -26,9 +26,7 @@
 
 ![复制已遮挡的Key或打开管理密钥](../../_assets/tutorial/get-api-key-en.png)
 
-![创建独立凭据的真实界面](../../_assets/tutorial/create-api-key-en.png)
-
-图片复用自[SunoDify原教程](https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md)，**2026-10-18**目视复核、真实值已遮挡。原图名称 `Dify tutorial` 只是示例；此处请填 `Coze Suno`。本轮没有创建Key。
+图片复用自[SunoDify原教程](https://github.com/AceDataCloud/SunoDify/blob/8d3d03570e73324220f111f7fe343da0792a8071/README.md)，**2026-10-18**目视复核、真实值已遮挡。本轮没有创建Key。
 
 只复制Token字符串，不用 `platform-...` 平台管理Token。试用额度以当前账号显示为准，插件免费标签不代表API生成免费。
 
