@@ -1,6 +1,6 @@
 # Search to structured summary (optional HTTP workflow)
 
-[`search-summary.json`](search-summary.json) combines a web search with a short Markdown summary and numbered sources. This advanced example uses built-in n8n nodes for instances that cannot install community packages. For native service discovery and credentials, start with [Google Search](https://github.com/AceDataCloud/GoogleSearchN8N#readme), [Ace Data Cloud Chat Model](https://github.com/AceDataCloud/AceChatN8N#readme), and the [n8n integration guide](https://docs.acedata.cloud/en/integrations/n8n).
+[`search-summary.json`](search-summary.json) combines a web search with a short Markdown summary and numbered sources. This advanced example uses built-in n8n nodes for instances that cannot install community packages. For native service discovery and credentials, start with [Google Search](https://github.com/AceDataCloud/GoogleSearchN8N#readme), [Ace Data Cloud Chat Model](https://github.com/AceDataCloud/AceChatN8N#readme), and the [platform API guides](https://platform.acedata.cloud/documents?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 This HTTP workflow is a separate importable example. It does not install a native provider or indicate official n8n template approval.
 

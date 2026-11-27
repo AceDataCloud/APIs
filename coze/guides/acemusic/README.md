@@ -18,7 +18,7 @@ Import three HTTP tools into your Coze workspace to create songs, write lyrics, 
 
 For a reference import, choose `generateMusic` with `action=upload` and an authorized public HTTPS MP3 `audio_url`. This separately priced operation returns one track. A cover uses `action=cover` and one owned `audio_id`. A mashup uses `action=mashup` and exactly two different, compatible owned `mashup_audio_ids`. Supply `lyric` and `style` and select `acemusic-v1.1` for either action. Leave unrelated optional fields unset.
 
-After one submission, keep the returned `task_id` and call `getTaskResults` with that ID. Continue polling while the task is active. At `partial_failed` show only finished tracks with playable URLs and stop. For `submission_unknown` retain the original ID and check history before any new submission. [Public API guide](https://docs.acedata.cloud/en/guides/acemusic/acemusic_audios.md)
+After one submission, keep the returned `task_id` and call `getTaskResults` with that ID. Continue polling while the task is active. At `partial_failed` show only finished tracks with playable URLs and stop. For `submission_unknown` retain the original ID and check history before any new submission. [Public API guide](https://platform.acedata.cloud/documents/acemusic-audios-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Remote MCP
 

@@ -18,7 +18,7 @@
 
 上传参考时，在 `generateMusic` 选择 `action=upload`，传有权使用的公开 HTTPS MP3 地址 `audio_url`。上传单独计费，成功时返回一首参考音轨。翻唱用 `action=cover` 和一个自有 `audio_id`；融合用 `action=mashup` 和两个不同且兼容的自有 `mashup_audio_ids`。二者均使用 `acemusic-v1.1`，并需提供 `lyric` 和 `style`。表单中其他动作的参数留空。
 
-创作只提交一次，保存返回的 `task_id`，之后用 `getTaskResults` 查询同一 ID。`partial_failed` 时展示已完成且有播放地址的候选并停止轮询。遇到 `submission_unknown`，保留任务和追踪信息，先查历史。[歌曲与参考音频指南](https://docs.acedata.cloud/zh-Hans/guides/acemusic/acemusic_audios.md)
+创作只提交一次，保存返回的 `task_id`，之后用 `getTaskResults` 查询同一 ID。`partial_failed` 时展示已完成且有播放地址的候选并停止轮询。遇到 `submission_unknown`，保留任务和追踪信息，先查历史。[歌曲与参考音频指南](https://platform.acedata.cloud/documents/acemusic-audios-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## 远程 MCP
 
