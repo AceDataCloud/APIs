@@ -18,6 +18,21 @@ class MirrorOwnershipTests(unittest.TestCase):
         self.assertIn("--delete", path.read_text())
         self.assertIn("sync.yaml", path.read_text())
 
+    def test_public_readmes_use_platform_docs_and_illustrated_key_steps(self):
+        mappings = yaml.safe_load((ROOT / "sync.yaml").read_text())["mappings"]
+        paths = [ROOT / "README.md"] + [
+            ROOT / directory / "README.md"
+            for directory in mappings
+            if directory not in {"sora", "face"}
+        ]
+        for path in paths:
+            with self.subTest(readme=path.relative_to(ROOT)):
+                text = path.read_text()
+                self.assertNotIn("docs.acedata.cloud", text)
+                self.assertIn("get-api-key-en.png", text)
+                self.assertIn("create-api-key-en.png", text)
+                self.assertIn("platform.acedata.cloud/console/applications", text)
+
     def test_no_legacy_agent_dispatch_listener_remains(self):
         self.assertFalse((ROOT / ".github/workflows/sync-from-docs.yml").exists())
 

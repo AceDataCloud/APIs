@@ -2,17 +2,26 @@
 
 Generate videos through Ace Data Cloud and retrieve the completed video by task ID.
 
-[API documentation](https://docs.acedata.cloud/en/guides/luma/luma_videos) · [Models and pricing](https://platform.acedata.cloud/services/luma?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/luma/luma_videos)
+[API documentation](https://platform.acedata.cloud/documents/luma-videos-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/luma?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/luma-videos-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
-1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
-2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
-3. Save the raw key in your terminal environment.
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
+
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
+
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
@@ -65,12 +74,12 @@ Explore the supported endpoints and integration guides for Luma Video Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/tasks` | [Luma Tasks API Integration Guide](https://platform.acedata.cloud/documents/3e965973-7b28-4844-b404-bd28bfeb5097?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/videos` | [Luma Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/16bb0108-1f09-45b3-97ac-16a668750a8c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Luma Tasks API](https://platform.acedata.cloud/documents/luma-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/tasks` | [Luma Tasks API Integration Guide](https://platform.acedata.cloud/documents/luma-tasks-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Luma Videos Generation API](https://platform.acedata.cloud/documents/luma-videos?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/luma/videos` | [Luma Videos Generation API Integration Guide](https://platform.acedata.cloud/documents/luma-videos-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).

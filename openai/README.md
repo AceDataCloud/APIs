@@ -2,17 +2,26 @@
 
 Generate text and build conversations with OpenAI models through Ace Data Cloud.
 
-[API documentation](https://docs.acedata.cloud/en/guides/openai/openai_chat_completions) · [Models and pricing](https://platform.acedata.cloud/services/openai?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/openai/openai_chat_completions)
+[API documentation](https://platform.acedata.cloud/documents/openai-chat-completions-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/openai?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/openai-chat-completions-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
-1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
-2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
-3. Save the raw key in your terminal environment.
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
+
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
+
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
@@ -70,11 +79,11 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [OpenAI Chat Completions API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](https://platform.acedata.cloud/documents/fc571e00-464f-429e-b920-8896c906c2b9?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](https://platform.acedata.cloud/documents/22fce352-b71e-4177-991f-2216841f35e2?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/embeddings` | [OpenAI Embeddings API Integration Guide](docs/openai_embeddings_api_integration_guide.md) |
-| [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [OpenAI Chat Completions API](https://platform.acedata.cloud/documents/openai-chat-completions?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](https://platform.acedata.cloud/documents/openai-chat-completions-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [OpenAI Images Generations API](https://platform.acedata.cloud/documents/openai-images-generations?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](https://platform.acedata.cloud/documents/openai-images-generations-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [OpenAI Responses API](https://platform.acedata.cloud/documents/openai-responses?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/openai-v1-responses-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [OpenAI Embeddings API](https://platform.acedata.cloud/documents/openai-embeddings?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/embeddings` | [OpenAI Embeddings API Integration Guide](docs/openai_embeddings_api_integration_guide.md) |
+| [OpenAI Images Edits API](https://platform.acedata.cloud/documents/openai-images-edits?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/openai-images-edits-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 
 ## Chat and Responses Billing
 
@@ -86,7 +95,7 @@ The OpenAI image generation and editing APIs and their companion guides are hidd
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).

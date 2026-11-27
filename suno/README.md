@@ -2,17 +2,26 @@
 
 Create songs from a short description or your own lyrics through Ace Data Cloud.
 
-[API documentation](https://docs.acedata.cloud/en/guides/suno/suno_audios) · [Models and pricing](https://platform.acedata.cloud/services/suno?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/suno/suno_audios)
+[API documentation](https://platform.acedata.cloud/documents/suno-audios-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/suno?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/suno-audios-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
-1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
-2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
-3. Save the raw key in your terminal environment.
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
+
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
+
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
@@ -70,18 +79,18 @@ Explore the supported endpoints and integration guides for Suno Music Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/audios` | [Suno Audios Generation API Integration Guide](https://platform.acedata.cloud/documents/d016ee3f-421b-4b6e-989a-8beba8701701?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Persona API](https://platform.acedata.cloud/documents/78bb6c62-6ce0-490f-a7df-e89d80ec0583?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/persona` | [Suno Persona API Integration Guide](https://platform.acedata.cloud/documents/a1ae233c-c52a-4a62-97dd-0db0c089da5a?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno MP4 API](https://platform.acedata.cloud/documents/adf030f2-ac31-4342-bb65-afd9669272f9?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/mp4` | [Suno MP4 API Integration Guide](https://platform.acedata.cloud/documents/9dff19bb-3360-4578-8115-91c5efc130a3?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Vox API](https://platform.acedata.cloud/documents/ae804856-897a-4f5b-9329-8514a86a1d43?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/vox` | [Suno Vox API Integration Guide](https://platform.acedata.cloud/documents/4d487ecc-0b64-4e8f-a40b-908b9d776c76?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [$t(document_title_suno_timing_generation_api)](https://platform.acedata.cloud/documents/e8b5a84f-742f-4078-8b7d-a52a68aa253f?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/149a2dd6-8af9-43f1-8994-0f4466b16c6f?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Wav API](https://platform.acedata.cloud/documents/c55b2b82-416b-46d7-9854-4c3bf28a3cc5?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/wav` | [Suno Wav API Integration Guide](https://platform.acedata.cloud/documents/e48efa85-ed94-4ea8-8613-c16d734a3138?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno MIDI API](https://platform.acedata.cloud/documents/dc315c81-ebfa-4c5a-b6e8-af593dd67d86?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/midi` | [Suno MIDI API Integration Guide](https://platform.acedata.cloud/documents/d0557c7c-b518-4c42-b482-cc84d62b208b?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Style Generation API](https://platform.acedata.cloud/documents/864d5f20-2e97-4334-b0bf-f80a60f0810c?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/style` | [Suno Style API Integration Guide](https://platform.acedata.cloud/documents/2835d3d3-fcfa-4e31-a4be-33a93b84a450?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/514d82dc-f7ab-4638-9f21-8b9275916b08?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/lyrics` | [Suno Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/f1c66741-a488-43ca-91fc-e53fbbda639a?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/851f9405-5f19-405a-8dbd-df4bd88e05a2?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/mashup-lyrics` | [Suno Mashup Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/ec26e17f-7709-40f4-ad87-2f50c16f94b0?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/tasks` | [Suno Tasks API Integration Guide](https://platform.acedata.cloud/documents/d3868342-7f11-4670-bd31-61a63663cb10?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Suno Upload API](https://platform.acedata.cloud/documents/766db278-012c-43c4-9245-5f18d8dc4d82?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/upload` | [Suno Upload API Integration Guide](https://platform.acedata.cloud/documents/26092dda-23d9-4874-9916-e12db6fce3b5?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Audios Generation API](https://platform.acedata.cloud/documents/suno-audios?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/audios` | [Suno Audios Generation API Integration Guide](https://platform.acedata.cloud/documents/suno-audios-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Persona API](https://platform.acedata.cloud/documents/suno-persona?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/persona` | [Suno Persona API Integration Guide](https://platform.acedata.cloud/documents/suno-persona-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno MP4 API](https://platform.acedata.cloud/documents/suno-mp4?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/mp4` | [Suno MP4 API Integration Guide](https://platform.acedata.cloud/documents/suno-mp4-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Vox API](https://platform.acedata.cloud/documents/suno-vox?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/vox` | [Suno Vox API Integration Guide](https://platform.acedata.cloud/documents/suno-vox-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [$t(document_title_suno_timing_generation_api)](https://platform.acedata.cloud/documents/suno-timing?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/timing` | [Suno Timing API Integration Guide](https://platform.acedata.cloud/documents/suno-timing-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Wav API](https://platform.acedata.cloud/documents/suno-wav?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/wav` | [Suno Wav API Integration Guide](https://platform.acedata.cloud/documents/suno-wav-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno MIDI API](https://platform.acedata.cloud/documents/suno-midi?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/midi` | [Suno MIDI API Integration Guide](https://platform.acedata.cloud/documents/suno-midi-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Style Generation API](https://platform.acedata.cloud/documents/suno-style?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/style` | [Suno Style API Integration Guide](https://platform.acedata.cloud/documents/suno-style-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Lyrics Generation API](https://platform.acedata.cloud/documents/suno-lyrics?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/lyrics` | [Suno Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/suno-lyrics-generation-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno MashupLyrics Generation API](https://platform.acedata.cloud/documents/suno-mashup-lyrics?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/mashup-lyrics` | [Suno Mashup Lyrics Generation API Integration Guide](https://platform.acedata.cloud/documents/suno-mashup-lyrics-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Tasks API](https://platform.acedata.cloud/documents/suno-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/tasks` | [Suno Tasks API Integration Guide](https://platform.acedata.cloud/documents/suno-tasks-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Suno Upload API](https://platform.acedata.cloud/documents/suno-upload?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/upload` | [Suno Upload API Integration Guide](https://platform.acedata.cloud/documents/suno-upload-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 | [Suno Audio Availability Check API (Beta)](https://platform.acedata.cloud/documents/suno-availability?utm_source=github) | `/suno/availability` | [Audio availability precheck](docs/suno_audios_generation_api_integration_guide.md#audio-availability-precheck-beta) |
 | [Suno Studio Projects API (Beta)](https://platform.acedata.cloud/documents/suno-projects?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/suno/projects` | [Project workflow](#studio-projects-beta) |
 
@@ -180,7 +189,7 @@ On `project_version_conflict` or `project_candidate_stale` (409), retrieve the l
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).

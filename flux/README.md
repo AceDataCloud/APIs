@@ -2,17 +2,26 @@
 
 Generate images from text and edit reference images through Ace Data Cloud.
 
-[API documentation](https://docs.acedata.cloud/en/guides/flux/flux_images) · [Models and pricing](https://platform.acedata.cloud/services/flux?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://docs.acedata.cloud/zh-Hans/guides/flux/flux_images)
+[API documentation](https://platform.acedata.cloud/documents/flux-images-integration?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [Models and pricing](https://platform.acedata.cloud/services/flux?utm_source=github&utm_medium=referral&utm_campaign=evergreen) · [中文文档](https://platform.acedata.cloud/documents/flux-images-integration?lang=zh-cn&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Get an API key
 
-1. Open [Applications](https://platform.acedata.cloud/console/applications?utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or create an account.
-2. Open **General application**. If it is missing, select **Initialize General Application**. Copy its **API Key**, or create a separate key in **Manage Keys**. Confirm access to this service and enough balance for the request.
-3. Save the raw key in your terminal environment.
+1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
+2. Find **General Application**. If it is missing, select **Initialize General Application**. Use the copy button marked **1** to copy its API key. Confirm service access and enough balance for your first request.
+
+![General Application with the API key copy button marked 1 and Manage Keys marked 2](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
+
+For a separate key, select **Manage Keys** (marked **2**) → **Create**. Enter a name for your integration, review optional usage limits, expiration and allowed APIs, then select **Create**. The screenshot uses an example name.
+
+![Create New Credential with a name, optional restrictions and the Create button](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
+
+3. Copy the raw key value and save it in your terminal environment. The HTTP examples add the `Bearer` prefix for you.
 
 ```bash
 export ACEDATACLOUD_API_KEY='YOUR_API_KEY'
 ```
+
+[Step-by-step API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 
 ## Quickstart
 
@@ -49,8 +58,8 @@ Explore the supported endpoints and integration guides for Flux Image Generation
 
 | API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
-| [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/flux/images` | [Flux Images Generation API Integration Guide](https://platform.acedata.cloud/documents/92754994-3970-4f2a-9bf3-113149c25c11?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
-| [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/flux/tasks` | [Flux Tasks API Integration Guide](https://platform.acedata.cloud/documents/5998d153-b9a6-4798-b5d9-8f523d0d626f?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Flux Images Generation API](https://platform.acedata.cloud/documents/flux-images?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/flux/images` | [Flux Images Generation API Integration Guide](https://platform.acedata.cloud/documents/flux-images-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
+| [Flux Tasks API](https://platform.acedata.cloud/documents/flux-tasks?utm_source=github&utm_medium=referral&utm_campaign=evergreen) | `/flux/tasks` | [Flux Tasks API Integration Guide](https://platform.acedata.cloud/documents/flux-tasks-integration?utm_source=github&utm_medium=referral&utm_campaign=evergreen) |
 
 ## FLUX 3 video generation
 
@@ -70,7 +79,7 @@ Keywords: flux-api, ai-image, image-generation, black-forest-labs, rest-api, ai-
 
 ## Troubleshooting
 
-- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://docs.acedata.cloud/en/authentication)
+- For authentication errors, check the copied API key, service access, expiration and configured usage limits. [API key guide](https://platform.acedata.cloud/documents/api-key-guide?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen)
 - For insufficient balance, open the application and review its balance and the current service price.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
