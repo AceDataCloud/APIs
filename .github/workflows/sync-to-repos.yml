@@ -6,10 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       sync_all:
-        description: 'Sync all directories (bypass change detection)'
+        description: Sync all directories (bypass change detection)
         required: false
-        default: 'true'
+        default: true
         type: boolean
+
+permissions:
+  contents: read
 
 jobs:
   detect-changes:
@@ -20,44 +23,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
-
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install 'PyYAML>=6,<7'
+      # scripts/sync_matrix.py reads sync.yaml, including hyphenated service names.
       - name: Detect changed subdirectories
         id: changes
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          SYNC_ALL: ${{ inputs.sync_all }}
         run: |
-          SYNC_ALL="${{ github.event.inputs.sync_all }}"
-          if [ "${{ github.event_name }}" = "schedule" ]; then SYNC_ALL="true"; fi
-
-          # Read sync.yaml to get mapping keys
-          DIRS=$(grep -E '^\s+\w+:$' sync.yaml | sed 's/://;s/^\s*//' | grep -v '^repo$\|^exclude$\|^mappings$')
-
-          MATRIX="[]"
-          HAS_CHANGES="false"
-
           if [ "$SYNC_ALL" = "true" ]; then
-            for dir in $DIRS; do
-              REPO=$(awk "/^  ${dir}:/{found=1} found && /repo:/{print \$2; exit}" sync.yaml)
-              if [ -n "$REPO" ]; then
-                MATRIX=$(echo "$MATRIX" | jq -c --arg d "$dir" --arg r "$REPO" '. + [{"dir": $d, "repo": $r}]')
-                HAS_CHANGES="true"
-              fi
-            done
+            python scripts/sync_matrix.py --all
           else
-            CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || git diff --name-only HEAD)
-            for dir in $DIRS; do
-              if echo "$CHANGED" | grep -q "^${dir}/"; then
-                REPO=$(awk "/^  ${dir}:/{found=1} found && /repo:/{print \$2; exit}" sync.yaml)
-                if [ -n "$REPO" ]; then
-                  MATRIX=$(echo "$MATRIX" | jq -c --arg d "$dir" --arg r "$REPO" '. + [{"dir": $d, "repo": $r}]')
-                  HAS_CHANGES="true"
-                fi
-              fi
-            done
+            python scripts/sync_matrix.py
           fi
-
-          echo "matrix={\"include\":$MATRIX}" >> $GITHUB_OUTPUT
-          echo "has_changes=$HAS_CHANGES" >> $GITHUB_OUTPUT
-          echo "Changes detected: $MATRIX"
 
   sync:
     needs: detect-changes
@@ -68,73 +50,44 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-
       - name: Sync ${{ matrix.dir }} to ${{ matrix.repo }}
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.SYNC_TOKEN }}
+          MIRROR_DIRECTORY: ${{ matrix.dir }}
+          MIRROR_REPOSITORY: ${{ matrix.repo }}
+          MIRROR_EXCLUDES: ${{ toJson(matrix.exclude) }}
+          CREATE_MISSING: ${{ matrix.create_missing }}
         run: |
-          set -e
+          set -euo pipefail
+          test -f "$GITHUB_WORKSPACE/$MIRROR_DIRECTORY/README.md"
+          gh auth setup-git
+          if [ "$CREATE_MISSING" = "true" ] && ! gh repo view "$MIRROR_REPOSITORY" --json name >/dev/null; then
+            gh repo create "$MIRROR_REPOSITORY" --public
+          fi
+          gh repo clone "$MIRROR_REPOSITORY" /tmp/target
+          git -C /tmp/target config user.name "Ace Data Cloud Dev"
+          git -C /tmp/target config user.email "dev@acedata.cloud"
+          git -C /tmp/target checkout -B main
 
-          DIR="${{ matrix.dir }}"
-          REPO="${{ matrix.repo }}"
-
-          # Clone target repo
-          git clone "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" /tmp/target
-          cd /tmp/target
-
-          # Configure git
-          git config user.name "Ace Data Cloud Dev"
-          git config user.email "dev@acedata.cloud"
-
-          # Read exclude patterns from sync.yaml
-          EXCLUDES=""
-          IN_EXCLUDES=false
-          while IFS= read -r line; do
-            if echo "$line" | grep -q "^  ${DIR}:"; then
-              IN_DIR=true
-              continue
-            fi
-            if [ "$IN_DIR" = true ] && echo "$line" | grep -q "exclude:"; then
-              IN_EXCLUDES=true
-              continue
-            fi
-            if [ "$IN_EXCLUDES" = true ]; then
-              if echo "$line" | grep -qE '^\s+- '; then
-                PATTERN=$(echo "$line" | sed 's/^\s*- //')
-                EXCLUDES="$EXCLUDES --exclude=$PATTERN"
-              else
-                break
-              fi
-            fi
-            # Reset if we hit a new top-level dir mapping
-            if echo "$line" | grep -qE '^\s+\w+:$' && [ "$IN_DIR" = true ]; then
-              break
-            fi
-          done < "$GITHUB_WORKSPACE/sync.yaml"
-
-          # Sync files: monorepo subdir -> target repo root
-          # --delete prunes files removed from the monorepo. $EXCLUDES comes from
-          # sync.yaml; the literals below also shield repo-governance files that
-          # only ever live in the target repo.
+          mapfile -t configured_excludes < <(python -c 'import json, os; print("\n".join(json.loads(os.environ["MIRROR_EXCLUDES"])))')
+          exclude_args=()
+          for pattern in "${configured_excludes[@]}"; do
+            if [ -n "$pattern" ]; then exclude_args+=("--exclude=$pattern"); fi
+          done
           rsync -av --delete \
             --exclude='.git' \
             --exclude='LICENSE*' \
             --exclude='CONTRIBUTING*' \
             --exclude='CODE_OF_CONDUCT*' \
             --exclude='SECURITY*' \
-            $EXCLUDES \
-            "$GITHUB_WORKSPACE/${DIR}/" /tmp/target/
+            "${exclude_args[@]}" \
+            "$GITHUB_WORKSPACE/$MIRROR_DIRECTORY/" /tmp/target/
 
-          # Check for changes
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No changes to sync for ${DIR}"
+          git -C /tmp/target add -A
+          if git -C /tmp/target diff --cached --quiet; then
+            echo "No changes to sync for $MIRROR_DIRECTORY"
             exit 0
           fi
-
-          # Get the commit message from the monorepo
-          COMMIT_MSG=$(cd "$GITHUB_WORKSPACE" && git log -1 --pretty=format:"%s")
-
-          git commit -m "sync: ${COMMIT_MSG}" -m "Synced from monorepo directory: ${DIR}"
-          git push origin main
-          echo "Successfully synced ${DIR} to ${REPO}"
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          git -C /tmp/target commit -m "sync: $COMMIT_MSG" -m "Synced from monorepo directory: $MIRROR_DIRECTORY"
+          git -C /tmp/target push origin main

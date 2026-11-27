@@ -1,6 +1,7 @@
 mappings:
   tripo:
     repo: AceDataCloud/TripoAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
@@ -18,6 +19,7 @@ mappings:
       - .gitbooks
   maestro:
     repo: AceDataCloud/MaestroAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
@@ -63,31 +65,40 @@ mappings:
     exclude:
       - .github
       - .gitbooks
-      - .gitbooks
   wan:
     repo: AceDataCloud/WanAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   seedance:
     repo: AceDataCloud/SeedanceAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   qwen-image:
     repo: AceDataCloud/QwenImageAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
   seedream:
     repo: AceDataCloud/SeedreamAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   producer:
     repo: AceDataCloud/ProducerAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   fish:
     repo: AceDataCloud/FishAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
@@ -98,66 +109,148 @@ mappings:
       - .gitbooks
   shorturl:
     repo: AceDataCloud/ShortURLAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   kling:
     repo: AceDataCloud/KlingAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   hailuo:
     repo: AceDataCloud/HailuoAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   minimax:
     repo: AceDataCloud/MiniMaxAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   happyhorse:
     repo: AceDataCloud/HappyHorseAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   claude:
     repo: AceDataCloud/ClaudeAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   gemini:
     repo: AceDataCloud/GeminiAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   webextrator:
     repo: AceDataCloud/WebExtratorAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   aichat:
     repo: AceDataCloud/AiChatAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   grok:
     repo: AceDataCloud/GrokAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   glm:
     repo: AceDataCloud/GlmAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   kimi:
     repo: AceDataCloud/KimiAPI
+    metadata: true
     exclude:
       - .github
       - .gitbooks
   coze:
     repo: AceDataCloud/CozeAPI
+    exclude:
+      - .github
+      - .gitbooks
+  deepseek:
+    repo: AceDataCloud/DeepSeekAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  mimo:
+    repo: AceDataCloud/MiMoAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  dreamina:
+    repo: AceDataCloud/DreaminaAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  digitalhuman:
+    repo: AceDataCloud/DigitalHumanAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  turnstile:
+    repo: AceDataCloud/TurnstileAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  recaptcha:
+    repo: AceDataCloud/ReCaptchaAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  hcaptcha:
+    repo: AceDataCloud/HCaptchaAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  image2text:
+    repo: AceDataCloud/Image2TextAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  identity:
+    repo: AceDataCloud/IdentityAPI
+    metadata: true
+    create_missing: true
+    exclude:
+      - .github
+      - .gitbooks
+  localization:
+    repo: AceDataCloud/LocalizationAPI
+    metadata: true
+    create_missing: true
     exclude:
       - .github
       - .gitbooks
