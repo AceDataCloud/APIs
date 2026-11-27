@@ -1,4 +1,9 @@
 mappings:
+  tripo:
+    repo: AceDataCloud/TripoAPI
+    exclude:
+      - .github
+      - .gitbooks
   acemusic:
     repo: AceDataCloud/ACEMusicAPI
     metadata: true
