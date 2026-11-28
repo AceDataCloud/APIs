@@ -121,6 +121,10 @@ This is the source-of-truth monorepo. Changes pushed to `main` are automatically
 
 The mapping between subdirectories and standalone repos is defined in [`sync.yaml`](sync.yaml).
 
+Each mapping also owns the repository's English About description, platform homepage and topics. The sync workflow publishes these fields even when there is no README change. Update the mapping to change the public metadata; do not edit it separately on a mirror.
+
+The existing `SYNC_TOKEN` secret must have repository administration access for these About updates. Content mirroring continues to prefer `BOT_GITHUB_TOKEN` when configured.
+
 **Do not edit standalone repos directly** — all changes should be made here.
 
 ## Documentation updates

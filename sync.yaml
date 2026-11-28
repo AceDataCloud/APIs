@@ -1,104 +1,317 @@
 mappings:
   tripo:
     repo: AceDataCloud/TripoAPI
-    metadata: true
+    metadata:
+      description: 'Tripo 3D API: create, texture, convert, rig and animate 3D models. English API documentation and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/tripo?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - tripo
+        - 3d-generation
+        - api
+        - acedatacloud
+        - tripo-api
     exclude:
       - .github
       - .gitbooks
   acemusic:
     repo: AceDataCloud/ACEMusicAPI
-    metadata: true
+    metadata:
+      description: 'ACE Music API: create songs from prompts or custom lyrics. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/acemusic?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedatacloud
+        - acemusic
+        - ai-music
+        - music-generation
+        - rest-api
+        - api
+        - ace-music-api
     exclude:
       - .github
       - .gitbooks
   luma:
     repo: AceDataCloud/LumaAPI
-    metadata: true
+    metadata:
+      description: 'Luma API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/luma?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-video
+        - aivideo
+        - developer-api
+        - luma-ai
+        - rest-api
+        - text-to-video
+        - video-generation
+        - luma
+        - api
+        - acedatacloud
+        - luma-api
     exclude:
       - .github
       - .gitbooks
   maestro:
     repo: AceDataCloud/MaestroAPI
-    metadata: true
+    metadata:
+      description: 'Maestro API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/maestro?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-video
+        - api
+        - api-documentation
+        - developer-tools
+        - video-editing
+        - video-generation
+        - maestro
+        - acedatacloud
+        - maestro-api
     exclude:
       - .github
       - .gitbooks
   suno:
     repo: AceDataCloud/SunoAPI
-    metadata: true
+    metadata:
+      description: 'Suno API: create songs from prompts or custom lyrics. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/suno?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-music
+        - aiaudio
+        - developer-api
+        - lyrics-generation
+        - music-generation
+        - rest-api
+        - suno-api
+        - suno
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   sora:
     repo: AceDataCloud/SoraAPI
-    metadata: true
+    metadata:
+      description: Retired Sora API integration. Historical documentation and migration links to supported video APIs.
+      homepage: https://platform.acedata.cloud/services?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-video
+        - aivideo
+        - developer-api
+        - openai-sora
+        - rest-api
+        - sora-api
+        - video-generation
+        - sora
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   veo:
     repo: AceDataCloud/VeoAPI
-    metadata: true
+    metadata:
+      description: 'Veo API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/veo?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-video
+        - aivideo
+        - developer-api
+        - google-veo
+        - rest-api
+        - veo-api
+        - video-generation
+        - veo
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   flux:
     repo: AceDataCloud/FluxAPI
-    metadata: true
+    metadata:
+      description: 'FLUX API: generate and edit images. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/flux?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-image
+        - aiimage
+        - black-forest-labs
+        - developer-api
+        - flux-api
+        - image-generation
+        - rest-api
+        - flux
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   serp:
     repo: AceDataCloud/SerpAPI
-    metadata: true
+    metadata:
+      description: Google Search API. Search the web and retrieve structured Google search results through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/serp?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - developer-api
+        - google-search
+        - rest-api
+        - search-api
+        - serp-api
+        - web-search
+        - serp
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   nanobanana:
     repo: AceDataCloud/NanoBananaAPI
-    metadata: true
+    metadata:
+      description: 'Nano Banana API: generate and edit images. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/nano-banana?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - ai-image
+        - aiimage
+        - developer-api
+        - image-editing
+        - image-generation
+        - nanobanana-api
+        - rest-api
+        - nanobanana
+        - api
+        - acedatacloud
+        - nano-banana-api
     exclude:
       - .github
       - .gitbooks
   openai:
     repo: AceDataCloud/OpenAIAPI
-    metadata: true
+    metadata:
+      description: 'OpenAI API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/openai?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - ace-data-cloud
+        - ai-api
+        - aichat
+        - aiimage
+        - chat-completions
+        - developer-api
+        - developer-tools
+        - openai-api
+        - openai-compatible
+        - rest-api
+        - openai
+        - llm
+        - api
+        - acedatacloud
     exclude:
       - .github
       - .gitbooks
   wan:
     repo: AceDataCloud/WanAPI
-    metadata: true
+    metadata:
+      description: 'Wan API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/wan?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - wan
+        - video-generation
+        - api
+        - acedatacloud
+        - wan-api
     exclude:
       - .github
       - .gitbooks
   seedance:
     repo: AceDataCloud/SeedanceAPI
-    metadata: true
+    metadata:
+      description: 'Seedance API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/seedance?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-video
+        - api
+        - api-documentation
+        - developer-tools
+        - seedance
+        - video-generation
+        - acedatacloud
+        - seedance-api
     exclude:
       - .github
       - .gitbooks
   qwen-image:
     repo: AceDataCloud/QwenImageAPI
-    metadata: true
+    metadata:
+      description: 'Qwen Image API: generate and edit images. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/qwen-image?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - qwen-image
+        - image-generation
+        - api
+        - acedatacloud
+        - qwen-image-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   seedream:
     repo: AceDataCloud/SeedreamAPI
-    metadata: true
+    metadata:
+      description: 'Seedream API: generate and edit images. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/seedream?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-image
+        - api
+        - api-documentation
+        - developer-tools
+        - image-generation
+        - seedream
+        - acedatacloud
+        - seedream-api
     exclude:
       - .github
       - .gitbooks
   producer:
     repo: AceDataCloud/ProducerAPI
-    metadata: true
+    metadata:
+      description: 'Producer API: create songs from prompts or custom lyrics. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/producer?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-music
+        - api
+        - api-documentation
+        - developer-tools
+        - music-generation
+        - producer
+        - acedatacloud
+        - producer-api
     exclude:
       - .github
       - .gitbooks
   fish:
     repo: AceDataCloud/FishAPI
-    metadata: true
+    metadata:
+      description: Fish Audio API. Turn text into speech with a saved voice through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/fish?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - fish
+        - api
+        - acedatacloud
+        - fish-api
     exclude:
       - .github
       - .gitbooks
@@ -107,75 +320,207 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+    metadata:
+      description: 'Face Transformation API. Face analysis and transformation service: detect keypoints, beautify portraits, change age/gender, swap faces, cartoonify, and detect liveness.'
+      homepage: https://platform.acedata.cloud/documents?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - face
+        - api
+        - acedatacloud
+        - face-api
   shorturl:
     repo: AceDataCloud/ShortURLAPI
-    metadata: true
+    metadata:
+      description: Short URL API. Create a short link from a destination URL through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/shorturl?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - api
+        - api-documentation
+        - developer-tools
+        - short-url
+        - url-shortener
+        - shorturl
+        - acedatacloud
+        - short-url-api
     exclude:
       - .github
       - .gitbooks
   kling:
     repo: AceDataCloud/KlingAPI
-    metadata: true
+    metadata:
+      description: 'Kling API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/kling?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-video
+        - api
+        - api-documentation
+        - developer-tools
+        - kling
+        - video-generation
+        - acedatacloud
+        - kling-api
     exclude:
       - .github
       - .gitbooks
   hailuo:
     repo: AceDataCloud/HailuoAPI
-    metadata: true
+    metadata:
+      description: 'Hailuo API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/hailuo?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-video
+        - api
+        - api-documentation
+        - developer-tools
+        - hailuo
+        - video-generation
+        - acedatacloud
+        - hailuo-api
     exclude:
       - .github
       - .gitbooks
   minimax:
     repo: AceDataCloud/MiniMaxAPI
-    metadata: true
+    metadata:
+      description: 'MiniMax API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/minimax?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - minimax
+        - video-generation
+        - api
+        - acedatacloud
+        - minimax-api
     exclude:
       - .github
       - .gitbooks
   happyhorse:
     repo: AceDataCloud/HappyHorseAPI
-    metadata: true
+    metadata:
+      description: 'HappyHorse API: generate videos and retrieve task results. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/happyhorse?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - ai-video
+        - api
+        - api-documentation
+        - developer-tools
+        - video-generation
+        - happyhorse
+        - acedatacloud
+        - happyhorse-api
     exclude:
       - .github
       - .gitbooks
   claude:
     repo: AceDataCloud/ClaudeAPI
-    metadata: true
+    metadata:
+      description: 'Claude API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/claude?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - anthropic
+        - api
+        - api-documentation
+        - claude
+        - developer-tools
+        - llm
+        - acedatacloud
+        - claude-api
     exclude:
       - .github
       - .gitbooks
   gemini:
     repo: AceDataCloud/GeminiAPI
-    metadata: true
+    metadata:
+      description: 'Gemini API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/gemini?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - api
+        - api-documentation
+        - developer-tools
+        - gemini
+        - google-ai
+        - llm
+        - acedatacloud
+        - gemini-api
     exclude:
       - .github
       - .gitbooks
   webextrator:
     repo: AceDataCloud/WebExtratorAPI
-    metadata: true
+    metadata:
+      description: WebExtrator API. Extract readable Markdown and structured content from web pages through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/webextrator?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - acedata-cloud
+        - api
+        - api-documentation
+        - data-extraction
+        - developer-tools
+        - web-scraping
+        - webextrator
+        - acedatacloud
+        - webextrator-api
     exclude:
       - .github
       - .gitbooks
   aichat:
     repo: AceDataCloud/AiChatAPI
-    metadata: true
+    metadata:
+      description: 'AI Chat API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/aichat?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - aichat
+        - llm
+        - api
+        - acedatacloud
+        - aichat-api
     exclude:
       - .github
       - .gitbooks
   grok:
     repo: AceDataCloud/GrokAPI
-    metadata: true
+    metadata:
+      description: 'Grok API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/grok?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - grok
+        - llm
+        - api
+        - acedatacloud
+        - grok-api
     exclude:
       - .github
       - .gitbooks
   glm:
     repo: AceDataCloud/GlmAPI
-    metadata: true
+    metadata:
+      description: 'GLM API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/glm?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - glm
+        - llm
+        - api
+        - acedatacloud
+        - glm-api
     exclude:
       - .github
       - .gitbooks
   kimi:
     repo: AceDataCloud/KimiAPI
-    metadata: true
+    metadata:
+      description: 'Kimi API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/kimi?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - kimi
+        - llm
+        - api
+        - acedatacloud
+        - kimi-api
     exclude:
       - .github
       - .gitbooks
@@ -184,72 +529,153 @@ mappings:
     exclude:
       - .github
       - .gitbooks
+    metadata:
+      description: 'Ace Data Cloud service plugins for Coze: importable OpenAPI schemas, setup guides and examples for music, image and video workflows.'
+      homepage: https://platform.acedata.cloud/documents?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - coze
+        - openapi
+        - api
+        - acedatacloud
+        - coze-api
   deepseek:
     repo: AceDataCloud/DeepSeekAPI
-    metadata: true
+    metadata:
+      description: 'DeepSeek API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/deepseek?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - deepseek
+        - llm
+        - api
+        - acedatacloud
+        - deepseek-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   mimo:
     repo: AceDataCloud/MiMoAPI
-    metadata: true
+    metadata:
+      description: 'MiMo API: text generation and conversations. English API documentation, authentication and Quickstart examples.'
+      homepage: https://platform.acedata.cloud/services/mimo?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - mimo
+        - llm
+        - api
+        - acedatacloud
+        - mimo-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   dreamina:
     repo: AceDataCloud/DreaminaAPI
-    metadata: true
+    metadata:
+      description: Dreamina API. Create a talking-person video from a portrait and speech audio through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/dreamina?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - dreamina
+        - api
+        - acedatacloud
+        - dreamina-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   digitalhuman:
     repo: AceDataCloud/DigitalHumanAPI
-    metadata: true
+    metadata:
+      description: Digital Human API. Create a talking-person video from a portrait and speech audio through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/digitalhuman?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - digitalhuman
+        - api
+        - acedatacloud
+        - digitalhuman-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   turnstile:
     repo: AceDataCloud/TurnstileAPI
-    metadata: true
+    metadata:
+      description: Cloudflare Turnstile API. Request a verification token for your website integration through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/turnstile?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - turnstile
+        - api
+        - acedatacloud
+        - turnstile-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   recaptcha:
     repo: AceDataCloud/ReCaptchaAPI
-    metadata: true
+    metadata:
+      description: reCAPTCHA API. Request a verification token for your website integration through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/recaptcha?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - recaptcha
+        - api
+        - acedatacloud
+        - recaptcha-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   hcaptcha:
     repo: AceDataCloud/HCaptchaAPI
-    metadata: true
+    metadata:
+      description: hCaptcha API. Request a verification token for your website integration through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/hcaptcha?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - hcaptcha
+        - api
+        - acedatacloud
+        - hcaptcha-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   image2text:
     repo: AceDataCloud/Image2TextAPI
-    metadata: true
+    metadata:
+      description: Image to Text API. Recognize letters and digits in a verification image through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/image2text?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - image2text
+        - api
+        - acedatacloud
+        - image2text-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   identity:
     repo: AceDataCloud/IdentityAPI
-    metadata: true
+    metadata:
+      description: Identity Authentication API. Validate identity information and extract document fields through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/identity?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - identity
+        - api
+        - acedatacloud
+        - identity-api
     create_missing: true
     exclude:
       - .github
       - .gitbooks
   localization:
     repo: AceDataCloud/LocalizationAPI
-    metadata: true
+    metadata:
+      description: Localization API. Translate Markdown and JSON content while preserving its structure through Ace Data Cloud.
+      homepage: https://platform.acedata.cloud/services/localization?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen
+      topics:
+        - localization
+        - api
+        - acedatacloud
+        - localization-api
     create_missing: true
     exclude:
       - .github
