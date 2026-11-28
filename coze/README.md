@@ -103,11 +103,11 @@ publication steps.
 ## Get your Ace Data Cloud API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**, initialize it if needed, and use the copy button marked **1**. Check service access and the available balance.
+2. Open **General Application** and select **Initialize General Application** on the first visit if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Check service access and the available balance.
 
 ![Copy the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-3. Use the raw key in your client's credential field. HTTP requests add `Bearer ` in the Authorization header. To limit which APIs the key can call, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+3. Store the key in your server-side client’s private credential field. HTTP requests add `Bearer ` in the Authorization header. To limit which APIs the key can call, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Trial account concurrency
 

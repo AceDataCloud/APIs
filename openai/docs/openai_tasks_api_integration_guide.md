@@ -2,9 +2,14 @@
 The OpenAI Tasks API lets you query tasks that were previously submitted to an OpenAI image API in **callback mode**. Use it to retrieve the final result of an image generation or edit request when you cannot wait for the synchronous HTTP response, or when you want to look up a task later.
 In callback mode the original image endpoint **returns a `task_id` to you synchronously the moment the request is accepted**. You simply keep that `task_id` and hand it back to this Tasks API to look the task up later — there is no need to supply a custom `trace_id` (only do so if you want to correlate tasks against your own business identifier).
 > Tasks are persisted to the server **only when** the original image request was submitted with a `callback_url`. Synchronous (non-callback) calls are not stored.
-## Application Process
-The OpenAI Tasks API is bundled with the existing OpenAI service. If you already have access to OpenAI Images Generations you can call this endpoint with the same authorization token — no additional application is required.
-There is a free quota available for first-time users, allowing you to use the API for free.
+## Get an API key
+
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+Use the same application key as the OpenAI Images request to retrieve its result.
+
 ## Endpoint
 ```
 POST https://api.acedata.cloud/openai/tasks

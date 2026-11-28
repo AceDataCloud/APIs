@@ -8,12 +8,14 @@
 - Apparel, virtual try-on and standalone voice/element management are not currently published.
 
 This article will introduce the integration instructions for the Kling Videos Generation API, which can generate official Kling videos by inputting custom parameters.
-## Application Process
-To use the Kling Videos Generation API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token for future use.
-![](https://cdn.acedata.cloud/5hmkdg.jpg)
-If you are not logged in or registered, you will be automatically redirected to the login page, inviting you to register and log in. After completing this, you will be automatically returned to the current page.
-**One API Token can call all services on the platform without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
-> 📘 Complete Documentation: [Kling Videos Generation API →](https://platform.acedata.cloud/documents/kling-videos)
+## Get an API key
+
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+API reference: [Kling Videos Generation API](https://platform.acedata.cloud/documents/kling-videos).
+
 ## Basic Usage
 First, understand the basic usage, which involves inputting the prompt `prompt`, the generation action `action`, the first frame reference image `start_image_url`, and the model `model` to obtain the processed result. You first need to simply pass a field `action` with the value `text2video`, which mainly includes three actions: text-to-video (`text2video`), image-to-video (`image2video`), and video extension (`extend`). Then, we also need to input the model `model`, which currently includes `kling-v1`, `kling-v1-6`, `kling-v2-master`, `kling-v2-1-master`, `kling-v2-5-turbo`, `kling-v2-6`, `kling-v3`, `kling-v3-omni`, and `kling-o1`, with specific details as follows:
 <p><img src="https://cdn.acedata.cloud/ke1bok.png" width="500" class="m-auto"></p>

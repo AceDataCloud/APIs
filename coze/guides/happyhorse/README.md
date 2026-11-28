@@ -24,7 +24,7 @@ Source: [Coze official guide](https://docs.coze.cn/guides_use_plugin), retrieved
 
 1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen); register or sign in.
 2. Find **General application**. If absent, choose **Initialize General Application**. A general key can use the services your account is entitled to use; a service-specific application's key is limited to its service. Check **HappyHorse**, current model price and balance.
-3. Copy the existing API Key, or open **Manage Keys → Create** to create a separately named key such as `Coze HappyHorse`. Review expiration, usage limit and Allowed APIs. For this first flow, allow `/happyhorse/videos` and `/happyhorse/tasks`; also allow the editing operation only if you intend to use it.
+3. Click the copy button beside **API KEY**, marked **1** in the screenshot. For a restricted key, use **Manage Keys → Create** and give it a name such as `Coze HappyHorse`. Review expiration, usage limit and Allowed APIs. For this first flow, allow `/happyhorse/videos` and `/happyhorse/tasks`; also allow the editing operation only if you intend to use it.
 
 ![Copy a redacted API Key or open Manage Keys](../../_assets/tutorial/get-api-key-en.png)
 

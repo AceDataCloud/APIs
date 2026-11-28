@@ -1,11 +1,13 @@
 # Kling Motion Generation API Integration Instructions
 This article will introduce the integration instructions for the Kling Motion Generation API, which can generate official Kling videos by inputting custom parameters.
-## Application Process
-To use Kling Motion Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
-![](https://cdn.acedata.cloud/5hmkdg.jpg)
-If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
-**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
-> 📘 Full documentation: [Kling Motion Generation API →](https://platform.acedata.cloud/documents/kling-motion)
+## Get an API key
+
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+API reference: [Kling Motion Generation API](https://platform.acedata.cloud/documents/kling-motion).
+
 ## Basic Usage
 First, understand the basic usage method, which involves inputting the prompt `prompt`, reference image `image_url`, and reference video link `video_url` to obtain the processed result. We also need to input the model `mode`, which currently mainly includes `std` and `pro` models, as detailed below:
 <p><img src="https://cdn.acedata.cloud/5qlpjt.png" width="500" class="m-auto"></p>

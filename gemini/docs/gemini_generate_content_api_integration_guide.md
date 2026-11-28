@@ -16,11 +16,13 @@ Use `gemini-4-neon` in the Chat Completions `model` field or the native `generat
 
 For files such as audio submitted through `fileData.fileUri`, use an HTTPS URL that is directly accessible without a login. Keep signed URLs valid for the entire request processing time. Non-streaming audio analysis returns only after the model finishes processing and may take more than 90 seconds. Set a sufficiently long total client timeout for the file size and use case so the connection is not closed while the server is still processing.
 
-## Application Process
+## Get an API key
 
-To use the Gemini Generate Content API, you can first visit the [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) page and click the "Acquire" button to obtain the credentials needed for the request.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `YOUR_API_KEY` in the examples.
 
-If you are not logged in or registered, you will be automatically redirected to the login page. Upon the first application, there will be a free quota provided.
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+API reference: [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api).
 
 ## Basic Usage
 

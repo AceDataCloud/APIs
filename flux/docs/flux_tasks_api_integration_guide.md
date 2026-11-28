@@ -4,19 +4,13 @@ The main function of the Flux Tasks API is to query the execution status of task
 
 This document will provide detailed integration instructions for the Flux Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Flux Tasks API, you can easily query the execution status of tasks from the Flux Images Generation API.
 
-## Application Process
+## Get an API key
 
-To use the Flux Tasks API, you first need to apply for the corresponding service on the application page [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394), and then copy the task ID from the Flux Images Generation API, as shown in the image below:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-<p><img src="https://cdn.acedata.cloud/7furhb.png" width="500" class="m-auto"></p>
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-Finally, go to the Flux Tasks API page [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image below.
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+API reference: [Flux Images Generation API](https://platform.acedata.cloud/documents/6b9197c5-7a3f-4878-a43f-7f94e7e66394), [Flux Tasks API](https://platform.acedata.cloud/documents/39b38bbe-60f3-40da-b2b6-5ce1e091852b).
 
 ## Request Example
 

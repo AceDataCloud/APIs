@@ -1,11 +1,13 @@
 # HappyHorse Videos API Integration Instructions
 This document introduces the integration method for the HappyHorse Videos API. This interface supports text-to-video, first-frame image-to-video, reference image-to-video, and video editing through a unified `/happyhorse/videos` entry and the `action` parameter.
-## Application Process
-To use the HappyHorse Videos API, first obtain your API Token from the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) for future reference.
-![](https://cdn.acedata.cloud/5hmkdg.jpg)
-If you are not logged in or registered, you will be automatically redirected to the login page to invite you to register and log in, and after completion, you will be automatically returned to the current page.
-**One API Token can call all services on the platform, without needing to apply separately for each service.** The first application will grant a free quota for a trial experience; when the quota is insufficient, you can recharge the general balance in the [console](https://platform.acedata.cloud/console/coin).
-> 📘 Complete documentation: [HappyHorse Videos API →](https://platform.acedata.cloud/documents/happyhorse-videos)
+## Get an API key
+
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+API reference: [HappyHorse Videos API](https://platform.acedata.cloud/documents/happyhorse-videos).
+
 ## Operation Types
 The `action` determines the generation mode for this request:
 - `generate`: Text-to-video, default action, supports `happyhorse-1.0-t2v` and `happyhorse-1.1-t2v`, must provide `prompt`.

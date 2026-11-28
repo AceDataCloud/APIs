@@ -16,15 +16,13 @@ Use `model: "gpt-6.2-astra"` or `model: "gpt-6.2-sol"` on `/openai/responses` or
 
 Set `model: "gpt-6.1-terra"` on `/openai/responses` or its public alias `/v1/responses`. It supports text and image input, streaming, function tools and structured output. Use `reasoning: {"effort": "low"}` as a starting point; supported effort values are `low`, `medium`, `high`, `xhigh` and `max`, not `none` or `minimal`. Input above 272,000 tokens uses long-context pricing; check current console prices and actual response usage.
 
-## Application Process
+## Get an API key
 
-To use the OpenAI Responses API, you can first go to the [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+API reference: [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a).
 
 ## Basic Usage
 

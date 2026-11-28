@@ -4,19 +4,13 @@ The main function of the Luma Tasks API is to query the execution status of task
 
 This document will provide detailed integration instructions for the Luma Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Luma Tasks API, you can easily query the execution status of tasks from the Luma Videos Generation API.
 
-## Application Process
+## Get an API key
 
-To use the Luma Tasks API, you first need to apply for the corresponding service on the application page [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f), and then copy the task ID from the Luma Videos Generation API, as shown in the image:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-![](https://cdn.acedata.cloud/ynk4ow.png)
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-Finally, go to the Tasks API page [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you have not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+API reference: [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f), [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff).
 
 ## Request Example
 

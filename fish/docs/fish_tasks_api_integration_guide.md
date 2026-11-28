@@ -4,13 +4,13 @@ The main function of the Fish Tasks API is to query the execution status of task
 
 This document describes the Fish Tasks API integration, helping you query the status and final result of an asynchronous Fish voice generation task.
 
-## Application Process
+## Get an API key
 
-To use the Fish Tasks API, you first need to apply for the corresponding service on the application page [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d), and then copy the task ID returned by the Fish TTS API.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-Finally, go to the Tasks API page [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523) to apply for the corresponding service. After entering the page, click the "Acquire" button.
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+API reference: [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d), [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523).
 
 ## Request Example
 

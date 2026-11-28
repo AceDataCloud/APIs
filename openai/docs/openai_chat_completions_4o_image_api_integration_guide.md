@@ -4,15 +4,13 @@ OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth an
 
 This document mainly introduces the usage process of the OpenAI Chat Completion 4o Image API, which allows us to easily utilize the official OpenAI ChatGPT's multimodal dialogue capabilities.
 
-## Application Process
+## Get an API key
 
-To use the OpenAI Chat Completion 4o Image API, you can first visit the [OpenAI Chat Completion 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the copied key on your server and use it in the request’s Authorization header.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use the API for free.
+API reference: [OpenAI Chat Completion 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45).
 
 ## GPT-4o Drawing Model
 

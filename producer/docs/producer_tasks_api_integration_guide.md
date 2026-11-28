@@ -4,13 +4,13 @@ The main function of the Producer Tasks API is to query the execution status of 
 
 This document describes the Producer Tasks API integration, helping you query the status and final result of an asynchronous Producer music generation task.
 
-## Application Process
+## Get an API key
 
-To use the Producer Tasks API, you first need to apply for the corresponding service on the application page [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61), and then copy the task ID returned by the Producer Audios Generation API.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-Finally, go to the Tasks API page [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) to apply for the corresponding service. After entering the page, click the "Acquire" button.
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+API reference: [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61), [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf).
 
 ## Request Example
 

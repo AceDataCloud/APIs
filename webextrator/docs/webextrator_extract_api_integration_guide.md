@@ -20,12 +20,11 @@ Repeat URL requests hit a Redis result cache and return in <1 ms.
 
 ---
 
-## Application Process
+## Get an API key
 
-To use the WebExtrator Extract API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/service/webextrator).
-Click **Acquire** to obtain the credentials needed for the request. A free
-quota is provided to first-time applicants.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `YOUR_API_KEY` in the examples.
+
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
 ---
 

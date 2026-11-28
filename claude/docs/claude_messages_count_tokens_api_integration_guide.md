@@ -6,13 +6,15 @@ This document mainly describes the usage process of the Claude Messages Count To
 
 `claude-fable-5-2` is not available on Count Tokens. Use the final generation response’s `usage` for its actual token consumption; another model’s count is not an exact substitute.
 
-## Application Process
+## Get an API key
 
-To use the Claude Messages Count Tokens API, you can first go to the [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) page and click the "Acquire" button to obtain the credentials needed for the request.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-This API is completely free to use and does not consume any quota.
+Token counting is free and does not consume quota.
+
+API reference: [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens).
 
 ## Basic Usage
 

@@ -2,15 +2,13 @@
 
 This article introduces the Hailuo Videos Generation API integration guide, which allows you to generate official Hailuo videos by inputting custom parameters.
 
-## Application Process
+## Get an API key
 
-To use the API, you first need to apply for the corresponding service on the [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e) page. After entering the page, click the "Acquire" button, as shown in the image below:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-![](https://cdn.acedata.cloud/q6ytrc.png)
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
-
-Upon your first application, there will be a free quota available for you to use the API for free.
+API reference: [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e).
 
 ## Basic Usage
 

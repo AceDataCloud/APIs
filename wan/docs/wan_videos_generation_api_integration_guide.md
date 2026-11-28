@@ -2,17 +2,13 @@
 
 本文将介绍一种 Wan Videos Generation API 对接说明，它是可以通过输入自定义参数来生成通义万相官方的视频。
 
-## 申请流程
+## 获取 API Key
 
-要使用 Wan Videos Generation API，首先到 [Ace Data Cloud 控制台](https://platform.acedata.cloud/console/applications) 获取您的 API Token，留作备用。
+登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先初始化通用应用，然后点击 **API KEY** 旁的复制按钮（图中标注 **1**）。请将 Key 保存在服务端，供下文示例中的 `{token}` 使用。
 
-![](https://cdn.acedata.cloud/dvc3cg.jpg)
+![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-如果你尚未登录或注册，会自动跳转到登录页面邀请你注册和登录，完成后会自动返回当前页面。
-
-**一个 API Token 即可调用平台所有服务，无需为每个服务单独申请。** 首次申请会赠送免费额度，可免费体验；额度不足时可在 [控制台](https://platform.acedata.cloud/console/coin) 充值通用余额。
-
-> 📘 完整文档：[Wan Videos Generation API →](https://platform.acedata.cloud/documents/wan-videos)
+接口参考：[Wan Videos Generation API](https://platform.acedata.cloud/documents/wan-videos).
 
 ## 基本使用
 

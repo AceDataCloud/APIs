@@ -5,7 +5,12 @@
 ## 导入插件
 
 1. 下载 [扣子专用 YAML](../../imports/acemusic.yaml) 或 [JSON](../../imports/acemusic.json)，在工作空间创建 API 插件并导入文件。服务地址是 `https://api.acedata.cloud`。
-2. 在 [Ace 凭据管理](https://platform.acedata.cloud/console/credentials) 获取自己的应用 API Key。新建私有变量 `adc_auth`，值为 `Bearer YOUR_API_TOKEN`，把每个工具的 `Authorization` 请求头绑定到变量。确认凭据允许使用相应接口，并核对[价格和余额](https://platform.acedata.cloud/services/acemusic)。共享默认值、对话和导出文件中不要填写真实凭据。
+
+   登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先初始化通用应用，然后点击 **API KEY** 旁的复制按钮（图中标注 **1**）。
+
+   ![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+
+2. 使用刚复制的应用 API Key。新建私有变量 `adc_auth`，值为 `Bearer YOUR_API_TOKEN`，把每个工具的 `Authorization` 请求头绑定到变量。确认凭据允许使用相应接口，并核对[价格和余额](https://platform.acedata.cloud/services/acemusic)。共享默认值、对话和导出文件中不要填写真实凭据。
 3. 先添加 `getTaskResults`。填 `action=retrieve` 和已有任务的 `id`，即可免费验证查询链路。成功音轨的播放地址在 `response.data[].audio_url`，以后翻唱需要的音轨 ID 在 `response.data[].id`；歌词任务返回 `response.data[].text`。
 
 | 工具 | 用法 |

@@ -4,19 +4,13 @@ The main function of the Wan Tasks API is to query the execution status of tasks
 
 This document will provide a detailed description of the Wan Tasks API integration, helping you easily integrate and fully utilize the powerful features of this API. With the Wan Tasks API, you can easily query the execution status of tasks from the Wan Videos Generation API.
 
-## Application Process
+## Get an API key
 
-To use the Wan Tasks API, you first need to apply for the corresponding service on the application page [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c), and then copy the task ID from the Wan Videos Generation API, as shown in the image below:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
 
-<p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto"></p>
+![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
-Finally, go to the Tasks API page [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image below:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
-
-There is a free quota available for first-time applicants, allowing you to use this API for free.
+API reference: [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c), [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018).
 
 ## Request Example
 
