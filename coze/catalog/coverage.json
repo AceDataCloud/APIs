@@ -884,7 +884,7 @@
       "operations": [
         {
           "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-          "path": "/v1beta/models/{model}:generateContent",
+          "path": "/v1/models/{model}:generateContent",
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
@@ -893,7 +893,7 @@
         },
         {
           "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-          "path": "/v1beta/models/{model}:streamGenerateContent",
+          "path": "/v1/models/{model}:streamGenerateContent",
           "method": "POST",
           "stage": "Beta",
           "docs": "https://platform.acedata.cloud/documents/gemini-generate-content-api",

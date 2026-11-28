@@ -438,7 +438,7 @@
     "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
     "operation_id": "generateContent",
     "method": "POST",
-    "path": "/v1beta/models/{model}:generateContent",
+    "path": "/v1/models/{model}:generateContent",
     "request": {
       "headers": {
         "Authorization": "Bearer YOUR_API_TOKEN"

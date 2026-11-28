@@ -859,7 +859,7 @@
       "operations": [
         {
           "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-          "path": "/v1beta/models/:generateContent",
+          "path": "/v1/models/:generateContent",
           "method": "POST",
           "stage": "Beta",
           "public_document": true,
@@ -19823,7 +19823,7 @@
     },
     "7a632630-eb9f-4776-b11c-8cc86ae250d7": {
       "id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-      "path": "/v1beta/models/:generateContent",
+      "path": "/v1/models/:generateContent",
       "stage": "Beta",
       "document_url": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
       "definition": {
@@ -19833,12 +19833,15 @@
           "description": "Native format of Google Gemini API. Supports generateContent and streamGenerateContent endpoints."
         },
         "paths": {
-          "/v1beta/models/{model}:generateContent": {
+          "/v1/models/{model}:generateContent": {
             "post": {
               "summary": "This interface can call the Google Gemini native format API generateContent endpoint, supporting functions such as text generation, multimodal understanding, JSON mode, function calls, and thinking mode.",
               "security": [
                 {
                   "bearerAuth": []
+                },
+                {
+                  "googleApiKey": []
                 }
               ],
               "responses": {
@@ -20565,12 +20568,15 @@
               }
             }
           },
-          "/v1beta/models/{model}:streamGenerateContent": {
+          "/v1/models/{model}:streamGenerateContent": {
             "post": {
               "summary": "This interface can call the Google Gemini native format API streamGenerateContent endpoint, supporting streaming text generation, and returns content in real-time via SSE (Server-Sent Events).",
               "security": [
                 {
                   "bearerAuth": []
+                },
+                {
+                  "googleApiKey": []
                 }
               ],
               "responses": {
@@ -20644,7 +20650,7 @@
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/paths/~1v1beta~1models~1{model}:generateContent/post/requestBody/content/application~1json/schema"
+                      "$ref": "#/paths/~1v1~1models~1{model}:generateContent/post/requestBody/content/application~1json/schema"
                     }
                   }
                 },
@@ -20666,6 +20672,11 @@
               "type": "http",
               "scheme": "bearer",
               "bearerFormat": "JWT"
+            },
+            "googleApiKey": {
+              "type": "apiKey",
+              "in": "header",
+              "name": "x-goog-api-key"
             }
           }
         }
@@ -20696,7 +20707,13 @@
           ],
           "scope": "request model enum changes only; no live publication claim"
         }
-      ]
+      ],
+      "backend_path_update": {
+        "revision": "fda7ab402a19bf2e4be208115b3103a8e5a2d6fd",
+        "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+        "source_file_sha256": "ee707d38803eb69073a266d958cb5ae4bd7778775cf6b02383f9a6d0fb6460e5",
+        "scope": "Canonical generation paths and alternative SDK authentication. Existing model subsets and descriptions are preserved."
+      }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
       "id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",

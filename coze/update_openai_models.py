@@ -32,7 +32,7 @@ SERVICE_CONTRACTS = {
         "94b49b55-2ea8-4d46-a93c-eb308e1a52d5": "/gemini/chat/completions",
     },
     "gemini-native": {
-        "7a632630-eb9f-4776-b11c-8cc86ae250d7": "/v1beta/models/{model}:generateContent",
+        "7a632630-eb9f-4776-b11c-8cc86ae250d7": "/v1/models/{model}:generateContent",
     },
     "glm": {
         "f0392e69-ad58-40b9-b28b-e1feee258603": "/glm/chat/completions",
