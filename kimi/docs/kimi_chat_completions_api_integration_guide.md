@@ -8,7 +8,7 @@ This document mainly introduces the usage process of the Kimi Chat Completion AP
 
 ## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Set the server-side `ACEDATACLOUD_API_KEY` environment variable to the copied value.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Set the server-side `ACEDATACLOUD_API_KEY` environment variable to the copied value.
 
 ![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 

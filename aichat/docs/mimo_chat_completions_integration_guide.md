@@ -9,7 +9,7 @@ MiMo 2.6 Pro and MiMo 2.6 Flash are Xiaomi MiMo models. This API follows the Ope
 | `mimo-v2.6-pro` | Complex analysis, reasoning and tool calling |
 | `mimo-v2.6-flash` | Everyday chat and lightweight tasks |
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Store it in the server-side `ACEDATACLOUD_API_KEY` environment variable shown below.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Store it in the server-side `ACEDATACLOUD_API_KEY` environment variable shown below.
 
 ![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
  Send requests to `https://api.acedata.cloud/mimo/chat/completions`, or set the OpenAI SDK base URL to `https://api.acedata.cloud/mimo`. The unified `/v1/chat/completions` endpoint also requires the corresponding service permission.

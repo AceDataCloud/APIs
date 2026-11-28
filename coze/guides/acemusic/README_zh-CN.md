@@ -5,7 +5,7 @@
 ## 导入插件
 
 1. 下载 [扣子专用 YAML](../../imports/acemusic.yaml) 或 [JSON](../../imports/acemusic.json)，在工作空间创建 API 插件并导入文件。服务地址是 `https://api.acedata.cloud`。
-2. 登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先初始化通用应用，然后复制 **API KEY** 栏中的密钥。
+2. 登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**，复制 **API KEY** 栏中的密钥。
 
    ![通用应用中的 API KEY 栏和复制按钮](https://cdn.acedata.cloud/dvc3cg.jpg)
 

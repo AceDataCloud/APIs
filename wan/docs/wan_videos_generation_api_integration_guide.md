@@ -10,7 +10,7 @@
 
 如果你尚未登录或注册，会自动跳转到登录页面邀请你注册和登录，完成后会自动返回当前页面。
 
-**一个 API Token 即可调用平台所有服务，无需为每个服务单独申请。** 首次申请会赠送免费额度，可免费体验；额度不足时可在 [控制台](https://platform.acedata.cloud/console/coin) 充值通用余额。
+**一个 API Token 即可调用平台所有服务，无需为每个服务单独申请。** 首次申请会赠送免费额度，可免费体验。余额不足时，点击应用卡片上的「充值」按钮即可。
 
 > 📘 完整文档：[Wan Videos Generation API →](https://platform.acedata.cloud/documents/wan-videos)
 

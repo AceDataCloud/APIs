@@ -6,7 +6,7 @@ This document mainly introduces the usage process of the OpenAI Chat Completion 
 
 ## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on the server that sends requests.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on the server that sends requests.
 
 ![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 

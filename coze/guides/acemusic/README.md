@@ -5,7 +5,7 @@ Import three HTTP tools into your Coze workspace to create songs, write lyrics, 
 ## Import the HTTP tools
 
 1. Download the [Coze YAML](../../imports/acemusic.yaml) or [JSON](../../imports/acemusic.json). In your workspace, create an API plugin and import that file. The server is `https://api.acedata.cloud`.
-2. Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**.
+2. Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**.
 
    ![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 

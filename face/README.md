@@ -11,7 +11,7 @@ Keywords: face-api, face-swap, face-detection, beautify, face-cartoon, age-chang
 ## Get your Ace Data Cloud API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**, initialize it if needed, and use the copy button marked **1**. Check service access and the available balance.
+2. Find **General Application** and use the copy button marked **1**. Check service access and the available balance.
 
 ![Copy the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
