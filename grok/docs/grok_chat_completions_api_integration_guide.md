@@ -4,13 +4,15 @@ xAI Grok is a very powerful AI dialogue system that can generate smooth and natu
 
 This document mainly introduces the usage process of the Grok Chat Completion API, allowing us to easily utilize the official Grok dialogue features.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be).
+[Grok Chat Completion API](https://platform.acedata.cloud/documents/faf08b59-36aa-4d26-b5d9-a18f113cc2be)
+
+Upon the first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 

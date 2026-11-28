@@ -1,12 +1,10 @@
 # Seedream Images API integration guide
 
-Use `POST https://api.acedata.cloud/seedream/images` with an AceDataCloud bearer token. See the [Seedream API reference](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e).
+Use `POST https://api.acedata.cloud/seedream/images` with an AceDataCloud bearer token. [Seedream API reference](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e).
 
-## Get an API key
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `YOUR_API_TOKEN` below.
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `YOUR_API_TOKEN` in the examples.
-
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 ## Model selection
 

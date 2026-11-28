@@ -11,11 +11,11 @@ Keywords: face-api, face-swap, face-detection, beautify, face-cartoon, age-chang
 ## Get your Ace Data Cloud API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Open **General Application** and select **Initialize General Application** on the first visit if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Check service access and the available balance.
+2. Find **General Application**, initialize it if needed, and use the copy button marked **1**. Check service access and the available balance.
 
 ![Copy the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-3. Store the key in your server-side client’s private credential field. HTTP requests add `Bearer ` in the Authorization header. To limit which APIs the key can call, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+3. Use the raw key in your client's credential field. HTTP requests add `Bearer ` in the Authorization header. To limit which APIs the key can call, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 ## Why Use Face Transformation on Ace Data Cloud
 
@@ -28,6 +28,11 @@ Keywords: face-api, face-swap, face-detection, beautify, face-cartoon, age-chang
 
 The Face Transformation service provides seven endpoints for analyzing and editing faces in photos: keypoint analysis, beautification, age/gender transformation, face swap, cartoon avatars, and liveness detection.
 
+## Application Process
+
+Use the General Application key from the instructions above to call the [Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Quick Start
 

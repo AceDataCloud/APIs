@@ -2,11 +2,11 @@
 
 This document introduces the Veo Reshoot API. This API re-generates an already-generated Veo video using a **new camera motion**, keeping the scene content the same while reinterpreting the camera angle and movement according to the specified `motion_type`.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 ## Basic Usage
 

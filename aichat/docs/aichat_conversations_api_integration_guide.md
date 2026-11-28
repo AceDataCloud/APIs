@@ -2,13 +2,15 @@
 
 The AI Chat Conversations API provided by Ace Data Cloud simplifies integration compared to raw chat completion APIs (such as OpenAI's Chat Completions API). You do not need to manage the `messages` array or handle token-limit issues yourself — the API handles context internally. It also supports multi-turn stateful conversations, conversation querying, and modification, making integration straightforward.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a).
+[AI Chat API](https://platform.acedata.cloud/documents/59fb1199-6694-4afb-a222-3554d7f7d05a)
+
+First-time applicants receive a free usage quota.
 
 ## Basic Usage
 

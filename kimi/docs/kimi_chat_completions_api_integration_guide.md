@@ -6,13 +6,15 @@ This document mainly introduces the usage process of the Kimi Chat Completion AP
 
 `kimi-k3.1-pro` supports reasoning, visual understanding, and tool calling. Its official context window is up to 1,048,576 tokens, but actual request limits depend on the current API. The other supported model IDs are `kimi-k3`, `kimi-k2.6`, and `kimi-k2.7-code`. K3.1 Pro always uses reasoning; do not set `thinking` to disabled.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Store the copied key in the server-side `ACEDATACLOUD_API_KEY` environment variable.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Set the server-side `ACEDATACLOUD_API_KEY` environment variable to the copied value.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions).
+[Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions)
+
+During the first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 

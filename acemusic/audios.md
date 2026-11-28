@@ -4,11 +4,7 @@
 
 ## 获取凭据
 
-登录[应用列表](https://platform.acedata.cloud/console/applications)，打开**通用应用**。首次使用时先初始化通用应用，然后点击 **API KEY** 旁的复制按钮（图中标注 **1**）。请将 Key 保存在服务端，供下文示例中的 `YOUR_API_KEY` 使用。
-
-![通用应用中 API KEY 旁标注 1 的复制按钮](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-请求携带 `Authorization: Bearer YOUR_API_KEY`。请确认应用的服务权限、凭据限额和可用余额。
+在 [控制台](https://platform.acedata.cloud/console/applications) 开通 ACE Music，或使用已获该服务权限的通用应用凭据。请求携带 `Authorization: Bearer YOUR_API_KEY`。应用余额、凭据限额和服务权限均会检查。
 
 ## 灵感模式
 

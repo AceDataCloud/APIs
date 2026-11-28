@@ -9,15 +9,12 @@ MiMo 2.6 Pro and MiMo 2.6 Flash are Xiaomi MiMo models. This API follows the Ope
 | `mimo-v2.6-pro` | Complex analysis, reasoning and tool calling |
 | `mimo-v2.6-flash` | Everyday chat and lightweight tasks |
 
-Send requests to `https://api.acedata.cloud/mimo/chat/completions`, or set the OpenAI SDK base URL to `https://api.acedata.cloud/mimo`. The unified `/v1/chat/completions` endpoint also requires the corresponding service permission.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Store it in the server-side `ACEDATACLOUD_API_KEY` environment variable shown below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+ Send requests to `https://api.acedata.cloud/mimo/chat/completions`, or set the OpenAI SDK base URL to `https://api.acedata.cloud/mimo`. The unified `/v1/chat/completions` endpoint also requires the corresponding service permission.
 
 The initial scope is text Chat Completions. Image, audio, video, built-in web search, Responses, Messages, Batch and UltraSpeed are outside this release.
-
-## Get an API key
-
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key in the server-side `ACEDATACLOUD_API_KEY` environment variable used by the SDK below.
-
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
 
 ## Python example
 

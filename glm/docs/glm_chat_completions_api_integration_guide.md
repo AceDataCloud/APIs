@@ -4,13 +4,15 @@ GLM (General Language Model) is the next-generation large language model series 
 
 This document introduces the usage process of the GLM Chat Completion API. It provides a unified OpenAI-compatible interface to easily call GLM series models.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf).
+[GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf)
+
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ## Basic Usage
 

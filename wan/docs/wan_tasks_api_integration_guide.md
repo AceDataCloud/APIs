@@ -4,13 +4,19 @@ The main function of the Wan Tasks API is to query the execution status of tasks
 
 This document will provide a detailed description of the Wan Tasks API integration, helping you easily integrate and fully utilize the powerful features of this API. With the Wan Tasks API, you can easily query the execution status of tasks from the Wan Videos Generation API.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c), [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018).
+Copy the task ID returned by [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c).
+
+<p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto"></p>
+
+Use that ID to query the [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018).
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Request Example
 

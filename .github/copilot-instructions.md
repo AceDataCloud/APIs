@@ -36,7 +36,7 @@ Use the exact Backend commit range linked in the sync PR. When that snapshot cha
 ## API README structure
 
 - Link customer documentation to verified `https://platform.acedata.cloud/documents/<alias>` pages, using `lang=en` or `lang=zh-cn`. Use the public Document alias rather than replacing a documentation host mechanically.
-- When a guide explains how to get an API key, link to Applications and show the redacted General Application screenshot. Explain how to initialize General Application on the first visit, copy the key with button 1 beside API KEY, and store it on the server using the placeholder or environment variable in that guide. For optional settings, link directly to Manage Keys.
+- Keep the API key steps short and use the existing redacted General Application copy-key screenshot. Omit the Create New Credential screenshot and creation detour from the Quickstart. Link the platform key guide for optional settings.
 
 - Write service landing READMEs in English Markdown. Link the existing Chinese guide for Chinese readers.
 - Lead with the API purpose, current pricing and a direct Applications link. Put a valid minimal request immediately after the short API key steps.

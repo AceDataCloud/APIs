@@ -22,7 +22,7 @@
 
 1. 打开 [Ace Data Cloud → Applications / 我的应用](https://platform.acedata.cloud/console/applications?utm_source=coze&utm_medium=referral&utm_campaign=evergreen)，注册或登录。
 2. 找到 **General application / 通用应用**；没有则点 **Initialize General Application / 初始化通用应用**。通用Key可访问账号有权使用的服务，专用应用Key仅限对应服务。核对 **Seedance** 权限、模型当前价格和余额。
-3. 点击 **API KEY** 旁的复制按钮（图中标注 **1**）。如需受限密钥，可在 **Manage Keys / 管理密钥 → Create / 创建** 中建立名为 `Coze Seedance` 的独立Key。按需设置有效期、用量和允许的API。首流程允许 `/seedance/videos` 与 `/seedance/tasks`；需要编辑时再允许对应操作。
+3. 用复制按钮取已有Key，或 **Manage Keys / 管理密钥 → Create / 创建** 一个名为 `Coze Seedance` 的独立Key。按需设置有效期、用量和允许的API。首流程允许 `/seedance/videos` 与 `/seedance/tasks`；需要编辑时再允许对应操作。
 
 ![复制已遮挡的Key或打开管理密钥](../../_assets/tutorial/get-api-key-en.png)
 

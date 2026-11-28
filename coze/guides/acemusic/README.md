@@ -5,12 +5,11 @@ Import three HTTP tools into your Coze workspace to create songs, write lyrics, 
 ## Import the HTTP tools
 
 1. Download the [Coze YAML](../../imports/acemusic.yaml) or [JSON](../../imports/acemusic.json). In your workspace, create an API plugin and import that file. The server is `https://api.acedata.cloud`.
+2. Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**.
 
-   Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot.
+   ![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-   ![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-2. Set a **private** variable called `adc_auth` to `Bearer YOUR_API_TOKEN` with the application key you copied. Bind each tool's required `Authorization` header by reference. Restrict key access to the intended APIs and check [your service balance and pricing](https://platform.acedata.cloud/services/acemusic). Keep the key out of prompts, shared defaults and exported workflows.
+   Set a **private** variable called `adc_auth` to `Bearer YOUR_API_TOKEN` using the copied key. Bind each tool's required `Authorization` header by reference. Restrict key access to the intended APIs and check [your service balance and pricing](https://platform.acedata.cloud/services/acemusic). Keep the key out of prompts, shared defaults and exported workflows.
 3. Add `getTaskResults` first. With `action=retrieve` and an existing `id`, it reads your original song or lyric task without submitting a new generation. For finished audio use `response.data[].audio_url`, and save `response.data[].id` separately for covers and mashups. For lyrics use `response.data[].text`.
 
 | Tool | Inputs and result |

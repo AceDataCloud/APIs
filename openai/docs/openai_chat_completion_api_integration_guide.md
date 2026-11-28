@@ -14,14 +14,12 @@ Use `model: "gpt-6.2-astra"` or `model: "gpt-6.2-sol"` on `/openai/chat/completi
 
 Set `model: "gpt-6.1-terra"` on `/openai/chat/completions` or its public alias `/v1/chat/completions`. It supports text and image input, streaming, function tools and structured output using this endpoint's fields. Supported `reasoning_effort` values are `low`, `medium`, `high`, `xhigh` and `max`; start with `low`, not `none` or `minimal`. Input above 272,000 tokens uses long-context pricing; check current console prices and actual response usage.
 
-## Get an API key
-
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
-
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
-
-API reference: [OpenAI Chat Completion API](https://platform.acedata.cloud/documents/openai-chat-completions).
-
+## Application Process
+To use OpenAI Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
+![](https://cdn.acedata.cloud/5hmkdg.jpg)
+If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+> 📘 Full documentation: [OpenAI Chat Completion API →](https://platform.acedata.cloud/documents/openai-chat-completions)
 ## Basic Usage
 Next, you can fill in the corresponding content on the interface, as shown in the figure:
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>

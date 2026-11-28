@@ -6,13 +6,19 @@ The main function of the Suno Tasks API is to query the execution status of a ta
 
 This document will provide detailed integration instructions for the Suno Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Suno Tasks API, you can easily query the execution status of tasks from the Suno Lyrics Generation API or Suno Audios Generation API.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9), [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed).
+Copy the task ID returned by [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9).
+
+<p><img src="https://cdn.acedata.cloud/bc6754.png" width="500" class="m-auto"></p>
+
+Use that ID to query the [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed).
+
+There is a free quota available for first-time applicants, allowing you to use the API for free.
 
 ## Project Task Results
 

@@ -4,13 +4,19 @@ The main function of the Luma Tasks API is to query the execution status of task
 
 This document will provide detailed integration instructions for the Luma Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Luma Tasks API, you can easily query the execution status of tasks from the Luma Videos Generation API.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f), [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff).
+Copy the task ID returned by [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f).
+
+![](https://cdn.acedata.cloud/ynk4ow.png)
+
+Use that ID to query the [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff).
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Request Example
 

@@ -4,13 +4,19 @@ The main function of the Veo Tasks API is to query the execution status of tasks
 
 This document will provide detailed integration instructions for the Veo Tasks API, helping you easily integrate and fully utilize the powerful features of this API. With the Veo Tasks API, you can easily query the execution status of tasks from the Veo Videos Generation API.
 
-## Get an API key
+## Application Process
 
-Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. On your first visit, select **Initialize General Application** if prompted. Click the copy button beside **API KEY**, marked **1** in the screenshot. Keep the key on your server and use it in place of `{token}` in the examples.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Initialize it on your first visit if prompted, then copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![Copy button beside API KEY in General Application, marked 1](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-API reference: [Veo Videos Generation API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f), [Veo Tasks API](https://platform.acedata.cloud/documents/52778f8b-93ce-4db3-a62c-bcf0a92e5f3c).
+Copy the task ID returned by [Veo Videos Generation API](https://platform.acedata.cloud/documents/63e01dc3-eb21-499e-8049-3025c460058f).
+
+<p><img src="https://cdn.acedata.cloud/txlg6g.png" width="500" class="m-auto"></p>
+
+Use that ID to query the [Veo Tasks API](https://platform.acedata.cloud/documents/52778f8b-93ce-4db3-a62c-bcf0a92e5f3c).
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Request Example
 
