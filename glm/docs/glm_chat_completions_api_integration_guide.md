@@ -6,11 +6,11 @@ This document introduces the usage process of the GLM Chat Completion API. It pr
 
 ## Application Process
 
-To use the GLM Chat Completion API, you can first visit the [GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+[GLM Chat Completion API](https://platform.acedata.cloud/documents/ccfbc8fa-0dce-424b-85a4-99c280ddb5cf)
 
 When applying for the first time, there will be a free quota available for you to use the API for free.
 

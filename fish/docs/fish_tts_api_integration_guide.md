@@ -4,11 +4,13 @@ This article introduces the Fish TTS API integration instructions, which convert
 
 ## Application Process
 
-To use the Fish TTS API, apply for the corresponding service on the [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d) page. After entering the page, click the "Acquire" button.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+[Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d)
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Basic Usage
 

@@ -4,11 +4,13 @@ This article introduces the Face Swap API integration instructions, which replac
 
 ## Application Process
 
-To use the Face Swap API, apply for the corresponding service on the [Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e) page. After entering the page, click the "Acquire" button.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-There is a free quota available for first-time applicants, allowing you to use this API for free. **One API key can call every service on the platform — you do not need to apply separately for each service.**
+[Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e)
+
+There is a free quota available for first-time applicants, allowing you to use this API for free.
 
 ## Basic Usage
 

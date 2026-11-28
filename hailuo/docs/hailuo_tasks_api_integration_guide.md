@@ -6,15 +6,15 @@ This document will provide detailed integration instructions for the Hailuo Task
 
 ## Application Process
 
-To use the Hailuo Tasks API, you first need to apply for the corresponding service on the application page [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e), and then copy the task ID from the Hailuo Videos Generation API, as shown in the image:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Hailuo Videos Generation API](https://platform.acedata.cloud/documents/ee06377b-9185-438f-ac84-3376bcb1275e).
 
 <p><img src="https://cdn.acedata.cloud/4f9d95.png" width="500" class="m-auto"></p>
 
-Finally, go to the Tasks API page [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Use that ID to query the [Hailuo Tasks API](https://platform.acedata.cloud/documents/4b1ccdbc-b8ed-4171-9a14-48e10970ba04).
 
 There is a free quota available for first-time applicants, allowing you to use the API for free.
 

@@ -4,7 +4,11 @@ The Seedream Tasks API queries the execution status of an async task created by 
 
 ## Application Process
 
-Apply on the [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75) page; copy a task ID returned by the [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e) (submit with `"async": true`).
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+To call the [Seedream Tasks API](https://platform.acedata.cloud/documents/a89ab5c9-f956-42b5-a867-abb3d00d2f75), copy the task ID returned by the [Seedream Images API](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e) (submit with `"async": true`).
 
 ## Request Example
 

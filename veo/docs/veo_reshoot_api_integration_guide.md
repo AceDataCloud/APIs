@@ -4,7 +4,9 @@ This document introduces the Veo Reshoot API. This API re-generates an already-g
 
 ## Application Process
 
-To use the API, you first need to apply for the corresponding service on the Veo service page. If you are not logged in or registered, you will be automatically redirected to the login page.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 ## Basic Usage
 

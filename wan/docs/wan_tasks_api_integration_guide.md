@@ -6,15 +6,15 @@ This document will provide a detailed description of the Wan Tasks API integrati
 
 ## Application Process
 
-To use the Wan Tasks API, you first need to apply for the corresponding service on the application page [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c), and then copy the task ID from the Wan Videos Generation API, as shown in the image below:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Wan Videos Generation API](https://platform.acedata.cloud/documents/52b0f490-1bbf-4fe5-b60e-96626d333d2c).
 
 <p><img src="https://cdn.acedata.cloud/om6p6g.png" width="500" class="m-auto"></p>
 
-Finally, go to the Tasks API page [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image below:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Use that ID to query the [Wan Tasks API](https://platform.acedata.cloud/documents/240ef446-cbec-461c-a633-4a64178d7018).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 

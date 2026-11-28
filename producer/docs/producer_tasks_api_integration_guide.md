@@ -6,9 +6,13 @@ This document describes the Producer Tasks API integration, helping you query th
 
 ## Application Process
 
-To use the Producer Tasks API, you first need to apply for the corresponding service on the application page [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61), and then copy the task ID returned by the Producer Audios Generation API.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-Finally, go to the Tasks API page [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf) to apply for the corresponding service. After entering the page, click the "Acquire" button.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Producer Audios Generation API](https://platform.acedata.cloud/documents/01d96900-9f8c-41d7-814c-95c7a885ba61).
+
+Use that ID to query the [Producer Tasks API](https://platform.acedata.cloud/documents/e706d672-d7c9-4232-8652-0cf53219e7bf).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 

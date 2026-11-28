@@ -8,15 +8,15 @@ This document will provide detailed integration instructions for the Suno Tasks 
 
 ## Application Process
 
-To use the Suno Tasks API, you first need to apply for the corresponding service on the application page [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9), and then copy the task ID from the Suno Audios Generation API, as shown in the image:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Suno Audios Generation API](https://platform.acedata.cloud/documents/4da95d9d-7722-4a72-857d-bf6be86036e9).
 
 <p><img src="https://cdn.acedata.cloud/bc6754.png" width="500" class="m-auto"></p>
 
-Finally, go to the Tasks API page [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Use that ID to query the [Suno Tasks API](https://platform.acedata.cloud/documents/b0dd9823-0e01-4c75-af83-5a6e2e05bfed).
 
 There is a free quota available for first-time applicants, allowing you to use the API for free.
 

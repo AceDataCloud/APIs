@@ -6,11 +6,11 @@ This document mainly introduces the usage process of the OpenAI Embeddings API, 
 
 ## Application Process
 
-To use the OpenAI Embeddings API, you can first go to the [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+[OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387)
 
 When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
 

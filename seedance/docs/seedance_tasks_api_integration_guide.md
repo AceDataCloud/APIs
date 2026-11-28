@@ -6,11 +6,13 @@ This document describes the Seedance Tasks API integration, helping you query th
 
 ## Application Process
 
-To use the Seedance Tasks API, you first need to apply for the corresponding service on the application page [Seedance Videos Generation API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8), and then copy the task ID returned by the Seedance Videos Generation API.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-Finally, go to the Tasks API page [Seedance Tasks API](https://platform.acedata.cloud/documents/c09d6a1b-3cca-4f7c-add3-8c14be60da3c) to apply for the corresponding service. After entering the page, click the "Acquire" button.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Copy the task ID returned by [Seedance Videos Generation API](https://platform.acedata.cloud/documents/0083b874-4da6-40df-87e3-835b1300c1e8).
+
+Use that ID to query the [Seedance Tasks API](https://platform.acedata.cloud/documents/c09d6a1b-3cca-4f7c-add3-8c14be60da3c).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 

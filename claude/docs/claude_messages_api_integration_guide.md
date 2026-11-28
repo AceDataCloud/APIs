@@ -18,11 +18,11 @@ Set `model: "gpt-6.1-terra"` and continue to send Messages-format `messages` and
 
 ## Application Process
 
-To use the Claude Messages API, you can first visit the [Claude Messages API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+[Claude Messages API](https://platform.acedata.cloud/documents/280928a2-2dce-419c-adb5-1ea835e8183a)
 
 Upon first application, there will be a free quota provided, allowing you to use the API for free.
 

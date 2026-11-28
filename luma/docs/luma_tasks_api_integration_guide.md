@@ -6,15 +6,15 @@ This document will provide detailed integration instructions for the Luma Tasks 
 
 ## Application Process
 
-To use the Luma Tasks API, you first need to apply for the corresponding service on the application page [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f), and then copy the task ID from the Luma Videos Generation API, as shown in the image:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Luma Videos Generation API](https://platform.acedata.cloud/documents/5bd3597d-1ff8-44ad-a580-b66b48393e7f).
 
 ![](https://cdn.acedata.cloud/ynk4ow.png)
 
-Finally, go to the Tasks API page [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff) to apply for the corresponding service. After entering the page, click the "Acquire" button, as shown in the image:
-
-![Application Page](https://cdn.acedata.cloud/rci31i.png)
-
-If you have not logged in or registered, you will be automatically redirected to the [login page](https://platform.acedata.cloud) inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Use that ID to query the [Luma Tasks API](https://platform.acedata.cloud/documents/7d32369c-4ead-4364-a4c5-652bc768b3ff).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 

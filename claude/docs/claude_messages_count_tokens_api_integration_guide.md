@@ -8,9 +8,11 @@ This document mainly describes the usage process of the Claude Messages Count To
 
 ## Application Process
 
-To use the Claude Messages Count Tokens API, you can first go to the [Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens) page and click the "Acquire" button to obtain the credentials needed for the request.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+[Claude Messages Count Tokens API](https://platform.acedata.cloud/documents/claude-messages-count-tokens)
 
 This API is completely free to use and does not consume any quota.
 

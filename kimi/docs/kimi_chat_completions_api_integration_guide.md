@@ -8,11 +8,11 @@ This document mainly introduces the usage process of the Kimi Chat Completion AP
 
 ## Application Process
 
-To use the Kimi Chat Completion API, you can first visit the [Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Set the server-side `ACEDATACLOUD_API_KEY` environment variable to the copied value.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
+[Kimi Chat Completion API](https://platform.acedata.cloud/documents/kimi-chat-completions)
 
 During the first application, there will be a free quota provided, allowing you to use the API for free.
 

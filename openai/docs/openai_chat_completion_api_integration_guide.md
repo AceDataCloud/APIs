@@ -18,7 +18,7 @@ Set `model: "gpt-6.1-terra"` on `/openai/chat/completions` or its public alias `
 To use OpenAI Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)
 If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
-**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit. If the balance is insufficient, click **Top Up** on the application card.
 > 📘 Full documentation: [OpenAI Chat Completion API →](https://platform.acedata.cloud/documents/openai-chat-completions)
 ## Basic Usage
 Next, you can fill in the corresponding content on the interface, as shown in the figure:

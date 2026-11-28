@@ -7,7 +7,7 @@ Create songs from a short description or your own lyrics through Ace Data Cloud.
 ## Get an API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application** and click the copy button marked **1**. If needed, select **Initialize General Application** first. Confirm access to this service and enough balance for your request.
+2. Find **General Application** and click the copy button marked **1**. Confirm access to this service and enough balance for your request.
 
 ![Copy the API key from General Application using the button marked 1](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
@@ -238,7 +238,7 @@ On `project_version_conflict` or `project_candidate_stale` (409), retrieve the l
 ## Troubleshooting
 
 - For authentication errors, open [Manage Keys](https://platform.acedata.cloud/console/credentials?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) to check the key’s allowed APIs, expiration and usage limit.
-- For insufficient balance, open the application and review its balance and the current service price.
+- If the application balance is insufficient, click **Top Up** on its card.
 - For request validation errors, compare the model and required fields with the linked API reference.
 - For a long-running or failed task, retain `task_id` and `trace_id` when contacting [support](https://platform.acedata.cloud/support?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 

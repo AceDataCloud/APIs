@@ -11,7 +11,7 @@ Keywords: face-api, face-swap, face-detection, beautify, face-cartoon, age-chang
 ## Get your Ace Data Cloud API key
 
 1. Open [Applications](https://platform.acedata.cloud/console/applications?lang=en&utm_source=github&utm_medium=referral&utm_campaign=evergreen) and sign in or register.
-2. Find **General Application**, initialize it if needed, and use the copy button marked **1**. Check service access and the available balance.
+2. Find **General Application** and use the copy button marked **1**. Check service access and the available balance.
 
 ![Copy the API key from General Application](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
@@ -30,7 +30,7 @@ The Face Transformation service provides seven endpoints for analyzing and editi
 
 ## Application Process
 
-To use the Face Transformation APIs, apply for the corresponding service on the [Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e?utm_source=github&utm_medium=referral&utm_campaign=evergreen) page. After entering the page, click the "Acquire" button.
+Use the General Application key from the instructions above to call the [Face Swap API](https://platform.acedata.cloud/documents/6be9e2dd-e3ca-4e8f-b38c-d5057e92354e?utm_source=github&utm_medium=referral&utm_campaign=evergreen).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 

@@ -6,11 +6,11 @@ This document mainly introduces the usage process of the OpenAI Chat Completion 
 
 ## Application Process
 
-To use the OpenAI Chat Completion 4o Image API, you can first visit the [OpenAI Chat Completion 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) page and click the "Acquire" button to obtain the credentials needed for the request:
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on the server that sends requests.
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+[OpenAI Chat Completion 4o Image API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45)
 
 There is a free quota available for first-time applicants, allowing you to use the API for free.
 

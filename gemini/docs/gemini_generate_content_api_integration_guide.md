@@ -18,9 +18,13 @@ For files such as audio submitted through `fileData.fileUri`, use an HTTPS URL t
 
 ## Application Process
 
-To use the Gemini Generate Content API, you can first visit the [Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api) page and click the "Acquire" button to obtain the credentials needed for the request.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `YOUR_API_KEY` below.
 
-If you are not logged in or registered, you will be automatically redirected to the login page. Upon the first application, there will be a free quota provided.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+[Gemini Generate Content API](https://platform.acedata.cloud/documents/gemini-generate-content-api)
+
+Upon the first application, there will be a free quota provided.
 
 ## Basic Usage
 

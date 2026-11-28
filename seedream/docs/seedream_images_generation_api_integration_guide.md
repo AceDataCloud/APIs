@@ -1,6 +1,10 @@
 # Seedream Images API integration guide
 
-Use `POST https://api.acedata.cloud/seedream/images` with an AceDataCloud bearer token. Acquire a token from the [Seedream API page](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e).
+Use `POST https://api.acedata.cloud/seedream/images` with an AceDataCloud bearer token. [Seedream API reference](https://platform.acedata.cloud/documents/86ad30f3-0bc8-4b9b-b019-b9fa5b05672e).
+
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `YOUR_API_TOKEN` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
 
 ## Model selection
 

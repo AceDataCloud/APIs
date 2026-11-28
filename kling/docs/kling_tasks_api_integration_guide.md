@@ -5,7 +5,7 @@ This document will provide detailed integration instructions for the Kling Tasks
 To use Kling Videos Generation API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)
 If you are not logged in, you will be redirected to sign in and brought back to this page automatically.
-**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit; when it runs low you can top up your shared balance in the [console](https://platform.acedata.cloud/console/coin).
+**A single API Token works across every service on the platform — no need to subscribe per service.** New accounts receive free starter credit. If the balance is insufficient, click **Top Up** on the application card.
 > 📘 Full documentation: [Kling Videos Generation API →](https://platform.acedata.cloud/documents/kling-videos)
 ## Request Example
 The Kling Tasks API can be used to query the results of the Kling Videos Generation API. For information on how to use the Kling Videos Generation API, please refer to the document [Kling Videos Generation API](https://platform.acedata.cloud/documents/kling-videos).

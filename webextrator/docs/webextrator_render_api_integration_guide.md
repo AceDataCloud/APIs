@@ -15,10 +15,13 @@ it runs the same render + a typed extraction pipeline on top.
 
 ## Application Process
 
-To use the WebExtrator Render API, apply for the service on the
-[WebExtrator service page](https://platform.acedata.cloud/service/webextrator).
-Click **Acquire** to obtain the credentials needed for the request. A free
-quota is provided to first-time applicants.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `YOUR_API_KEY` below.
+
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+[WebExtrator service page](https://platform.acedata.cloud/service/webextrator)
+
+A free quota is provided to first-time applicants.
 
 ---
 

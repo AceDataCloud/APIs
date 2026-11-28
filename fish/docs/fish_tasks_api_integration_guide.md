@@ -6,9 +6,13 @@ This document describes the Fish Tasks API integration, helping you query the st
 
 ## Application Process
 
-To use the Fish Tasks API, you first need to apply for the corresponding service on the application page [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d), and then copy the task ID returned by the Fish TTS API.
+Sign in to [Applications](https://platform.acedata.cloud/console/applications) and open **General Application**. Copy the key shown in **API KEY**. Keep the copied key on your server and use it in place of `{token}` below.
 
-Finally, go to the Tasks API page [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523) to apply for the corresponding service. After entering the page, click the "Acquire" button.
+![General Application API KEY field and copy button](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+Copy the task ID returned by [Fish TTS API](https://platform.acedata.cloud/documents/77adcb84-d59f-5ef9-b8a0-8b35eb42a71d).
+
+Use that ID to query the [Fish Tasks API](https://platform.acedata.cloud/documents/fc541fac-a941-47fd-b6f7-48d6cb9da523).
 
 There is a free quota available for first-time applicants, allowing you to use this API for free.
 
