@@ -207,6 +207,7 @@ def sample(schema,name=''):
 def tool_name(path, method):
     exact={
         '/v1/messages/count_tokens':'countTokens','/v1/messages':'createMessage',
+        '/v1/models/{model}:generateContent':'generateContent',
         '/v1beta/models/{model}:generateContent':'generateContent',
         '/aichat/conversations':'createConversation','/aichat2/conversations':'manageConversation',
         '/serp/google':'searchGoogle','/shorturl':'createShortLink',

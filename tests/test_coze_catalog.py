@@ -654,7 +654,7 @@ class CozeCatalogTests(unittest.TestCase):
 
     def test_gemini_thought_summaries_are_boolean_opt_in(self):
         import yaml
-        route = '/v1beta/models/{model}:generateContent'
+        route = '/v1/models/{model}:generateContent'
         contract = self.source['contracts']['7a632630-eb9f-4776-b11c-8cc86ae250d7']
         operation = self.plugins['gemini']['paths'][route]['post']
         self.assertEqual(operation, builder.build_operation(
@@ -674,7 +674,7 @@ class CozeCatalogTests(unittest.TestCase):
         for value in ('true', 'false', 0, 1, None):
             with self.subTest(invalid=value), self.assertRaises(ValidationError):
                 OAS30Validator(include_thoughts).validate(value)
-        self.assertNotIn('/v1beta/models/{model}:streamGenerateContent', self.plugins['gemini']['paths'])
+        self.assertNotIn('/v1/models/{model}:streamGenerateContent', self.plugins['gemini']['paths'])
 
     def test_kling_reference_video_billing_guidance_survives_building_and_projection(self):
         import yaml

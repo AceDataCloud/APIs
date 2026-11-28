@@ -859,7 +859,7 @@
       "operations": [
         {
           "api_id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-          "path": "/v1beta/models/:generateContent",
+          "path": "/v1/models/:generateContent",
           "method": "POST",
           "stage": "Beta",
           "public_document": true,
@@ -19823,17 +19823,17 @@
     },
     "7a632630-eb9f-4776-b11c-8cc86ae250d7": {
       "id": "7a632630-eb9f-4776-b11c-8cc86ae250d7",
-      "path": "/v1beta/models/:generateContent",
+      "path": "/v1/models/:generateContent",
       "stage": "Beta",
       "document_url": "https://platform.acedata.cloud/documents/gemini-generate-content-api",
       "definition": {
         "info": {
           "title": "Gemini Generate Content API",
-          "version": "v1beta",
+          "version": "v1",
           "description": "Native format of Google Gemini API. Supports generateContent and streamGenerateContent endpoints."
         },
         "paths": {
-          "/v1beta/models/{model}:generateContent": {
+          "/v1/models/{model}:generateContent": {
             "post": {
               "summary": "This interface can call the Google Gemini native format API generateContent endpoint, supporting functions such as text generation, multimodal understanding, JSON mode, function calls, and thinking mode.",
               "security": [
@@ -20565,7 +20565,7 @@
               }
             }
           },
-          "/v1beta/models/{model}:streamGenerateContent": {
+          "/v1/models/{model}:streamGenerateContent": {
             "post": {
               "summary": "This interface can call the Google Gemini native format API streamGenerateContent endpoint, supporting streaming text generation, and returns content in real-time via SSE (Server-Sent Events).",
               "security": [
@@ -20644,7 +20644,7 @@
                 "content": {
                   "application/json": {
                     "schema": {
-                      "$ref": "#/paths/~1v1beta~1models~1{model}:generateContent/post/requestBody/content/application~1json/schema"
+                      "$ref": "#/paths/~1v1~1models~1{model}:generateContent/post/requestBody/content/application~1json/schema"
                     }
                   }
                 },
@@ -20696,7 +20696,13 @@
           ],
           "scope": "request model enum changes only; no live publication claim"
         }
-      ]
+      ],
+      "backend_path_update": {
+        "revision": "5895894e89f0406ec533c749bc334412e45f970f",
+        "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
+        "source_file_sha256": "93420436050a1cedf2b4d889ee1812f5f99b415fec12f7516355b40315636066",
+        "scope": "Canonical generation paths, API version and streaming request schema reference."
+      }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
       "id": "d9d2fd18-5b1e-4218-b572-a75cf46f5451",

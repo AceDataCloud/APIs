@@ -8,7 +8,7 @@ info:
 servers:
 - url: https://api.acedata.cloud
 paths:
-  /v1beta/models/{model}:generateContent:
+  /v1/models/{model}:generateContent:
     post:
       summary: This interface can call the Google Gemini native format API generateContent endpoint, supporting
         functions such as text generation, multimodal understanding, JS
