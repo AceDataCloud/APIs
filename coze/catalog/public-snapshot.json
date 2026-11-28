@@ -19839,9 +19839,6 @@
               "security": [
                 {
                   "bearerAuth": []
-                },
-                {
-                  "googleApiKey": []
                 }
               ],
               "responses": {
@@ -20574,9 +20571,6 @@
               "security": [
                 {
                   "bearerAuth": []
-                },
-                {
-                  "googleApiKey": []
                 }
               ],
               "responses": {
@@ -20672,11 +20666,6 @@
               "type": "http",
               "scheme": "bearer",
               "bearerFormat": "JWT"
-            },
-            "googleApiKey": {
-              "type": "apiKey",
-              "in": "header",
-              "name": "x-goog-api-key"
             }
           }
         }
@@ -20709,10 +20698,10 @@
         }
       ],
       "backend_path_update": {
-        "revision": "fda7ab402a19bf2e4be208115b3103a8e5a2d6fd",
+        "revision": "0fd75884a500822e66ef259bc687df944a8d614c",
         "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
-        "source_file_sha256": "ee707d38803eb69073a266d958cb5ae4bd7778775cf6b02383f9a6d0fb6460e5",
-        "scope": "Canonical generation paths and alternative SDK authentication. Existing model subsets and descriptions are preserved."
+        "source_file_sha256": "49d6f63297e177a77861b7ec92566a41615bc5fedfe0bd1e857416389ec82e3f",
+        "scope": "Canonical generation paths and streaming request schema reference."
       }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
