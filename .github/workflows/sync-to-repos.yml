@@ -53,10 +53,12 @@ jobs:
       - name: Sync ${{ matrix.dir }} to ${{ matrix.repo }}
         env:
           GH_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN || secrets.SYNC_TOKEN }}
+          METADATA_GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
           MIRROR_DIRECTORY: ${{ matrix.dir }}
           MIRROR_REPOSITORY: ${{ matrix.repo }}
           MIRROR_EXCLUDES: ${{ toJson(matrix.exclude) }}
           CREATE_MISSING: ${{ matrix.create_missing }}
+          MIRROR_METADATA: ${{ toJson(matrix.metadata) }}
         run: |
           set -euo pipefail
           test -f "$GITHUB_WORKSPACE/$MIRROR_DIRECTORY/README.md"
@@ -64,6 +66,9 @@ jobs:
           if [ "$CREATE_MISSING" = "true" ] && ! gh repo view "$MIRROR_REPOSITORY" --json name >/dev/null; then
             gh repo create "$MIRROR_REPOSITORY" --public
           fi
+          # About fields require repository administration, not only contents write.
+          # Publish even when the mirrored files are unchanged.
+          GH_TOKEN="$METADATA_GH_TOKEN" python3 scripts/sync_repository_metadata.py
           gh repo clone "$MIRROR_REPOSITORY" /tmp/target
           git -C /tmp/target config user.name "Ace Data Cloud Dev"
           git -C /tmp/target config user.email "dev@acedata.cloud"
