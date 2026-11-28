@@ -19829,7 +19829,7 @@
       "definition": {
         "info": {
           "title": "Gemini Generate Content API",
-          "version": "v1beta",
+          "version": "v1",
           "description": "Native format of Google Gemini API. Supports generateContent and streamGenerateContent endpoints."
         },
         "paths": {
@@ -20698,10 +20698,10 @@
         }
       ],
       "backend_path_update": {
-        "revision": "0fd75884a500822e66ef259bc687df944a8d614c",
+        "revision": "5895894e89f0406ec533c749bc334412e45f970f",
         "source_file": "openapi/7a632630-eb9f-4776-b11c-8cc86ae250d7.json",
-        "source_file_sha256": "49d6f63297e177a77861b7ec92566a41615bc5fedfe0bd1e857416389ec82e3f",
-        "scope": "Canonical generation paths and streaming request schema reference."
+        "source_file_sha256": "93420436050a1cedf2b4d889ee1812f5f99b415fec12f7516355b40315636066",
+        "scope": "Canonical generation paths, API version and streaming request schema reference."
       }
     },
     "d9d2fd18-5b1e-4218-b572-a75cf46f5451": {
